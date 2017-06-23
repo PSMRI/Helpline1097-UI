@@ -1,0 +1,22 @@
+<div class="col-xs-12 col-sm-12 m-t-10">
+    <ul class="list-unstyled list-inline text-center">
+        <li *ngFor="let priv of privleges">
+            <div class="panel-body circleOuterDiv">
+                <div class="circle">
+                    <ul class="list-unstyled text-center p-t-20">
+                        <li><img src="assets/images/serviceProviderIcon.png" alt="" title="" /></li>
+                        <li class="f-s-20">{{priv.Service}}</li>
+                    </ul>
+
+                     <ul class="list-unstyled subRolecircle text-center m-t-10 ">
+                    <li class="circle-btn" *ngFor="let role of priv.Role" (click)="route2dashboard(role)">
+                        <a class="f-s-16 cursorPointer" >{{role}}</a>
+                    </li>
+                </ul>
+                </div>
+               
+            </div>
+        </li>
+
+    </ul>
+</div>

@@ -1,0 +1,90 @@
+<form #Form="ngForm" (submit)="updateBeneficiary(Form.value)">
+    <div class="col-xs-12 col-sm-12">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h4 class="">Other Details</h4>
+            </div>
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="beneficiaryRegID" name="beneficiaryRegID" [(ngModel)]="beneficiaryRegID">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="occupation">Occupation</label>
+                    <input type="text" class="form-control" id="occupation" placeholder="Enter Beneficiary Occupation" name="occupation" [(ngModel)]="occupation">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="educationQualification">Select Education Qualification </label>
+                    <select class="form-control drop-arrow" name="educationID" [(ngModel)]="educationID">
+                    <option *ngFor="let educationQualification of educationQualifications" value={{educationQualification.educationID}}>
+                    {{educationQualification.educationType}}
+                    </option>
+                </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="so">Sexual Orientation</label>
+                    <select class="form-control drop-arrow" name="sexualOrientationID" [(ngModel)]="sexualOrientationID">
+                    <option *ngFor="let sexualOrientation of sexualOrientations" value={{sexualOrientation.sexualOrientationId}}>
+                        {{sexualOrientation.sexualOrientation}}
+                </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="placeOfWork">Place of Work</label>
+                    <input type="text" class="form-control" id="placeOfWork" placeholder="Enter Place of Work" name="placeOfWork" [(ngModel)]="placeOfWork">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+                <div class="form-group">
+                    <label class="control-label" for="remarks">Remarks</label>
+                    <textarea name="remarks" id="remarks" class="form-control" [(ngModel)]="remarks" ng-maxlength="255" ng-minlength="10" required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-xs-12 col-sm-12">
+                <h4 class="">How do you know about our services?</h4>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+                <!--<div>
+                    <label class="checkbox-inline">
+                    <input type="checkbox" value="Pamphlet" [(ngModel)]="knowHow.pamphlet">Pamphlet</label>
+                    <label class="checkbox-inline">
+                    <input type="checkbox" value="Radio" [(ngModel)]="knowHow.radio">Radio</label>
+                    <label class="checkbox-inline">
+                    <input type="checkbox" value="Television" [(ngModel)]="knowHow.tv">Television</label>
+                    <label class="checkbox-inline">
+                    <input type="checkbox" value="Family and Friends" [(ngModel)]="knowHow.fnf">Family and Friends</label>
+                    <label class="checkbox-inline">
+                    <input type="checkbox" value="Healthcare worker" [(ngModel)]="knowHow.healthcare">Healthcare worker</label>
+                    <label class="checkbox-inline">
+                    <input type="checkbox" value="Others" [(ngModel)]="knowHow.others">Others</label>
+                    <label class="checkbox-inline">
+                    <input type="checkbox" value="Not Disclosed" [(ngModel)]="knowHow.notdisclosed">Not Disclosed</label>
+                </div>-->
+
+                <!--<div *ngFor="let source of sourceOfInfo; let i=index">-->
+                <!--<div *ngFor="let source of sourceOfInfo">-->
+                <div>
+                    <!--<input type="checkbox" [formControl]="sourceOfInformation" value="{{sourceOfInfo[i].name}}"/> {{sourceOfInfo[i].name}}-->
+                    <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
+                    <!--<input type="checkbox" value="{{source.value}}" [(ngModel)]="sourceOfInformation"/> {{source.name}}</label>-->
+                    <input type="checkbox" value="{{source.value}}" /> {{source.name}}</label>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
+            <div class="row">
+                <button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18" id="">Save</button>
+            </div>
+        </div>-->
+        <div class="col-xs-12 col-sm-12 m-b-10">
+            <button type="submit" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18">Save</button>
+        </div>
+    </div>
+</form>

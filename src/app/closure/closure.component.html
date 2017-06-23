@@ -1,0 +1,58 @@
+<div class='col-xs-12 col-sm-12'>
+    <div class="row ">
+        <div class="col-xs-12 col-sm-12">
+            <h4 class="">Call Details</h4>
+        </div>
+        <div class="bg-white p-t-20 m-t-10 ">
+            <div class="col-xs-12 col-sm-12 ">
+                <!-- <h5 class=" "><strong>Service Details</strong></h5> -->
+                <div class="table-responsive" *ngIf="showCallSummary">
+                    <label class="control-label" for="callSummary">Availed services during call</label>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Call ID</th>
+                                <th>Information</th>
+                                <th>Counselling</th>
+                                <th>Referral</th>
+                                <th>Feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList">
+                                <td>{{summaryDetails.benCallID}}</td>
+                                <td>{{summaryDetails.informationServices}}</td>
+                                <td>0</td>
+                                <td>{{summaryDetails.referralServices}}</td>
+                                <td>{{summaryDetails.feedbackServices}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <form #Form="ngForm" (submit)="closeCall(Form.value)">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+                <div class="form-group ">
+                    <label class="control-label" for="callClosureType">Select Call Type</label>
+                    <select class="form-control drop-arrow " name="callClosureType" [(ngModel)]="callClosureType">
+                    <!--<option></option>-->
+                    <option value="Valid Call">Valid Call</option>
+                    <option value="Test Call">Test Call</option>
+                </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+                <div class="form-group ">
+                    <label class="control-label " for="remarks">Call Remarks</label>
+                    <input type="text " class="form-control " id="remarks" placeholder="Enter Remarks " name="remarks" [(ngModel)]="remarks">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
+                <div class="row ">
+                    <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 ">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

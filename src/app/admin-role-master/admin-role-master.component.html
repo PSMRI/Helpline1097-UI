@@ -1,0 +1,64 @@
+
+ <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="row m-t-10">
+    <div class="col-xs-12 col-sm-12">
+      <div class="table-responsive m-t-10">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Role Name</th>
+               <th>Role Desc</th>
+             
+              <td>Edit</td>
+              <td>Delete</td>
+            </tr>
+          </thead>
+          <tbody>
+           
+
+            <tr *ngFor="let user of userslist">
+              <td>{{user.RoleName}}</td>
+              <td>{{user.RoleDesc}}</td>
+              
+            
+               
+              <td><i class="fa fa-pencil fa-lg cursorPointer" aria-hidden="true"></i></td>
+              <td><i class="fa fa-trash-o fa-lg cursorPointer" aria-hidden="true"></i></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+
+
+
+ <div class="">
+    <div class="col-xs-12 col-sm-12">
+      <h4>Role Details</h4>
+    </div>
+   
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="form-group">
+        <label class="control-label" for="roleName">Role Name</label>
+        <input type="text" class="form-control" placeholder="Enter Role Name"  id="roleName" formControlName="roleName">
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="form-group">
+        <label class="control-label" for="roleDesc">Role Desc</label>
+        <input type="text" class="form-control" placeholder="Enter Role Desc"  id="roleDesc" formControlName="roleDesc">
+         
+      </div>
+    </div>
+   
+    <div class="col-xs-12 col-sm-12 pull right m-b-10">
+      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save"> Save</button>
+    </div>
+ </div>
+ </form>
+
+  

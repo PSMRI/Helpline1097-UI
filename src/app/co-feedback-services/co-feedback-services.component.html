@@ -1,0 +1,156 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <h4>Feedback Services</h4>
+    </div>
+    <div class="col-xs-12 col-sm-12">
+        <!--<form #feedbackForm="ngForm" *ngIf="showFormCondition">-->
+        <div class="row" *ngIf="showFormCondition">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="state1">State</label>
+                    <select class="form-control drop-arrow ng-pristine ng-valid ng-empty ng-touched" name="state" [(ngModel)]="selected_state"
+                        (change)="GetDistricts(selected_state)">
+                            <option *ngFor="let state of states" value="{{state.stateID}}">{{state.stateName}}</option>
+                        </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="district1">District</label>
+                    <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="district" [(ngModel)]="selected_district"
+                        (change)="GetTaluks(selected_district)">
+                            <option *ngFor="let district of districts" value="{{district.districtID}}">{{district.districtName}}</option>
+                        </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="taluk1">Taluk</label>
+                    <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="taluk" [(ngModel)]="selected_taluk"
+                        (change)="GetBlocks(selected_taluk)">
+                            <option *ngFor="let taluk of taluks" value="{{taluk.blockID}}">{{taluk.blockName}}</option>
+                        </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="sdt">Sub-District/Taluka/Block</label>
+                    <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="sdtb" [(ngModel)]="selected_sdtb"
+                        (change)="GetInstitutes()">
+                            <option *ngFor="let block of blocks" value="{{block.districtBranchID}}">{{block.villageName}}</option>
+                        </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group has-label">
+                    <label class="control-label" for="whatInformation">Institution Name</label>
+                    <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="institutionName" [(ngModel)]="selected_institution">
+                            <option *ngFor="let institute of institutes" value="{{institute.instutionID}}">{{institute.institutionName}}</option>
+                        </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+                <div class="form-group ">
+                    <label class="control-label " for="designation ">Designation</label>
+                    <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty " name="designation" [(ngModel)]="selected_designation">
+                            <option *ngFor="let designation of designations" value="{{designation.designationID}}">{{designation.designationName}}</option>
+                        </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+                <div class="form-group ">
+                    <label class="control-label " for="FeedbackType">Type of feedback</label>
+                    <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty " name="feedbackType" [(ngModel)]="selected_feedbackType">
+                            <option *ngFor="let feedbackType of feedbackTypes" value="{{feedbackType.feedbackTypeID}}">{{feedbackType.feedbackTypeName}}</option>
+                            <!--<option value="Complaint ">Complaint</option>
+                            <option value="Grievience ">Grievience</option>-->
+                        </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+                <div class="form-group ">
+                    <label class="control-label " for="severity ">Severity</label>
+                    <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty " name="severity" [(ngModel)]="selected_severity">
+                            <option *ngFor="let feedbackSeverity of feedbackSeverities" value="{{feedbackSeverity.severityID}}">{{feedbackSeverity.severityTypeName}}</option>
+                            <!--<option value="low ">Low</option>
+                            <option value="medium ">Medium</option>
+                            <option value="large ">Large</option>-->
+                        </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+                <div class="col-md-8 col-lg-8">
+                    <div class="form-group">
+                        <label class="control-label" for="DOI">Date of Incidence</label>
+                        <input class="form-control" [mdDatepicker]="picker" placeholder="DOI" [(ngModel)]="selected_doi">
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 m-t-25">
+                    <button mdPrefix [mdDatepickerToggle]="picker"></button>
+                    <md-datepicker #picker></md-datepicker>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 ">
+                <label class="control-label" for="feedbackDesc">Feedback Description</label>
+                <textarea name="feedback" class="form-control" rows="3 " id="feedbackDescription" [(ngModel)]="feedbackDescription"></textarea>
+            </div>
+            <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
+                <!--<button type="button " class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
+                            " id=" " (click)="submitFeedback(feedbackForm.value)">Register</button>-->
+                <button type="button " class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
+                            " id=" " (click)="submitFeedback()">Register</button>
+            </div>
+            <div class="clearfix "></div>
+        </div>
+        <!--</form>-->
+    </div>
+    <div class="bg-white p-t-20 m-t-10 " *ngIf="showTableCondition ">
+        <div class="col-xs-12 col-sm-12 ">
+            <h5 class=" "><strong>Feedback Record</strong></h5>
+            <button class="btn pull-right " (click)="showForm() ">+</button>
+            <div class="table-responsive ">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <!-- <th width="20 ">
+                            <input type="checkbox " value=" ">
+                        </th> -->
+                            <th>Feedback ID</th>
+                            <th>Description</th>
+                            <th>Severity</th>
+                            <th>FeedbackType</th>
+                            <th>Agent</th>
+                            <th>Status</th>
+                            <!-- <th>Status</th> -->
+                            <!-- <th>Action</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="cursor: pointer; " *ngFor="let feedback
+                            of feedbacksArray | paginate: { itemsPerPage: 5, currentPage: p }" (click)="modalData(feedback) ">
+
+                            <td>{{feedback.feedbackID}}</td>
+                            <td>{{feedback.feedback}}</td>
+                            <td>{{feedback.severityID}}</td>
+                            <td>{{feedback.feedbackTypeID}}</td>
+                            <td>{{feedback.createdBy}}</td>
+                            <td>{{feedback.feedbackStatusID}}</td>
+                        </tr>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- modals -->
+    <!--  <div id="myModal " class="modal fade " role="dialog ">
+        <div class="modal-dialog ">
+            <div class="modal-content ">
+                <div class="modal-body ">
+                    <p>The complaint is still in OPEN state. Notification will be sent out soon.</p>
+                    <p>{{modalArray[0]}}</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
