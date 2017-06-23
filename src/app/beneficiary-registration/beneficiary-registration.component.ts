@@ -188,6 +188,9 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 	GetDistricts ( state: number )
 	{
+		this.districts = [];
+		this.taluks = [];
+		this.blocks = [];
 		this._locationService.getDistricts( state )
 			.subscribe( response => this.SetDistricts( response ) );
 	}
@@ -197,6 +200,8 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	}
 	GetTaluks ( district: number )
 	{
+		this.taluks = [];
+		this.blocks = [];
 		this._locationService.getTaluks( district )
 			.subscribe( response => this.SetTaluks( response ) );
 	}
@@ -206,6 +211,7 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	}
 	GetBlocks ( taluk: number )
 	{
+		this.blocks = [];
 		this._locationService.getBranches( taluk )
 			.subscribe( response => this.SetBlocks( response ) );
 	}
@@ -213,7 +219,6 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	{
 		this.blocks = response;
 	}
-
 
 	registerBeneficiary1 ( values: any )
 	{
@@ -391,8 +396,14 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		this.educationQualification = registeredBenData.i_bendemographics.educationID;
 		this.state = registeredBenData.i_bendemographics.stateID;
 		this.district = registeredBenData.i_bendemographics.districtID;
+		this.GetDistricts( registeredBenData.i_bendemographics.stateID );
+		this.districts = registeredBenData.i_bendemographics.m_district;
 		this.taluk = registeredBenData.i_bendemographics.blockID;
+		this.GetTaluks( registeredBenData.i_bendemographics.districtID );
+		this.taluks = registeredBenData.i_bendemographics.m_districtblock;
 		this.village = registeredBenData.i_bendemographics.districtBranchID;
+		this.GetBlocks( registeredBenData.i_bendemographics.blockID );
+		this.blocks = registeredBenData.i_bendemographics.m_districtbranchmapping;
 		this.pincode = registeredBenData.i_bendemographics.pinCode;
 		this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
 		this.updatedObj = registeredBenData;
