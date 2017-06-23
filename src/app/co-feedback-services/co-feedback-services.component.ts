@@ -86,6 +86,10 @@ export class CoFeedbackServicesComponent implements OnInit
 
 	GetDistricts ( state: number )
 	{
+		this.districts = [];
+		this.taluks = [];
+		this.blocks = [];
+		this.institutes = [];
 		this._locationService.getDistricts( state )
 			.subscribe( response => this.SetDistricts( response ) );
 	}
@@ -95,6 +99,9 @@ export class CoFeedbackServicesComponent implements OnInit
 	}
 	GetTaluks ( district: number )
 	{
+		this.taluks = [];
+		this.blocks = [];
+		this.institutes = [];
 		this._locationService.getTaluks( district )
 			.subscribe( response => this.SetTaluks( response ) );
 	}
@@ -104,6 +111,8 @@ export class CoFeedbackServicesComponent implements OnInit
 	}
 	GetBlocks ( taluk: number )
 	{
+		this.blocks = [];
+		this.institutes = [];
 		this._locationService.getBranches( taluk )
 			.subscribe( response => this.SetBlocks( response ) );
 	}
@@ -114,6 +123,7 @@ export class CoFeedbackServicesComponent implements OnInit
 
 	GetInstitutes ()
 	{
+		this.institutes = [];
 		let object = { "stateID": this.selected_state, "districtID": this.selected_district, "districtBranchMappingID": this.selected_sdtb };
 		this._locationService.getInstituteList( object )
 			.subscribe( response => this.SetInstitutes( response ) );
