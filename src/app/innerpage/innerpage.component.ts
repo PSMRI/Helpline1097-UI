@@ -152,9 +152,9 @@ export class InnerpageComponent implements OnInit
 	{
 		console.log( 'data recieved', data, data.beneficiaryRegID );
 		this.beneficiaryNotSelected = false;
-		this.updateClosureData.emit( null );
-		this.serviceProvided.emit( null );
-		this.beneficiarySelected.emit( null );
+		this.updateClosureData.emit();
+		this.serviceProvided.emit();
+		this.beneficiarySelected.emit();
 		this.selectedBenData.id = "BEN" + data.beneficiaryRegID;
 		this.selectedBenData.fname = data.firstName;
 		this.selectedBenData.lname = data.lastName;

@@ -7,10 +7,10 @@
         @Email  : sunil.ks@gmail.com
     -->
 	<modelVersion>4.0.0</modelVersion>
-    <groupId>com.iemr.common</groupId>
-    <artifactId>demo</artifactId>
-    <version>3.0</version>
-    <name>demo</name>
+    <groupId>com.iemr.helpline1097</groupId>
+    <artifactId>1097-ui</artifactId>
+    <version>1.0</version>
+    <name>1097-ui</name>
     <packaging>war</packaging>
 
     <!-- we could create individual properties similar to variables -->

@@ -26,8 +26,8 @@ export class ClosureComponent implements OnInit
   ngOnInit ()
   // ngAfterViewInit ()
   {
-    let requestObject = { 'benCallID': this.saved_data.callData.benCallID };
-    this._callServices.getCallSummary( requestObject ).subscribe( response => this.populateCallSummary( response ) );
+    // let requestObject = { 'benCallID': this.saved_data.callData.benCallID };
+    // this._callServices.getCallSummary( requestObject ).subscribe( response => this.populateCallSummary( response ) );
   }
 
   // @Input()
@@ -38,8 +38,10 @@ export class ClosureComponent implements OnInit
   }
   populateCallSummary ( response: any )
   {
+    this.summaryList = [];
     console.log( JSON.stringify( response ) );
     this.summaryList = response;
+    this.showCallSummary = false;
     if ( this.summaryList.length > 0 )
     {
       this.showCallSummary = true;

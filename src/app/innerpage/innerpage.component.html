@@ -133,19 +133,17 @@
                         <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); 
-                                    updatebeneficiary.setBeneficiaryData(); closure.onView();" (StartNewCall)="startCall($event)"
-                                        #registration></app-beneficiary-registration>
+                                    <app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
+                                        (StartNewCall)="startCall()" #registration></app-beneficiary-registration>
                                 </div>
                                 <div class="item ">
-                                    <app-co-services (beneficiarySelected)="startCOService($event)" (serviceGiven)="updateServiceProvided($event); closure.onView();"
-                                        #coservice></app-co-services>
+                                    <app-co-services (beneficiarySelected)="startCOService()" (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>
                                 </div>
                                 <div class="item ">
-                                    <app-updates-from-beneficiary (beneficiarySelected)="setBeneficiaryData($event)" #updatebeneficiary></app-updates-from-beneficiary>
+                                    <app-updates-from-beneficiary (beneficiarySelected)="PopulateUpdateData()" #updatebeneficiary></app-updates-from-beneficiary>
                                 </div>
                                 <div class="item ">
-                                    <app-closure (beneficiarySelected)="onView($event)" (serviceProvided)="onView($event)" (callClosed)="startNewCall($event); registration.startNewCall();"
+                                    <app-closure (beneficiarySelected)="onView()" (serviceProvided)="onView()" (callClosed)="startNewCall(); registration.startNewCall();"
                                         #closure></app-closure>
                                 </div>
                             </div>
