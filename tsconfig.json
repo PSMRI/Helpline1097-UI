@@ -16,5 +16,11 @@
       "es2016",
       "dom"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "**/*.spec.ts",
+    "**/*.e2e.ts"
+  ] 
 }

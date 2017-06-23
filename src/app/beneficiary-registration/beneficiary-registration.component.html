@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
             <div class="">
-                <label class="" for="calledEarlier"><span class="f-c-g">Have you called earlier?</span></label>
+                <label class="" for="calledEarlier"><span class="f-c-g" i18n>Have you called earlier?</span></label>
                 <label class="radio-inline">
-                    <input type="radio" name="optradio" value="yes" (click)="calledEarlierCheck('yes')"> Yes </label>
+                    <input type="radio" name="optradio" value="yes" (click)="calledEarlierCheck('yes')" i18n> Yes </label>
                 <label class="radio-inline">
-                    <input type="radio" value="no" name="optradio" (click)="calledEarlierCheck('no')"> No
+                    <input type="radio" value="no" name="optradio" (click)="calledEarlierCheck('no')" i18n> No
                 </label>
             </div>
         </div>
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
                     <div class="form-group m-b-0 form-group-custome">
-                        <label class="sr-only" for="registrationNumber">Registration Number</label>
+                        <label class="sr-only" for="registrationNumber" i18n>Registration Number</label>
                         <input class="form-control" id="registrationNumber" name="search" placeholder="Enter Registration Number" type="text" [(ngModel)]="registrationNo">
                         <span class="glyphicon glyphicon-search form-control-feedback m-r-10"></span>
                     </div>
@@ -27,7 +27,7 @@
                 </div> -->
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                    <button type="button" class="btn btn-default" id="retrieve" (click)="retrieveRegHistory(registrationNo)">Retrieve</button>
+                    <button type="button" class="btn btn-default" id="retrieve" (click)="retrieveRegHistory(registrationNo)" i18n>Retrieve</button>
                 </div>
             </div>
         </div>
@@ -38,13 +38,13 @@
                 <table class="table ">
                     <thead>
                         <tr>
-                            <th>Registration No</th>
-                            <th>Name </th>
-                            <th>Surname </th>
-                            <th style="display: none;">Father Name </th>
-                            <th>Date Of Birth</th>
-                            <th>Gender</th>
-                            <th>Date and Time</th>
+                            <th i18n>Registration No</th>
+                            <th i18n>Name </th>
+                            <th i18n>Surname </th>
+                            <th style="display: none;" i18n>Father Name </th>
+                            <th i18n>Date Of Birth</th>
+                            <th i18n>Gender</th>
+                            <th i18n>Date and Time</th>
                             <th style="display: none;">Phone No</th>
                             <th style="display: none;">Government Identity Number</th>
                             <th style="display: none;">Government Identity Type</th>

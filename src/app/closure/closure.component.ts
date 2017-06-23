@@ -17,6 +17,7 @@ export class ClosureComponent implements OnInit
   summaryList: any = [];
   showCallSummary: boolean = false;
   remarks: any;
+  callClosureType: any;
 
   constructor(
     private _callServices: CallServices,
