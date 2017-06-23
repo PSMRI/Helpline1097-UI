@@ -98,3 +98,16 @@
 	width: 100%;
 	border-radius: 4px 25px 25px 4px;
 }
+
+.czenrix-bar {
+position: fixed;
+right: 0px;
+bottom: 0px;
+}
+.czenrix-icon {
+position: fixed;
+right: 0px;
+bottom: 0px;
+width: 191px;
+height: 30px;
+}

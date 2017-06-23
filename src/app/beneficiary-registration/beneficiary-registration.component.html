@@ -127,7 +127,7 @@
             <!-- <md-input-container class="m-t-25"> -->
             <div class="col-md-8 col-lg-8">
                 <div class="form-group">
-                    <label class="control-label" for="dOB">DOB</label>
+                    <label class="control-label" for="dOB" i18n>DOB</label>
                     <input class="form-control" [mdDatepicker]="picker" placeholder="DOB" [(ngModel)]="DOB">
                 </div>
             </div>
@@ -146,38 +146,38 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="lastName">Age </label>
+                <label class="control-label" for="lastName" i18n>Age </label>
                 <input type="text" class="form-control" placeholder="Enter age" name="age" [(ngModel)]="age">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="PhoneNo">Alternate Number</label>
+                <label class="control-label" for="PhoneNo" i18n>Alternate Number</label>
                 <input type="text" class="form-control" placeholder="Enter PhoneNo" name="PhoneNo" [(ngModel)]="PhoneNo">
                 <!--<i class="fa fa-calendar fa-lg pull-right m-t--20 m-r-5" aria-hidden="true"></i> </div>-->
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="display:none;">
             <div class="form-group">
-                <label class="control-label" for="ParentBenRegID">Parent Reg ID</label>
+                <label class="control-label" for="ParentBenRegID" i18n>Parent Reg ID</label>
                 <input type="text" class="form-control" value="130" name="ParentBenRegID" [(ngModel)]="ParentBenRegID">
                 <!--<i class="fa fa-calendar fa-lg pull-right m-t--20 m-r-5" aria-hidden="true"></i>--></div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="display:none;">
             <div class="form-group">
-                <label class="control-label" for="BeneficiaryTypeID">Relationship </label>
+                <label class="control-label" for="BeneficiaryTypeID" i18n>Relationship </label>
                 <input type="text" class="form-control" name="BeneficiaryTypeID" [(ngModel)]="BeneficiaryTypeID">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="aadharNo">Aadhar No. </label>
+                <label class="control-label" for="aadharNo" i18n>Aadhar No. </label>
                 <input type="text" class="form-control" placeholder="Enter Aadhar No." name="aadharNo" [(ngModel)]="aadharNo">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="caste">Select Caste</label>
+                <label class="control-label" for="caste" i18n>Select Caste</label>
                 <select class="form-control drop-arrow" name="caste" [(ngModel)]="caste">
                         <option *ngFor="let caste of communities" value={{caste.communityID}}>
                             {{caste.communityType}}</option>
@@ -186,7 +186,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group ">
-                <label class="control-label" for="educationQualification">Select Education Qualification</label>
+                <label class="control-label" for="educationQualification" i18n>Select Education Qualification</label>
                 <select class="form-control drop-arrow" name="educationQualification" [(ngModel)]="educationQualification">
                         <option *ngFor="let education of benEdus" value={{education.educationID}}>
                             {{education.educationType}}</option>
@@ -195,7 +195,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="state">Select State</label>
+                <label class="control-label" for="state" i18n>Select State</label>
                 <select class="form-control drop-arrow" name="state" [(ngModel)]="state" (change)="GetDistricts(state)" ng-selected="GetDistricts(state)">
                         <option *ngFor="let benState of states" value={{benState.stateID}}>
                             {{benState.stateName}}</option>
@@ -204,7 +204,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="district">Select District</label>
+                <label class="control-label" for="district" i18n>Select District</label>
                 <select class="form-control drop-arrow" name="district" [(ngModel)]="district" (change)="GetTaluks(district)" ng-selected="GetTaluks(district)">
                         <option *ngFor="let benDistrict of districts" value={{benDistrict.districtID}}>
                             {{benDistrict.districtName}}</option>
@@ -213,7 +213,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="taluk">Taluk</label>
+                <label class="control-label" for="taluk" i18n>Taluk</label>
                 <!--<input type="text" class="form-control" placeholder="Enter taluk" name="taluk" [(ngModel)]="taluk" (change)="GetBlocks(taluk)">-->
                 <select class="form-control drop-arrow" name="taluk" [(ngModel)]="taluk" (change)="GetBlocks(taluk)">
                         <option *ngFor="let benTaluk of taluks" value={{benTaluk.blockID}}>
@@ -223,7 +223,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="village">Panchayat/Village</label>
+                <label class="control-label" for="village" i18n>Panchayat/Village</label>
                 <!--<input type="text" class="form-control" placeholder="Enter Panchayat/Village" name="village" [(ngModel)]="village">-->
                 <select class="form-control drop-arrow" name="village" [(ngModel)]="village">
                         <option *ngFor="let benBlock of blocks" value={{benBlock.districtBranchID}}>
@@ -233,13 +233,13 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="pincode">Pin code </label>
+                <label class="control-label" for="pincode" i18n>Pin code </label>
                 <input type="text" class="form-control" placeholder="Enter Pincode" name="pincode" [(ngModel)]="pincode">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="preferredLanguage">Select Preferred Language</label>
+                <label class="control-label" for="preferredLanguage" i18n>Select Preferred Language</label>
                 <select class="form-control drop-arrow" name="preferredLanguage" [(ngModel)]="preferredLanguage">
                         <!--<option value=""></option>-->
                         <option *ngFor="let benLang of language" value={{benLang.languageID}}>
@@ -249,7 +249,8 @@
         </div>
         <div class="col-xs-12 col-sm-12 m-b-10">
             <!--<button type="submit" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess">Generate</button>-->
-            <button class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="registerBeneficiary()">Generate</button>
+            <button class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="registerBeneficiary()"
+                i18n>Generate</button>
             <!-- <button class=" btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " *ngIf="updationProcess
                 " (click)="updateBeneficiary() ">Update</button> -->
         </div>
@@ -257,6 +258,6 @@
     </div>
     <!--</form>-->
     <div class="col-xs-12 col-sm-12 m-b-10 " *ngIf="updationProcess && notCalledEarlier ">
-        <button class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " (click)="updateBeneficiary() ">Update</button>
+        <button class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " (click)="updateBeneficiary()" i18n>Update</button>
     </div>
 </div>

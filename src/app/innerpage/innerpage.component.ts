@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router'
 declare var jQuery: any;
 
 
@@ -13,6 +14,8 @@ export class InnerpageComponent implements OnInit
 {
 	callDuration: number = 0;
 	beneficiaryNotSelected: boolean = true;
+	callerNumber: any;
+	barMinimized: boolean = true;
 
 	@Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
 	@Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -20,7 +23,12 @@ export class InnerpageComponent implements OnInit
 	@Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
 	@Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
 
-	constructor( public getCommonData: dataService, public router: Router )
+	constructor(
+		public getCommonData: dataService,
+		//public router: Router,
+		public router: ActivatedRoute
+
+	)
 	{
 		setInterval(() =>
 		{
@@ -139,9 +147,19 @@ export class InnerpageComponent implements OnInit
 				jQuery( "#four" ).find( "a" ).addClass( "active-tab" );
 			}
 		} );
+
+		this.router.params.subscribe(( params: Params ) =>
+		{
+			if ( params[ 'mobileNumber' ] != undefined )
+			{
+				this.callerNumber = parseInt( params[ 'mobileNumber' ] );
+				console.log( " this.callerNumber:" + this.callerNumber );
+				this.getCommonData.callerNumber = this.callerNumber;
+
+			}
+		} );
 		// this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': [''] } }]);
 	}
-
 	addActiveClass ( val: any )
 	{
 		jQuery( '#' + val ).parent().find( "a" ).removeClass( 'active-tab' );
@@ -199,5 +217,13 @@ export class InnerpageComponent implements OnInit
 
 	// 	}
 
+	minimizeBar ()
+	{
+		this.barMinimized = true;
+	}
+	toggleBar ()
+	{
+		this.barMinimized = !this.barMinimized;
+	}
 
 }

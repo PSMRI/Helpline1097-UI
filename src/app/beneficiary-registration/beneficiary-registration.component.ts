@@ -82,7 +82,7 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 	reloadCall ()
 	{
-		this.retrieveRegHistoryByPhoneNo( "1234567890" );
+		this.retrieveRegHistoryByPhoneNo( this.saved_data.callerNumber );
 		this.calledEarlier = false;
 		this.showSearchResult = false;
 		this.notCalledEarlier = false;

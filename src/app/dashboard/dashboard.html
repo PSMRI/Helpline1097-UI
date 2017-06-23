@@ -1,10 +1,10 @@
 <div class="container-fluid">
-   <!--  <dashboard-row-header></dashboard-row-header>
+    <!--  <dashboard-row-header></dashboard-row-header>
     <div class="clearfix"></div> -->
-    <div  class="row">
+    <div class="row" (click)="minimizeBar()">
         <dashboard-navigation></dashboard-navigation>
         <div id="dashboardContent">
-           <!--  <button type="button" class="hamburger is-open" data-toggle="offcanvas"> <span class="hamb-top"></span> <span class="hamb-middle"></span> <span class="hamb-bottom"></span> </button> -->
+            <!--  <button type="button" class="hamburger is-open" data-toggle="offcanvas"> <span class="hamb-top"></span> <span class="hamb-middle"></span> <span class="hamb-bottom"></span> </button> -->
             <div class="p-a-2">
 
                 <dashboard-user-id></dashboard-user-id>
@@ -20,4 +20,9 @@
             </div>
         </div>
     </div>
+    <button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18 czenrix-icon" *ngIf="barMinimized"
+        (click)="toggleBar()">C-Zentrix</button>
+    <iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized"
+        (click)="toggleBar()"></iframe>
+
 </div>

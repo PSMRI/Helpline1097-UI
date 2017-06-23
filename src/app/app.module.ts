@@ -165,7 +165,11 @@ import { ConfigService } from "./services/config/config.service"
         path: '',
         redirectTo: '/loginContentClass',
         pathMatch: 'full'
-      }
+      },
+      {
+        path: 'InnerpageComponent/:mobileNumber',
+        component: InnerpageComponent
+      },
     ] ) ],
   providers: [ loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,

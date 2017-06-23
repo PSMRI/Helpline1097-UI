@@ -19,7 +19,6 @@ export class CoFeedbackServicesComponent implements OnInit
 		private _coFeedbackService: CoFeedbackService,
 		private _feedbackTypes: FeedbackTypes,
 		private _savedData: dataService
-
 	) { }
 
 	showFormCondition: boolean = false;
