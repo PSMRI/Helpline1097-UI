@@ -18,6 +18,10 @@ export class dashboardContentClass implements OnInit
   ) { };
   ngOnInit ()
   {
+    this.showDashboard();
+  }
+  showDashboard ()
+  {
     this.data = this.dataSettingService.Userdata;
     this.addListener();
   }

@@ -170,6 +170,10 @@ import { ConfigService } from "./services/config/config.service"
         path: 'InnerpageComponent/:mobileNumber',
         component: InnerpageComponent
       },
+      {
+        path: 'dashboard',
+        component: dashboardContentClass
+      },
     ] ) ],
   providers: [ loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,

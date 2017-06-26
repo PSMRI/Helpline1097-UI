@@ -25,7 +25,7 @@ export class InnerpageComponent implements OnInit
 
 	constructor(
 		public getCommonData: dataService,
-		//public router: Router,
+		public basicrouter: Router,
 		public router: ActivatedRoute
 
 	)
@@ -155,7 +155,6 @@ export class InnerpageComponent implements OnInit
 				this.callerNumber = parseInt( params[ 'mobileNumber' ] );
 				console.log( " this.callerNumber:" + this.callerNumber );
 				this.getCommonData.callerNumber = this.callerNumber;
-
 			}
 		} );
 		// this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': [''] } }]);
@@ -226,4 +225,8 @@ export class InnerpageComponent implements OnInit
 		this.barMinimized = !this.barMinimized;
 	}
 
+	closeCall ()
+	{
+		this.basicrouter.navigate( [ '/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [ 'dashboard' ] } }] );
+	}
 }

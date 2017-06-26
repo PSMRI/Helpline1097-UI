@@ -149,7 +149,8 @@
                                 <div class="item ">
                                     <!--<app-closure (beneficiarySelected)="onView()" (serviceProvided)="onView()" (callClosed)="startNewCall(); registration.startNewCall();"
                                         #closure></app-closure>-->
-                                    <app-closure (callClosed)="startNewCall(); registration.startNewCall();" #closure></app-closure>
+                                    <!--<app-closure (callClosed)="startNewCall(); registration.startNewCall();" #closure></app-closure>-->
+                                    <app-closure (callClosed)="closeCall();" #closure></app-closure>
                                 </div>
                             </div>
                         </div>
