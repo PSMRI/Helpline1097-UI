@@ -4,13 +4,12 @@ import { Router } from '@angular/router';
 declare var jQuery: any;
 
 
-@Component( {
+@Component({
 	selector: 'app-innerpage',
 	templateUrl: './innerpage.component.html',
-	styleUrls: [ './innerpage.component.css' ]
-} )
-export class InnerpageComponent implements OnInit
-{
+	styleUrls: ['./innerpage.component.css']
+})
+export class InnerpageComponent implements OnInit {
 	callDuration: number = 0;
 	beneficiaryNotSelected: boolean = true;
 
@@ -20,12 +19,10 @@ export class InnerpageComponent implements OnInit
 	@Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
 	@Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
 
-	constructor( public getCommonData: dataService, public router: Router )
-	{
-		setInterval(() =>
-		{
+	constructor(public getCommonData: dataService, public router: Router) {
+		setInterval(() => {
 			this.callDuration = this.callDuration + 1;
-		}, 1000 );
+		}, 1000);
 	}
 
 	data: any = this.getCommonData.Userdata;
@@ -37,119 +34,102 @@ export class InnerpageComponent implements OnInit
 		'mob': ''
 	};
 
-	ngOnInit ()
-	{
-		var idx = jQuery( '.carousel-inner div.active' ).index();
-		console.log( "index", idx );
+	ngOnInit() {
+		var idx = jQuery('.carousel-inner div.active').index();
+		console.log("index", idx);
 
-		jQuery( '#closureLink' ).on( 'click', function () 
-		{
-			jQuery( '#myCarousel' ).carousel( idx + 3 );
-			jQuery( "#four" ).parent().find( "a" ).removeClass( 'active-tab' );
-			jQuery( "#four" ).find( "a" ).addClass( "active-tab" );
-		} );
-		jQuery( '#cancelLink' ).on( 'click', function () 
-		{
-			jQuery( '#myCarousel' ).carousel( idx );
-			jQuery( "#one" ).parent().find( "a" ).removeClass( 'active-tab' );
-			jQuery( "#one" ).find( "a" ).addClass( "active-tab" );
-		} );
+		jQuery('#closureLink').on('click', function () {
+			jQuery('#myCarousel').carousel(idx + 3);
+			jQuery("#four").parent().find("a").removeClass('active-tab');
+			jQuery("#four").find("a").addClass("active-tab");
+		});
+		jQuery('#cancelLink').on('click', function () {
+			jQuery('#myCarousel').carousel(idx);
+			jQuery("#one").parent().find("a").removeClass('active-tab');
+			jQuery("#one").find("a").addClass("active-tab");
+		});
 
 
+/**
+ * Commented by : neeraj (298657); Date: 27-06-2017
+ */
+	/*	jQuery('#one').on('click', function () {
+			jQuery('#myCarousel').carousel(idx);
+			jQuery(this).parent().find("a").removeClass('active-tab');
+			jQuery(this).find("a").addClass("active-tab");
+		});
+		jQuery('#two').on('click', function () {
+			jQuery('#myCarousel').carousel(idx + 1);
+			jQuery(this).parent().find("a").removeClass('active-tab');
+			jQuery(this).find("a").addClass("active-tab");
+		});
+		jQuery('#three').on('click', function () {
+			jQuery('#myCarousel').carousel(idx + 2);
+			jQuery(this).parent().find("a").removeClass('active-tab');
+			jQuery(this).find("a").addClass("active-tab");
+		});
+		jQuery('#four').on('click', function () {
+			jQuery('#myCarousel').carousel(idx + 3);
+			jQuery(this).parent().find("a").removeClass('active-tab');
+			jQuery(this).find("a").addClass("active-tab");
+		});*/
 
-		jQuery( '#one' ).on( 'click', function () 
-		{
-			jQuery( '#myCarousel' ).carousel( idx );
-			jQuery( this ).parent().find( "a" ).removeClass( 'active-tab' );
-			jQuery( this ).find( "a" ).addClass( "active-tab" );
-		} );
-		jQuery( '#two' ).on( 'click', function () 
-		{
-			jQuery( '#myCarousel' ).carousel( idx + 1 );
-			jQuery( this ).parent().find( "a" ).removeClass( 'active-tab' );
-			jQuery( this ).find( "a" ).addClass( "active-tab" );
-		} );
-		jQuery( '#three' ).on( 'click', function () 
-		{
-			jQuery( '#myCarousel' ).carousel( idx + 2 );
-			jQuery( this ).parent().find( "a" ).removeClass( 'active-tab' );
-			jQuery( this ).find( "a" ).addClass( "active-tab" );
-		} );
-		jQuery( '#four' ).on( 'click', function () 
-		{
-			jQuery( '#myCarousel' ).carousel( idx + 3 );
-			jQuery( this ).parent().find( "a" ).removeClass( 'active-tab' );
-			jQuery( this ).find( "a" ).addClass( "active-tab" );
-		} );
-
-		jQuery( "#previous" ).on( 'click', function ()
-		{
-			var idx = jQuery( '.carousel-inner div.active' ).index();
-			console.log( 'chala with', idx );
-			if ( idx === 0 )
-			{
-				console.log( 'chala' )
-				jQuery( "#one" ).parent().find( "a" ).removeClass( 'active-tab' );
-				jQuery( "#one" ).find( "a" ).addClass( "active-tab" );
+		jQuery("#previous").on('click', function () {
+			var idx = jQuery('.carousel-inner div.active').index();
+			console.log('chala with', idx);
+			if (idx === 0) {
+				console.log('chala')
+				jQuery("#one").parent().find("a").removeClass('active-tab');
+				jQuery("#one").find("a").addClass("active-tab");
 			}
-			if ( idx === 1 )
-			{
-				jQuery( "#two" ).parent().find( "a" ).removeClass( 'active-tab' );
-				jQuery( "#two" ).find( "a" ).addClass( "active-tab" );
+			if (idx === 1) {
+				jQuery("#two").parent().find("a").removeClass('active-tab');
+				jQuery("#two").find("a").addClass("active-tab");
 			}
-			if ( idx === 2 )
-			{
-				jQuery( "#three" ).parent().find( "a" ).removeClass( 'active-tab' );
-				jQuery( "#three" ).find( "a" ).addClass( "active-tab" );
+			if (idx === 2) {
+				jQuery("#three").parent().find("a").removeClass('active-tab');
+				jQuery("#three").find("a").addClass("active-tab");
 			}
-			if ( idx === 3 )
-			{
+			if (idx === 3) {
 
-				jQuery( "#four" ).parent().find( "a" ).removeClass( 'active-tab' );
-				jQuery( "#four" ).find( "a" ).addClass( "active-tab" );
+				jQuery("#four").parent().find("a").removeClass('active-tab');
+				jQuery("#four").find("a").addClass("active-tab");
 			}
-		} );
+		});
 
 
-		jQuery( "#next" ).on( 'click', function ()
-		{
+		jQuery("#next").on('click', function () {
 
-			var idx = jQuery( '.carousel-inner div.active' ).index();
-			console.log( 'chala with', idx );
-			if ( idx === 0 )
-			{
-				jQuery( "#one" ).parent().find( "a" ).removeClass( 'active-tab' );
-				jQuery( "#one" ).find( "a" ).addClass( "active-tab" );
+			var idx = jQuery('.carousel-inner div.active').index();
+			console.log('chala with', idx);
+			if (idx === 0) {
+				jQuery("#one").parent().find("a").removeClass('active-tab');
+				jQuery("#one").find("a").addClass("active-tab");
 			}
-			if ( idx === 1 )
-			{
-				jQuery( "#two" ).parent().find( "a" ).removeClass( 'active-tab' );
-				jQuery( "#two" ).find( "a" ).addClass( "active-tab" );
+			if (idx === 1) {
+				jQuery("#two").parent().find("a").removeClass('active-tab');
+				jQuery("#two").find("a").addClass("active-tab");
 
 			}
-			if ( idx === 2 )
-			{
-				jQuery( "#three" ).parent().find( "a" ).removeClass( 'active-tab' );
-				jQuery( "#three" ).find( "a" ).addClass( "active-tab" );
+			if (idx === 2) {
+				jQuery("#three").parent().find("a").removeClass('active-tab');
+				jQuery("#three").find("a").addClass("active-tab");
 
 			}
-			if ( idx === 3 )
-			{
-				jQuery( "#four" ).parent().find( "a" ).removeClass( 'active-tab' );
-				jQuery( "#four" ).find( "a" ).addClass( "active-tab" );
+			if (idx === 3) {
+				jQuery("#four").parent().find("a").removeClass('active-tab');
+				jQuery("#four").find("a").addClass("active-tab");
 			}
-		} );
+		});
 		// this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': [''] } }]);
 	}
 
-	addActiveClass ( val: any )
-	{
-		jQuery( '#' + val ).parent().find( "a" ).removeClass( 'active-tab' );
-		jQuery( '#' + val ).find( "a" ).addClass( "active-tab" );
+	addActiveClass(val: any) {
+		jQuery('#' + val).parent().find("a").removeClass('active-tab');
+		jQuery('#' + val).find("a").addClass("active-tab");
 	}
 
-	getSelectedBenDetails ( data: any )
-	{
+	getSelectedBenDetails(data: any) {/**Code commented by neeraj 23 jun 2017 
 		console.log( 'data recieved', data, data.beneficiaryRegID );
 		this.beneficiaryNotSelected = false;
 		this.updateClosureData.emit();
@@ -159,27 +139,48 @@ export class InnerpageComponent implements OnInit
 		this.selectedBenData.fname = data.firstName;
 		this.selectedBenData.lname = data.lastName;
 		this.selectedBenData.mob = data.phoneNo;
+*/
+		/**
+				 * Neeraj Code; 22-jun-2017
+				 */
+	//	this.beneficiaryNotSelected = false;
+	//	this.updateClosureData.emit();
+	//	this.serviceProvided.emit();
+	//	this.beneficiarySelected.emit();
+
+		if (data != null) {
+			//alert(" hai");
+			this.selectedBenData.id = data.beneficiaryID;
+			this.selectedBenData.fname = data.firstName;
+			this.selectedBenData.lname = data.lastName;
+		} else {
+			//	alert("nahi hai");
+			this.selectedBenData.id = "";
+			this.selectedBenData.fname = "";
+			this.selectedBenData.lname = "";
+		}
+		/**
+		 * End of Neeraj Code; 22-jun-2017
+		 */
+
+
 	}
 
 	@Input()
-	startNewCall ()
-	{
+	startNewCall() {
 		this.StartNewCall.emit();
-		document.getElementById( "cancelLink" ).click();
+		document.getElementById("cancelLink").click();
 	}
-	reloadCall ()
-	{
+	reloadCall() {
 		this.ReloadCall.emit();
 	}
 
-	refreshCall ()
-	{
+	refreshCall() {
 
 	}
 
-	updateServiceProvided ()
-	{
-		this.serviceProvided.emit( null );
+	updateServiceProvided() {
+		this.serviceProvided.emit(null);
 	}
 	// 	change(no:any){
 
@@ -199,5 +200,15 @@ export class InnerpageComponent implements OnInit
 
 	// 	}
 
+benService(data)
+{
+	//alert(this.getCommonData.benRegId);
+	if(data==="benService")
+	{
+		jQuery('#myCarousel').carousel(1);
+		jQuery("#two").parent().find("a").removeClass('active-tab');
+			jQuery('#two').find("a").addClass("active-tab");
+	}
+}
 
 }
