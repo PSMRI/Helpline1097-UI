@@ -19,6 +19,8 @@ export class dataService
 	callerNumber: any;
 	beneficiaryData: any = {};
 	callData: any = {};
+
+	benRegId: any;
 };
 
 
