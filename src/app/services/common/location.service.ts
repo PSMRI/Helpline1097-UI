@@ -86,15 +86,21 @@ export class LocationService
             .catch( this.handleError );
     }
 
-    private extractData ( res: Response )
-    {
-        console.log( res );
-        return res.json();
-    };
 
-    private handleError ( res: Response )
+
+    extractData ( response: Response )
     {
-        console.log( res );
-        return res.json();
-    };
+        if ( response.json().data )
+        {
+            return response.json().data;
+        } else
+        {
+            return response.json();
+        }
+    }
+
+    handleError ( response: Response )
+    {
+        return response.json()
+    }
 };

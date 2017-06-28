@@ -10,47 +10,56 @@ import 'rxjs/add/operator/map';
  * Author: Diamond Khanna ( 352929 )
  * Date: 29-05-2017
  * Objective: A common service for all HTTP services, just pass the URL and required DATA
- */ 
+ */
 
 @Injectable()
-export class HttpServices {
+export class HttpServices
+{
 
-	constructor(private http: Http) { };
+	constructor( private http: Http ) { };
 
-	getData(url:string)
+	getData ( url: string )
 	{
-		return this.http.get(url)
-				.map(this.handleGetSuccess)
-				.catch(this.handleGetError);
+		return this.http.get( url )
+			.map( this.handleGetSuccess )
+			.catch( this.handleGetError );
 	}
 
-	handleGetSuccess(response:Response)
+	handleGetSuccess ( response: Response )
 	{
-		return response.json();
+		if ( response.json().data )
+		{
+			return response.json().data;
+		} else
+		{
+			return response.json();
+		}
 	}
 
-	handleGetError(error: Response | any)
+	handleGetError ( error: Response | any )
 	{
 		let errMsg: string;
-		if (error instanceof Response) {
+		if ( error instanceof Response )
+		{
 			const body = error.json() || '';
-			const err = body.error || JSON.stringify(body);
-			errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-		} else {
+			const err = body.error || JSON.stringify( body );
+			errMsg = `${ error.status } - ${ error.statusText || '' } ${ err }`;
+		} else
+		{
 			errMsg = error.message ? error.message : error.toString();
 		}
-		console.error(errMsg);
-		return Observable.throw(errMsg);
+		console.error( errMsg );
+		return Observable.throw( errMsg );
 	}
 
-	postData(url:string,data:any)
+	postData ( url: string, data: any )
 	{
-		return this.http.post(url,data)
-				.map(this.handleGetSuccess)
-				.catch(this.handleGetError);
+		return this.http.post( url, data )
+			.map( this.handleGetSuccess )
+			.catch( this.handleGetError );
 	}
-	
-	
+
+
 };
 
 

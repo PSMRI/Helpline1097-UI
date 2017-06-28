@@ -35,15 +35,22 @@ export class CallServices
 		return this._http.post( this._baseUrl + this._callsummaryurl, values, this.options ).map( this.extractData ).catch( this.handleError );
 	}
 
-	private extractData ( res: Response )
-	{
-		console.log( 'after updation', res );
-		return res.json();
-	};
 
-	private handleError ( res: Response )
+
+	extractData ( response: Response )
 	{
-		return res.json();
-	};
+		if ( response.json().data )
+		{
+			return response.json().data;
+		} else
+		{
+			return response.json();
+		}
+	}
+
+	handleError ( response: Response )
+	{
+		return response.json()
+	}
 
 }

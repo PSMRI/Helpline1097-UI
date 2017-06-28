@@ -49,10 +49,15 @@ export class UpdateService
 		// }
 	}
 
-	private extractData ( res: Response )
+	private extractData ( response: Response )
 	{
-		console.log( 'after updation', res );
-		return res.json();
+		if ( response.json().data )
+		{
+			return response.json().data;
+		} else
+		{
+			return response.json();
+		}
 	};
 
 	private handleError ( res: Response )

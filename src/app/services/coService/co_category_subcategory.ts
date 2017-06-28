@@ -36,15 +36,23 @@ export class coCategoryService
 
     }
 
-    private extractData ( res: Response )
-    {
-        return res.json();
-    };
 
-    private handleError ( res: Response )
+
+    extractData ( response: Response )
     {
-        return res.json();
-    };
+        if ( response.json().data )
+        {
+            return response.json().data;
+        } else
+        {
+            return response.json();
+        }
+    }
+
+    handleError ( response: Response )
+    {
+        return response.json()
+    }
 };
 
 

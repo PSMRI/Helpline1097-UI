@@ -34,12 +34,15 @@ export class loginService
 	};
 
 
-	private extractData ( res: Response )
+	private extractData ( response: Response )
 	{
-		// console.log("inside extractData:"+JSON.stringify(res.json()));
-		// let body = res.json();
-		//return body.data || {};
-		return res.json();
+		if ( response.json().data )
+		{
+			return response.json().data;
+		} else
+		{
+			return response.json();
+		}
 	};
 
 	private handleError ( error: Response | any )

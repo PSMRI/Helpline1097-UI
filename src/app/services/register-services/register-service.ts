@@ -27,9 +27,7 @@ export class RegisterService
 	generateReg ( values: any )
 	{
 		console.log( "Beneficiary data to insert " + values );
-		return this._http.post( this._baseUrl + this._createbeneficiaryurl, JSON.stringify( values ), this.options ).map(( response: Response ) =>
-			response.json()
-		);
+		return this._http.post( this._baseUrl + this._createbeneficiaryurl, JSON.stringify( values ), this.options ).map( this.extractData ).catch( this.handleError );
 	}
 
 	updatebeneficiaryincall ( callData: any )
@@ -46,32 +44,32 @@ export class RegisterService
 	getRelationships ()
 	{
 		console.log( "cndbasmfg" )
-		return this._http.get( this._baseUrl + this._getrelationshipurl ).map(( response: Response ) =>
-			response.json()
-		);
+		return this._http.get( this._baseUrl + this._getrelationshipurl ).map( this.extractData ).catch( this.handleError );
 	}
 
 	retrieveRegHistory ( registrationNo: any )
 	{
 		console.log( "retrieveRegHistory" )
-		return this._http.get( this._baseUrl + this._getuserdata + registrationNo ).map(( response: Response ) =>
-			response.json()
-		);
+		return this._http.get( this._baseUrl + this._getuserdata + registrationNo ).map( this.extractData ).catch( this.handleError );
 	}
 
 	retrieveRegHistoryByPhoneNo ( phoneNo: any )
 	{
 		console.log( "retrieveRegHistoryByPhone" )
 		let data = { "phoneNo": phoneNo, "pageNo": 1, "rowsPerPage": 1000 };
-		return this._http.post( this._baseUrl + this._getuserdatabyno, data ).map(( response: Response ) =>
-			response.json()
-		);
+		return this._http.post( this._baseUrl + this._getuserdatabyno, data ).map( this.extractData ).catch( this.handleError );
 	}
 
 
 	private extractData ( res: Response )
 	{
-		return res.json();
+		if ( res.json().data )
+		{
+			return res.json().data;
+		} else
+		{
+			return res.json();
+		}
 	};
 
 	private handleError ( res: Response )

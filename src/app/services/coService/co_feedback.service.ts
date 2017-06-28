@@ -38,23 +38,25 @@ export class CoFeedbackService
             .catch( this.handleError );
     }
 
-
-    private extractData ( res: Response )
-    {
-        console.log( res );
-        return res.json();
-    };
-
-    private handleError ( res: Response )
-    {
-        console.log( res );
-        return res.json();
-    };
-
-
     getFeedbackHistoryById ( id: any )
     {
         return this._http.post( this._getFeedbackHistoryByID, { "beneficiaryRegID": id } ).map( this.extractData ).catch( this.handleError );
+    }
+
+    extractData ( response: Response )
+    {
+        if ( response.json().data )
+        {
+            return response.json().data.json();
+        } else
+        {
+            return response.json();
+        }
+    }
+
+    handleError ( response: Response )
+    {
+        return response.json()
     }
 };
 
