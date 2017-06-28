@@ -99,7 +99,7 @@
                         <a class="bs-wizard-dot cursorPointer active-tab"></a>
                     </div>
                     <div id="two" class="col-xs-2 bs-wizard-step disabled">
-                        <div class="text-center hidden-xs hidden-sm font-Light f-s-16">Provide Service</div>
+                        <div class="text-center hidden-xs hidden-sm font-Light f-s-16">Provide Service bhai</div>
                         <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">A S</div>
                         <div class="progress progress-bar-disabled progress-margin">
                             <div class="progress-bar"></div>
@@ -135,8 +135,7 @@
                                 <div class="item active">
                                     <!--<app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                                         (StartNewCall)="startCall()" #registration></app-beneficiary-registration>-->
-                                    <app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
-                                        #registration></app-beneficiary-registration>
+                                    <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();" #registration></app-beneficiary-registration>
                                 </div>
                                 <div class="item ">
                                     <!--<app-co-services (beneficiarySelected)="startCOService()" (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>-->
