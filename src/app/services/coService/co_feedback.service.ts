@@ -47,7 +47,7 @@ export class CoFeedbackService
     {
         if ( response.json().data )
         {
-            return response.json().data.json();
+            return response.json().data;
         } else
         {
             return response.json();
