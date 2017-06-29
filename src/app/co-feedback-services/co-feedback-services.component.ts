@@ -46,6 +46,7 @@ export class CoFeedbackServicesComponent implements OnInit
 	designations: any = [];
 	feedbackTypes: any = [];
 	feedbackSeverities: any = [];
+	serviceID: any = -1;
 
 	showForm ()
 	{
@@ -59,8 +60,26 @@ export class CoFeedbackServicesComponent implements OnInit
 		this.showTableCondition = true;
 	}
 
+	GetServiceTypes ()
+	{
+		this._feedbackTypes.getTypes()
+			.subscribe( response => this.setServiceTypes( response ) );
+	}
+	setServiceTypes ( response: any )
+	{
+		for ( let i: any = 0; i < response.length; i++ )
+		{
+			if ( response[ i ].serviceNameFor1097.toUpperCase().search( "FEED" ) >= 0 )
+			{
+				this.serviceID = response[ i ].serviceID1097;
+				break;
+			}
+		}
+	}
+
 	ngOnInit ()
 	{
+		this.GetServiceTypes();
 		this.beneficiaryRegID = this._savedData.beneficiaryData.beneficiaryRegID;
 		this.userName = this._savedData.uname;
 		this._userBeneficiaryData.getUserBeneficaryData()
@@ -191,11 +210,12 @@ export class CoFeedbackServicesComponent implements OnInit
 			"feedback": this.feedbackDescription,
 			"beneficiaryRegID": this.beneficiaryRegID,
 			"serviceAvailDate": this.selected_doi,
-			"serviceID1097": this.feedbackServiceID,
+			//"serviceID1097": this.feedbackServiceID,
+			"serviceID1097": this.serviceID,
 			"userID": this._savedData.uid,
 			"createdBy": this.userName,
 			"benCallID": this._savedData.callData.benCallID,
-			"1097ServiceID": 1
+			"1097ServiceID": this.serviceID
 		}];
 
 		this._coFeedbackService.createFeedback( feedbackObj )

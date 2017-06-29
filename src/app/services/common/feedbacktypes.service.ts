@@ -13,12 +13,22 @@ export class FeedbackTypes
     _commonBaseURL = this._config.get1097BaseURL();
     _getFeedbackTypesURL = this._commonBaseURL + "feedback/gettype/";
     _getFeedbackSeverityURL = this._commonBaseURL + "feedback/getseverity/";
+    _servicetypesurl = this._commonBaseURL + "api/helpline1097/co/get/servicetypes"
     headers = new Headers( { 'Content-Type': 'application/json' } );
     options = new RequestOptions( { headers: this.headers } );
     constructor(
         private _http: Http,
         private _config: ConfigService
     ) { }
+
+    getTypes ()
+    {
+        return this._http.post( this._servicetypesurl, this.options )
+            .map( this.extractData )
+            .catch( this.handleError );
+    }
+
+
     getFeedbackTypesData ()
     {
         let data = {};

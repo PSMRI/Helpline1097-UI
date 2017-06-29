@@ -46,6 +46,7 @@ export class CoReferralServicesComponent implements OnInit
 
   ngOnInit ()
   {
+    this.GetServiceTypes();
     // // call the api to get all the referrals done and store them in array;
 
     // this.tableArray = []; //substitute it with the response
@@ -56,7 +57,22 @@ export class CoReferralServicesComponent implements OnInit
       .subscribe( response => this.SetUserBeneficiaryRegistrationData( response ) );
     this.setBeneficiaryData();
   }
-
+  GetServiceTypes ()
+  {
+    this._coReferralService.getTypes()
+      .subscribe( response => this.setServiceTypes( response ) );
+  }
+  setServiceTypes ( response: any )
+  {
+    for ( let i: any = 0; i < response.length; i++ )
+    {
+      if ( response[ i ].serviceNameFor1097.toUpperCase().search( "REFE" ) >= 0 )
+      {
+        this.serviceID1097 = response[ i ].serviceID1097;
+        break;
+      }
+    }
+  }
   @Input()
   setBeneficiaryData ()
   {

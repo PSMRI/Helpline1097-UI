@@ -12,8 +12,9 @@ export class CallServices
 	options = new RequestOptions( { headers: this.headers } );
 
 	_baseUrl = this._config.get1097BaseURL();
-	_closecallurl = "services/closeCall/";
-	_callsummaryurl = "/services/getCallSummary/";
+	_closecallurl = this._baseUrl + "services/closeCall/";
+	_callsummaryurl = this._baseUrl + "/services/getCallSummary/";
+	_calltypesurl = this._baseUrl + "/services/getCallTypes/";
 	constructor(
 		private _http: Http,
 		private _config: ConfigService
@@ -24,7 +25,7 @@ export class CallServices
 		var headers = new Headers();
 		headers.append( 'Content-Type', 'application/json' );
 		console.log( 'data to be updated in service is', values )
-		return this._http.post( this._baseUrl + this._closecallurl, values, this.options ).map( this.extractData ).catch( this.handleError );
+		return this._http.post( this._closecallurl, values, this.options ).map( this.extractData ).catch( this.handleError );
 	}
 
 	getCallSummary ( values: any )
@@ -32,7 +33,7 @@ export class CallServices
 		var headers = new Headers();
 		headers.append( 'Content-Type', 'application/json' );
 		console.log( 'Call summary to be retreived for ', values )
-		return this._http.post( this._baseUrl + this._callsummaryurl, values, this.options ).map( this.extractData ).catch( this.handleError );
+		return this._http.post( this._callsummaryurl, values, this.options ).map( this.extractData ).catch( this.handleError );
 	}
 
 

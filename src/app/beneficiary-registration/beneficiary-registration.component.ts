@@ -8,13 +8,14 @@ import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.serv
 import { LocationService } from "../services/common/location.service";
 import { dataService } from '../services/dataService/data.service';
 
-@Component({
+@Component( {
 	selector: 'app-beneficiary-registration',
 	templateUrl: './beneficiary-registration.component.html',
-	styleUrls: ['./beneficiary-registration.component.css'],
+	styleUrls: [ './beneficiary-registration.component.css' ],
 
-})
-export class BeneficiaryRegistrationComponent implements OnInit {
+} )
+export class BeneficiaryRegistrationComponent implements OnInit
+{
 	@Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
 	@Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
 
@@ -70,14 +71,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 	notCalledEarlierLowerPart: boolean = false;
 
 
-	constructor(private _util: RegisterService, private _router: Router,
+	constructor( private _util: RegisterService, private _router: Router,
 		private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
-		private updateBen: UpdateService, private saved_data: dataService) { }
+		private updateBen: UpdateService, private saved_data: dataService ) { }
 
-	ngOnInit() {
+	ngOnInit ()
+	{
 		this.getRelationships();
 		this._userBeneficiaryData.getUserBeneficaryData()
-			.subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
+			.subscribe( response => this.SetUserBeneficiaryRegistrationData( response ) );
 		this.startNewCall();
 	}
 
@@ -89,122 +91,146 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 		this.notCalledEarlier = false;
 		this.updationProcess = false;
 		this.notCalledEarlierLowerPart = false;
-		this.onBenRegDataSelect.emit(null);
+		this.onBenRegDataSelect.emit( null );
 	}
 
 	@Input()
-	startNewCall() {
+	startNewCall ()
+	{
 		// this.retrieveRegHistoryByPhoneNo( "1234567890" );
 		this.reloadCall();
 		this.startCall();
 	}
-	startCall() {
+	startCall ()
+	{
 		let data: any = {};
 		data.is1097 = true;
-		this._util.startCall(data).subscribe(response => this.setBenCall(response));
+		this._util.startCall( data ).subscribe( response => this.setBenCall( response ) );
 	}
 
-	setBenCall(response) {
+	setBenCall ( response )
+	{
 		this.saved_data.callData = response;
 	}
 
-	SetUserBeneficiaryRegistrationData(response: any) {
-		console.log("hey", response);
+	SetUserBeneficiaryRegistrationData ( response: any )
+	{
+		console.log( "hey", response );
 
-		this.language.push({ "languageID": undefined, "languageName": "" });
-		this.communities.push({ "communityID": undefined, "communityType": "" });
-		this.maritalStatuses.push({ "maritalStatusID": undefined, "status": "" });
-		this.genders.push({ "genderID": undefined, "genderName": "" });
-		this.titles.push({ "titleID": undefined, "titleName": "" });
-		this.benEdus.push({ "educationID": undefined, "educationType": "" });
-		this.states.push({ "stateID": undefined, "stateName": "" });
+		this.language.push( { "languageID": undefined, "languageName": "" } );
+		this.communities.push( { "communityID": undefined, "communityType": "" } );
+		this.maritalStatuses.push( { "maritalStatusID": undefined, "status": "" } );
+		this.genders.push( { "genderID": undefined, "genderName": "" } );
+		this.titles.push( { "titleID": undefined, "titleName": "" } );
+		this.benEdus.push( { "educationID": undefined, "educationType": "" } );
+		this.states.push( { "stateID": undefined, "stateName": "" } );
 
-		
+
 
 		let regData = response;
-		if (regData.states) {
+		if ( regData.states )
+		{
 			//commented by neeraj
 			//this.states = regData.states;
 
 
-			for (let i = 0; i < regData.states.length; i++) {
-				this.states.push(regData.states[i]);
+			for ( let i = 0; i < regData.states.length; i++ )
+			{
+				this.states.push( regData.states[ i ] );
 			}
 		}
-		if (regData.m_Status) {
+		if ( regData.m_Status )
+		{
 			this.status = regData.m_Status;
 		}
-		if (regData.directory) {
+		if ( regData.directory )
+		{
 			this.directory = regData.directory;
 		}
 
-		if (regData.i_BeneficiaryEducation) {
+		if ( regData.i_BeneficiaryEducation )
+		{
 			//commented by neeraj
 			//this.benEdus = regData.i_BeneficiaryEducation;
 
-			for (let i = 0; i < regData.i_BeneficiaryEducation.length; i++) {
-				this.benEdus.push(regData.i_BeneficiaryEducation[i]);
+			for ( let i = 0; i < regData.i_BeneficiaryEducation.length; i++ )
+			{
+				this.benEdus.push( regData.i_BeneficiaryEducation[ i ] );
 			}
 		}
-		if (regData.m_Title) {
+		if ( regData.m_Title )
+		{
 			//commented by neeraj
 			//this.titles = regData.m_Title;
 
-			for (let i = 0; i < regData.m_Title.length; i++) {
-				this.titles.push(regData.m_Title[i]);
+			for ( let i = 0; i < regData.m_Title.length; i++ )
+			{
+				this.titles.push( regData.m_Title[ i ] );
 			}
 
 		}
-		if (regData.m_genders) {
+		if ( regData.m_genders )
+		{
 			//commented by neeraj
 			//this.genders = regData.m_genders;
 
-			for (let i = 0; i < regData.m_genders.length; i++) {
-				this.genders.push(regData.m_genders[i]);
+			for ( let i = 0; i < regData.m_genders.length; i++ )
+			{
+				this.genders.push( regData.m_genders[ i ] );
 			}
 
 		}
-		if (regData.m_maritalStatuses) {
+		if ( regData.m_maritalStatuses )
+		{
 			//commented by neeraj
 			//this.maritalStatuses = regData.m_maritalStatuses;
 
-			for (let i = 0; i < regData.m_maritalStatuses.length; i++) {
-				this.maritalStatuses.push(regData.m_maritalStatuses[i]);
+			for ( let i = 0; i < regData.m_maritalStatuses.length; i++ )
+			{
+				this.maritalStatuses.push( regData.m_maritalStatuses[ i ] );
 			}
 		}
-		if (regData.m_communities) {
+		if ( regData.m_communities )
+		{
 			//commented by neeraj
 			//this.communities = regData.m_communities;
 
-			for (let i = 0; i < regData.m_communities.length; i++) {
-				this.communities.push(regData.m_communities[i]);
+			for ( let i = 0; i < regData.m_communities.length; i++ )
+			{
+				this.communities.push( regData.m_communities[ i ] );
 			}
 		}
-		if (regData.m_language) {
+		if ( regData.m_language )
+		{
 			//commented by neeraj
 			//this.language = regData.m_language;
 
-			for (let i = 0; i < regData.m_language.length; i++) {
-				this.language.push(regData.m_language[i]);
+			for ( let i = 0; i < regData.m_language.length; i++ )
+			{
+				this.language.push( regData.m_language[ i ] );
 			}
 		}
 
 	}
 
-	calledEarlierCheck(flag) {
-		console.log(flag);
-		if (flag === 'yes') {
+	calledEarlierCheck ( flag )
+	{
+		console.log( flag );
+		if ( flag === 'yes' )
+		{
 			// If condition added for preveting extra api call on radio click.
-			if (this.regHistoryList.length > 0) {
+			if ( this.regHistoryList.length > 0 )
+			{
 				//alert("hiiii....not going");
 				this.calledEarlier = true;
 				this.showSearchResult = true;
 				this.notCalledEarlier = false;
 				this.updationProcess = false;
 				this.notCalledEarlierLowerPart = false;
-				this.onBenRegDataSelect.emit(null);
+				this.onBenRegDataSelect.emit( null );
 			}
-			else {
+			else
+			{
 				this.reloadCall();
 			}
 
@@ -224,20 +250,21 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 			 *End of Neeraj Code; 22-jun-2017
 			 */
 		}
-		if (flag === 'no') {/**
+		if ( flag === 'no' )
+		{/**
 			 * Neeraj Code; 22-jun-2017
 			 */
 			this.notCalledEarlier = true;
 
 			this.notCalledEarlierLowerPart = false;
 
-			this.onBenRegDataSelect.emit(null);
+			this.onBenRegDataSelect.emit( null );
 			/**
 			*  End of Neeraj Code; 22-jun-2017
 			*/
 			this.calledEarlier = false;
 			this.showSearchResult = false;
-			console.log(this.showSearchResult);
+			console.log( this.showSearchResult );
 			this.updationProcess = false;
 			this.FirstName = undefined;
 			this.LastName = undefined;
@@ -259,54 +286,61 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 			this.blocks = [];
 			this.pincode = undefined;
 			this.preferredLanguage = undefined;
-			
+
 		}
 	}
 
-	GetDistricts(state: number) {
+	GetDistricts ( state: number )
+	{
 		this.districts = [];
 
 		this.taluks = [];
 
 		this.blocks = [];
 
-		this._locationService.getDistricts(state)
-			.subscribe(response => this.SetDistricts(response));
+		this._locationService.getDistricts( state )
+			.subscribe( response => this.SetDistricts( response ) );
 	}
-	SetDistricts(response: any) {
+	SetDistricts ( response: any )
+	{
 		//console.log("dist",response);
-		this.districts.push({ "districtID": undefined, "districtName": "" });
-		for (let i = 0; i < response.length; i++)
-			this.districts.push(response[i]);
+		this.districts.push( { "districtID": undefined, "districtName": "" } );
+		for ( let i = 0; i < response.length; i++ )
+			this.districts.push( response[ i ] );
 	}
-	GetTaluks(district: number) {
+	GetTaluks ( district: number )
+	{
 		this.taluks = [];
 		this.blocks = [];
-		this._locationService.getTaluks(district)
-			.subscribe(response => this.SetTaluks(response));
+		this._locationService.getTaluks( district )
+			.subscribe( response => this.SetTaluks( response ) );
 	}
-	SetTaluks(response: any) {
+	SetTaluks ( response: any )
+	{
 		//console.log("taluka", response);
 		//this.taluks = response;
-		this.taluks.push({ "blockID": undefined, "blockName": "" });
-		for (let i = 0; i < response.length; i++)
-			this.taluks.push(response[i]);
+		this.taluks.push( { "blockID": undefined, "blockName": "" } );
+		for ( let i = 0; i < response.length; i++ )
+			this.taluks.push( response[ i ] );
 	}
-	GetBlocks(taluk: number) {
+	GetBlocks ( taluk: number )
+	{
 		this.blocks = [];
-		this._locationService.getBranches(taluk)
-			.subscribe(response => this.SetBlocks(response));
+		this._locationService.getBranches( taluk )
+			.subscribe( response => this.SetBlocks( response ) );
 	}
-	SetBlocks(response: any) {
+	SetBlocks ( response: any )
+	{
 		//console.log("block", response);
 		//this.blocks = response;
-		this.blocks.push({ "districtBranchID": undefined, "villageName": "" });
-		for (let i = 0; i < response.length; i++)
-			this.blocks.push(response[i]);
+		this.blocks.push( { "districtBranchID": undefined, "villageName": "" } );
+		for ( let i = 0; i < response.length; i++ )
+			this.blocks.push( response[ i ] );
 	}
 
-	registerBeneficiary1(values: any) {
-		console.log(values)
+	registerBeneficiary1 ( values: any )
+	{
+		console.log( values )
 		this.updatedObj = {};
 		this.updatedObj.firstName = values.FirstName;
 		this.updatedObj.lastName = values.LastName;
@@ -331,30 +365,34 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 		this.updatedObj.i_bendemographics.pinCode = values.pincode;
 		this.updatedObj.i_bendemographics.deleted = false;
 		this.updatedObj.i_bendemographics.preferredLangID = values.preferredLanguage;
-		console.log("data for update " + JSON.stringify(this.updatedObj));
+		console.log( "data for update " + JSON.stringify( this.updatedObj ) );
 		// return;
-		let res = this._util.generateReg(this.updatedObj).subscribe(response => {
+		let res = this._util.generateReg( this.updatedObj ).subscribe( response =>
+		{
 			this.benRegistrationResponse = response;
-			console.log(this.benRegistrationResponse);
-			this.handleRegHistorySuccess([response]);
+			console.log( this.benRegistrationResponse );
+			this.handleRegHistorySuccess( [ response ] );
 			this.showAlert();
-		});
+		} );
 	}
 
 	/**
 		* Neeraj Code; 22-jun-2017
 		*/
-	capturePrimaryInfo() {
+	capturePrimaryInfo ()
+	{
 		this.notCalledEarlierLowerPart = false;
 		this.notCalledEarlier = true;
 	}
 
-	captureOtherInfo() {
+	captureOtherInfo ()
+	{
 		this.notCalledEarlierLowerPart = true;
 		this.notCalledEarlier = false;
 	}
 
-	editBenPrimaryContent() {
+	editBenPrimaryContent ()
+	{
 		this.notCalledEarlierLowerPart = false;
 		this.notCalledEarlier = true;
 	}
@@ -362,15 +400,18 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 	 *End of Neeraj Code; 22-jun-2017
 	 */
 
-	registerBeneficiary() {
+	registerBeneficiary ()
+	{
 		// console.log( values )
 		this.updatedObj = {};
 		this.updatedObj.firstName = this.FirstName;
 		this.updatedObj.lastName = this.LastName;
 		this.updatedObj.genderID = this.GenderID;
-		if (this.DOB) {
-			this.updatedObj.dOB = new Date((this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)).toJSON();
-		} else {
+		if ( this.DOB )
+		{
+			this.updatedObj.dOB = new Date(( this.DOB ) - 1 * ( this.DOB.getTimezoneOffset() * 60 * 1000 ) ).toJSON();
+		} else
+		{
 			this.updatedObj.dOB = undefined;
 		}
 		this.updatedObj.titleId = this.TitleId;
@@ -392,58 +433,67 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 		this.updatedObj.i_bendemographics.pinCode = this.pincode;
 		this.updatedObj.i_bendemographics.deleted = false;
 		this.updatedObj.i_bendemographics.preferredLangID = this.preferredLanguage;
-		console.log("data for update " + JSON.stringify(this.updatedObj));
+		console.log( "data for update " + JSON.stringify( this.updatedObj ) );
 		// return;
-		let res = this._util.generateReg(this.updatedObj).subscribe(response => {
+		let res = this._util.generateReg( this.updatedObj ).subscribe( response =>
+		{
 			this.benRegistrationResponse = response;
-			console.log(this.benRegistrationResponse);
-			this.handleRegHistorySuccess([response]);
+			console.log( this.benRegistrationResponse );
+			this.handleRegHistorySuccess( [ response ] );
 			this.showAlert();
-		});
+		} );
 	}
 
-	showAlert() {
-		alert('Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
+	showAlert ()
+	{
+		alert( 'Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID );
 	}
 
-	retrieveRegHistoryByPhoneNo(PhoneNo: any) {
-		let res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
-			.subscribe(response => this.handleRegHistorySuccess(response));
+	retrieveRegHistoryByPhoneNo ( PhoneNo: any )
+	{
+		let res = this._util.retrieveRegHistoryByPhoneNo( PhoneNo )
+			.subscribe( response => this.handleRegHistorySuccess( response ) );
 		// console.log(this.relationShips);
 	}
 
 
-	retrieveRegHistory(reg_no: any) {
-		let res = this._util.retrieveRegHistory(reg_no)
-			.subscribe(response => this.handleRegHistorySuccess(response));
+	retrieveRegHistory ( reg_no: any )
+	{
+		let res = this._util.retrieveRegHistory( reg_no )
+			.subscribe( response => this.handleRegHistorySuccess( response ) );
 		// console.log(this.relationShips);
 	}
 
-	handleRegHistorySuccess(response: any) {
+	handleRegHistorySuccess ( response: any )
+	{
 		this.regHistoryList = response;
-		if (this.regHistoryList.length > 0) {
+		if ( this.regHistoryList.length > 0 )
+		{
 			this.showSearchResult = true;
 			this.notCalledEarlier = false;
 			this.updationProcess = false;
 		}
 	}
 
-	getRelationships() {
+	getRelationships ()
+	{
 		let res = this._util.getRelationships()
-			.subscribe(response => this.handleSuccess(response))
+			.subscribe( response => this.handleSuccess( response ) )
 		// console.log(this.relationShips);
 	}
 
-	handleSuccess(response: any) {
+	handleSuccess ( response: any )
+	{
 		this.relationShips = response;
-		console.log(this.relationShips);
+		console.log( this.relationShips );
 	}
 
 	// setting the data of selected beneficiary on the top section as BEN. Data for 
 	// the agent to see
-	passBenRegHistoryData(benRegData: any) {
-		console.log('data passed', benRegData);
-		this.onBenRegDataSelect.emit(benRegData);
+	passBenRegHistoryData ( benRegData: any )
+	{
+		console.log( 'data passed', benRegData );
+		this.onBenRegDataSelect.emit( benRegData );
 		this.notCalledEarlier = true;
 		this.calledEarlier = false;
 		this.showSearchResult = false;
@@ -455,23 +505,26 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 		// this.GenderID = benRegData.genderID;
 
 		// this.populateRegistrationFormForUpdate( benRegData );
-		this.populateUserData(benRegData);
-		this.updatebeneficiaryincall(benRegData);
+		this.populateUserData( benRegData );
+		this.updatebeneficiaryincall( benRegData );
 	}
 
-	updatebeneficiaryincall(benRegData: any) {
+	updatebeneficiaryincall ( benRegData: any )
+	{
 		this.saved_data.callData.beneficiaryRegID = benRegData.beneficiaryRegID;
-		this._util.updatebeneficiaryincall(this.saved_data.callData).subscribe(response => console.log
-			(response));
+		this._util.updatebeneficiaryincall( this.saved_data.callData ).subscribe( response => console.log
+			( response ) );
 	}
 
-	populateUserData(benRegData: any) {
-		let res = this._util.retrieveRegHistory(benRegData.beneficiaryRegID)
-			.subscribe(response => this.populateRegistrationFormForUpdate(response[0]));
+	populateUserData ( benRegData: any )
+	{
+		let res = this._util.retrieveRegHistory( benRegData.beneficiaryRegID )
+			.subscribe( response => this.populateRegistrationFormForUpdate( response[ 0 ] ) );
 	}
 
-	populateRegistrationFormForUpdate(registeredBenData) {
-		console.log('registered ben data is :', registeredBenData)
+	populateRegistrationFormForUpdate ( registeredBenData )
+	{
+		console.log( 'registered ben data is :', registeredBenData )
 		this.FirstName = registeredBenData.firstName;
 		this.LastName = registeredBenData.lastName;
 		this.GenderID = registeredBenData.genderID;
@@ -485,13 +538,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 		this.educationQualification = registeredBenData.i_bendemographics.educationID;
 		this.state = registeredBenData.i_bendemographics.stateID;
 		this.district = registeredBenData.i_bendemographics.districtID;
-		this.GetDistricts(registeredBenData.i_bendemographics.stateID);
+		this.GetDistricts( registeredBenData.i_bendemographics.stateID );
 		this.districts = registeredBenData.i_bendemographics.m_district;
 		this.taluk = registeredBenData.i_bendemographics.blockID;
-		this.GetTaluks(registeredBenData.i_bendemographics.districtID);
+		this.GetTaluks( registeredBenData.i_bendemographics.districtID );
 		this.taluks = registeredBenData.i_bendemographics.m_districtblock;
 		this.village = registeredBenData.i_bendemographics.districtBranchID;
-		this.GetBlocks(registeredBenData.i_bendemographics.blockID);
+		this.GetBlocks( registeredBenData.i_bendemographics.blockID );
 		this.blocks = registeredBenData.i_bendemographics.m_districtbranchmapping;
 		this.pincode = registeredBenData.i_bendemographics.pinCode;
 		this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
@@ -501,15 +554,18 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 	updatedObj: any = {};
 
-	updateBeneficiary() {
+	updateBeneficiary ()
+	{
 		// console.log('to be updated values');
 		this.updatedObj.firstName = this.FirstName;
 		this.updatedObj.lastName = this.LastName;
 		this.updatedObj.genderID = this.GenderID;
-		if (this.DOB) {
-			this.DOB = new Date(this.DOB);
-			this.updatedObj.dOB = new Date((this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)).toJSON();
-		} else {
+		if ( this.DOB )
+		{
+			this.DOB = new Date( this.DOB );
+			this.updatedObj.dOB = new Date(( this.DOB ) - 1 * ( this.DOB.getTimezoneOffset() * 60 * 1000 ) ).toJSON();
+		} else
+		{
 			this.updatedObj.dOB = undefined;
 		}
 		this.updatedObj.titleId = this.TitleId;
@@ -518,7 +574,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 		this.updatedObj.altPhoneNo = this.PhoneNo;
 		this.updatedObj.govtIdentityNo = this.aadharNo;
 
-		if (!this.updatedObj.i_bendemographics.beneficiaryRegID) {
+		if ( !this.updatedObj.i_bendemographics.beneficiaryRegID )
+		{
 			this.updatedObj.i_bendemographics.beneficiaryRegID = this.updatedObj.beneficiaryRegID;
 		}
 		this.updatedObj.i_bendemographics.communityID = this.caste;
@@ -529,25 +586,26 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 		this.updatedObj.i_bendemographics.districtBranchID = this.village;
 		this.updatedObj.i_bendemographics.pinCode = this.pincode;
 		this.updatedObj.i_bendemographics.preferredLangID = this.preferredLanguage;
-		console.log('updated Obj is ', this.updatedObj);
+		console.log( 'updated Obj is ', this.updatedObj );
 
 		// saving the updated ben data in the in_app_saved data service file
 		this.saved_data.beneficiaryData = this.updatedObj;
 
-		this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe(response =>
-			this.updateSuccessHandeler(response)
+		this.updateBen.updateBeneficiaryData( this.updatedObj ).subscribe( response =>
+			this.updateSuccessHandeler( response )
 		);
 
 
 
 	}
 
-	updateSuccessHandeler(response) {
+	updateSuccessHandeler ( response )
+	{
 		this.benUpdationResponse = response;
-		console.log("Ben Updation Response", this.benUpdationResponse);
+		console.log( "Ben Updation Response", this.benUpdationResponse );
 		//this.regHistoryList = [response];
 		this.regHistoryList = "";
-		this.regHistoryList = [response];
+		this.regHistoryList = [ response ];
 		this.showSearchResult = true;
 		this.notCalledEarlier = false;
 		this.updationProcess = false;
@@ -563,10 +621,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 	/**
 	 * NEERAJ; Select beneficiary for service provided; 27-JUN-2017
 	 */
-	selectBeneficiary(regHistory: any) {
-		this.onBenRegDataSelect.emit(regHistory);
+	selectBeneficiary ( regHistory: any )
+	{
+		this.onBenRegDataSelect.emit( regHistory );
 		this.saved_data.benRegId = regHistory.beneficiaryRegID;
-		this.onBenSelect.emit("benService");
+		this.populateUserData( regHistory );
+		this.onBenSelect.emit( "benService" );
 
 	}
 }

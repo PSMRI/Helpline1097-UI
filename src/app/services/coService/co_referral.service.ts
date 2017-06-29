@@ -19,6 +19,7 @@ export class CoReferralService
     _subcategoryurl = this._baseurl + "api/helpline1097/co/get/subcategory"
     _getDetailsURL = this._baseurl + "iEMR/saveBenCalReferralMapping"
     _getReferralHistoryURL = this._baseurl + "services/getReferralsHistory";
+    _servicetypesurl = this._baseurl + "api/helpline1097/co/get/servicetypes"
     constructor(
         private _http: Http,
         private _config: ConfigService
@@ -58,6 +59,13 @@ export class CoReferralService
     getReferralHistoryByID ( id: any )
     {
         return this._http.post( this._getReferralHistoryURL, { "beneficiaryRegID": id } ).map( this.extractData ).catch( this.handleError );
+    }
+
+    getTypes ()
+    {
+        return this._http.post( this._servicetypesurl, this.options )
+            .map( this.extractData )
+            .catch( this.handleError );
     }
 
     extractData ( response: Response )

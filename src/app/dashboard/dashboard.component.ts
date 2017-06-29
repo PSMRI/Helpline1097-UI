@@ -45,7 +45,7 @@ export class dashboardContentClass implements OnInit
 
     let event = new CustomEvent( "message", {
       detail: {
-        data: 'Accept|1234567890|1489742008.5180000000|INBOUND',
+        data: 'Accept|123456|1489742008.5180000000|INBOUND',
         time: new Date(),
       },
       bubbles: true,
