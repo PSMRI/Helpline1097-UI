@@ -42,7 +42,6 @@ export class dashboardContentClass implements OnInit
   testEvent ()
   {
     //var event = new Event('message');   
-
     let event = new CustomEvent( "message", {
       detail: {
         data: 'Accept|123456|1489742008.5180000000|INBOUND',
@@ -51,10 +50,7 @@ export class dashboardContentClass implements OnInit
       bubbles: true,
       cancelable: true
     } );
-
     document.dispatchEvent( event );
-
-
   }
 
   listener ( event )
@@ -64,7 +60,6 @@ export class dashboardContentClass implements OnInit
     this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
     //this.eventSpiltData = event.data.split('|'); 
-
     this.handleEvent();
   }
 
@@ -75,11 +70,8 @@ export class dashboardContentClass implements OnInit
 
   addListener ()
   {
-
-
     if ( window.parent.parent.addEventListener )
     {
-
       console.log( "adding message listener" );
       document.addEventListener( "message", this.listener.bind( this ), false );
     }
