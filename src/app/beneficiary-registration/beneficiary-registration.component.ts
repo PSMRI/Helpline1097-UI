@@ -416,8 +416,22 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		}
 		this.updatedObj.titleId = this.TitleId;
 		this.updatedObj.maritalStatusID = this.MaritalStatusID;
-		this.updatedObj.parentBenRegID = this.ParentBenRegID;
-		this.updatedObj.altPhoneNo = this.PhoneNo;
+		this.updatedObj.benPhoneMaps = [];
+		this.updatedObj.benPhoneMaps[ 0 ] = {};
+		this.updatedObj.benPhoneMaps[ 0 ].parentBenRegID = this.ParentBenRegID;
+		this.updatedObj.benPhoneMaps[ 0 ].benRelationshipID = undefined;
+		this.updatedObj.benPhoneMaps[ 0 ].phoneNo = this.saved_data.callerNumber;
+		this.updatedObj.benPhoneMaps[ 0 ].createdBy = this.saved_data.uname;
+		this.updatedObj.benPhoneMaps[ 0 ].deleted = false;
+		if ( this.PhoneNo )
+		{
+			this.updatedObj.benPhoneMaps[ 1 ] = {};
+			this.updatedObj.benPhoneMaps[ 1 ].parentBenRegID = this.ParentBenRegID;
+			this.updatedObj.benPhoneMaps[ 1 ].benRelationshipID = undefined;
+			this.updatedObj.benPhoneMaps[ 1 ].phoneNo = this.PhoneNo;
+			this.updatedObj.benPhoneMaps[ 1 ].createdBy = this.saved_data.uname;
+			this.updatedObj.benPhoneMaps[ 1 ].deleted = false;
+		}
 		this.updatedObj.govtIdentityNo = this.aadharNo;
 		this.updatedObj.deleted = false;
 		this.updatedObj.createdBy = this.saved_data.Userdata.userName;
@@ -506,7 +520,6 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 		// this.populateRegistrationFormForUpdate( benRegData );
 		this.populateUserData( benRegData );
-		this.updatebeneficiaryincall( benRegData );
 	}
 
 	updatebeneficiaryincall ( benRegData: any )
@@ -518,6 +531,7 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 	populateUserData ( benRegData: any )
 	{
+		this.updatebeneficiaryincall( benRegData );
 		let res = this._util.retrieveRegHistory( benRegData.beneficiaryRegID )
 			.subscribe( response => this.populateRegistrationFormForUpdate( response[ 0 ] ) );
 	}
@@ -531,8 +545,14 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		this.DOB = registeredBenData.dOB;
 		this.TitleId = registeredBenData.titleId;
 		this.MaritalStatusID = registeredBenData.maritalStatusID;
-		this.ParentBenRegID = registeredBenData.parentBenRegID;
-		this.PhoneNo = registeredBenData.altPhoneNo;
+		if ( registeredBenData.benPhoneMaps[ 0 ] )
+		{
+			this.ParentBenRegID = registeredBenData.benPhoneMaps[ 0 ].parentBenRegID;
+		}
+		if ( registeredBenData.benPhoneMaps[ 1 ] )
+		{
+			this.PhoneNo = registeredBenData.benPhoneMaps[ 1 ].phoneNo;
+		}
 		this.aadharNo = registeredBenData.govtIdentityNo;
 		this.caste = registeredBenData.i_bendemographics.communityID;
 		this.educationQualification = registeredBenData.i_bendemographics.educationID;
@@ -556,7 +576,6 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 	updateBeneficiary ()
 	{
-		// console.log('to be updated values');
 		this.updatedObj.firstName = this.FirstName;
 		this.updatedObj.lastName = this.LastName;
 		this.updatedObj.genderID = this.GenderID;
@@ -570,8 +589,27 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		}
 		this.updatedObj.titleId = this.TitleId;
 		this.updatedObj.maritalStatusID = this.MaritalStatusID;
-		this.updatedObj.parentBenRegID = this.ParentBenRegID;
-		this.updatedObj.altPhoneNo = this.PhoneNo;
+		// this.updatedObj.parentBenRegID = this.ParentBenRegID;
+		// this.updatedObj.altPhoneNo = this.PhoneNo;
+		if (
+			!this.updatedObj.benPhoneMaps[ 1 ] ||
+			!( ( this.updatedObj.benPhoneMaps[ 1 ].phoneNo ) && ( this.updatedObj.benPhoneMaps[ 1 ].phoneNo == this.PhoneNo ) )
+		)
+		{
+			this.updatedObj.benPhoneMaps[ 1 ] = {};
+			this.updatedObj.benPhoneMaps[ 1 ].parentBenRegID = this.ParentBenRegID;
+			this.updatedObj.benPhoneMaps[ 1 ].beneficiaryRegID = this.saved_data.benRegId;
+			this.updatedObj.benPhoneMaps[ 1 ].benRelationshipID = undefined;
+			this.updatedObj.benPhoneMaps[ 1 ].phoneNo = this.PhoneNo;
+			if ( this.updatedObj.benPhoneMaps[ 1 ].createdBy )
+			{
+				this.updatedObj.benPhoneMaps[ 1 ].modifiedBy = this.saved_data.uname;
+			} else
+			{
+				this.updatedObj.benPhoneMaps[ 1 ].createdBy = this.saved_data.uname;
+				this.updatedObj.benPhoneMaps[ 1 ].deleted = false;
+			}
+		}
 		this.updatedObj.govtIdentityNo = this.aadharNo;
 
 		if ( !this.updatedObj.i_bendemographics.beneficiaryRegID )
