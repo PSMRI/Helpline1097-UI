@@ -1,3 +1,6 @@
+import { helpline1097SupervisorComponent } from './1097-supervisor/1097-supervisor.component';
+import { helpline1097AdminComponent } from './1097-admin/1097-admin.component';
+import { helpline1097CoComponent } from './1097-co/1097-co.component'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -47,7 +50,16 @@ import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.
 // innerpage components
 import { InnerpageComponent } from './innerpage/innerpage.component';
 
+//Supervisor components
+import { SupervisorReportsComponent } from './supervisor-reports/supervisor-reports.component';
+import { SupervisorConfigurationsComponent } from './supervisor-configurations/supervisor-configurations.component';
+import { AgentStatusComponent } from './agent-status/agent-status.component';
+import { BlockUnblockNumberComponent } from './block-unblock-number/block-unblock-number.component';
+import { DialBeneficiaryComponent } from './dial-beneficiary/dial-beneficiary.component';
+import { QualityAuditComponent } from './quality-audit/quality-audit.component';
+import { SupervisorNotificationsComponent } from './supervisor-notifications/supervisor-notifications.component';
 
+//cocomponents
 import { CoCounsellingServicesComponent } from './co-counselling-services/co-counselling-services.component';
 import { CoFeedbackServicesComponent } from './co-feedback-services/co-feedback-services.component';
 import { CoInformationServicesComponent } from './co-information-services/co-information-services.component';
@@ -89,7 +101,8 @@ import { CoFeedbackService } from "./services/coService/co_feedback.service";
 import { FeedbackTypes } from "./services/common/feedbacktypes.service";
 import { UpdateService } from "./services/update-services/update-service";
 import { CallServices } from "./services/callservices/callservice.service";
-import { ConfigService } from "./services/config/config.service"
+import { ConfigService } from "./services/config/config.service";
+import { helpline1097Component } from './1097/1097.component'
 
 
 
@@ -104,9 +117,14 @@ import { ConfigService } from "./services/config/config.service"
     myName, myMobileNumber, myEmail, CoCounsellingServicesComponent,
     CoFeedbackServicesComponent, CoInformationServicesComponent,
     CoReferralServicesComponent, BeneficiaryRegistrationComponent,
-    ServiceRoleSelectionComponent, CoServicesComponent, UpdatesFromBeneficiaryComponent, ClosureComponent, SuperAdminComponent,
-    AdminUserComponent, AdminLanguageMasterComponent, AdminRoleMasterComponent,
-    AdminServiceMasterComponent, AdminScreenMasterComponent, SetSecurityQuestionsComponent, SetPasswordComponent
+    ServiceRoleSelectionComponent, CoServicesComponent, UpdatesFromBeneficiaryComponent,
+    ClosureComponent, SuperAdminComponent, AdminUserComponent, AdminLanguageMasterComponent,
+    AdminRoleMasterComponent, AdminServiceMasterComponent, AdminScreenMasterComponent,
+    SetSecurityQuestionsComponent, SetPasswordComponent, helpline1097Component,
+    helpline1097CoComponent, helpline1097AdminComponent, helpline1097SupervisorComponent,
+    SupervisorReportsComponent, SupervisorConfigurationsComponent, AgentStatusComponent,
+    BlockUnblockNumberComponent, DialBeneficiaryComponent, QualityAuditComponent,
+    SupervisorNotificationsComponent
   ],
   imports: [
     BrowserModule,

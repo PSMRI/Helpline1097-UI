@@ -24,15 +24,15 @@ export class CoFeedbackServicesComponent implements OnInit
 	showFormCondition: boolean = false;
 	showTableCondition: boolean = true;
 	feedbackServiceID: number = 4;
-	selected_state: any;
-	selected_district: any;
-	selected_taluk: any;
-	selected_sdtb: any;
-	selected_institution: any;
-	selected_designation: any;
-	selected_feedbackType: any;
-	selected_severity: any;
-	selected_doi: any;
+	selected_state: any = undefined;
+	selected_district: any = undefined;
+	selected_taluk: any = undefined;
+	selected_sdtb: any = undefined;
+	selected_institution: any = undefined;
+	selected_designation: any = undefined;
+	selected_feedbackType: any = undefined;
+	selected_severity: any = undefined;
+	selected_doi: any = undefined;
 
 	feedbackDescription: any = "";
 	beneficiaryRegID: any;

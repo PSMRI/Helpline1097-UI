@@ -1,0 +1,171 @@
+<div class="row" *ngIf="showSearchPanel">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <h4>Call Auditing</h4>
+        <div class="clearfix"></div>
+        <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="District" [(ngModel)]="district">
+                </md-input-container>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="Taluk" [(ngModel)]="taluk">
+                </md-input-container>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="Village" [(ngModel)]="village">
+                </md-input-container>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
+                <md-select placeholder="Role" [style.width]="'100%'" [(ngModel)]="role">
+                    <md-option value="1">
+                        RO
+                    </md-option>
+                    <md-option value="2">
+                        HAO
+                    </md-option>
+                    <md-option value="3">
+                        MO
+                    </md-option>
+                    <md-option value="4">
+                        CO
+                    </md-option>
+                    <md-option value="5">
+                        SIO
+                    </md-option>
+                    <md-option value="5">
+                        PD
+                    </md-option>
+                </md-select>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
+                <md-select placeholder="Language" [style.width]="'100%'" [(ngModel)]="language">
+                    <md-option value="1">
+                        English
+                    </md-option>
+                    <md-option value="2">
+                        Hindi
+                    </md-option>
+                    <md-option value="3">
+                        Kannada
+                    </md-option>
+                </md-select>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-10">
+                <md-input-container style="width: 100%">
+                    <input mdInput [mdDatepicker]="picker1" placeholder="From Date" [(ngModel)]="fromDate">
+                    <button mdSuffix [mdDatepickerToggle]="picker1"></button>
+                </md-input-container>
+                <md-datepicker #picker1></md-datepicker>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-10">
+                <md-input-container style="width: 100%">
+                    <input mdInput [mdDatepicker]="picker2" placeholder="To Date" [(ngModel)]="toDate">
+                    <button mdSuffix [mdDatepickerToggle]="picker2"></button>
+                </md-input-container>
+                <md-datepicker #picker2></md-datepicker>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 m-t-15">
+                <md-select placeholder="Call Type" [style.width]="'100%'" [(ngModel)]="callType">
+                    <md-option value="1">
+                        Valid
+                    </md-option>
+                    <md-option value="2">
+                        Invalid
+                    </md-option>
+                    <md-option value="3">
+                        Incomplete
+                    </md-option>
+                </md-select>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 m-t-15">
+                <md-select placeholder="Call Subtype" [style.width]="'100%'" [(ngModel)]="callSubtype">
+                    <md-option value="1">
+                        SubType1
+                    </md-option>
+                    <md-option value="2">
+                        SubType2
+                    </md-option>
+                    <md-option value="3">
+                        SubType3
+                    </md-option>
+                </md-select>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 m-t-15">
+                <md-select placeholder="Audio Format" [style.width]="'100%'" [(ngModel)]="audioFormat">
+                    <md-option value="1">
+                        mp3
+                    </md-option>
+                    <md-option value="2">
+                        mp4
+                    </md-option>
+                </md-select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15" align="center">
+            <button md-raised-button (click)="findRecordings()">Get Recordings</button>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!showSearchPanel">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+            <button md-raised-button (click)="refineSearch()">Refine Search</button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive ">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>CallID</th>
+                        <th>BeneficiaryID</th>
+                        <th>Beneficiary Name</th>
+                        <th>Phone Number</th>
+                        <th>AgentID</th>
+                        <th>Agent Name</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="cursor: pointer;">
+                        <td>002313</td>
+                        <td>BEN0007</td>
+                        <td>Diamond Khanna</td>
+                        <td>9023650041</td>
+                        <td>1253071</td>
+                        <td>Prateek Rathi</td>
+                        <td>24/06/2017</td>
+                        <td style="cursor: pointer;">
+                            <md-icon class="mat-icon material-icons" role="img" aria-hidden="true" (click)="play()">play_circle_outline</md-icon>
+                        </td>
+                        <td>
+                        	<md-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true" (click)="saveRatings()">save</md-icon>
+                        </td>
+                    </tr>
+                    <tr style="cursor: pointer;">
+                        <td>002312</td>
+                        <td>BEN0123</td>
+                        <td>Sabya Sahoo</td>
+                        <td>9023902341</td>
+                        <td>1253078</td>
+                        <td>Jhanvi Pathania</td>
+                        <td>24/06/2017</td>
+                        <td style="cursor: pointer;">
+                            <md-icon class="mat-icon material-icons" role="img" aria-hidden="true" (click)="play()">play_circle_outline</md-icon>
+                        </td>
+                        <td>
+                        	<md-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true" (click)="saveRatings()">save</md-icon>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

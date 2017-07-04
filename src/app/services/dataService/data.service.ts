@@ -21,6 +21,9 @@ export class dataService
 	callData: any = {};
 
 	benRegId: any;
+
+	current_role: any;
+	current_service: any;
 };
 
 

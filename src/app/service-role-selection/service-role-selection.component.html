@@ -8,13 +8,13 @@
                         <li class="f-s-20">{{priv.Service}}</li>
                     </ul>
 
-                     <ul class="list-unstyled subRolecircle text-center m-t-10 ">
-                    <li class="circle-btn" *ngFor="let role of priv.Role" (click)="route2dashboard(role)">
-                        <a class="f-s-16 cursorPointer" >{{role}}</a>
-                    </li>
-                </ul>
+                    <ul class="list-unstyled subRolecircle text-center m-t-10 ">
+                        <li class="circle-btn" *ngFor="let role of priv.Role" (click)="route2dashboard(role, priv.Service)">
+                            <a class="f-s-16 cursorPointer">{{role}}</a>
+                        </li>
+                    </ul>
                 </div>
-               
+
             </div>
         </li>
 

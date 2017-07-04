@@ -16,7 +16,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
   sexualOrientationID: any;
   placeOfWork: any;
   remarks: any;
-
+  sufferingFromAids: boolean = false;
   beneficiaryRegID: any;
   educationQualifications: any = [];
   sexualOrientations: any = [];
