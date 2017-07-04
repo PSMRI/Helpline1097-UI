@@ -338,44 +338,6 @@ export class BeneficiaryRegistrationComponent implements OnInit
 			this.blocks.push( response[ i ] );
 	}
 
-	registerBeneficiary1 ( values: any )
-	{
-		console.log( values )
-		this.updatedObj = {};
-		this.updatedObj.firstName = values.FirstName;
-		this.updatedObj.lastName = values.LastName;
-		this.updatedObj.genderID = values.GenderID;
-		this.updatedObj.dOB = values.DOB;
-		this.updatedObj.titleId = values.TitleId;
-		this.updatedObj.maritalStatusID = values.MaritalStatusID;
-		this.updatedObj.parentBenRegID = values.ParentBenRegID;
-		this.updatedObj.altPhoneNo = values.PhoneNo;
-		this.updatedObj.govtIdentityNo = values.aadharNo;
-		this.updatedObj.deleted = false;
-		this.updatedObj.createdBy = this.saved_data.Userdata.userName;
-		this.updatedObj.govtIdentityTypeID = 1;
-		this.updatedObj.statusID = 1;
-		this.updatedObj.i_bendemographics = {};
-		this.updatedObj.i_bendemographics.communityID = values.caste;
-		this.updatedObj.i_bendemographics.educationID = values.educationQualification;
-		this.updatedObj.i_bendemographics.stateID = values.state;
-		this.updatedObj.i_bendemographics.districtID = values.district;
-		this.updatedObj.i_bendemographics.blockID = values.taluk;
-		this.updatedObj.i_bendemographics.districtBranchID = values.village;
-		this.updatedObj.i_bendemographics.pinCode = values.pincode;
-		this.updatedObj.i_bendemographics.deleted = false;
-		this.updatedObj.i_bendemographics.preferredLangID = values.preferredLanguage;
-		console.log( "data for update " + JSON.stringify( this.updatedObj ) );
-		// return;
-		let res = this._util.generateReg( this.updatedObj ).subscribe( response =>
-		{
-			this.benRegistrationResponse = response;
-			console.log( this.benRegistrationResponse );
-			this.handleRegHistorySuccess( [ response ] );
-			this.showAlert();
-		} );
-	}
-
 	/**
 		* Neeraj Code; 22-jun-2017
 		*/
