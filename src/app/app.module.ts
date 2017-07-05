@@ -51,6 +51,7 @@ import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.
 import { InnerpageComponent } from './innerpage/innerpage.component';
 
 //Supervisor components
+import { supervisorFeedback } from './supervisor-grievance/grievance.component';
 import { SupervisorReportsComponent } from './supervisor-reports/supervisor-reports.component';
 import { SupervisorConfigurationsComponent } from './supervisor-configurations/supervisor-configurations.component';
 import { AgentStatusComponent } from './agent-status/agent-status.component';
@@ -124,7 +125,7 @@ import { helpline1097Component } from './1097/1097.component'
     helpline1097CoComponent, helpline1097AdminComponent, helpline1097SupervisorComponent,
     SupervisorReportsComponent, SupervisorConfigurationsComponent, AgentStatusComponent,
     BlockUnblockNumberComponent, DialBeneficiaryComponent, QualityAuditComponent,
-    SupervisorNotificationsComponent
+    SupervisorNotificationsComponent, supervisorFeedback
   ],
   imports: [
     BrowserModule,

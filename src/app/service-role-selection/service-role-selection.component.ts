@@ -24,14 +24,18 @@ export class ServiceRoleSelectionComponent implements OnInit
 
 	route2dashboard ( role, service )
 	{
+		let roleName = role.RoleName;
+		let serviceName = service.serviceName;
 
-		if ( service === '1097' && ( role === 'CO' || role === 'Supervisior' ) )
+		// if ( service === '1097' && ( role === 'CO' || role === 'Supervisior' ) )
+		if ( serviceName === '1097' && ( roleName === 'CO' || roleName === 'Supervisior' ) )
 		{
 			this.getCommonData.current_role = role;
 			this.getCommonData.current_service = service;
 			this.router.navigate( [ '/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [ 'dashboard' ] } }] );
 		}
-		if ( role === 'ADMIN' )
+		// if ( role === 'ADMIN' )
+		if ( roleName === 'ADMIN' )
 		{
 			this.router.navigate( [ '/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [ 'superAdmin' ] } }] );
 		}

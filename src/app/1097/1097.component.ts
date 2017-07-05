@@ -19,7 +19,7 @@ export class helpline1097Component implements OnInit
 
   ngOnInit ()
   {
-    this.current_role = this.getCommonData.current_role;
+    this.current_role = this.getCommonData.current_role.RoleName;
   };
 
   // tab: number = 1;

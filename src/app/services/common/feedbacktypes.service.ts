@@ -10,10 +10,10 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class FeedbackTypes
 {
-    _commonBaseURL = this._config.get1097BaseURL();
-    _getFeedbackTypesURL = this._commonBaseURL + "feedback/gettype/";
-    _getFeedbackSeverityURL = this._commonBaseURL + "feedback/getseverity/";
-    _servicetypesurl = this._commonBaseURL + "api/helpline1097/co/get/servicetypes"
+    _helpline1097BaseURL = this._config.get1097BaseURL();
+    _getFeedbackTypesURL = this._helpline1097BaseURL + "feedback/gettype/";
+    _getFeedbackSeverityURL = this._helpline1097BaseURL + "feedback/getseverity/";
+    _servicetypesurl = this._helpline1097BaseURL + "api/helpline1097/co/get/servicetypes"
     headers = new Headers( { 'Content-Type': 'application/json' } );
     options = new RequestOptions( { headers: this.headers } );
     constructor(

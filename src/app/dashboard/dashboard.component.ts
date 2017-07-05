@@ -27,10 +27,10 @@ export class dashboardContentClass implements OnInit
   }
   toggleBar ()
   {
-    if ( this.barMinimized )
-      this.barMinimized = false;
-    else
-      this.barMinimized = true;
+    // if ( this.barMinimized )
+    //   this.barMinimized = false;
+    // else
+    this.barMinimized = !this.barMinimized;
   }
   minimizeBar ()
   {

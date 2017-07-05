@@ -48,7 +48,7 @@ export class InnerpageComponent implements OnInit
 
 	ngOnInit ()
 	{
-		this.current_service = this.getCommonData.current_service;
+		this.current_service = this.getCommonData.current_service.serviceName;
 	}
 	addActiveClass ( val: any )
 	{

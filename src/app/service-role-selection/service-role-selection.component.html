@@ -5,12 +5,15 @@
                 <div class="circle">
                     <ul class="list-unstyled text-center p-t-20">
                         <li><img src="assets/images/serviceProviderIcon.png" alt="" title="" /></li>
-                        <li class="f-s-20">{{priv.Service}}</li>
+                        <!--<li class="f-s-20">{{priv.Service}}</li>-->
+                        <li class="f-s-20">{{priv.serviceName}}</li>
                     </ul>
 
                     <ul class="list-unstyled subRolecircle text-center m-t-10 ">
-                        <li class="circle-btn" *ngFor="let role of priv.Role" (click)="route2dashboard(role, priv.Service)">
-                            <a class="f-s-16 cursorPointer">{{role}}</a>
+                        <!--<li class="circle-btn" *ngFor="let role of priv.Role" (click)="route2dashboard(role, priv.Service)">-->
+                        <!--<a class="f-s-16 cursorPointer">{{role}}</a>-->
+                        <li class="circle-btn" *ngFor="let role of priv.roles" (click)="route2dashboard(role, priv)">
+                            <a class="f-s-16 cursorPointer">{{role.RoleName}}</a>
                         </li>
                     </ul>
                 </div>
