@@ -30,20 +30,11 @@ export class supervisorFeedback implements OnInit
   public showfeedbackstatus = 1
   error: any = { isError: false, errorMessage: '' };
 
-
-
-
-
-
-
-
   constructor( private _feedbackservice: FeedbackService )
   {
     this.feedbackList;
     this.feedbackresponceList;
   }
-
-
 
   feedbackForm = new FormGroup( {
 
