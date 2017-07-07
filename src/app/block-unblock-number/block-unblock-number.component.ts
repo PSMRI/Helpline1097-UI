@@ -1,30 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 
-@Component({
+@Component( {
   selector: 'app-block-unblock-number',
   templateUrl: './block-unblock-number.component.html',
-  styleUrls: ['./block-unblock-number.component.css']
-})
-export class BlockUnblockNumberComponent implements OnInit {
+  styleUrls: [ './block-unblock-number.component.css' ]
+} )
+export class BlockUnblockNumberComponent implements OnInit
+{
 
+  phoneNumber: number;
   constructor() { }
 
-  ngOnInit() {
-  }
-  
-  blockedDate:any;
-  blockedTill:any;
-  
-  getBlockedTillDate(date)
+  ngOnInit ()
   {
-  	this.blockedTill=date.setDate(date.getDate()+7);
-  	console.log(this.blockedTill);
+  }
+
+  blockedDate: any;
+  blockedTill: any;
+
+  getBlockedTillDate ( date )
+  {
+    this.blockedTill = date.setDate( date.getDate() + 7 );
+    console.log( this.blockedTill );
   }
 
 
-showTable:boolean=false;
-  addToBlockList()
+  showTable: boolean = false;
+  addToBlockList ()
   {
-  	this.showTable=true;
+    this.showTable = true;
   }
 }

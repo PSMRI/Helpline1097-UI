@@ -70,4 +70,13 @@ export class InnerpageComponent implements OnInit
 			this.selectedBenData.lname = "";
 		}
 	}
+
+	minimizeBar ()
+	{
+		this.barMinimized = true;
+	}
+	toggleBar ()
+	{
+		this.barMinimized = !this.barMinimized;
+	}
 }

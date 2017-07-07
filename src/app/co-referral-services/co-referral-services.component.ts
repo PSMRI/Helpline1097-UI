@@ -27,15 +27,16 @@ export class CoReferralServicesComponent implements OnInit
   sub_directory: any = [];
   detailsList: any = [];
 
-  selected_state: any = "";
-  selected_district: any = "";
-  selected_taluk: any = "";
-  selected_block: any = "";
-  selected_branch: any = "";
-  selected_directory: any = "";
-  selected_sub_directory: any = "";
-  description: any = "";
+  selected_state: any = undefined;
+  selected_district: any = undefined;
+  selected_taluk: any = undefined;
+  selected_block: any = undefined;
+  selected_branch: any = undefined;
+  selected_directory: any = undefined;
+  selected_sub_directory: any = undefined;
+  description: any = undefined;
   serviceID1097: number = 3;
+  showSendSMS: boolean = false;
 
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -174,6 +175,10 @@ export class CoReferralServicesComponent implements OnInit
   {
     console.log( 'success referral', response );
     this.detailsList = response;
+    if ( this.detailsList.length > 0 )
+    {
+      this.showSendSMS = true;
+    }
     this.referralServiceProvided.emit();
     this.provideReferralDescription();
   }
