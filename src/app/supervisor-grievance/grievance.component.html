@@ -1,379 +1,381 @@
-
 <div class="">
-<form [formGroup]="feedbackForm2" (ngSubmit)="onSearch()" *ngIf="action === 'view'">
-<div class="col-xs-12 col-sm-12">
-  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <div class="form-group">
-          <label class="control-label" for="startDate">Start Date</label>         
-          <input mdInput [mdDatepicker]="myDatepicker" class="form-control" formControlName="startDate">
-                   <div class="calendarIconPosition" ><button mdSuffix [mdDatepickerToggle]="myDatepicker" ></button></div>
-                </div> 
+    <form [formGroup]="feedbackForm2" (ngSubmit)="onSearch()" *ngIf="action === 'view'">
+        <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="startDate">Start Date</label>
+                    <input mdInput [mdDatepicker]="myDatepicker" class="form-control" formControlName="startDate">
+                    <div class="calendarIconPosition"><button mdSuffix [mdDatepickerToggle]="myDatepicker"></button></div>
+                </div>
                 <md-datepicker #myDatepicker></md-datepicker>
-        </div>
-      
-     
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <div class="form-group">
-            <label class="control-label" for="endDate">End Date</label>         
-             <input mdInput [mdDatepicker]="myDatepicker1" class="form-control" formControlName="endDate" >
-                   
-                   <div class="calendarIconPosition" ><button mdSuffix [mdDatepickerToggle]="myDatepicker1" ></button></div>
-                </div> 
+            </div>
+
+
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label class="control-label" for="endDate">End Date</label>
+                    <input mdInput [mdDatepicker]="myDatepicker1" class="form-control" formControlName="endDate">
+
+                    <div class="calendarIconPosition"><button mdSuffix [mdDatepickerToggle]="myDatepicker1"></button></div>
+                </div>
                 <md-datepicker #myDatepicker1></md-datepicker>
                 <div *ngIf="feedbackForm2.controls.endDate.errors?.date">*Enter end date</div>
         </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <div class="form-group">
-            <label class="control-label" for="ComplaintId">Search By Complaint ID</label>         
-            <input type="text" class="form-control" placeholder="Enter Id" maxlength="30" id="ComplaintId" formControlName="feedbackID"> 
-        </div>
-        <div *ngIf="feedbackForm2.controls.feedbackID.errors">*Enter Only Number</div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <div class="form-group">
-                    
-            <button class="btn cu-green-btn m-t-lg-20" type="submit" name="search" >Search</button>
-        </div>
-      </div>
-      </div>
-      <div *ngIf="feedbackForm2.controls.startDate.errors?.date">*Enter Only Number</div>
-</form>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="ComplaintId">Search By Complaint ID</label>
+                <input type="text" class="form-control" placeholder="Enter Id" maxlength="30" id="ComplaintId" formControlName="feedbackID">
+            </div>
+            <div *ngIf="feedbackForm2.controls.feedbackID.errors">*Enter Only Number</div>
 </div>
 
+<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+    <div class="form-group">
 
-<form [formGroup]="feedbackForm1" *ngIf="action === 'view'">
-<div class="col-xs-12 col-sm-12">
-  <h4 class="pull-left">FeedBack Details</h4>
-
+        <button class="btn cu-green-btn m-t-lg-20" type="submit" name="search">Search</button>
+    </div>
 </div>
+</div>
+<div *ngIf="feedbackForm2.controls.startDate.errors?.date">*Enter Only Number</div>
+    </form>
+    </div>
 
 
-   <div class="m-t-10"  >
-     
-    <div class="col-xs-12 col-sm-12">
+    <form [formGroup]="feedbackForm1" *ngIf="action === 'view'">
+        <div class="col-xs-12 col-sm-12">
+            <h4 class="pull-left">FeedBack Details</h4>
+
+        </div>
 
 
-      <div class="table-responsive m-t-10">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Complaint Id</th>
-              <th>Feedback Date</th>
-              <th>Name of Beneficiary</th>
-              <th>Type of Complaint</th>
-              <th>Complaint Status</th>
-              <th>Email Status</th>
-              
-              <th>Select</th>
-              <th>Edit</th>
-              <th>Update Response</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 8, currentPage: p } ">
-             <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
-              <td (click)="onClick(feedback)">{{feedback.FeedBackID}}</td>
-              <td>{{feedback.CreatedDate}}</td>
-              <td>{{feedback.BeneficiaryName}}</td>
-              <td>{{feedback.FeedbackTypeName}}</td>
-              <td >{{feedback.FeedbackStatus}}</td>
-              <td>{{feedback.EmailStatus}}</td>
-              
-              <!--<td><ng-template [ngIf]="feedback.FeedbackStatusID == 1">Open</ng-template>
+        <div class="m-t-10">
+
+            <div class="col-xs-12 col-sm-12">
+
+
+                <div class="table-responsive m-t-10">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Complaint Id</th>
+                                <th>Feedback Date</th>
+                                <th>Name of Beneficiary</th>
+                                <th>Type of Complaint</th>
+                                <th>Complaint Status</th>
+                                <th>Email Status</th>
+
+                                <th>Select</th>
+                                <th>Edit</th>
+                                <th>Update Response</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 8, currentPage: p } ">
+                                <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
+                                <td (click)="onClick(feedback)">{{feedback.FeedBackID}}</td>
+                                <td>{{feedback.CreatedDate}}</td>
+                                <td>{{feedback.BeneficiaryName}}</td>
+                                <td>{{feedback.FeedbackTypeName}}</td>
+                                <td>{{feedback.FeedbackStatus}}</td>
+                                <td>{{feedback.EmailStatus}}</td>
+
+                                <!--<td><ng-template [ngIf]="feedback.FeedbackStatusID == 1">Open</ng-template>
               <ng-template [ngIf]="feedback.FeedbackStatusID == 2">Progess</ng-template></td>-->
 
-              <!--<td><ng-template [ngIf]="feedback.EmailStatusID == 1">Pending</ng-template>
+                                <!--<td><ng-template [ngIf]="feedback.EmailStatusID == 1">Pending</ng-template>
               <ng-template [ngIf]="feedback.EmailStatusID == 2">Sent</ng-template></td>-->
-              <!--<td *ngIf="showfeedbackstatus">{{feedback.FeedbackStatusID}}</td>-->
-              <td align="center"><input type="checkbox" value="" /></td>
-              <!--<td><i class="fa fa-pencil fa-lg cursorPointer" aria-hidden="true"(click)="updateFeedback(feedback)"></i></td>-->
-              <td><button class="btn cu-green-btn f-s-13 p-t-b-3" type="submit" (click)="updateFeedback(feedback)" >Edit</button></td>
-            <td><button class="btn cu-green-btn f-s-13 p-t-b-3" type="submit" (click)="updateFeedback1(feedback)">Update</button></td>
-            </tr>
-          </tbody>            
-        </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-    </div>
-  </div>
-</form>
-
-
-  <form [formGroup]="feedbackForm"   (ngSubmit)="onSubmit()" *ngIf="(action === 'edit') || (action === 'update')">
-
-
-  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="FeedbackID">Complaint ID</label>
-                    <input type="text" class="form-control" placeholder="Enter FeedbackID" maxlength="10" id="feedbackID" formControlName="feedbackID" readonly >
-                </div>
-               </div>
-
-
-
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="BeneficiaryRegID">Name OF Beneficiary</label>
-                        <input type="text" class="form-control" placeholder="Enter BeneficiaryRegID ." id="BeneficiaryRegID" formControlName="BeneficiaryRegID" maxlength="10" readonly>
-                        <span></span>
+                                <!--<td *ngIf="showfeedbackstatus">{{feedback.FeedbackStatusID}}</td>-->
+                                <td align="center"><input type="checkbox" value="" /></td>
+                                <!--<td><i class="fa fa-pencil fa-lg cursorPointer" aria-hidden="true"(click)="updateFeedback(feedback)"></i></td>-->
+                                <td><button class="btn cu-green-btn f-s-13 p-t-b-3" type="submit" (click)="updateFeedback(feedback)">Edit</button></td>
+                                <td><button class="btn cu-green-btn f-s-13 p-t-b-3" type="submit" (click)="updateFeedback1(feedback)">Update</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
+        </div>
+    </form>
 
 
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="Feedback Date">Feedback Date</label>
-                        <input type="text" class="form-control" placeholder="Enter Feedback Date ." id="Feedback Date" formControlName="FeedbackDate" maxlength="10" readonly>
-                        <span></span>
-                </div>
-            </div>
+    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="(action === 'edit') || (action === 'update')">
 
 
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="FeedbackTypeName">Feedback Type Name</label>
-                        <input type="text" class="form-control" placeholder="Enter FeedbackTypeName ." id="BeneficiaryRegID" formControlName="FeedbackTypeName" maxlength="10" readonly>
-                        <span></span>
-                </div>
-            </div>
-
-
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-
-<div class="row">
-  <div class="col-xs-6">
-       <div class="form-group">
-                    <label class="control-label" for="FeedbackStatus">Feedback Status</label>
-                        <input type="text" class="form-control" placeholder="Enter FeedbackStatus ." id="FeedbackStatus" formControlName="FeedbackStatus" maxlength="10" readonly>
-                        <span></span>
-      </div>
-
-  </div>
-  <div class="col-xs-6">
-   <div class="form-group">
-                    <label class="control-label" for="EmailStatus">Email Status</label>
-                        <input type="text" class="form-control" placeholder="Enter EmailStatus ." id="EmailStatus" formControlName="EmailStatus" maxlength="10" readonly>
-                        <span></span>
-                </div>
-
-  </div>
-</div>
-
-
-               
-            </div>
-
-
-
-            
-
-
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="InstitutionName">Institution Name</label>
-                        <input type="text" class="form-control" placeholder="Enter InstitutionName ." id="InstitutionName" formControlName="InstitutionName" maxlength="10" readonly>
-                        <span></span>
-                </div>
-            </div>
-
-
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="DesignationName">Designation Name</label>
-                        <input type="text" class="form-control" placeholder="Enter DesignationName ." id="DesignationName" formControlName="DesignationName" maxlength="10" readonly>
-                        <span></span>
-                </div>
-            </div>
-
-
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="SeverityTypeName">Severity Type Name</label>
-                        <input type="text" class="form-control" placeholder="SeverityTypeName ." id="SeverityTypeName" formControlName="SeverityTypeName" maxlength="10" readonly>
-                        <span></span>
-                </div>
-            </div>
-
-
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="ServiceName">Service Name</label>
-                        <input type="text" class="form-control" placeholder="ServiceName ." id="ServiceName" formControlName="ServiceName" maxlength="20" readonly>
-                        <span></span>
-                </div>
-            </div>
-
-
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="UserName">User Name</label>
-                        <input type="text" class="form-control" placeholder="UserName ." id="UserName" formControlName="UserName" maxlength="50" readonly>
-                        <span></span>
-                </div>
-            </div>
-
-
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="SMSPhoneNo">SMS Phone No</label>
-                        <input type="text" class="form-control" placeholder="Enter SMSPhoneNo ." id="SMSPhoneNo" formControlName="SMSPhoneNo" maxlength="50" readonly>
-                        <span></span>
-                </div>
-            </div>
-            
-
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="CreatedBy">Created By</label>
-                        <input type="text" class="form-control" placeholder="Enter CreatedBy ." id="CreatedBy" formControlName="createdBy" maxlength="10" readonly>
-                        <span></span>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="ModifiedBy">Modified By</label>
-                        <input type="text" class="form-control" placeholder="Enter ModifiedBy ." id="ModifiedBy" formControlName="ModifiedBy" maxlength="10" readonly>
-                        <span></span>
-                </div>
-            </div>
-
-
-
-
-
-<div class="clearfix"></div>
-<div class="col-xs-12 col-sm-6" *ngIf="action === 'edit'">
-<div class="form-group">
-<label class="control-label" for="Feedback" > Feedback</label>
-<textarea class="form-control" rows="3" id="Feedback" formControlName="feedbackSupSummary"></textarea>
-</div>
-</div>
-
-
-
-<div class="clearfix"></div>
-<div class="col-xs-12 col-sm-6" *ngIf="action === 'update'">
-<div class="form-group">
-<label class="control-label" for="Feedback" > Feedback</label>
-<textarea class="form-control" rows="3" id="Feedback" formControlName="feedbackSupSummary"  readonly></textarea>
-</div>
-</div>
-
-
-
-
-<div class="col-xs-12 col-sm-6" *ngIf="action === 'edit'">
-  <div class="form-group">
-<label class="control-label" for="comment"> Comment</label>
-<textarea class="form-control" rows="3" id="comments" formControlName="comments"></textarea>
-</div>
-</div>
-
-
-<div class="col-xs-12 col-sm-6" *ngIf="action === 'update'">
-  <div class="form-group">
-<label class="control-label" for="Response received"> Response Received</label>
-<textarea class="form-control" rows="3" id="response" formControlName="comments"></textarea>
-</div>
-</div>
-
-
-
-<div class="col-xs-12 col-sm-12">
- <button class="btn cu-green-btn pull-right" type="submit" name="save" >Save</button>
-</div>
-
-<div class=" m-t-10">
-
-     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
-            <label class="control-label" for="SelectStatus">Select Feedback Status</label>
-             <select class="form-control "  formControlName="selectStatus" >
+                <label class="control-label" for="FeedbackID">Complaint ID</label>
+                <input type="text" class="form-control" placeholder="Enter FeedbackID" maxlength="10" id="feedbackID" formControlName="feedbackID"
+                    readonly>
+            </div>
+        </div>
+
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="BeneficiaryRegID">Name OF Beneficiary</label>
+                <input type="text" class="form-control" placeholder="Enter BeneficiaryRegID ." id="BeneficiaryRegID" formControlName="BeneficiaryRegID"
+                    maxlength="10" readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="Feedback Date">Feedback Date</label>
+                <input type="text" class="form-control" placeholder="Enter Feedback Date ." id="Feedback Date" formControlName="FeedbackDate"
+                    maxlength="10" readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="FeedbackTypeName">Feedback Type Name</label>
+                <input type="text" class="form-control" placeholder="Enter FeedbackTypeName ." id="BeneficiaryRegID" formControlName="FeedbackTypeName"
+                    maxlength="10" readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label" for="FeedbackStatus">Feedback Status</label>
+                        <input type="text" class="form-control" placeholder="Enter FeedbackStatus ." id="FeedbackStatus" formControlName="FeedbackStatus"
+                            maxlength="10" readonly>
+                        <span></span>
+                    </div>
+
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label" for="EmailStatus">Email Status</label>
+                        <input type="text" class="form-control" placeholder="Enter EmailStatus ." id="EmailStatus" formControlName="EmailStatus"
+                            maxlength="10" readonly>
+                        <span></span>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="InstitutionName">Institution Name</label>
+                <input type="text" class="form-control" placeholder="Enter InstitutionName ." id="InstitutionName" formControlName="InstitutionName"
+                    maxlength="10" readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="DesignationName">Designation Name</label>
+                <input type="text" class="form-control" placeholder="Enter DesignationName ." id="DesignationName" formControlName="DesignationName"
+                    maxlength="10" readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="SeverityTypeName">Severity Type Name</label>
+                <input type="text" class="form-control" placeholder="SeverityTypeName ." id="SeverityTypeName" formControlName="SeverityTypeName"
+                    maxlength="10" readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="ServiceName">Service Name</label>
+                <input type="text" class="form-control" placeholder="ServiceName ." id="ServiceName" formControlName="ServiceName" maxlength="20"
+                    readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="UserName">User Name</label>
+                <input type="text" class="form-control" placeholder="UserName ." id="UserName" formControlName="UserName" maxlength="50"
+                    readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="SMSPhoneNo">SMS Phone No</label>
+                <input type="text" class="form-control" placeholder="Enter SMSPhoneNo ." id="SMSPhoneNo" formControlName="SMSPhoneNo" maxlength="50"
+                    readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="CreatedBy">Created By</label>
+                <input type="text" class="form-control" placeholder="Enter CreatedBy ." id="CreatedBy" formControlName="createdBy" maxlength="10"
+                    readonly>
+                <span></span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label" for="ModifiedBy">Modified By</label>
+                <input type="text" class="form-control" placeholder="Enter ModifiedBy ." id="ModifiedBy" formControlName="ModifiedBy" maxlength="10"
+                    readonly>
+                <span></span>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="clearfix"></div>
+        <div class="col-xs-12 col-sm-6" *ngIf="action === 'edit'">
+            <div class="form-group">
+                <label class="control-label"  for="Feedback"> Feedback</label>
+                    <textarea class="form-control"  rows="3"  id="Feedback"  formControlName="feedbackSupSummary"></textarea>
+            </div>
+            </div>
+
+
+
+            <div class="clearfix"></div>
+            <div class="col-xs-12 col-sm-6" *ngIf="action === 'update'">
+                <div class="form-group">
+                    <label class="control-label"  for="Feedback"> Feedback</label>
+                        <textarea class="form-control"  rows="3"  id="Feedback"  formControlName="feedbackSupSummary" readonly></textarea>
+                </div>
+                </div>
+
+
+
+
+                <div class="col-xs-12 col-sm-6" *ngIf="action === 'edit'">
+                    <div class="form-group">
+                        <label class="control-label"  for="comment"> Comment</label>
+                            <textarea class="form-control"  rows="3"  id="comments"  formControlName="comments"></textarea>
+                    </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-6" *ngIf="action === 'update'">
+                        <div class="form-group">
+                            <label class="control-label"  for="Response received"> Response Received</label>
+                                <textarea class="form-control"  rows="3"  id="response"  formControlName="comments"></textarea>
+                        </div>
+                        </div>
+
+
+
+                        <div class="col-xs-12 col-sm-12">
+                            <button class="btn cu-green-btn pull-right" type="submit" name="save">Save</button>
+                            </div>
+
+                            <div class=" m-t-10">
+
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="SelectStatus">Select Feedback Status</label>
+                                        <select class="form-control " formControlName="selectStatus">
               <option >Select..</option>
               <option value="1" >Open</option>
               <option value="2">Work In Progess</option>
               <option value="3">closed</option>
               <option value="4">ReOpen</option>
             </select>
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
-            
 
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"  *ngIf="action === 'update'">
-            <div class="form-group">
-            <label class="control-label" for="SelectStatus">Select Eamil Status</label>
-             <select class="form-control" name="emailStatusID" formControlName="emailStatusID"  >
+
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngIf="action === 'update'">
+                                    <div class="form-group">
+                                        <label class="control-label" for="SelectStatus">Select Eamil Status</label>
+                                        <select class="form-control" name="emailStatusID" formControlName="emailStatusID">
               <option [ngValue]="select" >Selects</option>
               <option value="1" >new</option>
               <option value="2">Sent</option>
             </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-xs-12 col-sm-12">
+                                <button class="btn cu-green-btn pull-right" type="submit" name="save"> Save&Email</button>
+                                </div>
+
+    </form>
+
+
+
+
+    <form [formGroup]="feedbackForm3" *ngIf="action === 'Click'">
+        <div class="col-xs-12 col-sm-12">
+            <h4 class="pull-left"> Complete FeedBack Details</h4>
+
+        </div>
+
+
+        <div class="m-t-10">
+
+            <div class="col-xs-12 col-sm-12">
+
+
+                <div class="table-responsive m-t-10">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Complaint Id</th>
+                                <th>Feedback</th>
+                                <th>Modified Feedback</th>
+                                <th>Responce</th>
+                                <th>Auth Name</th>
+                                <th>Auth Designation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let feedback1 of feedbackresponceList | paginate: { itemsPerPage: 8, currentPage: p } ">
+                                <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
+                                <td>{{feedback1.FeedbackID}}</td>
+                                <td>{{feedback1.Feedback}}</td>
+                                <td>{{feedback1.FeedbackSupSummary}}</td>
+                                <td>{{feedback1.ResponseSummary}}</td>
+                                <td>{{feedback1.AuthName}}</td>
+                                <td>{{feedback1.AuthDesignation}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
-
-</div>
-
-
-    <div class="col-xs-12 col-sm-12">
- <button class="btn cu-green-btn pull-right" type="submit" name="save" > Save&Email</button>
-</div>   
-
-  </form>
-
-
-
-
-  <form [formGroup]="feedbackForm3" *ngIf="action === 'Click'">
-<div class="col-xs-12 col-sm-12">
-  <h4 class="pull-left"> Complete FeedBack Details</h4>
-
-</div>
-
-
-   <div class="m-t-10"  >
-     
-    <div class="col-xs-12 col-sm-12">
-
-
-      <div class="table-responsive m-t-10">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Complaint Id</th>
-              <th>Feedback</th>
-              <th>Modified Feedback</th>
-              <th>Responce</th>
-              <th>Auth Name</th>
-              <th>Auth Designation</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let feedback1 of feedbackresponceList | paginate: { itemsPerPage: 8, currentPage: p } ">
-             <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
-              <td >{{feedback1.FeedbackID}}</td>
-              <td>{{feedback1.Feedback}}</td>
-              <td>{{feedback1.FeedbackSupSummary}}</td>
-              <td>{{feedback1.ResponseSummary}}</td>
-              <td>{{feedback1.AuthName}}</td>
-              <td>{{feedback1.AuthDesignation}}</td>
-            </tr>
-          </tbody>            
-        </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-    </div>
-  </div>
-</form>
-
-
-
-
-
-
-
-
-
-
-  
+        </div>
+    </form>
