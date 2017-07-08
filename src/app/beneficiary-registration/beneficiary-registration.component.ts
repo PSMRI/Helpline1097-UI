@@ -62,6 +62,7 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	directory: any = [];
 	language: any = [];
 	regHistory: any;
+	benRegData: any;
 	// states: directory = [];
 	calledEarlier: boolean = false;
 	showSearchResult: boolean = false;
@@ -97,7 +98,6 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	@Input()
 	startNewCall ()
 	{
-		// this.retrieveRegHistoryByPhoneNo( "1234567890" );
 		this.reloadCall();
 		this.startCall();
 	}
@@ -470,7 +470,6 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	passBenRegHistoryData ( benRegData: any )
 	{
 		console.log( 'data passed', benRegData );
-		this.onBenRegDataSelect.emit( benRegData );
 		this.notCalledEarlier = true;
 		this.calledEarlier = false;
 		this.showSearchResult = false;
@@ -497,6 +496,7 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		this.updatebeneficiaryincall( benRegData );
 		let res = this._util.retrieveRegHistory( benRegData.beneficiaryRegID )
 			.subscribe( response => this.populateRegistrationFormForUpdate( response[ 0 ] ) );
+		this.benRegData = benRegData;
 	}
 
 	populateRegistrationFormForUpdate ( registeredBenData )
@@ -533,6 +533,8 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
 		this.updatedObj = registeredBenData;
 		this.saved_data.beneficiaryData = registeredBenData;
+		this.onBenRegDataSelect.emit( this.benRegData );
+		this.onBenSelect.emit( "benService" );
 	}
 
 	updatedObj: any = {};
@@ -629,10 +631,8 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	 */
 	selectBeneficiary ( regHistory: any )
 	{
-		this.onBenRegDataSelect.emit( regHistory );
 		this.saved_data.benRegId = regHistory.beneficiaryRegID;
 		this.populateUserData( regHistory );
-		this.onBenSelect.emit( "benService" );
 
 	}
 }

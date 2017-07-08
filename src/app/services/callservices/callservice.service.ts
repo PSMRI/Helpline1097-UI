@@ -12,9 +12,10 @@ export class CallServices
 	options = new RequestOptions( { headers: this.headers } );
 
 	_baseUrl = this._config.get1097BaseURL();
-	_closecallurl = this._baseUrl + "services/closeCall/";
-	_callsummaryurl = this._baseUrl + "/services/getCallSummary/";
-	_calltypesurl = this._baseUrl + "/services/getCallTypes/";
+	_commonURL = this._config.getCommonBaseURL();
+	_closecallurl = this._commonURL + "call/closeCall/";
+	_callsummaryurl = this._baseUrl + "services/getCallSummary/";
+	_calltypesurl = this._commonURL + "call/getCallTypes/";
 	constructor(
 		private _http: Http,
 		private _config: ConfigService
@@ -22,21 +23,20 @@ export class CallServices
 
 	closeCall ( values: any )
 	{
-		var headers = new Headers();
-		headers.append( 'Content-Type', 'application/json' );
-		console.log( 'data to be updated in service is', values )
+		console.log( 'data to be updated in service is', values );
 		return this._http.post( this._closecallurl, values, this.options ).map( this.extractData ).catch( this.handleError );
 	}
 
 	getCallSummary ( values: any )
 	{
-		var headers = new Headers();
-		headers.append( 'Content-Type', 'application/json' );
 		console.log( 'Call summary to be retreived for ', values )
 		return this._http.post( this._callsummaryurl, values, this.options ).map( this.extractData ).catch( this.handleError );
 	}
-
-
+	getCallTypes ( values: any )
+	{
+		console.log( 'call types to be retreived for ', values )
+		return this._http.post( this._calltypesurl, values, this.options ).map( this.extractData ).catch( this.handleError );
+	}
 
 	extractData ( response: Response )
 	{
