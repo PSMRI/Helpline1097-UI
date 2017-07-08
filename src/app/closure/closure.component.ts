@@ -21,6 +21,7 @@ export class ClosureComponent implements OnInit
   calltypes: any = [];
   isFollowupRequired: boolean = false;
   preferredDateTime: any;
+  callTypeID: any;
 
   constructor(
     private _callServices: CallServices,
