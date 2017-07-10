@@ -14,6 +14,8 @@ export class BlockUnblockNumberComponent implements OnInit {
   
   blockedDate:any;
   blockedTill:any;
+
+  phoneNumber: any;
   
   getBlockedTillDate(date)
   {

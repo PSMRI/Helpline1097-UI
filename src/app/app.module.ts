@@ -18,6 +18,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MdDatepickerModule } from '@angular/material';
 import { MdInputModule } from '@angular/material';
 import { MdNativeDateModule } from '@angular/material';
+import { CustomFormsModule } from 'ng2-validation';
+import { ValidationMessagesModule } from 'ng2-custom-validation';
+
 
 
 import { AppComponent } from './app.component';
@@ -138,6 +141,8 @@ import { helpline1097Component } from './1097/1097.component'
     ReactiveFormsModule,
     NgxPaginationModule,
     MdInputModule,
+    CustomFormsModule,
+ValidationMessagesModule,
     RouterModule.forRoot( [
       {
         path: 'resetPassword',
