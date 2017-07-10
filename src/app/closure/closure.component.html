@@ -32,13 +32,27 @@
             </div>
         </div>
         <form #Form="ngForm" (submit)="closeCall(Form.value)">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="">
+                    <span class="f-c-g">Is followup required</span>
+                </div>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" value="true" name="isFollowupRequired" [(ngModel)]="isFollowupRequired"> Yes 
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="false" name="optradio" name="isFollowupRequired" [(ngModel)]="isFollowupRequired"> No
+                    </label>
+                </div>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
                 <div class="form-group ">
-                    <label class="control-label" for="callClosureType" i18n>Select Call Type</label>
-                    <select class="form-control drop-arrow " name="callClosureType" [(ngModel)]="callClosureType">
+                    <label class="control-label" for="callTypeID" i18n>Select Call Type</label>
+                    <select class="form-control drop-arrow " name="callTypeID" [(ngModel)]="callTypeID">
                     <!--<option></option>-->
-                    <option value="Valid Call" i18n>Valid Call</option>
-                    <option value="Test Call" i18n>Test Call</option>
+                    <!--<option value="Valid Call" i18n>Valid Call</option>
+                    <option value="Test Call" i18n>Test Call</option>-->
+                    <option *ngFor="let calltype of calltypes " value={{calltype.callTypeID}}>{{calltype.callTypeDesc}}</option>
                 </select>
                 </div>
             </div>

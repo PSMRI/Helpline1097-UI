@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FeedbackService } from '../services/supervisorServices/Feedbackservice.service';
+import { dataService } from '../services/dataService/data.service';
 import { MdMenuTrigger, MdDatepicker } from '@angular/material';
 import { CustomValidators } from 'ng2-validation';
 import { MessageBag, ValidationMessagesService } from 'ng2-custom-validation';
@@ -11,7 +12,6 @@ import { MessageBag, ValidationMessagesService } from 'ng2-custom-validation';
   selector: 'supervisor-grievance',
   templateUrl: './grievance.component.html',
   styleUrls: [ './grievance.component.css' ],
-
   providers: [ FeedbackService ]
 } )
 export class supervisorFeedback implements OnInit 
@@ -25,19 +25,22 @@ export class supervisorFeedback implements OnInit
   feedbackresponceList: any;
   data: any;//it is am using for edit purpose;
   data1: any;
+  serviceID: any;
   myDatepicker = '';
   myDatepicker1 = '';
   public showfeedbackstatus = 1
   error: any = { isError: false, errorMessage: '' };
 
-  constructor( private _feedbackservice: FeedbackService )
+  constructor(
+    private _feedbackservice: FeedbackService,
+    private _saved_data: dataService
+  )
   {
     this.feedbackList;
     this.feedbackresponceList;
   }
 
   feedbackForm = new FormGroup( {
-
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
     BeneficiaryRegID: new FormControl(),
@@ -59,9 +62,6 @@ export class supervisorFeedback implements OnInit
     UpdateResponse: new FormControl(),
     emailStatusID: new FormControl(),
     selectStatus: new FormControl()
-
-
-
   } );
 
   feedbackForm1 = new FormGroup( {
@@ -102,7 +102,10 @@ export class supervisorFeedback implements OnInit
 
   ngOnInit ()
   {
-    this._feedbackservice.getFeedback()
+    this.serviceID = this._saved_data.current_service.serviceID;
+    let requestData = {};
+    requestData[ "serviceID" ] = this.serviceID;
+    this._feedbackservice.getFeedback( requestData )
       .subscribe( resProviderData => this.providers( resProviderData ) );
   }
   onSubmit ()
@@ -111,6 +114,7 @@ export class supervisorFeedback implements OnInit
     this.action = "view";
 
     let bodyString = this.feedbackForm.value;
+    bodyString[ "serviceID" ] = this.serviceID;
     console.log( "SPData" + JSON.stringify( bodyString ) );
 
     if ( this.action == 'edit' )
@@ -209,6 +213,7 @@ export class supervisorFeedback implements OnInit
     console.log( feedback );
     console.log( "SPData" + JSON.stringify( feedback ) );
     let dataforUpdate = feedback;
+    dataforUpdate[ "serviceID" ] = this.serviceID;
 
     this.feedbackForm1.controls.feedbackID.setValue( feedback.FeedBackID );
     this.feedbackForm1.controls.feedbackSupSummary.setValue( feedback.Feedback );
@@ -234,6 +239,7 @@ export class supervisorFeedback implements OnInit
   onSearch ()
   {
     let bodyString = this.feedbackForm2.value;
+    bodyString[ "serviceID" ] = this.serviceID;
     this._feedbackservice.searchFeedback( bodyString )
       .subscribe( resProviderData => this.providers( resProviderData ) );
 

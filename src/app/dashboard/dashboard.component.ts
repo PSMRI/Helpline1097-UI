@@ -35,7 +35,7 @@ export class dashboardContentClass implements OnInit
   minimizeBar ()
   {
     this.barMinimized = true;
-    this.testEvent();
+    //this.testEvent();
   }
 
   // testing event
@@ -57,9 +57,9 @@ export class dashboardContentClass implements OnInit
   {
     console.log( "listener invoked: " + event );
     // spliting test event 
-    this.eventSpiltData = event.detail.data.split( '|' );
+    // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
-    //this.eventSpiltData = event.data.split('|'); 
+    this.eventSpiltData = event.data.split( '|' );
     this.handleEvent();
   }
 
@@ -73,7 +73,8 @@ export class dashboardContentClass implements OnInit
     if ( window.parent.parent.addEventListener )
     {
       console.log( "adding message listener" );
-      document.addEventListener( "message", this.listener.bind( this ), false );
+      // document.addEventListener( "message", this.listener.bind( this ), false );
+      addEventListener( "message", this.listener.bind( this ), false );
     }
     else
     {

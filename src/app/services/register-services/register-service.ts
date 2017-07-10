@@ -17,8 +17,8 @@ export class RegisterService
 	_getrelationshipurl = "get/beneficiaryRelationship/";
 	_getuserdata = "beneficiary/searchUser/";
 	_getuserdatabyno = "beneficiary/searchUserByPhone/";
-	_startCall = "services/startCall/";
-	_updatebeneficiaryincall = "services/updatebeneficiaryincall";
+	_startCall = "call/startCall/";
+	_updatebeneficiaryincall = "call/updatebeneficiaryincall";
 	constructor(
 		private _http: Http,
 		private _config: ConfigService
@@ -33,12 +33,12 @@ export class RegisterService
 	updatebeneficiaryincall ( callData: any )
 	{
 		console.log( "Data for call update: " + callData );
-		return this._http.post( this._helplineURL + this._updatebeneficiaryincall, callData ).map( this.extractData ).catch( this.handleError );
+		return this._http.post( this._baseUrl + this._updatebeneficiaryincall, callData ).map( this.extractData ).catch( this.handleError );
 	}
 	startCall ( data )
 	{
 		console.log( "cndbasmfg" )
-		return this._http.post( this._helplineURL + this._startCall, data ).map( this.extractData ).catch( this.handleError );
+		return this._http.post( this._baseUrl + this._startCall, data ).map( this.extractData ).catch( this.handleError );
 	}
 
 	getRelationships ()

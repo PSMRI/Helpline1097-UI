@@ -23,38 +23,43 @@
         </div>
     </div>
 </div>
-<div class="col-xs-12 col-sm-12" (click)="minimizeBar()">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12">
-            <div class="row  b-t-2-w">
-                <div class="col-xs-12 col-sm-12  m-t-3">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-5 col-lg-6">
-                            <ul class="list-inline list-unstyled pull-left m-b-3">
-                                <li class="cursorPointer" [routerLink]="['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['dashboard'] } }]">
-                                    <i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></li>
-                                <li class="m-l-10"><img src="assets/images/dashboardIcon.png" alt="Dashboard Icon" title="Dashboard Icon" /></li>
-                                <li class="f-s-16 font-Semibold">My ID : CO0111120</li>
-                                <li class="m-l-lg-40"><img src="assets/images/transferCallIcon.png" alt="Caller Icon" title="Caller Icon" />
-                                    <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green">ON CALL</span>
+<div class="col-xs-12 col-sm-12 " (click)="minimizeBar()">
+    <div class="row ">
+        <div class="col-xs-12 col-sm-12 ">
+            <div class="row b-t-2-w ">
+                <div class="col-xs-12 col-sm-12 m-t-3 ">
+                    <div class="row ">
+                        <div class="col-xs-12 col-sm-8 col-md-5 col-lg-6 ">
+                            <ul class="list-inline list-unstyled pull-left m-b-3 ">
+                                <li class="cursorPointer " [routerLink]="[ '/MultiRoleScreenComponent', { outlets: {
+    'postLogin_router': [ 'dashboard'] } }] ">
+                                    <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i></li>
+                                <li class="m-l-10 "><img src="assets/images/dashboardIcon.png " alt="Dashboard Icon
+    " title="Dashboard Icon " /></li>
+                                <li class="f-s-16 font-Semibold ">My ID : CO0111120</li>
+                                <li class="m-l-lg-40 "><img src="assets/images/transferCallIcon.png " alt="Caller Icon
+    " title="Caller Icon " />
+                                    <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green ">ON CALL</span>
                                 </li>
-                                <li class="m-l-lg-40"><img src="assets/images/durationIcon.png" alt="Caller Icon" title="Caller Icon" />
-                                    <span class="m-l-lg-20 f-s-14 f-c-14508c font-Semibold">{{callDuration}} Sec</span>
+                                <li class="m-l-lg-40 "><img src="assets/images/durationIcon.png " alt="Caller Icon
+    " title="Caller Icon " />
+                                    <span class="m-l-lg-20 f-s-14 f-c-14508c font-Semibold ">{{callDuration}} Sec</span>
                                 </li>
-                                <!-- <li class="f-s-14 font-regular">My ID : CO0111120</li> -->
+                                <!-- <li class="f-s-14 font-regular ">My ID : CO0111120</li> -->
                             </ul>
                         </div>
-                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4">
-                                <option selected="selected" value="1">English </option>
-                                <option value="2">Kannada </option>
+                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 ">
+                            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4 ">
+                                <option selected="selected " value="1 ">English </option>
+                                <option value="2 ">Kannada </option>
                             </select>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-                            <div class="">
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 ">
+                            <div class=" ">
                                 <ul class="list-inline list-unstyled pull-right m-t-3 m-b-3 ">
-                                    <li class="font-regular"><span class="f-s-14 ">No. Calls :</span><span class="f-s-14 f-c-14508c">20</span> </li>
-                                    <li class="font-regular ">Total talk time :<span class="f-s-14 f-c-14508c"> 2 hr:30 min:20 sec</span> </li>
+                                    <li class="font-regular "><span class="f-s-14 ">No. Calls :</span><span class="f-s-14
+    f-c-14508c ">20</span> </li>
+                                    <li class="font-regular ">Total talk time :<span class="f-s-14 f-c-14508c "> 2 hr:30 min:20 sec</span> </li>
                                 </ul>
                             </div>
                         </div>
@@ -62,33 +67,36 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12">
-            <div class="row  b-t-2-w form-horizontal">
-                <div class="col-xs-12 col-sm-12 m-t-3">
-                    <ul class="list-unstyled list-inline pull-left m-t-lg-10 p-a-0 m-b-3">
-                        <li><img src="assets/images/callerIcon.png" alt="Caller Icon" title="Caller Icon" /></li>
-                        <li><span class="m-l-lg-20 f-s-16 f-c-0 font-Medium">{{selectedBenData.id}}</span></li>
+        <div class="col-xs-12 col-sm-12 ">
+            <div class="row b-t-2-w form-horizontal ">
+                <div class="col-xs-12 col-sm-12 m-t-3 ">
+                    <ul class="list-unstyled list-inline pull-left m-t-lg-10 p-a-0 m-b-3 ">
+                        <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li>
+                        <li><span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span></li>
                         <li>{{selectedBenData.fname}}</li>
                         <li>{{selectedBenData.lname}}</li>
                         <li>{{selectedBenData.mob}}</li>
                     </ul>
-                    <ul class="list-unstyled list-inline pull-right m-b-0">
-                        <li class="text-center"><span><img src="assets/images/transferCallIcon.png" alt="Transfer Icon" title="Transfer Icon"/></span>
+                    <ul class="list-unstyled list-inline pull-right m-b-0 ">
+                        <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
+    " title="Transfer Icon "/></span>
                             <br />
-                            <span class="f-s-14">Transfer Call</span></li>
-                        <li class="text-center m-l-lg-40"><span><img src="assets/images/flagCallIcon.png" alt="Flag Call Icon" title="Flag Call Icon"/></span>
+                            <span class="f-s-14 ">Transfer Call</span></li>
+                        <li class="text-center m-l-lg-40 "><span><img src="assets/images/flagCallIcon.png " alt="Flag Call
+    Icon " title="Flag Call Icon "/></span>
                             <br />
-                            <span class="f-s-14">Flag Call</span></li>
-                        <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png" alt="End Call Icon" title="End Call Icon"/></span>
+                            <span class="f-s-14 ">Flag Call</span></li>
+                        <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png " alt="End Call
+    Icon " title="End Call Icon "/></span>
                             <br />
-                            <span class="f-s-14">End Call</span></li>
+                            <span class="f-s-14 ">End Call</span></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
+        <div class="clearfix "></div>
         <div>
-            <app-1097 *ngIf="current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)"></app-1097>
+            <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event) "></app-1097>
         </div>
     </div>
 </div>

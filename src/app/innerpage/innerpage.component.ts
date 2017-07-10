@@ -71,8 +71,14 @@ export class InnerpageComponent implements OnInit
 		}
 	}
 
-	minimizeBar()
+
+	minimizeBar ()
 	{
-		
+		this.barMinimized = true;
+	}
+	toggleBar ()
+	{
+		this.barMinimized = !this.barMinimized;
+
 	}
 }

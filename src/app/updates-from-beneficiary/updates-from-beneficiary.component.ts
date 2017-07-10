@@ -16,7 +16,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
   sexualOrientationID: any;
   placeOfWork: any;
   remarks: any;
-  sufferingFromAids: boolean = false;
+  isHIVPos: boolean = false;
   beneficiaryRegID: any;
   educationQualifications: any = [];
   sexualOrientations: any = [];
@@ -59,6 +59,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
       this.educationID = this.saved_data.beneficiaryData.i_bendemographics.educationID;
       this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationID;
       this.placeOfWork = "";//this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
+      this.isHIVPos = this.saved_data.beneficiaryData.isHIVPos;
     }
   }
 
@@ -78,10 +79,13 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
   {
     console.log( values );
     let newOtherData: any = {};
+    this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
     this.saved_data.beneficiaryData.i_bendemographics.occupationID = 7;//values.occupation;
     this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationID;
     this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
     this.saved_data.beneficiaryData.sexualOrientationID = values.sexualOrientationID;
+
+    // alert( values );
     let res = this._util.updateBeneficiaryData( this.saved_data.beneficiaryData ).subscribe( response =>
     {
       this.showAlert();
