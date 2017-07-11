@@ -11,7 +11,7 @@
           <a class="bs-wizard-dot cursorPointer active-tab"></a>
         </div>
         <div id="two" class="col-xs-2 bs-wizard-step disabled">
-          <div class="text-center hidden-xs hidden-sm font-Light f-s-16">Provide Service bhai</div>
+          <div class="text-center hidden-xs hidden-sm font-Light f-s-16">Provide Service</div>
           <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">A S</div>
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
@@ -80,5 +80,6 @@
 <button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18 czenrix-icon" *ngIf="barMinimized"
   (click)="toggleBar()">C-Zentrix</button>
 
-<iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized"
-  (click)="toggleBar()"></iframe>
+<!--<iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized"
+  (click)="toggleBar()"></iframe>-->
+<iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized" (click)="toggleBar()"></iframe>

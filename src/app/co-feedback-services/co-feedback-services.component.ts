@@ -92,10 +92,15 @@ export class CoFeedbackServicesComponent implements OnInit
 			.subscribe( response => this.setFeedbackTypes( response ) );
 		this._feedbackTypes.getFeedbackSeverityData()
 			.subscribe( response => this.setFeedbackSeverity( response ) );
-		this._coFeedbackService.getFeedbackHistoryById( this.beneficiaryRegID )
-			.subscribe( response => this.setFeedbackHistoryByID( response ) );
+		this.showBeneficiaryFeedbackList();
 	}
 
+	showBeneficiaryFeedbackList ()
+	{
+		this._coFeedbackService.getFeedbackHistoryById( this.beneficiaryRegID, this.serviceID )
+			.subscribe( response => this.setFeedbackHistoryByID( response ) );
+		this.showTable();
+	}
 	SetUserBeneficiaryFeedbackData ( regData: any )
 	{
 		if ( regData.states )
@@ -220,8 +225,10 @@ export class CoFeedbackServicesComponent implements OnInit
 			"1097ServiceID": this.serviceID
 		}];
 
+		// this._coFeedbackService.createFeedback( feedbackObj )
+		// 	.subscribe( response => this.showtable( response, feedbackObj ) );
 		this._coFeedbackService.createFeedback( feedbackObj )
-			.subscribe( response => this.showtable( response, feedbackObj ) );
+			.subscribe( response => this.showBeneficiaryFeedbackList() );
 	}
 	showtable ( response, obj )
 	{

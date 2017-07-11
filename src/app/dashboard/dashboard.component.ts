@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { dataService } from '../services/dataService/data.service';
+import { ConfigService } from '../services/config/config.service';
 
 @Component( {
   selector: 'dashboard-component',
@@ -12,12 +13,16 @@ export class dashboardContentClass implements OnInit
   barMinimized: boolean = true;
   eventSpiltData: any;
   data: any;
+  ctiHandlerURL: any;
   constructor(
     public dataSettingService: dataService,
-    public router: Router
+    public router: Router,
+    private configService: ConfigService
   ) { };
   ngOnInit ()
   {
+    //http://10.201.13.17/bar/cti_handler.php
+    this.ctiHandlerURL = this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
     this.showDashboard();
   }
   showDashboard ()
@@ -65,7 +70,7 @@ export class dashboardContentClass implements OnInit
 
   handleEvent ()
   {
-    this.router.navigate( [ '/InnerpageComponent', this.eventSpiltData[ 1 ] ] );
+    this.router.navigate( [ '/InnerpageComponent', this.eventSpiltData[ 1 ], this.eventSpiltData[ 2 ] ] );
   }
 
   addListener ()

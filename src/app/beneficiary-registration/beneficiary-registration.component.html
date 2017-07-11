@@ -63,7 +63,8 @@
                             <!-- <td>{{regHistory.lastName}}</td>-->
                             <!--<td style="display: none;">{{regHistory.fatherName}}</td>
                             <td>{{regHistory.fatherName}}</td>-->
-                            <td>{{regHistory.dOB}}</td>
+                            <!--<td>{{new Date(regHistory.dOB).toDateString()}}</td>-->
+                            <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td>
                             <td>{{regHistory.m_gender.genderName}} <button class=".btn pull-right" (click)="passBenRegHistoryData(regHistory)">Edit</button></td>
                             <!--  <td>{{regHistory.createdOn}}</td>
                                <! <td style="display: none;">{{regHistory.phoneNo}}</td>

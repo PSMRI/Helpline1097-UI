@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
+import { ConfigService } from '../services/config/config.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router'
 declare var jQuery: any;
@@ -15,7 +16,10 @@ export class helpline1097CoComponent implements OnInit
   callDuration: number = 0;
   beneficiaryNotSelected: boolean = true;
   callerNumber: any;
+  callID: any;
   barMinimized: boolean = true;
+  ctiHandlerURL: any = "";
+
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -26,7 +30,8 @@ export class helpline1097CoComponent implements OnInit
   constructor(
     public getCommonData: dataService,
     public basicrouter: Router,
-    public router: ActivatedRoute
+    public router: ActivatedRoute,
+    private configService: ConfigService
 
   )
   {
@@ -49,6 +54,7 @@ export class helpline1097CoComponent implements OnInit
   {
     var idx = jQuery( '.carousel-inner div.active' ).index();
     console.log( "index", idx );
+    this.ctiHandlerURL = this.configService.getTelephonyServerURL + "bar/cti_handler.php";
 
     jQuery( '#closureLink' ).on( 'click', function ()
     {
@@ -154,6 +160,13 @@ export class helpline1097CoComponent implements OnInit
         console.log( " this.callerNumber:" + this.callerNumber );
         this.getCommonData.callerNumber = this.callerNumber;
       }
+      if ( params[ 'callID' ] != undefined )
+      {
+        this.callID = params[ 'callID' ];
+        console.log( " this.callID:" + this.callID );
+        this.getCommonData.callID = this.callID;
+      }
+
     } );
     // this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': [''] } }]);
   }
