@@ -526,14 +526,11 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		// saving the updated ben data in the in_app_saved data service file
 		this.saved_data.beneficiaryData = this.updatedObj;
 		console.log( JSON.stringify( this.saved_data.beneficiaryData ) );
-		return;
+		// return;
 
-		// this.updateBen.updateBeneficiaryData( this.updatedObj ).subscribe( response =>
-		// 	this.updateSuccessHandeler( response )
-		// );
-
-
-
+		this.updateBen.updateBeneficiaryData( this.updatedObj ).subscribe( response =>
+			this.updateSuccessHandeler( response )
+		);
 	}
 
 	updateSuccessHandeler ( response )
