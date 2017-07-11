@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfigService } from '../services/config/config.service';
 
 @Component( {
@@ -10,12 +11,15 @@ export class QualityAuditComponent implements OnInit
 {
   qualityAuditURL: any;
   constructor(
-    private configService: ConfigService
+    private configService: ConfigService,
+    public sanitizer: DomSanitizer
   ) { }
 
   ngOnInit ()
   {
-    this.qualityAuditURL = this.configService.getTelephonyServerURL() + "adminui.php?voice_logger";
+    let url = this.configService.getTelephonyServerURL() + "adminui.php?voice_logger";
+    console.log( "url = " + url );
+    this.qualityAuditURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
   }
 
   showSearchPanel: boolean = true;

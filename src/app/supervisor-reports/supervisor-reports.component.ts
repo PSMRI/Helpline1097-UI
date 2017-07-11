@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfigService } from '../services/config/config.service';
 
 @Component( {
@@ -11,12 +12,15 @@ export class SupervisorReportsComponent implements OnInit
   // http://10.201.13.17/adminui.php?reportUI
   reportsURL: any;
   constructor(
-    private configService: ConfigService
+    private configService: ConfigService,
+    public sanitizer: DomSanitizer
   ) { }
 
   ngOnInit ()
   {
-    this.reportsURL = this.configService.getTelephonyServerURL() + "adminui.php?reportUI";
+    let url = this.configService.getTelephonyServerURL() + "adminui.php?reportUI";
+    console.log( "url = " + url );
+    this.reportsURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dataService } from '../services/dataService/data.service';
 import { ConfigService } from '../services/config/config.service';
 
@@ -17,12 +18,15 @@ export class dashboardContentClass implements OnInit
   constructor(
     public dataSettingService: dataService,
     public router: Router,
-    private configService: ConfigService
+    private configService: ConfigService,
+    public sanitizer: DomSanitizer
   ) { };
   ngOnInit ()
   {
     //http://10.201.13.17/bar/cti_handler.php
-    this.ctiHandlerURL = this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
+    let url = this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
+    console.log( "url = " + url );
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
     this.showDashboard();
   }
   showDashboard ()

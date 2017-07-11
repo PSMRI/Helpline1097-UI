@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dataService } from '../services/dataService/data.service';
 import { ConfigService } from '../services/config/config.service';
 import { Router } from '@angular/router';
@@ -31,8 +32,8 @@ export class helpline1097CoComponent implements OnInit
     public getCommonData: dataService,
     public basicrouter: Router,
     public router: ActivatedRoute,
-    private configService: ConfigService
-
+    private configService: ConfigService,
+    public sanitizer: DomSanitizer
   )
   {
     setInterval(() =>
@@ -54,7 +55,9 @@ export class helpline1097CoComponent implements OnInit
   {
     var idx = jQuery( '.carousel-inner div.active' ).index();
     console.log( "index", idx );
-    this.ctiHandlerURL = this.configService.getTelephonyServerURL + "bar/cti_handler.php";
+    let url = this.configService.getTelephonyServerURL + "bar/cti_handler.php";
+    console.log( "url = " + url );
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
 
     jQuery( '#closureLink' ).on( 'click', function ()
     {
