@@ -43,7 +43,7 @@ export class supervisorFeedback implements OnInit
   feedbackForm = new FormGroup( {
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
-    beneficiaryRegID: new FormControl(),
+    beneficiaryName: new FormControl(),
     comments: new FormControl(),
     createdBy: new FormControl(),
     createdDate: new FormControl( "2017-05-20" ),
@@ -61,14 +61,14 @@ export class supervisorFeedback implements OnInit
     modifiedBy: new FormControl(),
     updateResponse: new FormControl(),
     emailStatusID: new FormControl(),
-    selectStatus: new FormControl()
+    feedbackStatusID: new FormControl()
   } );
 
   feedbackForm1 = new FormGroup( {
 
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
-    beneficiaryRegID: new FormControl(),
+    beneficiaryName: new FormControl(),
     comments: new FormControl(),
     createdBy: new FormControl(),
     createdDate: new FormControl(),
@@ -162,7 +162,7 @@ export class supervisorFeedback implements OnInit
 
     this.feedbackForm.controls.feedbackID.setValue( feedback.feedBackID );
     this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.feedback );
-    this.feedbackForm.controls.beneficiaryRegID.setValue( feedback.beneficiaryName );
+    this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue( feedback.createdDate );
     this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
@@ -189,7 +189,7 @@ export class supervisorFeedback implements OnInit
 
     this.feedbackForm.controls.feedbackID.setValue( feedback.feedBackID );
     this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.feedback );
-    this.feedbackForm.controls.beneficiaryRegID.setValue( feedback.beneficiaryName );
+    this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue( feedback.createdDate );
     this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
@@ -217,7 +217,7 @@ export class supervisorFeedback implements OnInit
 
     this.feedbackForm1.controls.feedbackID.setValue( feedback.feedBackID );
     this.feedbackForm1.controls.feedbackSupSummary.setValue( feedback.feedback );
-    this.feedbackForm1.controls.beneficiaryRegID.setValue( feedback.beneficiaryRegID );
+    this.feedbackForm1.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     this.feedbackForm1.controls.createdBy.setValue( feedback.createdBy );
     this.feedbackForm1.controls.createdDate.setValue( "2017-06-19" );
 

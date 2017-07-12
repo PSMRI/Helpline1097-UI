@@ -39,37 +39,33 @@
                 <table class="table ">
                     <thead>
                         <tr>
-                            <!-- <th>Registration No</th>-->
                             <th>Beneficiary ID</th>
                             <th>Full Name </th>
-                            <!--<th>Surname </th>-->
-                            <!--<th style="display: none;">Father Name </th>
-                            <th>Father Name </th>-->
                             <th>Date Of Birth</th>
+                            <th>Age</th>
                             <th>Gender</th>
-                            <!--  <th>Date and Time</th>
-                            
-                            <th style="display: none;">Phone No</th>
-                            <th style="display: none;">Government Identity Number</th>
-                            <th style="display: none;">Government Identity Type</th>-->
-
+                            <th>State</th>
+                            <th>District</th>
+                            <th>Taluk</th>
+                            <th>Village</th>
+                            <th>Preferred Language</th>
+                            <th>Beneficiary Tagging</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 5, currentPage: p }">
-                            <!-- <td>{{regHistory.beneficiaryRegID}}</td>-->
                             <td>{{regHistory.beneficiaryID}}</td>
-                            <td> {{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
-                            <!-- <td>{{regHistory.lastName}}</td>-->
-                            <!--<td style="display: none;">{{regHistory.fatherName}}</td>
-                            <td>{{regHistory.fatherName}}</td>-->
-                            <!--<td>{{new Date(regHistory.dOB).toDateString()}}</td>-->
+                            <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
                             <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td>
-                            <td>{{regHistory.m_gender.genderName}} <button class=".btn pull-right" (click)="passBenRegHistoryData(regHistory)">Edit</button></td>
-                            <!--  <td>{{regHistory.createdOn}}</td>
-                               <! <td style="display: none;">{{regHistory.phoneNo}}</td>
-                            <td style="display: none;">{{regHistory.govtIdentityNo}}</td>
-                            <td style="display: none;">{{regHistory.govtIdentityTypeID}}</td>-->
+                            <td>{{regHistory.age}}</td>
+                            <td>{{regHistory.m_gender.genderName}}</td>
+                            <td>{{regHistory.i_bendemographics.m_state.stateName}}</td>
+                            <td>{{regHistory.i_bendemographics.m_district.districtName}}</td>
+                            <td>{{regHistory.i_bendemographics.m_districtblock.blockName}}</td>
+                            <td>{{regHistory.i_bendemographics.m_districtbranchmapping.villageName}}</td>
+                            <td>{{regHistory.i_bendemographics.m_language.genderName}}</td>
+                            <td>{{regHistory.benPhoneMaps[0].benRelationshipType.benRelationshipType}}</td>
+                            <td><button class=".btn pull-right" (click)="passBenRegHistoryData(regHistory)">Edit</button></td>
 
                         </tr>
                         <pagination-controls (pageChange)="p = $event"></pagination-controls>
