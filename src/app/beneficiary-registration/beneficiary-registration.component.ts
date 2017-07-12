@@ -104,7 +104,9 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	startCall ()
 	{
 		let data: any = {};
+		data.callID = this.saved_data.callID;
 		data.is1097 = true;
+		data.createdBy = this.saved_data.uname;
 		this._util.startCall( data ).subscribe( response => this.setBenCall( response ) );
 	}
 
@@ -115,29 +117,10 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 	SetUserBeneficiaryRegistrationData ( response: any )
 	{
-		console.log( "hey", response );
-
-		this.language.push( { "languageID": null, "languageName": "" } );
-		this.communities.push( { "communityID": null, "communityType": "" } );
-		this.maritalStatuses.push( { "maritalStatusID": null, "status": "" } );
-		this.genders.push( { "genderID": null, "genderName": "" } );
-		this.titles.push( { "titleID": null, "titleName": "" } );
-		this.benEdus.push( { "educationID": null, "educationType": "" } );
-		this.states.push( { "stateID": null, "stateName": "" } );
-
-
-
 		let regData = response;
 		if ( regData.states )
 		{
-			//commented by neeraj
-			//this.states = regData.states;
-
-
-			for ( let i = 0; i < regData.states.length; i++ )
-			{
-				this.states.push( regData.states[ i ] );
-			}
+			this.states = regData.states;
 		}
 		if ( regData.m_Status )
 		{
@@ -150,65 +133,27 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 		if ( regData.i_BeneficiaryEducation )
 		{
-			//commented by neeraj
-			//this.benEdus = regData.i_BeneficiaryEducation;
-
-			for ( let i = 0; i < regData.i_BeneficiaryEducation.length; i++ )
-			{
-				this.benEdus.push( regData.i_BeneficiaryEducation[ i ] );
-			}
+			this.benEdus = regData.i_BeneficiaryEducation;
 		}
 		if ( regData.m_Title )
 		{
-			//commented by neeraj
-			//this.titles = regData.m_Title;
-
-			for ( let i = 0; i < regData.m_Title.length; i++ )
-			{
-				this.titles.push( regData.m_Title[ i ] );
-			}
-
+			this.titles = regData.m_Title;
 		}
 		if ( regData.m_genders )
 		{
-			//commented by neeraj
-			//this.genders = regData.m_genders;
-
-			for ( let i = 0; i < regData.m_genders.length; i++ )
-			{
-				this.genders.push( regData.m_genders[ i ] );
-			}
-
+			this.genders = regData.m_genders;
 		}
 		if ( regData.m_maritalStatuses )
 		{
-			//commented by neeraj
-			//this.maritalStatuses = regData.m_maritalStatuses;
-
-			for ( let i = 0; i < regData.m_maritalStatuses.length; i++ )
-			{
-				this.maritalStatuses.push( regData.m_maritalStatuses[ i ] );
-			}
+			this.maritalStatuses = regData.m_maritalStatuses;
 		}
 		if ( regData.m_communities )
 		{
-			//commented by neeraj
-			//this.communities = regData.m_communities;
-
-			for ( let i = 0; i < regData.m_communities.length; i++ )
-			{
-				this.communities.push( regData.m_communities[ i ] );
-			}
+			this.communities = regData.m_communities;
 		}
 		if ( regData.m_language )
 		{
-			//commented by neeraj
-			//this.language = regData.m_language;
-
-			for ( let i = 0; i < regData.m_language.length; i++ )
-			{
-				this.language.push( regData.m_language[ i ] );
-			}
+			this.language = regData.m_language;
 		}
 
 	}
@@ -226,43 +171,16 @@ export class BeneficiaryRegistrationComponent implements OnInit
 			// If condition added for preveting extra api call on radio click.
 			if ( this.regHistoryList.length > 0 )
 			{
-				//alert("hiiii....not going");
 				this.onBenRegDataSelect.emit( null );
 			}
-			// below condition to be revisited
-			// else
-			// {
-			// 	this.reloadCall();
-			// }
-
-			/**
-			 * Neeraj Code; 22-jun-2017
-			 */
-			/*	this.calledEarlier = true;
-				this.notCalledEarlier = false;
-				this.notCalledEarlierLowerPart = false;
-				if (this.showSearchResult == false)
-					this.showSearchResult = true;
-	
-				this.updationProcess = false;
-	
-				this.onBenRegDataSelect.emit(null);*/
-			/**
-			 *End of Neeraj Code; 22-jun-2017
-			 */
 		}
 		if ( flag === 'no' )
-		{/**
-			 * Neeraj Code; 22-jun-2017
-			 */
+		{
 			this.notCalledEarlier = true;
 
 			this.notCalledEarlierLowerPart = false;
 
 			this.onBenRegDataSelect.emit( null );
-			/**
-			*  End of Neeraj Code; 22-jun-2017
-			*/
 			this.calledEarlier = false;
 			this.showSearchResult = false;
 			console.log( this.showSearchResult );
@@ -305,9 +223,10 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	SetDistricts ( response: any )
 	{
 		//console.log("dist",response);
-		this.districts.push( { "districtID": undefined, "districtName": "" } );
-		for ( let i = 0; i < response.length; i++ )
-			this.districts.push( response[ i ] );
+		// this.districts.push( { "districtID": undefined, "districtName": "" } );
+		// for ( let i = 0; i < response.length; i++ )
+		// this.districts.push( response[ i ] );
+		this.districts = response;
 	}
 	GetTaluks ( district: number )
 	{
@@ -319,10 +238,10 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	SetTaluks ( response: any )
 	{
 		//console.log("taluka", response);
-		//this.taluks = response;
-		this.taluks.push( { "blockID": undefined, "blockName": "" } );
-		for ( let i = 0; i < response.length; i++ )
-			this.taluks.push( response[ i ] );
+		this.taluks = response;
+		// this.taluks.push( { "blockID": undefined, "blockName": "" } );
+		// for ( let i = 0; i < response.length; i++ )
+		// 	this.taluks.push( response[ i ] );
 	}
 	GetBlocks ( taluk: number )
 	{
@@ -333,10 +252,10 @@ export class BeneficiaryRegistrationComponent implements OnInit
 	SetBlocks ( response: any )
 	{
 		//console.log("block", response);
-		//this.blocks = response;
-		this.blocks.push( { "districtBranchID": undefined, "villageName": "" } );
-		for ( let i = 0; i < response.length; i++ )
-			this.blocks.push( response[ i ] );
+		this.blocks = response;
+		// this.blocks.push( { "districtBranchID": undefined, "villageName": "" } );
+		// for ( let i = 0; i < response.length; i++ )
+		// 	this.blocks.push( response[ i ] );
 	}
 
 	/**
@@ -521,14 +440,24 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		this.educationQualification = registeredBenData.i_bendemographics.educationID;
 		this.state = registeredBenData.i_bendemographics.stateID;
 		this.district = registeredBenData.i_bendemographics.districtID;
-		this.GetDistricts( registeredBenData.i_bendemographics.stateID );
 		this.districts = registeredBenData.i_bendemographics.m_district;
 		this.taluk = registeredBenData.i_bendemographics.blockID;
-		this.GetTaluks( registeredBenData.i_bendemographics.districtID );
+
 		this.taluks = registeredBenData.i_bendemographics.m_districtblock;
 		this.village = registeredBenData.i_bendemographics.districtBranchID;
-		this.GetBlocks( registeredBenData.i_bendemographics.blockID );
 		this.blocks = registeredBenData.i_bendemographics.m_districtbranchmapping;
+		if ( this.state )
+		{
+			this.GetDistricts( this.state );
+		}
+		if ( this.district )
+		{
+			this.GetTaluks( this.district );
+		}
+		if ( this.taluk )
+		{
+			this.GetBlocks( this.taluk );
+		}
 		this.pincode = registeredBenData.i_bendemographics.pinCode;
 		this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
 		this.updatedObj = registeredBenData;
@@ -598,13 +527,12 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 		// saving the updated ben data in the in_app_saved data service file
 		this.saved_data.beneficiaryData = this.updatedObj;
+		console.log( JSON.stringify( this.saved_data.beneficiaryData ) );
+		// return;
 
 		this.updateBen.updateBeneficiaryData( this.updatedObj ).subscribe( response =>
 			this.updateSuccessHandeler( response )
 		);
-
-
-
 	}
 
 	updateSuccessHandeler ( response )

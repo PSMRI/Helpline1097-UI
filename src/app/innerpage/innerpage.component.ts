@@ -16,6 +16,7 @@ export class InnerpageComponent implements OnInit
 	beneficiaryNotSelected: boolean = true;
 	callerNumber: any;
 	barMinimized: boolean = true;
+	startYear: number = 1970;
 
 	@Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
 	@Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -43,7 +44,9 @@ export class InnerpageComponent implements OnInit
 		'id': '',
 		'fname': '',
 		'lname': '',
-		'mob': ''
+		'mob': '',
+		'age': '',
+		'gender': ''
 	};
 
 	ngOnInit ()
@@ -63,11 +66,21 @@ export class InnerpageComponent implements OnInit
 			this.selectedBenData.id = data.beneficiaryID;
 			this.selectedBenData.fname = data.firstName;
 			this.selectedBenData.lname = data.lastName;
+			if ( data.dOB )
+			{
+				let currDate = new Date();
+				let dob = new Date( data.dOB );
+				let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
+				this.selectedBenData.age = age;
+			}
+			this.selectedBenData.gender = data.m_gender.genderName;
 		} else
 		{
 			this.selectedBenData.id = "";
 			this.selectedBenData.fname = "";
 			this.selectedBenData.lname = "";
+			this.selectedBenData.age = "";
+			this.selectedBenData.gender = "";
 		}
 	}
 

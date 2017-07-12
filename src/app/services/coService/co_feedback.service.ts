@@ -45,9 +45,9 @@ export class CoFeedbackService
             .catch( this.handleError );
     }
 
-    getFeedbackHistoryById ( id: any )
+    getFeedbackHistoryById ( id: any, serviceID: any )
     {
-        return this._http.post( this._getFeedbackHistoryByID, { "beneficiaryRegID": id } ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._getFeedbackHistoryByID, { "beneficiaryRegID": id, "serviceID": serviceID } ).map( this.extractData ).catch( this.handleError );
     }
 
     extractData ( response: Response )
