@@ -36,7 +36,10 @@
                                     <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i></li>
                                 <li class="m-l-10 "><img src="assets/images/dashboardIcon.png " alt="Dashboard Icon
     " title="Dashboard Icon " /></li>
-                                <li class="f-s-16 font-Semibold ">My ID : CO0111120</li>
+                                <li class="f-s-16 font-Semibold ">My ID : {{current_role}} - {{current_service}}</li>
+                                <!--<li class="f-s-16 font-Semibold ">My ID : CO0111120</li>-->
+                                <!--<li class="f-s-16 font-Semibold ">Service: {{current_service}}</li>
+                                <li class="f-s-16 font-Semibold ">Role: {{current_role}}</li>-->
                                 <li class="m-l-lg-40 "><img src="assets/images/transferCallIcon.png " alt="Caller Icon
     " title="Caller Icon " />
                                     <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green ">ON CALL</span>
@@ -73,11 +76,15 @@
                     <ul class="list-unstyled list-inline pull-left m-t-lg-10 p-a-0 m-b-3 ">
                         <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li>
                         <li><span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span></li>
-                        <li>{{selectedBenData.fname}}</li>
-                        <li>{{selectedBenData.lname}}</li>
+                        <li>{{selectedBenData.name}}</li>
                         <li>{{selectedBenData.mob}}</li>
                         <li>{{selectedBenData.age}}</li>
-                        <li>{{selectedBenData.gender}}</li>
+                        <li>{{selectedBenData.state}}</li>
+                        <li>{{selectedBenData.district}}</li>
+                        <li>{{selectedBenData.block}}</li>
+                        <li>{{selectedBenData.village}}</li>
+                        <li>{{selectedBenData.language}}</li>
+                        <li>{{selectedBenData.relation}}</li>
                     </ul>
                     <ul class="list-unstyled list-inline pull-right m-b-0 ">
                         <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
