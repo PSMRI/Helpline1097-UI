@@ -64,7 +64,6 @@
                                 <th>Type of Complaint</th>
                                 <th>Complaint Status</th>
                                 <th>Email Status</th>
-
                                 <th>Select</th>
                                 <th>Edit</th>
                                 <th>Update Response</th>
@@ -73,12 +72,12 @@
                         <tbody>
                             <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 8, currentPage: p } ">
                                 <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
-                                <td (click)="onClick(feedback)">{{feedback.FeedBackID}}</td>
-                                <td>{{feedback.CreatedDate}}</td>
-                                <td>{{feedback.BeneficiaryName}}</td>
-                                <td>{{feedback.FeedbackTypeName}}</td>
-                                <td>{{feedback.FeedbackStatus}}</td>
-                                <td>{{feedback.EmailStatus}}</td>
+                                <td (click)="onClick(feedback)">{{feedback.feedBackID}}</td>
+                                <td>{{feedback.createdDate}}</td>
+                                <td>{{feedback.beneficiaryName}}</td>
+                                <td>{{feedback.feedbackTypeName}}</td>
+                                <td>{{feedback.feedbackStatus}}</td>
+                                <td>{{feedback.emailStatus}}</td>
 
                                 <!--<td><ng-template [ngIf]="feedback.FeedbackStatusID == 1">Open</ng-template>
               <ng-template [ngIf]="feedback.FeedbackStatusID == 2">Progess</ng-template></td>-->
@@ -116,7 +115,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="BeneficiaryRegID">Name OF Beneficiary</label>
-                <input type="text" class="form-control" placeholder="Enter BeneficiaryRegID ." id="BeneficiaryRegID" formControlName="BeneficiaryRegID"
+                <input type="text" class="form-control" placeholder="Enter BeneficiaryRegID ." id="beneficiaryName" formControlName="beneficiaryName"
                     maxlength="10" readonly>
                 <span></span>
             </div>
@@ -126,7 +125,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="Feedback Date">Feedback Date</label>
-                <input type="text" class="form-control" placeholder="Enter Feedback Date ." id="Feedback Date" formControlName="FeedbackDate"
+                <input type="text" class="form-control" placeholder="Enter Feedback Date ." id="Feedback Date" formControlName="feedbackDate"
                     maxlength="10" readonly>
                 <span></span>
             </div>
@@ -136,7 +135,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="FeedbackTypeName">Feedback Type Name</label>
-                <input type="text" class="form-control" placeholder="Enter FeedbackTypeName ." id="BeneficiaryRegID" formControlName="FeedbackTypeName"
+                <input type="text" class="form-control" placeholder="Enter FeedbackTypeName ." id="BeneficiaryRegID" formControlName="feedbackTypeName"
                     maxlength="10" readonly>
                 <span></span>
             </div>
@@ -149,7 +148,7 @@
                 <div class="col-xs-6">
                     <div class="form-group">
                         <label class="control-label" for="FeedbackStatus">Feedback Status</label>
-                        <input type="text" class="form-control" placeholder="Enter FeedbackStatus ." id="FeedbackStatus" formControlName="FeedbackStatus"
+                        <input type="text" class="form-control" placeholder="Enter FeedbackStatus ." id="FeedbackStatus" formControlName="feedbackStatus"
                             maxlength="10" readonly>
                         <span></span>
                     </div>
@@ -158,7 +157,7 @@
                 <div class="col-xs-6">
                     <div class="form-group">
                         <label class="control-label" for="EmailStatus">Email Status</label>
-                        <input type="text" class="form-control" placeholder="Enter EmailStatus ." id="EmailStatus" formControlName="EmailStatus"
+                        <input type="text" class="form-control" placeholder="Enter EmailStatus ." id="EmailStatus" formControlName="emailStatus"
                             maxlength="10" readonly>
                         <span></span>
                     </div>
@@ -178,7 +177,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="InstitutionName">Institution Name</label>
-                <input type="text" class="form-control" placeholder="Enter InstitutionName ." id="InstitutionName" formControlName="InstitutionName"
+                <input type="text" class="form-control" placeholder="Enter InstitutionName ." id="InstitutionName" formControlName="institutionName"
                     maxlength="10" readonly>
                 <span></span>
             </div>
@@ -188,7 +187,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="DesignationName">Designation Name</label>
-                <input type="text" class="form-control" placeholder="Enter DesignationName ." id="DesignationName" formControlName="DesignationName"
+                <input type="text" class="form-control" placeholder="Enter DesignationName ." id="DesignationName" formControlName="designationName"
                     maxlength="10" readonly>
                 <span></span>
             </div>
@@ -198,7 +197,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="SeverityTypeName">Severity Type Name</label>
-                <input type="text" class="form-control" placeholder="SeverityTypeName ." id="SeverityTypeName" formControlName="SeverityTypeName"
+                <input type="text" class="form-control" placeholder="SeverityTypeName ." id="SeverityTypeName" formControlName="severityTypeName"
                     maxlength="10" readonly>
                 <span></span>
             </div>
@@ -208,7 +207,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="ServiceName">Service Name</label>
-                <input type="text" class="form-control" placeholder="ServiceName ." id="ServiceName" formControlName="ServiceName" maxlength="20"
+                <input type="text" class="form-control" placeholder="ServiceName ." id="ServiceName" formControlName="serviceName" maxlength="20"
                     readonly>
                 <span></span>
             </div>
@@ -218,7 +217,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="UserName">User Name</label>
-                <input type="text" class="form-control" placeholder="UserName ." id="UserName" formControlName="UserName" maxlength="50"
+                <input type="text" class="form-control" placeholder="UserName ." id="UserName" formControlName="userName" maxlength="50"
                     readonly>
                 <span></span>
             </div>
@@ -228,7 +227,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="SMSPhoneNo">SMS Phone No</label>
-                <input type="text" class="form-control" placeholder="Enter SMSPhoneNo ." id="SMSPhoneNo" formControlName="SMSPhoneNo" maxlength="50"
+                <input type="text" class="form-control" placeholder="Enter SMSPhoneNo ." id="SMSPhoneNo" formControlName="smsPhoneNo" maxlength="50"
                     readonly>
                 <span></span>
             </div>
@@ -246,7 +245,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label class="control-label" for="ModifiedBy">Modified By</label>
-                <input type="text" class="form-control" placeholder="Enter ModifiedBy ." id="ModifiedBy" formControlName="ModifiedBy" maxlength="10"
+                <input type="text" class="form-control" placeholder="Enter ModifiedBy ." id="ModifiedBy" formControlName="modifiedBy" maxlength="10"
                     readonly>
                 <span></span>
             </div>
@@ -303,7 +302,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label" for="SelectStatus">Select Feedback Status</label>
-                                        <select class="form-control " formControlName="selectStatus">
+                                        <select class="form-control " formControlName="feedbackStatusID">
               <option >Select..</option>
               <option value="1" >Open</option>
               <option value="2">Work In Progess</option>

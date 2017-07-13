@@ -43,38 +43,38 @@ export class supervisorFeedback implements OnInit
   feedbackForm = new FormGroup( {
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
-    BeneficiaryRegID: new FormControl(),
+    beneficiaryName: new FormControl(),
     comments: new FormControl(),
     createdBy: new FormControl(),
     createdDate: new FormControl( "2017-05-20" ),
     supUserID: new FormControl( "1" ),
-    FeedbackDate: new FormControl(),
-    FeedbackTypeName: new FormControl(),
-    FeedbackStatus: new FormControl(),
-    EmailStatus: new FormControl( "2" ),
-    InstitutionName: new FormControl(),
-    DesignationName: new FormControl(),
-    SeverityTypeName: new FormControl(),
-    ServiceName: new FormControl(),
-    UserName: new FormControl(),
-    SMSPhoneNo: new FormControl(),
-    ModifiedBy: new FormControl(),
-    UpdateResponse: new FormControl(),
+    feedbackDate: new FormControl(),
+    feedbackTypeName: new FormControl(),
+    feedbackStatus: new FormControl(),
+    emailStatus: new FormControl( "2" ),
+    institutionName: new FormControl(),
+    designationName: new FormControl(),
+    severityTypeName: new FormControl(),
+    serviceName: new FormControl(),
+    userName: new FormControl(),
+    smsPhoneNo: new FormControl(),
+    modifiedBy: new FormControl(),
+    updateResponse: new FormControl(),
     emailStatusID: new FormControl(),
-    selectStatus: new FormControl()
+    feedbackStatusID: new FormControl()
   } );
 
   feedbackForm1 = new FormGroup( {
 
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
-    BeneficiaryRegID: new FormControl(),
+    beneficiaryName: new FormControl(),
     comments: new FormControl(),
     createdBy: new FormControl(),
     createdDate: new FormControl(),
     supUserID: new FormControl( "1" ),
     startDate: new FormControl(),
-    ComplaintId: new FormControl(),
+    complaintId: new FormControl(),
     endDate: new FormControl()
 
 
@@ -160,22 +160,22 @@ export class supervisorFeedback implements OnInit
     this.action = "edit";
 
 
-    this.feedbackForm.controls.feedbackID.setValue( feedback.FeedBackID );
-    this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.Feedback );
-    this.feedbackForm.controls.BeneficiaryRegID.setValue( feedback.BeneficiaryName );
+    this.feedbackForm.controls.feedbackID.setValue( feedback.feedBackID );
+    this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.feedback );
+    this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
-    this.feedbackForm.controls.FeedbackDate.setValue( feedback.CreatedDate );
-    this.feedbackForm.controls.FeedbackTypeName.setValue( feedback.FeedbackTypeName );
-    this.feedbackForm.controls.FeedbackStatus.setValue( feedback.FeedbackStatus );
-    this.feedbackForm.controls.EmailStatus.setValue( feedback.EmailStatus );
-    this.feedbackForm.controls.InstitutionName.setValue( feedback.InstitutionName );
-    this.feedbackForm.controls.DesignationName.setValue( feedback.DesignationName );
-    this.feedbackForm.controls.SeverityTypeName.setValue( feedback.SeverityTypeName );
-    this.feedbackForm.controls.ServiceName.setValue( feedback.ServiceName );
-    this.feedbackForm.controls.UserName.setValue( feedback.UserName );
-    this.feedbackForm.controls.SMSPhoneNo.setValue( feedback.SMSPhoneNo );
-    this.feedbackForm.controls.ModifiedBy.setValue( feedback.ModifiedBy );
-    this.feedbackForm.controls.createdBy.setValue( feedback.CreatedBy )
+    this.feedbackForm.controls.feedbackDate.setValue( feedback.createdDate );
+    this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
+    this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatus );
+    this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatus );
+    this.feedbackForm.controls.institutionName.setValue( feedback.institutionName );
+    this.feedbackForm.controls.designationName.setValue( feedback.designationName );
+    this.feedbackForm.controls.severityTypeName.setValue( feedback.severityTypeName );
+    this.feedbackForm.controls.serviceName.setValue( feedback.serviceName );
+    this.feedbackForm.controls.userName.setValue( feedback.userName );
+    this.feedbackForm.controls.smsPhoneNo.setValue( feedback.smsPhoneNo );
+    this.feedbackForm.controls.modifiedBy.setValue( feedback.modifiedBy );
+    this.feedbackForm.controls.createdBy.setValue( feedback.createdBy )
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
   }
@@ -187,22 +187,22 @@ export class supervisorFeedback implements OnInit
     this.action = "update";
 
 
-    this.feedbackForm.controls.feedbackID.setValue( feedback.FeedBackID );
-    this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.Feedback );
-    this.feedbackForm.controls.BeneficiaryRegID.setValue( feedback.BeneficiaryName );
+    this.feedbackForm.controls.feedbackID.setValue( feedback.feedBackID );
+    this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.feedback );
+    this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
-    this.feedbackForm.controls.FeedbackDate.setValue( feedback.CreatedDate );
-    this.feedbackForm.controls.FeedbackTypeName.setValue( feedback.FeedbackTypeName );
-    this.feedbackForm.controls.FeedbackStatus.setValue( feedback.FeedbackStatus );
-    this.feedbackForm.controls.EmailStatus.setValue( feedback.EmailStatus );
-    this.feedbackForm.controls.InstitutionName.setValue( feedback.InstitutionName );
-    this.feedbackForm.controls.DesignationName.setValue( feedback.DesignationName );
-    this.feedbackForm.controls.SeverityTypeName.setValue( feedback.SeverityTypeName );
-    this.feedbackForm.controls.ServiceName.setValue( feedback.ServiceName );
-    this.feedbackForm.controls.UserName.setValue( feedback.UserName );
-    this.feedbackForm.controls.SMSPhoneNo.setValue( feedback.SMSPhoneNo );
-    this.feedbackForm.controls.ModifiedBy.setValue( feedback.ModifiedBy );
-    this.feedbackForm.controls.createdBy.setValue( feedback.CreatedBy )
+    this.feedbackForm.controls.feedbackDate.setValue( feedback.createdDate );
+    this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
+    this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatus );
+    this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatus );
+    this.feedbackForm.controls.institutionName.setValue( feedback.institutionName );
+    this.feedbackForm.controls.designationName.setValue( feedback.designationName );
+    this.feedbackForm.controls.severityTypeName.setValue( feedback.severityTypeName );
+    this.feedbackForm.controls.serviceName.setValue( feedback.serviceName );
+    this.feedbackForm.controls.userName.setValue( feedback.userName );
+    this.feedbackForm.controls.smsPhoneNo.setValue( feedback.smsPhoneNo );
+    this.feedbackForm.controls.modifiedBy.setValue( feedback.modifiedBy );
+    this.feedbackForm.controls.createdBy.setValue( feedback.createdBy )
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
   }
@@ -215,10 +215,10 @@ export class supervisorFeedback implements OnInit
     let dataforUpdate = feedback;
     dataforUpdate[ "serviceID" ] = this.serviceID;
 
-    this.feedbackForm1.controls.feedbackID.setValue( feedback.FeedBackID );
-    this.feedbackForm1.controls.feedbackSupSummary.setValue( feedback.Feedback );
-    this.feedbackForm1.controls.BeneficiaryRegID.setValue( feedback.BeneficiaryRegID );
-    this.feedbackForm1.controls.createdBy.setValue( feedback.CreatedBy );
+    this.feedbackForm1.controls.feedbackID.setValue( feedback.feedBackID );
+    this.feedbackForm1.controls.feedbackSupSummary.setValue( feedback.feedback );
+    this.feedbackForm1.controls.beneficiaryName.setValue( feedback.beneficiaryName );
+    this.feedbackForm1.controls.createdBy.setValue( feedback.createdBy );
     this.feedbackForm1.controls.createdDate.setValue( "2017-06-19" );
 
     console.log( "raj" + dataforUpdate )
