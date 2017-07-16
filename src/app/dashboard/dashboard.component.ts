@@ -15,6 +15,8 @@ export class dashboardContentClass implements OnInit
   eventSpiltData: any;
   data: any;
   ctiHandlerURL: any;
+  current_service: any;
+  current_role: any;
   constructor(
     public dataSettingService: dataService,
     public router: Router,
@@ -32,6 +34,8 @@ export class dashboardContentClass implements OnInit
   showDashboard ()
   {
     this.data = this.dataSettingService.Userdata;
+    this.current_service = this.dataSettingService.current_service.serviceName;
+    this.current_role = this.dataSettingService.current_role.RoleName;
     this.addListener();
   }
   toggleBar ()

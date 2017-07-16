@@ -55,7 +55,7 @@ export class helpline1097CoComponent implements OnInit
   {
     var idx = jQuery( '.carousel-inner div.active' ).index();
     console.log( "index", idx );
-    let url = this.configService.getTelephonyServerURL + "bar/cti_handler.php";
+    let url = this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
     console.log( "url = " + url );
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
 
