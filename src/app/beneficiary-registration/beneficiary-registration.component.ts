@@ -113,6 +113,7 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		data.callID = this.saved_data.callID;
 		data.is1097 = true;
 		data.createdBy = this.saved_data.uname;
+		data.calledServiceID = this.saved_data.current_service.serviceID;
 		this._util.startCall( data ).subscribe( response => this.setBenCall( response ) );
 	}
 
@@ -503,7 +504,7 @@ export class BeneficiaryRegistrationComponent implements OnInit
 		{
 			this.updatedObj.benPhoneMaps[ phones ] = {};
 			this.updatedObj.benPhoneMaps[ phones ].parentBenRegID = this.ParentBenRegID;
-			this.updatedObj.benPhoneMaps[ phones ].beneficiaryRegID = this.saved_data.benRegId;
+			this.updatedObj.benPhoneMaps[ phones ].benificiaryRegID = this.updatedObj.beneficiaryRegID;
 			this.updatedObj.benPhoneMaps[ phones ].benRelationshipID = undefined;
 			this.updatedObj.benPhoneMaps[ phones ].phoneNo = this.PhoneNo;
 			if ( this.updatedObj.benPhoneMaps[ phones ].createdBy )
