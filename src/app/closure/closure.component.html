@@ -38,13 +38,29 @@
                 </div>
                 <div>
                     <label class="radio-inline">
-                        <input type="radio" name="optradio" value="true" name="isFollowupRequired" [(ngModel)]="isFollowupRequired"> Yes 
+                        <input type="radio" name="optradio" value="true" name="isFollowupRequired" [(ngModel)]="isFollowupRequired" (change)="isFollow($event)"> Yes 
                     </label>
+
                     <label class="radio-inline">
-                        <input type="radio" value="false" name="optradio" name="isFollowupRequired" [(ngModel)]="isFollowupRequired"> No
+                        <input type="radio" value="false" name="optradio" name="isFollowupRequired"  [(ngModel)]="isFollowupRequired" (change)="isFollow($event)"> No
                     </label>
                 </div>
             </div>
+             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3"  *ngIf="isFollowUp">
+            <!-- <md-input-container class="m-t-25"> -->
+            <div class="col-md-8 col-lg-8">
+                <div class="form-group">
+                    <label class="control-label" for="followUpDate" i18n>Follow up Date</label>
+                    <input class="form-control" [mdDatepicker]="picker" placeholder="Follow up Date" [(ngModel)]="followUpDate">
+                </div>
+               
+            </div>
+             <div class="col-md-4 col-lg-4 m-t-25 ">
+                <button mdPrefix [mdDatepickerToggle]="picker "></button>
+                <md-datepicker #picker ></md-datepicker>
+            </div>
+            
+        </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
                 <div class="form-group ">
                     <label class="control-label" for="callTypeID" i18n>Select Call Type</label>

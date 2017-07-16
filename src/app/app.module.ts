@@ -2,7 +2,7 @@ import { helpline1097SupervisorComponent } from './1097-supervisor/1097-supervis
 import { helpline1097AdminComponent } from './1097-admin/1097-admin.component';
 import { helpline1097CoComponent } from './1097-co/1097-co.component'
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import
@@ -20,6 +20,7 @@ import { MdInputModule } from '@angular/material';
 import { MdNativeDateModule } from '@angular/material';
 import { CustomFormsModule } from 'ng2-validation';
 import { ValidationMessagesModule } from 'ng2-custom-validation';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -143,6 +144,7 @@ import { helpline1097Component } from './1097/1097.component'
     MdInputModule,
     CustomFormsModule,
 ValidationMessagesModule,
+BrowserAnimationsModule,
     RouterModule.forRoot( [
       {
         path: 'resetPassword',
@@ -199,6 +201,7 @@ ValidationMessagesModule,
         component: dashboardContentClass
       },
     ] ) ],
+    schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [ loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,

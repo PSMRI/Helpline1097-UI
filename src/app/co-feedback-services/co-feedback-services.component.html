@@ -92,7 +92,8 @@
             </div>
             <div class="col-xs-12 col-sm-12 ">
                 <label class="control-label" for="feedbackDesc">Feedback Description</label>
-                <textarea name="feedback" class="form-control" rows="3 " id="feedbackDescription" [(ngModel)]="feedbackDescription"></textarea>
+                <textarea name="feedback" class="form-control" rows="3 " id="feedbackDescription" [(ngModel)]="feedbackDescription" maxlength="300" (keyup)="updateCount()"></textarea>
+                <span>{{count}}</span>
             </div>
             <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
                 <!--<button type="button " class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15

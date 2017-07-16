@@ -19,9 +19,13 @@ export class ClosureComponent implements OnInit
   remarks: any;
   callClosureType: any;
   calltypes: any = [];
-  isFollowupRequired: boolean = false;
+  // isFollowupRequired: boolean = false;
   preferredDateTime: any;
   callTypeID: any;
+  minDate:Date;
+  maxDate:Date;
+  isFollowUp:boolean=false;
+  followUpDate:any;
 
   constructor(
     private _callServices: CallServices,
@@ -83,4 +87,9 @@ export class ClosureComponent implements OnInit
   {
     alert( 'Call closed Successful!!!!' );
   }
+  isFollow(e:any)
+{
+  console.log("Event us ",e.target.value);
+  e.target.value=="true"?this.isFollowUp=true:this.isFollowUp=false;
+}
 }

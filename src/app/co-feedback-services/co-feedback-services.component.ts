@@ -48,7 +48,7 @@ export class CoFeedbackServicesComponent implements OnInit
 	feedbackSeverities: any = [];
 	serviceID: any = -1;
 	serviceID1097: any = -1;
-
+	count;
 	showForm ()
 	{
 		this.showFormCondition = true;
@@ -93,6 +93,7 @@ export class CoFeedbackServicesComponent implements OnInit
 		this._feedbackTypes.getFeedbackSeverityData()
 			.subscribe( response => this.setFeedbackSeverity( response ) );
 		this.showBeneficiaryFeedbackList();
+		this.count="0/300";
 	}
 
 	showBeneficiaryFeedbackList ()
@@ -273,7 +274,10 @@ export class CoFeedbackServicesComponent implements OnInit
 		this.feedbacksArray = response;
 
 	}
-
+ updateCount()
+  {
+      this.count=this.feedbackDescription.length+"/300";
+  }
 
 }
 
