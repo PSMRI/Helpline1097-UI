@@ -118,7 +118,7 @@
                             <td>{{referral.instituteDirMapID}}</td>
                             <td>{{referral.instituteDirectoryMapping.institutionDetails.institutionName}}</td>
                             <td>{{referral.createdBy}}</td>
-                            <td>{{referral.createdDate}}</td>
+                            <td>{{referral.createdDate|date:'dd-MM-yyyy'}}</td>
                         </tr>
                         <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </tbody>
