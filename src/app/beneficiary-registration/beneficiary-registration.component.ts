@@ -70,6 +70,9 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 	updationProcess: boolean = false;
 	notCalledEarlierLowerPart: boolean = false;
+	minDate:Date=null;
+	maxDate:Date=null;
+
 
 
 	constructor( private _util: RegisterService, private _router: Router,
@@ -78,10 +81,13 @@ export class BeneficiaryRegistrationComponent implements OnInit
 
 	ngOnInit ()
 	{
+		let date:Date=new Date();
 		this.getRelationships();
 		this._userBeneficiaryData.getUserBeneficaryData()
 			.subscribe( response => this.SetUserBeneficiaryRegistrationData( response ) );
 		this.startNewCall();
+		this.maxDate=new Date(date);
+		// this.maxDate.setFullYear(this.maxDate.getFullYear() - 15);
 	}
 
 	reloadCall ()

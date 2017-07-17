@@ -22,7 +22,7 @@ export class helpline1097Component implements OnInit
     this.current_role = this.getCommonData.current_role.RoleName;
   };
 
-  // tab: number = 1;
+  // tab: number = 1; 
 
   // changeService(val) {
   // 	this.tab = val;

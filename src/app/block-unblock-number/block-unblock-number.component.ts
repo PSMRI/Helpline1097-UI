@@ -15,10 +15,11 @@ export class BlockUnblockNumberComponent implements OnInit
   {
   }
 
-  blockedDate: any;
-  blockedTill: any;
-
-  getBlockedTillDate ( date )
+  
+  blockedDate:any;
+  blockedTill:any;
+  
+  getBlockedTillDate(date)
   {
     this.blockedTill = date.setDate( date.getDate() + 7 );
     console.log( this.blockedTill );

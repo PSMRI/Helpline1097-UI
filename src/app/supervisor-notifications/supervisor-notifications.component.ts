@@ -35,6 +35,7 @@ export class SupervisorNotificationsComponent implements OnInit {
   updateCount()
   {
      // jQuery("#count").text("Characters left: " + (500 - jQuery("#notification").val().length));
+     
       jQuery("#count").text( jQuery("#notification").val().length+"/500");
   }
 }

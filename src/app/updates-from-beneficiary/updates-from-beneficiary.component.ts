@@ -3,7 +3,7 @@ import { UserBeneficiaryData } from "../services/common/userbeneficiarydata.serv
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from "../services/update-services/update-service";
 import { dataService } from '../services/dataService/data.service';
-
+declare let jQuery:any;
 @Component( {
   selector: 'app-updates-from-beneficiary',
   templateUrl: './updates-from-beneficiary.component.html',
@@ -20,6 +20,13 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
   beneficiaryRegID: any;
   educationQualifications: any = [];
   sexualOrientations: any = [];
+  count;
+  occupations:any=[
+    {ID:0,name:'Select Occupation'},
+    {ID:1,name:'Occupation1'},
+    {ID:2,name:'Ocuupation2'},
+    {ID:3,name:'Ocuupation3'}
+  ];
   sourceOfInfo: any = [
     { name: "Pamphlet", value: "Pamphlet", selected: false, id: 1 },
     { name: "Radio", value: "Radio", selected: false, id: 2 },
@@ -48,6 +55,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
     this._userBeneficiaryData.getUserBeneficaryData()
       .subscribe( response => this.SetUserBeneficiaryRegistrationData( response ) );
     this.PopulateUpdateData();
+    this.count="0/300";
   }
 
   PopulateUpdateData ()
@@ -95,6 +103,10 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
   showAlert ()
   {
     alert( 'Update Successful!!!!' );
+  }
+  updateCount()
+  { 
+      this.count=this.remarks.length+"/300";
   }
 }
 

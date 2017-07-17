@@ -91,13 +91,13 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
             <div class="form-group ">
                 <label class="control-label " for="firstName ">Name</label>
-                <input type="text " class="form-control col-sm-9 " placeholder="Enter first name " name="FirstName " [(ngModel)]="FirstName ">
+                <input type="text " class="form-control col-sm-9 " placeholder="Enter first name " name="FirstName " [(ngModel)]="FirstName " maxlength="25">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
             <div class="form-group ">
                 <label class="control-label " for="lastName "> Last name/Surname</label>
-                <input type="text " class="form-control col-sm-9 " placeholder="Enter Last name/Surname " name="LastName " [(ngModel)]="LastName ">
+                <input type="text " class="form-control col-sm-9 " placeholder="Enter Last name/Surname " name="LastName " [(ngModel)]="LastName " maxlength="25">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
@@ -136,7 +136,7 @@
             </div>
             <div class="col-md-4 col-lg-4 m-t-25 ">
                 <button mdPrefix [mdDatepickerToggle]="picker "></button>
-                <md-datepicker #picker></md-datepicker>
+                <md-datepicker #picker [min]="minDate" [max]="maxDate"></md-datepicker>
             </div>
             <!-- </md-input-container> -->
             <!--<div class="form-group ">
