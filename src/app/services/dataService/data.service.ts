@@ -7,8 +7,7 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class dataService
-{
+export class dataService {
 
 	Userdata: any;
 	userPriveliges: any;
@@ -25,6 +24,7 @@ export class dataService
 
 	current_role: any;
 	current_service: any;
+	parentBeneficiaryData: any = {};
 };
 
 

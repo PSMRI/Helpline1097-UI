@@ -26,6 +26,7 @@ export class ClosureComponent implements OnInit
   maxDate:Date;
   isFollowUp:boolean=false;
   followUpDate:any;
+  picker='';
 
   constructor(
     private _callServices: CallServices,

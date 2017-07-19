@@ -2,7 +2,7 @@ import { helpline1097SupervisorComponent } from './1097-supervisor/1097-supervis
 import { helpline1097AdminComponent } from './1097-admin/1097-admin.component';
 import { helpline1097CoComponent } from './1097-co/1097-co.component'
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import
@@ -100,13 +100,13 @@ import { ServicemasterService } from './services/adminServices/AdminService/serv
 import { ScreenService } from './services/adminServices/AdminScreen/screen.service';
 import { HttpServices } from './services/http-services/http_services.service';
 import { UserBeneficiaryData } from './services/common/userbeneficiarydata.service'
-import { LocationService } from "./services/common/location.service";
-import { CoReferralService } from "./services/coService/co_referral.service";
-import { CoFeedbackService } from "./services/coService/co_feedback.service";
-import { FeedbackTypes } from "./services/common/feedbacktypes.service";
-import { UpdateService } from "./services/update-services/update-service";
-import { CallServices } from "./services/callservices/callservice.service";
-import { ConfigService } from "./services/config/config.service";
+import { LocationService } from './services/common/location.service';
+import { CoReferralService } from './services/coService/co_referral.service';
+import { CoFeedbackService } from './services/coService/co_feedback.service';
+import { FeedbackTypes } from './services/common/feedbacktypes.service';
+import { UpdateService } from './services/update-services/update-service';
+import { CallServices } from './services/callservices/callservice.service';
+import { ConfigService } from './services/config/config.service';
 import { helpline1097Component } from './1097/1097.component'
 
 
@@ -201,7 +201,7 @@ BrowserAnimationsModule,
         component: dashboardContentClass
       },
     ] ) ],
-    schemas:[CUSTOM_ELEMENTS_SCHEMA],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,

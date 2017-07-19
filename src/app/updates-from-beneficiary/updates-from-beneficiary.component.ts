@@ -3,14 +3,13 @@ import { UserBeneficiaryData } from "../services/common/userbeneficiarydata.serv
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from "../services/update-services/update-service";
 import { dataService } from '../services/dataService/data.service';
-declare let jQuery:any;
-@Component( {
+declare let jQuery: any;
+@Component({
   selector: 'app-updates-from-beneficiary',
   templateUrl: './updates-from-beneficiary.component.html',
-  styleUrls: [ './updates-from-beneficiary.component.css' ]
-} )
-export class UpdatesFromBeneficiaryComponent implements OnInit
-{
+  styleUrls: ['./updates-from-beneficiary.component.css']
+})
+export class UpdatesFromBeneficiaryComponent implements OnInit {
   occupation: any;
   educationID: any;
   sexualOrientationID: any;
@@ -21,28 +20,22 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
   educationQualifications: any = [];
   sexualOrientations: any = [];
   count;
-  occupations:any=[
-    {ID:0,name:'Select Occupation'},
-    {ID:1,name:'Occupation1'},
-    {ID:2,name:'Ocuupation2'},
-    {ID:3,name:'Ocuupation3'}
-  ];
+  occupations: any = [];
   sourceOfInfo: any = [
     { name: "Pamphlet", value: "Pamphlet", selected: false, id: 1 },
     { name: "Radio", value: "Radio", selected: false, id: 2 },
     { name: "Television", value: "Television", selected: false, id: 3 },
-    { name: "Family and Friends", value: "Family and Friends", selected: false, id: 4 },
-    { name: "Healthcare worker", value: "Healthcare worker", selected: false, id: 5 },
-    { name: "Others", value: "Others", selected: false, id: 6 },
-    { name: "Not Disclosed", value: "Not Disclosed", selected: false, id: 7 }
+    { name: 'Family and Friends', value: 'Family and Friends', selected: false, id: 4 },
+    { name: 'Healthcare worker', value: 'Healthcare worker', selected: false, id: 5 },
+    { name: 'Others', value: 'Others', selected: false, id: 6 },
+    { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7 }
   ];
 
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
     private _util: UpdateService,
     private fb: FormBuilder,
-    private saved_data: dataService )
-  {
+    private saved_data: dataService) {
 
     // this.form = this.fb.group( {
     //   skills: this.buildSkills()
@@ -50,63 +43,64 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
   }
   // }
 
-  ngOnInit ()
-  {
+  ngOnInit() {
     this._userBeneficiaryData.getUserBeneficaryData()
-      .subscribe( response => this.SetUserBeneficiaryRegistrationData( response ) );
+      .subscribe(response => {
+        this.SetUserBeneficiaryRegistrationData(response);
+      });
     this.PopulateUpdateData();
-    this.count="0/300";
+
+    this.count = '0/300';
+
   }
 
-  PopulateUpdateData ()
-  {
-    if ( this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID )
-    {
+  PopulateUpdateData() {
+    if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
       this.occupation = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
       this.educationID = this.saved_data.beneficiaryData.i_bendemographics.educationID;
-      this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationID;
-      this.placeOfWork = "";//this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
+      this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationId;
+      this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = this.saved_data.beneficiaryData.isHIVPos;
+      this.remarks = this.saved_data.beneficiaryData.remarks;
     }
   }
 
-  SetUserBeneficiaryRegistrationData ( response: any )
-  {
-    if ( response.sexualOrientations )
-    {
+  SetUserBeneficiaryRegistrationData(response: any) {
+
+    if (response.sexualOrientations) {
       this.sexualOrientations = response.sexualOrientations;
     }
-    if ( response.i_BeneficiaryEducation )
-    {
+    if (response.i_BeneficiaryEducation) {
       this.educationQualifications = response.i_BeneficiaryEducation;
+    }
+    if (response.beneficiaryOccupations) {
+      this.occupations = response.beneficiaryOccupations;
     }
   }
 
-  updateBeneficiary ( values: any )
-  {
-    console.log( values );
-    let newOtherData: any = {};
+  updateBeneficiary(values: any) {
+    console.log(values);
+    const newOtherData: any = {};
     this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
-    this.saved_data.beneficiaryData.i_bendemographics.occupationID = 7;//values.occupation;
+    this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationID; //values.occupation;
     this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationID;
     this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
-    this.saved_data.beneficiaryData.sexualOrientationID = values.sexualOrientationID;
+    this.saved_data.beneficiaryData.sexualOrientationId = values.sexualOrientationID;
+    this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
+    this.saved_data.beneficiaryData.remarks = values.remarks;
+
 
     // alert( values );
-    let res = this._util.updateBeneficiaryData( this.saved_data.beneficiaryData ).subscribe( response =>
-    {
+    const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe(response => {
       this.showAlert();
-    } );
+    });
   }
 
-  showAlert ()
-  {
-    alert( 'Update Successful!!!!' );
+  showAlert() {
+    alert('Update Successful!!!!');
   }
-  updateCount()
-  { 
-      this.count=this.remarks.length+"/300";
+  updateCount() {
+    this.count = this.remarks.length + '/300';
   }
 }
-

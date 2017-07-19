@@ -11,8 +11,8 @@
         <div class="form-group">
           <label class="control-label" for="occupation">Occupation</label>
            <select class="form-control drop-arrow" name="occupation">
-                    <option *ngFor="let occupation of occupations" value={{occupation.ID}}>
-                    {{occupation.name}}
+                    <option *ngFor="let occupation of occupations" value={{occupation.occupationID}}>
+                    {{occupation.occupationType}}
                     </option>
                 </select>
         </div>
