@@ -372,7 +372,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.populateRegistrationFormForUpdate(response[0])
       });
 
-    // this.benRegData = benRegData;
+    this.benRegData = benRegData;
   }
 
   populateRegistrationFormForUpdate(registeredBenData) {
@@ -425,6 +425,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
     this.updatedObj = registeredBenData;
     this.saved_data.beneficiaryData = registeredBenData;
+    console.log('Beneficiary Data is', this.benRegData);
     this.onBenRegDataSelect.emit(this.benRegData);
     // this.onBenSelect.emit('benService');
     // this.showSearchResult = false;
