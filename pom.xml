@@ -8,7 +8,7 @@
     -->
 	<modelVersion>4.0.0</modelVersion>
     <groupId>com.iemr.helpline1097</groupId>
-    <artifactId>helpline-1097-ui</artifactId>
+    <artifactId>1097-ui</artifactId>
     <version>1.1</version>
     <name>1097-ui</name>
     <packaging>war</packaging>
