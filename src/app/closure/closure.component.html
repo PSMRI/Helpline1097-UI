@@ -1,97 +1,97 @@
 <div class='col-xs-12 col-sm-12'>
-  <div class="row ">
-    <div class="col-xs-12 col-sm-12">
-      <h4 class="" i18n>Call Details</h4>
-    </div>
-    <div class="bg-white p-t-20 m-t-10 ">
-      <div class="col-xs-12 col-sm-12 ">
-        <!-- <h5 class=" "><strong>Service Details</strong></h5> -->
-        <div class="table-responsive" *ngIf="showCallSummary">
-          <label class="control-label" for="callSummary" i18n>Availed services during call</label>
-          <table class="table">
-            <thead>
-              <tr>
-                <th i18n>Call ID</th>
-                <th i18n>Information</th>
-                <th i18n>Counselling</th>
-                <th i18n>Referral</th>
-                <th i18n>Feedback</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList">
-                <td i18n>{{summaryDetails.benCallID}}</td>
-                <td i18n>{{summaryDetails.informationServices}}</td>
-                <td i18n>{{summaryDetails.counsellingServices}}</td>
-                <td i18n>{{summaryDetails.referralServices}}</td>
-                <td i18n>{{summaryDetails.feedbackServices}}</td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="row ">
+        <div class="col-xs-12 col-sm-12">
+            <h4 class="" i18n>Call Details</h4>
         </div>
-      </div>
-    </div>
-    <form #Form="ngForm" (submit)="closeCall(Form.value)">
+        <div class="bg-white p-t-20 m-t-10 ">
+            <div class="col-xs-12 col-sm-12 ">
+                <!-- <h5 class=" "><strong>Service Details</strong></h5> -->
+                <div class="table-responsive" *ngIf="showCallSummary">
+                    <label class="control-label" for="callSummary" i18n>Availed services during call</label>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th i18n>Call ID</th>
+                                <th i18n>Information</th>
+                                <th i18n>Counselling</th>
+                                <th i18n>Referral</th>
+                                <th i18n>Feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList">
+                                <td i18n>{{summaryDetails.benCallID}}</td>
+                                <td i18n>{{summaryDetails.informationServices}}</td>
+                                <td i18n>{{summaryDetails.counsellingServices}}</td>
+                                <td i18n>{{summaryDetails.referralServices}}</td>
+                                <td i18n>{{summaryDetails.feedbackServices}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <form #Form="ngForm" (submit)="closeCall(Form.value)">
 
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-          <span class="f-c-g">Is followup required</span>
-          <div>
-            <label class="radio-inline">
-                        <input type="radio" name="optradio" value="true" name="isFollowup" [(ngModel)]="isFollowup" (change)="isFollow($event)"> Yes 
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+                    <span class="f-c-g">Is followup required</span>
+                    <div>
+                        <label class="radio-inline">
+                        <input type="radio" name="optradio" value="true" name="isFollowUp" [(ngModel)]="isFollowUp" (change)="isFollow($event)"> Yes 
                     </label>
 
-            <label class="radio-inline">
-                        <input type="radio" value="false" name="optradio" name="isFollowup"  [(ngModel)]="isFollowup" (change)="isFollow($event)"> No
+                        <label class="radio-inline">
+                        <input type="radio" value="false" name="optradio" name="isFollowUp"  [(ngModel)]="isFollowUp" (change)="isFollow($event)"> No
                     </label>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-8">
-          <div class="row" *ngIf="isFollowUp">
-            <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 ">
-              <div class="form-group">
-                <label class="control-label" for="preferredDateTime" i18n>Preferred Date</label>
-                <input class="form-control" [mdDatepicker]="picker" placeholder="Preferred Date">
-              </div>
-            </div>
-            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1  m-t-25">
-              <button mdPrefix [mdDatepickerToggle]="picker "></button>
-              <md-datepicker #picker></md-datepicker>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-              <div class="form-group ">
-                <label class="control-label" for="requestedFor" i18n>Follow-up Reason </label>
-                <input class="form-control" placeholder="Follow-up Reason">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <div class="form-group ">
-                <label class="control-label" for="callTypeID" i18n>Select Call Type</label>
-                <select class="form-control drop-arrow " name="callTypeID" [(ngModel)]="callTypeID">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8">
+                    <div class="row" *ngIf="isFollowUp">
+                        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 ">
+                            <div class="form-group">
+                                <label class="control-label" for="preferredDateTime" i18n>Preferred Date</label>
+                                <input class="form-control" [mdDatepicker]="picker" placeholder="Preferred Date">
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1  m-t-25">
+                            <button mdPrefix [mdDatepickerToggle]="picker "></button>
+                            <md-datepicker #picker></md-datepicker>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                            <div class="form-group ">
+                                <label class="control-label" for="requestedFor" i18n>Follow-up Reason </label>
+                                <input class="form-control" placeholder="Follow-up Reason">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group ">
+                                <label class="control-label" for="callTypeID" i18n>Select Call Type</label>
+                                <select class="form-control drop-arrow " name="callTypeID" [(ngModel)]="callTypeID">
                     <!--<option></option>-->
                     <!--<option value="Valid Call" i18n>Valid Call</option>
                     <option value="Test Call" i18n>Test Call</option>-->
                     <option *ngFor="let calltype of calltypes " value={{calltype.callTypeID}}>{{calltype.callTypeDesc}}</option>
                 </select>
-              </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group ">
+                                <label class="control-label " for="remarks" i18n>Call Remarks</label>
+                                <input type="text " class="form-control " id="remarks" placeholder="Enter Remarks " name="remarks" [(ngModel)]="remarks">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <div class="form-group ">
-                <label class="control-label " for="remarks" i18n>Call Remarks</label>
-                <input type="text " class="form-control " id="remarks" placeholder="Enter Remarks " name="remarks" [(ngModel)]="remarks">
-              </div>
+            <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
+                <div class="row ">
+                    <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " i18n>Submit</button>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
-        <div class="row ">
-          <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " i18n>Submit</button>
-        </div>
-      </div>
 
-    </form>
-  </div>
+        </form>
+    </div>
 </div>
