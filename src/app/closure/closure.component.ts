@@ -4,11 +4,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { dataService } from '../services/dataService/data.service';
 import { CallServices } from '../services/callservices/callservice.service'
 
-@Component( {
+@Component({
   selector: 'app-closure',
   templateUrl: './closure.component.html',
-  styleUrls: [ './closure.component.css' ]
-} )
+  styleUrls: ['./closure.component.css']
+})
 export class ClosureComponent implements OnInit
 // export class ClosureComponent implements AfterViewInit
 {
@@ -22,75 +22,66 @@ export class ClosureComponent implements OnInit
   // isFollowupRequired: boolean = false;
   preferredDateTime: any;
   callTypeID: any;
-  minDate:Date;
-  maxDate:Date;
-  isFollowUp:boolean=false;
-  followUpDate:any;
-  picker='';
+  minDate: Date;
+  maxDate: Date;
+  isFollowUp;
+  followUpDate: any;
+  picker = '';
 
-  constructor(
+  constructor(  
     private _callServices: CallServices,
     private saved_data: dataService
   ) { }
-
-  ngOnInit ()
-  {
-    let requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
-    this._callServices.getCallTypes( requestObject ).subscribe( response => this.populateCallTypes( response ) );
+  /* Intialization of variable and object has to be come here */
+  ngOnInit() {
+    const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
+    this.isFollowUp = false;
+    this._callServices.getCallTypes(requestObject).subscribe(response => this.populateCallTypes(response));
   }
 
-  populateCallTypes ( response: any )
-  {
+  populateCallTypes(response: any) {
     this.calltypes = response;
   }
   // @Input()
-  onView ()
-  {
-    let requestObject = { 'benCallID': this.saved_data.callData.benCallID };
-    this._callServices.getCallSummary( requestObject ).subscribe( response => this.populateCallSummary( response ) );
+  onView() {
+    const requestObject = { 'benCallID': this.saved_data.callData.benCallID };
+    this._callServices.getCallSummary(requestObject).subscribe(response => this.populateCallSummary(response));
   }
-  populateCallSummary ( response: any )
-  {
+  populateCallSummary(response: any) {
     this.summaryList = [];
-    console.log( JSON.stringify( response ) );
+    console.log(JSON.stringify(response));
     this.summaryList = response;
     this.showCallSummary = false;
-    if ( this.summaryList.length > 0 )
-    {
+    if (this.summaryList.length > 0) {
       this.showCallSummary = true;
     }
   }
 
-  closeCall ( values: any )
-  {
+  closeCall(values: any) {
+    debugger;
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
-    if ( values.preferredDateTime )
-    {
-      values.preferredDateTime = new Date( values.preferredDateTim );
-      values.preferredDateTime = new Date(( values.preferredDateTim ) - 1 * ( values.preferredDateTim.getTimezoneOffset() * 60 * 1000 ) ).toJSON();
-    } else
-    {
+    if (values.preferredDateTime) {
+      values.preferredDateTime = new Date(values.preferredDateTime);
+      values.preferredDateTime
+        = new Date((values.preferredDateTime) - 1 * (values.preferredDateTime.getTimezoneOffset() * 60 * 1000)).toJSON();
+    } else {
       values.preferredDateTim = undefined;
     }
-    values.requestedFor = undefined;//requestedFor
+    values.requestedFor = undefined; // requested For
     values.createdBy = this.saved_data.uname;
-    console.log( "close called with " + values );
-    this._callServices.closeCall( values ).subscribe( response =>
-    {
+    console.log('close called with ' + values);
+    this._callServices.closeCall(values).subscribe(response => {
       this.callClosed.emit();
       this.showAlert();
-    } );
+    });
   }
 
-  showAlert ()
-  {
-    alert( 'Call closed Successful!!!!' );
+  showAlert() {
+    alert('Call closed Successful!!!!');
   }
-  isFollow(e:any)
-{
-  console.log("Event us ",e.target.value);
-  e.target.value=="true"?this.isFollowUp=true:this.isFollowUp=false;
-}
+  isFollow(e) {
+    e.checked === true ? this.isFollowUp = true : this.isFollowUp = false;
+  }
 }
