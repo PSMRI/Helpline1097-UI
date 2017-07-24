@@ -5,8 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import
-{
+import {
   MaterialModule,
   MdMenuModule,
 } from '@angular/material';
@@ -20,7 +19,7 @@ import { MdInputModule } from '@angular/material';
 import { MdNativeDateModule } from '@angular/material';
 import { CustomFormsModule } from 'ng2-validation';
 import { ValidationMessagesModule } from 'ng2-custom-validation';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -110,8 +109,12 @@ import { ConfigService } from './services/config/config.service';
 import { helpline1097Component } from './1097/1097.component'
 
 
+// md2 Material2  modules and components
+import { Md2Module } from 'md2';
 
-@NgModule( {
+
+
+@NgModule({
   declarations: [
     AppComponent, dashboardContentClass, loginContentClass,
     ResetComponent, myPassword, InnerpageComponent, MultiRoleScreenComponent,
@@ -143,9 +146,9 @@ import { helpline1097Component } from './1097/1097.component'
     NgxPaginationModule,
     MdInputModule,
     CustomFormsModule,
-ValidationMessagesModule,
-BrowserAnimationsModule,
-    RouterModule.forRoot( [
+    ValidationMessagesModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot([
       {
         path: 'resetPassword',
         component: ResetComponent
@@ -200,13 +203,14 @@ BrowserAnimationsModule,
         path: 'dashboard',
         component: dashboardContentClass
       },
-    ] ) ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ loginService, dataService, DashboardHttpServices, SPService, RegisterService,
+    ]),
+    Md2Module],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService ],
-  bootstrap: [ AppComponent ]
-} )
+    UpdateService, CallServices, ConfigService],
+  bootstrap: [AppComponent]
+})
 
 export class AppModule { }

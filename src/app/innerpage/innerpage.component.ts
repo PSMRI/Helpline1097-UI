@@ -5,41 +5,40 @@ import { ActivatedRoute, Params } from '@angular/router'
 declare var jQuery: any;
 
 
-@Component( {
-	selector: 'app-innerpage',
-	templateUrl: './innerpage.component.html',
-	styleUrls: [ './innerpage.component.css' ]
-} )
-export class InnerpageComponent implements OnInit
-{
-	callDuration: number = 0;
-	beneficiaryNotSelected: boolean = true;
-	callerNumber: any;
-	barMinimized: boolean = true;
-	startYear: number = 1970;
+@Component({
+  selector: 'app-innerpage',
+  templateUrl: './innerpage.component.html',
+  styleUrls: ['./innerpage.component.css']
+})
+export class InnerpageComponent implements OnInit {
+  callDuration: number = 0;
+  beneficiaryNotSelected: boolean = true;
+  callerNumber: any;
+  barMinimized: boolean = true;
+  startYear: number = 1970;
+  checkRole = true;
 
-	@Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
-	@Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
-	@Output() StartNewCall: EventEmitter<any> = new EventEmitter<any>();
-	@Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
-	@Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
-	current_service: any;
-	current_role: any;
+  @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
+  @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
+  @Output() StartNewCall: EventEmitter<any> = new EventEmitter<any>();
+  @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
+  @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
+  current_service: any;
+  current_role: any;
 
-	constructor(
-		public getCommonData: dataService,
-		public basicrouter: Router,
-		public router: ActivatedRoute
+  constructor(
+    public getCommonData: dataService,
+    public basicrouter: Router,
+    public router: ActivatedRoute
 
-	)
-	{
-		// setInterval(() =>
-		// {
-		// 	this.callDuration = this.callDuration + 1;
-		// }, 1000 );
-	}
+  ) {
+    // setInterval(() =>
+    // {
+    // 	this.callDuration = this.callDuration + 1;
+    // }, 1000 );
+  }
 
-	data: any = this.getCommonData.Userdata;
+  data: any = this.getCommonData.Userdata;
 
 
 	/*<td>{{regHistory.beneficiaryID}}</td>
@@ -54,79 +53,75 @@ export class InnerpageComponent implements OnInit
 								<td>{{regHistory.i_bendemographics.m_language.languageName}}</td>
 								<td>{{regHistory.benPhoneMaps[0].benRelationshipType.benRelationshipType}}</td>
 								*/
-	selectedBenData: any = {
-		'id': '',
-		'fname': '',
-		'lname': '',
-		'mob': '',
-		'age': '',
-		'gender': '',
-		'state': '',
-		'district': '',
-		'block': '',
-		'village': '',
-		'language': '',
-		'relation': '',
-		'name': ''
-	};
+  selectedBenData: any = {
+    'id': '',
+    'fname': '',
+    'lname': '',
+    'mob': '',
+    'age': '',
+    'gender': '',
+    'state': '',
+    'district': '',
+    'block': '',
+    'village': '',
+    'language': '',
+    'relation': '',
+    'name': ''
+  };
 
-	ngOnInit ()
-	{
-		this.current_service = this.getCommonData.current_service.serviceName;
-		this.current_role = this.getCommonData.current_role.RoleName;
-	}
-	addActiveClass ( val: any )
-	{
-		jQuery( '#' + val ).parent().find( "a" ).removeClass( 'active-tab' );
-		jQuery( '#' + val ).find( "a" ).addClass( "active-tab" );
-	}
+  ngOnInit() {
+    this.current_service = this.getCommonData.current_service.serviceName;
+    this.current_role = this.getCommonData.current_role.RoleName;
+    if (this.current_role.toLowerCase() === 'supervisior') {
+      this.checkRole = false;
+    }
+  }
+  addActiveClass(val: any) {
+    jQuery('#' + val).parent().find("a").removeClass('active-tab');
+    jQuery('#' + val).find("a").addClass("active-tab");
+  }
 
-	getSelectedBenDetails ( data: any )
-	{
-		if ( data != null )
-		{
-			this.selectedBenData.id = "Ben ID: " + data.beneficiaryID;
-			this.selectedBenData.fname = data.firstName;
-			this.selectedBenData.lname = data.lastName;
-			this.selectedBenData.name = "Name: " + data.firstName + " " + data.lastName;
-			// if ( data.dOB )
-			// {
-			// 	let currDate = new Date();
-			// 	let dob = new Date( data.dOB );
-			// 	let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
-			this.selectedBenData.age = "Age: " + data.age;
-			// }
-			this.selectedBenData.gender = "Gender: " + data.m_gender.genderName;
-			this.selectedBenData.state = "State: " + data.i_bendemographics.m_state.stateName;
-			this.selectedBenData.district = "District: " + data.i_bendemographics.m_district.districtName;
-			this.selectedBenData.block = "Taluk: " + data.i_bendemographics.m_districtblock.blockName;
-			this.selectedBenData.village = "Village: " + data.i_bendemographics.m_districtbranchmapping.villageName;
-			this.selectedBenData.language = "Preferred Lang: " + data.i_bendemographics.m_language.languageName;
-			this.selectedBenData.relation = "Family tagging: " + data.benPhoneMaps[ 0 ].benRelationshipType.benRelationshipType;
-		} else
-		{
-			this.selectedBenData.id = "";
-			this.selectedBenData.fname = "";
-			this.selectedBenData.lname = "";
-			this.selectedBenData.age = "";
-			this.selectedBenData.gender = "";
-			this.selectedBenData.state = "";
-			this.selectedBenData.district = "";
-			this.selectedBenData.block = "";
-			this.selectedBenData.village = "";
-			this.selectedBenData.language = "";
-			this.selectedBenData.relation = "";
-		}
-	}
+  getSelectedBenDetails(data: any) {
+    if (data != null) {
+      this.selectedBenData.id = "Ben ID: " + data.beneficiaryID;
+      this.selectedBenData.fname = data.firstName;
+      this.selectedBenData.lname = data.lastName;
+      this.selectedBenData.name = "Name: " + data.firstName + " " + data.lastName;
+      // if ( data.dOB )
+      // {
+      // 	let currDate = new Date();
+      // 	let dob = new Date( data.dOB );
+      // 	let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
+      this.selectedBenData.age = "Age: " + data.age;
+      // }
+      this.selectedBenData.gender = "Gender: " + data.m_gender.genderName;
+      this.selectedBenData.state = "State: " + data.i_bendemographics.m_state.stateName;
+      this.selectedBenData.district = "District: " + data.i_bendemographics.m_district.districtName;
+      this.selectedBenData.block = "Taluk: " + data.i_bendemographics.m_districtblock.blockName;
+      this.selectedBenData.village = "Village: " + data.i_bendemographics.m_districtbranchmapping.villageName;
+      this.selectedBenData.language = "Preferred Lang: " + data.i_bendemographics.m_language.languageName;
+      this.selectedBenData.relation = "Family tagging: " + data.benPhoneMaps[0].benRelationshipType.benRelationshipType;
+    } else {
+      this.selectedBenData.id = "";
+      this.selectedBenData.fname = "";
+      this.selectedBenData.lname = "";
+      this.selectedBenData.age = "";
+      this.selectedBenData.gender = "";
+      this.selectedBenData.state = "";
+      this.selectedBenData.district = "";
+      this.selectedBenData.block = "";
+      this.selectedBenData.village = "";
+      this.selectedBenData.language = "";
+      this.selectedBenData.relation = "";
+    }
+  }
 
 
-	minimizeBar ()
-	{
-		this.barMinimized = true;
-	}
-	toggleBar ()
-	{
-		this.barMinimized = !this.barMinimized;
+  minimizeBar() {
+    this.barMinimized = true;
+  }
+  toggleBar() {
+    this.barMinimized = !this.barMinimized;
 
-	}
+  }
 }

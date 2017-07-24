@@ -33,43 +33,45 @@
         </div>
         <form #Form="ngForm" (submit)="closeCall(Form.value)">
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-                    <span class="f-c-g">Is followup required</span>
-                    <div>
-                        <label class="radio-inline">
-                        <input type="radio" name="optradio" value="true" name="isFollowUp" [(ngModel)]="isFollowUp" (change)="isFollow($event)"> Yes 
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+            <md-slide-toggle ngDefaultControl name="isFollowup" color="primary" (change)="isFollow($event)">Is followup required?</md-slide-toggle>
+          <!-- <span class="f-c-g">Is followup required</span>
+          <div>
+
+            <label class="radio-inline">
+                        <input type="radio" name="optradio" value="true"  [(ngModel)]="isFollowup" (change)="isFollow($event)"> Yes 
                     </label>
 
                         <label class="radio-inline">
                         <input type="radio" value="false" name="optradio" name="isFollowUp"  [(ngModel)]="isFollowUp" (change)="isFollow($event)"> No
                     </label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-8">
-                    <div class="row" *ngIf="isFollowUp">
-                        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 ">
-                            <div class="form-group">
-                                <label class="control-label" for="preferredDateTime" i18n>Preferred Date</label>
-                                <input class="form-control" [mdDatepicker]="picker" placeholder="Preferred Date">
-                            </div>
-                        </div>
-                        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1  m-t-25">
-                            <button mdPrefix [mdDatepickerToggle]="picker "></button>
-                            <md-datepicker #picker></md-datepicker>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                            <div class="form-group ">
-                                <label class="control-label" for="requestedFor" i18n>Follow-up Reason </label>
-                                <input class="form-control" placeholder="Follow-up Reason">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div class="form-group ">
-                                <label class="control-label" for="callTypeID" i18n>Select Call Type</label>
-                                <select class="form-control drop-arrow " name="callTypeID" [(ngModel)]="callTypeID">
+          </div> -->
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8">
+          <div class="row" *ngIf="isFollowUp">
+            <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 ">
+              <div class="form-group">
+                <label class="control-label" for="preferredDateTime" i18n>Preferred Date</label>
+                <input class="form-control" [mdDatepicker]="picker" placeholder="Preferred Date">
+              </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1  m-t-25">
+              <button mdPrefix [mdDatepickerToggle]="picker "></button>
+              <md-datepicker #picker></md-datepicker>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+              <div class="form-group ">
+                <label class="control-label" for="requestedFor" i18n>Follow-up Reason </label>
+                <input class="form-control" placeholder="Follow-up Reason">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group ">
+                <label class="control-label" for="callTypeID" i18n>Select Call Type</label>
+                <select class="form-control drop-arrow " name="callTypeID" [(ngModel)]="callTypeID">
                     <!--<option></option>-->
                     <!--<option value="Valid Call" i18n>Valid Call</option>
                     <option value="Test Call" i18n>Test Call</option>-->
