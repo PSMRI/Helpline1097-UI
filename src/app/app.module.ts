@@ -107,10 +107,12 @@ import { UpdateService } from './services/update-services/update-service';
 import { CallServices } from './services/callservices/callservice.service';
 import { ConfigService } from './services/config/config.service';
 import { helpline1097Component } from './1097/1097.component'
+import { Message } from './services/common/message.service';
 
 
 // md2 Material2  modules and components
 import { Md2Module } from 'md2';
+import { MdSnackBarModule } from '@angular/material'
 
 
 
@@ -209,7 +211,7 @@ import { Md2Module } from 'md2';
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService],
+    UpdateService, CallServices, ConfigService, Message],
   bootstrap: [AppComponent]
 })
 

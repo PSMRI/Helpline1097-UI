@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserBeneficiaryData } from "../services/common/userbeneficiarydata.service";
+import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { UpdateService } from "../services/update-services/update-service";
+import { UpdateService } from '../services/update-services/update-service';
 import { dataService } from '../services/dataService/data.service';
+import { Message } from './../services/common/message.service';
+
 declare let jQuery: any;
 @Component({
   selector: 'app-updates-from-beneficiary',
@@ -22,9 +24,9 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   count;
   occupations: any = [];
   sourceOfInfo: any = [
-    { name: "Pamphlet", value: "Pamphlet", selected: false, id: 1 },
-    { name: "Radio", value: "Radio", selected: false, id: 2 },
-    { name: "Television", value: "Television", selected: false, id: 3 },
+    { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1 },
+    { name: 'Radio', value: 'Radio', selected: false, id: 2 },
+    { name: 'Television', value: 'Television', selected: false, id: 3 },
     { name: 'Family and Friends', value: 'Family and Friends', selected: false, id: 4 },
     { name: 'Healthcare worker', value: 'Healthcare worker', selected: false, id: 5 },
     { name: 'Others', value: 'Others', selected: false, id: 6 },
@@ -35,13 +37,10 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     private _userBeneficiaryData: UserBeneficiaryData,
     private _util: UpdateService,
     private fb: FormBuilder,
-    private saved_data: dataService) {
-
-    // this.form = this.fb.group( {
-    //   skills: this.buildSkills()
-    // } );
+    private saved_data: dataService,
+    private message: Message) {
   }
-  // }
+
 
   ngOnInit() {
     this._userBeneficiaryData.getUserBeneficaryData()
@@ -80,10 +79,9 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   updateBeneficiary(values: any) {
-    console.log(values);
     const newOtherData: any = {};
     this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
-    this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationID; //values.occupation;
+    this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationID; // values.occupation;
     this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationID;
     this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
     this.saved_data.beneficiaryData.sexualOrientationId = values.sexualOrientationID;
@@ -98,7 +96,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   showAlert() {
-    alert('Update Successful!!!!');
+    this.message.openSnackBar('Update Successful!!!!');
   }
   updateCount() {
     this.count = this.remarks.length + '/300';

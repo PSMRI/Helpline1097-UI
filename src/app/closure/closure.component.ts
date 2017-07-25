@@ -1,8 +1,9 @@
 import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output } from '@angular/core';
-import { UserBeneficiaryData } from "../services/common/userbeneficiarydata.service";
+import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { dataService } from '../services/dataService/data.service';
 import { CallServices } from '../services/callservices/callservice.service'
+import { Message } from './../services/common/message.service';
 
 @Component({
   selector: 'app-closure',
@@ -19,8 +20,8 @@ export class ClosureComponent implements OnInit
   remarks: any;
   callClosureType: any;
   calltypes: any = [];
-  // isFollowupRequired: boolean = false;
-  preferredDateTime: any;
+  isFollowupRequired: boolean = false;
+  prefferedDateTime: any;
   callTypeID: any;
   minDate: Date;
   maxDate: Date;
@@ -28,9 +29,10 @@ export class ClosureComponent implements OnInit
   followUpDate: any;
   picker = '';
 
-  constructor(  
+  constructor(
     private _callServices: CallServices,
-    private saved_data: dataService
+    private saved_data: dataService,
+    private message: Message
   ) { }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
@@ -58,18 +60,16 @@ export class ClosureComponent implements OnInit
   }
 
   closeCall(values: any) {
-    debugger;
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
-    if (values.preferredDateTime) {
-      values.preferredDateTime = new Date(values.preferredDateTime);
-      values.preferredDateTime
-        = new Date((values.preferredDateTime) - 1 * (values.preferredDateTime.getTimezoneOffset() * 60 * 1000)).toJSON();
+    if (values.prefferedDateTime) {
+      values.prefferedDateTime = new Date(values.prefferedDateTime);
+      values.prefferedDateTime
+        = new Date((values.prefferedDateTime) - 1 * (values.prefferedDateTime.getTimezoneOffset() * 60 * 1000)).toJSON();
     } else {
       values.preferredDateTim = undefined;
     }
-    values.requestedFor = undefined; // requested For
     values.createdBy = this.saved_data.uname;
     console.log('close called with ' + values);
     this._callServices.closeCall(values).subscribe(response => {
@@ -79,9 +79,17 @@ export class ClosureComponent implements OnInit
   }
 
   showAlert() {
-    alert('Call closed Successful!!!!');
+    this.message.openSnackBar('Call closed Successful!!!!');
+    // alert('Call closed Successful!!!!');
   }
   isFollow(e) {
-    e.checked === true ? this.isFollowUp = true : this.isFollowUp = false;
+    if (e.checked) {
+      this.isFollowUp = true;
+      this.isFollowupRequired = true
+    } else {
+      this.isFollowUp = false;
+      this.isFollowupRequired = false;
+    }
+
   }
 }

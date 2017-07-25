@@ -1,11 +1,11 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { RegisterService } from '../services/register-services/register-service';
 import { UpdateService } from '../services/update-services/update-service';
 import { Router } from '@angular/router';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
 import { LocationService } from '../services/common/location.service';
 import { dataService } from '../services/dataService/data.service';
-
+import { Message } from './../services/common/message.service'
 @Component({
   selector: 'app-beneficiary-registration',
   templateUrl: './beneficiary-registration.component.html',
@@ -15,7 +15,7 @@ import { dataService } from '../services/dataService/data.service';
 export class BeneficiaryRegistrationComponent implements OnInit {
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>(); 1
-
+  @ViewChild('ageRef') input: ElementRef;
   FirstName: any = '';
   LastName: any = '';
   DOB: any;
@@ -76,13 +76,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
-    private updateBen: UpdateService, private saved_data: dataService) { }
+    private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
+    private message: Message) { }
 
   /* Intialization Of value and object has to be written in here */
   ngOnInit() {
     this.today = new Date();
     this.maxDate = this.today;
-    this.dateFormat = 'DD-MM-YY';
     this._userBeneficiaryData.getUserBeneficaryData()
       .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
     this.startNewCall();
@@ -151,7 +151,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     if (regData.m_language) {
       this.language = regData.m_language;
     }
-    this.beneficiaryRelations = regData.benRelationshipTypes;
+    if (regData.benRelationshipTypes) {
+      this.beneficiaryRelations = regData.benRelationshipTypes;
+      this.getRelationShipType(this.beneficiaryRelations);
+    }
+
   }
 
   calledEarlierCheck(flag) {
@@ -322,7 +326,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   showAlert() {
-    alert('Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
+    this.message.openSnackBar('Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -416,8 +420,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
-    }
-    else {
+    } else {
       this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
         return item.benRelationshipType !== 'Self'; // This value has to go in constant
       });
@@ -531,13 +534,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   getRelationShipType(relationShips) {
-    this.beneficiaryRelationID = relationShips.filter(function (item) {
+    let benificiaryRelationType = [];
+    benificiaryRelationType = relationShips.filter(function (item) {
       return item.benRelationshipType === 'Self'; // This value has to go in constant
     });
-    return this.beneficiaryRelationID[0]['benRelationshipID'];
-
+    this.beneficiaryRelationID = benificiaryRelationType[0]['benRelationshipID']
+    return this.beneficiaryRelationID;
   }
-  // Handling Error 
+  // Handling Error
   getParentData(parentBenID) {
     this._util.retrieveRegHistory(parentBenID).subscribe((response) => {
       if (response) {
@@ -559,10 +563,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // calculate date of birth on the basis of age
   calculateDOB(age) {
-    console.log("Age is ", age);
     const currentYear = this.today.getFullYear();
     // int parsing in decimal format
-    this.DOB = currentYear - parseInt(age, 10);
-    console.log("DOB is", this.DOB);
+    this.DOB = new Date('' + (currentYear - parseInt(age, 10)));
+    this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', 'readonly');
+  }
+  // to remove the readonly on double click
+  enableAge(data) {
+    this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', null);
+
   }
 }
