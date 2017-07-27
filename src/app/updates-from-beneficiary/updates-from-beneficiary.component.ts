@@ -30,7 +30,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit
     { name: 'Radio', value: 'Radio', selected: false, id: 2 },
     { name: 'Television', value: 'Television', selected: false, id: 3 },
     { name: 'Family and Friends', value: 'Family and Friends', selected: false, id: 4 },
-    { name: 'Healthcare worker', value: 'Healthcare worker', selected: false, id: 5 },
+    { name: 'Healthcare Worker', value: 'Healthcare Worker', selected: false, id: 5 },
     { name: 'Others', value: 'Others', selected: false, id: 6 },
     { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7 }
   ];

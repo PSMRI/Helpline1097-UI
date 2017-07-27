@@ -49,9 +49,11 @@ body{
 background:#f2f2f0 !important;
 
 font-family:SF-UI-Display-Regular !important;
-height: 100%;  
+height: 100%;
 }
-
+.capitalize{
+text-transform:  capitalize;
+}
 input{
   font-family:SF-UI-Display-Regular !important;
 }
