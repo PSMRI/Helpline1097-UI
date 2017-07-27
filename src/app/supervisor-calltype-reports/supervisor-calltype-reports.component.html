@@ -1,0 +1,51 @@
+<md-card>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
+        <md-select placeholder="CallType" [style.width]="'100%'" [(ngModel)]="callType" name="callType">
+          <md-option value="1">
+            Valid
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <md2-datepicker #startDate [md2DatepickerToggle]="startDate" placeholder="Start Date" [(ngModel)]="start_date" #startDate [max]="maxDate"></md2-datepicker>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      	<md2-datepicker #endDate [md2DatepickerToggle]="endDate" placeholder="End Date" [(ngModel)]="end_date" [min]=startDate.value></md2-datepicker>    
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      	<button class="pull-right" md-raised-button (click)="setTableFlag(true)">SEARCH</button>
+      </div>
+    </div>
+  </div>
+</md-card>
+<md-card class="m-t-10" *ngIf="tableFlag">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+		<table [md2Data]="dummyArray" #md2="md2DataTable" class="table">
+        <thead>
+          <tr>
+            <th>C1</th>
+            <th>C2</th>
+            <th>C3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let loc of workLocations| paginate: {id:'workLocations', itemsPerPage: 8, currentPage: b}"> -->
+          <tr>
+            <td>v1.1</td>
+            <td>v1.2</td>
+            <td>v1.3</td>
+          </tr>
+          <tr>
+            <td>v2.1</td>
+            <td>v2.2</td>
+            <td>v2.3</td>
+          </tr>
+          <!-- <pagination-controls (pageChange)="b = $event" id="workLocations"></pagination-controls> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</md-card>

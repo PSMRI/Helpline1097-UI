@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import {
   MaterialModule,
   MdMenuModule,
+  MdCardModule
 } from '@angular/material';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -108,11 +109,14 @@ import { CallServices } from './services/callservices/callservice.service';
 import { ConfigService } from './services/config/config.service';
 import { helpline1097Component } from './1097/1097.component'
 import { Message } from './services/common/message.service';
+import { SupervisorCallTypeReportService } from './services/supervisorServices/supervisor-calltype-reports-service.service';
+
 
 
 // md2 Material2  modules and components
 import { Md2Module } from 'md2';
-import { MdSnackBarModule } from '@angular/material'
+import { MdSnackBarModule } from '@angular/material';
+import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component'
 
 
 
@@ -134,7 +138,7 @@ import { MdSnackBarModule } from '@angular/material'
     helpline1097CoComponent, helpline1097AdminComponent, helpline1097SupervisorComponent,
     SupervisorReportsComponent, SupervisorConfigurationsComponent, AgentStatusComponent,
     BlockUnblockNumberComponent, DialBeneficiaryComponent, QualityAuditComponent,
-    SupervisorNotificationsComponent, supervisorFeedback
+    SupervisorNotificationsComponent, supervisorFeedback, SupervisorCalltypeReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -150,6 +154,7 @@ import { MdSnackBarModule } from '@angular/material'
     CustomFormsModule,
     ValidationMessagesModule,
     BrowserAnimationsModule,
+    MdCardModule,
     RouterModule.forRoot([
       {
         path: 'resetPassword',
@@ -211,7 +216,7 @@ import { MdSnackBarModule } from '@angular/material'
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message],
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService],
   bootstrap: [AppComponent]
 })
 
