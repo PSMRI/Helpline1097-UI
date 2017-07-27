@@ -10,7 +10,7 @@
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
         <div class="form-group">
           <label class="control-label" for="occupation">Occupation</label>
-           <select class="form-control drop-arrow" name="occupationID" [(ngModel)]="occupationID">
+          <select class="form-control drop-arrow" name="occupationID" [(ngModel)]="occupationID">
                     <option *ngFor="let occupation of occupations" value={{occupation.occupationID}}>
                     {{occupation.occupationType}}
                     </option>
@@ -45,18 +45,19 @@
       <div class="col-xs-12 col-sm-12">
         <div class="form-group">
           <label class="control-label" for="remarks">Remarks</label>
-          <textarea name="remarks" id="remarks" class="form-control" [(ngModel)]="remarks" maxlength="300" ng-minlength="10" required  (keyup)="updateCount()"></textarea>
-        <span id="count">{{count}}</span>
+          <textarea name="remarks" id="remarks" class="form-control" [(ngModel)]="remarks" maxlength="300" ng-minlength="10" required
+            (keyup)="updateCount()"></textarea>
+          <span id="count">{{count}}</span>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <!-- <h4 class="">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</h4>  -->
-      <!-- </div> -->
-         <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary"  [(ngModel)]="isHIVPos">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</md-slide-toggle>
-  <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">-->
-      <!-- <div class=""> -->
+        <!-- <h4 class="">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</h4>  -->
+        <!-- </div> -->
+        <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</md-slide-toggle>
+        <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">-->
+        <!-- <div class=""> -->
         <!-- <label class="" for="sufferingFromAids"><span class="f-c-g">Is beneficiary suffering from AIDS/HIV?</span></label>
          <label class="radio-inline">
                         <input type="radio" name="isHIVPos" value=true [(ngModel)]="isHIVPos"> Yes 
@@ -96,7 +97,7 @@
           <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
                     <!--<input type="checkbox" value="{{source.value}}" [(ngModel)]="sourceOfInformation"/> {{source.name}}</label>-->
           <!-- <input type="checkbox" value="{{source.value}}" /> {{source.name}}</label> -->
-          <md-checkbox  color="primary" value="{{source.value}}" ></md-checkbox> {{source.name}}</label>
+          <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label>
         </div>
       </div>
     </div>

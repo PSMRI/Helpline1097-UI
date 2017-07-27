@@ -6,12 +6,13 @@ import { dataService } from '../services/dataService/data.service';
 import { Message } from './../services/common/message.service';
 
 declare let jQuery: any;
-@Component({
+@Component( {
   selector: 'app-updates-from-beneficiary',
   templateUrl: './updates-from-beneficiary.component.html',
-  styleUrls: ['./updates-from-beneficiary.component.css']
-})
-export class UpdatesFromBeneficiaryComponent implements OnInit {
+  styleUrls: [ './updates-from-beneficiary.component.css' ]
+} )
+export class UpdatesFromBeneficiaryComponent implements OnInit
+{
   occupation: any;
   educationID: any;
   sexualOrientationID: any;
@@ -23,6 +24,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   sexualOrientations: any = [];
   count;
   occupations: any = [];
+  occupationID: any;
   sourceOfInfo: any = [
     { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1 },
     { name: 'Radio', value: 'Radio', selected: false, id: 2 },
@@ -38,25 +40,30 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     private _util: UpdateService,
     private fb: FormBuilder,
     private saved_data: dataService,
-    private message: Message) {
+    private message: Message )
+  {
   }
 
 
-  ngOnInit() {
+  ngOnInit ()
+  {
     this._userBeneficiaryData.getUserBeneficaryData()
-      .subscribe(response => {
-        this.SetUserBeneficiaryRegistrationData(response);
-      });
+      .subscribe( response =>
+      {
+        this.SetUserBeneficiaryRegistrationData( response );
+      } );
     this.PopulateUpdateData();
 
     this.count = '0/300';
 
   }
 
-  PopulateUpdateData() {
-    if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
+  PopulateUpdateData ()
+  {
+    if ( this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID )
+    {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
-      this.occupation = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
+      this.occupationID = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
       this.educationID = this.saved_data.beneficiaryData.i_bendemographics.educationID;
       this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationId;
       this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
@@ -65,20 +72,25 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     }
   }
 
-  SetUserBeneficiaryRegistrationData(response: any) {
+  SetUserBeneficiaryRegistrationData ( response: any )
+  {
 
-    if (response.sexualOrientations) {
+    if ( response.sexualOrientations )
+    {
       this.sexualOrientations = response.sexualOrientations;
     }
-    if (response.i_BeneficiaryEducation) {
+    if ( response.i_BeneficiaryEducation )
+    {
       this.educationQualifications = response.i_BeneficiaryEducation;
     }
-    if (response.beneficiaryOccupations) {
+    if ( response.beneficiaryOccupations )
+    {
       this.occupations = response.beneficiaryOccupations;
     }
   }
 
-  updateBeneficiary(values: any) {
+  updateBeneficiary ( values: any )
+  {
     const newOtherData: any = {};
     this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
     this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationID; // values.occupation;
@@ -90,15 +102,18 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
 
     // alert( values );
-    const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe(response => {
+    const res = this._util.updateBeneficiaryData( this.saved_data.beneficiaryData ).subscribe( response =>
+    {
       this.showAlert();
-    });
+    } );
   }
 
-  showAlert() {
-    this.message.openSnackBar('Update Successful!!!!');
+  showAlert ()
+  {
+    this.message.openSnackBar( 'Update Successful!!!!' );
   }
-  updateCount() {
+  updateCount ()
+  {
     this.count = this.remarks.length + '/300';
   }
 }
