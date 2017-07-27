@@ -22,9 +22,13 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 	// arrays
 
+	callTypes: any;
+	filterCallListArray: any;
+
 	// flags
 
 	tableFlag: boolean;
+	showPaginationControls: boolean;
 
 
 	constructor(public _SupervisorCallTypeReportService: SupervisorCallTypeReportService,
@@ -34,9 +38,15 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 	  this.tableFlag = false;
 	  this.today = new Date();
 	  this.maxDate = this.today;
+
+	  this.filterCallListArray = [];
+
   	}
 
   ngOnInit() {
+	  let requestObject = { 'providerServiceMapID': this.commonDataService.current_service.serviceID };
+	  this._SupervisorCallTypeReportService.getCallTypes(requestObject).subscribe((response: Response) => this.callTypes = this.successhandeler(response));
+	  this.showPaginationControls = false;
   }
 
   setTableFlag(val)
@@ -65,12 +75,17 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 		// write the api here to get filtercall list
 		this._SupervisorCallTypeReportService.filterCallList(requestObj).subscribe(
-			(response:Response)=>this.successhandeler(response));
+			(response:Response)=>this.filterCallListArray=this.successhandeler(response));
   }
 
   successhandeler(response)
   {
   	console.log(response,"respinse call wala");
+  	if(response.length>5)
+  	{
+			this.showPaginationControls = true;
+  	}
+		return response;
   }
 
 }
