@@ -76,7 +76,9 @@ import { ClosureComponent } from './closure/closure.component';
 import { SetSecurityQuestionsComponent } from './set-security-questions/set-security-questions.component';
 
 
+
 // material modules  
+import { MdDialogModule } from '@angular/material';
 
 // admin components
 import { SuperAdminComponent } from './super-admin/super-admin.component'
@@ -109,10 +111,14 @@ import { ConfigService } from './services/config/config.service';
 import { helpline1097Component } from './1097/1097.component'
 import { Message } from './services/common/message.service';
 
+//pipes
+import { FilterTable } from './pipes/filter-table.pipe'
+
 
 // md2 Material2  modules and components
 import { Md2Module } from 'md2';
-import { MdSnackBarModule } from '@angular/material'
+import { MdSnackBarModule } from '@angular/material';
+import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-history.component'
 
 
 
@@ -134,7 +140,7 @@ import { MdSnackBarModule } from '@angular/material'
     helpline1097CoComponent, helpline1097AdminComponent, helpline1097SupervisorComponent,
     SupervisorReportsComponent, SupervisorConfigurationsComponent, AgentStatusComponent,
     BlockUnblockNumberComponent, DialBeneficiaryComponent, QualityAuditComponent,
-    SupervisorNotificationsComponent, supervisorFeedback
+    SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable
   ],
   imports: [
     BrowserModule,
@@ -207,6 +213,7 @@ import { MdSnackBarModule } from '@angular/material'
       },
     ]),
     Md2Module],
+  entryComponents: [BeneficiaryHistoryComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,

@@ -22,6 +22,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   educationQualifications: any = [];
   sexualOrientations: any = [];
   count;
+  occupationID: any;
   occupations: any = [];
   sourceOfInfo: any = [
     { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1 },

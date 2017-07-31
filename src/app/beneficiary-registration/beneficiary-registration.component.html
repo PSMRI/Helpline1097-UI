@@ -109,16 +109,16 @@
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
         <label class="control-label" for="dOB" i18n>DOB</label>
-        <md2-datepicker [min]="minDate" [max]="maxDate"  placeholder="dd-MM-yyyy" name="dateOfBirth" (change)="calculateAge($event.value)"
+        <md2-datepicker [min]="minDate" [max]="maxDate" placeholder="dd-MM-yyyy" name="dateOfBirth" (change)="calculateAge($event.value)"
           [(ngModel)]="DOB"></md2-datepicker>
       </div>
     </div>
-
+    
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
         <label class="control-label " for="lastName ">Age </label>
         <input type="text " class="form-control " #ageRef placeholder="Enter age" name="age" (blur)="calculateDOB(ageRef.value)"
-          [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)"/>
+          [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">

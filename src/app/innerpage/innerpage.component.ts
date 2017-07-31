@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router'
-declare var jQuery: any;
+declare const jQuery: any;
 
 
 @Component({
@@ -11,12 +11,15 @@ declare var jQuery: any;
   styleUrls: ['./innerpage.component.css']
 })
 export class InnerpageComponent implements OnInit {
-  callDuration: number = 0;
+  callDuration: string = '';
   beneficiaryNotSelected: boolean = true;
   callerNumber: any;
   barMinimized: boolean = true;
   startYear: number = 1970;
   checkRole = true;
+  seconds: number = 0;
+  minutes: number = 0;
+  counter: number = 0;
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -36,23 +39,24 @@ export class InnerpageComponent implements OnInit {
     // {
     // 	this.callDuration = this.callDuration + 1;
     // }, 1000 );
+
   }
 
   data: any = this.getCommonData.Userdata;
 
 
-	/*<td>{{regHistory.beneficiaryID}}</td>
-								<td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
-								<td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td>
-								<td>{{regHistory.age}}</td>
-								<td>{{regHistory.m_gender.genderName}}</td>
-								<td>{{regHistory.i_bendemographics.m_state.stateName}}</td>
-								<td>{{regHistory.i_bendemographics.m_district.districtName}}</td>
-								<td>{{regHistory.i_bendemographics.m_districtblock.blockName}}</td>
-								<td>{{regHistory.i_bendemographics.m_districtbranchmapping.villageName}}</td>
-								<td>{{regHistory.i_bendemographics.m_language.languageName}}</td>
-								<td>{{regHistory.benPhoneMaps[0].benRelationshipType.benRelationshipType}}</td>
-								*/
+  /*<td>{{regHistory.beneficiaryID}}</td>
+                <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
+                <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td>
+                <td>{{regHistory.age}}</td>
+                <td>{{regHistory.m_gender.genderName}}</td>
+                <td>{{regHistory.i_bendemographics.m_state.stateName}}</td>
+                <td>{{regHistory.i_bendemographics.m_district.districtName}}</td>
+                <td>{{regHistory.i_bendemographics.m_districtblock.blockName}}</td>
+                <td>{{regHistory.i_bendemographics.m_districtbranchmapping.villageName}}</td>
+                <td>{{regHistory.i_bendemographics.m_language.languageName}}</td>
+                <td>{{regHistory.benPhoneMaps[0].benRelationshipType.benRelationshipType}}</td>
+                */
   selectedBenData: any = {
     'id': '',
     'fname': '',
@@ -75,6 +79,16 @@ export class InnerpageComponent implements OnInit {
     if (this.current_role.toLowerCase() === 'supervisior') {
       this.checkRole = false;
     }
+    this.callDuration = this.minutes + 'm ' + this.seconds + 's ';
+    setInterval(() => {
+      // Get todays date and time
+      if (this.seconds === (this.counter + 60)) {
+        this.minutes = this.minutes + 1;
+        this.seconds = 0;
+      }
+      this.seconds = this.seconds + 1;
+      this.callDuration = this.minutes + 'm ' + this.seconds + 's ';
+    }, 1000);
   }
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find("a").removeClass('active-tab');
@@ -99,20 +113,20 @@ export class InnerpageComponent implements OnInit {
       this.selectedBenData.district = "District: " + data.i_bendemographics.m_district.districtName;
       this.selectedBenData.block = "Taluk: " + data.i_bendemographics.m_districtblock.blockName;
       this.selectedBenData.village = "Village: " + data.i_bendemographics.m_districtbranchmapping.villageName;
-      this.selectedBenData.language = "Preferred Lang: " + data.i_bendemographics.m_language.languageName;
-      this.selectedBenData.relation = "Family tagging: " + data.benPhoneMaps[0].benRelationshipType.benRelationshipType;
+      this.selectedBenData.language = 'Preferred Lang: ' + data.i_bendemographics.m_language.languageName;
+      this.selectedBenData.relation = 'Family tagging: ' + data.benPhoneMaps[0].benRelationshipType.benRelationshipType;
     } else {
-      this.selectedBenData.id = "";
-      this.selectedBenData.fname = "";
-      this.selectedBenData.lname = "";
-      this.selectedBenData.age = "";
-      this.selectedBenData.gender = "";
-      this.selectedBenData.state = "";
-      this.selectedBenData.district = "";
-      this.selectedBenData.block = "";
-      this.selectedBenData.village = "";
-      this.selectedBenData.language = "";
-      this.selectedBenData.relation = "";
+      this.selectedBenData.id = '';
+      this.selectedBenData.fname = '';
+      this.selectedBenData.lname = '';
+      this.selectedBenData.age = '';
+      this.selectedBenData.gender = '';
+      this.selectedBenData.state = '';
+      this.selectedBenData.district = '';
+      this.selectedBenData.block = '';
+      this.selectedBenData.village = '';
+      this.selectedBenData.language = '';
+      this.selectedBenData.relation = '';
     }
   }
 
@@ -122,6 +136,11 @@ export class InnerpageComponent implements OnInit {
   }
   toggleBar() {
     this.barMinimized = !this.barMinimized;
+
+  }
+  calculateTimeDuration() {
+
+    // Update the count down every 1 secon
 
   }
 }

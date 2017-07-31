@@ -5,7 +5,11 @@ import { Router } from '@angular/router';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
 import { LocationService } from '../services/common/location.service';
 import { dataService } from '../services/dataService/data.service';
-import { Message } from './../services/common/message.service'
+import { Message } from './../services/common/message.service';
+import { BeneficiaryHistoryComponent } from './../beneficiary-history/beneficiary-history.component'
+import { MdDialog, MdDialogRef } from '@angular/material';
+
+
 @Component({
   selector: 'app-beneficiary-registration',
   templateUrl: './beneficiary-registration.component.html',
@@ -77,7 +81,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
-    private message: Message) { }
+    private message: Message, public dialog: MdDialog) { }
 
   /* Intialization Of value and object has to be written in here */
   ngOnInit() {
@@ -527,10 +531,17 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   selectBeneficiary(regHistory: any) {
 
     this.saved_data.benRegId = regHistory.beneficiaryRegID;
-    this.populateUserData(regHistory);
-    this.onBenSelect.emit('benService');
-    this.showSearchResult = false;
-    this.notCalledEarlierLowerPart = false;
+    const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
+      height: '75%',
+      width: '75%',
+      data: regHistory.beneficiaryRegID,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.populateUserData(regHistory);
+      this.onBenSelect.emit('benService');
+      this.showSearchResult = false;
+      this.notCalledEarlierLowerPart = false;
+    });
   }
 
   getRelationShipType(relationShips) {

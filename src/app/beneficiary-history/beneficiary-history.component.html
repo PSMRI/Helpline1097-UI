@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <h2 md-dialog-title>
+    <div class="row">
+      <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">Beneficiary History</div>
+      <div class="col-xs-1 col-sm-1 col-md-4 col-lg-4"></div>
+      <div class="pull-right">
+        <button md-icon-button class="closeBtn" md-dialog-close>
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+    </div>
+
+  </h2>
+  <md-dialog-content>
+    <!-- <jobPreference-form-render [jobPreferenceData]="jobPreferenceValue"></jobPreference-form-render>
+  <div fxLayout="row"> -->
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <table class="table table-responsive table-striped text-center" style="border:0ch" [md2Data]="data | filterTable : search"
+          #md2="md2DataTable" [rowsPerPage]="5">
+          <thead>
+            <!-- <tr>
+              <td class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <input placeholder="Search" class="form-control" [(ngModel)]="search" />
+              </td>
+            </tr> -->
+            <tr>
+              <th md2SortBy="benCallID">BeneficiaryCall ID</th>
+              <th md2SortBy="informationServices">Information Services</th>
+              <th md2SortBy="feedbackServices">Feedback Services</th>
+              <th md2SortBy="referralServices">Referral Services</th>
+              <th md2SortBy="counsellingServices ">Rounselling Services</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let service of md2.data ">
+              <td>{{service.benCallID}}</td>
+              <td>{{service.informationServices}}</td>
+              <td>{{service.feedbackServices}}</td>
+              <td>{{service.referralServices}}</td>
+              <td>{{service.counsellingServices}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+             <tr>
+              <td >
+                <md2-pagination></md2-pagination>
+              </td>
+            </tr> 
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <!-- </div> -->
+
+  </md-dialog-content>
+</div>
