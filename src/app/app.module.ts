@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import {
   MaterialModule,
   MdMenuModule,
+  MdCardModule
 } from '@angular/material';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -110,6 +111,8 @@ import { CallServices } from './services/callservices/callservice.service';
 import { ConfigService } from './services/config/config.service';
 import { helpline1097Component } from './1097/1097.component'
 import { Message } from './services/common/message.service';
+import { SupervisorCallTypeReportService } from './services/supervisorServices/supervisor-calltype-reports-service.service';
+
 
 //pipes
 import { FilterTable } from './pipes/filter-table.pipe'
@@ -118,7 +121,9 @@ import { FilterTable } from './pipes/filter-table.pipe'
 // md2 Material2  modules and components
 import { Md2Module } from 'md2';
 import { MdSnackBarModule } from '@angular/material';
+
 import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-history.component'
+import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component'
 
 
 
@@ -140,7 +145,9 @@ import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-h
     helpline1097CoComponent, helpline1097AdminComponent, helpline1097SupervisorComponent,
     SupervisorReportsComponent, SupervisorConfigurationsComponent, AgentStatusComponent,
     BlockUnblockNumberComponent, DialBeneficiaryComponent, QualityAuditComponent,
-    SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable
+    SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
+    SupervisorCalltypeReportsComponent
+
   ],
   imports: [
     BrowserModule,
@@ -156,6 +163,7 @@ import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-h
     CustomFormsModule,
     ValidationMessagesModule,
     BrowserAnimationsModule,
+    MdCardModule,
     RouterModule.forRoot([
       {
         path: 'resetPassword',
@@ -218,7 +226,7 @@ import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-h
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message],
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService],
   bootstrap: [AppComponent]
 })
 

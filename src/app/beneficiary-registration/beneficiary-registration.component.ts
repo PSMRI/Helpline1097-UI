@@ -5,10 +5,9 @@ import { Router } from '@angular/router';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
 import { LocationService } from '../services/common/location.service';
 import { dataService } from '../services/dataService/data.service';
-import { Message } from './../services/common/message.service';
 import { BeneficiaryHistoryComponent } from './../beneficiary-history/beneficiary-history.component'
 import { MdDialog, MdDialogRef } from '@angular/material';
-
+import { Message } from './../services/common/message.service'
 
 @Component({
   selector: 'app-beneficiary-registration',
@@ -279,7 +278,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 	 */
 
   registerBeneficiary() {
-    debugger;
     this.updatedObj = {};
     this.updatedObj.firstName = this.FirstName;
     this.updatedObj.lastName = this.LastName;
@@ -531,6 +529,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   selectBeneficiary(regHistory: any) {
 
     this.saved_data.benRegId = regHistory.beneficiaryRegID;
+
     const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
       height: '75%',
       width: '75%',
@@ -542,6 +541,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
     });
+
   }
 
   getRelationShipType(relationShips) {
@@ -559,8 +559,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-      console.log('Something Went Wrong in fetching Parent Data');
-    })
+        console.log('Something Went Wrong in fetching Parent Data');
+      })
 
   }
   // to Calculate the age on the basis of date of birth

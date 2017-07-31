@@ -24,12 +24,13 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   count;
   occupationID: any;
   occupations: any = [];
+
   sourceOfInfo: any = [
     { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1 },
     { name: 'Radio', value: 'Radio', selected: false, id: 2 },
     { name: 'Television', value: 'Television', selected: false, id: 3 },
     { name: 'Family and Friends', value: 'Family and Friends', selected: false, id: 4 },
-    { name: 'Healthcare worker', value: 'Healthcare worker', selected: false, id: 5 },
+    { name: 'Healthcare Worker', value: 'Healthcare Worker', selected: false, id: 5 },
     { name: 'Others', value: 'Others', selected: false, id: 6 },
     { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7 }
   ];
@@ -57,7 +58,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   PopulateUpdateData() {
     if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
-      this.occupation = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
+      this.occupationID = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
       this.educationID = this.saved_data.beneficiaryData.i_bendemographics.educationID;
       this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationId;
       this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
