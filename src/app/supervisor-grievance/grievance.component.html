@@ -58,11 +58,11 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Complaint Id</th>
+                                <th>Feedback Id</th>
                                 <th>Feedback Date</th>
                                 <th>Name of Beneficiary</th>
-                                <th>Type of Complaint</th>
-                                <th>Complaint Status</th>
+                                <th>Type of Feedback</th>
+                                <th>Feedback Status</th>
                                 <th>Email Status</th>
                                 <th>Select</th>
                                 <th>Edit</th>
@@ -73,7 +73,7 @@
                             <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 8, currentPage: p } ">
                                 <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
                                 <td (click)="onClick(feedback)">{{feedback.feedBackID}}</td>
-                                <td>{{feedback.createdDate}}</td>
+                                <td>{{feedback.createdDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{feedback.beneficiaryName}}</td>
                                 <td>{{feedback.feedbackTypeName}}</td>
                                 <td>{{feedback.feedbackStatus}}</td>
@@ -303,11 +303,14 @@
                                     <div class="form-group">
                                         <label class="control-label" for="SelectStatus">Select Feedback Status</label>
                                         <select class="form-control " formControlName="feedbackStatusID">
-              <option >Select..</option>
+              <!-- <option >Select..</option>
               <option value="1" >Open</option>
               <option value="2">Work In Progess</option>
               <option value="3">closed</option>
-              <option value="4">ReOpen</option>
+              <option value="4">ReOpen</option> -->
+            <option *ngFor="let feedbackStatus of feedbackStatuses" value="{{feedbackStatus.feedbackStatusID}}">
+                {{feedbackStatus.feedbackStatus}}
+            </option>
             </select>
                                     </div>
                                 </div>
@@ -316,11 +319,14 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngIf="action === 'update'">
                                     <div class="form-group">
-                                        <label class="control-label" for="SelectStatus">Select Eamil Status</label>
+                                        <label class="control-label" for="SelectStatus">Select Email Status</label>
                                         <select class="form-control" name="emailStatusID" formControlName="emailStatusID">
-              <option [ngValue]="select" >Selects</option>
+              <!-- <option [ngValue]="select" >Selects</option>
               <option value="1" >new</option>
-              <option value="2">Sent</option>
+              <option value="2">Sent</option> -->
+            <option *ngFor="let emailStatus of emailStatuses" value="{{emailStatus.emailStatusID}}">
+                {{emailStatus.emailStatus}}
+            </option>
             </select>
                                     </div>
                                 </div>

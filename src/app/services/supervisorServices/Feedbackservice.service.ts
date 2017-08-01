@@ -32,6 +32,10 @@ export class FeedbackService
     private _responurl: string = this._config.getCommonBaseURL() + "feedback/responceFeedback"
     private _responceurl: string = this._config.getCommonBaseURL() + "feedback/getAllFeedbackById1"
 
+    private _getFeedbackStatus: string = this._config.getCommonBaseURL() + "feedback/getFeedbackStatus"
+    private _getEmailStatus: string = this._config.getCommonBaseURL() + "feedback/getEmailStatus"
+
+
     constructor(
         private _http: Http,
         private _config: ConfigService
@@ -43,6 +47,23 @@ export class FeedbackService
         // .map(( response: Response ) => response.json() );
 
     }
+
+    getFeedbackStatuses ()
+    {
+        let data = {};
+        return this._http.post( this._getFeedbackStatus, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        // .map(( response: Response ) => response.json() );
+
+    }
+
+    getEmailStatuses ()
+    {
+        let data = {};
+        return this._http.post( this._getEmailStatus, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        // .map(( response: Response ) => response.json() );
+
+    }
+
     updateFeedback ( data: any )
     {
 

@@ -28,6 +28,8 @@ export class supervisorFeedback implements OnInit
   serviceID: any;
   myDatepicker = '';
   myDatepicker1 = '';
+  feedbackStatuses: any;
+  emailStatuses: any;
   public showfeedbackstatus = 1
   error: any = { isError: false, errorMessage: '' };
 
@@ -39,6 +41,8 @@ export class supervisorFeedback implements OnInit
     this.feedbackList;
     this.feedbackresponceList;
   }
+
+
 
   feedbackForm = new FormGroup( {
     feedbackID: new FormControl(),
@@ -105,6 +109,9 @@ export class supervisorFeedback implements OnInit
     this.serviceID = this._saved_data.current_service.serviceID;
     let requestData = {};
     requestData[ "serviceID" ] = this.serviceID;
+    this._feedbackservice.getFeedbackStatuses().subscribe( resProviderData => this.feedbackStatuses = resProviderData );
+
+    this._feedbackservice.getEmailStatuses().subscribe( resProviderData => this.emailStatuses = resProviderData );
     this._feedbackservice.getFeedback( requestData )
       .subscribe( resProviderData => this.providers( resProviderData ) );
   }
@@ -116,14 +123,16 @@ export class supervisorFeedback implements OnInit
     let bodyString = this.feedbackForm.value;
     bodyString[ "serviceID" ] = this.serviceID;
     console.log( "SPData" + JSON.stringify( bodyString ) );
+    bodyString.feedbackStatus = undefined;
+    bodyString.emailStatus = undefined;
 
     if ( this.action == 'edit' )
       this._feedbackservice.updateFeedback( bodyString )
         .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
     //if(this.action == 'edit')
-    this._feedbackservice.updateFeedback( bodyString )
-      .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
+    // this._feedbackservice.updateFeedback( bodyString )
+    //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
     //if(this.action == 'update')
     this._feedbackservice.responceStatus( bodyString )
@@ -164,10 +173,12 @@ export class supervisorFeedback implements OnInit
     this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.feedback );
     this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
-    this.feedbackForm.controls.feedbackDate.setValue( feedback.createdDate );
+    this.feedbackForm.controls.feedbackDate.setValue( new Date( feedback.createdDate ).toLocaleDateString( 'en-in' ) );
     this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
     this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatus );
     this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatus );
+    this.feedbackForm.controls.feedbackStatusID.setValue( feedback.feedbackStatusID );
+    this.feedbackForm.controls.emailStatusID.setValue( feedback.emailStatusID );
     this.feedbackForm.controls.institutionName.setValue( feedback.institutionName );
     this.feedbackForm.controls.designationName.setValue( feedback.designationName );
     this.feedbackForm.controls.severityTypeName.setValue( feedback.severityTypeName );
@@ -191,9 +202,12 @@ export class supervisorFeedback implements OnInit
     this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.feedback );
     this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
-    this.feedbackForm.controls.feedbackDate.setValue( feedback.createdDate );
+    this.feedbackForm.controls.feedbackDate.setValue( new Date( feedback.createdDate ).toLocaleDateString( 'en-in' ) );
     this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
     this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatus );
+    this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatus );
+    this.feedbackForm.controls.feedbackStatusID.setValue( feedback.feedbackStatusID );
+    this.feedbackForm.controls.emailStatusID.setValue( feedback.emailStatusID );
     this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatus );
     this.feedbackForm.controls.institutionName.setValue( feedback.institutionName );
     this.feedbackForm.controls.designationName.setValue( feedback.designationName );
