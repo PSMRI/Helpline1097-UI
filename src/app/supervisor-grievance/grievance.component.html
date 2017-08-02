@@ -72,12 +72,21 @@
                         <tbody>
                             <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 8, currentPage: p } ">
                                 <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
-                                <td (click)="onClick(feedback)">{{feedback.feedBackID}}</td>
+                                <td (click)="onClick(feedback)">{{feedback.feedbackID}}</td>
                                 <td>{{feedback.createdDate | date:'dd-MM-yyyy'}}</td>
-                                <td>{{feedback.beneficiaryName}}</td>
-                                <td>{{feedback.feedbackTypeName}}</td>
-                                <td>{{feedback.feedbackStatus}}</td>
-                                <td>{{feedback.emailStatus}}</td>
+                                <td>{{(feedback.beneficiary && feedback.beneficiary.firstName)?(feedback.beneficiary.firstName):""}}
+                                    {{(feedback.beneficiary && feedback.beneficiary.middleName)?(feedback.beneficiary.middleName):""}}
+                                    {{(feedback.beneficiary && feedback.beneficiary.lastName)?(feedback.beneficiary.lastName):""}}
+                                </td>
+                                <td>{{(feedback.feedbackType && feedback.feedbackType.feedbackTypeName) ? (feedback.feedbackType.feedbackTypeName)
+                                    : ""}}</td>
+                                <td>
+                                    <div>{{(feedback.feedbackStatus && feedback.feedbackStatus.feedbackStatus) ? (feedback.feedbackStatus.feedbackStatus)
+                                        : ""}}</div>
+                                </td>
+                                <td>
+                                    <div>{{(feedback.feedbackRequests[0] && feedback.feedbackRequests[0].emailStatus && feedback.feedbackRequests[0].emailStatus.emailStatus)?(feedback.feedbackRequests[0].emailStatus.emailStatus):""}}</div>
+                                </td>
 
                                 <!--<td><ng-template [ngIf]="feedback.FeedbackStatusID == 1">Open</ng-template>
               <ng-template [ngIf]="feedback.FeedbackStatusID == 2">Progess</ng-template></td>-->

@@ -24,7 +24,8 @@ export class FeedbackService
     // private _responurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/responceFeedback"
     // private _responceurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/getAllFeedbackById1"
 
-    private _geturl: string = this._config.getCommonBaseURL() + "feedback/getFeedback"
+    // private _geturl: string = this._config.getCommonBaseURL() + "feedback/getFeedback"
+    private _geturl: string = this._config.getCommonBaseURL() + "feedback/getFeedbacksList";
     private _updateurl: string = this._config.getCommonBaseURL() + "feedback/updatefeedback"
     //  private _updateurl:string=this._config.getCommonBaseURL()+"feedback/updateFeedback"
     private _statusurl: string = this._config.getCommonBaseURL() + "feedback/updateFeedbackStatus"

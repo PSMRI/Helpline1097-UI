@@ -256,9 +256,6 @@ export class supervisorFeedback implements OnInit
     bodyString[ "serviceID" ] = this.serviceID;
     this._feedbackservice.searchFeedback( bodyString )
       .subscribe( resProviderData => this.providers( resProviderData ) );
-
-
-
   }
 
   onClick ( feedback )
