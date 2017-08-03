@@ -169,14 +169,17 @@ export class supervisorFeedback implements OnInit
     this.action = "edit";
 
 
-    this.feedbackForm.controls.feedbackID.setValue( feedback.feedBackID );
-    this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.feedback );
+    this.feedbackForm.controls.feedbackID.setValue( feedback.feedbackID );
+    this.feedbackForm.controls.feedbackSupSummary.setValue(
+      ( feedback.feedbackRequests && feedback.feedbackRequests[ 0 ] && feedback.feedbackRequests[ 0 ].feedbackSupSummary ) ?
+        feedback.feedbackRequests[ 0 ].feedbackSupSummary : ""
+    );
     this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue( new Date( feedback.createdDate ).toLocaleDateString( 'en-in' ) );
     this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
     this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatus );
-    this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatus );
+    this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatusName );
     this.feedbackForm.controls.feedbackStatusID.setValue( feedback.feedbackStatusID );
     this.feedbackForm.controls.emailStatusID.setValue( feedback.emailStatusID );
     this.feedbackForm.controls.institutionName.setValue( feedback.institutionName );
@@ -198,8 +201,11 @@ export class supervisorFeedback implements OnInit
     this.action = "update";
 
 
-    this.feedbackForm.controls.feedbackID.setValue( feedback.feedBackID );
-    this.feedbackForm.controls.feedbackSupSummary.setValue( feedback.feedback );
+    this.feedbackForm.controls.feedbackID.setValue( feedback.feedbackID );
+    this.feedbackForm.controls.feedbackSupSummary.setValue(
+      ( feedback.feedbackRequests && feedback.feedbackRequests[ 0 ] && feedback.feedbackRequests[ 0 ].feedbackSupSummary ) ?
+        feedback.feedbackRequests[ 0 ].feedbackSupSummary : ""
+    );
     this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue( new Date( feedback.createdDate ).toLocaleDateString( 'en-in' ) );
@@ -229,7 +235,7 @@ export class supervisorFeedback implements OnInit
     let dataforUpdate = feedback;
     dataforUpdate[ "serviceID" ] = this.serviceID;
 
-    this.feedbackForm1.controls.feedbackID.setValue( feedback.feedBackID );
+    this.feedbackForm1.controls.feedbackID.setValue( feedback.feedbackID );
     this.feedbackForm1.controls.feedbackSupSummary.setValue( feedback.feedback );
     this.feedbackForm1.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     this.feedbackForm1.controls.createdBy.setValue( feedback.createdBy );
