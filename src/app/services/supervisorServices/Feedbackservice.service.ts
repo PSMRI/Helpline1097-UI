@@ -24,13 +24,18 @@ export class FeedbackService
     // private _responurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/responceFeedback"
     // private _responceurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/getAllFeedbackById1"
 
-    private _geturl: string = this._config.getCommonBaseURL() + "feedback/getFeedback"
+    // private _geturl: string = this._config.getCommonBaseURL() + "feedback/getFeedback"
+    private _geturl: string = this._config.getCommonBaseURL() + "feedback/getFeedbacksList";
     private _updateurl: string = this._config.getCommonBaseURL() + "feedback/updatefeedback"
     //  private _updateurl:string=this._config.getCommonBaseURL()+"feedback/updateFeedback"
     private _statusurl: string = this._config.getCommonBaseURL() + "feedback/updateFeedbackStatus"
     private _searchurl: string = this._config.getCommonBaseURL() + "feedback/searchFeedback1"
     private _responurl: string = this._config.getCommonBaseURL() + "feedback/responceFeedback"
     private _responceurl: string = this._config.getCommonBaseURL() + "feedback/getAllFeedbackById1"
+
+    private _getFeedbackStatus: string = this._config.getCommonBaseURL() + "feedback/getFeedbackStatus"
+    private _getEmailStatus: string = this._config.getCommonBaseURL() + "feedback/getEmailStatus"
+
 
     constructor(
         private _http: Http,
@@ -43,6 +48,23 @@ export class FeedbackService
         // .map(( response: Response ) => response.json() );
 
     }
+
+    getFeedbackStatuses ()
+    {
+        let data = {};
+        return this._http.post( this._getFeedbackStatus, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        // .map(( response: Response ) => response.json() );
+
+    }
+
+    getEmailStatuses ()
+    {
+        let data = {};
+        return this._http.post( this._getEmailStatus, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        // .map(( response: Response ) => response.json() );
+
+    }
+
     updateFeedback ( data: any )
     {
 

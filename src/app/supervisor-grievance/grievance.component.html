@@ -58,11 +58,11 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Complaint Id</th>
+                                <th>Feedback Id</th>
                                 <th>Feedback Date</th>
                                 <th>Name of Beneficiary</th>
-                                <th>Type of Complaint</th>
-                                <th>Complaint Status</th>
+                                <th>Type of Feedback</th>
+                                <th>Feedback Status</th>
                                 <th>Email Status</th>
                                 <th>Select</th>
                                 <th>Edit</th>
@@ -72,12 +72,12 @@
                         <tbody>
                             <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 8, currentPage: p } ">
                                 <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
-                                <td (click)="onClick(feedback)">{{feedback.feedBackID}}</td>
-                                <td>{{feedback.createdDate}}</td>
+                                <td (click)="onClick(feedback)">{{feedback.feedbackID}}</td>
+                                <td>{{feedback.createdDate | date:'dd-MM-yyyy'}}</td>
                                 <td>{{feedback.beneficiaryName}}</td>
                                 <td>{{feedback.feedbackTypeName}}</td>
-                                <td>{{feedback.feedbackStatus}}</td>
-                                <td>{{feedback.emailStatus}}</td>
+                                <td>{{feedback.feedbackStatusName}}</td>
+                                <td>{{feedback.emailStatusName}}</td>
 
                                 <!--<td><ng-template [ngIf]="feedback.FeedbackStatusID == 1">Open</ng-template>
               <ng-template [ngIf]="feedback.FeedbackStatusID == 2">Progess</ng-template></td>-->
@@ -104,8 +104,8 @@
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="FeedbackID">Complaint ID</label>
-                <input type="text" class="form-control" placeholder="Enter FeedbackID" maxlength="10" id="feedbackID" formControlName="feedbackID"
+                <label class="control-label" for="feedbackID">Feedback ID</label>
+                <input type="text" class="form-control" placeholder="Enter feedbackID" maxlength="10" id="feedbackID" formControlName="feedbackID"
                     readonly>
             </div>
         </div>
@@ -196,7 +196,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
-                <label class="control-label" for="SeverityTypeName">Severity Type Name</label>
+                <label class="control-label" for="SeverityTypeName">Severity Type</label>
                 <input type="text" class="form-control" placeholder="SeverityTypeName ." id="SeverityTypeName" formControlName="severityTypeName"
                     maxlength="10" readonly>
                 <span></span>
@@ -303,11 +303,9 @@
                                     <div class="form-group">
                                         <label class="control-label" for="SelectStatus">Select Feedback Status</label>
                                         <select class="form-control " formControlName="feedbackStatusID">
-              <option >Select..</option>
-              <option value="1" >Open</option>
-              <option value="2">Work In Progess</option>
-              <option value="3">closed</option>
-              <option value="4">ReOpen</option>
+            <option *ngFor="let feedbackStatus of feedbackStatuses" value="{{feedbackStatus.feedbackStatusID}}">
+                {{feedbackStatus.feedbackStatus}}
+            </option>
             </select>
                                     </div>
                                 </div>
@@ -316,11 +314,11 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngIf="action === 'update'">
                                     <div class="form-group">
-                                        <label class="control-label" for="SelectStatus">Select Eamil Status</label>
+                                        <label class="control-label" for="SelectStatus">Select Email Status</label>
                                         <select class="form-control" name="emailStatusID" formControlName="emailStatusID">
-              <option [ngValue]="select" >Selects</option>
-              <option value="1" >new</option>
-              <option value="2">Sent</option>
+            <option *ngFor="let emailStatus of emailStatuses" value="{{emailStatus.emailStatusID}}">
+                {{emailStatus.emailStatus}}
+            </option>
             </select>
                                     </div>
                                 </div>
@@ -363,13 +361,12 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let feedback1 of feedbackresponceList | paginate: { itemsPerPage: 8, currentPage: p } ">
-                                <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
-                                <td>{{feedback1.FeedbackID}}</td>
-                                <td>{{feedback1.Feedback}}</td>
-                                <td>{{feedback1.FeedbackSupSummary}}</td>
-                                <td>{{feedback1.ResponseSummary}}</td>
-                                <td>{{feedback1.AuthName}}</td>
-                                <td>{{feedback1.AuthDesignation}}</td>
+                                <td>{{feedback1.feedbackID}}</td>
+                                <td>{{feedback1.feedback}}</td>
+                                <td>{{feedback1.feedbackSupSummary}}</td>
+                                <td>{{feedback1.responseSummary}}</td>
+                                <td>{{feedback1.authName}}</td>
+                                <td>{{feedback1.authDesignation}}</td>
                             </tr>
                         </tbody>
                     </table>
