@@ -70,7 +70,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 8, currentPage: p } ">
+                            <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 5, currentPage: p } ">
                                 <!--<td href="{{feedback.FeedBackID}}">{{feedback.FeedBackID}}</td>-->
                                 <td (click)="onClick(feedback)">{{feedback.feedbackID}}</td>
                                 <td>{{feedback.createdDate | date:'dd-MM-yyyy'}}</td>

@@ -16,8 +16,7 @@
   <div fxLayout="row"> -->
     <div class="row">
       <div class="col-md-12 col-lg-12">
-        <table class="table table-responsive table-striped text-center" style="border:0ch" [md2Data]="data | filterTable : search"
-          #md2="md2DataTable" [rowsPerPage]="5">
+        <table class="table table-responsive table-striped text-center" style="border:0ch" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
           <thead>
             <!-- <tr>
               <td class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -42,11 +41,11 @@
             </tr>
           </tbody>
           <tfoot>
-             <tr>
-              <td >
+            <tr>
+              <td>
                 <md2-pagination></md2-pagination>
               </td>
-            </tr> 
+            </tr>
           </tfoot>
         </table>
       </div>
