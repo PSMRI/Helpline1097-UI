@@ -14,6 +14,9 @@ export class ConfigService
     private _commonBaseURL: String = "http://10.152.3.152:1040/CommonV1/";
     private _helpline1097BaseURL: String = "http://10.152.3.152:1040/helpline1097APIV1/";
     private _telephonyServerURL: String = "http://10.201.13.17/";
+
+    private _localeString = 'en-in';
+
     getCommonBaseURL ()
     {
         return this._commonBaseURL;
@@ -25,5 +28,10 @@ export class ConfigService
     getTelephonyServerURL ()
     {
         return this._telephonyServerURL;
+    }
+
+    getLocaleString ()
+    {
+        return this._localeString;
     }
 };
