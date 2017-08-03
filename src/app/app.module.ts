@@ -75,6 +75,7 @@ import { CoServicesComponent } from './co-services/co-services.component';
 import { UpdatesFromBeneficiaryComponent } from './updates-from-beneficiary/updates-from-beneficiary.component';
 import { ClosureComponent } from './closure/closure.component';
 import { SetSecurityQuestionsComponent } from './set-security-questions/set-security-questions.component';
+import { CoCategoryService } from './services/coService/co_category_subcategory.service'
 
 
 
@@ -112,6 +113,7 @@ import { ConfigService } from './services/config/config.service';
 import { helpline1097Component } from './1097/1097.component'
 import { Message } from './services/common/message.service';
 import { SupervisorCallTypeReportService } from './services/supervisorServices/supervisor-calltype-reports-service.service';
+import { UploadServiceService } from './services/upload-services/upload-service.service';
 
 
 //pipes
@@ -123,7 +125,8 @@ import { Md2Module } from 'md2';
 import { MdSnackBarModule } from '@angular/material';
 
 import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-history.component'
-import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component'
+import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component';
+import { KnowledgeManagementComponent } from './knowledge-management/knowledge-management.component'
 
 
 
@@ -146,7 +149,8 @@ import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-report
     SupervisorReportsComponent, SupervisorConfigurationsComponent, AgentStatusComponent,
     BlockUnblockNumberComponent, DialBeneficiaryComponent, QualityAuditComponent,
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
-    SupervisorCalltypeReportsComponent
+    SupervisorCalltypeReportsComponent,
+    KnowledgeManagementComponent
 
   ],
   imports: [
@@ -226,7 +230,8 @@ import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-report
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService],
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
+    CoCategoryService, UploadServiceService],
   bootstrap: [AppComponent]
 })
 

@@ -5,9 +5,9 @@ import { dataService } from '../services/dataService/data.service';
 
 
 @Component({
-  selector: 'app-supervisor-calltype-reports',
-  templateUrl: './supervisor-calltype-reports.component.html',
-  styleUrls: ['./supervisor-calltype-reports.component.css']
+	selector: 'app-supervisor-calltype-reports',
+	templateUrl: './supervisor-calltype-reports.component.html',
+	styleUrls: ['./supervisor-calltype-reports.component.css']
 })
 export class SupervisorCalltypeReportsComponent implements OnInit {
 
@@ -17,8 +17,8 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 
 	callType: any;
-	start_date:any;
-	end_date:any;
+	start_date: any;
+	end_date: any;
 
 	// arrays
 
@@ -32,37 +32,34 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 
 	constructor(public _SupervisorCallTypeReportService: SupervisorCallTypeReportService,
-				public commonDataService: dataService)
-	{ 
+		public commonDataService: dataService) {
 
-	  this.tableFlag = false;
-	  this.today = new Date();
-	  this.maxDate = this.today;
+		this.tableFlag = false;
+		this.today = new Date();
+		this.maxDate = this.today;
 
-	  this.filterCallListArray = [];
+		this.filterCallListArray = [];
 
-  	}
-
-  ngOnInit() {
-	  let requestObject = { 'providerServiceMapID': this.commonDataService.current_service.serviceID };
-	  this._SupervisorCallTypeReportService.getCallTypes(requestObject).subscribe((response: Response) => this.callTypes = this.successhandeler(response));
-	  this.showPaginationControls = false;
-  }
-
-  setTableFlag(val)
-  {
-	  this.tableFlag = val;
-	  this.get_filterCallList();
-  }
-
-  get_filterCallList()
-  {
-  	let requestObj={
-		"calledServiceID": this.commonDataService.current_service.serviceID,
-		"callTypeID": this.callType,
-		"filterStartDate": "",
-		"filterEndDate": ""
 	}
+
+	ngOnInit() {
+		let requestObject = { 'providerServiceMapID': this.commonDataService.current_service.serviceID };
+		this._SupervisorCallTypeReportService.getCallTypes(requestObject).subscribe((response: Response) => this.callTypes = this.successhandeler(response));
+		this.showPaginationControls = false;
+	}
+
+	setTableFlag(val) {
+		this.tableFlag = val;
+		this.get_filterCallList();
+	}
+
+	get_filterCallList() {
+		let requestObj = {
+			"calledServiceID": this.commonDataService.current_service.serviceID,
+			"callTypeID": this.callType,
+			"filterStartDate": "",
+			"filterEndDate": ""
+		}
 
 		if (this.start_date && this.end_date) {
 			requestObj.filterStartDate = new Date((this.start_date) - 1 * (this.start_date.getTimezoneOffset() * 60 * 1000)).toJSON();
@@ -75,17 +72,15 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 		// write the api here to get filtercall list
 		this._SupervisorCallTypeReportService.filterCallList(requestObj).subscribe(
-			(response:Response)=>this.filterCallListArray=this.successhandeler(response));
-  }
+			(response: Response) => this.filterCallListArray = this.successhandeler(response));
+	}
 
-  successhandeler(response)
-  {
-  	console.log(response,"respinse call wala");
-  	if(response.length>5)
-  	{
+	successhandeler(response) {
+		console.log(response, "respinse call wala");
+		if (response.length > 5) {
 			this.showPaginationControls = true;
-  	}
+		}
 		return response;
-  }
+	}
 
 }

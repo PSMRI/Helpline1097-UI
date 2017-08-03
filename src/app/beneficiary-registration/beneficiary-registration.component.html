@@ -113,7 +113,7 @@
           [(ngModel)]="DOB"></md2-datepicker>
       </div>
     </div>
-    
+
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
         <label class="control-label " for="lastName ">Age </label>
@@ -158,7 +158,16 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="aadharNo ">Aadhar No. </label>
+        <label class="control-label " for="identityType ">Identity Type </label>
+        <select class="form-control drop-arrow" #idType name="identityType " [(ngModel)]="identityType">
+                        <option *ngFor="let identityType of identityTypes" value={{identityType.govtIdentityTypeID}}>
+                            {{identityType.identityType}}</option>
+                    </select>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+      <div class="form-group ">
+        <label class="control-label " for="aadharNo ">ID No.</label>
         <input type="text " class="form-control " placeholder="Enter Aadhar No. " maxlength="15" name="aadharNo " [(ngModel)]="aadharNo">
       </div>
     </div>

@@ -1,0 +1,72 @@
+<!--
+  ** Created by Pankush Manchanda 31 July ,2017 
+  ** Component Used Bootstrap and Angular Material for design 
+  ** Form used Reactive Form Angular 2 
+  -->
+<md-card>
+  <div class="container">
+    <div class="row">
+      <!--Form Start  -->
+      <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+            <md-select placeholder="Select Category" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)">
+              <md-option *ngFor="let category of categories" [value]="category.categoryID">
+                {{category.categoryName}}
+              </md-option>
+            </md-select>
+            <!-- Validation Field -->
+            <div class="error" *ngIf="knowledgeForm.get('category').touched && knowledgeForm.get('category').hasError('required')">
+              Category is required
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+            <md-select placeholder="Select Sub Category" [style.width]="'100%'" formControlName="subCategory">
+              <md-option *ngFor="let subCategory of subCategories" [value]="subCategory.subCategoryID">
+                {{subCategory.subCategoryName}}
+              </md-option>
+            </md-select>
+            <!-- Validation Field -->
+            <div class="error" *ngIf="knowledgeForm.get('subCategory').touched && knowledgeForm.get('subCategory').hasError('required')">
+              Subcategory is required
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+            <input type="file" class="form-control" name="file" (change)="changeListener($event)" />
+            <input type="hidden" name="fileHidden" formControlName="fileInput" />
+            <!-- Validation Field -->
+            <div class="error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
+              File is required
+            </div>
+          </div>
+        </div>
+        <!--Comment Start Date and End Date here  -->
+        <!-- <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <md2-datepicker #startDateRef placeholder="Start Date" type="datetime" [style.width]="'100%'" formControlName="startDate"
+              [max]="maxDate"></md2-datepicker>
+             Validation Field 
+            <div class="error" *ngIf="knowledgeForm.get('startDate').touched && knowledgeForm.get('startDate').hasError('required')">
+              Start date is required
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <md2-datepicker #endDateRef placeholder="End Date" type="datetime" [style.width]="'100%'" formControlName="endDate" [min]=startDateRef.value></md2-datepicker>
+             Validation Field 
+            <div class="error" *ngIf="knowledgeForm.get('endDate').touched && knowledgeForm.get('endDate').hasError('required')">
+              End date is required
+            </div>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group pull-right">
+            <button type="submit" class="btn btn-primary pull-right" [disabled]="knowledgeForm.invalid">Save</button>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--Form End  -->
+    </div>
+  </div>
+</md-card>

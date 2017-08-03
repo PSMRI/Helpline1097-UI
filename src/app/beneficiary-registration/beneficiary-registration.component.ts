@@ -75,6 +75,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   relationshipWith: string;
   today: Date;
   dateFormat: string;
+  identityType: number;
+  identityTypes: any;
+  public areaList: any = [];
 
 
   constructor(private _util: RegisterService, private _router: Router,
@@ -158,6 +161,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.beneficiaryRelations = regData.benRelationshipTypes;
       this.getRelationShipType(this.beneficiaryRelations);
     }
+    if (regData.govtIdentityTypes) {
+      this.identityTypes = regData.govtIdentityTypes;
+    }
 
   }
 
@@ -206,6 +212,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.blocks = [];
       this.pincode = undefined;
       this.preferredLanguage = undefined;
+      this.identityType = undefined;
       // if ()
       // this.beneficiaryRelationID = this.getRelationShipType(this.beneficiaryRelations);
       // this value also comes from the constants
@@ -304,7 +311,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.updatedObj.benPhoneMaps[1].createdBy = this.saved_data.uname;
       this.updatedObj.benPhoneMaps[1].deleted = false;
     }
+    debugger;
     this.updatedObj.govtIdentityNo = this.aadharNo;
+    this.updatedObj.govtIdentityTypeID = this.identityType;
     this.updatedObj.deleted = false;
     this.updatedObj.createdBy = this.saved_data.Userdata.userName;
     this.updatedObj.govtIdentityTypeID = 1;
@@ -407,6 +416,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.PhoneNo = registeredBenData.benPhoneMaps[1].phoneNo;
     }
     this.aadharNo = registeredBenData.govtIdentityNo;
+    debugger;
+    this.identityType = registeredBenData.govtIdentityTypeID;
     this.caste = registeredBenData.i_bendemographics.communityID;
     this.educationQualification = registeredBenData.i_bendemographics.educationID;
     this.state = registeredBenData.i_bendemographics.stateID;
@@ -482,7 +493,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       }
     }
     this.updatedObj.govtIdentityNo = this.aadharNo;
-
+    this.updatedObj.govtIdentityTypeID = this.identityType;
     if (!this.updatedObj.i_bendemographics.beneficiaryRegID) {
       this.updatedObj.i_bendemographics.beneficiaryRegID = this.updatedObj.beneficiaryRegID;
     }
@@ -559,8 +570,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-        console.log('Something Went Wrong in fetching Parent Data');
-      })
+      console.log('Something Went Wrong in fetching Parent Data');
+    })
 
   }
   // to Calculate the age on the basis of date of birth
@@ -582,6 +593,17 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   // to remove the readonly on double click
   enableAge(data) {
     this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', null);
-
   }
+  // getLocationPerPincode(pincodeObj: any) {
+  //   this.areaList = [];
+  //   this.pincodeLocation.forEach((element: any) => {
+  //     this.areaList.push(element['Taluk'] + ', ' + element['Districtname'] + ', ' + element['statename']);
+  //   });
+  //   if (this.areaList.length === 0) {
+  //     this.data.openSnackBar('No Location Found', 'Please Try again');
+  //     // this.areaList.push('Area Not Found');
+  //   } else {
+  //     this.data.openSnackBar(this.areaList.length + ' Locations Found', 'Please Select');
+  //   }
+  // }
 }

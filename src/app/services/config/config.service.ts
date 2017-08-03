@@ -7,23 +7,19 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class ConfigService
-{
+export class ConfigService {
     // private _commonBaseURL: String = "http://l-185000861.wipro.com:9090/CommonV1/";
     // private _helpline1097BaseURL: String = "http://l-185000861.wipro.com:9090/helpline1097APIV1/";
     private _commonBaseURL: String = "http://10.152.3.152:1040/CommonV1/";
     private _helpline1097BaseURL: String = "http://10.152.3.152:1040/helpline1097APIV1/";
     private _telephonyServerURL: String = "http://10.201.13.17/";
-    getCommonBaseURL ()
-    {
+    getCommonBaseURL() {
         return this._commonBaseURL;
     }
-    get1097BaseURL ()
-    {
+    get1097BaseURL() {
         return this._helpline1097BaseURL;
     }
-    getTelephonyServerURL ()
-    {
+    getTelephonyServerURL() {
         return this._telephonyServerURL;
     }
 };

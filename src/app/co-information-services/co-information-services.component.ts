@@ -5,8 +5,7 @@ import { dataService } from "../services/dataService/data.service"
 @Component( {
   selector: 'app-co-information-services',
   templateUrl: './co-information-services.component.html',
-  styleUrls: [ './co-information-services.component.css' ],
-  providers: [ CoCategoryService ]
+  styleUrls: [ './co-information-services.component.css' ]
 } )
 export class CoInformationServicesComponent implements OnInit
 {

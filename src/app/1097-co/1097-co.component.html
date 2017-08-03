@@ -71,12 +71,17 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10 ">
         <button id="previous" type="button" class="btn pull-left font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="prev">Previous</button>
         <button id="next" type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next">Next</button>
-        <button id="closureLink" type="button" class="btn pull-right font-regular f-s-18 m-r-5" data-slide-to="4">Closure</button>
-        <button id="cancelLink" type="button" class="btn pull-right font-regular f-s-18 m-r-5" data-slide-to="1" (click)="reloadCall(); registration.reloadCall();">Cancel</button>
+        <button id="closureLink" type="button" value="Close" class="btn pull-right font-regular f-s-18 m-r-5" data-slide-to="4"
+          >Closure</button>
+        <button id="cancelLink"  type="button" value="Cancel" class="btn pull-right font-regular f-s-18 m-r-5" data-slide-to="1"
+          (click)="reloadCall(); registration.reloadCall();" >Cancel</button>
       </div>
     </div>
   </div>
 </div>
+<!-- <md2-dialog #confirm>
+  <md2-dialog-title>Are you sure want to {{dialog.value}} ?</md2-dialog-title>
+</md2-dialog> -->
 <button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18 czenrix-icon" *ngIf="barMinimized"
   (click)="toggleBar()">C-Zentrix</button>
 
