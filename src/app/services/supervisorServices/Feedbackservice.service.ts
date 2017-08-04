@@ -16,7 +16,7 @@ export class FeedbackService
     options = new RequestOptions( { headers: this.headers } );
     private _commonBaseURL = this._config.getCommonBaseURL();
     private _helpline1097BaseURL = this._config.get1097BaseURL();
-    // private _geturl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/getFeedback"
+    // private _feedbackListURL: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/getFeedback"
     // private _updateurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/updateFeedback"
     // //  private _updateurl:string="http://localhost:8080/Helpline-104-API/grievance/updateFeedback"
     // private _statusurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/updateFeedbackStatus"
@@ -24,9 +24,11 @@ export class FeedbackService
     // private _responurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/responceFeedback"
     // private _responceurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/getAllFeedbackById1"
 
-    // private _geturl: string = this._config.getCommonBaseURL() + "feedback/getFeedback"
-    private _geturl: string = this._config.getCommonBaseURL() + "feedback/getFeedbacksList";
-    private _updateurl: string = this._config.getCommonBaseURL() + "feedback/updatefeedback"
+    // private _feedbackListURL: string = this._config.getCommonBaseURL() + "feedback/getFeedback"
+    private _feedbackListURL: string = this._config.getCommonBaseURL() + "feedback/getFeedbacksList";
+    // private _requestFeedbackURL: string = this._config.getCommonBaseURL() + "feedback/updateFeedback"
+    private _requestFeedbackURL: string = this._config.getCommonBaseURL() + "feedback/requestFeedback";
+    private _updateResponseURL: string = this._config.getCommonBaseURL() + "feedback/updateResponse"
     //  private _updateurl:string=this._config.getCommonBaseURL()+"feedback/updateFeedback"
     private _statusurl: string = this._config.getCommonBaseURL() + "feedback/updateFeedbackStatus"
     private _searchurl: string = this._config.getCommonBaseURL() + "feedback/searchFeedback1"
@@ -44,7 +46,7 @@ export class FeedbackService
     getFeedback ( data: any )
     {
 
-        return this._http.post( this._geturl, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        return this._http.post( this._feedbackListURL, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
         // .map(( response: Response ) => response.json() );
 
     }
@@ -65,11 +67,11 @@ export class FeedbackService
 
     }
 
-    updateFeedback ( data: any )
+    requestFeedback ( data: any )
     {
 
         //console.log(data);
-        return this._http.post( this._updateurl, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        return this._http.post( this._requestFeedbackURL, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
 
         // .map(( response: Response ) => response.json() );
 
@@ -86,9 +88,9 @@ export class FeedbackService
         // .map(( response: Response ) => response.json() );
 
     }
-    responceStatus ( resData: any )
+    updateResponce ( resData: any )
     {
-        return this._http.post( this._responurl, resData, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        return this._http.post( this._updateResponseURL, resData, this.options ).map( this.handleSuccess ).catch( this.handleError );
         // .map(( response: Response ) => response.json() );
 
     }
