@@ -291,7 +291,9 @@ export class supervisorFeedback implements OnInit
     this.action = "Click";
     this.feedbackForm3.controls.feedbackID.setValue( feedback.FeedBackID );
     let bodyString = this.feedbackForm3.value;
-    this._feedbackservice.responce( bodyString )
+    // this._feedbackservice.responce( bodyString )
+    //   .subscribe( resProviderData => this.showResponce( resProviderData ) );
+    this._feedbackservice.updateResponce( bodyString )
       .subscribe( resProviderData => this.showResponce( resProviderData ) );
 
   }

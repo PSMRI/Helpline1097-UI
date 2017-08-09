@@ -32,8 +32,8 @@
         <div class="min-height-180 border-1-g" for="subCategoryDetails">
             <span *ngFor="let detail of detailsList">
             <!--<span ng-repeat="detail in detailsList">-->
-                <a href="{{detail.subCatFilePath}}" target="_blank"> 
-                    {{detail.subCategoryName}}:{{detail.subCategoryDesc}}
+                <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank"> 
+                    {{detail?.subCategoryName}}:{{detail?.subCategoryDesc}}
                 </a>
             </span>
         </div>
