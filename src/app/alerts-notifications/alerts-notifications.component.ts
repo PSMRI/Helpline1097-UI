@@ -15,6 +15,8 @@ alertConfig : any;
 notificationConfig : any;
 alerts: any;
 notifications: any;
+alertPostData: any;
+notificationPostData: any;
 constructor (private dashboardHttpServices: DashboardHttpServices, private dataService: dataService, private notificationService : NotificationService){}
 
 
@@ -29,44 +31,31 @@ ngOnInit(){
             return notification.notificationType=="Alert";
         });
         console.log(this.alertConfig);
+        this.alertPostData = {
+            "providerServiceMapID": this.service.serviceID,
+            "notificationTypeID": this.alertConfig[0].notificationTypeID,
+            "roleIDs": [this.role.roleID],
+            "validFrom": new Date().toISOString(),
+            "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
+        };
         this.notificationConfig = response.data.filter((notification)=>{
             return notification.notificationType=="Notification";
         });
         console.log(this.notificationConfig);
+        this.notificationPostData = {
+            "providerServiceMapID": this.service.serviceID,
+            "notificationTypeID": this.notificationConfig[0].notificationTypeID,
+            "roleIDs": [this.role.roleID],
+            "validFrom": new Date().toISOString(),
+            "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
+        }
+        this.getAlertsandNotifications();
     },
     (err)=>{
         console.log(err);
     });
-    let alertPostData = {
-     "providerServiceMapID": this.service.serviceID,
-     "notificationTypeID": this.alertConfig.notificationTypeID,
-     "roleIDs": [this.role.roleID],
-     "validFrom": new Date().toISOString(),
-     "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
-    };
-    let notificationPostData = {
-     "providerServiceMapID": this.service.serviceID,
-     "notificationTypeID": this.notificationConfig.notificationTypeID,
-     "roleIDs": [this.role.roleID],
-     "validFrom": new Date().toISOString(),
-     "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
-    }
-    this.notificationService.getAlerts(alertPostData)
-    .subscribe((response)=>{
-        console.log(response);
-        this.alerts = response.data;
-    },
-    (err)=>{
-        console.log(err);
-    });
-    this.notificationService.getNotifications(notificationPostData)
-    .subscribe((response)=>{
-        console.log(response);
-        this.notifications = response.data;
-    },
-    (err)=>{
-        console.log(err);
-    });
+    
+    
 }
 loadAlertsAndNotifications(actor: string){
     var url;
@@ -78,4 +67,25 @@ loadAlertsAndNotifications(actor: string){
     }else
         alert("Not CO...");
     }
+
+getAlertsandNotifications(){
+    console.log(this.alertPostData);
+    console.log(this.notificationPostData);
+    this.notificationService.getAlerts(this.alertPostData)
+    .subscribe((response)=>{
+        console.log(response);
+        this.alerts = response.data;
+    },
+    (err)=>{
+        console.log(err);
+    });
+    this.notificationService.getNotifications(this.notificationPostData)
+    .subscribe((response)=>{
+        console.log(response);
+        this.notifications = response.data;
+    },
+    (err)=>{
+        console.log(err);
+    });
+}
 }

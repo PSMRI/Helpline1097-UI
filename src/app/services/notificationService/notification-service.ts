@@ -13,7 +13,7 @@ export class NotificationService {
     getNotificationTypesURL = this.configService.getCommonBaseURL() + "notification/getNotificationType";
     getRolesURL = this.configService.getCommonBaseURL() + 'user/getRolesByProviderID';
     createNotificationURL = this.configService.getCommonBaseURL() + 'notification/createNotification';
-    getNotificationsURL = this.configService.getCommonBaseURL() + "";
+    getNotificationsURL = this.configService.getCommonBaseURL() + "notification/getNotification";
     headers = new Headers(
      {'Content-Type': 'application/json'}
        );
