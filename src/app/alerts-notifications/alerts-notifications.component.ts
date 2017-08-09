@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DashboardHttpServices} from '../http-service/http-service.service';
 import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
+import { MdDialog } from '@angular/material';
 
 @Component({
     selector: 'alerts-notifications',
@@ -17,7 +19,7 @@ alerts: any;
 notifications: any;
 alertPostData: any;
 notificationPostData: any;
-constructor (private dashboardHttpServices: DashboardHttpServices, private dataService: dataService, private notificationService : NotificationService){}
+constructor (private dashboardHttpServices: DashboardHttpServices, private dataService: dataService, private notificationService : NotificationService, public dialog: MdDialog){}
 
 
 ngOnInit(){
@@ -34,7 +36,7 @@ ngOnInit(){
         this.alertPostData = {
             "providerServiceMapID": this.service.serviceID,
             "notificationTypeID": this.alertConfig[0].notificationTypeID,
-            "roleIDs": [this.role.roleID],
+            "roleIDs": [this.role.RoleID],
             "validFrom": new Date().toISOString(),
             "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
         };
@@ -45,7 +47,7 @@ ngOnInit(){
         this.notificationPostData = {
             "providerServiceMapID": this.service.serviceID,
             "notificationTypeID": this.notificationConfig[0].notificationTypeID,
-            "roleIDs": [this.role.roleID],
+            "roleIDs": [this.role.RoleID],
             "validFrom": new Date().toISOString(),
             "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
         }
@@ -88,4 +90,27 @@ getAlertsandNotifications(){
         console.log(err);
     });
 }
+
+alertClicked(alert, event){
+    event.preventDefault();
+    console.log(alert.notificationDesc);
+    let dialog = this.dialog.open(MessageDialogComponent, {
+        data: {
+            message: alert.notificationDesc,
+            type: "Alert"
+        }
+      });
+}
+
+notificationClicked(notification,event){
+    event.preventDefault();
+    console.log(notification.notificationDesc);
+    let dialog = this.dialog.open(MessageDialogComponent, {
+        data: {
+            message: notification.notificationDesc,
+            type: "Alert"
+        }
+      });
+}
+
 }

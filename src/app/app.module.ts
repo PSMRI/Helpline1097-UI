@@ -93,6 +93,7 @@ import { AdminScreenMasterComponent } from './admin-screen-master/admin-screen-m
 import { OutboundSearchRecordsComponent } from './outbound-search-records/outbound-search-records.component';
 import { OutboundAllocateRecordsComponent } from './outbound-allocate-records/outbound-allocate-records.component';
 import { OutbondWorklistComponent } from './outbond-worklist/outbond-worklist.component';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 // services
 import { loginService } from './services/loginService/login.service';
@@ -163,7 +164,7 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
-    FeedbackStatusComponent
+    FeedbackStatusComponent, MessageDialogComponent
 
   ],
   imports: [
@@ -238,7 +239,7 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
       },
     ]),
     Md2Module],
-  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent],
+  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
