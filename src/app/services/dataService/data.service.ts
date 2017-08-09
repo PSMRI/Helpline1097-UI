@@ -19,6 +19,7 @@ export class dataService {
 	callID: any;
 	beneficiaryData: any = {};
 	callData: any = {};
+	current_campaign: any;
 
 	benRegId: any;
 

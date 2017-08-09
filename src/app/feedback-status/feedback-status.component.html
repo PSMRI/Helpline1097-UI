@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <h2 md-dialog-title>
+    <div class="row">
+      <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">Feedback Response/Request</div>
+      <div class="col-xs-1 col-sm-1 col-md-4 col-lg-4"></div>
+      <div class="pull-right">
+        <button md-icon-button class="closeBtn" md-dialog-close>
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+    </div>
+
+  </h2>
+  <md-dialog-content>
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <table class="table table-responsive table-striped">
+          <thead>
+            <tr>
+              <th>FeedBack Request ID</th>
+              <th>Comments</th>
+              <th>Email Status</th>
+              <th>Email Status Description</th>
+            </tr>
+          </thead>
+          <!-- <tbody> -->
+
+          <tbody *ngFor="let feedBackRequest of feedBackRequests">
+            <!-- <tbody> -->
+            <tr style="cursor:pointer" (click)="showResponse($event)">
+              <td>{{feedBackRequest.feedbackRequestID}}</td>
+              <td>{{feedBackRequest.comments}}</td>
+              <td>{{feedBackRequest.emailStatus?.emailStatus}}</td>
+              <td>{{feedBackRequest.emailStatus?.emailStatusDesc}}</td>
+            </tr>
+            <!-- <ng-container *ngIf="feedBackResponse.feedbackRequestID==feedBackRequest.feedbackRequestID"> -->
+            <tr *ngFor="let feedBackResponse of feedBackResponses" [collapse]="isCollapsedResponse">
+              <td>{{feedBackResponse.feedbackRequestID}}</td>
+              <td>{{feedBackResponse.comments}}</td>
+            </tr>
+            <!-- </ng-container> -->
+            <!-- <tr >
+              <td>feedbackRequestID</td>
+              <td>comments</td>
+              <td>emailStatus</td> 
+              <td>emailStatus</td>
+            </tr> -->
+          </tbody>
+          <!-- </tbody> -->
+          <tfoot>
+          </tfoot>
+        </table>
+        <p class="pull-right">Total no of Request : {{totalRecord}} </p>
+      </div>
+    </div>
+  </md-dialog-content>
+
+</div>

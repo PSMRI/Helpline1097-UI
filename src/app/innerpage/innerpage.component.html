@@ -1,5 +1,5 @@
 <div class="container-fluid p-a-0 header p-t-b-3">
-  <div class="row header">
+  <div class="header">
     <div class="col-xs-12 col-sm-12">
       <div routerLink="/MultiRoleScreenComponent" class="pull-left"><img src="assets/images/smLogo.png" alt="Logo" title="Logo"></div>
       <div class="pull-right p-t-1">
@@ -24,13 +24,13 @@
   </div>
 </div>
 <div class="col-xs-12 col-sm-12 " (click)="minimizeBar()">
-  <div class="row ">
+  <div class="row" >
     <div class="col-xs-12 col-sm-12 ">
       <div class="row b-t-2-w ">
         <div class="col-xs-12 col-sm-12 m-t-3 ">
           <div class="row ">
             <div class="col-xs-12 col-sm-8 col-md-5 col-lg-6 ">
-              <ul class="list-inline list-unstyled pull-left m-b-3 "  >
+              <ul class="list-inline list-unstyled pull-left m-b-3 ">
                 <li class="cursorPointer " [routerLink]="[ '/MultiRoleScreenComponent', { outlets: {
     'postLogin_router': [ 'dashboard'] } }] ">
                   <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i></li>
@@ -108,4 +108,5 @@
       <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event) "></app-1097>
     </div>
   </div>
+
 </div>

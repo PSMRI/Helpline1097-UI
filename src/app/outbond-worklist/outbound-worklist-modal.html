@@ -1,0 +1,144 @@
+<md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close()">clear</md-icon>
+<div class="col-xs-12 col-sm-12 ">
+<!-- 	<md-card >
+		<md-card-content > -->
+    <div class="row">
+     <h5 class="f-c-o"><strong>Beneficiary Details</strong></h5>
+     
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+         
+                  <md-input-container >
+				    <input mdInput placeholder="Beneficiary Name" disabled value={{data.beneficiary.firstName}}>
+				  </md-input-container>
+           
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+         
+                  <md-input-container >
+				    <input mdInput placeholder="Age" disabled value=" ">
+				  </md-input-container>
+            
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+           
+                  <md-input-container >
+				    <input mdInput placeholder="Gender" disabled value=" ">
+				  </md-input-container>
+          
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        
+                  <md-input-container >
+				    <input mdInput placeholder="Beneficiary Reg Id" disabled value={{data.beneficiary.beneficiaryRegID}}>
+				  </md-input-container>
+          
+        </div>
+        </div>
+        <div class="row">
+		<h5 class="f-c-o"><strong>Blood Requirement</strong></h5>
+     
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+       
+                  <md-input-container >
+				    <input mdInput placeholder="Component Type" disabled value=" ">
+				  </md-input-container>
+        
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+       
+                  <md-input-container >
+				    <input mdInput placeholder="Blood Group" disabled value=" ">
+				  </md-input-container>
+          
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          
+                  <md-input-container >
+				    <input mdInput placeholder="Blood Units" disabled value=" ">
+				  </md-input-container>
+          
+        </div>
+       </div>
+       <form #bloodForm="ngForm" autocomplete="off">
+       <div class="row">
+		<h5 class="f-c-o"><strong>Blood Bank Details</strong></h5>
+   	  
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" myName>
+					<md-input-container >
+							<input mdInput placeholder="Contact Person" name="contactPerson" [(ngModel)]="contactPerson" #contact_person="ngModel" required minlength="3" maxlength="25">
+								<md-hint [hidden]= contact_person.valid> 
+							        <span class="error_text" [hidden]="contact_person.errors?.required">Atleast 3 characters please</span>
+							    </md-hint>
+
+						</md-input-container>
+        </div>
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" myName>
+						<md-input-container >
+							<input mdInput placeholder="Designation" name="designation" [(ngModel)]="designation" required minlength="3" maxlength="25" #design="ngModel">
+								<md-hint [hidden]= design.valid> 
+							        <span class="error_text" [hidden]="design.errors?.required">Atleast 3 characters please</span>
+							    </md-hint>
+						</md-input-container>
+
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div myMobileNumber>
+							<md-input-container >
+								<input mdInput placeholder="Mobile Number" required minlength="10" maxlength="10" name="mobileNum" [(ngModel)]="phoneNumber" #number="ngModel">
+								<md-hint [hidden]= number.valid> 
+							        <span class="error_text" [hidden]="number.errors?.required">Please provide 10 digit number</span>
+							    </md-hint>
+							</md-input-container>
+ </div>        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                 	<md-input-container >
+							<textarea mdInput placeholder="Address" name="address" [(ngModel)]="address" required minlength="10" maxlength="100" #fullAddress="ngModel"></textarea>
+								<md-hint [hidden]= fullAddress.valid> 
+							        <span class="error_text" [hidden]="fullAddress.errors?.required">Minimum of 10 characters please</span>
+							      <!--   <span [hidden]="fullAddress.errors.maxlength || fullAddress.errors?.required">Maximum of 100 characters only</span> -->
+							    </md-hint>
+						</md-input-container>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                  <md-input-container >
+				      <textarea mdInput placeholder="feedback" name="feedback" [(ngModel)]="feedback"></textarea>
+				  </md-input-container>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                  <md-input-container >
+				      <textarea mdInput placeholder="remarks" name="remarks" [(ngModel)]="remarks"></textarea>
+				  </md-input-container>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <md-checkbox color="primary" class="pull-right m-t-5" name="isRequestFulfilled" [(ngModel)]="isRequestFulfilled">
+                    Is Request Fulfilled
+                </md-checkbox>
+        </div>
+        </div>
+        </form>
+       <div class="row">
+				<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
+					<md-checkbox color="primary" class="pull-left m-t-15" name="altNum" [(ngModel)]="altNum">
+						Alternate Number:
+					</md-checkbox>
+					<div *ngIf="altNum" class="col-xs-3 col-sm-3 col-lg-3 col-md-3 pull-left" myMobileNumber>
+					
+							<md-input-container >
+								<input mdInput placeholder="Mobile Number" value="" autocomplete="off" required minlength="10" maxlength="10" (keyup)="mobileNum(mobileNumber)" [(ngModel)]="mobileNumber" #phnNum="ngModel">
+								<md-hint [hidden]= phnNum.valid> 
+							        <span class="error_text" [hidden]="phnNum.errors?.required">Please provide 10 digit number</span>
+							    </md-hint>
+							</md-input-container>
+						   
+					</div>
+					<button [disabled]="altNum && !mobileLength" type="button" class="btn btn-default cu-btn-default pull-left m-l-5 m-t-15" (click)="sendSMS(mobileNumber)">Send SMS</button>      
+
+
+
+                            <button [disabled]="contact_person.errors || design.errors || fullAddress.errors || number.errors" type="button" class="btn btn-default cu-green-btn pull-right m-t-15" 
+                            (click)="saveBloodDetails(bloodForm.value); dialogReff.close()">Save & Exit</button>
+                        </div>
+                    </div>
+            <!--     </md-card-content>
+            </md-card> -->
+        </div>

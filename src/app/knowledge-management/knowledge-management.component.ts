@@ -15,6 +15,7 @@ import { MdSelectModule } from '@angular/material';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service';
 import { dataService } from '../services/dataService/data.service';
 import { UploadServiceService } from '../services/upload-services/upload-service.service';
+import { Message } from './../services/common/message.service'
 
 @Component({
   selector: 'app-knowledge-management',
@@ -39,7 +40,7 @@ export class KnowledgeManagementComponent implements OnInit {
   public createdBy;
 
   constructor(private fb: FormBuilder, private _coCategoryService: CoCategoryService,
-    private _dataService: dataService, private _uploadService: UploadServiceService) {
+    private _dataService: dataService, private _uploadService: UploadServiceService, private message: Message) {
     this.createForm();
   }
 
@@ -82,7 +83,6 @@ export class KnowledgeManagementComponent implements OnInit {
   }
   // submit event to submit the form
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    debugger;
     const documentUploadObj = {};
     const documentUploadArray = [];
     if (valid) {
@@ -124,8 +124,9 @@ export class KnowledgeManagementComponent implements OnInit {
   // Calling service Method to call the services
   uploadFile(uploadObj: any) {
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
+      this.message.openSnackBar('Uploaded Successfully');
     }, (err) => {
-
+      this.message.openSnackBar('Failed to Uploaded');
     })
   }
 

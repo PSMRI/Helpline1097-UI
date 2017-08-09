@@ -1,11 +1,11 @@
 <div class="col-xs-12 col-sm-12">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3" *ngIf="calledRadio;">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngIf="calledRadio;">
       <div class="">
         <md-slide-toggle ngDefaultControl [(ngModel)]="calledEarlier" color="primary" (change)="calledEarlierCheck($event)">Have you Called Earlier?</md-slide-toggle>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3" *ngIf="calledEarlier">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngIf="calledEarlier">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
           <div class="form-group m-b-0 form-group-custome">
@@ -19,6 +19,72 @@
         </div>
       </div>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngIf="advanceBtnHide">
+      <button type="button" class="btn btn-default" id="adSearch" (click)="toggleSearch(searchValue)">{{searchValue}}</button>
+    </div>
+  </div>
+  <div class="row" [collapse]="isAdvancedSearch">
+    <form #searchForm="ngForm">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <div class="form-group">
+          <div myName>
+            <label class="control-label" for="validity">First Name <em>*</em></label>
+            <input type="text" class="form-control" id="firstname" required minlength="3" maxlength="24" placeholder="Enter Name" name="firstName"
+              [(ngModel)]="fname" (keyup)="nameInput(fname)" #firstN="ngModel">
+            <span id="fName"></span>
+          </div>
+          <div class="error" *ngIf=" firstN.errors && ( firstN.dirty || firstN.touched)" class="errorText">
+            <div [hidden]="!firstN.errors.required">
+              Name is required
+            </div>
+            <div [hidden]="!firstN.errors.minlength">
+              Atleast 3 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <div class="form-group">
+          <label class="control-label" for="lastName">Last name/Surname </label>
+          <input type="text" class="form-control" id="lastName" placeholder="Enter last name / Surname" name="lastName" [(ngModel)]="lname">
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <div class="form-group">
+          <label class="control-label" for="fatherNameHusbandNameSearch">Father Name / Husband Name</label>
+          <input type="text" class="form-control" id="fatherNameHusbandNameSearch" placeholder="Enter Father Name / Husband Name" name="fatherNameHusbandNameSearch"
+            [(ngModel)]="fhname">
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <div class="form-group">
+          <label class="control-label" for="beneficiaryID">Beneficiary ID</label>
+          <input type="text" class="form-control" id="beneficiaryID" placeholder="Enter Beneficiary ID" name="beneficiaryID" [(ngModel)]="beneficiaryID">
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <div class="form-group">
+          <label class="control-label" for="districtSearch">District</label>
+          <select class="form-control" name="districtSearch">
+                            <option value="">Select District</option>
+                            <option *ngFor="let district of districts" value="{{district.districtID}}">{{district.districtName}}</option>
+                        </select>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <div class="form-group">
+          <label class="control-label" for="talukSearch">Taluka/Tahsil/Mandal</label>
+          <select class="form-control " name="talukSearch" [(ngModel)]="taluk">
+                            <option value='1'>taluk</option>
+                        </select>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
+        <button type="button" class="btn font-regular f-s-18 m-r-5" id="">Clear</button>
+        <button [disabled]=" nameFlag || genderFlag" type="button" class="btn cu-green-btn font-regular f-s-18 m-r-5" value="search"
+          (click)="searchBeneficiary(searchForm.value)">Search</button>
+      </div>
+    </form>
   </div>
   <!--  Code Modified by Neeraj( 298657 ); 22-jun-2017 -->
   <div class="row">
@@ -69,7 +135,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="TitleId ">TitleId</label>
+        <label class="control-label" for="TitleId ">TitleId</label>
         <select class="form-control drop-arrow " name="TitleId " [(ngModel)]="TitleId ">
                         <option *ngFor="let title of titles " value={{title.titleID}}>{{title.titleName}}</option>
                     </select>
@@ -77,21 +143,21 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="firstName ">Name</label>
+        <label class="control-label" for="firstName ">Name</label>
         <input type="text " class="form-control col-sm-9 " placeholder="Enter first name " name="FirstName " [(ngModel)]="FirstName"
           maxlength="25">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="lastName "> Last name/Surname</label>
+        <label class="control-label" for="lastName "> Last name/Surname</label>
         <input type="text " class="form-control col-sm-9 " placeholder="Enter Last name/Surname " name="LastName " [(ngModel)]="LastName"
           maxlength="25">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="firstName ">Select Gender</label>
+        <label class="control-label" for="firstName ">Select Gender</label>
         <select class="form-control drop-arrow " name="GenderID " [(ngModel)]="GenderID ">
                         <option *ngFor="let gender of genders " value={{gender.genderID}}>{{gender.genderName}}</option>
                     </select>
@@ -99,37 +165,37 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="marital ">Select Marital</label>
+        <label class="control-label" for="marital ">Select Marital</label>
         <select class="form-control drop-arrow " name="MaritalStatusID " [(ngModel)]="MaritalStatusID ">
                         <option *ngFor="let maritalstatus of maritalStatuses " value={{maritalstatus.maritalStatusID}}>
                             {{maritalstatus.status}}</option>
                     </select>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
         <label class="control-label" for="dOB" i18n>DOB</label>
         <md2-datepicker [min]="minDate" [max]="maxDate" placeholder="dd-MM-yyyy" name="dateOfBirth" (change)="calculateAge($event.value)"
           [(ngModel)]="DOB"></md2-datepicker>
       </div>
-    </div>
+    </div> 
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="lastName ">Age </label>
+        <label class="control-label" for="lastName ">Age </label>
         <input type="text " class="form-control " #ageRef placeholder="Enter age" name="age" (blur)="calculateDOB(ageRef.value)"
           [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="PhoneNo ">Alternate Number</label>
+        <label class="control-label" for="PhoneNo ">Alternate Number</label>
         <input type="text " class="form-control " placeholder="Enter PhoneNo " name="PhoneNo " [(ngModel)]="PhoneNo ">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 " *ngIf="isParentBeneficiary">
       <div class="form-group ">
-        <label class="control-label " for="beneficiaryRealtion">{{relationshipWith}}</label>
+        <label class="control-label" for="beneficiaryRealtion">{{relationshipWith}}</label>
         <select class="form-control drop-arrow" name="beneficiaryRealtionID" [(ngModel)]="beneficiaryRelationID">
                     <option *ngFor="let beneficiaryRelation of beneficiaryRelations" value={{beneficiaryRelation.benRelationshipID}}>
                         {{beneficiaryRelation.benRelationshipType}}
@@ -146,19 +212,19 @@
     <!-- End of Code added by Neeraj( 298657 ); 21-jun-2017  -->
     <div class="row" style="display:none; ">
       <div class="form-group ">
-        <label class="control-label " for="ParentBenRegID ">Parent Reg ID</label>
+        <label class="control-label" for="ParentBenRegID ">Parent Reg ID</label>
         <input type="text " class="form-control " value="130 " name="ParentBenRegID " [(ngModel)]="ParentBenRegID ">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 " style="display:none; ">
       <div class="form-group ">
-        <label class="control-label " for="BeneficiaryTypeID ">Relationship </label>
+        <label class="control-label" for="BeneficiaryTypeID ">Relationship </label>
         <input type="text " class="form-control " name="BeneficiaryTypeID " [(ngModel)]="BeneficiaryTypeID ">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="identityType ">Identity Type </label>
+        <label class="control-label" for="identityType ">Identity Type </label>
         <select class="form-control drop-arrow" #idType name="identityType " [(ngModel)]="identityType">
                         <option *ngFor="let identityType of identityTypes" value={{identityType.govtIdentityTypeID}}>
                             {{identityType.identityType}}</option>
@@ -167,13 +233,13 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="aadharNo ">ID No.</label>
+        <label class="control-label" for="aadharNo ">ID No.</label>
         <input type="text " class="form-control " placeholder="Enter Aadhar No. " maxlength="15" name="aadharNo " [(ngModel)]="aadharNo">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
-        <label class="control-label " for="caste ">Select Caste</label>
+        <label class="control-label" for="caste ">Select Caste</label>
         <select class="form-control drop-arrow " name="caste " [(ngModel)]="caste ">
                         <option *ngFor="let caste of communities " value={{caste.communityID}}>
                             {{caste.communityType}}</option>
@@ -256,4 +322,5 @@
 
   <!-- </form> -->
   <!--Changed Form by Pankush  -->
+  <!-- </div> -->
 </div>
