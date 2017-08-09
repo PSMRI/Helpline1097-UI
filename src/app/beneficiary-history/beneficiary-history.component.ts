@@ -10,7 +10,7 @@ import { CoReferralService } from './../services/coService/co_referral.service';
 export class BeneficiaryHistoryComponent implements OnInit {
 
   public data: any;
-
+  public totalRecord: any;
   constructor(
     public dialogRef: MdDialogRef<BeneficiaryHistoryComponent>,
     @Inject(MD_DIALOG_DATA) public benificiaryHistoryData: any,
@@ -21,7 +21,9 @@ export class BeneficiaryHistoryComponent implements OnInit {
     const benificiaryRegID = this.benificiaryHistoryData;
     this.callService.getBenificiaryCallHistory(benificiaryRegID).subscribe((response) => {
       this.data = response;
+      this.totalRecord = response.length;
       console.log('Call History Data is', response);
+
     }, (err) => {
       console.log('error in call history ');
     })

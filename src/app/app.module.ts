@@ -90,6 +90,10 @@ import { AdminLanguageMasterComponent } from './admin-language-master/admin-lang
 import { AdminRoleMasterComponent } from './admin-role-master/admin-role-master.component';
 import { AdminServiceMasterComponent } from './admin-service-master/admin-service-master.component';
 import { AdminScreenMasterComponent } from './admin-screen-master/admin-screen-master.component';
+import { OutboundSearchRecordsComponent } from './outbound-search-records/outbound-search-records.component';
+import { OutboundAllocateRecordsComponent } from './outbound-allocate-records/outbound-allocate-records.component';
+import { OutbondWorklistComponent } from './outbond-worklist/outbond-worklist.component';
+
 // services
 import { loginService } from './services/loginService/login.service';
 import { RegisterService } from './services/register-services/register-service';
@@ -115,10 +119,16 @@ import { Message } from './services/common/message.service';
 import { SupervisorCallTypeReportService } from './services/supervisorServices/supervisor-calltype-reports-service.service';
 import { UploadServiceService } from './services/upload-services/upload-service.service';
 import { NotificationService } from './services/notificationService/notification-service';
+import { OutboundSearchRecordService } from './services/outboundServices/outbound-search-records.service';
+import { OutboundCallAllocationService } from './services/outboundServices/outbound-call-allocation.service';
+import { OutboundWorklistService } from './services/outboundServices/outbound-work-list.service';
 
 
-//pipes
+// pipes
 import { FilterTable } from './pipes/filter-table.pipe'
+
+// directives
+import { CollapseDirective } from './directives/collapse/collapse.directive'
 
 
 // md2 Material2  modules and components
@@ -127,7 +137,8 @@ import { MdSnackBarModule } from '@angular/material';
 
 import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-history.component'
 import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component';
-import { KnowledgeManagementComponent } from './knowledge-management/knowledge-management.component'
+import { KnowledgeManagementComponent } from './knowledge-management/knowledge-management.component';
+import { FeedbackStatusComponent } from './feedback-status/feedback-status.component'
 
 
 
@@ -150,8 +161,9 @@ import { KnowledgeManagementComponent } from './knowledge-management/knowledge-m
     SupervisorReportsComponent, SupervisorConfigurationsComponent, AgentStatusComponent,
     BlockUnblockNumberComponent, DialBeneficiaryComponent, QualityAuditComponent,
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
-    SupervisorCalltypeReportsComponent,
-    KnowledgeManagementComponent
+    SupervisorCalltypeReportsComponent, CollapseDirective,
+    KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
+    FeedbackStatusComponent
 
   ],
   imports: [
@@ -226,13 +238,13 @@ import { KnowledgeManagementComponent } from './knowledge-management/knowledge-m
       },
     ]),
     Md2Module],
-  entryComponents: [BeneficiaryHistoryComponent],
+  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
-    CoCategoryService, UploadServiceService, NotificationService],
+    CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService, OutboundCallAllocationService, NotificationService],
   bootstrap: [AppComponent]
 })
 

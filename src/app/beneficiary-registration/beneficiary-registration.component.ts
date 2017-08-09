@@ -8,6 +8,7 @@ import { dataService } from '../services/dataService/data.service';
 import { BeneficiaryHistoryComponent } from './../beneficiary-history/beneficiary-history.component'
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Message } from './../services/common/message.service'
+import { CollapseDirective } from './../directives/collapse/collapse.directive'
 
 @Component({
   selector: 'app-beneficiary-registration',
@@ -78,6 +79,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   identityType: number;
   identityTypes: any;
   public areaList: any = [];
+  searchValue: any;
+  isAdvancedSearch: any;
+  advanceBtnHide: any;
+
+
 
 
   constructor(private _util: RegisterService, private _router: Router,
@@ -93,6 +99,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
     this.startNewCall();
     this.calledEarlier = true;
+    this.searchValue = 'Advance Search';
+    this.isAdvancedSearch = true;
+    this.advanceBtnHide = true;
+
   }
 
   reloadCall() {
@@ -171,7 +181,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     if (flag.checked) {
       this.calledEarlier = true;
+      this.searchValue = 'Advance Search';
       // this.showSearchResult = true;
+      this.advanceBtnHide = true;
+      this.isAdvancedSearch = true;
       this.notCalledEarlier = false;
       this.updationProcess = false;
       this.notCalledEarlierLowerPart = false;
@@ -183,10 +196,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
     if (!flag.checked) {
+      this.searchValue = 'Advance Search';
+      this.advanceBtnHide = false;
       this.isParentBeneficiary = false;
       this.notCalledEarlier = true;
       this.notCalledEarlierLowerPart = false;
       this.calledRadio = true;
+      this.isAdvancedSearch = true;
       this.onBenRegDataSelect.emit(null);
       this.calledEarlier = false;
       this.showSearchResult = false;
@@ -311,7 +327,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.updatedObj.benPhoneMaps[1].createdBy = this.saved_data.uname;
       this.updatedObj.benPhoneMaps[1].deleted = false;
     }
-    debugger;
     this.updatedObj.govtIdentityNo = this.aadharNo;
     this.updatedObj.govtIdentityTypeID = this.identityType;
     this.updatedObj.deleted = false;
@@ -416,7 +431,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.PhoneNo = registeredBenData.benPhoneMaps[1].phoneNo;
     }
     this.aadharNo = registeredBenData.govtIdentityNo;
-    debugger;
     this.identityType = registeredBenData.govtIdentityTypeID;
     this.caste = registeredBenData.i_bendemographics.communityID;
     this.educationQualification = registeredBenData.i_bendemographics.educationID;
@@ -593,6 +607,18 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   // to remove the readonly on double click
   enableAge(data) {
     this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', null);
+  }
+  // for advanced Search
+  toggleSearch(data: any) {
+    this.isAdvancedSearch = !this.isAdvancedSearch;
+    if (data === 'Search by Id') {
+      this.searchValue = 'Advanced Search';
+      this.calledEarlier = true;
+    } else {
+      this.searchValue = 'Search by Id';
+      this.calledEarlier = false;
+    }
+
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];

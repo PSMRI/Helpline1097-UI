@@ -50,12 +50,12 @@ export class supervisorFeedback implements OnInit
     beneficiaryName: new FormControl(),
     comments: new FormControl(),
     createdBy: new FormControl(),
-    createdDate: new FormControl( "2017-05-20" ),
-    supUserID: new FormControl( "1" ),
+    createdDate: new FormControl(),
+    supUserID: new FormControl(),
     feedbackDate: new FormControl(),
     feedbackTypeName: new FormControl(),
     feedbackStatus: new FormControl(),
-    emailStatus: new FormControl( "2" ),
+    emailStatus: new FormControl(),
     institutionName: new FormControl(),
     designationName: new FormControl(),
     severityTypeName: new FormControl(),
@@ -65,7 +65,8 @@ export class supervisorFeedback implements OnInit
     modifiedBy: new FormControl(),
     updateResponse: new FormControl(),
     emailStatusID: new FormControl(),
-    feedbackStatusID: new FormControl()
+    feedbackStatusID: new FormControl(),
+    feedbackRequestID: new FormControl()
   } );
 
   feedbackForm1 = new FormGroup( {
@@ -118,43 +119,47 @@ export class supervisorFeedback implements OnInit
   onSubmit ()
   {
 
-    this.action = "view";
+    // this.action = "view";
 
     let bodyString = this.feedbackForm.value;
     bodyString[ "serviceID" ] = this.serviceID;
+    bodyString[ "feedbackStatus" ] = undefined;
+    bodyString[ "emailStatus" ] = undefined;
+    // bodyString[ "" ] = undefined;
     console.log( "SPData" + JSON.stringify( bodyString ) );
-    bodyString.feedbackStatus = undefined;
-    bodyString.emailStatus = undefined;
+    // bodyString.feedbackStatus = undefined;
+    // bodyString.emailStatus = undefined;
 
     if ( this.action == 'edit' )
-      this._feedbackservice.updateFeedback( bodyString )
+    {
+      this._feedbackservice.requestFeedback( bodyString )
         .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
-
+    }
     //if(this.action == 'edit')
     // this._feedbackservice.updateFeedback( bodyString )
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
-    //if(this.action == 'update')
-    this._feedbackservice.responceStatus( bodyString )
-      .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
+    if ( this.action == 'update' )
+    {
+      this._feedbackservice.updateResponce( bodyString )
+        .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
+    }
 
   }
 
   showUsers ( data )
   {
-    this.showUser = !this.showUser;
-    console.log( "showUsers: " + data );
-    this.showupdateFeedback = true;
-    this.showupdateFeedback1 = true;
-
+    this.onSearch();
   }
 
   providers ( data )
   {
     this.feedbackList = data;
+    this.showUser = true;
+    this.showupdateFeedback = true;
+    this.showupdateFeedback1 = true;
     console.log( data );
   }
-  ;
 
   showUser1 ( data1 )
   {
@@ -163,7 +168,7 @@ export class supervisorFeedback implements OnInit
 
 
 
-  updateFeedback ( feedback )
+  requestFeedback ( feedback )
   {
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = "edit";
@@ -178,7 +183,7 @@ export class supervisorFeedback implements OnInit
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue( new Date( feedback.createdDate ).toLocaleDateString( 'en-in' ) );
     this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
-    this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatus );
+    this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatusName );
     this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatusName );
     this.feedbackForm.controls.feedbackStatusID.setValue( feedback.feedbackStatusID );
     this.feedbackForm.controls.emailStatusID.setValue( feedback.emailStatusID );
@@ -194,7 +199,7 @@ export class supervisorFeedback implements OnInit
 
   }
 
-  updateFeedback1 ( feedback )
+  updateResponse ( feedback )
   {
 
     //this.showupdateFeedback=!this.showupdateFeedback;
@@ -206,15 +211,18 @@ export class supervisorFeedback implements OnInit
       ( feedback.feedbackRequests && feedback.feedbackRequests[ 0 ] && feedback.feedbackRequests[ 0 ].feedbackSupSummary ) ?
         feedback.feedbackRequests[ 0 ].feedbackSupSummary : ""
     );
+    this.feedbackForm.controls.feedbackRequestID.setValue(
+      ( feedback.feedbackRequests && feedback.feedbackRequests[ 0 ] && feedback.feedbackRequests[ 0 ].feedbackRequestID ) ?
+        feedback.feedbackRequests[ 0 ].feedbackRequestID : undefined
+    );
     this.feedbackForm.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     //this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue( new Date( feedback.createdDate ).toLocaleDateString( 'en-in' ) );
     this.feedbackForm.controls.feedbackTypeName.setValue( feedback.feedbackTypeName );
-    this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatus );
-    this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatus );
+    this.feedbackForm.controls.feedbackStatus.setValue( feedback.feedbackStatusName );
+    this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatusName );
     this.feedbackForm.controls.feedbackStatusID.setValue( feedback.feedbackStatusID );
     this.feedbackForm.controls.emailStatusID.setValue( feedback.emailStatusID );
-    this.feedbackForm.controls.emailStatus.setValue( feedback.emailStatus );
     this.feedbackForm.controls.institutionName.setValue( feedback.institutionName );
     this.feedbackForm.controls.designationName.setValue( feedback.designationName );
     this.feedbackForm.controls.severityTypeName.setValue( feedback.severityTypeName );
@@ -239,14 +247,14 @@ export class supervisorFeedback implements OnInit
     this.feedbackForm1.controls.feedbackSupSummary.setValue( feedback.feedback );
     this.feedbackForm1.controls.beneficiaryName.setValue( feedback.beneficiaryName );
     this.feedbackForm1.controls.createdBy.setValue( feedback.createdBy );
-    this.feedbackForm1.controls.createdDate.setValue( "2017-06-19" );
+    this.feedbackForm1.controls.createdDate.setValue( feedback.createdDate );
 
     console.log( "raj" + dataforUpdate )
     let bodyString = this.feedbackForm1.value;
-    this._feedbackservice.updateFeedback( bodyString )
+    this._feedbackservice.requestFeedback( bodyString )
       .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
-    this._feedbackservice.updateStatus( bodyString )
-      .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
+    // this._feedbackservice.updateStatus( bodyString )
+    //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
 
   }
@@ -259,8 +267,22 @@ export class supervisorFeedback implements OnInit
   onSearch ()
   {
     let bodyString = this.feedbackForm2.value;
+    if ( bodyString.endDate === "" )
+    {
+      bodyString.endDate = undefined;
+    }
+    if ( bodyString.startDate === "" )
+    {
+      bodyString.startDate = undefined;
+    }
+    if ( bodyString.feedbackID === "" )
+    {
+      bodyString.feedbackID = undefined;
+    }
     bodyString[ "serviceID" ] = this.serviceID;
-    this._feedbackservice.searchFeedback( bodyString )
+    // this._feedbackservice.searchFeedback( bodyString )
+    //   .subscribe( resProviderData => this.providers( resProviderData ) );
+    this._feedbackservice.getFeedback( bodyString )
       .subscribe( resProviderData => this.providers( resProviderData ) );
   }
 
@@ -269,7 +291,9 @@ export class supervisorFeedback implements OnInit
     this.action = "Click";
     this.feedbackForm3.controls.feedbackID.setValue( feedback.FeedBackID );
     let bodyString = this.feedbackForm3.value;
-    this._feedbackservice.responce( bodyString )
+    // this._feedbackservice.responce( bodyString )
+    //   .subscribe( resProviderData => this.showResponce( resProviderData ) );
+    this._feedbackservice.updateResponce( bodyString )
       .subscribe( resProviderData => this.showResponce( resProviderData ) );
 
   }

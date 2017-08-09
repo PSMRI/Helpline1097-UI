@@ -20,6 +20,7 @@ export class InnerpageComponent implements OnInit {
   seconds: number = 0;
   minutes: number = 0;
   counter: number = 0;
+  current_campaign: any;
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -89,6 +90,7 @@ export class InnerpageComponent implements OnInit {
       this.seconds = this.seconds + 1;
       this.callDuration = this.minutes + 'm ' + this.seconds + 's ';
     }, 1000);
+    this.current_campaign = this.getCommonData.current_campaign;
   }
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find("a").removeClass('active-tab');
