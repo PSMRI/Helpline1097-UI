@@ -64,7 +64,7 @@
                     <!--<option></option>-->
                     <!--<option value="Valid Call" i18n>Valid Call</option>
                     <option value="Test Call" i18n>Test Call</option>-->
-                    <option *ngFor="let calltype of calltypes " value={{calltype.callTypeID}}>{{calltype.callTypeDesc}}</option>
+                    <option *ngFor="let calltype of calltypes " value="{{calltype.callTypeID}},{{calltype.fitToBlock}}">{{calltype.callTypeDesc}}</option>
                 </select>
               </div>
             </div>
