@@ -114,6 +114,7 @@ import { helpline1097Component } from './1097/1097.component'
 import { Message } from './services/common/message.service';
 import { SupervisorCallTypeReportService } from './services/supervisorServices/supervisor-calltype-reports-service.service';
 import { UploadServiceService } from './services/upload-services/upload-service.service';
+import { NotificationService } from './services/notificationService/notification-service';
 
 
 //pipes
@@ -231,7 +232,7 @@ import { KnowledgeManagementComponent } from './knowledge-management/knowledge-m
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
-    CoCategoryService, UploadServiceService],
+    CoCategoryService, UploadServiceService, NotificationService],
   bootstrap: [AppComponent]
 })
 

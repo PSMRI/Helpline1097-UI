@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <!--<div class="col-xs-12 col-sm-12 col-md-12">
         <div class="col-xs-3 col-sm-3 col-md-3 clearfix"></div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <md-input-container style="width: 60%">
@@ -20,11 +20,11 @@
             <md-chip-list>
                 <md-chip *ngFor="let recipient of recipientArray;let i=index" color="primary" selected="true">{{recipient}}
                     <md-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" (click)="deleteRecipient(i)">cancel</md-icon>
-                </md-chip>
+                </md-chip>-->
                 <!-- <md-chip>Two fish</md-chip>
             <md-chip color="primary" selected="true">Primary fish</md-chip>
             <md-chip color="accent" selected="true">Accent fish</md-chip> -->
-            </md-chip-list>
+            <!--</md-chip-list>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 m-t-30">
@@ -33,5 +33,48 @@
     </div>
     <div class="col-xs-12 col-sm-12">
         <button md-raised-button class="pull-right">Send</button>
+    </div>-->
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+        <h4 class="f-c-o m-b-40">Notifications</h4>
+        <form (ngSubmit)="onSubmit()" #notificationForm="ngForm">
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <md-select placeholder="Notification Type" name="notificationType" (change)="onChangeNotificationType($event)" ngModel required>
+                    <md-option *ngFor="let notification of notificationTypes; let i=index" [value]="i">
+                        {{ notification.notificationType }}
+                    </md-option>
+                </md-select>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <md-select placeholder="Select Roles" [multiple]="true" name="roles" ngModel required>
+                    <md-option *ngFor="let role of roleObjArray" [value]="role.RoleID">
+                        {{ role.RoleName }}
+                    </md-option>
+                </md-select>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 c-b p-l-lg-1">
+                <md2-datepicker name="startDate" placeholder="Start Date" #startDate="ngModel" ngModel required></md2-datepicker>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-l-lg-1">
+                <md2-datepicker name="endDate" placeholder="End Date" [min]="startDate.value" #endDate="ngModel" ngModel required></md2-datepicker>
+            </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <md-input-container class="width100">
+                    <input mdInput placeholder="Notification Subject" name="notificationSubject" ngModel required>
+                </md-input-container>
+            </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <md-input-container class="width100">
+                    <textarea mdInput rows="3" placeholder="Notification Message" name="notificationMessage" ngModel required></textarea>
+                </md-input-container>
+            </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
+                <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file" ngModel #uploadfile="ngModel">
+            </div>
+            <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span>
+            <span class="help-block m-l-15" *ngIf="error2">File Size should not exceed {{maxFileSize}} MB</span>
+            <span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
+            <button md-raised-button class="btn btn-primary m-l-15 m-b-20 m-t-15 c-b" [disabled]="!(notificationForm.valid) || error1 || error2" type="submit">Submit</button>
+        </form>
     </div>
 </div>
