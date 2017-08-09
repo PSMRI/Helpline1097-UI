@@ -16,7 +16,7 @@ export class CoCounsellingServicesComponent implements OnInit
   symptomCategory: any;
   symptomSubCategory: any;
   detailsList: any;
-  serviceID: number = 2;
+  serviceID: number;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService
