@@ -11,6 +11,8 @@ export class AlertsNotificationComponent implements OnInit{
 role: any;
 service: any;
 profile: any;
+alertConfig : any;
+notificationConfig : any;
 alerts: any;
 notifications: any;
 constructor (private dashboardHttpServices: DashboardHttpServices, private dataService: dataService, private notificationService : NotificationService){}
@@ -19,18 +21,48 @@ constructor (private dashboardHttpServices: DashboardHttpServices, private dataS
 ngOnInit(){
     this.role = this.dataService.current_role;
     this.service = this.dataService.current_service;
-    let data = { 'providerServiceMapID': this.service.serviceID};
-    this.notificationService.getNotificationTypes(data)
+    console.log("providerServiceMapID"+this.service.serviceID);
+    this.notificationService.getNotificationTypes(this.service.serviceID)
     .subscribe((response)=> {
         console.log(response);
-        this.alerts = response.filter((notification)=>{
+        this.alertConfig = response.data.filter((notification)=>{
             return notification.notificationType=="Alert";
         });
-        console.log(this.alerts);
-        this.notifications = response.filter((notification)=>{
+        console.log(this.alertConfig);
+        this.notificationConfig = response.data.filter((notification)=>{
             return notification.notificationType=="Notification";
         });
-        console.log(this.notifications);
+        console.log(this.notificationConfig);
+    },
+    (err)=>{
+        console.log(err);
+    });
+    let alertPostData = {
+     "providerServiceMapID": this.service.serviceID,
+     "notificationTypeID": this.alertConfig.notificationTypeID,
+     "roleIDs": [this.role.roleID],
+     "validFrom": new Date().toISOString(),
+     "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
+    };
+    let notificationPostData = {
+     "providerServiceMapID": this.service.serviceID,
+     "notificationTypeID": this.notificationConfig.notificationTypeID,
+     "roleIDs": [this.role.roleID],
+     "validFrom": new Date().toISOString(),
+     "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
+    }
+    this.notificationService.getAlerts(alertPostData)
+    .subscribe((response)=>{
+        console.log(response);
+        this.alerts = response.data;
+    },
+    (err)=>{
+        console.log(err);
+    });
+    this.notificationService.getNotifications(notificationPostData)
+    .subscribe((response)=>{
+        console.log(response);
+        this.notifications = response.data;
     },
     (err)=>{
         console.log(err);
