@@ -99,7 +99,7 @@
     </div>
   </form>
 
-  <div >
+  <div *ngIf="(action === 'edit') || (action === 'update')">
     <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
 
 
