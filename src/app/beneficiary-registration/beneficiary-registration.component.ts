@@ -21,6 +21,14 @@ export class BeneficiaryRegistrationComponent implements OnInit
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>(); 1
   @ViewChild( 'ageRef' ) input: ElementRef;
+  fname: any = '';
+  lname: any = '';
+  fhname: any = '';
+  beneficiaryID: string = undefined;
+  // nameFlag: boolean = false;
+  genderFlag: boolean = false;
+  BeneficiaryExistsWIthOtherPhNum: boolean = false;
+
   FirstName: any = '';
   LastName: any = '';
   DOB: any;
@@ -713,4 +721,29 @@ export class BeneficiaryRegistrationComponent implements OnInit
   //     this.data.openSnackBar(this.areaList.length + ' Locations Found', 'Please Select');
   //   }
   // }
+  /** Purpose: function to retrive beneficiaries based on the fileds entered */
+  searchBeneficiary ( values: any )
+  {
+    console.log( values );
+    this.BeneficiaryExistsWIthOtherPhNum = true;
+    this._util.searchBenficiary( values ).subscribe( response => this.handleRegHistorySuccess( response ) )
+    // this.showSearchForm = false;
+
+  }
+  nameFlag: any = true;
+  nameInput ( value )
+  {
+    console.log( value.length );
+    if ( value.length >= 3 && value.length <= 24 )
+    {
+      this.nameFlag = false;
+      // jQuery('#firstname').removeClass("field-error");
+    }
+    else
+    {
+      this.nameFlag = true;
+      // jQuery('#firstname').addClass("field-error");
+    }
+
+  }
 }
