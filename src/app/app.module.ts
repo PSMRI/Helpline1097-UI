@@ -94,6 +94,7 @@ import { AdminScreenMasterComponent } from './admin-screen-master/admin-screen-m
 import { OutboundSearchRecordsComponent } from './outbound-search-records/outbound-search-records.component';
 import { OutboundAllocateRecordsComponent } from './outbound-allocate-records/outbound-allocate-records.component';
 import { OutbondWorklistComponent } from './outbond-worklist/outbond-worklist.component';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 // services
 import { loginService } from './services/loginService/login.service';
@@ -119,6 +120,7 @@ import { helpline1097Component } from './1097/1097.component'
 import { Message } from './services/common/message.service';
 import { SupervisorCallTypeReportService } from './services/supervisorServices/supervisor-calltype-reports-service.service';
 import { UploadServiceService } from './services/upload-services/upload-service.service';
+import { NotificationService } from './services/notificationService/notification-service';
 import { OutboundSearchRecordService } from './services/outboundServices/outbound-search-records.service';
 import { OutboundCallAllocationService } from './services/outboundServices/outbound-call-allocation.service';
 import { OutboundWorklistService } from './services/outboundServices/outbound-work-list.service';
@@ -162,7 +164,7 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
-    FeedbackStatusComponent
+    FeedbackStatusComponent, MessageDialogComponent
 
   ],
   imports: [
@@ -237,14 +239,15 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
       },
     ]),
     Md2Module],
-  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent],
+  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-    OutboundCallAllocationService],
+    OutboundCallAllocationService, NotificationService],
+
   bootstrap: [AppComponent]
 })
 

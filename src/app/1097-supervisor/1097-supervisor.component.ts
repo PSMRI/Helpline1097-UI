@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class helpline1097SupervisorComponent implements OnInit
 {
 
+  // barMinimized: boolean = false;
   constructor() { }
 
   ngOnInit ()

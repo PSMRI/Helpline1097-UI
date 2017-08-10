@@ -20,6 +20,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>(); 1
   @ViewChild('ageRef') input: ElementRef;
+  fname: any = '';
+  lname: any = '';
+  fhname: any = '';
+  beneficiaryID: string = undefined;
+  // nameFlag: boolean = false;
+  genderFlag: boolean = false;
+  BeneficiaryExistsWIthOtherPhNum: boolean = false;
+
   FirstName: any = '';
   LastName: any = '';
   fatherNameHusbandNameSearch = '';
@@ -95,6 +103,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     private message: Message, public dialog: MdDialog) { }
 
   /* Intialization Of value and object has to be written in here */
+
   ngOnInit() {
 
     this.startNewCall();
@@ -111,7 +120,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       (err) => {
 
       });
-    // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response);
+    // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
     this.isAdvancedSearch = true;
@@ -141,6 +150,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.is1097 = true;
     data.createdBy = this.saved_data.uname;
     data.calledServiceID = this.saved_data.current_service.serviceID;
+    data.phoneNo = this.saved_data.callerNumber;
     this._util.startCall(data).subscribe(response => this.setBenCall(response));
   }
 
@@ -596,8 +606,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-      console.log('Something Went Wrong in fetching Parent Data');
-    })
+        console.log('Something Went Wrong in fetching Parent Data');
+      })
 
   }
   // to Calculate the age on the basis of date of birth
@@ -670,4 +680,5 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   //     this.data.openSnackBar(this.areaList.length + ' Locations Found', 'Please Select');
   //   }
   // }
+  /** Purpose: function to retrive beneficiaries based on the fileds entered */
 }
