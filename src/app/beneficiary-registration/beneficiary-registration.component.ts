@@ -22,6 +22,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   @ViewChild('ageRef') input: ElementRef;
   FirstName: any = '';
   LastName: any = '';
+  fatherNameHusbandNameSearch = '';
   DOB: any;
   PhoneNo = '';
   GenderID: any = '';
@@ -82,6 +83,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   searchValue: any;
   isAdvancedSearch: any;
   advanceBtnHide: any;
+  gender: any;
+  commonData: any;
 
 
 
@@ -93,18 +96,27 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   /* Intialization Of value and object has to be written in here */
   ngOnInit() {
+
+    this.startNewCall();
+    this.IntializeSessionValues();
+
+  }
+  IntializeSessionValues() {
     this.today = new Date();
     this.maxDate = this.today;
     this._userBeneficiaryData.getUserBeneficaryData()
-      .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
-    this.startNewCall();
+      .subscribe((response) => {
+        this.SetUserBeneficiaryRegistrationData(response)
+      },
+      (err) => {
+
+      });
+    // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response);
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
     this.isAdvancedSearch = true;
     this.advanceBtnHide = true;
-
   }
-
   reloadCall() {
 
     this.retrieveRegHistoryByPhoneNo(this.saved_data.callerNumber);
@@ -617,7 +629,33 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       this.searchValue = 'Search by Id';
       this.calledEarlier = false;
+      this.showSearchResult = false;
     }
+
+  }
+
+  /** Purpose: function to retrive beneficiaries based on the fileds entered */
+  searchBeneficiary(values: any) {
+    this._userBeneficiaryData.searchBenficiary(values).subscribe((response) => {
+      if (response.statusCode === 5000) {
+        console.log('Error advanced Search Something went wrong', );
+        this.showSearchResult = false;
+        this.isAdvancedSearch = false;
+      } else {
+        this.isAdvancedSearch = true;
+        this.regHistoryList = response;
+        this.showSearchResult = true;
+        this.calledEarlier = true;
+        this.searchValue = 'Advanced Search';
+        console.log('Response advanced Search', response);
+
+      }
+    }, (err) => {
+      console.log('Error advanced Search', err);
+      this.showSearchResult = false;
+      this.isAdvancedSearch = false;
+    });
+
 
   }
   // getLocationPerPincode(pincodeObj: any) {

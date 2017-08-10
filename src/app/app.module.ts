@@ -64,6 +64,7 @@ import { DialBeneficiaryComponent } from './dial-beneficiary/dial-beneficiary.co
 import { QualityAuditComponent } from './quality-audit/quality-audit.component';
 import { SupervisorNotificationsComponent } from './supervisor-notifications/supervisor-notifications.component';
 
+
 //cocomponents
 import { CoCounsellingServicesComponent } from './co-counselling-services/co-counselling-services.component';
 import { CoFeedbackServicesComponent } from './co-feedback-services/co-feedback-services.component';
@@ -121,7 +122,6 @@ import { UploadServiceService } from './services/upload-services/upload-service.
 import { OutboundSearchRecordService } from './services/outboundServices/outbound-search-records.service';
 import { OutboundCallAllocationService } from './services/outboundServices/outbound-call-allocation.service';
 import { OutboundWorklistService } from './services/outboundServices/outbound-work-list.service';
-
 
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
@@ -243,7 +243,8 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
-    CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService, OutboundCallAllocationService],
+    CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
+    OutboundCallAllocationService],
   bootstrap: [AppComponent]
 })
 

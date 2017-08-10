@@ -2063,4 +2063,8 @@ input:-webkit-autofill:hover {
     width: 10px!important;
     font-size: 10px;
   }
+  .center-btn {
+    justify-content: center;
+    display: flex;
+  }
 }

@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngIf="advanceBtnHide">
-      <button type="button" class="btn btn-default" id="adSearch" (click)="toggleSearch(searchValue)">{{searchValue}}</button>
+      <button type="button" class="btn btn-default" id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue}}</button>
     </div>
   </div>
   <div class="row" [collapse]="isAdvancedSearch">
@@ -30,30 +30,33 @@
           <div myName>
             <label class="control-label" for="validity">First Name <em>*</em></label>
             <input type="text" class="form-control" id="firstname" required minlength="3" maxlength="24" placeholder="Enter Name" name="firstName"
-              [(ngModel)]="fname" (keyup)="nameInput(fname)" #firstN="ngModel">
-            <span id="fName"></span>
-          </div>
-          <div class="error" *ngIf=" firstN.errors && ( firstN.dirty || firstN.touched)" class="errorText">
-            <div [hidden]="!firstN.errors.required">
-              Name is required
-            </div>
-            <div [hidden]="!firstN.errors.minlength">
-              Atleast 3 characters long.
-            </div>
+              [(ngModel)]="FirstName">
           </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <div class="form-group">
           <label class="control-label" for="lastName">Last name/Surname </label>
-          <input type="text" class="form-control" id="lastName" placeholder="Enter last name / Surname" name="lastName" [(ngModel)]="lname">
+          <input type="text" class="form-control" id="lastName" placeholder="Enter last name / Surname" name="lastName" [(ngModel)]="LastName">
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <div class="form-group">
           <label class="control-label" for="fatherNameHusbandNameSearch">Father Name / Husband Name</label>
           <input type="text" class="form-control" id="fatherNameHusbandNameSearch" placeholder="Enter Father Name / Husband Name" name="fatherNameHusbandNameSearch"
-            [(ngModel)]="fhname">
+            [(ngModel)]="fatherNameHusbandNameSearch">
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <div class="form-group">
+          <label class="control-label" for="gender">Select Gender <em>*</em></label>
+          <select class="form-control " name="gender" [(ngModel)]="gender" #genderSelected>
+                            <option value="">Select Gender</option>
+                            <option *ngFor="let gen of genders" value="{{gen.genderID}}" >{{gen.genderName}} </option>
+                        </select>
+          <div *ngIf=" genderErrFlag" class="errorText">
+            Select Gender
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -64,8 +67,17 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <div class="form-group">
+          <label class="control-label" for="stateSearch">State</label>
+          <select class="form-control" name="stateSearch" [(ngModel)]="state" (change)="GetDistricts(state)">
+                            <option value="">Select State</option>
+                            <option *ngFor="let state of states" value="{{state.stateID}}">{{state.stateName}}</option>
+                        </select>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <div class="form-group">
           <label class="control-label" for="districtSearch">District</label>
-          <select class="form-control" name="districtSearch">
+          <select class="form-control" name="districtSearch" [(ngModel)]="district" (change)="GetTaluks(district)">
                             <option value="">Select District</option>
                             <option *ngFor="let district of districts" value="{{district.districtID}}">{{district.districtName}}</option>
                         </select>
@@ -75,14 +87,13 @@
         <div class="form-group">
           <label class="control-label" for="talukSearch">Taluka/Tahsil/Mandal</label>
           <select class="form-control " name="talukSearch" [(ngModel)]="taluk">
-                            <option value='1'>taluk</option>
+                           <option value="">Select Taluks</option>
+                            <option *ngFor="let taluk of taluks" value="{{taluk.talukID}}">{{taluk.talukName}}</option>
                         </select>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
-        <button type="button" class="btn font-regular f-s-18 m-r-5" id="">Clear</button>
-        <button [disabled]=" nameFlag || genderFlag" type="button" class="btn cu-green-btn font-regular f-s-18 m-r-5" value="search"
-          (click)="searchBeneficiary(searchForm.value)">Search</button>
+      <div class="pull-right col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
+        <button type="button" class="pull-right btn cu-green-btn font-regular f-s-18 m-r-5" value="search" (click)="searchBeneficiary(searchForm.value)">Search</button>
       </div>
     </form>
   </div>
@@ -106,12 +117,12 @@
               <th class="col-xs-1 col-md-1">Beneficiary Tagging</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="regHistoryList?.length>0">
             <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 5, currentPage: p }">
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
               <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td>
-              <td>{{regHistory.age}}</td>
+              <td>{{regHistory.age}}</td>regHistoryList
               <td>{{regHistory.m_gender?.genderName}}</td>
               <td>{{regHistory.i_bendemographics?.m_state?.stateName}}</td>
               <td>{{regHistory.i_bendemographics?.m_district?.districtName}}</td>
@@ -122,6 +133,10 @@
               <td><button class=".btn pull-right" (click)="passBenRegHistoryData(regHistory)">Edit</button></td>
             </tr>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </tbody>
+          <tbody *ngIf="regHistoryList?.length==0" class="t-a-c">
+            <tr colspan="6"><i class="material-icons">sentiment_very_dissatisfied</i>No Records Found
+            </tr>
           </tbody>
         </table>
       </div>
@@ -172,13 +187,13 @@
                     </select>
       </div>
     </div>
-     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
         <label class="control-label" for="dOB" i18n>DOB</label>
         <md2-datepicker [min]="minDate" [max]="maxDate" placeholder="dd-MM-yyyy" name="dateOfBirth" (change)="calculateAge($event.value)"
           [(ngModel)]="DOB"></md2-datepicker>
       </div>
-    </div> 
+    </div>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
       <div class="form-group ">
