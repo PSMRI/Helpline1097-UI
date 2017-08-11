@@ -8,6 +8,8 @@ import { MdMenuTrigger, MdDatepicker } from '@angular/material';
 import { CustomValidators } from 'ng2-validation';
 import { MessageBag, ValidationMessagesService } from 'ng2-custom-validation';
 import { CoFeedbackService } from '../services/coService/co_feedback.service';
+import { AlernateEmailModelComponent } from './../alernate-email-model/alernate-email-model.component'
+import { MdDialog } from '@angular/material';
 
 @Component({
   selector: 'supervisor-grievance',
@@ -42,7 +44,8 @@ export class supervisorFeedback implements OnInit {
   constructor(
     private _feedbackservice: FeedbackService,
     private _saved_data: dataService,
-    private _coFeedbackService: CoFeedbackService
+    private _coFeedbackService: CoFeedbackService,
+    private dialog: MdDialog
   ) {
     this.feedbackList;
     this.feedbackresponceList;
@@ -122,7 +125,7 @@ export class supervisorFeedback implements OnInit {
 
   }
   onSubmit() {
-
+    this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary)
     // this.action = "view";
 
     let bodyString = this.feedbackForm.value;
@@ -330,5 +333,12 @@ export class supervisorFeedback implements OnInit {
     }
   }
 
-
+  saveNSendEmail(feedback) {
+    let dialogReff = this.dialog.open(AlernateEmailModelComponent, {
+      height: '350px',
+      width: '620px',
+      disableClose: false,
+      data: feedback
+    });
+  }
 }
