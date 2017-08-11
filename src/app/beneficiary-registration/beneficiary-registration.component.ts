@@ -201,6 +201,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   calledEarlierCheck(flag) {
 
+    this.genderErrFlag = false;
     if (flag.checked) {
       this.calledEarlier = true;
       this.searchValue = 'Advance Search';
@@ -667,6 +668,20 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     });
 
 
+  }
+    genderErrFlag: any = false;
+
+  genderchange(value) {
+    console.log(this.calledEarlier,"klkl");
+    console.log(this.notCalledEarlier,"ffff");
+    if (value == '' || value == null) {
+      this.genderErrFlag = true;
+    }
+    else {
+      this.genderErrFlag = false;
+   
+
+    }
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];

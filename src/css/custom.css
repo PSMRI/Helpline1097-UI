@@ -873,6 +873,10 @@ color:#545454;
 .m-b-8 {
   margin-bottom: 8px !important;
 }
+.m-b-9 {
+  margin-bottom: 9px !important;
+}
+
 
 .m-b-10 {
   margin-bottom: 10px !important;
@@ -1871,7 +1875,24 @@ input:-webkit-autofill:hover {
   position: relative;
   z-index: 10000;
 }
-
+.mat-tab-label{
+  font-weight: 800 !important;
+}
+.mat-input-infix {
+    font-weight: 800 !important;
+    font-size: 15px !important;
+}
+.mat-select-trigger {
+  /*  margin-right: 55px !important;
+    width: 160px !important;*/
+    font-weight: 700 !important;
+  }
+  .hide_underline .mat-input-underline{
+  display:none;
+}
+.error_text {
+  color: red;
+}
 @media (max-width: 317px) {}
 
 @media (min-width: 480px) {
