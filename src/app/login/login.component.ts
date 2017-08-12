@@ -14,10 +14,11 @@ export class loginContentClass {
 	model: any = {};
 	userID: any;
 	password: any;
+	loading = false;
 
 	constructor(public loginservice: loginService, public router: Router, public dataSettingService: dataService) { };
-
 	login(userId: any, password: any) {
+		this.loading = true;
 		console.log(userId, password);
 		this.loginservice.authenticateUser(userId, password).subscribe(
 			(response: any) => this.successCallback(response),
@@ -25,6 +26,7 @@ export class loginContentClass {
 	};
 
 	successCallback(response: any) {
+		this.loading = false;
 		console.log(response);
 		this.dataSettingService.Userdata = response;
 		// this.dataSettingService.userPriveliges = response.Previlege;
@@ -42,6 +44,7 @@ export class loginContentClass {
 		}
 	};
 	errorCallback(error: any) {
+		this.loading = false;
 		console.log(error);
 	};
 
