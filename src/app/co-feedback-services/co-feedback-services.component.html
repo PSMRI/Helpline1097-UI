@@ -1,85 +1,170 @@
-<div class="row">
-    <div class="col-xs-12 col-sm-12">
+<div>
+<!--     <div class="col-xs-12 col-sm-12">
         <h4>Feedback Services</h4>
-    </div>
-    <div class="col-xs-12 col-sm-12">
+      </div> -->
+      <div class="col-xs-12 col-sm-12">
         <!--<form #feedbackForm="ngForm" *ngIf="showFormCondition">-->
         <div class="row" *ngIf="showFormCondition">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                <div class="form-group">
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+<!--                 <div class="form-group">
                     <label class="control-label" for="state1">State</label>
                     <select class="form-control drop-arrow ng-pristine ng-valid ng-empty ng-touched" name="state" [(ngModel)]="selected_state"
                         (change)="GetDistricts(selected_state)">
                             <option *ngFor="let state of states" value="{{state.stateID}}">{{state.stateName}}</option>
                         </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                <div class="form-group">
+                      </div> -->
+                      <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput class="display_none" >
+                        <md-select placeholder="State" [style.width]="'100%'" [(ngModel)]="selected_state" name="state " (change)="GetDistricts(selected_state)">
+                          <md-option *ngFor="let state of states" value="{{state.stateID}}">
+                           {{state.stateName}}
+                         </md-option>
+                       </md-select>
+                       <md-hint >
+                        <span class="error_text"></span>
+                      </md-hint>
+                    </md-input-container>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+<!--                 <div class="form-group">
                     <label class="control-label" for="district1">District</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="district" [(ngModel)]="selected_district"
                         (change)="GetTaluks(selected_district)">
                             <option *ngFor="let district of districts" value="{{district.districtID}}">{{district.districtName}}</option>
                         </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                <div class="form-group">
+                      </div> -->
+                      <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput class="display_none" >
+                        <md-select placeholder="District" [style.width]="'100%'" [(ngModel)]="selected_district" name="district " (change)="GetTaluks(selected_district)">
+                          <md-option *ngFor="let district of districts" value="{{district.districtID}}">
+                           {{district.districtName}}
+                         </md-option>
+                       </md-select>
+                       <md-hint >
+                        <span class="error_text"></span>
+                      </md-hint>
+                    </md-input-container>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+<!--                 <div class="form-group">
                     <label class="control-label" for="taluk1">Taluk</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="taluk" [(ngModel)]="selected_taluk"
                         (change)="GetBlocks(selected_taluk)">
                             <option *ngFor="let taluk of taluks" value="{{taluk.blockID}}">{{taluk.blockName}}</option>
                         </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                <div class="form-group">
+                      </div> -->
+                      <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput class="display_none">
+                        <md-select placeholder="Taluk" [style.width]="'100%'" [(ngModel)]="selected_taluk" name="taluk " (change)="GetBlocks(selected_taluk)">
+                          <md-option *ngFor="let taluk of taluks" value="{{taluk.blockID}}">
+                           {{taluk.blockName}}
+                         </md-option>
+                       </md-select>
+                       <md-hint >
+                        <span class="error_text"></span>
+                      </md-hint>
+                    </md-input-container>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+<!--                 <div class="form-group">
                     <label class="control-label" for="sdt">Sub-District/Taluka/Block</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="sdtb" [(ngModel)]="selected_sdtb"
                         (change)="GetInstitutes()">
                             <option *ngFor="let block of blocks" value="{{block.districtBranchID}}">{{block.villageName}}</option>
                         </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                <div class="form-group has-label">
+                      </div> -->
+                      <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput class="display_none" >
+                        <md-select placeholder="Sub-District/Taluka/Block" [style.width]="'100%'" [(ngModel)]="selected_sdtb" name="sdtb " (change)="GetInstitutes()">
+                          <md-option *ngFor="let block of blocks" value="{{block.districtBranchID}}">
+                           {{block.villageName}}
+                         </md-option>
+                       </md-select>
+                       <md-hint >
+                        <span class="error_text"></span>
+                      </md-hint>
+                    </md-input-container>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+<!--                 <div class="form-group has-label">
                     <label class="control-label" for="whatInformation">Institution Name</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="institutionName" [(ngModel)]="selected_institution">
                             <option *ngFor="let institute of institutes" value="{{institute.institutionID}}">{{institute.institutionName}}</option>
                         </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-                <div class="form-group ">
+                      </div> -->
+                      <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput class="display_none" >
+                        <md-select placeholder="Institution Name" [style.width]="'100%'" [(ngModel)]="selected_institution" name="institutionName " >
+                          <md-option *ngFor="let institute of institutes" value="{{institute.institutionID}}">
+                           {{institute.institutionName}}
+                         </md-option>
+                       </md-select>
+                       <md-hint >
+                        <span class="error_text"></span>
+                      </md-hint>
+                    </md-input-container>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
+<!--                 <div class="form-group ">
                     <label class="control-label " for="designation ">Designation</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty " name="designation" [(ngModel)]="selected_designation">
                             <option *ngFor="let designation of designations" value="{{designation.designationID}}">{{designation.designationName}}</option>
                         </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-                <div class="form-group ">
+                      </div> -->
+                      <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput class="display_none" >
+                        <md-select placeholder="Designation" [style.width]="'100%'" [(ngModel)]="selected_designation" name="designation " >
+                          <md-option *ngFor="let designation of designations" value="{{designation.designationID}}">
+                           {{designation.designationName}}
+                         </md-option>
+                       </md-select>
+                       <md-hint >
+                        <span class="error_text"></span>
+                      </md-hint>
+                    </md-input-container>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
+<!--                 <div class="form-group ">
                     <label class="control-label " for="FeedbackType">Type of feedback</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty " name="feedbackType" [(ngModel)]="selected_feedbackType">
-                            <option *ngFor="let feedbackType of feedbackTypes" value="{{feedbackType.feedbackTypeID}}">{{feedbackType.feedbackTypeName}}</option>
+                      <option *ngFor="let feedbackType of feedbackTypes" value="{{feedbackType.feedbackTypeID}}">{{feedbackType.feedbackTypeName}}</option> -->
                             <!--<option value="Complaint ">Complaint</option>
                             <option value="Grievience ">Grievience</option>-->
-                        </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-                <div class="form-group ">
+<!--                         </select>
+</div> -->
+                    <md-input-container class="hide_underline" [style.width]="'100%'">
+                      <input mdInput class="display_none">
+                      <md-select placeholder="Type of feedback" [style.width]="'100%'" [(ngModel)]="selected_feedbackType" name="feedbackType " >
+                        <md-option *ngFor="let feedbackType of feedbackTypes" value="{{feedbackType.feedbackTypeID}}">
+                         {{feedbackType.feedbackTypeName}}
+                       </md-option>
+                     </md-select>
+                     <md-hint >
+                      <span class="error_text"></span>
+                    </md-hint>
+                    </md-input-container>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
+<!--                 <div class="form-group ">
                     <label class="control-label " for="severity ">Severity</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty " name="severity" [(ngModel)]="selected_severity">
                             <option *ngFor="let feedbackSeverity of feedbackSeverities" value="{{feedbackSeverity.severityID}}">{{feedbackSeverity.severityTypeName}}</option>
-                            <!--<option value="low ">Low</option>
-                            <option value="medium ">Medium</option>
-                            <option value="large ">Large</option>-->
                         </select>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-                <div class="col-md-8 col-lg-8">
+                      </div> -->
+                      <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput class="display_none" >
+                        <md-select placeholder="Severity" [style.width]="'100%'" [(ngModel)]="selected_severity" name="severity " >
+                          <md-option *ngFor="let feedbackSeverity of feedbackSeverities" value="{{feedbackSeverity.severityID}}">
+                           {{feedbackSeverity.severityTypeName}}
+                         </md-option>
+                       </md-select>
+                       <md-hint >
+                        <span class="error_text"></span>
+                      </md-hint>
+                    </md-input-container>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
+<!--                 <div class="col-md-8 col-lg-8">
                     <div class="form-group">
                         <label class="control-label" for="DOI">Date of Incidence</label>
                         <input class="form-control" [mdDatepicker]="picker" placeholder="DOI" [(ngModel)]="selected_doi">
@@ -88,63 +173,75 @@
                 <div class="col-md-4 col-lg-4 m-t-25">
                     <button mdPrefix [mdDatepickerToggle]="picker"></button>
                     <md-datepicker #picker></md-datepicker>
+                  </div> -->
+                  <div class="form-group">
+                    <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
+                    <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="Incident: dd-MM-yyyy" name="dateOfBirth" [(ngModel)]="selected_doi"></md2-datepicker>
+                  </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 ">
-                <label class="control-label" for="feedbackDesc">Feedback Description</label>
+                <div class="col-xs-12 col-sm-12 ">
+<!--                 <label class="control-label" for="feedbackDesc">Feedback Description</label>
                 <textarea name="feedback" class="form-control" rows="3 " id="feedbackDescription" [(ngModel)]="feedbackDescription" maxlength="300"
                     (keyup)="updateCount()"></textarea>
-                <span>{{count}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
+                    <span>{{count}}</span> -->
+                    <md-input-container  [style.width]="'100%'">
+                      <textarea mdInput placeholder="Feedback Description"  rows="3 " name="feedback " [(ngModel)]="feedbackDescription" maxlength="300"
+                      (keyup)="updateCount()"></textarea>
+                      <md-hint >
+                        <span>{{count}}</span>
+                      </md-hint>
+                      
+                    </md-input-container>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
                 <!--<button type="button " class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
-                            " id=" " (click)="submitFeedback(feedbackForm.value)">Register</button>-->
+                " id=" " (click)="submitFeedback(feedbackForm.value)">Register</button>-->
                 <button type="button " class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
-                            " id=" " (click)="submitFeedback()">Register</button>
+                " id=" " (click)="submitFeedback()">Register</button>
+              </div>
+              <div class="clearfix "></div>
             </div>
-            <div class="clearfix "></div>
-        </div>
-        <!--</form>-->
-    </div>
-    <div class="bg-white p-t-20 m-t-10 " *ngIf="showTableCondition ">
-        <div class="col-xs-12 col-sm-12 ">
-            <h5 class=" "><strong>Feedback Record</strong></h5>
-            <button class="btn pull-right " (click)="showForm() ">Create feedback</button>
-            <div class="table-responsive ">
+            <!--</form>-->
+          </div>
+          <!-- <div class="bg-white p-t-20 m-t-10 " > -->
+            <div class="col-xs-12 col-sm-12 " *ngIf="showTableCondition ">
+              <h5 class=" "><strong>Feedback Record</strong></h5>
+              <button class="btn pull-right " (click)="showForm() ">Create feedback</button>
+              <div class="table-responsive ">
                 <table class="table ">
-                    <thead>
-                        <tr>
+                  <thead>
+                    <tr>
                             <!-- <th width="20 ">
                             <input type="checkbox " value=" ">
-                        </th> -->
-                            <th>Feedback ID</th>
-                            <th>Description</th>
-                            <th>Severity</th>
-                            <th>FeedbackType</th>
-                            <th>Agent</th>
-                            <th>Status</th>
-                            <!-- <th>Status</th> -->
-                            <!-- <th>Action</th> -->
+                          </th> -->
+                          <th>Feedback ID</th>
+                          <th>Description</th>
+                          <th>Severity</th>
+                          <th>FeedbackType</th>
+                          <th>Agent</th>
+                          <th>Status</th>
+                          <!-- <th>Status</th> -->
+                          <!-- <th>Action</th> -->
                         </tr>
-                    </thead>
-                    <tbody>
+                      </thead>
+                      <tbody>
                         <tr style="cursor: pointer; " *ngFor="let feedback
-                            of feedbacksArray | paginate: { itemsPerPage: 5, currentPage: p }" (click)="modalData(feedback) ">
+                        of feedbacksArray | paginate: { itemsPerPage: 5, currentPage: p }" (click)="modalData(feedback) ">
 
-                            <td>{{feedback.feedbackID}}</td>
-                            <td>{{feedback.feedback}}</td>
-                            <td>{{feedback.severityID}}</td>
-                            <td>{{feedback.feedbackTypeID}}</td>
-                            <td>{{feedback.createdBy}}</td>
-                            <td>{{feedback.feedbackStatusID}}</td>
-                        </tr>
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        <td>{{feedback.feedbackID}}</td>
+                        <td>{{feedback.feedback}}</td>
+                        <td>{{feedback.severityID}}</td>
+                        <td>{{feedback.feedbackTypeID}}</td>
+                        <td>{{feedback.createdBy}}</td>
+                        <td>{{feedback.feedbackStatusID}}</td>
+                      </tr>
+                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- modals -->
+                  </table>
+                </div>
+              </div>
+            <!-- </div> -->
+            <!-- modals -->
     <!--  <div id="myModal " class="modal fade " role="dialog ">
         <div class="modal-dialog ">
             <div class="modal-content ">
@@ -154,5 +251,5 @@
                 </div>
             </div>
         </div>
-    </div> -->
-</div>
+      </div> -->
+    </div>

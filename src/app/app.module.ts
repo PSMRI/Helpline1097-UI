@@ -136,7 +136,7 @@ import { CollapseDirective } from './directives/collapse/collapse.directive'
 
 // md2 Material2  modules and components
 import { Md2Module } from 'md2';
-import { MdSnackBarModule } from '@angular/material';
+import { MdSnackBarModule, MdTabsModule, MdButtonModule } from '@angular/material';
 
 import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-history.component'
 import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component';
@@ -188,6 +188,7 @@ import { httpFactory } from './http.factory';
     ValidationMessagesModule,
     BrowserAnimationsModule,
     MdCardModule,
+    MdTabsModule,
     RouterModule.forRoot([
       {
         path: 'resetPassword',
