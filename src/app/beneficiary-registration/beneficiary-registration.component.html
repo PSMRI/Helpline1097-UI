@@ -39,7 +39,7 @@
         </div> -->
         <md-input-container myName [style.width]="'100%'">
           <input mdInput placeholder="First Name" required minlength="3" maxlength="25" name="firstName " [(ngModel)]="FirstName" #first="ngModel">
-          <md-hint [hidden]=f irst.valid>
+          <md-hint [hidden]=first.valid>
 
             <span class="error_text" *ngIf="!first.required  && ( first.dirty || first.touched)">Enter atleast 3 characters</span>
           </md-hint>
@@ -229,7 +229,7 @@
       </div> -->
         <md-input-container myName [style.width]="'100%'">
           <input mdInput placeholder="First Name" required minlength="3" maxlength="25" name="FirstName " [(ngModel)]="FirstName" #first="ngModel">
-          <md-hint [hidden]=f irst.valid>
+          <md-hint [hidden]=first.valid>
 
             <span class="error_text" *ngIf="!first.required  && ( first.dirty || first.touched)">Enter atleast 3 characters</span>
           </md-hint>
@@ -299,7 +299,7 @@
           [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
       </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput required placeholder="Age" #ageRef name="age " [(ngModel)]="age" (blur)="calculateDOB(ageRef.value)" />
+          <input mdInput required placeholder="Age" #ageRef name="age " [(ngModel)]="age" (blur)="calculateDOB(ageRef.value)"  />
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-9">
