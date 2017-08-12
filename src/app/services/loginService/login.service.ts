@@ -24,7 +24,7 @@ export class loginService {
 			.catch(this.handleError);
 	};
 
-	getSecurityQuestions(uname:any): Observable<any> {
+	getSecurityQuestions(uname: any): Observable<any> {
 
 		return this._http.post(this._forgotPasswordURL, { 'userName': uname })
 			.map(this.extractData)

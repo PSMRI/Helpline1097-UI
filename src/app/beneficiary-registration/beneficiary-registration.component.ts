@@ -421,6 +421,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.showSearchResult = false;
     this.updationProcess = true;
     this.isParentBeneficiary = true;
+    this.isAdvancedSearch = true;
+    this.advanceBtnHide = false;
     this.populateUserData(benRegData);
   }
 
@@ -607,8 +609,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-        console.log('Something Went Wrong in fetching Parent Data');
-      })
+      console.log('Something Went Wrong in fetching Parent Data');
+    })
 
   }
   // to Calculate the age on the basis of date of birth
@@ -669,7 +671,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   }
-    genderErrFlag: any = false;
+  genderErrFlag: any = false;
 
   genderchange(value) {
     if (value == '' || value == null) {
@@ -677,7 +679,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
     else {
       this.genderErrFlag = false;
-   
+
 
     }
   }

@@ -18,7 +18,7 @@ export class loginContentClass {
 
 	constructor(public loginservice: loginService, public router: Router, public dataSettingService: dataService) { };
 	login(userId: any, password: any) {
-		this.loading = true;
+		// this.loading = true;
 		console.log(userId, password);
 		this.loginservice.authenticateUser(userId, password).subscribe(
 			(response: any) => this.successCallback(response),
@@ -44,7 +44,7 @@ export class loginContentClass {
 		}
 	};
 	errorCallback(error: any) {
-		this.loading = false;
+		// this.loading = false;
 		console.log(error);
 	};
 

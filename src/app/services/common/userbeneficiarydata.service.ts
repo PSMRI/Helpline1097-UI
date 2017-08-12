@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { InterceptedHttp } from './../../http.interceptor'
 
 
 @Injectable()
@@ -16,7 +17,8 @@ export class UserBeneficiaryData {
     options = new RequestOptions({ headers: this.headers });
     constructor(
         private _http: Http,
-        private _config: ConfigService
+        private _config: ConfigService,
+        private _httpInterceptor: InterceptedHttp
     ) { }
     getUserBeneficaryData() {
         let data = {};
@@ -69,7 +71,7 @@ export class UserBeneficiaryData {
             + '"cityID":"' + district + '"'
             + '}}';
 
-        return this._http.post(this._searchBeneficiary, createData, { headers: headers })
+        return this._httpInterceptor.post(this._searchBeneficiary, createData)
             .map(this.extractData).catch(this.handleError);
     }
 

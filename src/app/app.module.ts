@@ -147,6 +147,8 @@ import { AlernateEmailModelComponent } from './alernate-email-model/alernate-ema
 
 // http factory
 import { httpFactory } from './http.factory';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './services/common/loader.service'
 
 
 @NgModule({
@@ -170,7 +172,7 @@ import { httpFactory } from './http.factory';
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
-    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent
+    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent
 
   ],
   imports: [
@@ -254,10 +256,10 @@ import { httpFactory } from './http.factory';
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, {
+    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, {
       provide: InterceptedHttp,
       useFactory: httpFactory,
-      deps: [XHRBackend, RequestOptions]
+      deps: [XHRBackend, RequestOptions, LoaderService]
     }],
 
   bootstrap: [AppComponent]
