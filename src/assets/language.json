@@ -1,0 +1,54 @@
+{
+  "english":
+  {
+    "innerpage":
+    {
+      "search": "",
+      "welcome": "",
+      "my_ID": "",
+      "on_call": "",
+      "number_of_calls": "",
+      "total_talk_time": "",
+      "transfer_call": "",
+      "flag_call": ""
+    },
+    "1097-co":
+    {
+      "create/find_beneficiary": "",
+      "provide_service": "",
+      "other_details": "",
+      "closure": "",
+      "previous": "",
+      "next": "",
+      "closure": "",
+      "cancel": ""
+    },
+    "beneficiary-registration":
+    {
+      "call_confirmation_question": "Have you Called Earlier?",
+      "registration_number": "Registration Number",
+      "retrieve": "Retrieve",
+      "first_name": "First Name",
+      "name_is_required": "Name Is Required",
+      "aleast_3_characters_long": "Atleast 3 Characters Long",
+      "last_name": "Last Name",
+      "father_name/husband_name": "Father Name/Husband Name",
+      "beneficiary_id": "Beneficiary ID",
+      "district": "District",
+      "select_district": "Select District",
+      "taluka/tahsil/mandal": "Taluka/Tahsil/Mandal",
+      "search": "Search",
+      // "beneficiary_id": "",
+      "full_name": "Full Name",
+      "dob": "Date Of Birth",
+      "age": "Age",
+      "gender": "Gender",
+      "state": "State",
+      // "district": "",
+      "taluk": "Taluka",
+      "village": "Village",
+      "preferred_language": "Preferred Language",
+      "beneficiary_tagging": "Beneficiary Tagging"
+    }
+  }
+}
