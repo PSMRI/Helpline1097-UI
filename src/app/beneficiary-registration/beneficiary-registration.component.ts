@@ -672,8 +672,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     genderErrFlag: any = false;
 
   genderchange(value) {
-    console.log(this.calledEarlier,"klkl");
-    console.log(this.notCalledEarlier,"ffff");
     if (value == '' || value == null) {
       this.genderErrFlag = true;
     }
