@@ -663,16 +663,12 @@ color:#545454;
 }
 
 .m-t-15 {
- 
   margin-top: 15px;
 }
 
-
 .m-t-20 {
-    margin-top: 20px!important;
-
+  margin-top: 20px!important;
 }
-
 
 .m-t-19 {
   margin-top: 19px;
@@ -819,7 +815,7 @@ color:#545454;
 }
 
 .m-l-15 {
-    margin-left: 15px!important;
+  margin-left: 15px!important;
 }
 
 .m-l-20 {
@@ -885,9 +881,11 @@ color:#545454;
 .m-b-20 {
   margin-bottom: 20px !important;
 }
+
 .m-b-40 {
-    margin-bottom: 40px !important;
+  margin-bottom: 40px !important;
 }
+
 .m-b--3 {
   margin-bottom: -3px !important;
 }
@@ -2074,33 +2072,41 @@ input:-webkit-autofill:hover {
     width: 97% !important;
   }
   .t-a-c {
-      text-align: center;
+    text-align: center;
   }
   .footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 30px;
-      line-height: 30px;
-      padding-left: 15px;
-      padding-right: 15px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .footer-text {
-      color: white!important;
+    color: white!important;
   }
   .footer-height {
-      height: 30px!important;
-      line-height: 30px!important;
+    height: 30px!important;
+    line-height: 30px!important;
   }
   .copyright_icon {
-      width: 10px!important;
-      font-size: 10px;
+    width: 10px!important;
+    font-size: 10px;
   }
   .c-b {
-      clear: both;
+    clear: both;
   }
   .center-btn {
     justify-content: center;
     display: flex;
+  }
+  .loader-overlay {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    z-index: 10;
   }
 }

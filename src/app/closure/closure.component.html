@@ -73,14 +73,19 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 ">
-        <div class="row ">
-          <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " i18n>Submit</button>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <button type="button" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " i18n>Submit and Continue </button>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <button type="submit" class="btn cu-green-btn pull-left p-l-r-38 font-regular f-s-18 " i18n>Submit and Close </button>
+          </div>
         </div>
       </div>
     </form>
   </div>
-</div>
- -->
+</div> -->
+
 <div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4>Call Details</h4>
@@ -88,29 +93,42 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
     <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">Is Follow-Up Required ?</md-slide-toggle>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" >
     <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-
+          <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput style="display:none">
+            <md-select placeholder="Select Call Type" [style.width]="'100%'" [(ngModel)]="callTypeID" name="callTypeID">
+              <md-option *ngFor="let calltype of calltypes " value="{{calltype.callTypeID}},{{calltype.fitToBlock}}">
+                {{calltype.callTypeDesc}}
+              </md-option>
+            </md-select>
+            <md-hint>
+              <span class="error_text"></span>
+            </md-hint>
+          </md-input-container>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-         <md-input-container>
-            <input mdInput id="remarks" placeholder="Enter Remarks " name="remarks" [(ngModel)]="remarks" >
+          <md-input-container style="width: 100%">
+            <input mdInput id="remarks" placeholder="Enter Remarks " name="remarks" [(ngModel)]="remarks">
           </md-input-container>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="isFollowUp">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-         <!--  <md2-datepicker #preffered_followup_date name="prefferedDateTime" placeholder="Preferred Date" [(ngModel)]="preferredDateTime"></md2-datepicker>
-          <button [md2DatepickerToggle]="preffered_followup_date"></button> -->
+          <md2-datepicker [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="Preferred Date (dd-mm-yyyy)" [(ngModel)]="preferredDateTime"></md2-datepicker>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <md-input-container>
-            <input mdInput placeholder="Follow-up Reason" name="requestedFor" [(ngModel)]="requestedFor" >
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Follow-up Reason" name="requestedFor" [(ngModel)]="requestedFor">
           </md-input-container>
         </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " >Submit</button>
       </div>
     </form>
   </div>
 </div>
+
