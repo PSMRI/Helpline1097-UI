@@ -40,8 +40,18 @@
   <div class="col-xs-12 col-sm-12">
     <div class="container-fluid">
       <md-tab-group>
-        <md-tab label="Tab 1">Content 1</md-tab>
-        <md-tab label="Tab 2">Content 2</md-tab>
+        <md-tab label="Information Services">
+          <app-co-information-services (informationServiceProvided)="updateServiceProvided()"></app-co-information-services>
+        </md-tab>
+        <md-tab label="Counselling Services">
+          <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided()"></app-co-counselling-services>
+        </md-tab>
+        <md-tab label="Referral Services">
+          <app-co-referral-services (referralServiceProvided)="updateServiceProvided()"></app-co-referral-services>
+        </md-tab>
+        <md-tab label="Feedback System">
+          <app-co-feedback-services (feedbackServiceProvided)="updateServiceProvided()"></app-co-feedback-services>
+        </md-tab>
       </md-tab-group>
     </div>
   </div>
