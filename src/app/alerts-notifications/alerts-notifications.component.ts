@@ -33,24 +33,28 @@ ngOnInit(){
             return notification.notificationType=="Alert";
         });
         console.log(this.alertConfig);
-        this.alertPostData = {
-            "providerServiceMapID": this.service.serviceID,
-            "notificationTypeID": this.alertConfig[0].notificationTypeID,
-            "roleIDs": [this.role.RoleID],
-            "validFrom": new Date().toISOString(),
-            "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
-        };
+        if(this.alertConfig.length > 0){
+            this.alertPostData = {
+                "providerServiceMapID": this.service.serviceID,
+                "notificationTypeID": this.alertConfig[0].notificationTypeID,
+                "roleIDs": [this.role.RoleID],
+                "validFrom": new Date().toISOString(),
+                "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
+            };
+        } 
         this.notificationConfig = response.data.filter((notification)=>{
             return notification.notificationType=="Notification";
         });
         console.log(this.notificationConfig);
-        this.notificationPostData = {
-            "providerServiceMapID": this.service.serviceID,
-            "notificationTypeID": this.notificationConfig[0].notificationTypeID,
-            "roleIDs": [this.role.RoleID],
-            "validFrom": new Date().toISOString(),
-            "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
-        }
+        if(this.notificationConfig.length > 0){
+            this.notificationPostData = {
+                "providerServiceMapID": this.service.serviceID,
+                "notificationTypeID": this.notificationConfig[0].notificationTypeID,
+                "roleIDs": [this.role.RoleID],
+                "validFrom": new Date().toISOString(),
+                "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
+            }
+        }      
         this.getAlertsandNotifications();
     },
     (err)=>{
@@ -71,24 +75,29 @@ loadAlertsAndNotifications(actor: string){
     }
 
 getAlertsandNotifications(){
-    console.log(this.alertPostData);
-    console.log(this.notificationPostData);
-    this.notificationService.getAlerts(this.alertPostData)
-    .subscribe((response)=>{
-        console.log(response);
-        this.alerts = response.data;
-    },
-    (err)=>{
-        console.log(err);
-    });
-    this.notificationService.getNotifications(this.notificationPostData)
-    .subscribe((response)=>{
-        console.log(response);
-        this.notifications = response.data;
-    },
-    (err)=>{
-        console.log(err);
-    });
+    // console.log(this.alertPostData);
+    // console.log(this.notificationPostData);
+    if(this.alertPostData){
+        this.notificationService.getAlerts(this.alertPostData)
+        .subscribe((response)=>{
+            console.log(response);
+            this.alerts = response.data;
+        },
+        (err)=>{
+            console.log(err);
+        });
+    }
+    if(this.notificationPostData){
+        this.notificationService.getNotifications(this.notificationPostData)
+        .subscribe((response)=>{
+            console.log(response);
+            this.notifications = response.data;
+        },
+        (err)=>{
+            console.log(err);
+        });
+    }
+    
 }
 
 alertClicked(alert, event){
