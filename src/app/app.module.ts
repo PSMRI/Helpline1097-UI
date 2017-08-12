@@ -4,7 +4,8 @@ import { helpline1097CoComponent } from './1097-co/1097-co.component'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { InterceptedHttp } from './http.interceptor'
 import {
   MaterialModule,
   MdMenuModule,
@@ -144,6 +145,8 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
 import { CommonDialogComponent } from './common-dialog/common-dialog.component';
 import { AlernateEmailModelComponent } from './alernate-email-model/alernate-email-model.component'
 
+// http factory
+import { httpFactory } from './http.factory';
 
 
 @NgModule({
@@ -250,7 +253,11 @@ import { AlernateEmailModelComponent } from './alernate-email-model/alernate-ema
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService],
+    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, {
+      provide: InterceptedHttp,
+      useFactory: httpFactory,
+      deps: [XHRBackend, RequestOptions]
+    }],
 
   bootstrap: [AppComponent]
 })
