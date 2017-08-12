@@ -15,7 +15,7 @@
         </ul>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
           <li style="color: white"> Welcome {{data.userName}}</li>
-          <li class=""><img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon"></li>
+          <li class=""><img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon" [mdMenuTriggerFor]="menuNotification"></li>
           <li class="help"><a class="">&nbsp;</a></li>
           <li class="logout" routerLink="/loginContentClass"><a class="">&nbsp;</a></li>
         </ul>
@@ -24,7 +24,7 @@
   </div>
 </div>
 <div class="col-xs-12 col-sm-12 " (click)="minimizeBar()">
-  <div class="row" >
+  <div class="row">
     <div class="col-xs-12 col-sm-12 ">
       <div class="row b-t-2-w ">
         <div class="col-xs-12 col-sm-12 m-t-3 ">
@@ -53,9 +53,9 @@
             </div>
             <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 " *ngIf='checkRole'>
               <select class="form-control drop-arrow border-radius-20 height-30 m-b-4 ">
-                                <option selected="selected " value="1 ">English </option>
-                                <option value="2 ">Kannada </option>
-                            </select>
+                <option selected="selected " value="1 ">English </option>
+                <option value="2 ">Kannada </option>
+              </select>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 " *ngIf='checkRole'>
               <div class=" ">
@@ -70,57 +70,64 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 " *ngIf="checkRole">
-      <div class="row b-t-2-w form-horizontal ">
-        <div class="col-xs-12 col-sm-12 m-t-3 ">
-          <ul class="list-unstyled list-inline pull-left m-t-lg-10 p-a-0 m-b-3 ">
-            <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li>
-            <li><span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span></li>
-            <li>{{selectedBenData.name}}</li>
-            <li>{{selectedBenData.mob}}</li>
-            <li>{{selectedBenData.age}}</li>
-            <li>{{selectedBenData.state}}</li>
-            <li>{{selectedBenData.district}}</li>
-            <li>{{selectedBenData.block}}</li>
-            <li>{{selectedBenData.village}}</li>
-            <li>{{selectedBenData.language}}</li>
-            <li>{{selectedBenData.relation}}</li>
-          </ul>
-          <ul class="list-unstyled list-inline pull-right m-b-0 ">
-            <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
+    <md-menu #menuNotification x-position="before"  style="margin-top:40"  >
+      <md-list>
+        <md-list-item>
+          <p md-line>My ID : {{current_role}} - {{current_service}}</p>
+            <p md-line>{{data.userName}}</p>
+        </md-list-item>
+      </md-list>
+      </md-menu>
+      <div class="col-xs-12 col-sm-12 " *ngIf="checkRole">
+        <div class="row b-t-2-w form-horizontal ">
+          <div class="col-xs-12 col-sm-12 m-t-3 ">
+            <ul class="list-unstyled list-inline pull-left m-t-lg-10 p-a-0 m-b-3 ">
+              <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li>
+              <li><span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span></li>
+              <li>{{selectedBenData.name}}</li>
+              <li>{{selectedBenData.mob}}</li>
+              <li>{{selectedBenData.age}}</li>
+              <li>{{selectedBenData.state}}</li>
+              <li>{{selectedBenData.district}}</li>
+              <li>{{selectedBenData.block}}</li>
+              <li>{{selectedBenData.village}}</li>
+              <li>{{selectedBenData.language}}</li>
+              <li>{{selectedBenData.relation}}</li>
+            </ul>
+            <ul class="list-unstyled list-inline pull-right m-b-0 ">
+              <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
     " title="Transfer Icon "/></span>
-              <br />
-              <span class="f-s-14 ">Transfer Call</span></li>
-            <li class="text-center m-l-lg-40 "><span><img src="assets/images/flagCallIcon.png " alt="Flag Call
+                <br />
+                <span class="f-s-14 ">Transfer Call</span></li>
+              <li class="text-center m-l-lg-40 "><span><img src="assets/images/flagCallIcon.png " alt="Flag Call
     Icon " title="Flag Call Icon "/></span>
-              <br />
-              <span class="f-s-14 ">Flag Call</span></li>
-            <!-- <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png " alt="End Call
+                <br />
+                <span class="f-s-14 ">Flag Call</span></li>
+              <!-- <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png " alt="End Call
     Icon " title="End Call Icon "/></span>
               <br />
               <span class="f-s-14 ">End Call</span></li> -->
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="clearfix "></div>
-    <div>
-      <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event) "></app-1097>
-    </div>
+      <div class="clearfix "></div>
+      <div>
+        <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event) "></app-1097>
+      </div>
   </div>
-
 </div>
 <footer class="footer">
-    <div class="row">
-      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <span class="footer-text">Powered by: WIPRO</span>
-      </div>
-      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-        <p class="footer-text t-a-c">2017
-          <md-icon color="" class="copyright_icon">copyright</md-icon> PSMRI</p>
-      </div>
-      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">CZentrix</button>
-      </div>
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <span class="footer-text">Powered by: WIPRO</span>
     </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+      <p class="footer-text t-a-c">2017
+        <md-icon color="" class="copyright_icon">copyright</md-icon> PSMRI</p>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">CZentrix</button>
+    </div>
+  </div>
 </footer>
