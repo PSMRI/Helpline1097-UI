@@ -1,13 +1,13 @@
-<div class="row">
-<!--     <div class="col-xs-12 col-sm-12">
+<div>
+  <!--     <div class="col-xs-12 col-sm-12">
         <h4>Referral Services</h4>
     </div> -->
-    <div class="" *ngIf="showFormCondition">
-        <div class="col-xs-12 col-sm-12">
-            <button class="pull-right btn" (click)="showTable()">all Referrals</button>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-<!--             <div class="form-group">
+  <div *ngIf="showFormCondition">
+    <div class="col-xs-12 col-sm-12">
+      <button class="pull-right btn" (click)="showTable()">all Referrals</button>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <!--             <div class="form-group">
                 <label class="control-label" for="state">State</label>
                 <select class="form-control drop-arrow ng-pristine ng-valid ng-empty ng-touched" name="state" [(ngModel)]="selected_state"
                     (change)="GetDistricts(selected_state)">
@@ -16,20 +16,20 @@
                     </option>
                 </select> 
             </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none" >
-                  <md-select placeholder="State" [style.width]="'100%'" [(ngModel)]="selected_state" name="state "   (change)="GetDistricts(selected_state)">
-                      <md-option *ngFor="let state of states " value="{{state.stateID}}">
-                         {{state.stateName}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-<!--             <div class="form-group">
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput class="display_none">
+        <md-select placeholder="State" [style.width]="'100%'" [(ngModel)]="selected_state" name="state " (change)="GetDistricts(selected_state)">
+          <md-option *ngFor="let state of states " value="{{state.stateID}}">
+            {{state.stateName}}
+          </md-option>
+        </md-select>
+        <md-hint>
+          <span class="error_text"></span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+      <!--             <div class="form-group">
                 <label class="control-label" for="district">District</label>
                 <select class="form-control drop-arrow ng-pristine ng-valid ng-empty ng-touched" name="district" [(ngModel)]="selected_district"
                     (change)="GetTaluks(selected_district)">
@@ -38,158 +38,158 @@
                     </option>
                 </select>
             </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none" >
-                  <md-select placeholder="District" [style.width]="'100%'" [(ngModel)]="selected_district" name="district " (change)="GetTaluks(selected_district)" >
-                      <md-option *ngFor="let district of districts " value="{{district.districtID}}">
-                         {{district.districtName}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-<!--             <div class="form-group">
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput class="display_none">
+        <md-select placeholder="District" [style.width]="'100%'" [(ngModel)]="selected_district" name="district " (change)="GetTaluks(selected_district)">
+          <md-option *ngFor="let district of districts " value="{{district.districtID}}">
+            {{district.districtName}}
+          </md-option>
+        </md-select>
+        <md-hint>
+          <span class="error_text"></span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+      <!--             <div class="form-group">
                 <label class="control-label " for="taluk ">Taluk</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty " name="taluk" [(ngModel)]="selected_taluk"
                     (change)="GetSDTB(selected_taluk)"> -->
-                    <!--<option *ngFor="let taluk of taluks" value="{{taluk.talukID}}">
+      <!--<option *ngFor="let taluk of taluks" value="{{taluk.talukID}}">
                         {{taluk.talukName}}
                     </option>-->
-<!--                     <option *ngFor="let taluk of taluks" value={{taluk.blockID}}>
+      <!--                     <option *ngFor="let taluk of taluks" value={{taluk.blockID}}>
                         {{taluk.blockName}}
                     </option>
                 </select>
             </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none" >
-                  <md-select  placeholder="Taluk" [style.width]="'100%'" [(ngModel)]="selected_taluk" name="taluk " (change)="GetSDTB(selected_taluk)">
-                      <md-option *ngFor="let taluk of taluks " value="{{taluk.blockID}}">
-                         {{taluk.blockName}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-<!--             <div class="form-group">
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput class="display_none">
+        <md-select placeholder="Taluk" [style.width]="'100%'" [(ngModel)]="selected_taluk" name="taluk " (change)="GetSDTB(selected_taluk)">
+          <md-option *ngFor="let taluk of taluks " value="{{taluk.blockID}}">
+            {{taluk.blockName}}
+          </md-option>
+        </md-select>
+        <md-hint>
+          <span class="error_text"></span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+      <!--             <div class="form-group">
                 <label class="control-label" for="sdt">Sub-District/Talluka/Block</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="sdtb" [(ngModel)]="selected_branch"> -->
-                    <!--<option *ngFor="let sdtb of sdtbs" value="{{sdtb.blockID}}">
+      <!--<option *ngFor="let sdtb of sdtbs" value="{{sdtb.blockID}}">
                         {{sdtb.blockName}}
                     </option>-->
-<!--                     <option *ngFor="let sdtb of blocks" value={{sdtb.districtBranchID}}>
+      <!--                     <option *ngFor="let sdtb of blocks" value={{sdtb.districtBranchID}}>
                         {{sdtb.villageName}}
                     </option>
                 </select>
             </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none" >
-                  <md-select placeholder="Sub-District/Talluka/Block" [style.width]="'100%'" [(ngModel)]="selected_branch" name="sdtb " (change)="GetSDTB(selected_taluk)">
-                      <md-option *ngFor="let sdtb of blocks " value="{{sdtb.districtBranchID}}">
-                         {{sdtb.villageName}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-<!--             <div class="form-group has-label">
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput class="display_none">
+        <md-select placeholder="Sub-District/Talluka/Block" [style.width]="'100%'" [(ngModel)]="selected_branch" name="sdtb " (change)="GetSDTB(selected_taluk)">
+          <md-option *ngFor="let sdtb of blocks " value="{{sdtb.districtBranchID}}">
+            {{sdtb.villageName}}
+          </md-option>
+        </md-select>
+        <md-hint>
+          <span class="error_text"></span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+      <!--             <div class="form-group has-label">
                 <label class="control-label" for="whatInformation">What Information do you require?(Directory)</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="whatInformation" [(ngModel)]="selected_directory"
                     (change)="GetSubDirectory(selected_directory)">
                     <option *ngFor="let directoryItem of directory " value={{directoryItem.instituteDirectoryID}}>{{directoryItem.instituteDirectoryName}}</option>
                 </select>
             </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none" >
-                  <md-select  placeholder="Information required(Directory)" [style.width]="'100%'" [(ngModel)]="selected_directory" name="whatInformation " (change)="GetSubDirectory(selected_directory)">
-                      <md-option *ngFor="let directoryItem of directory  " value="{{directoryItem.instituteDirectoryID}}">
-                         {{directoryItem.instituteDirectoryName}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
-<!--             <div class="form-group ">
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput class="display_none">
+        <md-select placeholder="Information required(Directory)" [style.width]="'100%'" [(ngModel)]="selected_directory" name="whatInformation " (change)="GetSubDirectory(selected_directory)">
+          <md-option *ngFor="let directoryItem of directory  " value="{{directoryItem.instituteDirectoryID}}">
+            {{directoryItem.instituteDirectoryName}}
+          </md-option>
+        </md-select>
+        <md-hint>
+          <span class="error_text"></span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ">
+      <!--             <div class="form-group ">
                 <label class="control-label " for="subDirectory ">Sub Directory</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty " name="subDirectory" [(ngModel)]="selected_sub_directory">
                     <option *ngFor="let sub_directoryItem of sub_directory " value={{sub_directoryItem.instituteSubDirectoryID}}>{{sub_directoryItem.instituteSubDirectoryName}}</option>
                 </select>
             </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none">
-                  <md-select   placeholder="Sub Directory" [style.width]="'100%'" [(ngModel)]="selected_sub_directory" name="subDirectory " (change)="GetSubDirectory(selected_directory)">
-                      <md-option *ngFor="let sub_directoryItem of sub_directory " value="{{sub_directoryItem.instituteSubDirectoryID}}">
-                         {{sub_directoryItem.instituteSubDirectoryName}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-10 ">
-            <div class="form-group ">
-                <label class="control-label " for="subDirectory"></label>
-                <button type="button " class="btn cu-green-btn font-regular f-s-18 m-t-15 " id=" " (click)="GetReferralDetails()">Search</button>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 m-t-5 ">
-            <!--<button type="button " class="btn btn-default cu-btn-default ">Search</button>-->
-        </div>
-        <div class="col-xs-12 col-sm-12 ">
-            <!--<label class="control-label " for="feedbackDesc "> Description</label>
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput class="display_none">
+        <md-select placeholder="Sub Directory" [style.width]="'100%'" [(ngModel)]="selected_sub_directory" name="subDirectory " (change)="GetSubDirectory(selected_directory)">
+          <md-option *ngFor="let sub_directoryItem of sub_directory " value="{{sub_directoryItem.instituteSubDirectoryID}}">
+            {{sub_directoryItem.instituteSubDirectoryName}}
+          </md-option>
+        </md-select>
+        <md-hint>
+          <span class="error_text"></span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-10 ">
+      <div class="form-group ">
+        <label class="control-label " for="subDirectory"></label>
+        <button type="button " class="btn cu-green-btn font-regular f-s-18 m-t-15 " id=" " (click)="GetReferralDetails()">Search</button>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 m-t-5 ">
+      <!--<button type="button " class="btn btn-default cu-btn-default ">Search</button>-->
+    </div>
+    <div class="col-xs-12 col-sm-12 ">
+      <!--<label class="control-label " for="feedbackDesc "> Description</label>
             <textarea class="form-control " rows="3 " id="feedbackDescription" [(ngModel)]="description">-->
-            <div class="min-height-180 border-1-g" for="subCategoryDetails">
-                <span *ngFor="let detail of detailsList">
+      <div class="min-height-180 border-1-g" for="subCategoryDetails">
+        <span *ngFor="let detail of detailsList">
             <!--<span ng-repeat="detail in detailsList">-->
                 <!--<a href="{{detail.SubCatFilePath}}" target="_blank">-->
                     {{detail.institutionDetails.institutionID}},{{detail.institutionDetails.institutionName}}
                 <!--</a>-->
             </span>
-                <!--</textarea>-->
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 " *ngIf="showSendSMS">
-            <button type="button " class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " id=" ">Send SMS</button>
-        </div>
+        <!--</textarea>-->
+      </div>
     </div>
-    <div class="bg-white p-t-20 m-t-10 " *ngIf="showTableCondition ">
-        <div class="col-xs-12 col-sm-12 ">
-            <h5 class=" "><strong>Referral History</strong></h5>
-            <button class="btn pull-right " (click)="showForm() ">New referral</button>
-            <div class="table-responsive ">
-                <table class="table ">
-                    <thead>
-                        <tr>
-                            <th>Institute Directory Map ID</th>
-                            <th>Institute Name</th>
-                            <th>Created By</th>
-                            <!-- <th>Status</th> -->
-                            <th>Creation Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let referral of tableArray | paginate: { itemsPerPage: 5, currentPage: p }" style="cursor: pointer; ">
-                            <td>{{referral.instituteDirMapID}}</td>
-                            <td>{{referral.instituteDirectoryMapping.institutionDetails.institutionName}}</td>
-                            <td>{{referral.createdBy}}</td>
-                            <td>{{referral.createdDate|date:'dd-MM-yyyy'}}</td>
-                        </tr>
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="col-xs-12 col-sm-12 m-t-5 m-b-5 " *ngIf="showSendSMS">
+      <button type="button " class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " id=" ">Send SMS</button>
     </div>
+  </div>
+  <div class="bg-white p-t-20 m-t-10 " *ngIf="showTableCondition ">
+    <div class="col-xs-12 col-sm-12 ">
+      <h5 class=" "><strong>Referral History</strong></h5>
+      <button class="btn pull-right " (click)="showForm() ">New referral</button>
+      <div class="table-responsive ">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th>Institute Directory Map ID</th>
+              <th>Institute Name</th>
+              <th>Created By</th>
+              <!-- <th>Status</th> -->
+              <th>Creation Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let referral of tableArray | paginate: { itemsPerPage: 5, currentPage: p }" style="cursor: pointer; ">
+              <td>{{referral.instituteDirMapID}}</td>
+              <td>{{referral.instituteDirectoryMapping.institutionDetails.institutionName}}</td>
+              <td>{{referral.createdBy}}</td>
+              <td>{{referral.createdDate|date:'dd-MM-yyyy'}}</td>
+            </tr>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
