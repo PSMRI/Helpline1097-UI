@@ -29,6 +29,8 @@ export class ClosureComponent implements OnInit
   followUpDate: any;
   picker = '';
 
+  today: Date;
+
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
@@ -40,6 +42,9 @@ export class ClosureComponent implements OnInit
     const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
     this.isFollowUp = false;
     this._callServices.getCallTypes( requestObject ).subscribe( response => this.populateCallTypes( response ) );
+  
+    this.today = new Date();
+    this.minDate = this.today;
   }
 
   populateCallTypes ( response: any )
