@@ -11,7 +11,7 @@ export class CoServicesComponent implements OnInit
 
   constructor() { }
   selectedService: any;
-  tab: number = 1;
+  tab_value: number = 1;
   ngOnInit ()
   {
   }
@@ -28,14 +28,15 @@ export class CoServicesComponent implements OnInit
   {
     //todo in future
   }
-  changeService ( val )
+  changeService(val)
   {
-    this.tab = val;
-    jQuery( "#service" + val ).parent().find( "li" ).removeClass();
-    jQuery( "#service" + val ).addClass( "animation-nav-active" );
+    console.log(val, "value of tab clicked");
+    this.tab_value = val;
+    // jQuery( "#service" + val ).parent().find( "li" ).removeClass();
+    // jQuery( "#service" + val ).addClass( "animation-nav-active" );
 
-    jQuery( "#service" + val ).parent().find( 'a' ).removeClass();
-    jQuery( "#service" + val + " a" ).addClass( "f-c-o" );
+    // jQuery( "#service" + val ).parent().find( 'a' ).removeClass();
+    // jQuery( "#service" + val + " a" ).addClass( "f-c-o" );
   }
 
 }
