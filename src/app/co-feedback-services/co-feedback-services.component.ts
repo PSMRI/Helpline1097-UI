@@ -51,7 +51,8 @@ export class CoFeedbackServicesComponent implements OnInit
 	modalArray: any = [];
 
 	feedbackcounter: any = 1000;
-
+	today: Date;
+	maxDate: any;
 	constructor(
 		private _userBeneficiaryData: UserBeneficiaryData,
 		private _locationService: LocationService,
@@ -106,6 +107,9 @@ export class CoFeedbackServicesComponent implements OnInit
 			.subscribe( response => this.setFeedbackSeverity( response ) );
 		this.showBeneficiaryFeedbackList();
 		this.count = '0/300';
+
+		this.today = new Date();
+		this.maxDate = this.today;
 	}
 
 	showBeneficiaryFeedbackList ()

@@ -1893,6 +1893,9 @@ input:-webkit-autofill:hover {
 .error_text {
   color: red;
 }
+.display_none {
+  display: none;
+}
 @media (max-width: 317px) {}
 
 @media (min-width: 480px) {
