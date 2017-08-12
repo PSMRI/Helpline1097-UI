@@ -28,11 +28,13 @@ export class CoCounsellingServicesComponent implements OnInit
   {
     this.GetServiceTypes();
   }
+
   GetServiceTypes ()
   {
     this._coCategoryService.getTypes()
       .subscribe( response => this.setServiceTypes( response ) );
   }
+
   setServiceTypes ( response: any )
   {
     for ( let i: any = 0; i < response.length; i++ )
@@ -45,6 +47,7 @@ export class CoCounsellingServicesComponent implements OnInit
     }
     this.GetCategoriesByID();
   }
+
   GetCategories ()
   {
     this._coCategoryService.getCategories()
@@ -58,7 +61,7 @@ export class CoCounsellingServicesComponent implements OnInit
 
   SetCategories ( response: any )
   {
-    console.log( 'success', response );
+    console.log('success', response);
     this.categoryList = response;
   }
 
