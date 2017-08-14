@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-
+import { InterceptedHttp } from './../../http.interceptor'
 
 @Injectable()
 export class CoFeedbackService {
@@ -22,7 +22,8 @@ export class CoFeedbackService {
     _getFeedbackHistory = this._commonUrl + 'feedback/getFeedbacksList';
     constructor(
         private _http: Http,
-        private _config: ConfigService
+        private _config: ConfigService,
+        private _httpInterceptor: InterceptedHttp
     ) { }
 
     getTypes() {
@@ -31,7 +32,7 @@ export class CoFeedbackService {
             .catch(this.handleError);
     }
     createFeedback(data: any) {
-        return this._http.post(this._createFeedbackURL, data, this.options)
+        return this._httpInterceptor.post(this._createFeedbackURL, data)
             .map(this.extractData)
             .catch(this.handleError);
     }

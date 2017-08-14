@@ -9,6 +9,8 @@ import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Respons
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../environments/environment';
 import { LoaderService } from './services/common/loader.service'
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw'
 
 @Injectable()
 export class InterceptedHttp extends Http {
@@ -33,7 +35,6 @@ export class InterceptedHttp extends Http {
 
     post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         // url = this.updateUrl(url);
-        debugger;
         this.showLoader();
         return super.post(url, body, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
             this.onSuccess(res);
@@ -88,11 +89,9 @@ export class InterceptedHttp extends Http {
         this.hideLoader();
     }
     private onSuccess(response: any) {
-        debugger;
         return response;
     }
     private onError(error: any) {
-        debugger;
         return error;
     }
     private showLoader(): void {
@@ -103,7 +102,7 @@ export class InterceptedHttp extends Http {
         console.log('Loader hide')
         this.loaderService.hide();
     }
-    private onCatch(error: any, caught: Observable<any>): Observable<any> {
+    private onCatch(error: any, caught: Observable<Response>): Observable<Response> {
         return Observable.throw(error);
     }
 }

@@ -81,6 +81,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   updateBeneficiary(values: any) {
+    debugger;
     const newOtherData: any = {};
     this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
     this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationID; // values.occupation;
