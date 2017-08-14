@@ -25,7 +25,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   fhname: any = '';
   beneficiaryID: string = undefined;
   // nameFlag: boolean = false;
-  genderFlag: boolean = false;
+  //genderFlag: boolean = false;
   BeneficiaryExistsWIthOtherPhNum: boolean = false;
 
   FirstName: any = '';
@@ -671,17 +671,21 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   }
-  genderErrFlag: any = false;
+
+    genderErrFlag: any = false;
+    genderFlag: any = true;
 
   genderchange(value) {
     if (value == '' || value == null) {
       this.genderErrFlag = true;
+      this.genderFlag = true;
     }
     else {
       this.genderErrFlag = false;
+      this.genderFlag = false;
 
 
-    }
+       }
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];

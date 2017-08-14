@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12">
       <h4>Call Details</h4>
-    </div>
-    <div class="bg-white p-t-20 m-t-10">
-      <div class="col-xs-12 col-sm-12">
-        <div class="table-responsive" *ngIf="showCallSummary">
-          <label class="control-label" for="callSummary" i18n>Availed services during call</label>
+    </div> -->
+    <!-- <div class="bg-white p-t-20 m-t-10 "> -->
+      <div class="col-xs-12 col-sm-12"  *ngIf="showCallSummary">
+        <div class="table-responsive">
+          <label class="control-label" for="callSummary" >Availed Services During Call</label>
           <table class="table">
             <thead>
               <tr>
@@ -29,8 +29,8 @@
           </table>
         </div>
       </div>
-    </div>
-    <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
+    <!-- </div> -->
+    <!-- <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
           <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">Is followup required?</md-slide-toggle>
