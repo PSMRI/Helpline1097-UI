@@ -74,17 +74,18 @@
           </div>
         </div> -->
 
-      <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none" >
-          <md-select  required placeholder="Select Gender" [style.width]="'100%'" [(ngModel)]="gender" name="gender" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
-              <md-option *ngFor="let gen of genders" value="{{gen.genderID}}">
-                 {{gen.genderName}}
-              </md-option>
-              </md-select>
-                <md-hint *ngIf=" genderErrFlag">
-                      <span class="error_text">Please select gender </span>
-                     </md-hint>
-     </md-input-container>
+        <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none">
+          <md-select required placeholder="Select Gender" [style.width]="'100%'" [(ngModel)]="gender" name="gender" #genderSelected="ngModel"
+            (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
+            <md-option *ngFor="let gen of genders" value="{{gen.genderID}}">
+              {{gen.genderName}}
+            </md-option>
+          </md-select>
+          <md-hint *ngIf=" genderErrFlag">
+            <span class="error_text">Please select gender </span>
+          </md-hint>
+        </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
         <!--         <div class="form-group">
@@ -177,7 +178,7 @@
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
               <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td>
-              <td>{{regHistory.age}}</td>regHistoryList
+              <td>{{regHistory.age}}</td>
               <td>{{regHistory.m_gender?.genderName}}</td>
               <td>{{regHistory.i_bendemographics?.m_state?.stateName}}</td>
               <td>{{regHistory.i_bendemographics?.m_district?.districtName}}</td>
@@ -501,16 +502,16 @@
                             {{benLang.languageName}}</option>
                     </select>
       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none" >
-          <md-select   placeholder="Select Preferred Language" [style.width]="'100%'" [(ngModel)]="preferredLanguage" name="preferredLanguage">
-              <md-option *ngFor="let benLang of language" value="{{benLang.languageID}}">
-                 {{benLang.languageName}}
-              </md-option>
-              </md-select>
-     </md-input-container>
-    </div>
-  </form>
+        <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none">
+          <md-select placeholder="Select Preferred Language" [style.width]="'100%'" [(ngModel)]="preferredLanguage" name="preferredLanguage">
+            <md-option *ngFor="let benLang of language" value="{{benLang.languageID}}">
+              {{benLang.languageName}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </form>
     <div class="col-xs-12 col-sm-12 m-b-10">
       <button class="btn cu-green-btn p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="capturePrimaryInfo()">Back</button>
       <button class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="registerBeneficiary()">Generate</button>
