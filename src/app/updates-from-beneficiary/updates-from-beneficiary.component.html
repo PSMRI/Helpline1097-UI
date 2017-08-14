@@ -8,7 +8,7 @@
         <input type="hidden" class="form-control" id="beneficiaryRegID" name="beneficiaryRegID" [(ngModel)]="beneficiaryRegID">
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-<!--         <div class="form-group">
+        <!--         <div class="form-group">
           <label class="control-label" for="occupation">Occupation</label>
           <select class="form-control drop-arrow" name="occupationID" [(ngModel)]="occupationID">
                     <option *ngFor="let occupation of occupations" value={{occupation.occupationID}}>
@@ -16,20 +16,20 @@
                     </option>
                 </select>
         </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none" >
-                  <md-select placeholder="Occupation" [style.width]="'100%'" [(ngModel)]="occupationID" name="occupationID" >
-                      <md-option *ngFor="let occupation of occupations" value="{{occupation.occupationID}}">
-                         {{occupation.occupationType}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
+        <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none">
+          <md-select placeholder="Occupation" [style.width]="'100%'" [(ngModel)]="occupationID" name="occupationID">
+            <md-option *ngFor="let occupation of occupations" value="{{occupation.occupationID}}">
+              {{occupation.occupationType}}
+            </md-option>
+          </md-select>
+          <md-hint>
+            <span class="error_text"></span>
+          </md-hint>
+        </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-<!--         <div class="form-group">
+        <!--         <div class="form-group">
           <label class="control-label" for="educationQualification">Select Education Qualification </label>
           <select class="form-control drop-arrow" name="educationID" [(ngModel)]="educationID">
                     <option *ngFor="let educationQualification of educationQualifications" value={{educationQualification.educationID}}>
@@ -37,82 +37,83 @@
                     </option>
                 </select>
         </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none" >
-                  <md-select placeholder="Select Education Qualification" [style.width]="'100%'" [(ngModel)]="educationID" name="educationID" >
-                      <md-option *ngFor="let educationQualification of educationQualifications" value="{{educationQualification.educationID}}">
-                         {{educationQualification.educationType}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
+        <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none">
+          <md-select placeholder="Select Education Qualification" [style.width]="'100%'" [(ngModel)]="educationID" name="educationID">
+            <md-option *ngFor="let educationQualification of educationQualifications" value="{{educationQualification.educationID}}">
+              {{educationQualification.educationType}}
+            </md-option>
+          </md-select>
+          <md-hint>
+            <span class="error_text"></span>
+          </md-hint>
+        </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-<!--         <div class="form-group">
+        <!--         <div class="form-group">
           <label class="control-label" for="so">Sexual Orientation</label>
           <select class="form-control drop-arrow" name="sexualOrientationID" [(ngModel)]="sexualOrientationID">
                     <option *ngFor="let sexualOrientation of sexualOrientations" value={{sexualOrientation.sexualOrientationId}}>
                         {{sexualOrientation.sexualOrientation}}
                 </select>
         </div> -->
-              <md-input-container class="hide_underline" [style.width]="'100%'">
-                  <input mdInput class="display_none" >
-                  <md-select placeholder="Sexual Orientation" [style.width]="'100%'" [(ngModel)]="sexualOrientationID" name="sexualOrientationID" >
-                      <md-option *ngFor="let sexualOrientation of sexualOrientations" value="{{sexualOrientation.sexualOrientationId}}">
-                         {{sexualOrientation.sexualOrientation}}
-                      </md-option>
-                      </md-select>
-                        <md-hint >
-                              <span class="error_text"></span>
-                             </md-hint>
-             </md-input-container>
+        <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none">
+          <md-select placeholder="Sexual Orientation" [style.width]="'100%'" [(ngModel)]="sexualOrientationID" name="sexualOrientationID">
+            <md-option *ngFor="let sexualOrientation of sexualOrientations" value="{{sexualOrientation.sexualOrientationId}}">
+              {{sexualOrientation.sexualOrientation}}
+            </md-option>
+          </md-select>
+          <md-hint>
+            <span class="error_text"></span>
+          </md-hint>
+        </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-<!--         <div class="form-group">
+        <!--         <div class="form-group">
           <label class="control-label" for="placeOfWork">Place of Work</label>
           <input type="text" class="form-control" id="placeOfWork" placeholder="Enter Place of Work" name="placeOfWork" [(ngModel)]="placeOfWork">
         </div> -->
-      <md-input-container myName [style.width]="'100%'">
+        <md-input-container myName [style.width]="'100%'">
           <input mdInput placeholder="Place of Work" maxlength="25" name="placeOfWork" [(ngModel)]="placeOfWork">
-          
-      </md-input-container>
+        </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-<!--         <div class="form-group">
+        <!--         <div class="form-group">
           <label class="control-label" for="remarks">Remarks</label>
           <textarea name="remarks" id="remarks" class="form-control" [(ngModel)]="remarks" maxlength="300" ng-minlength="10" required
             (keyup)="updateCount()"></textarea>
           <span id="count">{{count}}</span>
         </div> -->
-                    <md-input-container  [style.width]="'100%'">
-                      <textarea mdInput placeholder="Remarks"  rows="2" name="remarks" maxlength="300" [(ngModel)]="remarks" maxlength="300"
-                      (keyup)="updateCount()"></textarea>
-                      <md-hint >
-                        <span>{{count}}</span>
-                      </md-hint>
-                    </md-input-container>
+        <md-input-container [style.width]="'100%'">
+          <textarea mdInput placeholder="Remarks" rows="2" name="remarks" maxlength="300" [(ngModel)]="remarks" maxlength="300" (keyup)="updateCount()"></textarea>
+          <md-hint>
+            <span>{{count}}</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-25">
+        <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">Is beneficiary suffering from HIV/AIDS?<b>(Captured only if, caller voluntarily informs)</b></md-slide-toggle>
       </div>
     </div>
     <!-- <div class="row"> -->
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <!-- <h4 class="">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</h4>  -->
-        <!-- </div> -->
-        <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">Is beneficiary suffering from HIV/AIDS?<b>(Captured only if, caller voluntarily informs)</b></md-slide-toggle>
-        <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">-->
-        <!-- <div class=""> -->
-        <!-- <label class="" for="sufferingFromAids"><span class="f-c-g">Is beneficiary suffering from AIDS/HIV?</span></label>
+    <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"> -->
+      <!-- <h4 class="">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</h4>  -->
+      <!-- </div> -->
+      <!-- <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">Is beneficiary suffering from HIV/AIDS?<b>(Captured only if, caller voluntarily informs)</b></md-slide-toggle> -->
+      <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">-->
+      <!-- <div class=""> -->
+      <!-- <label class="" for="sufferingFromAids"><span class="f-c-g">Is beneficiary suffering from AIDS/HIV?</span></label>
          <label class="radio-inline">
                         <input type="radio" name="isHIVPos" value=true [(ngModel)]="isHIVPos"> Yes 
                     </label>
         <label class="radio-inline">
                         <input type="radio" name="isHIVPos" value=false [(ngModel)]="isHIVPos" checked > No
                     </label>  -->
-      </div>
-      <!--</div>-->
-   <!--  </div> -->
-    <div class="row">
+    <!-- </div> -->
+    <!--</div>-->
+    <!--  </div> -->
+    <div class="row m-t-10">
       <div class="col-xs-12 col-sm-12">
         <h5 class="">How you come to know about our services?</h5>
       </div>
@@ -133,19 +134,17 @@
                     <label class="checkbox-inline">
                     <input type="checkbox" value="Not Disclosed" [(ngModel)]="knowHow.notdisclosed">Not Disclosed</label>
                 </div>-->
-
         <!--<div *ngFor="let source of sourceOfInfo; let i=index">-->
         <!--<div *ngFor="let source of sourceOfInfo">-->
         <div>
           <!--<input type="checkbox" [formControl]="sourceOfInformation" value="{{sourceOfInfo[i].name}}"/> {{sourceOfInfo[i].name}}-->
           <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
-                    <!--<input type="checkbox" value="{{source.value}}" [(ngModel)]="sourceOfInformation"/> {{source.name}}</label>-->
-          <!-- <input type="checkbox" value="{{source.value}}" /> {{source.name}}</label> -->
-          <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label>
+            <!--<input type="checkbox" value="{{source.value}}" [(ngModel)]="sourceOfInformation"/> {{source.name}}</label>-->
+            <!-- <input type="checkbox" value="{{source.value}}" /> {{source.name}}</label> -->
+            <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label>
         </div>
       </div>
     </div>
-
     <!--<div class="col-xs-12 col-sm-12 m-t-5 m-b-5">
             <div class="row">
                 <button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18" id="">Save</button>
