@@ -10,6 +10,10 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { Message } from './../services/common/message.service'
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
 
+
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
+
+
 @Component({
   selector: 'app-beneficiary-registration',
   templateUrl: './beneficiary-registration.component.html',
@@ -714,4 +718,5 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   //   }
   // }
   /** Purpose: function to retrive beneficiaries based on the fileds entered */
+
 }

@@ -52,7 +52,6 @@
         </div> -->
         <md-input-container myName [style.width]="'100%'">
           <input mdInput placeholder="Last name/Surname" maxlength="25" name="lastName" [(ngModel)]="LastName">
-
         </md-input-container>
       </div>
       <!--       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -73,11 +72,9 @@
             Select Gender
           </div>
         </div> -->
-
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select required placeholder="Select Gender" [style.width]="'100%'" [(ngModel)]="gender" name="gender" #genderSelected="ngModel"
-            (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
+          <md-select required placeholder="Select Gender" [style.width]="'100%'" [(ngModel)]="gender" name="gender" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
             <md-option *ngFor="let gen of genders" value="{{gen.genderID}}">
               {{gen.genderName}}
             </md-option>
@@ -87,6 +84,7 @@
           </md-hint>
         </md-input-container>
       </div>
+
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--         <div class="form-group">
           <label class="control-label" for="stateSearch">State</label>
@@ -182,7 +180,9 @@
               <td>{{regHistory.i_bendemographics?.m_districtbranchmapping?.villageName}}</td>
               <td>{{regHistory.i_bendemographics?.m_language?.languageName}}</td>
               <td>{{regHistory.benPhoneMaps[0]?.benRelationshipType?.benRelationshipType}}</td>
-              <td><button class=".btn pull-right" (click)="passBenRegHistoryData(regHistory)">Edit</button></td>
+              <td>
+                <button class=".btn pull-right" (click)="passBenRegHistoryData(regHistory)">Edit</button>
+              </td>
             </tr>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </tbody>
@@ -196,7 +196,7 @@
   </div>
   <!--End  Code Modified by Neeraj( 298657 ); 22-jun-2017 -->
   <!-- <form #Form="ngForm" (submit)="registerBeneficiary(Form.value); Form.reset()" *ngIf="notCalledEarlier"> -->
-  <div class="row bg-white m-t-10" *ngIf="notCalledEarlier">
+  <div class="row m-t-10" *ngIf="notCalledEarlier">
     <div class=" col-xs-12 col-sm-12">
       <h4>Registration form</h4>
     </div>
@@ -217,9 +217,7 @@
           </md-select>
         </md-input-container>
       </div>
-
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
-
         <md-input-container myName [style.width]="'100%'">
           <input mdInput placeholder="First Name"  maxlength="25" name="FirstName" [(ngModel)]="FirstName" #first="ngModel">
 <!--           <md-hint [hidden]=first.valid>
@@ -227,21 +225,16 @@
           </md-hint> -->
         </md-input-container>
       </div>
-
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
-
         <md-input-container myName [style.width]="'100%'">
           <input mdInput placeholder="Last name/Surname" maxlength="25" name="LastName" [(ngModel)]="LastName">
-
         </md-input-container>
       </div>
-
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
         <!--       <div class="form-group ">
         <label class="control-label" for="firstName ">Select Gender</label>
         <select class="form-control drop-arrow " name="GenderID " [(ngModel)]="GenderID ">
                         <option *ngFor="let gender of genders " value={{gender.genderID}}>{{gender.genderName}}</option>-->
-
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select required placeholder="Select Gender" [style.width]="'100%'" [(ngModel)]="GenderID" name="GenderID" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
@@ -255,7 +248,6 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
-
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select placeholder="Select Marital" [style.width]="'100%'" [(ngModel)]="MaritalStatusID" name="MaritalStatusID">
@@ -268,11 +260,12 @@
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-7">
         <div class="form-group">
           <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
+
           <md2-datepicker  [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="DOB: dd-MM-yyyy" name="dateOfBirth" (change)="calculateAge($event.value)"
             [(ngModel)]="DOB"></md2-datepicker>
+
         </div>
       </div>
-
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-9">
         <!--       <div class="form-group">
         <label class="control-label" for="lastName">Age </label>
@@ -281,6 +274,7 @@
       </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
 
+
           <input mdInput placeholder="Age" required #ageRef  min="0" max="120" name="age" [(ngModel)]="age" (change)="calculateDOB(ageRef.value)"  #ageEvent="ngModel">
                    <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
                                 <span class="error_text"  >Enter valid age (max:120) </span>
@@ -288,12 +282,6 @@
 
         </md-input-container>
 
-<!--                         <md-input-container myMobileNumber>
-                            <input mdInput placeholder="Age" required  #ageRef name="age" [(ngModel)]="age" (keyup)="ageInput(age)" (blur)="calculateDOB(ageRef.value); ageInput(age)" (change)="ageInput(age)" #ageEvent="ngModel">
-                             <md-hint *ngIf=" ageFlag && ( ageEvent.dirty || ageEvent.touched)">
-                                <span class="error_text"  >Enter valid age (max:120) </span>
-                            </md-hint>
-                        </md-input-container> -->
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-9">
         <!--       <div class="form-group">
@@ -302,7 +290,6 @@
       </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
           <input mdInput placeholder="Alternate Number" maxlength="10" name="PhoneNo" [(ngModel)]="PhoneNo">
-
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngIf="isParentBeneficiary">
@@ -313,7 +300,6 @@
                         {{beneficiaryRelation.benRelationshipType}}
                 </select>
       </div> -->
-
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select required placeholder="{{relationshipWith}}" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID" name="beneficiaryRealtionID">
@@ -328,7 +314,6 @@
       <button [disabled]="!genderSelected.valid || !ageEvent.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " (click)="captureOtherInfo()">Next</button>
     </div>
   </div>
-
   <div class="row bg-white m-t-10" *ngIf="notCalledEarlierLowerPart">
     <form autocomplete="off">
       <div class="row" style="display:none;">
@@ -367,7 +352,6 @@
       </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
           <input mdInput placeholder="ID Number" name="aadharNo" [(ngModel)]="aadharNo">
-
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
@@ -387,7 +371,6 @@
           </md-select>
         </md-input-container>
       </div>
-
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="educationQualification" i18n>Select Education Qualification</label>
@@ -486,7 +469,6 @@
       </div> -->
         <md-input-container myMobileNumber class="m-b-9" [style.width]="'100%'">
           <input mdInput placeholder="Pin code" maxlength="6" name="pincode" [(ngModel)]="pincode">
-
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
@@ -517,6 +499,5 @@
     </div>
   </div>
   <!-- </form> -->
-
   <!-- </div> -->
 </div>
