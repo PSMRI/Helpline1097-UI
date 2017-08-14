@@ -80,7 +80,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   beneficiaryRelationID;
   color;
   calledRadio = true;
-  age: number;
+  age: any="";
   updatedObj: any = {};
   relationshipWith: string;
   today: Date;
@@ -202,6 +202,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   calledEarlierCheck(flag) {
 
     this.genderErrFlag = false;
+    this.stateErrFlag = false;
+    this.cityErrFlag = false;
     if (flag.checked) {
       this.calledEarlier = true;
       this.searchValue = 'Advance Search';
@@ -258,16 +260,21 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     }
   }
-
+  stateErrFlag: any = false;
   GetDistricts(state: number) {
     this.districts = [];
 
     this.taluks = [];
 
     this.blocks = [];
-
+    if (state == undefined) {
+      this.stateErrFlag = true;
+    }
+    else {
+      this.stateErrFlag = false;
     this._locationService.getDistricts(state)
       .subscribe(response => this.SetDistricts(response));
+    }
   }
   SetDistricts(response: any) {
     // this.districts.push( { "districtID": undefined, "districtName": "" } );
@@ -275,11 +282,18 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.districts.push( response[ i ] );
     this.districts = response;
   }
+  cityErrFlag:any =false;
   GetTaluks(district: number) {
     this.taluks = [];
     this.blocks = [];
+    if (district == undefined) {
+      this.cityErrFlag = true;
+    }
+    else {
+      this.cityErrFlag = false;
     this._locationService.getTaluks(district)
       .subscribe(response => this.SetTaluks(response));
+    }
   }
   SetTaluks(response: any) {
     this.taluks = response;
@@ -673,16 +687,16 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
     genderErrFlag: any = false;
-    genderFlag: any = true;
+    // genderFlag: any = true;
 
   genderchange(value) {
     if (value == '' || value == null) {
       this.genderErrFlag = true;
-      this.genderFlag = true;
+      // this.genderFlag = true;
     }
     else {
       this.genderErrFlag = false;
-      this.genderFlag = false;
+      // this.genderFlag = false;
 
 
        }

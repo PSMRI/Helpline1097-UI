@@ -49,6 +49,7 @@ export class ClosureComponent implements OnInit
 
   populateCallTypes ( response: any )
   {
+    console.log("hi",response);
     this.calltypes = response;
   }
   // @Input()
@@ -62,6 +63,7 @@ export class ClosureComponent implements OnInit
     this.summaryList = [];
     console.log( JSON.stringify( response ) );
     this.summaryList = response;
+  
     this.showCallSummary = false;
     if ( this.summaryList.length > 0 )
     {
@@ -103,6 +105,7 @@ export class ClosureComponent implements OnInit
   {
     if ( e.checked )
     {
+      
       this.isFollowUp = true;
       this.isFollowupRequired = true
     } else
