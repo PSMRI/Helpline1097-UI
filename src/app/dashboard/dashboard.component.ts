@@ -89,7 +89,7 @@ export class dashboardContentClass implements OnInit {
   }
 
   campaign(value) {
-    debugger;
+    //debugger;
     console.log(value);
     if (value === '1') {
       this.dataSettingService.current_campaign = 'INBOUND';
