@@ -40,15 +40,14 @@
   <div class="clearfix"></div>
   <div class="col-xs-12 col-sm-12">
     <div class="panel-body card p-a-0 bg-white ">
-      <div class="container-fluid p-a-0 height-345 overflow-y">
+      <div class="container-fluid p-a-0 height-400 overflow-y">
         <div class=" b-t-2-w">
           <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
             <div class="carousel-inner">
               <div class="item active">
                 <!--<app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                                         (StartNewCall)="startCall()" #registration></app-beneficiary-registration>-->
-                <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
-                  #registration></app-beneficiary-registration>
+                <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();" #registration></app-beneficiary-registration>
               </div>
               <div class="item ">
                 <!--<app-co-services (beneficiarySelected)="startCOService()" (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>-->
@@ -72,10 +71,9 @@
         <button id="previous" type="button" class="btn pull-left font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="prev">Previous</button>
         <button id="next" type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next">Next</button>
         <div class="center-btn">
-          <button  type="button"  value="Cancel" class="btn  font-regular f-s-18 m-r-5" data-slide-to="1" (click)="openDialog()">Cancel</button>
-          <button  type="button" value="Close" class="btn  font-regular f-s-18 m-r-5" data-slide-to="4"(click)="openDialogClosure()">Closure</button>
+          <button type="button" value="Cancel" class="btn  font-regular f-s-18 m-r-5" data-slide-to="1" (click)="openDialog()">Cancel</button>
+          <button type="button" value="Close" class="btn  font-regular f-s-18 m-r-5" data-slide-to="4" (click)="openDialogClosure()">Closure</button>
         </div>
-
       </div>
     </div>
   </div>
@@ -85,7 +83,6 @@
 </md2-dialog> -->
 <!--<button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18 czenrix-icon" *ngIf="barMinimized"
   (click)="toggleBar()">C-Zentrix</button>-->
-
 <!--<iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized"
   (click)="toggleBar()"></iframe>-->
 <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized" (click)="toggleBar()"></iframe>

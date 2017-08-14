@@ -31,6 +31,8 @@ export class ClosureComponent implements OnInit
 
   today: Date;
 
+  showSlider:boolean;
+
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
@@ -45,6 +47,18 @@ export class ClosureComponent implements OnInit
   
     this.today = new Date();
     this.minDate = this.today;
+    this.showSlider=false;
+  }
+
+  sliderVisibility(val)
+  {
+    if(val==="Valid Call")
+    {
+      this.showSlider=true;
+    }
+    else{
+      this.showSlider=false;
+    }
   }
 
   populateCallTypes ( response: any )
