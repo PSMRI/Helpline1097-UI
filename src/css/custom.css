@@ -107,7 +107,9 @@ input {
 .b-t-2-w {
   border-top: 2px solid #fff;
 }
-
+.b-t-1-w {
+  border-top: 1px solid;
+}
 .cu-btn {
   background: #fff;
   color: #000;
@@ -346,6 +348,9 @@ color:#aeaeae;
 color:#545454;  
 }
 */
+.f-s-9 {
+  font-size: 9px;
+}
 
 .f-s-10 {
   font-size: 10px;

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { InterceptedHttp } from './../../http.interceptor'
 
 
 @Injectable()
@@ -22,7 +23,8 @@ export class CoReferralService {
     _getbenficiaryHistoryUrl = this._baseurl + 'services/getBeneficiaryCallsHistory'
     constructor(
         private _http: Http,
-        private _config: ConfigService
+        private _config: ConfigService,
+        private _httpInterceptor: InterceptedHttp
     ) { }
     // getCategories ()
     // {
@@ -40,17 +42,12 @@ export class CoReferralService {
 
     getDetails(instituteDirectoryID: number, instituteSubDirectoryID: number, stateID: number, districtID: number, districtBranchMappingID: number, createdBy: string, beneficiaryRegID: number, serviceID1097: number,
         benCallID: number) {
-        // [{"beneficiaryRegID":"123", "benCallID":"1", "serviceID1097":1, 
-        // "categoryID":3, "subCategoryID":1, "createdBy":"neeraj"}]
-
-        //instituteDirectoryID, instituteSubDirectoryID, stateID, districtID, districtBranchMappingID
         let data = [{
             'beneficiaryRegID': beneficiaryRegID, 'benCallID': benCallID, 'serviceID1097': serviceID1097, 'createdBy': createdBy,
             'instituteDirectoryID': instituteDirectoryID, 'instituteSubDirectoryID': instituteSubDirectoryID, 'stateID': stateID,
             'districtID': districtID, 'districtBranchMappingID': districtBranchMappingID
         }];
-        return this._http.post(this._getDetailsURL, data,
-            this.options)
+        return this._httpInterceptor.post(this._getDetailsURL, data)
             .map(this.extractData)
             .catch(this.handleError);
     }
