@@ -15,7 +15,7 @@
           </div> -->
           <md-input-container class="form-group-custome m-b-0">
             <input mdInput placeholder="Registration Number" name="search" [(ngModel)]="registrationNo">
-            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+  <!--           <span class="glyphicon glyphicon-search form-control-feedback"></span> -->
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
@@ -38,10 +38,11 @@
           </div>
         </div> -->
         <md-input-container myName [style.width]="'100%'">
-          <input mdInput placeholder="First Name" required minlength="3" maxlength="25" name="firstName" [(ngModel)]="FirstName" #first="ngModel">
-          <md-hint [hidden]=first.valid>
+          <input mdInput placeholder="First Name"  maxlength="25" name="firstName" [(ngModel)]="FirstName" #first="ngModel">
+<!--           <md-hint [hidden]=first.valid>
+
             <span class="error_text" *ngIf="!first.required  && ( first.dirty || first.touched)">Enter atleast 3 characters</span>
-          </md-hint>
+          </md-hint> -->
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
@@ -83,15 +84,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
-        <!--         <div class="form-group">
-          <label class="control-label" for="beneficiaryID">Beneficiary ID</label>
-          <input type="text" class="form-control" id="beneficiaryID" placeholder="Enter Beneficiary ID" name="beneficiaryID" [(ngModel)]="beneficiaryID">
-        </div> -->
-        <md-input-container [style.width]="'100%'">
-          <input mdInput placeholder="Beneficiary ID" name="beneficiaryID" [(ngModel)]="beneficiaryID">
-        </md-input-container>
-      </div>
+
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--         <div class="form-group">
           <label class="control-label" for="stateSearch">State</label>
@@ -102,11 +95,14 @@
         </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select placeholder="Select State" [style.width]="'100%'" [(ngModel)]="state" name="stateSearch" (change)="GetDistricts(state)">
+          <md-select required placeholder="Select State" [style.width]="'100%'" [(ngModel)]="state" name="stateSearch" (change)="GetDistricts(state)" #stateSelectedd="ngModel" (blur)="GetDistricts(state)">
             <md-option *ngFor="let state of states" value="{{state.stateID}}">
               {{state.stateName}}
             </md-option>
           </md-select>
+          <md-hint *ngIf=" stateErrFlag">
+            <span class="error_text">Please select state </span>
+          </md-hint>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -119,11 +115,14 @@
         </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select placeholder="Select District" [style.width]="'100%'" [(ngModel)]="district" name="districtSearch" (change)="GetTaluks(district)">
+          <md-select required placeholder="Select District" [style.width]="'100%'" [(ngModel)]="district" name="districtSearch" (change)="GetTaluks(district)" #citySelectedd="ngModel" (blur)="GetTaluks(district)">
             <md-option *ngFor="let district of districts" value="{{district.districtID}}">
               {{district.districtName}}
             </md-option>
           </md-select>
+          <md-hint *ngIf=" cityErrFlag">
+            <span class="error_text">Please select city </span>
+          </md-hint>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -144,7 +143,7 @@
         </md-input-container>
       </div>
       <div class="pull-right col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
-        <button type="button" class="pull-right btn cu-green-btn font-regular f-s-18 m-r-5" value="search" (click)="searchBeneficiary(searchForm.value)">Search</button>
+        <button [disabled]="!stateSelectedd.valid || !citySelectedd.valid" type="button" class="pull-right btn cu-green-btn font-regular f-s-18 m-r-5" value="search" (click)="searchBeneficiary(searchForm.value)">Search</button>
       </div>
     </form>
   </div>
@@ -220,10 +219,10 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
         <md-input-container myName [style.width]="'100%'">
-          <input mdInput placeholder="First Name" required minlength="3" maxlength="25" name="FirstName" [(ngModel)]="FirstName" #first="ngModel">
-          <md-hint [hidden]=first.valid>
+          <input mdInput placeholder="First Name"  maxlength="25" name="FirstName" [(ngModel)]="FirstName" #first="ngModel">
+<!--           <md-hint [hidden]=first.valid>
             <span class="error_text" *ngIf="!first.required  && ( first.dirty || first.touched)">Enter atleast 3 characters</span>
-          </md-hint>
+          </md-hint> -->
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
@@ -261,7 +260,10 @@
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-7">
         <div class="form-group">
           <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-          <md2-datepicker [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="DOB: dd-MM-yyyy" name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB"></md2-datepicker>
+
+          <md2-datepicker  [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="DOB: dd-MM-yyyy" name="dateOfBirth" (change)="calculateAge($event.value)"
+            [(ngModel)]="DOB"></md2-datepicker>
+
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-9">
@@ -271,17 +273,15 @@
           [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
       </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput required placeholder="Age" min="1" max="120" name="age" #ageRef [(ngModel)]="age" (blur)="calculateDOB(ageRef.value)" #ageEvent="ngModel">
-          <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
-            <span class="error_text">Enter valid age (max:120) </span>
-          </md-hint>
-        </md-input-container>
-        <!--                         <md-input-container myMobileNumber>
-                            <input mdInput placeholder="Age" required  #ageRef name="age" [(ngModel)]="age" (keyup)="ageInput(age)" (blur)="calculateDOB(ageRef.value); ageInput(age)" (change)="ageInput(age)" #ageEvent="ngModel">
-                             <md-hint *ngIf=" ageFlag && ( ageEvent.dirty || ageEvent.touched)">
+
+
+          <input mdInput placeholder="Age" required #ageRef  min="0" max="120" name="age" [(ngModel)]="age" (change)="calculateDOB(ageRef.value)"  #ageEvent="ngModel">
+                   <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
                                 <span class="error_text"  >Enter valid age (max:120) </span>
                             </md-hint>
-                        </md-input-container> -->
+
+        </md-input-container>
+
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-9">
         <!--       <div class="form-group">
@@ -311,7 +311,7 @@
       </div>
     </form>
     <div class="col-xs-12 col-sm-12 m-b-10 ">
-      <button [disabled]="!first.valid || genderFlag || !ageEvent.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " (click)="captureOtherInfo()">Next</button>
+      <button [disabled]="!genderSelected.valid || !ageEvent.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 " (click)="captureOtherInfo()">Next</button>
     </div>
   </div>
   <div class="row bg-white m-t-10" *ngIf="notCalledEarlierLowerPart">
@@ -398,11 +398,14 @@
       </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select placeholder="Select State" [style.width]="'100%'" [(ngModel)]="state" name="state" (change)="GetDistricts(state)">
+          <md-select required placeholder="Select State" [style.width]="'100%'" [(ngModel)]="state" name="state" (change)="GetDistricts(state)" #stateSelected="ngModel" (blur)="GetDistricts(state)">
             <md-option *ngFor="let benState of states" value="{{benState.stateID}}">
               {{benState.stateName}}
             </md-option>
           </md-select>
+          <md-hint *ngIf=" stateErrFlag">
+            <span class="error_text">Please select state </span>
+          </md-hint>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
@@ -415,11 +418,14 @@
       </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select placeholder="Select District" [style.width]="'100%'" [(ngModel)]="district" name="district" (change)="GetTaluks(district)">
+          <md-select required placeholder="Select District" [style.width]="'100%'" [(ngModel)]="district" name="district" (change)="GetTaluks(district)" #citySelected="ngModel" (blur)="GetTaluks(district)">
             <md-option *ngFor="let benDistrict of districts" value="{{benDistrict.districtID}}">
               {{benDistrict.districtName}}
             </md-option>
           </md-select>
+          <md-hint *ngIf=" cityErrFlag">
+            <span class="error_text">Please select city </span>
+          </md-hint>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
@@ -485,7 +491,7 @@
     </form>
     <div class="col-xs-12 col-sm-12 m-b-10">
       <button class="btn cu-green-btn p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="capturePrimaryInfo()">Back</button>
-      <button class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="registerBeneficiary()">Generate</button>
+      <button [disabled]="!stateSelected.valid || !citySelected.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="registerBeneficiary()">Generate</button>
     </div>
     <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="updationProcess">
       <button class="btn cu-green-btn p-l-r-38 font-regular f-s-18" (click)="editBenPrimaryContent()">Back</button>
