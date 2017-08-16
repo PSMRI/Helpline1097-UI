@@ -223,8 +223,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr style="cursor: pointer;" *ngFor="let Information
-                        of Informations | paginate: { itemsPerPage: 5, currentPage: p }" (click)="modalData(feedback)">
+        <tr style="cursor: pointer;" *ngFor="let feedback
+                        of feedbacksArray | paginate: { itemsPerPage: 5, currentPage: p }" (click)="modalData(feedback)">
           <td>{{feedback.feedbackID}}</td>
           <td>{{feedback.feedback}}</td>
           <td>{{feedback.severityID}}</td>

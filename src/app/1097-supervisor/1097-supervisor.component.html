@@ -1,7 +1,7 @@
 <div class="clearfix"></div>
 <div class="col-xs-12 col-sm-12 b-t-2-w">
   <div class="panel-body card p-a-0 bg-white ">
-    <div class="container-fluid p-a-0 overflow-y" style="height:600px">
+    <div class="container-fluid p-a-0 overflow-y" style="height:550px">
       <div class=" b-t-2-w">
         <div class="col-xs-12 col-sm-12">
           <div class="row">
@@ -9,8 +9,7 @@
               <nav class="navbar navbar-default">
                 <div class="container-fluid">
                   <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                      aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                   </div>
                   <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -23,7 +22,6 @@
                           <li style="cursor: pointer" (click)='show("5")'><a>Quality Audit</a></li>
                           <li style="cursor: pointer" (click)='show("6")'><a>Notifications</a></li>
                           <li style="cursor: pointer" (click)='show("12")'><a>Outbound Call List</a></li>
-
                         </ul>
                       </li>
                       <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
@@ -35,10 +33,8 @@
                       <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configurations<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           <li style="cursor: pointer" (click)='show("10")'><a>Knowledge Management</a></li>
-
                         </ul>
                       </li>
-
                     </ul>
                   </div>
                 </div>
@@ -49,7 +45,6 @@
             <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
               <div>
                 <supervisor-grievance *ngSwitchCase="1"></supervisor-grievance>
-                <!--<p *ngSwitchCase="1">grievience</p>-->
                 <app-agent-status *ngSwitchCase="2"></app-agent-status>
                 <app-block-unblock-number *ngSwitchCase="3"></app-block-unblock-number>
                 <app-dial-beneficiary *ngSwitchCase="4"></app-dial-beneficiary>
@@ -68,4 +63,3 @@
     </div>
   </div>
 </div>
-

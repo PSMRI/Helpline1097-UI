@@ -22,7 +22,7 @@ export class CoServicesComponent implements OnInit {
 
   @Input()
   startCOService() {
-    //todo in future
+    // todo in future
   }
   changeService(val) {
     console.log(val, "value of tab clicked");

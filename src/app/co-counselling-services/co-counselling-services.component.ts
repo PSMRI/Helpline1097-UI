@@ -96,7 +96,6 @@ export class CoCounsellingServicesComponent implements OnInit {
   }
   GetCounsellingHistory() {
     this._coService.getCounsellingsHistoryByID(this.saved_data.beneficiaryData.beneficiaryRegID).subscribe((res) => {
-      debugger;
       this.data = res;
       this.totalRecord = res.length;
       console.log('Information History Successfully reterive', res);
@@ -104,4 +103,4 @@ export class CoCounsellingServicesComponent implements OnInit {
       console.log('Some error reteriving Information History ', err);
     })
   }
-}
+} 

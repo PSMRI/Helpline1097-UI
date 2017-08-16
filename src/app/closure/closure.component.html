@@ -88,9 +88,9 @@
 
 <div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4>Call Details</h4>
+    <h4>Call Details </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center" *ngIf="showSlider">
     <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">Is Follow-Up Required ?</md-slide-toggle>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" >
@@ -100,7 +100,7 @@
           <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none">
             <md-select placeholder="Select Call Type" [style.width]="'100%'" [(ngModel)]="callTypeID" name="callTypeID">
-              <md-option *ngFor="let calltype of calltypes" value="{{calltype.callTypeID}},{{calltype.fitToBlock}}">
+              <md-option *ngFor="let calltype of calltypes" value="{{calltype.callTypeID}},{{calltype.fitToBlock}}" (click)="sliderVisibility(calltype.callTypeDesc)">
                 {{calltype.callTypeDesc}}
               </md-option>
             </md-select>
