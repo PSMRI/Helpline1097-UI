@@ -505,7 +505,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="updationProcess">
       <button class="btn cu-green-btn p-l-r-38 font-regular f-s-18" (click)="editBenPrimaryContent()">Back</button>
-      <button class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" (click)="updateBeneficiary()">Update</button>
+      <button [disabled]="!stateSelected.valid || !citySelected.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" (click)="updateBeneficiary()">Update</button>
     </div>
   </div>
   <!-- </form> -->

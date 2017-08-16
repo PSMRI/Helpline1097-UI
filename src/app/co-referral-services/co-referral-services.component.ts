@@ -35,8 +35,9 @@ export class CoReferralServicesComponent implements OnInit
   selected_directory: any = undefined;
   selected_sub_directory: any = undefined;
   description: any = undefined;
-  serviceID1097: number = 3;
+  subServiceID: number = 3;
   showSendSMS: boolean = false;
+  providerServiceMapID: number;
 
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -47,6 +48,7 @@ export class CoReferralServicesComponent implements OnInit
 
   ngOnInit ()
   {
+    this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
     // // call the api to get all the referrals done and store them in array;
 
@@ -60,16 +62,16 @@ export class CoReferralServicesComponent implements OnInit
   }
   GetServiceTypes ()
   {
-    this._coReferralService.getTypes()
+    this._coReferralService.getTypes( this.providerServiceMapID )
       .subscribe( response => this.setServiceTypes( response ) );
   }
   setServiceTypes ( response: any )
   {
     for ( let i: any = 0; i < response.length; i++ )
     {
-      if ( response[ i ].serviceNameFor1097.toUpperCase().search( "REFE" ) >= 0 )
+      if ( response[ i ].subServiceName.toUpperCase().search( "REFE" ) >= 0 )
       {
-        this.serviceID1097 = response[ i ].serviceID1097;
+        this.subServiceID = response[ i ].subServiceID;
         break;
       }
     }
@@ -159,15 +161,15 @@ export class CoReferralServicesComponent implements OnInit
     this.sub_directory = response.subDirectory;
   }
 
-  //GetReferralDetails ( selected_directory: number, selected_sub_directory: number, stateID: number, districtID: number, districtBranchMappingID: number, beneficiaryRegID: number, serviceID1097: number, benCallID: number )
+  //GetReferralDetails ( selected_directory: number, selected_sub_directory: number, stateID: number, districtID: number, districtBranchMappingID: number, beneficiaryRegID: number, subServiceID: number, benCallID: number )
   GetReferralDetails ()
   {
     //instituteDirectoryID: number, instituteSubDirectoryID: number, stateID: number, districtID: number,
-    //districtBranchMappingID: number, createdBy: string, beneficiaryRegID: number, serviceID1097: number, benCallID: number
-    //this._coReferralService.getDetails( selected_directory, selected_sub_directory, stateID, districtID, districtBranchMappingID, "neer", beneficiaryRegID, serviceID1097, benCallID )
+    //districtBranchMappingID: number, createdBy: string, beneficiaryRegID: number, subServiceID: number, benCallID: number
+    //this._coReferralService.getDetails( selected_directory, selected_sub_directory, stateID, districtID, districtBranchMappingID, "neer", beneficiaryRegID, subServiceID, benCallID )
     this._coReferralService.getDetails(
       this.selected_directory, this.selected_sub_directory, this.selected_state, this.selected_district, this.selected_branch,
-      this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID, this.serviceID1097, this.saved_data.callData.benCallID
+      this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID, this.subServiceID, this.saved_data.callData.benCallID
     ).subscribe( response => this.SetReferralDetails( response ) );
   }
 

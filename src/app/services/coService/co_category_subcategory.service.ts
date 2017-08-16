@@ -9,13 +9,16 @@ import { InterceptedHttp } from './../../http.interceptor'
 
 
 @Injectable()
-export class CoCategoryService {
+export class CoCategoryService
+{
 
     test = [];
-    headers = new Headers({ 'Content-Type': 'application/json' });
-    options = new RequestOptions({ headers: this.headers });
+    headers = new Headers( { 'Content-Type': 'application/json' } );
+    options = new RequestOptions( { headers: this.headers } );
     _baseurl = this._config.get1097BaseURL();
-    _servicetypesurl = this._baseurl + 'api/helpline1097/co/get/servicetypes'
+    _commonURL = this._config.getCommonBaseURL();
+    _servicetypesurl = this._commonURL + "service/servicetypes";
+    // _servicetypesurl = this._baseurl + 'api/helpline1097/co/get/servicetypes'
     _categoryurl = this._baseurl + 'api/helpline1097/co/get/category'
     _categorybyidurl = this._baseurl + 'api/helpline1097/co/get/categoryByID'
     _subcategoryurl = this._baseurl + 'api/helpline1097/co/get/subcategory'
@@ -27,63 +30,75 @@ export class CoCategoryService {
         private _httpInterceptor: InterceptedHttp
     ) { }
 
-    getTypes() {
-        return this._http.post(this._servicetypesurl, this.options)
-            .map(this.extractData)
-            .catch(this.handleError);
+    getTypes ( providerServiceMapID: number )
+    {
+        let data = {};
+        data[ "providerServiceMapID" ] = providerServiceMapID;
+        return this._http.post( this._servicetypesurl, data, this.options )
+            .map( this.extractData )
+            .catch( this.handleError );
     }
 
-    getCategories() {
-        return this._http.post(this._categoryurl, this.options)
-            .map(this.extractData)
-            .catch(this.handleError);
+    getCategories ()
+    {
+        return this._http.post( this._categoryurl, this.options )
+            .map( this.extractData )
+            .catch( this.handleError );
     }
-    getCategoriesByID(selectedService: any) {
-        let data: any = { 'serviceID1097': selectedService };
-        return this._http.post(this._categorybyidurl, data, this.options)
-            .map(this.extractData)
-            .catch(this.handleError);
+    getCategoriesByID ( selectedService: any )
+    {
+        let data: any = { 'subServiceID': selectedService };
+        return this._http.post( this._categorybyidurl, data, this.options )
+            .map( this.extractData )
+            .catch( this.handleError );
     }
-    getSubCategories(id: any) {
+    getSubCategories ( id: any )
+    {
         let data = { 'categoryID': id };
-        return this._http.post(this._subcategoryurl, data, this.options)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post( this._subcategoryurl, data, this.options )
+            .map( this.extractData )
+            .catch( this.handleError );
     }
 
-    getDetails(subCategoryID: number, createdBy: string, beneficiaryRegID: number, serviceID1097: number,
-        categoryID: number, benCallID: number) {
-        let data = [{
-            'beneficiaryRegID': beneficiaryRegID, 'benCallID': benCallID, 'serviceID1097': serviceID1097,
+    getDetails ( subCategoryID: number, createdBy: string, beneficiaryRegID: number, subServiceID: number,
+        categoryID: number, benCallID: number )
+    {
+        let data = [ {
+            'beneficiaryRegID': beneficiaryRegID, 'benCallID': benCallID, 'subServiceID': subServiceID,
             'subCategoryID': subCategoryID, 'categoryID': categoryID, 'createdBy': createdBy
         }];
-        return this._httpInterceptor.post(this._savedetailsurl, data)
-            .map(this.extractData)
-         .catch(this.handleError);
+        return this._httpInterceptor.post( this._savedetailsurl, data )
+            .map( this.extractData )
+            .catch( this.handleError );
     }
 
-    getCODetails(subCategoryID: number, createdBy: string, beneficiaryRegID: number, serviceID1097: number,
-        categoryID: number, benCallID: number) {
-        let data = [{
-            'beneficiaryRegID': beneficiaryRegID, 'benCallID': benCallID, 'serviceID1097': serviceID1097,
+    getCODetails ( subCategoryID: number, createdBy: string, beneficiaryRegID: number, subServiceID: number,
+        categoryID: number, benCallID: number )
+    {
+        let data = [ {
+            'beneficiaryRegID': beneficiaryRegID, 'benCallID': benCallID, 'subServiceID': subServiceID,
             'coSubCategoryID': subCategoryID, 'coCategoryID': categoryID, 'createdBy': createdBy
         }];
-        return this._httpInterceptor.post(this._saveCOdetailsurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._httpInterceptor.post( this._saveCOdetailsurl, data )
+            .map( this.extractData )
+            .catch( this.handleError );
     }
 
 
 
-    extractData(response: Response) {
-        if (response.json().data) {
+    extractData ( response: Response )
+    {
+        if ( response.json().data )
+        {
             return response.json().data;
-        } else {
+        } else
+        {
             return response.json();
         }
     }
 
-    handleError(response: Response) {
+    handleError ( response: Response )
+    {
         return response.json()
     }
 };
