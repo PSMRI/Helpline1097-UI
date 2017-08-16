@@ -1,29 +1,28 @@
-<div class="col-xs-12 col-sm-12">
 <div class="row">
     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
         <h4 class="f-c-o m-b-20">Notifications</h4>
         <form (ngSubmit)="onSubmitShowForm()" #showNotificationForm="ngForm">
-            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-t-17">
                 <md-select placeholder="Notification Type" name="notificationType" ngModel required>
-                    <md-option *ngFor="let notification of notificationTypes; let i=index" [value]="notification.notificationTypeID">
+                    <md-option *ngFor="let notification of notificationTypes" [value]="notification.notificationTypeID">
                         {{ notification.notificationType }}
                     </md-option>
                 </md-select>
             </div>
-            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-t-17">
                 <md-select placeholder="Select Roles" [multiple]="true" name="roles" ngModel required>
                     <md-option *ngFor="let role of roleObjArray" [value]="role.RoleID">
                         {{ role.RoleName }}
                     </md-option>
                 </md-select>
             </div>
-            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 c-b p-l-lg-1">
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-l-lg-1">
                 <md2-datepicker name="startDate" placeholder="Start Date" #startDate="ngModel" ngModel required></md2-datepicker>
             </div>
-            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 c-b p-l-lg-1">
-                <md2-datepicker name="endDate" placeholder="End Date" [min]="startDate.value" #endDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
-                </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-l-lg-1">
+                <md2-datepicker name="endDate" placeholder="End Date" [min]="startDate.value" #endDate="ngModel" ngModel required></md2-datepicker>
             </div>
+            <span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
             <button md-raised-button class="btn btn-primary m-l-15 m-b-20 m-t-15 c-b" [disabled]="!(showNotificationForm.valid)" type="submit">Submit</button>
         </form>
         <div class="row c-b" *ngIf="onConfigSubmit">
@@ -56,5 +55,4 @@
             </div>           
         </div>
     </div>
-</div>
 </div>

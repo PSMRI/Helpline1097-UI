@@ -21,6 +21,7 @@ export class SupervisorNotificationsComponent implements OnInit {
   notificationPostData : any;
   onConfigSubmit : boolean = false;
   p: number = 1;
+
   @ViewChild('showNotificationForm') showNotificationForm: NgForm;
   
   constructor(private notificationService: NotificationService,public commonDataService: dataService, public dialog : MdDialog) { }
