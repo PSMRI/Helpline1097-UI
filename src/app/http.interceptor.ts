@@ -92,6 +92,7 @@ export class InterceptedHttp extends Http {
         return response;
     }
     private onError(error: any) {
+        this.hideLoader();
         return error;
     }
     private showLoader(): void {

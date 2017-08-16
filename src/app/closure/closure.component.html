@@ -94,7 +94,7 @@
     <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">Is Follow-Up Required ?</md-slide-toggle>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" >
-    <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
+    <form #Form="ngForm" (ngSubmit)="closeCall(Form.value); Form.reset()">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <md-input-container class="hide_underline" [style.width]="'100%'">

@@ -15,12 +15,14 @@ export class CoReferralService {
     headers = new Headers({ 'Content-Type': 'application/json' });
     options = new RequestOptions({ headers: this.headers });
     _baseurl = this._config.get1097BaseURL();
-    _categoryurl = this._baseurl + 'api/helpline1097/co/get/category'
-    _subcategoryurl = this._baseurl + 'api/helpline1097/co/get/subcategory'
-    _getDetailsURL = this._baseurl + 'iEMR/saveBenCalReferralMapping'
+    _categoryurl = this._baseurl + 'api/helpline1097/co/get/category';
+    _subcategoryurl = this._baseurl + 'api/helpline1097/co/get/subcategory';
+    _getDetailsURL = this._baseurl + 'iEMR/saveBenCalReferralMapping';
     _getReferralHistoryURL = this._baseurl + 'services/getReferralsHistory';
+    _getInformationHistoryURL = this._baseurl + 'services/getInformationsHistory';
+    _getCounsellingHistoryURL = this._baseurl + 'services/getCounsellingsHistory';
     _servicetypesurl = this._baseurl + 'api/helpline1097/co/get/servicetypes';
-    _getbenficiaryHistoryUrl = this._baseurl + 'services/getBeneficiaryCallsHistory'
+    _getbenficiaryHistoryUrl = this._baseurl + 'services/getBeneficiaryCallsHistory';
     constructor(
         private _http: Http,
         private _config: ConfigService,
@@ -56,6 +58,12 @@ export class CoReferralService {
         return this._http.post(this._getReferralHistoryURL, { 'beneficiaryRegID': id }).map(this.extractData).catch(this.handleError);
     }
 
+    getInformationsHistoryByID(id: any) {
+        return this._http.post(this._getInformationHistoryURL, { 'beneficiaryRegID': id }).map(this.extractData).catch(this.handleError);
+    }
+    getCounsellingsHistoryByID(id: any) {
+        return this._http.post(this._getCounsellingHistoryURL, { 'beneficiaryRegID': id }).map(this.extractData).catch(this.handleError);
+    }
     getTypes() {
         return this._http.post(this._servicetypesurl, this.options)
             .map(this.extractData)
