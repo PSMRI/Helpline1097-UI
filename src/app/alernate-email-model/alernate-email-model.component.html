@@ -1,0 +1,28 @@
+<md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true"
+  (click)="dialogReff.close()">clear</md-icon>
+<div class="col-xs-12 col-sm-12">
+  <md-card>
+    <md-card-content>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <label><b>Feedback: </b>{{this.data}}</label>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <md-checkbox style="margin: 0 10px" name="altEmail" [(ngModel)]="altEmail">
+            Alternate Email
+          </md-checkbox>
+          <div *ngIf="altEmail">
+            <div>
+              <label>Email : <em>*</em></label><input class="form-control" type="text" required minlength="10" maxlength="10"
+                placeholder="Enter email address" name="email" [(ngModel)]="email" #emailAdd="ngModel">
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <button [disabled]="altEmail" class="btn cu-green-btn pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close(altEmail)">Send Email
+                    </button>
+        </div>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>

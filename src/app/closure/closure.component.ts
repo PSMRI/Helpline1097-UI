@@ -29,6 +29,10 @@ export class ClosureComponent implements OnInit
   followUpDate: any;
   picker = '';
 
+  today: Date;
+
+  showSlider:boolean;
+
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
@@ -40,10 +44,26 @@ export class ClosureComponent implements OnInit
     const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
     this.isFollowUp = false;
     this._callServices.getCallTypes( requestObject ).subscribe( response => this.populateCallTypes( response ) );
+  
+    this.today = new Date();
+    this.minDate = this.today;
+    this.showSlider=false;
+  }
+
+  sliderVisibility(val)
+  {
+    if(val==="Valid Call")
+    {
+      this.showSlider=true;
+    }
+    else{
+      this.showSlider=false;
+    }
   }
 
   populateCallTypes ( response: any )
   {
+    console.log("hi",response);
     this.calltypes = response;
   }
   // @Input()
@@ -57,6 +77,7 @@ export class ClosureComponent implements OnInit
     this.summaryList = [];
     console.log( JSON.stringify( response ) );
     this.summaryList = response;
+  
     this.showCallSummary = false;
     if ( this.summaryList.length > 0 )
     {
@@ -98,6 +119,7 @@ export class ClosureComponent implements OnInit
   {
     if ( e.checked )
     {
+      
       this.isFollowUp = true;
       this.isFollowupRequired = true
     } else

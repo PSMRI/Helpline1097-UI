@@ -4,7 +4,8 @@ import { helpline1097CoComponent } from './1097-co/1097-co.component'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { InterceptedHttp } from './http.interceptor'
 import {
   MaterialModule,
   MdMenuModule,
@@ -63,6 +64,7 @@ import { BlockUnblockNumberComponent } from './block-unblock-number/block-unbloc
 import { DialBeneficiaryComponent } from './dial-beneficiary/dial-beneficiary.component';
 import { QualityAuditComponent } from './quality-audit/quality-audit.component';
 import { SupervisorNotificationsComponent } from './supervisor-notifications/supervisor-notifications.component';
+
 
 //cocomponents
 import { CoCounsellingServicesComponent } from './co-counselling-services/co-counselling-services.component';
@@ -123,7 +125,7 @@ import { NotificationService } from './services/notificationService/notification
 import { OutboundSearchRecordService } from './services/outboundServices/outbound-search-records.service';
 import { OutboundCallAllocationService } from './services/outboundServices/outbound-call-allocation.service';
 import { OutboundWorklistService } from './services/outboundServices/outbound-work-list.service';
-
+import { ConfirmationDialogsService } from './services/dialog/confirmation.service'
 
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
@@ -134,13 +136,19 @@ import { CollapseDirective } from './directives/collapse/collapse.directive'
 
 // md2 Material2  modules and components
 import { Md2Module } from 'md2';
-import { MdSnackBarModule } from '@angular/material';
+import { MdSnackBarModule, MdTabsModule, MdButtonModule } from '@angular/material';
 
 import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-history.component'
 import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component';
 import { KnowledgeManagementComponent } from './knowledge-management/knowledge-management.component';
-import { FeedbackStatusComponent } from './feedback-status/feedback-status.component'
+import { FeedbackStatusComponent } from './feedback-status/feedback-status.component';
+import { CommonDialogComponent } from './common-dialog/common-dialog.component';
+import { AlernateEmailModelComponent } from './alernate-email-model/alernate-email-model.component'
 
+// http factory
+import { httpFactory } from './http.factory';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './services/common/loader.service'
 
 
 @NgModule({
@@ -164,7 +172,7 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
-    FeedbackStatusComponent, MessageDialogComponent
+    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent
 
   ],
   imports: [
@@ -182,6 +190,7 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
     ValidationMessagesModule,
     BrowserAnimationsModule,
     MdCardModule,
+    MdTabsModule,
     RouterModule.forRoot([
       {
         path: 'resetPassword',
@@ -239,13 +248,20 @@ import { FeedbackStatusComponent } from './feedback-status/feedback-status.compo
       },
     ]),
     Md2Module],
-  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent],
+  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,
+    AlernateEmailModelComponent, CommonDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
-    CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService, OutboundCallAllocationService, NotificationService],
+    CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
+    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, {
+      provide: InterceptedHttp,
+      useFactory: httpFactory,
+      deps: [XHRBackend, RequestOptions, LoaderService]
+    }],
+
   bootstrap: [AppComponent]
 })
 

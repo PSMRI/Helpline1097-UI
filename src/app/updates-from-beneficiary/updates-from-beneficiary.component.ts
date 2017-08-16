@@ -22,7 +22,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   educationQualifications: any = [];
   sexualOrientations: any = [];
   count;
-  occupationID: any;
+  occupationID: any = undefined;
   occupations: any = [];
 
   sourceOfInfo: any = [
@@ -89,7 +89,6 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.saved_data.beneficiaryData.sexualOrientationId = values.sexualOrientationID;
     this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
     this.saved_data.beneficiaryData.remarks = values.remarks;
-
 
     // alert( values );
     const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe(response => {
