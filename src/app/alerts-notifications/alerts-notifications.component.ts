@@ -39,6 +39,7 @@ ngOnInit(){
                 "notificationTypeID": this.alertConfig[0].notificationTypeID,
                 "roleIDs": [this.role.RoleID],
                 "validFrom": new Date().toISOString(),
+                //currently alerts and notifications from current date to one week(7*24*60*60*1000)
                 "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
             };
         } 
@@ -52,6 +53,7 @@ ngOnInit(){
                 "notificationTypeID": this.notificationConfig[0].notificationTypeID,
                 "roleIDs": [this.role.RoleID],
                 "validFrom": new Date().toISOString(),
+                //currently alerts and notifications from current date to one week(7*24*60*60*1000)
                 "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
             }
         }      
@@ -78,6 +80,7 @@ getAlertsandNotifications(){
     // console.log(this.alertPostData);
     // console.log(this.notificationPostData);
     if(this.alertPostData){
+        console.log(this.alertPostData);
         this.notificationService.getAlerts(this.alertPostData)
         .subscribe((response)=>{
             console.log(response);
@@ -88,6 +91,7 @@ getAlertsandNotifications(){
         });
     }
     if(this.notificationPostData){
+        console.log(this.notificationPostData);
         this.notificationService.getNotifications(this.notificationPostData)
         .subscribe((response)=>{
             console.log(response);
