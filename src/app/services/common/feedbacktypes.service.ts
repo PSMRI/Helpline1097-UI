@@ -11,9 +11,11 @@ import 'rxjs/add/operator/map';
 export class FeedbackTypes
 {
     _helpline1097BaseURL = this._config.get1097BaseURL();
+    _commonURL = this._config.getCommonBaseURL();
+    _servicetypesurl = this._commonURL + "service/servicetypes";
     _getFeedbackTypesURL = this._helpline1097BaseURL + "feedback/gettype/";
     _getFeedbackSeverityURL = this._helpline1097BaseURL + "feedback/getseverity/";
-    _servicetypesurl = this._helpline1097BaseURL + "api/helpline1097/co/get/servicetypes"
+    // _servicetypesurl = this._helpline1097BaseURL + "api/helpline1097/co/get/servicetypes"
     headers = new Headers( { 'Content-Type': 'application/json' } );
     options = new RequestOptions( { headers: this.headers } );
     constructor(
@@ -21,9 +23,11 @@ export class FeedbackTypes
         private _config: ConfigService
     ) { }
 
-    getTypes ()
+    getTypes ( providerServiceMapID: number )
     {
-        return this._http.post( this._servicetypesurl, this.options )
+        let data = {};
+        data[ "providerServiceMapID" ] = providerServiceMapID;
+        return this._http.post( this._servicetypesurl, data, this.options )
             .map( this.extractData )
             .catch( this.handleError );
     }
