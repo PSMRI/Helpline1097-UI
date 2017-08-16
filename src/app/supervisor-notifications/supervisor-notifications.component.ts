@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { dataService } from '../services/dataService/data.service';
-
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
+import { MdDialog } from '@angular/material';
 
 @Component({
   selector: 'app-supervisor-notifications',
@@ -21,13 +22,17 @@ export class SupervisorNotificationsComponent implements OnInit {
   error2: boolean = false;
   createdBy: any;
   requiredArr = [];
+  userId : any;
+  file : any;
+  fileContent : any;
   @ViewChild('notificationForm') notificationForm: NgForm;
   
-  constructor(private notificationService: NotificationService,public commonDataService: dataService) { }
+  constructor(private notificationService: NotificationService,public commonDataService: dataService, public dialog : MdDialog) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.uname;
+    this.userId = this.commonDataService.uid;
     this.notificationService.getNotificationTypes(this.providerServiceMapID)
     .subscribe((response)=>{
       console.log(response);
@@ -48,6 +53,13 @@ export class SupervisorNotificationsComponent implements OnInit {
 
   onFileUpload(event){
     this.fileList = event.target.files;
+    this.file = event.target.files[0];
+    console.log(this.file);
+    if(this.file){
+      const myReader: FileReader = new FileReader();
+      myReader.onloadend = this.onLoadFileCallback.bind(this)
+      myReader.readAsDataURL(this.file);
+    }
     if(this.fileList.length==0){
       this.error1 = true;
       this.error2 = false;
@@ -63,19 +75,56 @@ export class SupervisorNotificationsComponent implements OnInit {
       this.error1 = false;
     }
   }
+  onLoadFileCallback = (event) => {
+    this.fileContent = event.currentTarget.result;
+  }
 
   onSubmit(){
     console.log(this.notificationForm.value);
     const promise = new Promise((resolve, reject)=>{
+       if(this.notificationForm.value.roles == ""){
+          var postData = [{
+              "providerServiceMapID": this.providerServiceMapID,
+              "notificationTypeID": this.selectedNotification.notificationTypeID,
+              "roleID": undefined,
+              "createdBy": this.createdBy,
+              "notification": this.notificationForm.value.notificationSubject,
+              "notificationDesc": this.notificationForm.value.notificationMessage,
+              "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
+              "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
+              "kmFileManager": {
+                "fileName": (this.file!=undefined)? this.file.name : '', 
+                "fileExtension": (this.file!=undefined)? '.' + this.file.name.split('.')[1]: '', 
+                "providerServiceMapID": this.providerServiceMapID, 
+                "userID": this.userId, 
+                "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
+                "validUpto": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
+                "fileContent":(this.fileContent!=undefined)?this.fileContent.split(',')[1]: '', 
+                "createdBy":this.createdBy
+              }
+          }];
+          resolve(postData);
+      }
       for(var i= 0 ; i< this.notificationForm.value.roles.length;i++){
         var data = {
           "providerServiceMapID": this.providerServiceMapID,
           "notificationTypeID": this.selectedNotification.notificationTypeID,
           "roleID": this.notificationForm.value.roles[i],
           "createdBy": this.createdBy,
+          "notification": this.notificationForm.value.notificationSubject,
           "notificationDesc": this.notificationForm.value.notificationMessage,
           "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-          "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON()
+          "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
+          "kmFileManager": {
+            "fileName": (this.file!=undefined)? this.file.name : '', 
+            "fileExtension": (this.file!=undefined)? '.' + this.file.name.split('.')[1]: '', 
+            "providerServiceMapID": this.providerServiceMapID, 
+            "userID": this.userId, 
+            "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
+            "validUpto": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
+            "fileContent":(this.fileContent!=undefined)?this.fileContent.split(',')[1]: '', 
+            "createdBy":this.createdBy
+          }
         }
         this.requiredArr.push(data);
         if(i==(this.notificationForm.value.roles.length-1)){
@@ -89,9 +138,23 @@ export class SupervisorNotificationsComponent implements OnInit {
         this.notificationService.createNotification(data)
         .subscribe((response)=>{
           console.log(response);
+          if(response.data.length > 0){
+            let dialog = this.dialog.open(MessageDialogComponent, {
+              data: {
+                  message: "Succesfully created notifications",
+                  type: "Message"
+              }
+            });
+          }
         },
         (error)=> {
           console.log(error);
+          let dialog = this.dialog.open(MessageDialogComponent, {
+            data: {
+                message: "Error in craeting notifications",
+                type: "Message"
+            }
+          });
         })
       },
       (err) => { console.log(err); }
@@ -102,5 +165,5 @@ export class SupervisorNotificationsComponent implements OnInit {
     console.log(this.notificationTypes[event.value]);
     this.selectedNotification = this.notificationTypes[event.value];
   }
-  
+
 }
