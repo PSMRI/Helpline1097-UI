@@ -117,7 +117,7 @@ notificationClicked(notification,event){
     let dialog = this.dialog.open(MessageDialogComponent, {
         data: {
             message: notification.notificationDesc,
-            type: "Alert"
+            type: "Notification"
         }
       });
 }
