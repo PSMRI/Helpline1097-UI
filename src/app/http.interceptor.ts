@@ -89,9 +89,14 @@ export class InterceptedHttp extends Http {
         this.hideLoader();
     }
     private onSuccess(response: any) {
-        return response;
+        if (response.json().data) {
+            return response;
+        } else {
+            return Observable.throw(response);
+        }
     }
     private onError(error: any) {
+        this.hideLoader();
         return error;
     }
     private showLoader(): void {

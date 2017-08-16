@@ -644,8 +644,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   calculateDOB(age) {
     const currentYear = this.today.getFullYear();
     // int parsing in decimal format
-    this.DOB = new Date('' + (currentYear - parseInt(age, 10)));
+    // if (this.DOB) {
+    //   this.DOB = new Date(this.DOB.getDate() + '/' + (this.DOB.getMonth() + 1) + '/' + (currentYear - parseInt(age, 10)))
+    // } else {
+      this.DOB = new Date('' + (currentYear - parseInt(age, 10)));
+    // }
+
     this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', 'readonly');
+
   }
   // to remove the readonly on double click
   enableAge(data) {
@@ -701,9 +707,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     else {
       this.genderErrFlag = false;
       // this.genderFlag = false;
-
-
-       }
+    }
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];

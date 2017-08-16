@@ -49,6 +49,17 @@ export class supervisorFeedback implements OnInit {
   ) {
     this.feedbackList;
     this.feedbackresponceList;
+
+    /*
+      editor:Diamond Khanna
+      date:16 Aug,2017
+    */
+    this.feedBackRequestsResponse=[];
+    this.feedBackResponses=[];
+
+     /*
+      end
+    */
   }
 
 
@@ -117,9 +128,11 @@ export class supervisorFeedback implements OnInit {
     this.serviceID = this._saved_data.current_service.serviceID;
     let requestData = {};
     requestData['serviceID'] = this.serviceID;
+
     this._feedbackservice.getFeedbackStatuses().subscribe(resProviderData => this.feedbackStatuses = resProviderData);
 
     this._feedbackservice.getEmailStatuses().subscribe(resProviderData => this.emailStatuses = resProviderData);
+    
     this._feedbackservice.getFeedback(requestData)
       .subscribe(resProviderData => this.providers(resProviderData));
 
@@ -199,12 +212,26 @@ export class supervisorFeedback implements OnInit {
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
     // feedback request response
-    this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryID, this.serviceID)
-      .subscribe((response) => {
-        this.setFeedbackHistoryByID(response)
-      }, (err) => {
-        console.log('Error in fetching Data of FeedBack');
-      });
+
+     /*
+      editor:Diamond Khanna
+      date:16 Aug,2017
+    */
+
+    // this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryID, this.serviceID)
+    //   .subscribe((response) => {
+    //     this.setFeedbackHistoryByID(response)
+    //   }, (err) => {
+    //     console.log('Error in fetching Data of FeedBack');
+    //   });
+
+    this.feedBackRequestsResponse=feedback.feedbackRequests;
+    this.feedBackResponses=feedback.feedbackResponses;
+
+     /*
+      end
+    */
+
     this.isCollapsedResponse = true;
 
 
@@ -242,6 +269,18 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
+
+     /*
+      editor:Diamond Khanna
+      date:16 Aug,2017
+    */
+
+     this.feedBackRequestsResponse=feedback.feedbackRequests;
+    this.feedBackResponses=feedback.feedbackResponses;
+
+    /*
+      end
+    */
 
   }
 
@@ -318,6 +357,7 @@ export class supervisorFeedback implements OnInit {
     this.isCollapsedResponse = !this.isCollapsedResponse;
     // this.renderer.setElementAttribute(this.trChild.nativeElement, 'collapse', 'isCollapsedResponse');
   }
+
   setFeedbackHistoryByID(response: any) {
     console.log('the response for feedback history is', response);
     this.feedbackStatusData = response;
