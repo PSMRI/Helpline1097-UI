@@ -27,6 +27,7 @@ export class helpline1097CoComponent implements OnInit {
   @Output() StartNewCall: EventEmitter<any> = new EventEmitter<any>();
   @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() getHistory: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancel') cancel;
 
   constructor(
@@ -276,4 +277,8 @@ export class helpline1097CoComponent implements OnInit {
       }
     });
   }
+  getServiceHistory() {
+    this.getHistory.emit(null);
+  }
+
 }

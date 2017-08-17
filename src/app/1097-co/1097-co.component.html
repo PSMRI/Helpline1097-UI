@@ -47,11 +47,11 @@
               <div class="item active">
                 <!--<app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                                         (StartNewCall)="startCall()" #registration></app-beneficiary-registration>-->
-                <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();updateServiceProvided()" #registration></app-beneficiary-registration>
+                <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();getServiceHistory()" #registration></app-beneficiary-registration>
               </div>
               <div class="item ">
                 <!--<app-co-services (beneficiarySelected)="startCOService()" (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>-->
-                <app-co-services (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>
+                <app-co-services (serviceGiven)="updateServiceProvided(); closure.onView()" #coservice></app-co-services>
               </div>
               <div class="item ">
                 <!--<app-updates-from-beneficiary (beneficiarySelected)="PopulateUpdateData()" #updatebeneficiary></app-updates-from-beneficiary>-->
