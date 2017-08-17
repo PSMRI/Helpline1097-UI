@@ -11,6 +11,8 @@ import { dataService } from "../services/dataService/data.service"
 } )
 export class CoReferralServicesComponent implements OnInit
 {
+  @Input() current_language: any;
+  currentlanguage: any;
 
   @Output() referralServiceProvided: EventEmitter<any> = new EventEmitter<any>();
 
@@ -58,6 +60,18 @@ export class CoReferralServicesComponent implements OnInit
       .subscribe( response => this.SetUserBeneficiaryRegistrationData( response ) );
     this.setBeneficiaryData();
   }
+
+   ngOnChanges()
+  {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language in referral tak");
+  }
+
   GetServiceTypes ()
   {
     this._coReferralService.getTypes()

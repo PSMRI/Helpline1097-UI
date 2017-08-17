@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,Input, EventEmitter } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from "../services/dataService/data.service"
 
@@ -10,6 +10,10 @@ import { dataService } from "../services/dataService/data.service"
 } )
 export class CoCounsellingServicesComponent implements OnInit
 {
+
+  @Input() current_language: any;
+  currentlanguage: any;
+
   @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
   subCategoryList: any;
@@ -27,6 +31,17 @@ export class CoCounsellingServicesComponent implements OnInit
   ngOnInit ()
   {
     this.GetServiceTypes();
+  }
+
+   ngOnChanges()
+  {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language counselling tak");
   }
 
   GetServiceTypes ()

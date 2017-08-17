@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,Input, EventEmitter } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from "../services/dataService/data.service"
 
@@ -9,6 +9,11 @@ import { dataService } from "../services/dataService/data.service"
 } )
 export class CoInformationServicesComponent implements OnInit
 {
+  @Input() current_language: any;
+  currentlanguage: any;
+
+
+
   @Output() informationServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
   subCategoryList: any;
@@ -17,9 +22,9 @@ export class CoInformationServicesComponent implements OnInit
   detailsList: any;
   serviceID: number;
   constructor(
-    private _coCategoryService: CoCategoryService,
-    private saved_data: dataService
-  )
+              private _coCategoryService: CoCategoryService,
+              private saved_data: dataService
+              )
   {
   }
 
@@ -27,10 +32,21 @@ export class CoInformationServicesComponent implements OnInit
   {
     this.GetServiceTypes();
   }
+
+  ngOnChanges()
+  {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language info tk");
+  }
   GetServiceTypes ()
   {
     this._coCategoryService.getTypes()
-      .subscribe( response => this.setServiceTypes( response ) );
+    .subscribe( response => this.setServiceTypes( response ) );
   }
   setServiceTypes ( response: any )
   {
@@ -47,12 +63,12 @@ export class CoInformationServicesComponent implements OnInit
   GetCategories ()
   {
     this._coCategoryService.getCategories()
-      .subscribe( response => this.SetCategories( response ) );
+    .subscribe( response => this.SetCategories( response ) );
   }
   GetCategoriesByID ()
   {
     this._coCategoryService.getCategoriesByID( this.serviceID )
-      .subscribe( response => this.SetCategories( response ) );
+    .subscribe( response => this.SetCategories( response ) );
   }
 
   SetCategories ( response: any )
@@ -65,7 +81,7 @@ export class CoInformationServicesComponent implements OnInit
   {
     // console.log('symcatid',this.symptomCategory);
     this._coCategoryService.getSubCategories( id )
-      .subscribe( response => this.SetSubCategories( response ) );
+    .subscribe( response => this.SetSubCategories( response ) );
   }
 
   SetSubCategories ( response: any )
@@ -77,9 +93,9 @@ export class CoInformationServicesComponent implements OnInit
   GetSubCategoryDetails ( id: any )
   {
     this._coCategoryService.getDetails(
-      id, this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID,
-      this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID
-    ).subscribe( response => this.SetSubCategoryDetails( response ) );
+                                       id, this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID,
+                                       this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID
+                                       ).subscribe( response => this.SetSubCategoryDetails( response ) );
   }
 
   SetSubCategoryDetails ( response: any )

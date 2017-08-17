@@ -13,6 +13,10 @@ import { Message } from './../services/common/message.service';
 export class ClosureComponent implements OnInit
 // export class ClosureComponent implements AfterViewInit
 {
+
+   @Input() current_language: any;
+  currentlanguage: any;
+
   @Output() callClosed: EventEmitter<any> = new EventEmitter<any>();
 
   summaryList: any = [];
@@ -48,6 +52,17 @@ export class ClosureComponent implements OnInit
     this.today = new Date();
     this.minDate = this.today;
     this.showSlider=false;
+  }
+
+   ngOnChanges()
+    {
+      this.setLanguage(this.current_language);
+
+    }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language closure tak");
   }
 
   sliderVisibility(val)

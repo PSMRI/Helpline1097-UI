@@ -21,6 +21,10 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 
 })
 export class BeneficiaryRegistrationComponent implements OnInit {
+    @Input() current_language: any;
+  currentlanguage: any;
+
+
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>(); 1
   @ViewChild('ageRef') input: ElementRef;
@@ -114,6 +118,20 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.IntializeSessionValues();
 
   }
+
+
+  ngOnChanges()
+  {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language ben reg tk");
+  }
+
+
   IntializeSessionValues() {
     this.today = new Date();
     this.maxDate = this.today;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Directive } from '@angular/core';
+import { Component, OnInit, Output,Input, EventEmitter, Directive } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
 import { LocationService } from '../services/common/location.service';
 import { CoFeedbackService } from '../services/coService/co_feedback.service';
@@ -17,6 +17,9 @@ import { FeedbackStatusComponent } from './../feedback-status/feedback-status.co
 } )
 export class CoFeedbackServicesComponent implements OnInit
 {
+	 @Input() current_language: any;
+  currentlanguage: any;
+
 	@Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
 
 	showFormCondition: boolean = false;
@@ -111,6 +114,17 @@ export class CoFeedbackServicesComponent implements OnInit
 		this.today = new Date();
 		this.maxDate = this.today;
 	}
+
+	ngOnChanges()
+  	{
+    	this.setLanguage(this.current_language);
+
+  	}
+
+  	setLanguage(language) {
+    	this.currentlanguage = language;
+    	console.log(language, "language feedback services mein");
+  	}
 
 	showBeneficiaryFeedbackList ()
 	{

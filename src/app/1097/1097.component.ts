@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,Input, EventEmitter } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router'
@@ -10,6 +10,8 @@ import { ActivatedRoute, Params } from '@angular/router'
 } )
 export class helpline1097Component implements OnInit
 {
+    @Input() current_language: any;
+  currentlanguage: any;
 
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   current_role: any;
@@ -32,6 +34,20 @@ export class helpline1097Component implements OnInit
   // 	jQuery("#service" + val).parent().find('a').removeClass();
   // 	jQuery("#service" + val + " a").addClass("f-c-o");
   // }
+
+
+   ngOnChanges()
+  {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language in 1097");
+  }
+
+
 
   selectBeneficiary ( data: any )
   {
