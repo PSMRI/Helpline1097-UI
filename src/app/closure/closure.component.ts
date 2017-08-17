@@ -7,11 +7,11 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 
 
 
-@Component({
+@Component( {
   selector: 'app-closure',
   templateUrl: './closure.component.html',
-  styleUrls: ['./closure.component.css']
-})
+  styleUrls: [ './closure.component.css' ]
+} )
 export class ClosureComponent implements OnInit
 // export class ClosureComponent implements AfterViewInit
 {
@@ -41,78 +41,102 @@ export class ClosureComponent implements OnInit
     private message: ConfirmationDialogsService
   ) { }
   /* Intialization of variable and object has to be come here */
-  ngOnInit() {
+  ngOnInit ()
+  {
     const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
     this.isFollowUp = false;
-    this._callServices.getCallTypes(requestObject).subscribe(response => this.populateCallTypes(response));
+    this._callServices.getCallTypes( requestObject ).subscribe( response => this.populateCallTypes( response ) );
 
     this.today = new Date();
     this.minDate = this.today;
     this.showSlider = false;
   }
 
-  sliderVisibility(val) {
-    if (val === "Valid Call") {
+  sliderVisibility ( val )
+  {
+    if ( val === "Valid Call" )
+    {
       this.showSlider = true;
     }
-    else {
+    else
+    {
       this.showSlider = false;
     }
   }
 
-  populateCallTypes(response: any) {
-    console.log("hi", response);
+  populateCallTypes ( response: any )
+  {
+    console.log( "hi", response );
     this.calltypes = response;
   }
   // @Input()
-  onView() {
+  onView ()
+  {
     const requestObject = { 'benCallID': this.saved_data.callData.benCallID };
-    this._callServices.getCallSummary(requestObject).subscribe(response => this.populateCallSummary(response));
+    this._callServices.getCallSummary( requestObject ).subscribe( response => this.populateCallSummary( response ) );
   }
-  populateCallSummary(response: any) {
+  populateCallSummary ( response: any )
+  {
     this.summaryList = [];
-    console.log(JSON.stringify(response));
+    console.log( JSON.stringify( response ) );
     this.summaryList = response;
 
     this.showCallSummary = false;
-    if (this.summaryList.length > 0) {
+    if ( this.summaryList.length > 0 )
+    {
       this.showCallSummary = true;
     }
   }
 
-  closeCall(values: any) {
+  closeCall ( values: any )
+  {
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
-    if (values.prefferedDateTime) {
-      values.prefferedDateTime = new Date(values.prefferedDateTime);
+
+    //Gursimran to look at fixing of followupRequired issue
+    if ( values.isFollowupRequired == undefined )
+    {
+      values.isFollowupRequired = false;
+    }
+
+    if ( values.prefferedDateTime )
+    {
+      values.prefferedDateTime = new Date( values.prefferedDateTime );
       values.prefferedDateTime
-        = new Date((values.prefferedDateTime) - 1 * (values.prefferedDateTime.getTimezoneOffset() * 60 * 1000)).toJSON();
-    } else {
+        = new Date(( values.prefferedDateTime ) - 1 * ( values.prefferedDateTime.getTimezoneOffset() * 60 * 1000 ) ).toJSON();
+    } else
+    {
       values.preferredDateTime = undefined;
     }
     values.createdBy = this.saved_data.uname;
-    values.fitToBlock = values.callTypeID.split(",")[1];
-    values.callTypeID = values.callTypeID.split(",")[0];
-    console.log('close called with ' + values);
-    this._callServices.closeCall(values).subscribe((response) => {
+    values.fitToBlock = values.callTypeID.split( "," )[ 1 ];
+    values.callTypeID = values.callTypeID.split( "," )[ 0 ];
+    console.log( 'close called with ' + values );
+    this._callServices.closeCall( values ).subscribe(( response ) =>
+    {
       this.callClosed.emit();
       this.showAlert();
-    }, (err) => {
-      this.message.alert(err.status);
-    });
+    }, ( err ) =>
+      {
+        this.message.alert( err.status );
+      } );
   }
 
-  showAlert() {
-    this.message.alert('Call closed Successful!!!!');
+  showAlert ()
+  {
+    this.message.alert( 'Call closed Successful!!!!' );
     // alert('Call closed Successful!!!!');
   }
-  isFollow(e) {
-    if (e.checked) {
+  isFollow ( e )
+  {
+    if ( e.checked )
+    {
 
       this.isFollowUp = true;
       this.isFollowupRequired = true
-    } else {
+    } else
+    {
       this.isFollowUp = false;
       this.isFollowupRequired = false;
     }

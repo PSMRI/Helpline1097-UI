@@ -3,34 +3,34 @@
     <div class="col-xs-12 col-sm-12">
       <h4>Call Details</h4>
     </div> -->
-    <!-- <div class="bg-white p-t-20 m-t-10 "> -->
-      <div class="col-xs-12 col-sm-12"  *ngIf="showCallSummary">
-        <div class="table-responsive">
-          <label class="control-label" for="callSummary" >Availed Services During Call</label>
-          <table class="table">
-            <thead>
-              <tr>
-                <th i18n>Call ID</th>
-                <th i18n>Information</th>
-                <th i18n>Counselling</th>
-                <th i18n>Referral</th>
-                <th i18n>Feedback</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList">
-                <td i18n>{{summaryDetails.benCallID}}</td>
-                <td i18n>{{summaryDetails.informationServices}}</td>
-                <td i18n>{{summaryDetails.counsellingServices}}</td>
-                <td i18n>{{summaryDetails.referralServices}}</td>
-                <td i18n>{{summaryDetails.feedbackServices}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    <!-- </div> -->
-    <!-- <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
+<!-- <div class="bg-white p-t-20 m-t-10 "> -->
+<div class="col-xs-12 col-sm-12" *ngIf="showCallSummary">
+  <div class="table-responsive">
+    <label class="control-label" for="callSummary">Availed Services During Call</label>
+    <table class="table">
+      <thead>
+        <tr>
+          <th i18n>Call ID</th>
+          <th i18n>Information</th>
+          <th i18n>Counselling</th>
+          <th i18n>Referral</th>
+          <th i18n>Feedback</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList">
+          <td i18n>{{summaryDetails.benCallID}}</td>
+          <td i18n>{{summaryDetails.informationServices}}</td>
+          <td i18n>{{summaryDetails.counsellingServices}}</td>
+          <td i18n>{{summaryDetails.referralServices}}</td>
+          <td i18n>{{summaryDetails.feedbackServices}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- </div> -->
+<!-- <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
           <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">Is followup required?</md-slide-toggle>
@@ -93,7 +93,7 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center" *ngIf="showSlider">
     <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">Is Follow-Up Required ?</md-slide-toggle>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" >
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
     <form #Form="ngForm" (ngSubmit)="closeCall(Form.value); Form.reset()">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -117,7 +117,8 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="isFollowUp">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <md2-datepicker [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="Preferred Date (dd-mm-yyyy)" [(ngModel)]="preferredDateTime"></md2-datepicker>
+          <md2-datepicker [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="Preferred Date (dd-mm-yyyy)"
+            [(ngModel)]="preferredDateTime"></md2-datepicker>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <md-input-container style="width: 100%">
@@ -126,9 +127,8 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" >Submit</button>
+        <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18">Submit</button>
       </div>
     </form>
   </div>
 </div>
-
