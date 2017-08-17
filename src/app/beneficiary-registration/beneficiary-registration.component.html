@@ -205,7 +205,7 @@
       <h4>Registration form</h4>
     </div>
     <form autocomplete="off">
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="TitleId">TitleId</label>
         <select class="form-control drop-arrow" name="TitleId" [(ngModel)]="TitleId">
@@ -262,7 +262,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-7">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-7">
         <div class="form-group">
           <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
 
@@ -271,7 +271,7 @@
 
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-9">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
         <!--       <div class="form-group">
         <label class="control-label" for="lastName">Age </label>
         <input type="text" class="form-control" #ageRef placeholder="Enter age" name="age" (blur)="calculateDOB(ageRef.value)"
@@ -289,7 +289,7 @@
         </md-input-container>
 
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-9">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
         <!--       <div class="form-group">
         <label class="control-label" for="PhoneNo">Alternate Number</label>
         <input type="text" class="form-control" placeholder="Enter PhoneNo" name="PhoneNo" [(ngModel)]="PhoneNo">
@@ -298,7 +298,7 @@
           <input mdInput placeholder="Alternate Number" maxlength="10" name="PhoneNo" [(ngModel)]="PhoneNo">
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngIf="isParentBeneficiary">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" *ngIf="isParentBeneficiary">
         <!--       <div class="form-group">
         <label class="control-label" for="beneficiaryRealtion">{{relationshipWith}}</label>
         <select class="form-control drop-arrow" name="beneficiaryRealtionID" [(ngModel)]="beneficiaryRelationID">
@@ -329,13 +329,13 @@
           <input type="text" class="form-control" value="130" name="ParentBenRegID" [(ngModel)]="ParentBenRegID">
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="display:none;">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="display:none;">
         <div class="form-group">
           <label class="control-label" for="BeneficiaryTypeID">Relationship </label>
           <input type="text" class="form-control" name="BeneficiaryTypeID" [(ngModel)]="BeneficiaryTypeID">
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="identityType">Identity Type </label>
         <select class="form-control drop-arrow" #idType name="identityType" [(ngModel)]="identityType">
@@ -352,7 +352,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-b-9">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
         <!--       <div class="form-group">
         <label class="control-label" for="aadharNo">ID No.</label>
         <input type="text" class="form-control" placeholder="Enter Aadhar No." maxlength="15" name="aadharNo" [(ngModel)]="aadharNo">
@@ -361,7 +361,7 @@
           <input mdInput placeholder="ID Number" name="aadharNo" [(ngModel)]="aadharNo">
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="caste">Select Caste</label>
         <select class="form-control drop-arrow" name="caste" [(ngModel)]="caste">
@@ -378,7 +378,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="educationQualification" i18n>Select Education Qualification</label>
         <select class="form-control drop-arrow" name="educationQualification" [(ngModel)]="educationQualification">
@@ -395,7 +395,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="state" i18n>Select State</label>
         <select class="form-control drop-arrow" name="state" [(ngModel)]="state" (change)="GetDistricts(state)">
@@ -416,7 +416,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="district" i18n>Select District</label>
         <select class="form-control drop-arrow" name="district" [(ngModel)]="district" (change)="GetTaluks(district)">
@@ -437,7 +437,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="taluk" i18n>Taluk</label>
         <select class="form-control drop-arrow" name="taluk" [(ngModel)]="taluk" (change)="GetBlocks(taluk)">
@@ -454,7 +454,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="village" i18n>Panchayat/Village</label>
         <select class="form-control drop-arrow" name="village" [(ngModel)]="village">
@@ -471,7 +471,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="pincode" i18n>Pin code </label>
         <input type="text" class="form-control" placeholder="Enter Pincode" name="pincode" [(ngModel)]="pincode">
