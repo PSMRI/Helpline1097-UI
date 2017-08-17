@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { ConfigService } from "../config/config.service";
+import { ConfigService } from '../config/config.service';
+import { InterceptedHttp } from './../../http.interceptor';
 @Injectable()
-export class FeedbackService
-{
+export class FeedbackService {
     test = [];
     headers = new Headers(
         { 'Content-Type': 'application/json' }
@@ -13,16 +13,16 @@ export class FeedbackService
         //  ,{'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS'}
         //  ,{'Access-Control-Allow-Methods': '*'}
     );
-    options = new RequestOptions( { headers: this.headers } );
+    options = new RequestOptions({ headers: this.headers });
     private _commonBaseURL = this._config.getCommonBaseURL();
     private _helpline1097BaseURL = this._config.get1097BaseURL();
 
-    private _feedbackListURL: string = this._config.getCommonBaseURL() + "feedback/getFeedbacksList";
-    private _requestFeedbackURL: string = this._config.getCommonBaseURL() + "feedback/requestFeedback";
-    private _updateResponseURL: string = this._config.getCommonBaseURL() + "feedback/updateResponse";
+    private _feedbackListURL: string = this._config.getCommonBaseURL() + 'feedback/getFeedbacksList';
+    private _requestFeedbackURL: string = this._config.getCommonBaseURL() + 'feedback/requestFeedback';
+    private _updateResponseURL: string = this._config.getCommonBaseURL() + 'feedback/updateResponse';
 
-    private _getFeedbackStatus: string = this._config.getCommonBaseURL() + "feedback/getFeedbackStatus"
-    private _getEmailStatus: string = this._config.getCommonBaseURL() + "feedback/getEmailStatus"
+    private _getFeedbackStatus: string = this._config.getCommonBaseURL() + 'feedback/getFeedbackStatus'
+    private _getEmailStatus: string = this._config.getCommonBaseURL() + 'feedback/getEmailStatus'
     // private _feedbackListURL: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/getFeedback"
     // private _updateurl: string = "http://10.152.3.152:1040/Helpline-104-API/grievance/updateFeedback"
     // //  private _updateurl:string="http://localhost:8080/Helpline-104-API/grievance/updateFeedback"
@@ -42,37 +42,34 @@ export class FeedbackService
 
     constructor(
         private _http: Http,
-        private _config: ConfigService
+        private _config: ConfigService,
+        private httpIterceptor: InterceptedHttp
     ) { }
-    getFeedback ( data: any )
-    {
+    getFeedback(data: any) {
 
-        return this._http.post( this._feedbackListURL, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        return this.httpIterceptor.post(this._feedbackListURL, data).map(this.handleSuccess).catch(this.handleError);
         // .map(( response: Response ) => response.json() );
 
     }
 
-    getFeedbackStatuses ()
-    {
+    getFeedbackStatuses() {
         let data = {};
-        return this._http.post( this._getFeedbackStatus, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        return this._http.post(this._getFeedbackStatus, data, this.options).map(this.handleSuccess).catch(this.handleError);
         // .map(( response: Response ) => response.json() );
 
     }
 
-    getEmailStatuses ()
-    {
+    getEmailStatuses() {
         let data = {};
-        return this._http.post( this._getEmailStatus, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        return this._http.post(this._getEmailStatus, data, this.options).map(this.handleSuccess).catch(this.handleError);
         // .map(( response: Response ) => response.json() );
 
     }
 
-    requestFeedback ( data: any )
-    {
+    requestFeedback(data: any) {
 
         //console.log(data);
-        return this._http.post( this._requestFeedbackURL, data, this.options ).map( this.handleSuccess ).catch( this.handleError );
+        return this._http.post(this._requestFeedbackURL, data, this.options).map(this.handleSuccess).catch(this.handleError);
 
         // .map(( response: Response ) => response.json() );
 
@@ -89,9 +86,8 @@ export class FeedbackService
     //     // .map(( response: Response ) => response.json() );
 
     // }
-    updateResponce ( resData: any )
-    {
-        return this._http.post( this._updateResponseURL, resData, this.options ).map( this.handleSuccess ).catch( this.handleError );
+    updateResponce(resData: any) {
+        return this._http.post(this._updateResponseURL, resData, this.options).map(this.handleSuccess).catch(this.handleError);
         // .map(( response: Response ) => response.json() );
 
     }
@@ -104,19 +100,15 @@ export class FeedbackService
 
     // }
 
-    handleSuccess ( response: Response )
-    {
-        if ( response.json().data )
-        {
+    handleSuccess(response: Response) {
+        if (response.json().data) {
             return response.json().data;
-        } else
-        {
+        } else {
             return response.json();
         }
     }
 
-    handleError ( response: Response )
-    {
+    handleError(response: Response) {
         return response.json();
     }
 }
