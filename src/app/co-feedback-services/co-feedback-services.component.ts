@@ -45,10 +45,11 @@ export class CoFeedbackServicesComponent implements OnInit
 	feedbackTypes: any = [];
 	feedbackSeverities: any = [];
 	serviceID: any = -1;
-	serviceID1097: any = -1;
+	subServiceID: any = -1;
 	count;
 	feedbacksArray: any = [];
 	modalArray: any = [];
+	providerServiceMapID: number;
 
 	feedbackcounter: any = 1000;
 	today: Date;
@@ -76,16 +77,16 @@ export class CoFeedbackServicesComponent implements OnInit
 
 	GetServiceTypes ()
 	{
-		this._feedbackTypes.getTypes()
+		this._feedbackTypes.getTypes( this.providerServiceMapID )
 			.subscribe( response => this.setServiceTypes( response ) );
 	}
 	setServiceTypes ( response: any )
 	{
 		for ( let i: any = 0; i < response.length; i++ )
 		{
-			if ( response[ i ].serviceNameFor1097.toUpperCase().search( 'FEED' ) >= 0 )
+			if ( response[ i ].subServiceName.toUpperCase().search( 'FEED' ) >= 0 )
 			{
-				this.serviceID1097 = response[ i ].serviceID1097;
+				this.subServiceID = response[ i ].subServiceID;
 				break;
 			}
 		}
@@ -97,6 +98,7 @@ export class CoFeedbackServicesComponent implements OnInit
 		this.beneficiaryRegID = this._savedData.beneficiaryData.beneficiaryRegID;
 		this.userName = this._savedData.uname;
 		this.serviceID = this._savedData.current_service.serviceID;
+		this.providerServiceMapID = this._savedData.current_service.serviceID;
 		this._userBeneficiaryData.getUserBeneficaryData()
 			.subscribe( response => this.SetUserBeneficiaryFeedbackData( response ) );
 		this._coFeedbackService.getDesignations()
@@ -218,7 +220,7 @@ export class CoFeedbackServicesComponent implements OnInit
 			'beneficiaryRegID': this.beneficiaryRegID,
 			'serviceAvailDate': this.selected_doi,
 			'serviceID': this.serviceID,
-			'serviceID1097': this.serviceID1097,
+			'subServiceID': this.subServiceID,
 			'userID': this._savedData.uid,
 			'createdBy': this.userName,
 			'benCallID': this._savedData.callData.benCallID,
