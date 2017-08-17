@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from '../services/update-services/update-service';
 import { dataService } from '../services/dataService/data.service';
 import { Message } from './../services/common/message.service';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 declare let jQuery: any;
 @Component({
@@ -40,7 +41,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     private _util: UpdateService,
     private fb: FormBuilder,
     private saved_data: dataService,
-    private message: Message) {
+    private message: ConfirmationDialogsService) {
   }
 
 
@@ -91,13 +92,15 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.saved_data.beneficiaryData.remarks = values.remarks;
 
     // alert( values );
-    const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe(response => {
+    const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe((response) => {
       this.showAlert();
+    }, (err) => {
+      this.message.alert(err.status);
     });
   }
 
   showAlert() {
-    this.message.openSnackBar('Update Successful!!!!');
+    this.message.alert('Update Successfully');
   }
   updateCount() {
     this.count = this.remarks.length + '/300';

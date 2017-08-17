@@ -6,35 +6,35 @@ import { FeedbackTypes } from '../services/common/feedbacktypes.service';
 import { dataService } from '../services/dataService/data.service'
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { FeedbackStatusComponent } from './../feedback-status/feedback-status.component'
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 // directive
 
 
-@Component( {
-	selector: 'app-co-feedback-services',
-	templateUrl: './co-feedback-services.component.html',
-	styleUrls: [ './co-feedback-services.component.css' ]
+@Component({
+  selector: 'app-co-feedback-services',
+  templateUrl: './co-feedback-services.component.html',
+  styleUrls: ['./co-feedback-services.component.css']
 
-} )
-export class CoFeedbackServicesComponent implements OnInit
-{
-	@Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
+})
+export class CoFeedbackServicesComponent implements OnInit {
+  @Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
 
-	showFormCondition: boolean = false;
-	showTableCondition: boolean = true;
-	feedbackServiceID: number = 4;
-	selected_state: number = undefined;
-	selected_district: number = undefined;
-	selected_taluk: number = undefined;
-	selected_sdtb: number = undefined;
-	selected_institution: number = undefined;
-	selected_designation: number = undefined;
-	selected_feedbackType: number = undefined;
-	selected_severity: number = undefined;
-	selected_doi: any = undefined;
+  showFormCondition: boolean = false;
+  showTableCondition: boolean = true;
+  feedbackServiceID: number = 4;
+  selected_state: number = undefined;
+  selected_district: number = undefined;
+  selected_taluk: number = undefined;
+  selected_sdtb: number = undefined;
+  selected_institution: number = undefined;
+  selected_designation: number = undefined;
+  selected_feedbackType: number = undefined;
+  selected_severity: number = undefined;
+  selected_doi: any = undefined;
 
-	feedbackDescription: any = '';
-	beneficiaryRegID: any;
-	userName: any;
+  feedbackDescription: any = '';
+  beneficiaryRegID: any;
+  userName: any;
 
 	states: any = [];
 	districts: any = [];
@@ -51,29 +51,28 @@ export class CoFeedbackServicesComponent implements OnInit
 	modalArray: any = [];
 	providerServiceMapID: number;
 
-	feedbackcounter: any = 1000;
-	today: Date;
-	maxDate: any;
-	constructor(
-		private _userBeneficiaryData: UserBeneficiaryData,
-		private _locationService: LocationService,
-		private _coFeedbackService: CoFeedbackService,
-		private _feedbackTypes: FeedbackTypes,
-		private _savedData: dataService,
-		public dialog: MdDialog
-	) { }
+  feedbackcounter: any = 1000;
+  today: Date;
+  maxDate: any;
+  constructor(
+    private _userBeneficiaryData: UserBeneficiaryData,
+    private _locationService: LocationService,
+    private _coFeedbackService: CoFeedbackService,
+    private _feedbackTypes: FeedbackTypes,
+    private _savedData: dataService,
+    public dialog: MdDialog,
+    private alertMessage: ConfirmationDialogsService
+  ) { }
 
-	showForm ()
-	{
-		this.showFormCondition = true;
-		this.showTableCondition = false;
-	}
+  showForm() {
+    this.showFormCondition = true;
+    this.showTableCondition = false;
+  }
 
-	showTable ()
-	{
-		this.showFormCondition = false;
-		this.showTableCondition = true;
-	}
+  showTable() {
+    this.showFormCondition = false;
+    this.showTableCondition = true;
+  }
 
 	GetServiceTypes ()
 	{
@@ -110,99 +109,82 @@ export class CoFeedbackServicesComponent implements OnInit
 		this.showBeneficiaryFeedbackList();
 		this.count = '0/300';
 
-		this.today = new Date();
-		this.maxDate = this.today;
-	}
+    this.today = new Date();
+    this.maxDate = this.today;
+  }
 
-	showBeneficiaryFeedbackList ()
-	{
-		this._coFeedbackService.getFeedbackHistoryById( this.beneficiaryRegID, this.serviceID )
-			.subscribe(( response ) =>
-			{
-				this.setFeedbackHistoryByID( response )
-				this.showTable();
-			}, ( err ) =>
-			{
-				console.log( 'Error in fetching Data of FeedBack' );
-			} );
+  showBeneficiaryFeedbackList() {
+    this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryRegID, this.serviceID)
+      .subscribe((response) => {
+        this.setFeedbackHistoryByID(response)
+        this.showTable();
+      }, (err) => {
+        console.log('Error in fetching Data of FeedBack');
+      });
 
-	}
-	SetUserBeneficiaryFeedbackData ( regData: any )
-	{
-		if ( regData.states )
-		{
-			this.states = regData.states;
-		}
-	}
+  }
+  SetUserBeneficiaryFeedbackData(regData: any) {
+    if (regData.states) {
+      this.states = regData.states;
+    }
+  }
 
-	GetDistricts ( state: number )
-	{
-		this.districts = [];
-		this.taluks = [];
-		this.blocks = [];
-		this.institutes = [];
-		this._locationService.getDistricts( state )
-			.subscribe( response => this.SetDistricts( response ) );
-	}
-	SetDistricts ( response: any )
-	{
-		this.districts = response;
-	}
-	GetTaluks ( district: number )
-	{
-		this.taluks = [];
-		this.blocks = [];
-		this.institutes = [];
-		this._locationService.getTaluks( district )
-			.subscribe( response => this.SetTaluks( response ) );
-	}
-	SetTaluks ( response: any )
-	{
-		this.taluks = response;
-	}
-	GetBlocks ( taluk: number )
-	{
-		this.blocks = [];
-		this.institutes = [];
-		this._locationService.getBranches( taluk )
-			.subscribe( response => this.SetBlocks( response ) );
-	}
-	SetBlocks ( response: any )
-	{
-		this.blocks = response;
-	}
+  GetDistricts(state: number) {
+    this.districts = [];
+    this.taluks = [];
+    this.blocks = [];
+    this.institutes = [];
+    this._locationService.getDistricts(state)
+      .subscribe(response => this.SetDistricts(response));
+  }
+  SetDistricts(response: any) {
+    this.districts = response;
+  }
+  GetTaluks(district: number) {
+    this.taluks = [];
+    this.blocks = [];
+    this.institutes = [];
+    this._locationService.getTaluks(district)
+      .subscribe(response => this.SetTaluks(response));
+  }
+  SetTaluks(response: any) {
+    this.taluks = response;
+  }
+  GetBlocks(taluk: number) {
+    this.blocks = [];
+    this.institutes = [];
+    this._locationService.getBranches(taluk)
+      .subscribe(response => this.SetBlocks(response));
+  }
+  SetBlocks(response: any) {
+    this.blocks = response;
+  }
 
-	GetInstitutes ()
-	{
-		this.institutes = [];
-		let object = { 'stateID': this.selected_state, 'districtID': this.selected_district, 'districtBranchMappingID': this.selected_sdtb };
-		this._locationService.getInstituteList( object )
-			.subscribe( response => this.SetInstitutes( response ) );
-	}
-	SetInstitutes ( response: any )
-	{
-		this.institutes = response.institute;
-	}
+  GetInstitutes() {
+    this.institutes = [];
+    let object = { 'stateID': this.selected_state, 'districtID': this.selected_district, 'districtBranchMappingID': this.selected_sdtb };
+    this._locationService.getInstituteList(object)
+      .subscribe(response => this.SetInstitutes(response));
+  }
+  SetInstitutes(response: any) {
+    this.institutes = response.institute;
+  }
 
-	setDesignation ( response: any )
-	{
-		this.designations = response;
-	}
-	setFeedbackTypes ( response: any )
-	{
-		this.feedbackTypes = response;
-	}
+  setDesignation(response: any) {
+    this.designations = response;
+  }
+  setFeedbackTypes(response: any) {
+    this.feedbackTypes = response;
+  }
 
-	setFeedbackSeverity ( response: any )
-	{
-		this.feedbackSeverities = response;
-	}
+  setFeedbackSeverity(response: any) {
+    this.feedbackSeverities = response;
+  }
 
 
-	generatefeedbackID ()
-	{
-		return this.feedbackcounter++;
-	}
+  generatefeedbackID() {
+    return this.feedbackcounter++;
+  }
 
 	// submitFeedback ( object: any )
 	submitFeedback ()
@@ -255,38 +237,33 @@ export class CoFeedbackServicesComponent implements OnInit
 	//   object.feedbackStatusID = response.feedbackStatusID;
 	//   this.feedbacksArray.push(object);
 
-	// }
+  // }
 
-	modalData ( object )
-	{
-		this.modalArray.push( object );
+  modalData(object) {
+    this.modalArray.push(object);
 
-		this.modalArray = this.modalArray.map( function ( data )
-		{
-			return {
-				'feedbackRequests': data.feedbackRequests,
-				'feedbackResponses': data.feedbackResponses
-			}
-		} )
-		const dialogRef = this.dialog.open( FeedbackStatusComponent, {
-			height: '90%',
-			width: '80%',
-			data: this.modalArray,
-		} );
-		dialogRef.afterClosed().subscribe( result =>
-		{
-		} );
-	}
+    this.modalArray = this.modalArray.map(function (data) {
+      return {
+        'feedbackRequests': data.feedbackRequests,
+        'feedbackResponses': data.feedbackResponses
+      }
+    })
+    const dialogRef = this.dialog.open(FeedbackStatusComponent, {
+      height: '90%',
+      width: '80%',
+      data: this.modalArray,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 
-	setFeedbackHistoryByID ( response: any )
-	{
-		console.log( 'the response for feedback history is', response );
-		this.feedbacksArray = response;
-	}
-	updateCount ()
-	{
-		this.count = this.feedbackDescription.length + '/300';
-	}
+  setFeedbackHistoryByID(response: any) {
+    console.log('the response for feedback history is', response);
+    this.feedbacksArray = response;
+  }
+  updateCount() {
+    this.count = this.feedbackDescription.length + '/300';
+  }
 
 }
 

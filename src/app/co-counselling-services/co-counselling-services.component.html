@@ -31,7 +31,7 @@
       <button type="button" class="btn cu-btn-default" (click)="GetSubCategoryDetails(symptomSubCategory)">Get Details</button>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 m-t-15">
-      <button type="button" class="btn cu-btn-default" (click)="back()">Back</button>
+      <button type="button" class="btn btn-success cu-btn-default" (click)="back()">Back</button>
     </div>
     <div class="col-xs-12 col-sm-12">
       <div class="min-height-180 border-1-g" for="subCategoryDetails">
@@ -55,10 +55,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let Information of md2.data ">
-        <td>{{Information.benCallID}}</td>
-        <td>{{Information?.categoryDetails?.categoryName}}</td>
-        <td>{{Information?.subCategoryDetails?.subCategoryName}}</td>
+      <tr *ngFor="let counselling of md2.data ">
+        <td>{{counselling.benCallID}}</td>
+        <td>{{counselling?.categoryDetails?.categoryName}}</td>
+        <td>{{counselling?.subCategoryDetails?.subCategoryName}}</td>
       </tr>
     </tbody>
     <tfoot>

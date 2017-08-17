@@ -10,6 +10,7 @@ import { MessageBag, ValidationMessagesService } from 'ng2-custom-validation';
 import { CoFeedbackService } from '../services/coService/co_feedback.service';
 import { AlernateEmailModelComponent } from './../alernate-email-model/alernate-email-model.component'
 import { MdDialog } from '@angular/material';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 
 @Component({
   selector: 'supervisor-grievance',
@@ -45,7 +46,8 @@ export class supervisorFeedback implements OnInit {
     private _feedbackservice: FeedbackService,
     private _saved_data: dataService,
     private _coFeedbackService: CoFeedbackService,
-    private dialog: MdDialog
+    private dialog: MdDialog,
+    private alertMessage: ConfirmationDialogsService
   ) {
     this.feedbackList;
     this.feedbackresponceList;
@@ -54,12 +56,12 @@ export class supervisorFeedback implements OnInit {
       editor:Diamond Khanna
       date:16 Aug,2017
     */
-    this.feedBackRequestsResponse=[];
-    this.feedBackResponses=[];
+    this.feedBackRequestsResponse = [];
+    this.feedBackResponses = [];
 
-     /*
-      end
-    */
+    /*
+     end
+   */
   }
 
 
@@ -132,7 +134,7 @@ export class supervisorFeedback implements OnInit {
     this._feedbackservice.getFeedbackStatuses().subscribe(resProviderData => this.feedbackStatuses = resProviderData);
 
     this._feedbackservice.getEmailStatuses().subscribe(resProviderData => this.emailStatuses = resProviderData);
-    
+
     this._feedbackservice.getFeedback(requestData)
       .subscribe(resProviderData => this.providers(resProviderData));
 
@@ -160,7 +162,12 @@ export class supervisorFeedback implements OnInit {
 
     if (this.action == 'update') {
       this._feedbackservice.updateResponce(bodyString)
-        .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
+        .subscribe((resfeedbackData) => {
+          this.alertMessage.alert('Successfully Updated');
+          this.showUsers(resfeedbackData)
+        }, (err) => {
+          this.alertMessage.alert(err.status);
+        })
     }
 
   }
@@ -213,10 +220,10 @@ export class supervisorFeedback implements OnInit {
 
     // feedback request response
 
-     /*
-      editor:Diamond Khanna
-      date:16 Aug,2017
-    */
+    /*
+     editor:Diamond Khanna
+     date:16 Aug,2017
+   */
 
     // this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryID, this.serviceID)
     //   .subscribe((response) => {
@@ -225,12 +232,12 @@ export class supervisorFeedback implements OnInit {
     //     console.log('Error in fetching Data of FeedBack');
     //   });
 
-    this.feedBackRequestsResponse=feedback.feedbackRequests;
-    this.feedBackResponses=feedback.feedbackResponses;
+    this.feedBackRequestsResponse = feedback.feedbackRequests;
+    this.feedBackResponses = feedback.feedbackResponses;
 
-     /*
-      end
-    */
+    /*
+     end
+   */
 
     this.isCollapsedResponse = true;
 
@@ -270,13 +277,13 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
-     /*
-      editor:Diamond Khanna
-      date:16 Aug,2017
-    */
+    /*
+     editor:Diamond Khanna
+     date:16 Aug,2017
+   */
 
-     this.feedBackRequestsResponse=feedback.feedbackRequests;
-    this.feedBackResponses=feedback.feedbackResponses;
+    this.feedBackRequestsResponse = feedback.feedbackRequests;
+    this.feedBackResponses = feedback.feedbackResponses;
 
     /*
       end

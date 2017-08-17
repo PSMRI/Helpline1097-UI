@@ -13,6 +13,8 @@ export class CommonDialogComponent implements OnInit {
   public message: string;
   public btnOkText?: string;
   public btnCancelText?: string;
+  public alert: boolean;
+  public confirmAlert: boolean;
   constructor(public dialogRef: MdDialogRef<CommonDialogComponent>) { }
 
   ngOnInit() {
