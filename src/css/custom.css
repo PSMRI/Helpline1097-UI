@@ -453,7 +453,7 @@ color:#545454;
 }
 
 .p-t-0 {
-  padding-top: 0px;
+  padding-top: 0px !important;
 }
 
 .p-t-1 {
@@ -479,7 +479,9 @@ color:#545454;
 .p-t-10 {
   padding-top: 10px;
 }
-
+.p-t-17 {
+  padding-top: 17px!important;
+}
 .p-t-20 {
   padding-top: 20px;
 }
@@ -908,7 +910,7 @@ color:#545454;
 }
 
 .m-r-15 {
-  margin-right: 15px;
+  margin-right: 15px!important;
 }
 
 .m-r-25 {
@@ -1890,7 +1892,10 @@ input:-webkit-autofill:hover {
     width: 160px !important;*/
     font-weight: 700 !important;
   }
-  .hide_underline .mat-input-underline{
+.md2-datepicker-input {
+    font-weight: 700;
+  }
+.hide_underline .mat-input-underline{
   display:none;
 }
 .error_text {
@@ -2113,5 +2118,8 @@ input:-webkit-autofill:hover {
     left: 0;
     opacity: 1;
     z-index: 10;
+  }
+  .d-inline {
+    display: inline!important;
   }
 }

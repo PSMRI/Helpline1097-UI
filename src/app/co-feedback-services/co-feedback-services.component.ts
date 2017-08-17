@@ -36,19 +36,20 @@ export class CoFeedbackServicesComponent implements OnInit {
   beneficiaryRegID: any;
   userName: any;
 
-  states: any = [];
-  districts: any = [];
-  taluks: any = [];
-  blocks: any = [];
-  institutes: any = [];
-  designations: any = [];
-  feedbackTypes: any = [];
-  feedbackSeverities: any = [];
-  serviceID: any = -1;
-  serviceID1097: any = -1;
-  count;
-  feedbacksArray: any = [];
-  modalArray: any = [];
+	states: any = [];
+	districts: any = [];
+	taluks: any = [];
+	blocks: any = [];
+	institutes: any = [];
+	designations: any = [];
+	feedbackTypes: any = [];
+	feedbackSeverities: any = [];
+	serviceID: any = -1;
+	subServiceID: any = -1;
+	count;
+	feedbacksArray: any = [];
+	modalArray: any = [];
+	providerServiceMapID: number;
 
   feedbackcounter: any = 1000;
   today: Date;
@@ -73,34 +74,40 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.showTableCondition = true;
   }
 
-  GetServiceTypes() {
-    this._feedbackTypes.getTypes()
-      .subscribe(response => this.setServiceTypes(response));
-  }
-  setServiceTypes(response: any) {
-    for (let i: any = 0; i < response.length; i++) {
-      if (response[i].serviceNameFor1097.toUpperCase().search('FEED') >= 0) {
-        this.serviceID1097 = response[i].serviceID1097;
-        break;
-      }
-    }
-  }
+	GetServiceTypes ()
+	{
+		this._feedbackTypes.getTypes( this.providerServiceMapID )
+			.subscribe( response => this.setServiceTypes( response ) );
+	}
+	setServiceTypes ( response: any )
+	{
+		for ( let i: any = 0; i < response.length; i++ )
+		{
+			if ( response[ i ].subServiceName.toUpperCase().search( 'FEED' ) >= 0 )
+			{
+				this.subServiceID = response[ i ].subServiceID;
+				break;
+			}
+		}
+	}
 
-  ngOnInit() {
-    this.GetServiceTypes();
-    this.beneficiaryRegID = this._savedData.beneficiaryData.beneficiaryRegID;
-    this.userName = this._savedData.uname;
-    this.serviceID = this._savedData.current_service.serviceID;
-    this._userBeneficiaryData.getUserBeneficaryData()
-      .subscribe(response => this.SetUserBeneficiaryFeedbackData(response));
-    this._coFeedbackService.getDesignations()
-      .subscribe(response => this.setDesignation(response));
-    this._feedbackTypes.getFeedbackTypesData()
-      .subscribe(response => this.setFeedbackTypes(response));
-    this._feedbackTypes.getFeedbackSeverityData()
-      .subscribe(response => this.setFeedbackSeverity(response));
-    this.showBeneficiaryFeedbackList();
-    this.count = '0/300';
+	ngOnInit ()
+	{
+		this.GetServiceTypes();
+		this.beneficiaryRegID = this._savedData.beneficiaryData.beneficiaryRegID;
+		this.userName = this._savedData.uname;
+		this.serviceID = this._savedData.current_service.serviceID;
+		this.providerServiceMapID = this._savedData.current_service.serviceID;
+		this._userBeneficiaryData.getUserBeneficaryData()
+			.subscribe( response => this.SetUserBeneficiaryFeedbackData( response ) );
+		this._coFeedbackService.getDesignations()
+			.subscribe( response => this.setDesignation( response ) );
+		this._feedbackTypes.getFeedbackTypesData()
+			.subscribe( response => this.setFeedbackTypes( response ) );
+		this._feedbackTypes.getFeedbackSeverityData()
+			.subscribe( response => this.setFeedbackSeverity( response ) );
+		this.showBeneficiaryFeedbackList();
+		this.count = '0/300';
 
     this.today = new Date();
     this.maxDate = this.today;
@@ -179,61 +186,56 @@ export class CoFeedbackServicesComponent implements OnInit {
     return this.feedbackcounter++;
   }
 
-  // submitFeedback ( object: any )
-  submitFeedback() {
-    if (this.selected_doi) {
-      this.selected_doi = new Date((this.selected_doi) - 1 * (this.selected_doi.getTimezoneOffset() * 60 * 1000)).toJSON();
-    }
-    const feedbackObj = [{
-      'institutionID': this.selected_institution,
-      'designationID': this.selected_designation,
-      'severityID': this.selected_severity,
-      'feedbackTypeID': this.selected_feedbackType,
-      'feedback': this.feedbackDescription,
-      'beneficiaryRegID': this.beneficiaryRegID,
-      'serviceAvailDate': this.selected_doi,
-      'serviceID': this.serviceID,
-      'serviceID1097': this.serviceID1097,
-      'userID': this._savedData.uid,
-      'createdBy': this.userName,
-      'benCallID': this._savedData.callData.benCallID,
-      '1097ServiceID': this.serviceID
-    }];
-    this._coFeedbackService.createFeedback(feedbackObj)
-      .subscribe((response) => {
-        this.alertMessage.alert('Successfully Created');
-        this.showBeneficiaryFeedbackList()
-      },
-      (err) => {
-        this.alertMessage.alert(err.status);
-      }
-      );
-  }
-  // showtable(response, obj) {
-  //   console.log('after registering feedback', response);
-  //   var object = {
-  //     'feedbackID': '',
-  //     'feedback': '',
-  //     'severityID': '',
-  //     'feedbackTypeID': '',
-  //     'createdBy': '',
-  //     'feedbackStatusID': ''
-  //   };
-  //   this.showTable();
-  //   // var fdbkID = response.feedBackId;//this.generatefeedbackID();
-  //   // object.id = fdbkID;
-  //   // object.dor = new Date();
-  //   // object.status = 'open';
-  //   // object.agentID = "CO0111120";
-  //   // console.log( object );
-  //   // this.feedbacksArray.push( object );
-  //   object.feedbackID = response.feedBackId;
-  //   object.feedback = response.feedback;
-  //   object.severityID = response.severityID;
-  //   object.feedbackTypeID = response.feedbackTypeID;
-  //   object.createdBy = response.createdBy;
-  //   object.feedbackStatusID = response.feedbackStatusID;
-  //   this.feedbacksArray.push(object);
+	// submitFeedback ( object: any )
+	submitFeedback ()
+	{
+		if ( this.selected_doi )
+		{
+			this.selected_doi = new Date(( this.selected_doi ) - 1 * ( this.selected_doi.getTimezoneOffset() * 60 * 1000 ) ).toJSON();
+		}
+		const feedbackObj = [ {
+			'institutionID': this.selected_institution,
+			'designationID': this.selected_designation,
+			'severityID': this.selected_severity,
+			'feedbackTypeID': this.selected_feedbackType,
+			'feedback': this.feedbackDescription,
+			'beneficiaryRegID': this.beneficiaryRegID,
+			'serviceAvailDate': this.selected_doi,
+			'serviceID': this.serviceID,
+			'subServiceID': this.subServiceID,
+			'userID': this._savedData.uid,
+			'createdBy': this.userName,
+			'benCallID': this._savedData.callData.benCallID,
+			'1097ServiceID': this.serviceID
+		}];
+		this._coFeedbackService.createFeedback( feedbackObj )
+			.subscribe(( response ) => this.showBeneficiaryFeedbackList() );
+	}
+	// showtable(response, obj) {
+	//   console.log('after registering feedback', response);
+	//   var object = {
+	//     'feedbackID': '',
+	//     'feedback': '',
+	//     'severityID': '',
+	//     'feedbackTypeID': '',
+	//     'createdBy': '',
+	//     'feedbackStatusID': ''
+	//   };
+	//   this.showTable();
+	//   // var fdbkID = response.feedBackId;//this.generatefeedbackID();
+	//   // object.id = fdbkID;
+	//   // object.dor = new Date();
+	//   // object.status = 'open';
+	//   // object.agentID = "CO0111120";
+	//   // console.log( object );
+	//   // this.feedbacksArray.push( object );
+	//   object.feedbackID = response.feedBackId;
+	//   object.feedback = response.feedback;
+	//   object.severityID = response.severityID;
+	//   object.feedbackTypeID = response.feedbackTypeID;
+	//   object.createdBy = response.createdBy;
+	//   object.feedbackStatusID = response.feedbackStatusID;
+	//   this.feedbacksArray.push(object);
 
   // }
 

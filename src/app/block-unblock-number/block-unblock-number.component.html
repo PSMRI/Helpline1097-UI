@@ -1,23 +1,26 @@
 <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <md-input-container style="width: 100%">
-            <input mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
+        <md-input-container [style.width]="'100%'" myMobileNumber>
+            <input required minlength="10" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
+            <md-hint *ngIf="!number.valid">
+                <span class="error_text" *ngIf=" number.dirty || number.touched ">Please enter phone number</span>
+            </md-hint>
         </md-input-container>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <md-input-container style="width: 100%" (blur)="getBlockedTillDate(blockedDate)">
+        <md-input-container [style.width]="'100%'" (blur)="getBlockedTillDate(blockedDate)">
             <input mdInput [mdDatepicker]="picker" placeholder="Blocked Date" [(ngModel)]="blockedDate" (blur)="getBlockedTillDate(blockedDate)">
             <button mdSuffix [mdDatepickerToggle]="picker"></button>
         </md-input-container>
         <md-datepicker #picker></md-datepicker>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <md-input-container style="width: 100%">
+        <md-input-container [style.width]="'100%'">
             <input mdInput placeholder="Blocked Till" [disabled]="true" [(ngModel)]="blockedTill">
         </md-input-container>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 m-t-10">
-        <md-input-container style="width: 100%">
+        <md-input-container [style.width]="'100%'">
             <input mdInput placeholder="Blocked By">
         </md-input-container>
     </div>
@@ -50,12 +53,12 @@
         </md-select>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 m-t-10">
-        <md-input-container style="width: 100%">
+        <md-input-container [style.width]="'100%'">
             <input mdInput placeholder="Remarks">
         </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <button md-raised-button class="pull-right" (click)="addToBlockList()">Block</button>
+        <button [disabled]="!number.valid" md-raised-button class="pull-right" (click)="addToBlockList()">Block</button>
     </div>
 </div>
 <div class="row" *ngIf="showTable">
