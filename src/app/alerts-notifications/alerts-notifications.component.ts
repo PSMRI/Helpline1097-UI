@@ -32,29 +32,51 @@ ngOnInit(){
         this.alertConfig = response.data.filter((notification)=>{
             return notification.notificationType=="Alert";
         });
-        console.log(this.alertConfig);
         if(this.alertConfig.length > 0){
-            this.alertPostData = {
-                "providerServiceMapID": this.service.serviceID,
-                "notificationTypeID": this.alertConfig[0].notificationTypeID,
-                "roleIDs": [this.role.RoleID],
-                "validFrom": new Date().toISOString(),
-                //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
-            };
+            if(this.role.RoleName!="Supervisior"){
+                this.alertPostData = {
+                    "providerServiceMapID": this.service.serviceID,
+                    "notificationTypeID": this.alertConfig[0].notificationTypeID,
+                    "roleIDs": [this.role.RoleID],
+                    "validFrom": new Date().toISOString().slice(0,10) + "T00:00:00.000Z",
+                    //currently alerts and notifications from current date to one week(7*24*60*60*1000)
+                    "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString().slice(0,10) + "T23:59:59.999Z"
+                };
+            }
+            else {
+                this.alertPostData = {
+                    "providerServiceMapID": this.service.serviceID,
+                    "notificationTypeID": this.alertConfig[0].notificationTypeID,
+                    "roleIDs": [this.role.RoleID],
+                    "validStartDate": new Date().toISOString().slice(0,10) + "T00:00:00.000Z",
+                    //currently alerts and notifications from current date to one week(7*24*60*60*1000)
+                    "validEndDate": new Date(Date.now()+7*24*60*60*1000).toISOString().slice(0,10) + "T23:59:59.999Z"
+                };
+            }
         } 
         this.notificationConfig = response.data.filter((notification)=>{
             return notification.notificationType=="Notification";
         });
-        console.log(this.notificationConfig);
         if(this.notificationConfig.length > 0){
-            this.notificationPostData = {
-                "providerServiceMapID": this.service.serviceID,
-                "notificationTypeID": this.notificationConfig[0].notificationTypeID,
-                "roleIDs": [this.role.RoleID],
-                "validFrom": new Date().toISOString(),
-                //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString()
+            if(this.role.RoleName!="Supervisior"){
+                this.notificationPostData = {
+                    "providerServiceMapID": this.service.serviceID,
+                    "notificationTypeID": this.notificationConfig[0].notificationTypeID,
+                    "roleIDs": [this.role.RoleID],
+                    "validFrom": new Date().toISOString().slice(0,10) + "T00:00:00.000Z",
+                    //currently alerts and notifications from current date to one week(7*24*60*60*1000)
+                    "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString().slice(0,10) + "T23:59:59.999Z"
+                }
+            }
+            else {
+                this.notificationPostData = {
+                    "providerServiceMapID": this.service.serviceID,
+                    "notificationTypeID": this.notificationConfig[0].notificationTypeID,
+                    "roleIDs": [this.role.RoleID],
+                    "validStartDate": new Date().toISOString().slice(0,10) + "T00:00:00.000Z",
+                    //currently alerts and notifications from current date to one week(7*24*60*60*1000)
+                    "validEndDate": new Date(Date.now()+7*24*60*60*1000).toISOString().slice(0,10) + "T23:59:59.999Z"
+                }
             }
         }      
         this.getAlertsandNotifications();
@@ -79,49 +101,73 @@ loadAlertsAndNotifications(actor: string){
 getAlertsandNotifications(){
     // console.log(this.alertPostData);
     // console.log(this.notificationPostData);
-    if(this.alertPostData){
+    if(this.alertPostData) {
         console.log(this.alertPostData);
-        this.notificationService.getAlerts(this.alertPostData)
-        .subscribe((response)=>{
-            console.log(response);
-            this.alerts = response.data;
-        },
-        (err)=>{
-            console.log(err);
-        });
+        if(this.role.RoleName!="Supervisior") {
+            this.notificationService.getAlerts(this.alertPostData)
+            .subscribe((response)=>{
+                console.log(response);
+                this.alerts = response.data;
+            },
+            (err)=>{
+                console.log(err);
+            });
+        }
+        else {
+            this.notificationService.getSupervisorNotifications(this.alertPostData)
+            .subscribe((response)=>{
+                console.log(response);
+                this.alerts = response.data;
+            },
+            (err)=>{
+                console.log(err);
+            });
+        }
     }
     if(this.notificationPostData){
         console.log(this.notificationPostData);
-        this.notificationService.getNotifications(this.notificationPostData)
-        .subscribe((response)=>{
-            console.log(response);
-            this.notifications = response.data;
-        },
-        (err)=>{
-            console.log(err);
-        });
+        if(this.role.RoleName!="Supervisior") {
+            this.notificationService.getNotifications(this.notificationPostData)
+            .subscribe((response)=>{
+                console.log(response);
+                this.notifications = response.data;
+            },
+            (err)=>{
+                console.log(err);
+            });
+        }
+        else {
+            this.notificationService.getSupervisorNotifications(this.notificationPostData)
+            .subscribe((response)=>{
+                console.log(response);
+                this.notifications = response.data;
+            },
+            (err)=>{
+                console.log(err);
+            });
+        }
     }
     
 }
 
 alertClicked(alert, event){
     event.preventDefault();
-    console.log(alert.notificationDesc);
     let dialog = this.dialog.open(MessageDialogComponent, {
         data: {
             message: alert.notificationDesc,
-            type: "Alert"
+            type: "Alert",
+            kmFilePath: alert.kmFilePath
         }
       });
 }
 
 notificationClicked(notification,event){
     event.preventDefault();
-    console.log(notification.notificationDesc);
     let dialog = this.dialog.open(MessageDialogComponent, {
         data: {
             message: notification.notificationDesc,
-            type: "Notification"
+            type: "Notification",
+            kmFilePath: notification.kmFilePath
         }
       });
 }

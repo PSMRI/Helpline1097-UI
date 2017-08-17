@@ -5,10 +5,10 @@
             <div class="col-xs-12 bg-white height-120 m-t-5 overflow-y">
                 <ul class="list-unstyled m-t-10">
                     <li *ngFor="let alert of alerts; let i= index">
-                        <a href="#" (click)="alertClicked(alert,$event)">Alert {{i+1}}</a>
+                        <a href="#" (click)="alertClicked(alert,$event)">{{alert.notification}}</a>
                     </li>
                     <li *ngFor="let notification of notifications; let i= index">
-                        <a href="#" (click)="notificationClicked(notification,$event)">Notification {{i+1}}</a>
+                        <a href="#" (click)="notificationClicked(notification,$event)">{{notification.notification}}</a>
                     </li>
                 </ul>
             </div>

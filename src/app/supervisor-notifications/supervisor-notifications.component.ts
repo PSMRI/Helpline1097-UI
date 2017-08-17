@@ -5,6 +5,7 @@ import { dataService } from '../services/dataService/data.service';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { NotificationsDialogComponent } from '../notifications-dialog/notifications-dialog.component';
 import { MdDialog } from '@angular/material';
+import { EditNotificationsComponent } from '../edit-notifications/edit-notifications.component';
 
 @Component({
   selector: 'app-supervisor-notifications',
@@ -21,6 +22,7 @@ export class SupervisorNotificationsComponent implements OnInit {
   notificationPostData : any;
   onConfigSubmit : boolean = false;
   p: number = 1;
+  roleIDs = [];
 
   @ViewChild('showNotificationForm') showNotificationForm: NgForm;
   
@@ -42,6 +44,9 @@ export class SupervisorNotificationsComponent implements OnInit {
     .subscribe((response)=>{
       console.log(response);
       this.roleObjArray = response.data;
+      for (var i=0; i< this.roleObjArray.length; i++){
+        this.roleIDs.push(this.roleObjArray[i].RoleID);
+      }
     },
     (error)=>{
       console.log(error);
@@ -69,7 +74,7 @@ export class SupervisorNotificationsComponent implements OnInit {
                   type: "Message"
               }
             });
-          this.notificationService.getNotifications(this.notificationPostData)
+          this.notificationService.getSupervisorNotifications(this.notificationPostData)
             .subscribe((response)=>{
               this.notifications = response.data;
               console.log(this.notifications);
@@ -93,16 +98,17 @@ export class SupervisorNotificationsComponent implements OnInit {
   }
   onSubmitShowForm(){
     console.log(this.showNotificationForm.value);
+    console.log(new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,10)+"T00:00:00.000Z");
     this.onConfigSubmit = true;
     this.notificationPostData = {
                 "providerServiceMapID": this.providerServiceMapID,
                 "notificationTypeID": this.showNotificationForm.value.notificationType,
-                "roleIDs": this.showNotificationForm.value.roles,
-                "validFrom": new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-                "validTill": new Date((this.showNotificationForm.value.endDate) - 1 * (this.showNotificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON()
+                "roleIDs": (this.showNotificationForm.value.roles=="")? this.roleIDs : this.showNotificationForm.value.roles,
+                "validStartDate": new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,10)+"T00:00:00.000Z",
+                "validEndDate": new Date((this.showNotificationForm.value.endDate) - 1 * (this.showNotificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,10)+"T23:59:59.999Z"
             };
     console.log(JSON.stringify(this.notificationPostData));
-    this.notificationService.getNotifications(this.notificationPostData)
+    this.notificationService.getSupervisorNotifications(this.notificationPostData)
     .subscribe((response)=>{
       this.notifications = response.data;
       console.log(this.notifications);
@@ -110,6 +116,47 @@ export class SupervisorNotificationsComponent implements OnInit {
     (error)=>{
       console.log(error);
     });        
+  }
+
+  onEditClick(row, event){
+    event.preventDefault();
+    let dialog = this.dialog.open(EditNotificationsComponent, {
+      data : row,
+      disableClose :  true
+    });
+    dialog.afterClosed()
+    .subscribe((data)=>{
+        if(data){
+          this.notificationService.updateNotification(data)
+          .subscribe((response)=>{
+            console.log(response);
+            if(response.data!={}){
+              let dialog = this.dialog.open(MessageDialogComponent, {
+                data: {
+                    message: "Succesfully edited notification",
+                    type: "Message"
+                }
+              });
+              this.notificationService.getSupervisorNotifications(this.notificationPostData)
+              .subscribe((response)=>{
+                this.notifications = response.data;
+              },
+              (error)=>{
+                console.log(error);
+              });
+            }  
+          },
+          (error)=>{
+            console.log(error);
+            let dialog = this.dialog.open(MessageDialogComponent, {
+              data: {
+                  message: "Error in editing notification",
+                  type: "Message"
+              }
+            });
+          })
+        }
+    })
   }
 
 }

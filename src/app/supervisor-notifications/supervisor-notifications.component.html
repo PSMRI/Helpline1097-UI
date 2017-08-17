@@ -10,7 +10,7 @@
                 </md-select>
             </div>
             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-t-17">
-                <md-select placeholder="Select Roles" [multiple]="true" name="roles" ngModel required>
+                <md-select placeholder="Select Roles" [multiple]="true" name="roles" ngModel>
                     <md-option *ngFor="let role of roleObjArray" [value]="role.RoleID">
                         {{ role.RoleName }}
                     </md-option>
@@ -35,6 +35,7 @@
                             <th>Notification Desc</th>
                             <th>Valid From</th>
                             <th>Valid Till</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,8 +46,9 @@
                             <td>{{(p-1)*5+i+1}}</td>
                             <td>{{row.notification}}</td>
                             <td>{{row.notificationDesc}}</td>
-                            <td>{{row.validFrom}}</td>
-                            <td>{{row.validTill}}</td>
+                            <td>{{row.validFrom|date:'dd-MM-yyyy'}}</td>
+                            <td>{{row.validTill|date:'dd-MM-yyyy'}}</td>
+                            <td><a href="#" (click)="onEditClick(row,$event)"><md-icon color="">mode_edit</md-icon></a></td>
                         </tr>
                         <pagination-controls id="notifications" (pageChange)="p = $event"></pagination-controls>
                     </tbody>
