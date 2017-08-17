@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="confirmAlert">
   <h3 md-dialog-title>
     <div class="row">
       <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">{{message}}</div>
@@ -27,4 +27,23 @@
     </div>
   </md-dialog-content>
 
+</div>
+<div class="container-fluid" *ngIf="alert">
+  <h3 md-dialog-title>
+    <div class="row">
+      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">{{message}}</div>
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+        <button class="pull-right" md-icon-button class="closeBtn" md-dialog-close>
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+    </div>
+  </h3>
+  <md-dialog-content>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <button md-button class="center-btn" style="color: #fff;background-color: #153961;" (click)="dialogRef.close(true)">{{btnOkText}}</button>
+      </div>
+    </div>
+  </md-dialog-content>
 </div>

@@ -1,6 +1,7 @@
 <h2 md-dialog-title>{{data.type}}</h2>
 <md-dialog-content>
   <p>{{data.message}}</p>
+  <p *ngIf="data.kmFilePath"><a href="{{data?.kmFilePath}}" target="_blank">Click here for more info</a></p>
 </md-dialog-content>
 <md-dialog-actions>
   <button md-raised-button color="primary" md-dialog-close>OK</button>

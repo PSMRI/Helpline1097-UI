@@ -148,7 +148,9 @@ import { AlernateEmailModelComponent } from './alernate-email-model/alernate-ema
 // http factory
 import { httpFactory } from './http.factory';
 import { LoaderComponent } from './loader/loader.component';
-import { LoaderService } from './services/common/loader.service'
+import { LoaderService } from './services/common/loader.service';
+import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
+import { EditNotificationsComponent } from './edit-notifications/edit-notifications.component'
 
 
 @NgModule({
@@ -172,7 +174,7 @@ import { LoaderService } from './services/common/loader.service'
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
-    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent
+    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent, NotificationsDialogComponent, EditNotificationsComponent
 
   ],
   imports: [
@@ -249,7 +251,7 @@ import { LoaderService } from './services/common/loader.service'
     ]),
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,
-    AlernateEmailModelComponent, CommonDialogComponent],
+    AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,

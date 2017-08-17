@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 declare var jQuery: any;
 
-@Component( {
+@Component({
   selector: 'app-co-services',
   templateUrl: './co-services.component.html',
-  styleUrls: [ './co-services.component.css' ]
-} )
-export class CoServicesComponent implements OnInit
-{
+  styleUrls: ['./co-services.component.css']
+})
+export class CoServicesComponent implements OnInit {
 
    @Input() current_language: any;
   currentlanguage: any;
@@ -17,8 +16,7 @@ export class CoServicesComponent implements OnInit
 
   selectedService: any;
   tab_value: number = 1;
-  ngOnInit ()
-  {
+  ngOnInit() {
   }
 
    ngOnChanges()
@@ -34,18 +32,15 @@ export class CoServicesComponent implements OnInit
 
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
 
-  updateServiceProvided ()
-  {
+  updateServiceProvided() {
     this.serviceGiven.emit();
   }
 
   @Input()
-  startCOService ()
-  {
-    //todo in future
+  startCOService() {
+    // todo in future
   }
-  changeService(val)
-  {
+  changeService(val) {
     console.log(val, "value of tab clicked");
     this.tab_value = val;
     // jQuery( "#service" + val ).parent().find( "li" ).removeClass();

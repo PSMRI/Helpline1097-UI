@@ -1,6 +1,7 @@
 import { Component, OnInit, Output,Input, EventEmitter } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from "../services/dataService/data.service"
+import { CoReferralService } from './../services/coService/co_referral.service'
 
 @Component( {
   selector: 'app-co-counselling-services',
@@ -11,8 +12,13 @@ import { dataService } from "../services/dataService/data.service"
 export class CoCounsellingServicesComponent implements OnInit
 {
 
+
   @Input() current_language: any;
   currentlanguage: any;
+
+
+  showFormCondition: boolean = false;
+  showTableCondition: boolean = true;
 
   @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
@@ -21,15 +27,21 @@ export class CoCounsellingServicesComponent implements OnInit
   symptomSubCategory: any;
   detailsList: any;
   serviceID: number;
+  providerServiceMapID: number;
+  public data: any;
+  public totalRecord: any;
   constructor(
     private _coCategoryService: CoCategoryService,
-    private saved_data: dataService
+    private saved_data: dataService,
+    private _coService: CoReferralService
   )
   {
   }
 
   ngOnInit ()
   {
+
+    this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
   }
 
@@ -46,7 +58,7 @@ export class CoCounsellingServicesComponent implements OnInit
 
   GetServiceTypes ()
   {
-    this._coCategoryService.getTypes()
+    this._coCategoryService.getTypes( this.providerServiceMapID )
       .subscribe( response => this.setServiceTypes( response ) );
   }
 
@@ -54,9 +66,9 @@ export class CoCounsellingServicesComponent implements OnInit
   {
     for ( let i: any = 0; i < response.length; i++ )
     {
-      if ( response[ i ].serviceNameFor1097.toUpperCase().search( "COUN" ) >= 0 )
+      if ( response[ i ].subServiceName.toUpperCase().search( "COUN" ) >= 0 )
       {
-        this.serviceID = response[ i ].serviceID1097;
+        this.serviceID = response[ i ].subServiceID;
         break;
       }
     }
@@ -76,7 +88,7 @@ export class CoCounsellingServicesComponent implements OnInit
 
   SetCategories ( response: any )
   {
-    console.log('success', response);
+    console.log( 'success', response );
     this.categoryList = response;
   }
 
@@ -106,5 +118,29 @@ export class CoCounsellingServicesComponent implements OnInit
     console.log( 'success', response );
     this.detailsList = response;
     this.counsellingServiceProvided.emit();
+  }
+  showForm ()
+  {
+    this.showFormCondition = true;
+    this.showTableCondition = false;
+  }
+  back ()
+  {
+    this.GetCounsellingHistory();
+    this.showFormCondition = false;
+    this.showTableCondition = true;
+
+  }
+  GetCounsellingHistory ()
+  {
+    this._coService.getCounsellingsHistoryByID( this.saved_data.beneficiaryData.beneficiaryRegID ).subscribe(( res ) =>
+    {
+      this.data = res;
+      this.totalRecord = res.length;
+      console.log( 'Information History Successfully reterive', res );
+    }, ( err ) =>
+      {
+        console.log( 'Some error reteriving Information History ', err );
+      } )
   }
 }

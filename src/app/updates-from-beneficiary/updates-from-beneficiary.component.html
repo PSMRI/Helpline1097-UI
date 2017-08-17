@@ -18,8 +18,10 @@
         </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
+
           <md-select placeholder="{{currentlanguage.other_details?.occupation}}" [style.width]="'100%'" [(ngModel)]="occupationID" name="occupationID">
             <md-option *ngFor="let occupation of occupations" value="{{occupation.occupationID}}">
+
               {{occupation.occupationType}}
             </md-option>
           </md-select>
@@ -39,8 +41,10 @@
         </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
+
           <md-select placeholder="{{currentlanguage.other_details?.qualification}}" [style.width]="'100%'" [(ngModel)]="educationID" name="educationID">
             <md-option *ngFor="let educationQualification of educationQualifications" value="{{educationQualification.educationID}}">
+
               {{educationQualification.educationType}}
             </md-option>
           </md-select>
@@ -59,8 +63,10 @@
         </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
+
           <md-select placeholder="{{currentlanguage.other_details?.sexual_orientation}}" [style.width]="'100%'" [(ngModel)]="sexualOrientationID" name="sexualOrientationID">
             <md-option *ngFor="let sexualOrientation of sexualOrientations" value="{{sexualOrientation.sexualOrientationId}}">
+
               {{sexualOrientation.sexualOrientation}}
             </md-option>
           </md-select>
@@ -142,7 +148,7 @@
             <!--<input type="checkbox" value="{{source.value}}" [(ngModel)]="sourceOfInformation"/> {{source.name}}</label>-->
             <!-- <input type="checkbox" value="{{source.value}}" /> {{source.name}}</label> -->
             <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label>
-        </div>
+        </div>  
       </div>
     </div>
     <!--<div class="col-xs-12 col-sm-12 m-t-5 m-b-5">

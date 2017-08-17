@@ -3,7 +3,9 @@ import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.serv
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { dataService } from '../services/dataService/data.service';
 import { CallServices } from '../services/callservices/callservice.service'
-import { Message } from './../services/common/message.service';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+
+
 
 @Component( {
   selector: 'app-closure',
@@ -35,12 +37,12 @@ export class ClosureComponent implements OnInit
 
   today: Date;
 
-  showSlider:boolean;
+  showSlider: boolean;
 
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
-    private message: Message
+    private message: ConfirmationDialogsService
   ) { }
   /* Intialization of variable and object has to be come here */
   ngOnInit ()
@@ -48,11 +50,12 @@ export class ClosureComponent implements OnInit
     const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
     this.isFollowUp = false;
     this._callServices.getCallTypes( requestObject ).subscribe( response => this.populateCallTypes( response ) );
-  
+
     this.today = new Date();
     this.minDate = this.today;
-    this.showSlider=false;
+    this.showSlider = false;
   }
+
 
    ngOnChanges()
     {
@@ -66,19 +69,21 @@ export class ClosureComponent implements OnInit
   }
 
   sliderVisibility(val)
+
   {
-    if(val==="Valid Call")
+    if ( val === "Valid Call" )
     {
-      this.showSlider=true;
+      this.showSlider = true;
     }
-    else{
-      this.showSlider=false;
+    else
+    {
+      this.showSlider = false;
     }
   }
 
   populateCallTypes ( response: any )
   {
-    console.log("hi",response);
+    console.log( "hi", response );
     this.calltypes = response;
   }
   // @Input()
@@ -92,7 +97,7 @@ export class ClosureComponent implements OnInit
     this.summaryList = [];
     console.log( JSON.stringify( response ) );
     this.summaryList = response;
-  
+
     this.showCallSummary = false;
     if ( this.summaryList.length > 0 )
     {
@@ -105,6 +110,13 @@ export class ClosureComponent implements OnInit
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
+
+    //Gursimran to look at fixing of followupRequired issue
+    if ( values.isFollowupRequired == undefined )
+    {
+      values.isFollowupRequired = false;
+    }
+
     if ( values.prefferedDateTime )
     {
       values.prefferedDateTime = new Date( values.prefferedDateTime );
@@ -118,23 +130,26 @@ export class ClosureComponent implements OnInit
     values.fitToBlock = values.callTypeID.split( "," )[ 1 ];
     values.callTypeID = values.callTypeID.split( "," )[ 0 ];
     console.log( 'close called with ' + values );
-    this._callServices.closeCall( values ).subscribe( response =>
+    this._callServices.closeCall( values ).subscribe(( response ) =>
     {
       this.callClosed.emit();
       this.showAlert();
-    } );
+    }, ( err ) =>
+      {
+        this.message.alert( err.status );
+      } );
   }
 
   showAlert ()
   {
-    this.message.openSnackBar( 'Call closed Successful!!!!' );
+    this.message.alert( 'Call closed Successful!!!!' );
     // alert('Call closed Successful!!!!');
   }
   isFollow ( e )
   {
     if ( e.checked )
     {
-      
+
       this.isFollowUp = true;
       this.isFollowupRequired = true
     } else

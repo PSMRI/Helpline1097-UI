@@ -11,7 +11,7 @@ import { Message } from './../services/common/message.service'
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
 
 
-import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 
 @Component({
@@ -88,7 +88,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   beneficiaryRelationID;
   color;
   calledRadio = true;
-  age: any="";
+  age: any = '';
   updatedObj: any = {};
   relationshipWith: string;
   today: Date;
@@ -101,14 +101,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   advanceBtnHide: any;
   gender: any;
   commonData: any;
-
-
-
+  spinner;
+  spinnerState;
+  spinnerVal: any;
 
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
-    private message: Message, public dialog: MdDialog) { }
+    private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService) { }
 
   /* Intialization Of value and object has to be written in here */
 
@@ -147,6 +147,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.searchValue = 'Advance Search';
     this.isAdvancedSearch = true;
     this.advanceBtnHide = true;
+    this.spinner = false;
+    this.spinnerState = true;
   }
   reloadCall() {
 
@@ -289,22 +291,26 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.taluks = [];
 
     this.blocks = [];
+    this.spinner = true;
+    this.spinnerState = false;
     if (state == undefined) {
       this.stateErrFlag = true;
     }
     else {
       this.stateErrFlag = false;
-    this._locationService.getDistricts(state)
-      .subscribe(response => this.SetDistricts(response));
+      this._locationService.getDistricts(state)
+        .subscribe(response => this.SetDistricts(response));
     }
   }
   SetDistricts(response: any) {
     // this.districts.push( { "districtID": undefined, "districtName": "" } );
     // for ( let i = 0; i < response.length; i++ )
     // this.districts.push( response[ i ] );
+    this.spinner = false;
+    this.spinnerState = true;
     this.districts = response;
   }
-  cityErrFlag:any =false;
+  cityErrFlag: any = false;
   GetTaluks(district: number) {
     this.taluks = [];
     this.blocks = [];
@@ -313,8 +319,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
     else {
       this.cityErrFlag = false;
-    this._locationService.getTaluks(district)
-      .subscribe(response => this.SetTaluks(response));
+      this._locationService.getTaluks(district)
+        .subscribe(response => this.SetTaluks(response));
     }
   }
   SetTaluks(response: any) {
@@ -407,11 +413,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.benRegistrationResponse = response;
       this.handleRegHistorySuccess([response]);
       this.showAlert();
+    }, (err) => {
+      this.alertMaessage.alert(err.status);
     });
   }
 
   showAlert() {
-    this.message.openSnackBar('Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
+    this.alertMaessage.alert('Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -441,7 +449,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID)
 
       }
-
     }
   }
 
@@ -581,17 +588,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updatedObj.i_bendemographics.pinCode = this.pincode;
     this.updatedObj.i_bendemographics.preferredLangID = this.preferredLanguage;
 
-
     // saving the updated ben data in the in_app_saved data service file
     this.saved_data.beneficiaryData = this.updatedObj;
     // return;
 
-    this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe(response =>
+    this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
-    );
+    }, (err) => {
+      this.alertMaessage.alert(err.status);
+    });
   }
 
   updateSuccessHandeler(response) {
+    this.alertMaessage.alert('Successfully Updated');
     this.benUpdationResponse = response;
     // this.regHistoryList = [response];
     this.regHistoryList = '';
@@ -662,8 +671,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   calculateDOB(age) {
     const currentYear = this.today.getFullYear();
     // int parsing in decimal format
+    // if (this.DOB) {
+    //   this.DOB = new Date(this.DOB.getDate() + '/' + (this.DOB.getMonth() + 1) + '/' + (currentYear - parseInt(age, 10)))
+    // } else {
     this.DOB = new Date('' + (currentYear - parseInt(age, 10)));
+    // }
+
     this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', 'readonly');
+
   }
   // to remove the readonly on double click
   enableAge(data) {
@@ -708,8 +723,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
-    genderErrFlag: any = false;
-    // genderFlag: any = true;
+  genderErrFlag: any = false;
+  // genderFlag: any = true;
 
   genderchange(value) {
     if (value == '' || value == null) {
@@ -719,9 +734,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     else {
       this.genderErrFlag = false;
       // this.genderFlag = false;
-
-
-       }
+    }
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];

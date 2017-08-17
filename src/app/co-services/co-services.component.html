@@ -40,8 +40,10 @@
   <div class="col-xs-12 col-sm-12">
     <div class="container-fluid">
       <md-tab-group>
+
         <md-tab label="{{currentlanguage.co_services?.information_services}}" md-active="true">
           <app-co-information-services  (informationServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-information-services>
+
         </md-tab>
         <md-tab label="{{currentlanguage.co_services?.counselling_service}}" >
           <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-counselling-services>

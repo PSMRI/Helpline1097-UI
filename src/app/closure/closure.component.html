@@ -3,34 +3,35 @@
     <div class="col-xs-12 col-sm-12">
       <h4>Call Details</h4>
     </div> -->
-    <!-- <div class="bg-white p-t-20 m-t-10 "> -->
-      <div class="col-xs-12 col-sm-12"  *ngIf="showCallSummary">
-        <div class="table-responsive">
-          <label class="control-label" for="callSummary" >{{currentlanguage.closure?.table_labels?.table_heading}}</label>
-          <table class="table">
-            <thead>
-              <tr>
-                <th >{{currentlanguage.closure?.table_labels?.call_id}}</th>
-                <th >{{currentlanguage.closure?.table_labels?.information}}</th>
-                <th >{{currentlanguage.closure?.table_labels?.counselling}}</th>
-                <th >{{currentlanguage.closure?.table_labels?.referral}}</th>
-                <th >{{currentlanguage.closure?.table_labels?.feedback}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList">
-                <td >{{summaryDetails.benCallID}}</td>
-                <td >{{summaryDetails.informationServices}}</td>
-                <td >{{summaryDetails.counsellingServices}}</td>
-                <td >{{summaryDetails.referralServices}}</td>
-                <td >{{summaryDetails.feedbackServices}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    <!-- </div> -->
-    <!-- <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
+<!-- <div class="bg-white p-t-20 m-t-10 "> -->
+<div class="col-xs-12 col-sm-12" *ngIf="showCallSummary">
+  <div class="table-responsive">
+    <label class="control-label" for="callSummary">{{currentlanguage.closure?.table_labels?.table_heading}}</label>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{currentlanguage.closure?.table_labels?.call_id}}</th>
+          <th>{{currentlanguage.closure?.table_labels?.information}}</th>
+          <th>{{currentlanguage.closure?.table_labels?.counselling}}</th>
+          <th>{{currentlanguage.closure?.table_labels?.referral}}</th>
+          <th>{{currentlanguage.closure?.table_labels?.feedback}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList">
+          <td>{{summaryDetails.benCallID}}</td>
+          <td>{{summaryDetails.informationServices}}</td>
+          <td>{{summaryDetails.counsellingServices}}</td>
+          <td>{{summaryDetails.referralServices}}</td>
+          <td>{{summaryDetails.feedbackServices}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- </div> -->
+<!-- <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
+
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
           <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">Is followup required?</md-slide-toggle>
@@ -85,7 +86,6 @@
     </form>
   </div>
 </div> -->
-
 <div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4>{{currentlanguage.closure?.call_details}}</h4>
@@ -93,8 +93,8 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center" *ngIf="showSlider">
     <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" >
-    <form #Form="ngForm" (submit)="closeCall(Form.value); Form.reset()">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+    <form #Form="ngForm" (ngSubmit)="closeCall(Form.value); Form.reset()">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <md-input-container class="hide_underline" [style.width]="'100%'">
@@ -126,9 +126,8 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" >{{currentlanguage.closure?.submit}}</button>
+        <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18">{{currentlanguage.closure?.submit}}</button>
       </div>
     </form>
   </div>
 </div>
-

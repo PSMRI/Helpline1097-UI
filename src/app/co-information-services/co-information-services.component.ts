@@ -1,6 +1,7 @@
 import { Component, OnInit, Output,Input, EventEmitter } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
-import { dataService } from "../services/dataService/data.service"
+import { dataService } from '../services/dataService/data.service'
+import { CoReferralService } from './../services/coService/co_referral.service'
 
 @Component( {
   selector: 'app-co-information-services',
@@ -9,10 +10,15 @@ import { dataService } from "../services/dataService/data.service"
 } )
 export class CoInformationServicesComponent implements OnInit
 {
+
   @Input() current_language: any;
   currentlanguage: any;
 
 
+
+
+  showFormCondition: boolean = false;
+  showTableCondition: boolean = true;
 
   @Output() informationServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
@@ -20,16 +26,25 @@ export class CoInformationServicesComponent implements OnInit
   symptomCategory: any;
   symptomSubCategory: any;
   detailsList: any;
-  serviceID: number;
+  subServiceID: number;
+  providerServiceMapID: number;
+  public data: any;
+  public totalRecord: any;
   constructor(
-              private _coCategoryService: CoCategoryService,
-              private saved_data: dataService
-              )
+
+    private _coCategoryService: CoCategoryService,
+    private saved_data: dataService,
+    private _coService: CoReferralService
+  )
+
   {
   }
 
   ngOnInit ()
   {
+    this.providerServiceMapID = this.saved_data.current_service.serviceID;
+    this.GetInformationHistory();
+    // Add here
     this.GetServiceTypes();
   }
 
@@ -45,16 +60,18 @@ export class CoInformationServicesComponent implements OnInit
   }
   GetServiceTypes ()
   {
-    this._coCategoryService.getTypes()
-    .subscribe( response => this.setServiceTypes( response ) );
+
+    this._coCategoryService.getTypes( this.providerServiceMapID )
+      .subscribe( response => this.setServiceTypes( response ) );
+
   }
   setServiceTypes ( response: any )
   {
     for ( let i: any = 0; i < response.length; i++ )
     {
-      if ( response[ i ].serviceNameFor1097.toUpperCase().search( "INFO" ) >= 0 )
+      if ( response[ i ].subServiceName.toUpperCase().search( "INFO" ) >= 0 )
       {
-        this.serviceID = response[ i ].serviceID1097;
+        this.subServiceID = response[ i ].subServiceID;
         break;
       }
     }
@@ -67,8 +84,10 @@ export class CoInformationServicesComponent implements OnInit
   }
   GetCategoriesByID ()
   {
-    this._coCategoryService.getCategoriesByID( this.serviceID )
-    .subscribe( response => this.SetCategories( response ) );
+
+    this._coCategoryService.getCategoriesByID( this.subServiceID )
+      .subscribe( response => this.SetCategories( response ) );
+
   }
 
   SetCategories ( response: any )
@@ -93,15 +112,46 @@ export class CoInformationServicesComponent implements OnInit
   GetSubCategoryDetails ( id: any )
   {
     this._coCategoryService.getDetails(
-                                       id, this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID,
-                                       this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID
-                                       ).subscribe( response => this.SetSubCategoryDetails( response ) );
+
+      id, this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID,
+      this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
+    ).subscribe( response => this.SetSubCategoryDetails( response ) );
+
+
+
   }
 
   SetSubCategoryDetails ( response: any )
   {
+
     console.log( 'success', response );
     this.detailsList = response;
     this.informationServiceProvided.emit();
   }
+  showForm ()
+  {
+    this.showFormCondition = true;
+    this.showTableCondition = false;
+  }
+  back ()
+  {
+    this.GetInformationHistory();
+    this.showFormCondition = false;
+    this.showTableCondition = true;
+
+  }
+  GetInformationHistory ()
+  {
+
+    this._coService.getInformationsHistoryByID( this.saved_data.beneficiaryData.beneficiaryRegID ).subscribe(( res ) =>
+    {
+      this.data = res;
+      this.totalRecord = res.length;
+      console.log( 'Information History Successfully reterive', res );
+    }, ( err ) =>
+      {
+        console.log( 'Some error reteriving Information History ', err );
+      } )
+  }
+
 }

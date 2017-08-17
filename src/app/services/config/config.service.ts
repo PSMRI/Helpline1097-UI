@@ -17,17 +17,21 @@ export class ConfigService
     private _telephonyServerURL: String = "http://10.201.13.17/";
     private _localeString = 'en-in';
 
-    getCommonBaseURL() {
+    getCommonBaseURL ()
+    {
         return this._commonBaseURL;
     }
-    get1097BaseURL() {
+    get1097BaseURL ()
+    {
         return this._helpline1097BaseURL;
     }
-    getTelephonyServerURL() {
+    getTelephonyServerURL ()
+    {
         return this._telephonyServerURL;
     }
 
-    getLocaleString() {
+    getLocaleString ()
+    {
         return this._localeString;
     }
 };
