@@ -21,6 +21,9 @@ export class helpline1097CoComponent implements OnInit {
   barMinimized: boolean = true;
   ctiHandlerURL: any = "";
 
+   @Input() current_language: any;
+  currentlanguage: any;
+
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -161,6 +164,20 @@ export class helpline1097CoComponent implements OnInit {
     });
     // this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': [''] } }]);
   }
+
+
+ ngOnChanges()
+  {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language in 1097 co me");
+  }
+
+
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find('a').removeClass('active-tab');
     jQuery('#' + val).find('a').addClass('active-tab');

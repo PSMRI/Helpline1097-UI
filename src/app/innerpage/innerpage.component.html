@@ -1,4 +1,4 @@
-<div class="container-fluid p-a-0 header p-t-b-3">
+<div class="container-fluid p-a-0 header p-t-b-3" *ngIf="currentlanguageSet!=undefined">
   <div class="header">
     <div class="col-xs-12 col-sm-12">
       <div routerLink="/MultiRoleScreenComponent" class="pull-left"><img src="assets/images/smLogo.png" alt="Logo" title="Logo"></div>
@@ -6,28 +6,29 @@
         <ul class="list-inline list-unstyled pull-left m-b-0">
           <li class="m-l-lg-40 m-t-5" *ngIf='checkRole'><img src="assets/images/transferCallIcon.png " alt="Caller Icon
     " title="Caller Icon " />
-            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green ">ON CALL</span>
+            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green ">{{currentlanguageSet?.innerpage?.on_call}}</span>
           </li>
         </ul>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
           <!--   <li style="color: white"> Welcome {{data.userName}}</li> -->
           <li class=""><img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon" [mdMenuTriggerFor]="menuNotification"></li>
           <md-menu #menuNotification x-position="before"  class="m-t-40"  >
-              <md-list class="p-t-0">
-                <md-list-item >
-                  <md-icon class="mat-icon material-icons" role="img" aria-hidden="true" >account_circle</md-icon>
-                   {{data.userName}}</md-list-item>
-                <md-list-item class="b-t-1-w">ID: {{current_role}}-{{current_service}}</md-list-item>
-              </md-list>
+            <md-list class="p-t-0">
+              <md-list-item>
+                <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">account_circle</md-icon>
+                {{data.userName}}</md-list-item>
+              <md-list-item class="b-t-1-w">ID: {{current_role}}-{{current_service}}</md-list-item>
+            </md-list>
             </md-menu>
             <li class="help"><a class="">&nbsp;</a></li>
             <li class="logout" routerLink="/loginContentClass"><a class="">&nbsp;</a></li>
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
           <li>
-            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4 ">
-              <option selected="selected " value="1 ">English </option>
-              <option value="2 ">Kannada </option>
+            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4 " [(ngModel)]="language_change" (change)="getLanguageObject(language_change)">
+              <option value="english">English </option>
+              <option value="hindi">Hindi </option>
+              <option value="kannada">Kannada </option>
             </select>
           </li>
         </ul>
@@ -94,7 +95,7 @@
                 <li class="text-center m-l-lg-40 f-s-9"><span><img src="assets/images/flagCallIcon.png " class="f-s-9" alt="Flag Call
     Icon " title="Flag Call Icon "/></span>
                   <br />
-                  <span class="f-s-14 ">Flag Call</span></li>
+                  <span class="f-s-14 ">{{currentlanguageSet?.innerpage?.flag_call}}</span></li>
                 <!-- <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png " alt="End Call
     Icon " title="End Call Icon "/></span>
               <br />
@@ -107,21 +108,21 @@
     </div>
     <div class="clearfix "></div>
     <div>
-      <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event) "></app-1097>
+      <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
     </div>
   </div>
 </div>
 <footer class="footer">
   <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-      <span class="footer-text">Powered by: WIPRO</span>
+      <span class="footer-text">{{currentlanguageSet?.innerpage?.powered_by}}: {{currentlanguageSet?.innerpage?.wipro}}</span>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
       <p class="footer-text t-a-c">2017
         <md-icon color="" class="copyright_icon">copyright</md-icon> PSMRI</p>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-      <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">CZentrix</button>
+      <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">{{currentlanguageSet?.innerpage?.c_zentix}}</button>
     </div>
   </div>
 </footer>

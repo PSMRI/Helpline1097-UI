@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from '../services/update-services/update-service';
@@ -13,6 +13,10 @@ declare let jQuery: any;
   styleUrls: ['./updates-from-beneficiary.component.css']
 })
 export class UpdatesFromBeneficiaryComponent implements OnInit {
+
+  @Input() current_language: any;
+  currentlanguage: any;
+
   occupation: any;
   educationID: any;
   sexualOrientationID: any;
@@ -54,6 +58,17 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
     this.count = '0/300';
 
+  }
+
+  ngOnChanges()
+    {
+      this.setLanguage(this.current_language);
+
+    }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language updates frm ben tak");
   }
 
   PopulateUpdateData() {

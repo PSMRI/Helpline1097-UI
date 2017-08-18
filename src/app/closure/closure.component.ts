@@ -15,6 +15,10 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 export class ClosureComponent implements OnInit
 // export class ClosureComponent implements AfterViewInit
 {
+
+   @Input() current_language: any;
+  currentlanguage: any;
+
   @Output() callClosed: EventEmitter<any> = new EventEmitter<any>();
 
   summaryList: any = [];
@@ -52,7 +56,20 @@ export class ClosureComponent implements OnInit
     this.showSlider = false;
   }
 
-  sliderVisibility ( val )
+
+   ngOnChanges()
+    {
+      this.setLanguage(this.current_language);
+
+    }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language closure tak");
+  }
+
+  sliderVisibility(val)
+
   {
     if ( val === "Valid Call" )
     {

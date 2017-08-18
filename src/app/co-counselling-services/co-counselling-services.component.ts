@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,Input, EventEmitter } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from "../services/dataService/data.service"
 import { CoReferralService } from './../services/coService/co_referral.service'
@@ -11,8 +11,15 @@ import { CoReferralService } from './../services/coService/co_referral.service'
 } )
 export class CoCounsellingServicesComponent implements OnInit
 {
+
+
+  @Input() current_language: any;
+  currentlanguage: any;
+
+
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
+
   @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
   subCategoryList: any;
@@ -36,6 +43,17 @@ export class CoCounsellingServicesComponent implements OnInit
 
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
+  }
+
+   ngOnChanges()
+  {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language counselling tak");
   }
 
   GetServiceTypes ()

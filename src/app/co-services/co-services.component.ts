@@ -8,10 +8,26 @@ declare var jQuery: any;
 })
 export class CoServicesComponent implements OnInit {
 
+   @Input() current_language: any;
+  currentlanguage: any;
+
+
   constructor() { }
+
   selectedService: any;
   tab_value: number = 1;
   ngOnInit() {
+  }
+
+   ngOnChanges()
+  {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language co services tk");
   }
 
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
