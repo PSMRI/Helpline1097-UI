@@ -150,7 +150,8 @@ import { httpFactory } from './http.factory';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './services/common/loader.service';
 import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
-import { EditNotificationsComponent } from './edit-notifications/edit-notifications.component'
+import { EditNotificationsComponent } from './edit-notifications/edit-notifications.component';
+import { TrainingResourcesComponent } from './training-resources/training-resources.component'
 
 
 @NgModule({
@@ -174,7 +175,7 @@ import { EditNotificationsComponent } from './edit-notifications/edit-notificati
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
-    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent, NotificationsDialogComponent, EditNotificationsComponent
+    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent, NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent
 
   ],
   imports: [

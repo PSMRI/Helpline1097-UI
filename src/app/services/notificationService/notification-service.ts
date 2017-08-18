@@ -51,6 +51,10 @@ export class NotificationService {
         return this.http.post(this.getNotificationsURL, data, this.options)
         .map((response: Response)=> response.json());
     }
+    getKMs(data){
+        return this.http.post(this.getNotificationsURL, data, this.options)
+        .map((response: Response)=> response.json());
+    }
     getSupervisorNotifications(data){
         return this.http.post(this.getSupervisorNotificationsURL, data, this.options)
         .map((response: Response)=> response.json());
