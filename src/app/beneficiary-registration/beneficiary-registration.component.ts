@@ -22,7 +22,8 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 })
 export class BeneficiaryRegistrationComponent implements OnInit {
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>(); 1
+  @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
+  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('ageRef') input: ElementRef;
   fname: any = '';
   lname: any = '';

@@ -50,13 +50,13 @@
     <thead>
       <tr>
         <th md2SortBy="benCallID">BeneficiaryCall ID</th>
-        <th md2SortBy="informationServices">Category</th>
-        <th md2SortBy="feedbackServices">Sub Category</th>
+        <th md2SortBy="categoryDetails.categoryName">Category</th>
+        <th md2SortBy="subCategoryDetails.subCategoryName">Sub Category</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let counselling of md2.data ">
-        <td>{{counselling.benCallID}}</td>
+        <td width=20%>{{counselling.benCallID}}</td>
         <td>{{counselling?.categoryDetails?.categoryName}}</td>
         <td>{{counselling?.subCategoryDetails?.subCategoryName}}</td>
       </tr>

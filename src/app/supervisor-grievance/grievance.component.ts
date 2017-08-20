@@ -333,7 +333,11 @@ export class supervisorFeedback implements OnInit {
     // this._feedbackservice.searchFeedback( bodyString )
     //   .subscribe( resProviderData => this.providers( resProviderData ) );
     this._feedbackservice.getFeedback(bodyString)
-      .subscribe(resProviderData => this.providers(resProviderData));
+      .subscribe((resProviderData) => {
+        this.providers(resProviderData)
+      },
+      (err) => {
+      });
   }
 
   onClick(feedback) {

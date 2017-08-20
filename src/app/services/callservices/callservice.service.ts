@@ -16,6 +16,8 @@ export class CallServices {
   _closecallurl = this._commonURL + 'call/closeCall/';
   _callsummaryurl = this._baseUrl + 'services/getCallSummary/';
   _calltypesurl = this._commonURL + 'call/getCallTypes/';
+  _outboundCalls = this._commonURL + 'call/outboundCallList/'
+  _blacklistCalls = this._commonURL + 'call/getBlacklistNumbers/'
   constructor(
     private _http: Http,
     private _config: ConfigService,
@@ -35,7 +37,19 @@ export class CallServices {
     console.log('call types to be retreived for ', values)
     return this._http.post(this._calltypesurl, values, this.options).map(this.extractData).catch(this.handleError);
   }
-
+  getOutboundCallList(serviceID: any, userID?: any) {
+    const obj = {};
+    if (userID) {
+      obj['providerServiceMapID'] = serviceID;
+      obj['assignedUserID'] = userID;
+    } else {
+      obj['providerServiceMapID'] = serviceID;
+    }
+    return this._http.post(this._outboundCalls, obj, this.options).map(this.extractData).catch(this.handleError);
+  }
+  getBlackListCalls(objSearch: any) {
+    return this._httpInterceptor.post(this._blacklistCalls, objSearch).map(this.extractData).catch(this.handleError);
+  }
   extractData(response: Response) {
     if (response.json().data) {
       return response.json().data;
@@ -44,8 +58,8 @@ export class CallServices {
     }
   }
 
-  handleError(response: Response) {
-    return response.json()
+  handleError(error: Response) {
+    return Observable.throw(error);
   }
 
 }

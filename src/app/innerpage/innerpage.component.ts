@@ -94,27 +94,28 @@ export class InnerpageComponent implements OnInit {
   }
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find("a").removeClass('active-tab');
-    jQuery('#' + val).find("a").addClass("active-tab");
+    jQuery('#' + val).find('a').addClass('active-tab');
   }
 
   getSelectedBenDetails(data: any) {
+    debugger;
     if (data != null) {
-      this.selectedBenData.id = "Ben ID: " + data.beneficiaryID;
+      this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryRegID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;
-      this.selectedBenData.name = "Name: " + data.firstName + " " + data.lastName;
+      this.selectedBenData.name = 'Name: ' + data.firstName + ' ' + data.lastName;
       // if ( data.dOB )
       // {
       // 	let currDate = new Date();
       // 	let dob = new Date( data.dOB );
       // 	let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
-      this.selectedBenData.age = "Age: " + data.age;
+      this.selectedBenData.age = 'Age: ' + data.age;
       // }
-      this.selectedBenData.gender = "Gender: " + data.m_gender.genderName;
-      this.selectedBenData.state = "State: " + data.i_bendemographics.m_state.stateName;
-      this.selectedBenData.district = "District: " + data.i_bendemographics.m_district.districtName;
-      this.selectedBenData.block = "Taluk: " + data.i_bendemographics.m_districtblock.blockName;
-      this.selectedBenData.village = "Village: " + data.i_bendemographics.m_districtbranchmapping.villageName;
+      this.selectedBenData.gender = 'Gender: ' + data.m_gender.genderName;
+      this.selectedBenData.state = 'State: ' + data.i_bendemographics.m_state.stateName;
+      this.selectedBenData.district = 'District: ' + data.i_bendemographics.m_district.districtName;
+      this.selectedBenData.block = 'Taluk: ' + data.i_bendemographics.m_districtblock.blockName;
+      this.selectedBenData.village = 'Village: ' + data.i_bendemographics.m_districtbranchmapping.villageName;
       this.selectedBenData.language = 'Preferred Lang: ' + data.i_bendemographics.m_language.languageName;
       this.selectedBenData.relation = 'Family tagging: ' + data.benPhoneMaps[0].benRelationshipType.benRelationshipType;
     } else {

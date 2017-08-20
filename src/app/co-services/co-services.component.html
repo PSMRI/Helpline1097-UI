@@ -41,10 +41,10 @@
     <div class="container-fluid">
       <md-tab-group>
         <md-tab label="Information Services" md-active="true">
-          <app-co-information-services  (informationServiceProvided)="updateServiceProvided()" ></app-co-information-services>
+          <app-co-information-services (informationServiceProvided)="updateServiceProvided();" [getBenID]="benID"></app-co-information-services>
         </md-tab>
-        <md-tab label="Counselling Services" >
-          <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided()"></app-co-counselling-services>
+        <md-tab label="Counselling Services">
+          <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided();"></app-co-counselling-services>
         </md-tab>
         <md-tab label="Referral Services">
           <app-co-referral-services (referralServiceProvided)="updateServiceProvided()"></app-co-referral-services>

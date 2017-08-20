@@ -28,6 +28,7 @@ export class helpline1097CoComponent implements OnInit {
   @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   @Output() getHistory: EventEmitter<any> = new EventEmitter<any>();
+  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancel') cancel;
 
   constructor(
@@ -44,6 +45,7 @@ export class helpline1097CoComponent implements OnInit {
       this.callDuration = this.callDuration + 1;
     }, 1000);
   }
+  private current_campaign: any;
 
   data: any = this.getCommonData.Userdata;
 
@@ -55,6 +57,7 @@ export class helpline1097CoComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.current_campaign = this.getCommonData.current_campaign;
     var idx = jQuery('.carousel-inner div.active').index();
     console.log("index", idx);
     let url = this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
@@ -187,7 +190,7 @@ export class helpline1097CoComponent implements OnInit {
 
     if (data != null) {
       //alert(" hai");
-      this.selectedBenData.id = data.beneficiaryID;
+      this.selectedBenData.id = data.beneficiaryRegID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;
     } else {
@@ -197,6 +200,7 @@ export class helpline1097CoComponent implements OnInit {
       this.selectedBenData.lname = '';
     }
     this.beneficiarySelected.emit(data);
+
 		/**
 		 * End of Neeraj Code; 22-jun-2017
 		 */
@@ -217,7 +221,8 @@ export class helpline1097CoComponent implements OnInit {
 
   }
 
-  updateServiceProvided() {
+  updateServiceProvided(data: any) {
+    debugger;
     this.serviceProvided.emit(null);
   }
   // 	change(no:any){
@@ -251,6 +256,7 @@ export class helpline1097CoComponent implements OnInit {
       jQuery('#two').parent().find('a').removeClass('active-tab');
       jQuery('#two').find('a').addClass('active-tab');
     }
+
   }
 
   closeCall() {
@@ -279,6 +285,14 @@ export class helpline1097CoComponent implements OnInit {
   }
   getServiceHistory() {
     this.getHistory.emit(null);
+  }
+  public callBenOutbound(event: any) {
+    debugger;
+    this.getCommonData.current_campaign = 'INBOUND';
+    this.current_campaign = this.getCommonData.current_campaign;
+    this.getSelectedBenDetails(event.beneficiary);
+    this.benService('benService');
+
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 declare var jQuery: any;
 
 @Component({
@@ -7,17 +7,30 @@ declare var jQuery: any;
   styleUrls: ['./co-services.component.css']
 })
 export class CoServicesComponent implements OnInit {
-
+  @Input() benHistory: any;
+  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
+  @Output() informationServiceProvided: EventEmitter<any> = new EventEmitter<any>();
+  @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
+  selectedBenData: any;
   constructor() { }
   selectedService: any;
   tab_value: number = 1;
   ngOnInit() {
   }
 
-  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnChanges(benData: any) {
+    this.passBenID();
+  }
 
   updateServiceProvided() {
+    debugger;
+
     this.serviceGiven.emit();
+    // this.informationServiceProvided.emit(benRegID);
+  }
+  public passBenID() {
+
   }
 
   @Input()
@@ -32,6 +45,11 @@ export class CoServicesComponent implements OnInit {
 
     // jQuery( "#service" + val ).parent().find( 'a' ).removeClass();
     // jQuery( "#service" + val + " a" ).addClass( "f-c-o" );
+  }
+  public InformationAndCounsellingHistory(benID: any) {
+    debugger;
+    this.informationServiceProvided.emit(benID);
+    this.counsellingServiceProvided.emit(benID);
   }
 
 }

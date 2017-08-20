@@ -15,6 +15,7 @@ export class loginContentClass {
 	userID: any;
 	password: any;
 	loading = false;
+	public loginResult: string;
 
 	constructor(public loginservice: loginService, public router: Router, public dataSettingService: dataService) { };
 	login(userId: any, password: any) {
@@ -44,6 +45,11 @@ export class loginContentClass {
 		}
 	};
 	errorCallback(error: any) {
+		if (error.status) {
+			this.loginResult = error.status;
+		} else {
+			this.loginResult = 'Internal Issue Please Try after Some Time';
+		}
 		// this.loading = false;
 		console.log(error);
 	};

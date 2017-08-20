@@ -13,12 +13,12 @@
           <!--   <li style="color: white"> Welcome {{data.userName}}</li> -->
           <li class=""><img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon" [mdMenuTriggerFor]="menuNotification"></li>
           <md-menu #menuNotification x-position="before"  class="m-t-40"  >
-              <md-list class="p-t-0">
-                <md-list-item >
-                  <md-icon class="mat-icon material-icons" role="img" aria-hidden="true" >account_circle</md-icon>
-                   {{data.userName}}</md-list-item>
-                <md-list-item class="b-t-1-w">ID: {{current_role}}-{{current_service}}</md-list-item>
-              </md-list>
+            <md-list class="p-t-0">
+              <md-list-item>
+                <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">account_circle</md-icon>
+                {{data.userName}}</md-list-item>
+              <md-list-item class="b-t-1-w">ID: {{current_role}}-{{current_service}}</md-list-item>
+            </md-list>
             </md-menu>
             <li class="help"><a class="">&nbsp;</a></li>
             <li class="logout" routerLink="/loginContentClass"><a class="">&nbsp;</a></li>
@@ -37,7 +37,7 @@
 </div>
 <div class="col-xs-12 col-sm-12 " (click)="minimizeBar()">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 ">
+    <div class="col-xs-12 col-sm-12 " [hidden]="current_campaign == 'OUTBOUND'">
       <div class="row b-t-2-w ">
         <div class="col-xs-12 col-sm-12 m-t-3 ">
           <div class="row ">
@@ -65,7 +65,7 @@
                 <option value="2 ">Kannada </option>
               </select>
             </div> -->
-            <div *ngIf='checkRole'>
+            <div *ngIf='checkRole' >
               <!--               <div class=" ">
                 <ul class="list-inline list-unstyled pull-right m-t-3 m-b-3 ">
                   <li class="font-regular "><span class="f-s-14 ">No. Calls :</span><span class="f-s-14
