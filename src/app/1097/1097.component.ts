@@ -47,7 +47,6 @@ export class helpline1097Component implements OnInit {
 
 
   selectBeneficiary(data: any) {
-    debugger;
     this.beneficiarySelected.emit(data);
   }
   Activity_Number: any;

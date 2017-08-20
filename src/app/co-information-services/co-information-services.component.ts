@@ -137,7 +137,7 @@ export class CoInformationServicesComponent implements OnInit {
   }
   // get the data from diffrent commponent
   public getData(data: any) {
-    debugger;
+
     this.beneficiaryID = data.dataPass.beneficiaryRegID;
     this.GetInformationHistory();
   }

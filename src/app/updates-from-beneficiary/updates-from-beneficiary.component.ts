@@ -71,7 +71,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   PopulateUpdateData() {
-    debugger;
+
     if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
       this.occupationID = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
