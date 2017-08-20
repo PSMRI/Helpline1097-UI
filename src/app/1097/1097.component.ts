@@ -43,7 +43,6 @@ export class helpline1097Component implements OnInit
   }
 
   setLanguage(language) {
-    debugger;
     this.currentlanguage = language;
     console.log(language, "language in 1097");
   }

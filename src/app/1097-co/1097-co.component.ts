@@ -110,30 +110,30 @@ export class helpline1097CoComponent implements OnInit {
       if (idx === 0) {
         console.log('chala')
         jQuery("#one").parent().find("a").removeClass('active-tab');
-        jQuery("#one").find("a").addClass("active-tab");
+        jQuery("#one").find('a').addClass('active-tab');
       }
       if (idx === 1) {
-        jQuery("#two").parent().find("a").removeClass('active-tab');
-        jQuery("#two").find("a").addClass("active-tab");
+        jQuery('#two').parent().find('a').removeClass('active-tab');
+        jQuery('#two').find('a').addClass('active-tab');
       }
       if (idx === 2) {
-        jQuery("#three").parent().find("a").removeClass('active-tab');
-        jQuery("#three").find("a").addClass("active-tab");
+        jQuery('#three').parent().find('a').removeClass('active-tab');
+        jQuery('#three').find('a').addClass('active-tab');
       }
       if (idx === 3) {
 
-        jQuery("#four").parent().find("a").removeClass('active-tab');
-        jQuery("#four").find("a").addClass("active-tab");
+        jQuery('#four').parent().find('a').removeClass('active-tab');
+        jQuery('#four').find('a').addClass('active-tab');
       }
     });
 
 
-    jQuery("#next").on('click', function () {
+    jQuery('#next').on('click', function () {
 
       var idx = jQuery('.carousel-inner div.active').index();
       console.log('chala with', idx);
       if (idx === 0) {
-        jQuery("#one").parent().find("a").removeClass('active-tab');
+        jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
       }
       if (idx === 1) {
@@ -169,15 +169,16 @@ export class helpline1097CoComponent implements OnInit {
   }
 
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
-    debugger;
+
     this.setLanguage(this.current_language);
 
   }
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language in 1097 co me");
+    console.log(language, 'language in 1097 co me');
   }
 
 
@@ -239,7 +240,6 @@ export class helpline1097CoComponent implements OnInit {
   }
 
   updateServiceProvided(data: any) {
-    debugger;
     this.serviceProvided.emit(null);
   }
   // 	change(no:any){
@@ -304,7 +304,6 @@ export class helpline1097CoComponent implements OnInit {
     this.getHistory.emit(null);
   }
   public callBenOutbound(event: any) {
-    debugger;
     this.getCommonData.current_campaign = 'INBOUND';
     this.current_campaign = this.getCommonData.current_campaign;
     this.getSelectedBenDetails(event.beneficiary);

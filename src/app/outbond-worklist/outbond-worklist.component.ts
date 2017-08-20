@@ -29,7 +29,6 @@ export class OutbondWorklistComponent implements OnInit {
   }
   //   modaldata:any;
   viewHistory(data: any) {
-    debugger;
     this.onOutboundCall.emit(data);
 
   }

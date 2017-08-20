@@ -118,7 +118,6 @@ export class CoInformationServicesComponent implements OnInit {
 
   }
   GetInformationHistory() {
-    debugger;
     this._coService.getInformationsHistoryByID(this.saved_data.beneficiaryData.beneficiaryRegID).subscribe((res) => {
       this.data = res;
       this.totalRecord = res.length;

@@ -57,7 +57,6 @@ export class ClosureComponent implements OnInit
 
 
   ngOnChanges() {
-    debugger;
     this.setLanguage(this.current_language);
 
   }

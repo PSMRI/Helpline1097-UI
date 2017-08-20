@@ -26,19 +26,13 @@ export class CoServicesComponent implements OnInit {
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language co services tk");
+    console.log(language, 'language co services tk');
   }
 
-
-
   updateServiceProvided() {
-    debugger;
 
     this.serviceGiven.emit();
     // this.informationServiceProvided.emit(benRegID);
-  }
-  public passBenID() {
-
   }
 
   @Input()
@@ -46,7 +40,7 @@ export class CoServicesComponent implements OnInit {
     // todo in future
   }
   changeService(val) {
-    console.log(val, "value of tab clicked");
+    console.log(val, 'value of tab clicked');
     this.tab_value = val;
     // jQuery( "#service" + val ).parent().find( "li" ).removeClass();
     // jQuery( "#service" + val ).addClass( "animation-nav-active" );

@@ -7,7 +7,7 @@
       <input mdInput style="display:none">
       <md-select required placeholder="{{currentlanguage.counselling_service?.select_category}}" [style.width]="'100%'" [(ngModel)]="symptomCategory"
         name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
-        <md-option *ngFor="let symptomCategory of categoryList" value="{{symptomCategory.categoryID}}">
+        <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
           {{symptomCategory.categoryName}}
         </md-option>
       </md-select>
@@ -21,7 +21,7 @@
       <input mdInput style="display:none">
       <md-select required placeholder="{{currentlanguage.counselling_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory"
         name="symptomSubCategory" #subCategory="ngModel">
-        <md-option *ngFor="let symptomSubCategory of subCategoryList" value="{{symptomSubCategory.subCategoryID}}">
+        <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
           {{symptomSubCategory.subCategoryName}}
         </md-option>
       </md-select>

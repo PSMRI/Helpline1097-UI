@@ -35,7 +35,6 @@ export class BlockUnblockNumberComponent implements OnInit {
   }
 
   addToBlockList() {
-    debugger;
     const searchObj = {};
     searchObj['providerServiceMapID'] = this.serviceId;
     searchObj['phoneNumber'] = this.phoneNumber;
