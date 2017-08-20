@@ -14,6 +14,9 @@ export class NotificationService {
     getRolesURL = this.configService.getCommonBaseURL() + 'user/getRolesByProviderID';
     createNotificationURL = this.configService.getCommonBaseURL() + 'notification/createNotification';
     getNotificationsURL = this.configService.getCommonBaseURL() + "notification/getNotification";
+    getSupervisorNotificationsURL = this.configService.getCommonBaseURL() + "notification/getSupervisorNotification";
+    updateNotificationURL = this.configService.getCommonBaseURL() + "notification/updateNotification";
+
     headers = new Headers(
      {'Content-Type': 'application/json'}
        );
@@ -46,6 +49,18 @@ export class NotificationService {
     }
     getNotifications(data){
         return this.http.post(this.getNotificationsURL, data, this.options)
+        .map((response: Response)=> response.json());
+    }
+    getKMs(data){
+        return this.http.post(this.getNotificationsURL, data, this.options)
+        .map((response: Response)=> response.json());
+    }
+    getSupervisorNotifications(data){
+        return this.http.post(this.getSupervisorNotificationsURL, data, this.options)
+        .map((response: Response)=> response.json());
+    }
+    updateNotification(data){
+        return this.http.post(this.updateNotificationURL, data, this.options)
         .map((response: Response)=> response.json());
     }
 }

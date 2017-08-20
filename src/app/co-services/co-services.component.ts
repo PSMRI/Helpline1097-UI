@@ -7,21 +7,29 @@ declare var jQuery: any;
   styleUrls: ['./co-services.component.css']
 })
 export class CoServicesComponent implements OnInit {
-  @Input() benHistory: any;
+
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
-  @Output() informationServiceProvided: EventEmitter<any> = new EventEmitter<any>();
-  @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
+  @Input() current_language: any;
+  currentlanguage: any;
   selectedBenData: any;
   constructor() { }
+
   selectedService: any;
   tab_value: number = 1;
   ngOnInit() {
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnChanges(benData: any) {
-    this.passBenID();
+  ngOnChanges() {
+    this.setLanguage(this.current_language);
+
   }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language co services tk");
+  }
+
+
 
   updateServiceProvided() {
     debugger;
@@ -45,11 +53,6 @@ export class CoServicesComponent implements OnInit {
 
     // jQuery( "#service" + val ).parent().find( 'a' ).removeClass();
     // jQuery( "#service" + val + " a" ).addClass( "f-c-o" );
-  }
-  public InformationAndCounsellingHistory(benID: any) {
-    debugger;
-    this.informationServiceProvided.emit(benID);
-    this.counsellingServiceProvided.emit(benID);
   }
 
 }

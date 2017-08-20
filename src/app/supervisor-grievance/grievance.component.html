@@ -498,7 +498,7 @@
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select placeholder="Feedback Status" [style.width]="'100%'" formControlName="feedbackStatusID">
-            <md-option *ngFor="let feedbackStatus of feedbackStatuses" value="{{feedbackStatus.feedbackStatusID}}">
+            <md-option *ngFor="let feedbackStatus of feedbackStatuses" [value]="feedbackStatus.feedbackStatusID">
               {{feedbackStatus.feedbackStatus}}
             </md-option>
           </md-select>
@@ -511,7 +511,7 @@
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select placeholder="Email Status" [style.width]="'100%'" formControlName="emailStatusID">
-            <md-option *ngFor="let emailStatus of emailStatuses" value="{{emailStatus.emailStatusID}}">
+            <md-option *ngFor="let emailStatus of emailStatuses" [value]="emailStatus.emailStatusID">
               {{emailStatus.emailStatus}}
             </md-option>
           </md-select>

@@ -65,7 +65,7 @@
                 <option value="2 ">Kannada </option>
               </select>
             </div> -->
-            <div *ngIf='checkRole' >
+            <div *ngIf='checkRole'>
               <!--               <div class=" ">
                 <ul class="list-inline list-unstyled pull-right m-t-3 m-b-3 ">
                   <li class="font-regular "><span class="f-s-14 ">No. Calls :</span><span class="f-s-14
@@ -107,7 +107,7 @@
     </div>
     <div class="clearfix "></div>
     <div>
-      <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event) "></app-1097>
+      <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
     </div>
   </div>
 </div>

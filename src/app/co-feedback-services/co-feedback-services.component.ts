@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Directive } from '@angular/core';
+import { Component, OnInit, Output,Input, EventEmitter, Directive } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
 import { LocationService } from '../services/common/location.service';
 import { CoFeedbackService } from '../services/coService/co_feedback.service';
@@ -15,9 +15,15 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
   templateUrl: './co-feedback-services.component.html',
   styleUrls: ['./co-feedback-services.component.css']
 
-})
-export class CoFeedbackServicesComponent implements OnInit {
-  @Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
+
+} )
+export class CoFeedbackServicesComponent implements OnInit
+{
+	 @Input() current_language: any;
+  currentlanguage: any;
+
+	@Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
+
 
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
@@ -113,14 +119,30 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.maxDate = this.today;
   }
 
-  showBeneficiaryFeedbackList() {
-    this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryRegID, this.serviceID)
-      .subscribe((response) => {
-        this.setFeedbackHistoryByID(response)
-        this.showTable();
-      }, (err) => {
-        console.log('Error in fetching Data of FeedBack');
-      });
+
+	ngOnChanges()
+  	{
+    	this.setLanguage(this.current_language);
+
+  	}
+
+  	setLanguage(language) {
+    	this.currentlanguage = language;
+    	console.log(language, "language feedback services mein");
+  	}
+
+	showBeneficiaryFeedbackList ()
+	{
+		this._coFeedbackService.getFeedbackHistoryById( this.beneficiaryRegID, this.serviceID )
+			.subscribe(( response ) =>
+			{
+				this.setFeedbackHistoryByID( response )
+				this.showTable();
+			}, ( err ) =>
+			{
+				console.log( 'Error in fetching Data of FeedBack' );
+			} );
+
 
   }
   SetUserBeneficiaryFeedbackData(regData: any) {

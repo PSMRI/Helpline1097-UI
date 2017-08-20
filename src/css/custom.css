@@ -1434,7 +1434,9 @@ em {
 .height-140 {
   height: 140px !important;
 }
-
+.height-160 {
+  height: 160px !important;
+}
 .height-170 {
   height: 170px !important;
 }
@@ -1450,7 +1452,9 @@ em {
 .height-180 {
   height: 180px !important;
 }
-
+.height-i {
+  height: inherit;
+}
 .symptomsList {
   list-style: none;
   padding-left: 0;

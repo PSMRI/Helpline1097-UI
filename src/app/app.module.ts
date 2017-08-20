@@ -149,7 +149,9 @@ import { AlernateEmailModelComponent } from './alernate-email-model/alernate-ema
 import { httpFactory } from './http.factory';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './services/common/loader.service';
-import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component'
+import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
+import { EditNotificationsComponent } from './edit-notifications/edit-notifications.component';
+import { TrainingResourcesComponent } from './training-resources/training-resources.component'
 
 
 @NgModule({
@@ -173,7 +175,7 @@ import { NotificationsDialogComponent } from './notifications-dialog/notificatio
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
-    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent, NotificationsDialogComponent
+    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent, NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent
 
   ],
   imports: [
@@ -250,7 +252,7 @@ import { NotificationsDialogComponent } from './notifications-dialog/notificatio
     ]),
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,
-    AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent],
+    AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,

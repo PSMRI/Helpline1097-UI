@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
@@ -9,8 +9,12 @@ import { CoReferralService } from './../services/coService/co_referral.service'
   styleUrls: ['./co-information-services.component.css']
 })
 export class CoInformationServicesComponent implements OnInit {
+
+  @Input() current_language: any;
+  currentlanguage: any;
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
+
   @Output() informationServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
   subCategoryList: any;
@@ -22,6 +26,7 @@ export class CoInformationServicesComponent implements OnInit {
   public data: any;
   public totalRecord: any;
   constructor(
+
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
     private _coService: CoReferralService
@@ -33,11 +38,21 @@ export class CoInformationServicesComponent implements OnInit {
     // Add here
     this.GetServiceTypes();
   }
-  OnChanges() {
+
+  ngOnChanges() {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language info tk");
   }
   GetServiceTypes() {
+
     this._coCategoryService.getTypes(this.providerServiceMapID)
       .subscribe(response => this.setServiceTypes(response));
+
   }
   setServiceTypes(response: any) {
     for (let i: any = 0; i < response.length; i++) {
@@ -53,8 +68,10 @@ export class CoInformationServicesComponent implements OnInit {
       .subscribe(response => this.SetCategories(response));
   }
   GetCategoriesByID() {
+
     this._coCategoryService.getCategoriesByID(this.subServiceID)
       .subscribe(response => this.SetCategories(response));
+
   }
 
   SetCategories(response: any) {
@@ -75,9 +92,11 @@ export class CoInformationServicesComponent implements OnInit {
 
   GetSubCategoryDetails(id: any) {
     this._coCategoryService.getDetails(
+
       id, this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID,
       this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
     ).subscribe(response => this.SetSubCategoryDetails(response));
+
 
 
   }

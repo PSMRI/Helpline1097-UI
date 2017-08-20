@@ -21,13 +21,20 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 
 })
 export class BeneficiaryRegistrationComponent implements OnInit {
+  @Input() current_language: any;
+  currentlanguage: any;
+
+
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('ageRef') input: ElementRef;
+
   fname: any = '';
   lname: any = '';
   fhname: any = '';
+  stateSelectedd: any;
+  citySelectedd: any;
   beneficiaryID: string = undefined;
   // nameFlag: boolean = false;
   //genderFlag: boolean = false;
@@ -115,6 +122,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.IntializeSessionValues();
 
   }
+
+
+  ngOnChanges() {
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language ben reg tk");
+  }
+
+
   IntializeSessionValues() {
     this.today = new Date();
     this.maxDate = this.today;
@@ -397,8 +417,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.handleRegHistorySuccess([response]);
       this.showAlert();
     }, (err) => {
-      this.alertMaessage.alert(err.status);
-    });
+        this.alertMaessage.alert(err.status);
+      });
   }
 
   showAlert() {
@@ -578,8 +598,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
     }, (err) => {
-      this.alertMaessage.alert(err.status);
-    });
+        this.alertMaessage.alert(err.status);
+      });
   }
 
   updateSuccessHandeler(response) {
@@ -637,8 +657,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-      console.log('Something Went Wrong in fetching Parent Data');
-    })
+        console.log('Something Went Wrong in fetching Parent Data');
+      })
 
   }
   // to Calculate the age on the basis of date of birth
@@ -698,10 +718,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
       }
     }, (err) => {
-      console.log('Error advanced Search', err);
-      this.showSearchResult = false;
-      this.isAdvancedSearch = false;
-    });
+        console.log('Error advanced Search', err);
+        this.showSearchResult = false;
+        this.isAdvancedSearch = false;
+      });
 
 
   }

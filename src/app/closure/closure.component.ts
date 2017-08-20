@@ -15,6 +15,10 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 export class ClosureComponent implements OnInit
 // export class ClosureComponent implements AfterViewInit
 {
+
+  @Input() current_language: any;
+  currentlanguage: any;
+
   @Output() callClosed: EventEmitter<any> = new EventEmitter<any>();
 
   summaryList: any = [];
@@ -51,6 +55,18 @@ export class ClosureComponent implements OnInit
     this.showSlider = false;
   }
 
+
+  ngOnChanges() {
+    debugger;
+    this.setLanguage(this.current_language);
+
+  }
+
+  setLanguage(language) {
+    this.currentlanguage = language;
+    console.log(language, "language closure tak");
+  }
+
   sliderVisibility(val) {
     if (val === "Valid Call") {
       this.showSlider = true;
@@ -84,6 +100,12 @@ export class ClosureComponent implements OnInit
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
+
+    //Gursimran to look at fixing of followupRequired issue
+    if (values.isFollowupRequired == undefined) {
+      values.isFollowupRequired = false;
+    }
+
     if (values.prefferedDateTime) {
       values.prefferedDateTime = new Date(values.prefferedDateTime);
       values.prefferedDateTime
@@ -99,8 +121,8 @@ export class ClosureComponent implements OnInit
       this.callClosed.emit();
       this.showAlert();
     }, (err) => {
-      this.message.alert(err.status);
-    });
+        this.message.alert(err.status);
+      });
   }
 
   showAlert() {
