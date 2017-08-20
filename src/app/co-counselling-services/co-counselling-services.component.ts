@@ -1,8 +1,10 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
-import { dataService } from "../services/dataService/data.service"
+import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
-
+import { Subscription } from 'rxjs/Subscription';
+// Common service to pass Data
+import { CommunicationService } from './../services/common/communication.service'
 @Component({
   selector: 'app-co-counselling-services',
   templateUrl: './co-counselling-services.component.html',
@@ -28,11 +30,15 @@ export class CoCounsellingServicesComponent implements OnInit {
   providerServiceMapID: number;
   public data: any;
   public totalRecord: any;
+  subscription: Subscription;
+  beneficiaryID: any;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
-    private _coService: CoReferralService
+    private _coService: CoReferralService,
+    private pass_data: CommunicationService
   ) {
+    this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
   }
 
   ngOnInit() {
@@ -114,12 +120,18 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   }
   GetCounsellingHistory() {
-    this._coService.getCounsellingsHistoryByID(this.saved_data.beneficiaryData.beneficiaryRegID).subscribe((res) => {
+    this._coService.getCounsellingsHistoryByID(this.beneficiaryID).subscribe((res) => {
       this.data = res;
       this.totalRecord = res.length;
       console.log('Information History Successfully reterive', res);
     }, (err) => {
       console.log('Some error reteriving Information History ', err);
     })
+  }
+  // get the data from diffrent commponent
+  public getData(data: any) {
+    console.log(data);
+    this.beneficiaryID = data.dataPass.beneficiaryRegID;
+    this.GetCounsellingHistory();
   }
 }

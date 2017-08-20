@@ -9,6 +9,7 @@ import { BeneficiaryHistoryComponent } from './../beneficiary-history/beneficiar
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Message } from './../services/common/message.service'
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
+import { CommunicationService } from './../services/common/communication.service'
 
 
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
@@ -112,7 +113,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
-    private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService) { }
+    private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
+    private pass_data: CommunicationService) { }
 
   /* Intialization Of value and object has to be written in here */
 
@@ -298,8 +300,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.spinnerState = false;
     if (state == undefined) {
       this.stateErrFlag = true;
-    }
-    else {
+    } else {
       this.stateErrFlag = false;
       this._locationService.getDistricts(state)
         .subscribe(response => this.SetDistricts(response));
@@ -417,8 +418,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.handleRegHistorySuccess([response]);
       this.showAlert();
     }, (err) => {
-        this.alertMaessage.alert(err.status);
-      });
+      this.alertMaessage.alert(err.status);
+    });
   }
 
   showAlert() {
@@ -598,8 +599,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
     }, (err) => {
-        this.alertMaessage.alert(err.status);
-      });
+      this.alertMaessage.alert(err.status);
+    });
   }
 
   updateSuccessHandeler(response) {
@@ -638,6 +639,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
+      this.sendData(regHistory);
     });
 
   }
@@ -657,8 +659,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-        console.log('Something Went Wrong in fetching Parent Data');
-      })
+      console.log('Something Went Wrong in fetching Parent Data');
+    })
 
   }
   // to Calculate the age on the basis of date of birth
@@ -718,10 +720,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
       }
     }, (err) => {
-        console.log('Error advanced Search', err);
-        this.showSearchResult = false;
-        this.isAdvancedSearch = false;
-      });
+      console.log('Error advanced Search', err);
+      this.showSearchResult = false;
+      this.isAdvancedSearch = false;
+    });
 
 
   }
@@ -738,6 +740,16 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.genderErrFlag = false;
       // this.genderFlag = false;
     }
+  }
+
+  sendData(data: any): void {
+    // send message to subscribers via observable subject
+    this.pass_data.sendData(data);
+  }
+
+  clearData(): void {
+    // clear message
+    this.pass_data.clearData();
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];

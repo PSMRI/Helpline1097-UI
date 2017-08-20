@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from '../services/update-services/update-service';
@@ -60,11 +60,10 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   }
 
-  ngOnChanges()
-    {
-      this.setLanguage(this.current_language);
+  ngOnChanges() {
+    this.setLanguage(this.current_language);
 
-    }
+  }
 
   setLanguage(language) {
     this.currentlanguage = language;
@@ -72,6 +71,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   PopulateUpdateData() {
+    debugger;
     if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
       this.occupationID = this.saved_data.beneficiaryData.i_bendemographics.occupationID;

@@ -126,6 +126,7 @@ import { OutboundSearchRecordService } from './services/outboundServices/outboun
 import { OutboundCallAllocationService } from './services/outboundServices/outbound-call-allocation.service';
 import { OutboundWorklistService } from './services/outboundServices/outbound-work-list.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service'
+import { CommunicationService } from './services/common/communication.service'
 
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
@@ -175,7 +176,8 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
     SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
-    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent, NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent
+    FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent,
+    NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent
 
   ],
   imports: [
@@ -259,7 +261,7 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, {
+    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, CommunicationService, {
       provide: InterceptedHttp,
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, LoaderService]

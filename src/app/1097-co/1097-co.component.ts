@@ -6,7 +6,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router'
 declare var jQuery: any;
-
+import { CommunicationService } from './../services/common/communication.service'
 
 @Component({
   selector: 'app-1097-co',
@@ -42,7 +42,8 @@ export class helpline1097CoComponent implements OnInit {
     private configService: ConfigService,
     public sanitizer: DomSanitizer,
     private dialogService: ConfirmationDialogsService,
-    private _viewContainerRef: ViewContainerRef
+    private _viewContainerRef: ViewContainerRef,
+    private pass_data: CommunicationService
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -308,6 +309,7 @@ export class helpline1097CoComponent implements OnInit {
     this.current_campaign = this.getCommonData.current_campaign;
     this.getSelectedBenDetails(event.beneficiary);
     this.benService('benService');
+    this.pass_data.sendData(event.beneficiary);
 
   }
 

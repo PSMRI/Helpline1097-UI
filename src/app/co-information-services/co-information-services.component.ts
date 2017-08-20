@@ -2,7 +2,9 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
-
+import { Subscription } from 'rxjs/Subscription';
+// Common service to pass Data
+import { CommunicationService } from './../services/common/communication.service'
 @Component({
   selector: 'app-co-information-services',
   templateUrl: './co-information-services.component.html',
@@ -25,16 +27,20 @@ export class CoInformationServicesComponent implements OnInit {
   providerServiceMapID: number;
   public data: any;
   public totalRecord: any;
+  dataToGet: any;
+  subscription: Subscription;
+  beneficiaryID: any;
   constructor(
-
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
-    private _coService: CoReferralService
+    private _coService: CoReferralService,
+    private pass_data: CommunicationService
   ) {
+    this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
   }
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
-    this.GetInformationHistory();
+
     // Add here
     this.GetServiceTypes();
   }
@@ -118,7 +124,7 @@ export class CoInformationServicesComponent implements OnInit {
 
   }
   GetInformationHistory() {
-    this._coService.getInformationsHistoryByID(this.saved_data.beneficiaryData.beneficiaryRegID).subscribe((res) => {
+    this._coService.getInformationsHistoryByID(this.beneficiaryID).subscribe((res) => {
       this.data = res;
       this.totalRecord = res.length;
       console.log('Information History Successfully reterive', res);
@@ -128,6 +134,17 @@ export class CoInformationServicesComponent implements OnInit {
   }
   getHistory(benID: any) {
 
+  }
+  // get the data from diffrent commponent
+  public getData(data: any) {
+    debugger;
+    this.beneficiaryID = data.dataPass.beneficiaryRegID;
+    this.GetInformationHistory();
+  }
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
   }
 
 }

@@ -10,8 +10,10 @@ export class CoServicesComponent implements OnInit {
 
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @Input() current_language: any;
+  @Input() benData: any;
   currentlanguage: any;
   selectedBenData: any;
+  loadComp = false;
   constructor() { }
 
   selectedService: any;
@@ -21,7 +23,6 @@ export class CoServicesComponent implements OnInit {
 
   ngOnChanges() {
     this.setLanguage(this.current_language);
-
   }
 
   setLanguage(language) {

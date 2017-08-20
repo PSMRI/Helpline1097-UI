@@ -45,7 +45,7 @@
           <app-co-information-services (informationServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-information-services>
 
         </md-tab>
-        <md-tab label="{{currentlanguage.co_services?.counselling_service}}">
+        <md-tab label="{{currentlanguage.co_services?.counselling_service}}" >
           <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-counselling-services>
         </md-tab>
         <md-tab label="{{currentlanguage.co_services?.referral_service}}">
