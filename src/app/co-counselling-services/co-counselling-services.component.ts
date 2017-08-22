@@ -38,7 +38,7 @@ export class CoCounsellingServicesComponent implements OnInit {
     private _coService: CoReferralService,
     private pass_data: CommunicationService
   ) {
-    // this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
+     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
   }
 
   ngOnInit() {
@@ -135,8 +135,7 @@ export class CoCounsellingServicesComponent implements OnInit {
     this.GetCounsellingHistory();
   }
    ngOnDestroy() {
-    debugger;
     // unsubscribe to ensure no memory leaks
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

@@ -639,7 +639,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
-      // this.sendData(regHistory);
+       this.sendData(regHistory);
     });
 
   }

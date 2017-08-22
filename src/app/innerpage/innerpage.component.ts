@@ -26,8 +26,8 @@ export class InnerpageComponent implements OnInit {
   current_campaign: any;
 
   // language change stuff
-  languageFilePath: any = "../../assets/language.json";
-  selectedlanguage: any = "";
+  languageFilePath: any = '../../assets/language.json';
+  selectedlanguage: any = '';
   currentlanguageSet: any = {};
   language_change: any;
 
@@ -47,29 +47,13 @@ export class InnerpageComponent implements OnInit {
     public HttpServices: HttpServices
 
   ) {
-    // setInterval(() =>
-    // {
-    //  this.callDuration = this.callDuration + 1;
-    // }, 1000 );
     this.currentlanguageSet = [];
 
   }
 
   data: any = this.getCommonData.Userdata;
 
-
-	/*<td>{{regHistory.beneficiaryID}}</td>
-								<td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
-								<td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td>
-								<td>{{regHistory.age}}</td>
-								<td>{{regHistory.m_gender.genderName}}</td>
-								<td>{{regHistory.i_bendemographics.m_state.stateName}}</td>
-								<td>{{regHistory.i_bendemographics.m_district.districtName}}</td>
-								<td>{{regHistory.i_bendemographics.m_districtblock.blockName}}</td>
-								<td>{{regHistory.i_bendemographics.m_districtbranchmapping.villageName}}</td>
-								<td>{{regHistory.i_bendemographics.m_language.languageName}}</td>
-								<td>{{regHistory.benPhoneMaps[0].benRelationshipType.benRelationshipType}}</td>
-								*/
+  // tslint:disable-next-line:member-ordering
   selectedBenData: any = {
     'id': '',
     'fname': '',
@@ -87,7 +71,7 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.language_change = "english";
+    this.language_change = 'english';
     this.getLanguageObject(this.language_change);
 
     this.current_service = this.getCommonData.current_service.serviceName;
@@ -108,28 +92,28 @@ export class InnerpageComponent implements OnInit {
     this.current_campaign = this.getCommonData.current_campaign;
   }
   addActiveClass(val: any) {
-    jQuery('#' + val).parent().find("a").removeClass('active-tab');
-    jQuery('#' + val).find("a").addClass("active-tab");
+    jQuery('#' + val).parent().find('a').removeClass('active-tab');
+    jQuery('#' + val).find('a').addClass('active-tab');
   }
 
   getSelectedBenDetails(data: any) {
     if (data != null) {
-      this.selectedBenData.id = "Ben ID: " + data.beneficiaryRegID;
+      this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryRegID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;
-      this.selectedBenData.name = "Name: " + data.firstName + " " + data.lastName;
+      this.selectedBenData.name = 'Name: ' + data.firstName + ' ' + data.lastName;
       // if ( data.dOB )
       // {
       //  let currDate = new Date();
       //  let dob = new Date( data.dOB );
       //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
-      this.selectedBenData.age = "Age: " + data.age;
+      this.selectedBenData.age = 'Age: ' + data.age;
       // }
-      this.selectedBenData.gender = "Gender: " + data.m_gender.genderName;
-      this.selectedBenData.state = "State: " + data.i_bendemographics.m_state.stateName;
-      this.selectedBenData.district = "District: " + data.i_bendemographics.m_district.districtName;
-      this.selectedBenData.block = "Taluk: " + data.i_bendemographics.m_districtblock.blockName;
-      this.selectedBenData.village = "Village: " + data.i_bendemographics.m_districtbranchmapping.villageName;
+      this.selectedBenData.gender = 'Gender: ' + data.m_gender.genderName;
+      this.selectedBenData.state = 'State: ' + data.i_bendemographics.m_state.stateName;
+      this.selectedBenData.district = 'District: ' + data.i_bendemographics.m_district.districtName;
+      this.selectedBenData.block = 'Taluk: ' + data.i_bendemographics.m_districtblock.blockName;
+      this.selectedBenData.village = 'Village: ' + data.i_bendemographics.m_districtbranchmapping.villageName;
       this.selectedBenData.language = 'Preferred Lang: ' + data.i_bendemographics.m_language.languageName;
       this.selectedBenData.relation = 'Family tagging: ' + data.benPhoneMaps[0].benRelationshipType.benRelationshipType;
     } else {
@@ -171,10 +155,9 @@ export class InnerpageComponent implements OnInit {
   }
 
   successhandeler(response, language) {
-
-    console.log("language triggered and recieved", response, language);
+    console.log('language triggered and recieved', response, language);
     this.currentlanguageSet = response[language];
-    // this.currentlanguageSet = "LANGUAGE IS ENGLISH PEHLI BAAR ME";										
+    // this.currentlanguageSet = "LANGUAGE IS ENGLISH PEHLI BAAR ME";
   }
-}
 
+}

@@ -25,7 +25,7 @@
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
           <li>
-            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4 ">
+            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4" [(ngModel)]="language_change" (change)="getLanguageObject(language_change)"> 
               <option selected="selected " value="english">English </option>
               <option value="kannada">Kannada </option>
             </select>
