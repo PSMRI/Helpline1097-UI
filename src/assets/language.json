@@ -1,8 +1,6 @@
 {
-  "english":
-  {
-    "innerpage":
-    {
+  "english": {
+    "innerpage": {
       "on_call": "ON CALL",
       "id": "ID",
       "flag_call": "FLAG CALL",
@@ -10,8 +8,7 @@
       "wipro": "WIPRO",
       "c_zentix": "CZentrix"
     },
-    "co":
-    {
+    "co": {
       "create_find_beneficiary": "Create/Find Beneficiary",
       "provide_service": "Provide Services",
       "other_details": "Other Details",
@@ -20,8 +17,7 @@
       "next": "Next",
       "cancel": "Cancel"
     },
-    "beneficiary_registration":
-    {
+    "beneficiary_registration": {
       "call_confirmation_question": "Have You Called Earlier?",
       "registration_number": "Registration Number",
       "retrieve": "Retrieve",
@@ -37,8 +33,7 @@
       "district_validation": "Please Select District ",
       "taluk": "Select Taluk",
       "search": "Search",
-      "table_labels":
-      {
+      "table_labels": {
         "beneficiary_id": "Beneficiary ID",
         "fullname": "Full Name",
         "dob": "Date Of Birth",
@@ -70,45 +65,39 @@
       "generate": "Generate",
       "update": "Update"
     },
-    "co_services":
-    {
+    "co_services": {
       "information_services": "Information Services",
       "counselling_service": "Counselling Services",
       "referral_service": "Referral Services",
       "feedback_service": "Feedback System"
     },
-    "information_service":
-    {
+    "information_service": {
       "page_heading": "Information Services",
       "select_category": "Select Category",
       "select_subcategory": "Select Sub-Category",
       "get_details": "Get Details",
       "back": "Back",
-      "table_labels":
-      {
+      "table_labels": {
         "beneficiary_call_id": "Beneficiary Call ID",
         "category": "Category",
         "subcategory": "Sub-Category"
       },
       "new_informations": "New Informations"
     },
-    "counselling_service":
-    {
+    "counselling_service": {
       "page_heading": "Counselling Services",
       "select_category": "Select Category",
       "select_subcategory": "Select Sub-Category",
       "get_details": "Get Details",
       "back": "Back",
-      "table_labels":
-      {
+      "table_labels": {
         "beneficiary_call_id": "Beneficiary Call ID",
         "category": "Category",
         "subcategory": "Sub-Category"
       },
       "new_counsellings": "New Counsellings"
     },
-    "referral_service":
-    {
+    "referral_service": {
       "state": "State",
       "district": "District",
       "taluk": "Taluk",
@@ -118,8 +107,7 @@
       "search": "Search",
       "back": "Back",
       "send_sms": "Send SMS",
-      "table_labels":
-      {
+      "table_labels": {
         "table_heading": "Referral History",
         "institute_directory_map_id": "Institute Directory Map ID",
         "institute_name": "Name Of Institute",
@@ -128,8 +116,7 @@
       },
       "new_referral": "New Referral"
     },
-    "feedback_service":
-    {
+    "feedback_service": {
       "state": "State",
       "district": "District",
       "taluk": "Taluk",
@@ -142,8 +129,7 @@
       "incident_date": "Incident Date dd-mm-yyyy",
       "register": "Register",
       "back": "Back",
-      "table_labels":
-      {
+      "table_labels": {
         "table_heading": "Feedback Record",
         "feedbackID": "Feedback ID",
         "description": "Description",
@@ -154,8 +140,7 @@
       },
       "create_feedback": "Create Feedback"
     },
-    "other_details":
-    {
+    "other_details": {
       "heading": "Other Details",
       "occupation": "Occupation",
       "qualification": "Select Education Qualification",
@@ -167,10 +152,8 @@
       "feedback_question": "How did you come to know about our services?",
       "save": "Save"
     },
-    "closure":
-    {
-      "table_labels":
-      {
+    "closure": {
+      "table_labels": {
         "table_heading": "Services Availed During The Call",
         "call_id": "Call ID",
         "information": "Information",
@@ -187,10 +170,8 @@
       "submit": "Submit"
     }
   },
-  "hindi":
-  {
-    "innerpage":
-    {
+  "kannada": {
+    "innerpage": {
       "on_call": "ON CALL",
       "id": "ID",
       "flag_call": "FLAG CALL",
@@ -198,9 +179,8 @@
       "wipro": "WIPRO",
       "c_zentix": "CZentrix"
     },
-    "co":
-    {
-      "create_find_beneficiary": "Create/Find Beneficiary",
+    "co": {
+      "create_find_beneficiary": "Create/Find Beneficiary_kannada",
       "provide_service": "Provide Services",
       "other_details": "Other Details",
       "closure": "Closure",
@@ -208,8 +188,7 @@
       "next": "Next",
       "cancel": "Cancel"
     },
-    "beneficiary_registration":
-    {
+    "beneficiary_registration": {
       "call_confirmation_question": "Have You Called Earlier?",
       "registration_number": "Registration Number",
       "retrieve": "Retrieve",
@@ -225,8 +204,7 @@
       "district_validation": "Please Select District ",
       "taluk": "Select Taluk",
       "search": "Search",
-      "table_labels":
-      {
+      "table_labels": {
         "beneficiary_id": "Beneficiary ID",
         "fullname": "Full Name",
         "dob": "Date Of Birth",
@@ -258,45 +236,39 @@
       "generate": "Generate",
       "update": "Update"
     },
-    "co_services":
-    {
+    "co_services": {
       "information_services": "Information Services",
       "counselling_service": "Counselling Services",
       "referral_service": "Referral Services",
       "feedback_service": "Feedback System"
     },
-    "information_service":
-    {
+    "information_service": {
       "page_heading": "Information Services",
       "select_category": "Select Category",
       "select_subcategory": "Select Sub-Category",
       "get_details": "Get Details",
       "back": "Back",
-      "table_labels":
-      {
+      "table_labels": {
         "beneficiary_call_id": "Beneficiary Call ID",
         "category": "Category",
         "subcategory": "Sub-Category"
       },
       "new_informations": "New Informations"
     },
-    "counselling_service":
-    {
+    "counselling_service": {
       "page_heading": "Counselling Services",
       "select_category": "Select Category",
       "select_subcategory": "Select Sub-Category",
       "get_details": "Get Details",
       "back": "Back",
-      "table_labels":
-      {
+      "table_labels": {
         "beneficiary_call_id": "Beneficiary Call ID",
         "category": "Category",
         "subcategory": "Sub-Category"
       },
       "new_counsellings": "New Counsellings"
     },
-    "referral_service":
-    {
+    "referral_service": {
       "state": "State",
       "district": "District",
       "taluk": "Taluk",
@@ -306,8 +278,7 @@
       "search": "Search",
       "back": "Back",
       "send_sms": "Send SMS",
-      "table_labels":
-      {
+      "table_labels": {
         "table_heading": "Referral History",
         "institute_directory_map_id": "Institute Directory Map ID",
         "institute_name": "Name Of Institute",
@@ -316,8 +287,7 @@
       },
       "new_referral": "New Referral"
     },
-    "feedback_service":
-    {
+    "feedback_service": {
       "state": "State",
       "district": "District",
       "taluk": "Taluk",
@@ -330,8 +300,7 @@
       "incident_date": "Incident Date dd-mm-yyyy",
       "register": "Register",
       "back": "Back",
-      "table_labels":
-      {
+      "table_labels": {
         "table_heading": "Feedback Record",
         "feedbackID": "Feedback ID",
         "description": "Description",
@@ -342,8 +311,7 @@
       },
       "create_feedback": "Create Feedback"
     },
-    "other_details":
-    {
+    "other_details": {
       "heading": "Other Details",
       "occupation": "Occupation",
       "qualification": "Select Education Qualification",
@@ -355,198 +323,8 @@
       "feedback_question": "How did you come to know about our services?",
       "save": "Save"
     },
-    "closure":
-    {
-      "table_labels":
-      {
-        "table_heading": "Services Availed During The Call",
-        "call_id": "Call ID",
-        "information": "Information",
-        "counselling": "Counselling",
-        "referral": "Referral",
-        "feedback": "Feedback"
-      },
-      "call_details": "Call Details",
-      "followup_question": "Is Follow-Up Required?",
-      "calltype": "Select Call Type",
-      "remarks": "Enter Remarks",
-      "preferred_date": "Preferred Date (dd-mm-yyyy)",
-      "follow_up_reason": "Follow-up Reason",
-      "submit": "Submit"
-    }
-  },
-  "kannada":
-  {
-    "innerpage":
-    {
-      "on_call": "ON CALL",
-      "id": "ID",
-      "flag_call": "FLAG CALL",
-      "powered_by": "Powered By",
-      "wipro": "WIPRO",
-      "c_zentix": "CZentrix"
-    },
-    "co":
-    {
-      "create_find_beneficiary": "Create/Find Beneficiary",
-      "provide_service": "Provide Services",
-      "other_details": "Other Details",
-      "closure": "Closure",
-      "previous": "Previous",
-      "next": "Next",
-      "cancel": "Cancel"
-    },
-    "beneficiary_registration":
-    {
-      "call_confirmation_question": "Have You Called Earlier?",
-      "registration_number": "Registration Number",
-      "retrieve": "Retrieve",
-      "first_name": "First Name",
-      "name_is_required": "Name Is Required",
-      "aleast_3_characters_long": "Atleast 3 Characters Long",
-      "last_name": "Last Name/Surname",
-      "gender": "Select Gender",
-      "gender_validation": "Please Select Gender ",
-      "state": "Select State",
-      "state_validation": "Please Select State ",
-      "district": "Select District",
-      "district_validation": "Please Select District ",
-      "taluk": "Select Taluk",
-      "search": "Search",
-      "table_labels":
-      {
-        "beneficiary_id": "Beneficiary ID",
-        "fullname": "Full Name",
-        "dob": "Date Of Birth",
-        "age": "Age",
-        "gender": "Gender",
-        "state": "State",
-        "district": "District",
-        "taluk": "Taluk",
-        "village": "Village",
-        "preferred_language": "Preferred Language",
-        "beneficiary_tagging": "Beneficiary Tagging",
-        "no_records_found": "No Records Found"
-      },
-      "registration_form": "Registration Form",
-      "title": "Title",
-      "marital_status": "Select Marital Status",
-      "dob": "DOB: dd-MM-yyyy",
-      "age": "Age",
-      "alternate_number": "Alternate Number",
-      "next": "Next",
-      "identity_type": "Identity Type",
-      "id_number": "ID Number",
-      "caste": "Select Caste",
-      "education": "Select Education Qualification",
-      "village": "Select Panchayat/Village",
-      "pincode": "Pincode",
-      "preferred_language": "Select Preferred Language",
-      "back": "Back",
-      "generate": "Generate",
-      "update": "Update"
-    },
-    "co_services":
-    {
-      "information_services": "Information Services",
-      "counselling_service": "Counselling Services",
-      "referral_service": "Referral Services",
-      "feedback_service": "Feedback System"
-    },
-    "information_service":
-    {
-      "page_heading": "Information Services",
-      "select_category": "Select Category",
-      "select_subcategory": "Select Sub-Category",
-      "get_details": "Get Details",
-      "back": "Back",
-      "table_labels":
-      {
-        "beneficiary_call_id": "Beneficiary Call ID",
-        "category": "Category",
-        "subcategory": "Sub-Category"
-      },
-      "new_informations": "New Informations"
-    },
-    "counselling_service":
-    {
-      "page_heading": "Counselling Services",
-      "select_category": "Select Category",
-      "select_subcategory": "Select Sub-Category",
-      "get_details": "Get Details",
-      "back": "Back",
-      "table_labels":
-      {
-        "beneficiary_call_id": "Beneficiary Call ID",
-        "category": "Category",
-        "subcategory": "Sub-Category"
-      },
-      "new_counsellings": "New Counsellings"
-    },
-    "referral_service":
-    {
-      "state": "State",
-      "district": "District",
-      "taluk": "Taluk",
-      "sub_taluk": "Sub District/Sub Taluk/Block",
-      "directory": "Information Required (Directory)",
-      "sub_directory": "Sub-Directory",
-      "search": "Search",
-      "back": "Back",
-      "send_sms": "Send SMS",
-      "table_labels":
-      {
-        "table_heading": "Referral History",
-        "institute_directory_map_id": "Institute Directory Map ID",
-        "institute_name": "Name Of Institute",
-        "created_by": "Created By",
-        "created_on": "Created On"
-      },
-      "new_referral": "New Referral"
-    },
-    "feedback_service":
-    {
-      "state": "State",
-      "district": "District",
-      "taluk": "Taluk",
-      "sub_taluk": "Sub District/ Sub Taluk/Block",
-      "institution": "Institution Name",
-      "designation": "Designation",
-      "feedback_type": "Type Of Feedback",
-      "severity": "Severity",
-      "feedback_description": "Feeback Description",
-      "incident_date": "Incident Date dd-mm-yyyy",
-      "register": "Register",
-      "back": "Back",
-      "table_labels":
-      {
-        "table_heading": "Feedback Record",
-        "feedbackID": "Feedback ID",
-        "description": "Description",
-        "severity": "Severity",
-        "feedback_type": "Feedback Type",
-        "agent": "Agent",
-        "status": "Status"
-      },
-      "create_feedback": "Create Feedback"
-    },
-    "other_details":
-    {
-      "heading": "Other Details",
-      "occupation": "Occupation",
-      "qualification": "Select Education Qualification",
-      "sexual_orientation": "Sexual Orientation",
-      "work_place": "Place of Work",
-      "remarks": "Remarks",
-      "hiv_question": "Is beneficiary suffering from HIV/AIDS?",
-      "hiv_question_condition": "(Captured only if, caller voluntarily informs)",
-      "feedback_question": "How did you come to know about our services?",
-      "save": "Save"
-    },
-    "closure":
-    {
-      "table_labels":
-      {
+    "closure": {
+      "table_labels": {
         "table_heading": "Services Availed During The Call",
         "call_id": "Call ID",
         "information": "Information",
