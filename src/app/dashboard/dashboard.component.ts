@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dataService } from '../services/dataService/data.service';
 import { ConfigService } from '../services/config/config.service';
-
+import { ConfirmationDialogsService } from '../services/dialog/confirmation.service'
 @Component({
   selector: 'dashboard-component',
   templateUrl: './dashboard.html'
@@ -21,7 +21,8 @@ export class dashboardContentClass implements OnInit {
     public dataSettingService: dataService,
     public router: Router,
     private configService: ConfigService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private message: ConfirmationDialogsService
   ) { };
   ngOnInit() {
     //http://10.201.13.17/bar/cti_handler.php
@@ -91,10 +92,23 @@ export class dashboardContentClass implements OnInit {
   campaign(value) {
     console.log(value);
     if (value === '1') {
-      this.dataSettingService.current_campaign = 'INBOUND';
+      this.message.confirm('', 'Are you Sure want to change to Inbound?').subscribe((response) => {
+        if (response) {
+          this.dataSettingService.current_campaign = 'INBOUND';
+        } else {
+          this.inOutBound = 0;
+        }
+      })
+
     }
     if (value === '0') {
-      this.dataSettingService.current_campaign = 'OUTBOUND';
+       this.message.confirm('', 'Are you Sure want to change to Outbound?').subscribe((response) => {
+        if (response) {
+          this.dataSettingService.current_campaign = 'OUTBOUND';
+        } else {
+          this.inOutBound = 1;
+        }
+      })
     }
   }
 }

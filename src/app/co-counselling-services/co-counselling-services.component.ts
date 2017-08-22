@@ -38,7 +38,7 @@ export class CoCounsellingServicesComponent implements OnInit {
     private _coService: CoReferralService,
     private pass_data: CommunicationService
   ) {
-     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
+    this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
   }
 
   ngOnInit() {
@@ -47,6 +47,7 @@ export class CoCounsellingServicesComponent implements OnInit {
     this.GetServiceTypes();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
 
@@ -54,7 +55,6 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language counselling tak");
   }
 
   GetServiceTypes() {
@@ -64,7 +64,7 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   setServiceTypes(response: any) {
     for (let i: any = 0; i < response.length; i++) {
-      if (response[i].subServiceName.toUpperCase().search("COUN") >= 0) {
+      if (response[i].subServiceName.toUpperCase().search('COUN') >= 0) {
         this.serviceID = response[i].subServiceID;
         break;
       }
@@ -99,7 +99,7 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   GetSubCategoryDetails(id: any) {
     this._coCategoryService.getCODetails(
-      id, this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID,
+      id, this.saved_data.uname, this.beneficiaryID,
       this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID
     ).subscribe(response => this.SetSubCategoryDetails(response));
   }
@@ -130,11 +130,11 @@ export class CoCounsellingServicesComponent implements OnInit {
   }
   // get the data from diffrent commponent
   public getData(data: any) {
-    console.log(data);
     this.beneficiaryID = data.dataPass.beneficiaryRegID;
     this.GetCounsellingHistory();
   }
-   ngOnDestroy() {
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }

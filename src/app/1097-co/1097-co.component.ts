@@ -67,6 +67,19 @@ export class helpline1097CoComponent implements OnInit {
     let url = this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
     console.log("url = " + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    // if (idx > 1) {
+    //   jQuery('#previous').attr('disabled', null);
+    //   //  jQuery('#next').attr('disabled', 'disabled');
+    // }
+    // if (idx === 0) {
+    //   jQuery('#previous').attr('disabled', 'disabled');
+    // }
+    // if (idx > 0) {
+    //   jQuery('#next').attr('disabled', null);
+    // }
+    // if (idx === 4) {
+    //   jQuery('#next').attr('disabled', 'disabled');
+    // }
 
     // jQuery('#closureLink').on('click', function () {
     //   jQuery('#myCarousel').carousel(idx + 3);
@@ -106,7 +119,22 @@ export class helpline1097CoComponent implements OnInit {
       });*/
 
     jQuery("#previous").on('click', function () {
+
       var idx = jQuery('.carousel-inner div.active').index();
+      if (idx > 1) {
+        jQuery('#previous').attr('disabled', null);
+        //  jQuery('#next').attr('disabled', 'disabled');
+      }
+      if (idx === 0) {
+        jQuery('#previous').attr('disabled', 'disabled');
+      }
+      if (idx > 0) {
+        jQuery('#next').attr('disabled', null);
+      }
+      if (idx === 4) {
+        jQuery('#next').attr('disabled', 'disabled');
+      }
+
       console.log('chala with', idx);
       if (idx === 0) {
         console.log('chala')
@@ -130,12 +158,27 @@ export class helpline1097CoComponent implements OnInit {
 
 
     jQuery('#next').on('click', function () {
-
+      debugger;
       var idx = jQuery('.carousel-inner div.active').index();
       console.log('chala with', idx);
+      if (idx > 1) {
+        jQuery('#previous').attr('disabled', null);
+        //  jQuery('#next').attr('disabled', 'disabled');
+      }
+      if (idx === 0) {
+        jQuery('#previous').attr('disabled', 'disabled');
+      }
+      if (idx > 0) {
+        jQuery('#next').attr('disabled', null);
+      }
+      if (idx === 4) {
+        jQuery('#next').attr('disabled', 'disabled');
+      }
+
       if (idx === 0) {
         jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
+
       }
       if (idx === 1) {
         jQuery('#two').parent().find('a').removeClass('active-tab');
@@ -199,9 +242,9 @@ export class helpline1097CoComponent implements OnInit {
 		this.selectedBenData.lname = data.lastName;
 		this.selectedBenData.mob = data.phoneNo;
 */
-		/**
-				 * Neeraj Code; 22-jun-2017
-				 */
+    /**
+         * Neeraj Code; 22-jun-2017
+         */
     //	this.beneficiaryNotSelected = false;
     //	this.updateClosureData.emit();
     //	this.serviceProvided.emit();
@@ -220,9 +263,9 @@ export class helpline1097CoComponent implements OnInit {
     }
     this.beneficiarySelected.emit(data);
 
-		/**
-		 * End of Neeraj Code; 22-jun-2017
-		 */
+    /**
+     * End of Neeraj Code; 22-jun-2017
+     */
 
 
   }
@@ -273,6 +316,7 @@ export class helpline1097CoComponent implements OnInit {
       jQuery('#myCarousel').carousel(1);
       jQuery('#two').parent().find('a').removeClass('active-tab');
       jQuery('#two').find('a').addClass('active-tab');
+      jQuery('#next').attr('disabled', null);
     }
 
   }
@@ -309,8 +353,7 @@ export class helpline1097CoComponent implements OnInit {
     this.current_campaign = this.getCommonData.current_campaign;
     this.getSelectedBenDetails(event.beneficiary);
     this.benService('benService');
-    // this.pass_data.sendData(event.beneficiary);
-
+    this.pass_data.sendData(event.beneficiary);
   }
 
 }

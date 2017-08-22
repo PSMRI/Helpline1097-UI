@@ -30,6 +30,7 @@ export class CoInformationServicesComponent implements OnInit {
   dataToGet: any;
   subscription: Subscription;
   beneficiaryID: any;
+  benCallID: any;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -40,44 +41,51 @@ export class CoInformationServicesComponent implements OnInit {
   }
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
-
     // Add here
     this.GetServiceTypes();
+
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
-
   }
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language info tk");
   }
   GetServiceTypes() {
-
     this._coCategoryService.getTypes(this.providerServiceMapID)
       .subscribe(response => this.setServiceTypes(response));
 
   }
   setServiceTypes(response: any) {
     for (let i: any = 0; i < response.length; i++) {
-      if (response[i].subServiceName.toUpperCase().search("INFO") >= 0) {
+      if (response[i].subServiceName.toUpperCase().search('INFO') >= 0) {
         this.subServiceID = response[i].subServiceID;
         break;
       }
     }
-    this.GetCategoriesByID();
+    this.GetCategoriesByID(this.subServiceID);
   }
   GetCategories() {
+
     this._coCategoryService.getCategories()
-      .subscribe(response => this.SetCategories(response));
+      .subscribe((response) => {
+        this.SetCategories(response)
+      },
+      (err) => {
+
+      });
   }
-  GetCategoriesByID() {
+  GetCategoriesByID(subServiceId) {
+    this._coCategoryService.getCategoriesByID(subServiceId)
+      .subscribe((response) => {
+        this.SetCategories(response)
+      },
+      (err) => {
 
-    this._coCategoryService.getCategoriesByID(this.subServiceID)
-      .subscribe(response => this.SetCategories(response));
-
+      });
   }
 
   SetCategories(response: any) {
@@ -98,17 +106,12 @@ export class CoInformationServicesComponent implements OnInit {
 
   GetSubCategoryDetails(id: any) {
     this._coCategoryService.getDetails(
-
-      id, this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID,
+      id, this.saved_data.uname, this.beneficiaryID,
       this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
     ).subscribe(response => this.SetSubCategoryDetails(response));
-
-
-
   }
 
   SetSubCategoryDetails(response: any) {
-
     console.log('success', response);
     this.detailsList = response;
     this.informationServiceProvided.emit();
@@ -133,11 +136,9 @@ export class CoInformationServicesComponent implements OnInit {
     })
   }
   getHistory(benID: any) {
-
   }
   // get the data from diffrent commponent
   public getData(data: any) {
-
     this.beneficiaryID = data.dataPass.beneficiaryRegID;
     this.GetInformationHistory();
   }

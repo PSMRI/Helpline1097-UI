@@ -31,9 +31,7 @@ export class CoServicesComponent implements OnInit {
   }
 
   updateServiceProvided() {
-
     this.serviceGiven.emit();
-    // this.informationServiceProvided.emit(benRegID);
   }
 
   @Input()

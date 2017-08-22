@@ -5,7 +5,7 @@ import { dataService } from '../services/dataService/data.service';
 import { CallServices } from '../services/callservices/callservice.service'
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { CommunicationService } from './../services/common/communication.service'
-
+import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -41,14 +41,16 @@ export class ClosureComponent implements OnInit
   today: Date;
 
   showSlider: boolean;
-
+  benCallID: any;
+  beneficiaryRegID: any;
+  serviceID: any;
+  subscription: Subscription
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
     private message: ConfirmationDialogsService,
-    private pass_data: CommunicationService
-
-  ) { }
+    private pass_data: CommunicationService,
+  ) { this.subscription = this.pass_data.getData().subscribe(benData => { this.outBoundCloseCall(benData) }); }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
     const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
@@ -62,6 +64,7 @@ export class ClosureComponent implements OnInit
   }
 
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
 
@@ -69,20 +72,17 @@ export class ClosureComponent implements OnInit
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language closure tak");
   }
 
   sliderVisibility(val) {
-    if (val === "Valid Call") {
+    if (val === 'Valid Call') {
       this.showSlider = true;
-    }
-    else {
+    } else {
       this.showSlider = false;
     }
   }
 
   populateCallTypes(response: any) {
-    console.log("hi", response);
     this.calltypes = response;
   }
   // @Input()
@@ -102,11 +102,12 @@ export class ClosureComponent implements OnInit
   }
 
   closeCall(values: any) {
+    debugger;
     values.benCallID = this.saved_data.callData.benCallID;
-    values.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
+    values.beneficiaryRegID = this.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
 
-    //Gursimran to look at fixing of followupRequired issue
+    // Gursimran to look at fixing of followupRequired issue
     if (values.isFollowupRequired == undefined) {
       values.isFollowupRequired = false;
     }
@@ -119,8 +120,8 @@ export class ClosureComponent implements OnInit
       values.preferredDateTime = undefined;
     }
     values.createdBy = this.saved_data.uname;
-    values.fitToBlock = values.callTypeID.split(",")[1];
-    values.callTypeID = values.callTypeID.split(",")[0];
+    values.fitToBlock = values.callTypeID.split(',')[1];
+    values.callTypeID = values.callTypeID.split(',')[0];
     console.log('close called with ' + values);
     this._callServices.closeCall(values).subscribe((response) => {
       this.callClosed.emit(this.current_campaign);
@@ -146,4 +147,15 @@ export class ClosureComponent implements OnInit
     }
 
   }
+  outBoundCloseCall(benData: any) {
+    this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
+    this.onView();
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
+  }
+
 }

@@ -538,7 +538,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
     this.updatedObj = registeredBenData;
     this.saved_data.beneficiaryData = registeredBenData;
-    this.onBenRegDataSelect.emit(this.benRegData);
+    // this.onBenRegDataSelect.emit(this.benRegData);
+    this.sendData(this.benRegData);
   }
 
   updateBeneficiary() {
@@ -639,7 +640,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
-       this.sendData(regHistory);
     });
 
   }
@@ -741,7 +741,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // this.genderFlag = false;
     }
   }
-
+// used to pass data between Components
   sendData(data: any): void {
     // send message to subscribers via observable subject
     this.pass_data.sendData(data);
