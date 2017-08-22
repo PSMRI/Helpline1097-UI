@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { dataService } from './../services/dataService/data.service';
 import { CallServices } from './../services/callservices/callservice.service'
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 
 
 @Component({
@@ -15,17 +16,21 @@ export class BlockUnblockNumberComponent implements OnInit {
   maxDate: Date;
   blockedDate: any;
   blockedTill: any;
+  isBlockedType: boolean;
   showTable: boolean = false;
-  isBlocked: boolean;
+  isBlocked: boolean = undefined;
+  isUnBlocked: boolean = undefined;
   reason: any;
   blockedBy: string;
   blockForm: FormGroup;
   serviceId: any;
+  blackList: any = [];
 
-  constructor(private commonData: dataService, private callService: CallServices) { }
+  constructor(private commonData: dataService, private callService: CallServices,
+    private message: ConfirmationDialogsService) { }
 
   ngOnInit() {
-    this.serviceId = this.commonData.current_service.serviceId;
+    this.serviceId = this.commonData.current_service.serviceID;
     this.maxDate = new Date();
   }
 
@@ -37,24 +42,42 @@ export class BlockUnblockNumberComponent implements OnInit {
   addToBlockList() {
     const searchObj = {};
     searchObj['providerServiceMapID'] = this.serviceId;
-    searchObj['phoneNumber'] = this.phoneNumber;
-    searchObj['startDate'] = this.blockedDate;
-    searchObj['endDate'] = this.blockedTill;
-    searchObj['blockedBy'] = this.blockedBy;
-    searchObj['reason'] = this.reason;
-    searchObj['isBlocked'] = Boolean(this.isBlocked);
+    searchObj['phoneNo'] = this.phoneNumber;
+    searchObj['isBlocked'] = Boolean(this.isBlockedType);
     this.isBlocked = Boolean(this.isBlocked);
-
     this.callService.getBlackListCalls(searchObj).subscribe((response) => {
       this.showTable = true;
+      this.setBlackLists(response);
     }, (err) => {
       this.showTable = false;
     });
   }
-  unblock() {
-
+  setBlackLists(blackListData: any) {
+    this.blackList = blackListData;
+    if (Boolean(blackListData.isBlocked)) {
+      this.isBlocked = true;
+      this.isUnBlocked = false;
+    } else {
+      this.isBlocked = false;
+      this.isUnBlocked = true;
+    }
   }
-  block() {
-
+  unblock(phoneBlockID: any) {
+    const blockObj = {};
+    blockObj['phoneBlockID'] = phoneBlockID;
+    this.callService.UnBlockPhoneNumber(blockObj).subscribe((response) => {
+      this.message.alert('Successfully Unblocked');
+    }, (err) => {
+      this.message.alert(err.status);
+    })
+  }
+  block(phoneBlockID: any) {
+    const blockObj = {};
+    blockObj['phoneBlockID'] = phoneBlockID;
+    this.callService.blockPhoneNumber(blockObj).subscribe((response) => {
+      this.message.alert('Successfully blocked');
+    }, (err) => {
+      this.message.alert(err.status);
+    })
   }
 }

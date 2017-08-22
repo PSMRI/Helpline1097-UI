@@ -51,6 +51,7 @@ export class dashboardContentClass implements OnInit {
 
   // testing event
   testEvent() {
+    debugger;
     //var event = new Event('message');   
     let event = new CustomEvent("message", {
       detail: {
@@ -64,11 +65,12 @@ export class dashboardContentClass implements OnInit {
   }
 
   listener(event) {
+    debugger;
     console.log("listener invoked: " + event);
     // spliting test event 
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
-    this.eventSpiltData = event.data.split('|');
+    this.eventSpiltData = event.detail.data.split('|');
     this.handleEvent();
   }
 

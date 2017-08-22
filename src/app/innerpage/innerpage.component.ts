@@ -71,6 +71,16 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
+
+    this.router.params.subscribe((params: Params) => {
+      if (params['mobileNumber'] != undefined) {
+        // tslint:disable-next-line:radix
+        this.callerNumber = parseInt(params['mobileNumber']);
+        console.log(' this.callerNumber:' + this.callerNumber);
+        console.log(this.current_service + ':' + this.current_role);
+      }
+    });
+
     this.language_change = 'english';
     this.getLanguageObject(this.language_change);
 

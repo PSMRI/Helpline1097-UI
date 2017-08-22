@@ -1,32 +1,32 @@
 <div>
   <div class="row">
 
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
       <md-input-container [style.width]="'100%'" myMobileNumber>
-        <input required minlength="10" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
-        <md-hint *ngIf="!number.valid">
+        <input minlength="10" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
+        <!-- <md-hint *ngIf="!number.valid">
           <span class="error_text" *ngIf=" number.dirty || number.touched ">Please enter phone number</span>
-        </md-hint>
+        </md-hint> -->
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-      <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="Blocked Date" name="blockedDate" #blockDate [(ngModel)]="blockedDate"></md2-datepicker>
+    <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="Blocked Date" name="blockedDate" #blockDate [(ngModel)]="blockedDate"></md2-datepicker> -->
       <!-- <input mdInput [mdDatepicker]="picker" placeholder="Blocked Date" [(ngModel)]="blockedDate" (blur)="getBlockedTillDate(blockedDate)">
             <button mdSuffix [mdDatepickerToggle]="picker"></button> -->
-    </div>
+    <!-- </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md2-datepicker [min]="blockDate.value" [max]="maxDate" [style.width]="'100%'" placeholder="Blocked Till" name="blockedTill"
-        [(ngModel)]="blockedTill"></md2-datepicker>
+        [(ngModel)]="blockedTill"></md2-datepicker> -->
       <!-- <input mdInput placeholder="Blocked Till" [disabled]="true" [(ngModel)]="blockedTill"> -->
-    </div>
+    <!-- </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
         <input mdInput placeholder="Blocked By">
       </md-input-container>
     </div>
-  </div>
-  <div class="row">
+  </div> -->
+  <!-- <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
@@ -62,16 +62,19 @@
       <md-input-container [style.width]="'100%'">
         <input mdInput placeholder="Remarks">
       </md-input-container>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    </div> -->
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="Is Blocked" [style.width]="'100%'" [(ngModel)]="isBlocked">
+        <md-select placeholder="Is Blocked" [style.width]="'100%'" [(ngModel)]="isBlockedType">
           <md-option [value]=true>
             Blocked
           </md-option>
           <md-option [value]=false>
             UnBlocked
+          </md-option>
+          <md-option [value]=undefined>
+            All
           </md-option>
         </md-select>
       </md-input-container>
@@ -87,30 +90,26 @@
       <table class="table">
         <thead>
           <tr>
-            <th>S.No</th>
-            <th>BeneficiaryID</th>
             <th>Phone Number</th>
             <th>Status</th>
-            <th>Block Date</th>
-            <th>Unblock Date</th>
+            <!-- <th>Block Date</th>
+            <th>Unblock Date</th> -->
             <th>Reason</th>
-            <th>Agent</th>
+            <!-- <th>Agent</th> -->
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="cursor: pointer;">
-            <td>1.</td>
-            <td>BEN0007</td>
-            <td>9023650041</td>
-            <td>Blocked</td>
-            <td>24/06/2017</td>
-            <td>31/06/2017</td>
+          <tr style="cursor: pointer;" *ngFor="let blacklist of blackList">
+            <td>{{blacklist.phoneNo}}</td>
+            <td >{{blacklist.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
+            <!-- <td>24/06/2017</td>
+            <td>31/06/2017</td> -->
             <td>Nuisence Call</td>
-            <td>Neeraj</td>
+            <!-- <td>Neeraj</td> -->
             <td>
-              <button class="btn btn-success" *ngIf="isBlocked" (click)="unblock()">Unblock</button>
-              <button class="btn" *ngIf="!isBlocked" (click)="block()">Block</button>
+              <button class="btn btn-success" *ngIf="isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
+              <button class="btn" *ngIf="isUnBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
             </td>
           </tr>
         </tbody>
