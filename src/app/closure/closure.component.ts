@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { dataService } from '../services/dataService/data.service';
 import { CallServices } from '../services/callservices/callservice.service'
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { CommunicationService } from './../services/common/communication.service'
+
 
 
 
@@ -34,6 +36,7 @@ export class ClosureComponent implements OnInit
   isFollowUp;
   followUpDate: any;
   picker = '';
+  current_campaign: any;
 
   today: Date;
 
@@ -42,7 +45,9 @@ export class ClosureComponent implements OnInit
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
-    private message: ConfirmationDialogsService
+    private message: ConfirmationDialogsService,
+    private pass_data: CommunicationService
+
   ) { }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
@@ -53,6 +58,7 @@ export class ClosureComponent implements OnInit
     this.today = new Date();
     this.minDate = this.today;
     this.showSlider = false;
+    this.current_campaign = this.saved_data.current_campaign;
   }
 
 
@@ -117,11 +123,12 @@ export class ClosureComponent implements OnInit
     values.callTypeID = values.callTypeID.split(",")[0];
     console.log('close called with ' + values);
     this._callServices.closeCall(values).subscribe((response) => {
-      this.callClosed.emit();
+      this.callClosed.emit(this.current_campaign);
+      // this.pass_data.sendData(this.current_campaign);
       this.showAlert();
     }, (err) => {
-        this.message.alert(err.status);
-      });
+      this.message.alert(err.status);
+    });
   }
 
   showAlert() {

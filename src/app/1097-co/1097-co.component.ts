@@ -277,7 +277,7 @@ export class helpline1097CoComponent implements OnInit {
 
   }
 
-  closeCall() {
+  closeCall(compain_type: any) {
     this.basicrouter.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['dashboard'] } }]);
   }
   openDialog() {
@@ -309,7 +309,7 @@ export class helpline1097CoComponent implements OnInit {
     this.current_campaign = this.getCommonData.current_campaign;
     this.getSelectedBenDetails(event.beneficiary);
     this.benService('benService');
-    this.pass_data.sendData(event.beneficiary);
+    // this.pass_data.sendData(event.beneficiary);
 
   }
 

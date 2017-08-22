@@ -639,7 +639,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
-      this.sendData(regHistory);
+      // this.sendData(regHistory);
     });
 
   }
@@ -747,10 +747,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.pass_data.sendData(data);
   }
 
-  clearData(): void {
-    // clear message
-    this.pass_data.clearData();
-  }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];
   //   this.pincodeLocation.forEach((element: any) => {

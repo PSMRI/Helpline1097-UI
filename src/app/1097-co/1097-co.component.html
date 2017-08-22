@@ -64,7 +64,7 @@
                 <!--<app-closure (beneficiarySelected)="onView()" (serviceProvided)="onView()" (callClosed)="startNewCall(); registration.startNewCall();"
                                         #closure></app-closure>-->
                 <!--<app-closure (callClosed)="startNewCall(); registration.startNewCall();" #closure></app-closure>-->
-                <app-closure (callClosed)="closeCall();" #closure [current_language]="currentlanguage"></app-closure>
+                <app-closure (callClosed)="closeCall($event);" #closure [current_language]="currentlanguage"></app-closure>
               </div>
             </div>
           </div>
