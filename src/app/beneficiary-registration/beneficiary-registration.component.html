@@ -70,7 +70,7 @@
                             <option value="">Select Gender</option>
                             <option *ngFor="let gen of genders" value="{{gen.genderID}}" >{{gen.genderName}} </option>
                         </select>
-          <div *ngIf=" genderErrFlag" class="errorText">
+          <div *ngIf="genderErrFlag" class="errorText">
             Select Gender
           </div>
         </div> -->
@@ -82,7 +82,7 @@
               {{gen.genderName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf=" genderErrFlag">
+          <md-hint *ngIf="genderErrFlag">
             <span class="error_text">{{currentlanguage.beneficiary_registration?.gender_validation}}</span>
           </md-hint>
         </md-input-container>
@@ -103,7 +103,7 @@
               {{state.stateName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf=" stateErrFlag">
+          <md-hint *ngIf="stateErrFlag">
             <span class="error_text">{{currentlanguage.beneficiary_registration?.state_validation}}</span>
           </md-hint>
         </md-input-container>
@@ -128,7 +128,7 @@
               {{district.districtName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf=" cityErrFlag">
+          <md-hint *ngIf="cityErrFlag">
             <span class="error_text">{{currentlanguage.beneficiary_registration?.district_validation}}</span>
           </md-hint>
         </md-input-container>
@@ -242,11 +242,11 @@
         <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.last_name}}" maxlength="25" name="LastName" [(ngModel)]="LastName">
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
-      <!--       <div class="form-group ">
-        <label class="control-label" for="firstName ">Select Gender</label>
-        <select class="form-control drop-arrow " name="GenderID " [(ngModel)]="GenderID ">
-                        <option *ngFor="let gender of genders " value={{gender.genderID}}>{{gender.genderName}}</option>-->
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <!--       <div class="form-group">
+        <label class="control-label" for="firstName">Select Gender</label>
+        <select class="form-control drop-arrow" name="GenderID" [(ngModel)]="GenderID">
+                        <option *ngFor="let gender of genders" value={{gender.genderID}}>{{gender.genderName}}</option>-->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
         <md-select required placeholder="{{currentlanguage.beneficiary_registration?.gender}}" [style.width]="'100%'" [(ngModel)]="GenderID"
@@ -255,12 +255,12 @@
             {{gender.genderName}}
           </md-option>
         </md-select>
-        <md-hint *ngIf=" genderErrFlag">
+        <md-hint *ngIf="genderErrFlag">
           <span class="error_text">{{currentlanguage.beneficiary_registration?.gender_validation}}</span>
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
         <md-select placeholder="{{currentlanguage.beneficiary_registration?.marital_status}}" [style.width]="'100%'" [(ngModel)]="MaritalStatusID"
@@ -320,8 +320,8 @@
       </md-input-container>
     </div>
     <!-- </form> -->
-    <div class="col-xs-12 col-sm-12 m-b-10 ">
-      <button [disabled]="!genderSelected.valid || !ageEvent.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 "
+    <div class="col-xs-12 col-sm-12 m-b-10">
+      <button [disabled]="!genderSelected.valid || !ageEvent.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18"
         (click)="captureOtherInfo()">{{currentlanguage.beneficiary_registration?.next}}</button>
     </div>
   </div>
@@ -350,7 +350,7 @@
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
         <md-select placeholder="{{currentlanguage.beneficiary_registration?.identity_type}}" [style.width]="'100%'" [(ngModel)]="identityType"
-          name="identityType">
+          name="identityType" (change)="validateID(identityType)">
           <md-option *ngFor="let identityType of identityTypes" [value]="identityType.govtIdentityTypeID">
             {{identityType.identityType}}
           </md-option>
@@ -362,8 +362,16 @@
         <label class="control-label" for="aadharNo">ID No.</label>
         <input type="text" class="form-control" placeholder="Enter Aadhar No." maxlength="15" name="aadharNo" [(ngModel)]="aadharNo">
       </div> -->
-      <md-input-container myMobileNumber [style.width]="'100%'">
-        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.id_number}}" name="aadharNo" [(ngModel)]="aadharNo">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput required placeholder="{{currentlanguage.beneficiary_registration?.id_number}}" name="aadharNo" [(ngModel)]="aadharNo"
+          [maxlength]="idMaxValue" [minlength]="idMinValue" [pattern]="patternID" #idNumber="ngModel">
+        <md-hint [hidden]="idNumber.valid || idNumber.pristine">
+          <span class=" error_text" [hidden]="!idNumber.hasError('required')">ID Number is required</span>
+          <span class=" error_text" [hidden]="!idNumber.hasError('pattern')">{{idErrorText}}</span>
+        </md-hint>
+        <!-- <md-hint *ngIf="!idNumber.valid && ( idNumber.dirty || idNumber.touched)">
+          <span>{{idErrorText}}</span>
+        </md-hint> -->
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -374,9 +382,10 @@
                             {{caste.communityType}}</option>
                     </select>
       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
+      <md-input-container class="hide_underline" [style.width]=" '100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.caste}}" [style.width]="'100%'" [(ngModel)]="caste" name="caste">
+        <md-select placeholder="{{currentlanguage.beneficiary_registration?.caste}}" [style.width]=" '100%'
+         " [(ngModel)]="caste" name="caste">
           <md-option *ngFor="let caste of communities" [value]="caste.communityID">
             {{caste.communityType}}
           </md-option>
@@ -391,10 +400,10 @@
                             {{education.educationType}}</option>
                     </select>
       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
+      <md-input-container class="hide_underline" [style.width]=" '100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.education}}" [style.width]="'100%'" [(ngModel)]="educationQualification"
-          name="educationQualification">
+        <md-select placeholder="{{currentlanguage.beneficiary_registration?.education}}" [style.width]=" '100%'
+         " [(ngModel)]="educationQualification" name="educationQualification">
           <md-option *ngFor="let education of benEdus" [value]="education.educationID">
             {{education.educationType}}
           </md-option>
@@ -409,10 +418,10 @@
                             {{benState.stateName}}</option>
                     </select>
       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
+      <md-input-container class="hide_underline" [style.width]=" '100%'">
         <input mdInput style="display:none">
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.state}}" [style.width]="'100%'" [(ngModel)]="state"
-          name="state" (change)="GetDistricts(state)" #stateSelected="ngModel" (blur)="GetDistricts(state)">
+        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.state}}" [style.width]=" '100%'
+         " [(ngModel)]="state" name="state" (change)="GetDistricts(state)" #stateSelected="ngModel" (blur)="GetDistricts(state)">
           <md-option *ngFor="let benState of states" [value]="benState.stateID">
             {{benState.stateName}}
           </md-option>
@@ -430,10 +439,10 @@
                             {{benDistrict.districtName}}</option>
                     </select>
       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
+      <md-input-container class="hide_underline" [style.width]=" '100%'">
         <input mdInput style="display:none">
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.district}}" [style.width]="'100%'" [(ngModel)]="district"
-          name="district" (change)="GetTaluks(district)" #citySelected="ngModel" (blur)="GetTaluks(district)">
+        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.district}}" [style.width]="
+          '100%'" [(ngModel)]="district" name="district" (change)="GetTaluks(district)" #citySelected="ngModel" (blur)="GetTaluks(district)">
           <md-option *ngFor="let benDistrict of districts" [value]="benDistrict.districtID">
             {{benDistrict.districtName}}
           </md-option>
@@ -451,10 +460,10 @@
                             {{benTaluk.blockName}}</option>
                     </select>
       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
+      <md-input-container class="hide_underline" [style.width]=" '100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.taluk}}" [style.width]="'100%'" [(ngModel)]="taluk" name="taluk"
-          (change)="GetBlocks(taluk)">
+        <md-select placeholder="{{currentlanguage.beneficiary_registration?.taluk}}" [style.width]=" '100%'
+         " [(ngModel)]="taluk" name="taluk" (change)="GetBlocks(taluk)">
           <md-option *ngFor="let benTaluk of taluks" [value]="benTaluk.blockID">
             {{benTaluk.blockName}}
           </md-option>
@@ -469,10 +478,10 @@
                             {{benBlock.villageName}}</option>
                     </select>
       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
+      <md-input-container class="hide_underline" [style.width]=" '100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.village}}" [style.width]="'100%'" [(ngModel)]="village"
-          name="village">
+        <md-select placeholder="{{currentlanguage.beneficiary_registration?.village}}" [style.width]=" '100%'
+         " [(ngModel)]="village" name="village">
           <md-option *ngFor="let benBlock of blocks" [value]="benBlock.districtBranchID">
             {{benBlock.villageName}}
           </md-option>
@@ -484,8 +493,9 @@
         <label class="control-label" for="pincode" i18n>Pin code </label>
         <input type="text" class="form-control" placeholder="Enter Pincode" name="pincode" [(ngModel)]="pincode">
       </div> -->
-      <md-input-container myMobileNumber class="m-b-9" [style.width]="'100%'">
-        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.pincode}}" maxlength="6" name="pincode" [(ngModel)]="pincode">
+      <md-input-container myMobileNumber class="m-b-9" [style.width]=" '100%'">
+        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.pincode}}" maxlength="6" name="pincode
+         " [(ngModel)]="pincode">
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
@@ -496,10 +506,10 @@
                             {{benLang.languageName}}</option>
                     </select>
       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
+      <md-input-container class="hide_underline" [style.width]=" '100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.preferred_language}}" [style.width]="'100%'" [(ngModel)]="preferredLanguage"
-          name="preferredLanguage">
+        <md-select placeholder="{{currentlanguage.beneficiary_registration?.preferred_language}}" [style.width]="
+          '100%'" [(ngModel)]="preferredLanguage" name="preferredLanguage">
           <md-option *ngFor="let benLang of language" [value]="benLang.languageID">
             {{benLang.languageName}}
           </md-option>
@@ -509,8 +519,8 @@
     <!-- </form> -->
     <div class="col-xs-12 col-sm-12 m-b-10">
       <button class="btn cu-green-btn p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
-      <button [disabled]="!stateSelected.valid || !citySelected.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18"
-        *ngIf="!updationProcess" (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
+      <button [disabled]="!stateSelected.valid || !citySelected.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular
+          f-s-18" *ngIf="!updationProcess" (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
     </div>
     <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="updationProcess">
       <button class="btn cu-green-btn p-l-r-38 font-regular f-s-18" (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>

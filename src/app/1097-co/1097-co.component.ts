@@ -20,6 +20,8 @@ export class helpline1097CoComponent implements OnInit {
   callID: any;
   barMinimized: boolean = true;
   ctiHandlerURL: any = "";
+  isCancelDisable: boolean = true;
+  isClosureDisable: boolean = false;
 
   @Input() current_language: any;
   currentlanguage: any;
@@ -317,6 +319,7 @@ export class helpline1097CoComponent implements OnInit {
       jQuery('#two').parent().find('a').removeClass('active-tab');
       jQuery('#two').find('a').addClass('active-tab');
       jQuery('#next').attr('disabled', null);
+      this.isCancelDisable = false;
     }
 
   }
@@ -332,6 +335,8 @@ export class helpline1097CoComponent implements OnInit {
         jQuery('#myCarousel').carousel(0);
         jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
+        this.isCancelDisable = true;
+        this.isClosureDisable = false;
       }
     });
   }
@@ -342,6 +347,8 @@ export class helpline1097CoComponent implements OnInit {
         jQuery('#myCarousel').carousel(3);
         jQuery('#four').parent().find('a').removeClass('active-tab');
         jQuery('#four').find('a').addClass('active-tab');
+        this.isClosureDisable = true;
+        this.isCancelDisable = false;
       }
     });
   }

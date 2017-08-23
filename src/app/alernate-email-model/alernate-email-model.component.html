@@ -11,15 +11,19 @@
           <md-checkbox style="margin: 0 10px" name="altEmail" [(ngModel)]="altEmail">
             Alternate Email
           </md-checkbox>
-          <div *ngIf="altEmail">
+          <div>
             <div>
-              <label>Email : <em>*</em></label><input class="form-control" type="text" required minlength="10" maxlength="10"
-                placeholder="Enter email address" name="email" [(ngModel)]="email" #emailAdd="ngModel">
+              <label>Email : <em>*</em></label><input class="form-control" type="text" required minlength="10" placeholder="Enter email address"
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" name="email" [(ngModel)]="email" #emailAdd="ngModel">
+            </div>
+            <div [hidden]="emailAdd.valid || emailAdd.pristine">
+              <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
+              <span class=" error_text" [hidden]="!emailAdd.hasError('pattern')">Please enter valid email</span>
             </div>
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <button [disabled]="altEmail" class="btn cu-green-btn pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close(altEmail)">Send Email
+          <button [disabled]="emailAdd.invalid" class="btn cu-green-btn pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close(altEmail)">Send Email
                     </button>
         </div>
       </div>

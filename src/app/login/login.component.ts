@@ -48,7 +48,7 @@ export class loginContentClass {
 		if (error.status) {
 			this.loginResult = error.status;
 		} else {
-			this.loginResult = 'Internal Issue Please Try after Some Time';
+			this.loginResult = 'Internal issue please try after some time';
 		}
 		// this.loading = false;
 		console.log(error);

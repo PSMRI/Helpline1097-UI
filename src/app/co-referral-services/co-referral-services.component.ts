@@ -155,6 +155,8 @@ export class CoReferralServicesComponent implements OnInit {
   }
 
   GetReferralDetails() {
+    if (this.selected_branch) {
+    }
     this._coReferralService.getDetails(
       this.selected_directory, this.selected_sub_directory, this.selected_state, this.selected_district, this.selected_branch,
       this.saved_data.uname, this.beneficiaryRegID, this.subServiceID, this.saved_data.callData.benCallID

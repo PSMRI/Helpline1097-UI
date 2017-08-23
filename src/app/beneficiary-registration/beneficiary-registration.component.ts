@@ -109,7 +109,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   spinner;
   spinnerState;
   spinnerVal: any;
-
+  idMaxValue: any;
+  patternID: any;
+  idErrorText: string;
+  idMinValue: any;
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
@@ -727,7 +730,60 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   }
+  // Data has to come from the databanse
+  validateID(idType: any) {
+    debugger;
+    switch (idType) {
+      case 1:
+        {
+          this.idMaxValue = '14';
+          this.patternID = /^\d{4}\s\d{4}\s\d{4}$/;
+          this.idErrorText = 'Enter valid Aadhar Ex:XXXX XXXX XXXX';
+          break;
+        }
+      case 2:
+        {
+          this.idMaxValue = '15';
+          this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
+          this.idErrorText = 'Enter valid Voter ID  Ex:alphanumeric and min 6 letters';
+          break;
 
+        }
+      case 3:
+        {
+          this.idMaxValue = '15';
+          this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
+          this.idErrorText = 'Enter valid Driving Licence  Ex:alphanumeric';
+          break;
+        }
+      case 4:
+        {
+          this.idMaxValue = '10';
+          this.patternID = /^[A-Za-z0-9]{10}$/;
+          this.idErrorText = 'Enter valid PAN  Ex:alphanumeric ';
+          break;
+        }
+      case 5:
+        {
+          this.idMaxValue = '15';
+          this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
+          this.idErrorText = 'Enter valid Passpoert No. Ex:alphanumeric';
+          break;
+        }
+      case 6:
+        {
+          this.idMaxValue = '15';
+          this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
+          this.idErrorText = 'Enter valid Passpoert No. Ex:alphanumeric';
+          break;
+        }
+      default:
+        this.idMaxValue = '14';
+        this.patternID = /^\d{4}\s\d{4}\s\d{4}$/;
+        this.idErrorText = 'Enter valid Aadhar Ex:XXXX XXXX XXXX';
+        break;
+    }
+  }
   genderErrFlag: any = false;
   // genderFlag: any = true;
 
@@ -741,7 +797,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // this.genderFlag = false;
     }
   }
-// used to pass data between Components
+  // used to pass data between Components
   sendData(data: any): void {
     // send message to subscribers via observable subject
     this.pass_data.sendData(data);
