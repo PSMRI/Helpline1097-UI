@@ -22,7 +22,8 @@ export class helpline1097CoComponent implements OnInit {
   ctiHandlerURL: any = "";
   isCancelDisable: boolean = true;
   isClosureDisable: boolean = false;
-
+  isPrevious: boolean = false;
+  isNext: boolean = false
   @Input() current_language: any;
   currentlanguage: any;
 
@@ -160,7 +161,6 @@ export class helpline1097CoComponent implements OnInit {
 
 
     jQuery('#next').on('click', function () {
-      debugger;
       var idx = jQuery('.carousel-inner div.active').index();
       console.log('chala with', idx);
       if (idx > 1) {
@@ -318,7 +318,7 @@ export class helpline1097CoComponent implements OnInit {
       jQuery('#myCarousel').carousel(1);
       jQuery('#two').parent().find('a').removeClass('active-tab');
       jQuery('#two').find('a').addClass('active-tab');
-      jQuery('#next').attr('disabled', null);
+      this.isNext = true;
       this.isCancelDisable = false;
     }
 
@@ -337,6 +337,7 @@ export class helpline1097CoComponent implements OnInit {
         jQuery('#one').find('a').addClass('active-tab');
         this.isCancelDisable = true;
         this.isClosureDisable = false;
+        this.isNext = false;
       }
     });
   }

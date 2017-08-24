@@ -15,13 +15,14 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state" name="state" (change)="GetDistricts(selected_state)">
+      <md-select required #state="ngModel" placeholder="{{currentlanguage.feedback_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state"
+        name="state" (change)="GetDistricts(selected_state)">
         <md-option *ngFor="let state of states" [value]="state.stateID">
           {{state.stateName}}
         </md-option>
       </md-select>
-      <md-hint>
-        <span class="error_text"></span>
+      <md-hint *ngIf="(state.invalid && (state.dirty || state.touched))">
+        <span class="error_text">State is required</span>
       </md-hint>
     </md-input-container>
   </div>
@@ -35,13 +36,14 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.district}}" [style.width]="'100%'" [(ngModel)]="selected_district" name="district" (change)="GetTaluks(selected_district)">
+      <md-select required #district="ngModel" placeholder="{{currentlanguage.feedback_service?.district}}" [style.width]="'100%'"
+        [(ngModel)]="selected_district" name="district" (change)="GetTaluks(selected_district)">
         <md-option *ngFor="let district of districts" [value]="district.districtID">
           {{district.districtName}}
         </md-option>
       </md-select>
-      <md-hint>
-        <span class="error_text"></span>
+      <md-hint *ngIf="district.invalid && (district.dirty || district.touched)">
+        <span class="error_text">District is required</span>
       </md-hint>
     </md-input-container>
   </div>
@@ -55,7 +57,8 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk" name="taluk" (change)="GetBlocks(selected_taluk)">
+      <md-select placeholder="{{currentlanguage.feedback_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+        name="taluk" (change)="GetBlocks(selected_taluk)">
         <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
           {{taluk.blockName}}
         </md-option>
@@ -75,7 +78,8 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_sdtb" name="sdtb" (change)="GetInstitutes()">
+      <md-select placeholder="{{currentlanguage.feedback_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_sdtb"
+        name="sdtb" (change)="GetInstitutes()">
         <md-option *ngFor="let block of blocks" [value]="block.districtBranchID">
           {{block.villageName}}
         </md-option>
@@ -94,14 +98,15 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.institution}}" [style.width]="'100%'" [(ngModel)]="selected_institution" name="institutionName">
+      <md-select placeholder="{{currentlanguage.feedback_service?.institution}}" [style.width]="'100%'"
+        [(ngModel)]="selected_institution" name="institutionName">
         <md-option *ngFor="let institute of institutes" [value]="institute.institutionID">
           {{institute.institutionName}}
         </md-option>
       </md-select>
-      <md-hint>
-        <span class="error_text"></span>
-      </md-hint>
+      <!-- <md-hint *ngIf="instituteVar.invalid && (instituteVar.dirty || instituteVar.touched)">
+        <span class="error_text">Institute is required</span>
+      </md-hint> -->
     </md-input-container>
   </div>
   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -113,13 +118,14 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.designation}}" [style.width]="'100%'" [(ngModel)]="selected_designation" name="designation">
+      <md-select required #desgVar="ngModel" placeholder="{{currentlanguage.feedback_service?.designation}}" [style.width]="'100%'"
+        [(ngModel)]="selected_designation" name="designation">
         <md-option *ngFor="let designation of designations" [value]="designation.designationID">
           {{designation.designationName}}
         </md-option>
       </md-select>
-      <md-hint>
-        <span class="error_text"></span>
+      <md-hint *ngIf="desgVar.invalid && (desgVar.dirty || desgVar.touched)">
+        <span class="error_text">Designation is required</span>
       </md-hint>
     </md-input-container>
   </div>
@@ -134,13 +140,14 @@
 </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.feedback_type}}" [style.width]="'100%'" [(ngModel)]="selected_feedbackType" name="feedbackType">
+      <md-select required #feedVar="ngModel" placeholder="{{currentlanguage.feedback_service?.feedback_type}}" [style.width]="'100%'"
+        [(ngModel)]="selected_feedbackType" name="feedbackType">
         <md-option *ngFor="let feedbackType of feedbackTypes" [value]="feedbackType.feedbackTypeID">
           {{feedbackType.feedbackTypeName}}
         </md-option>
       </md-select>
-      <md-hint>
-        <span class="error_text"></span>
+      <md-hint *ngIf="feedVar.invalid && (feedVar.dirty || feedVar.touched)">
+        <span class="error_text">Designation is required</span>
       </md-hint>
     </md-input-container>
   </div>
@@ -153,13 +160,14 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.severity}}" [style.width]="'100%'" [(ngModel)]="selected_severity" name="severity">
+      <md-select required #severityVar="ngModel" placeholder="{{currentlanguage.feedback_service?.severity}}" [style.width]="'100%'" [(ngModel)]="selected_severity"
+        name="severity">
         <md-option *ngFor="let feedbackSeverity of feedbackSeverities" [value]="feedbackSeverity.severityID">
           {{feedbackSeverity.severityTypeName}}
         </md-option>
       </md-select>
-      <md-hint>
-        <span class="error_text"></span>
+      <md-hint *ngIf="severityVar.invalid && (severityVar.dirty || severityVar.touched)">
+        <span class="error_text">Designation is required</span>
       </md-hint>
     </md-input-container>
   </div>
@@ -169,9 +177,10 @@
                     (keyup)="updateCount()"></textarea>
                     <span>{{count}}</span> -->
     <md-input-container [style.width]="'100%'">
-      <textarea mdInput placeholder="{{currentlanguage.feedback_service?.feedback_description}}" rows="2" name="feedback" [(ngModel)]="feedbackDescription" maxlength="300" (keyup)="updateCount()"></textarea>
-      <md-hint>
-        <span>{{count}}</span>
+      <textarea required #descVar="ngModel" mdInput placeholder="{{currentlanguage.feedback_service?.feedback_description}}" rows="2" name="feedback" [(ngModel)]="feedbackDescription"
+        maxlength="300" (keyup)="updateCount()"></textarea>
+      <md-hint *ngIf="descVar.invalid && (descVar.dirty || descVar.touched)">
+        <span class="error_text">Designation is required</span>
       </md-hint>
     </md-input-container>
   </div>
@@ -188,14 +197,15 @@
                   </div> -->
     <!-- <div class="form-group"> -->
     <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-    <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.feedback_service?.incident_date}}" name="dateOfBirth" [(ngModel)]="selected_doi"></md2-datepicker>
+    <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.feedback_service?.incident_date}}"
+      name="dateOfBirth" [(ngModel)]="selected_doi"></md2-datepicker>
     <!-- </div> -->
   </div>
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
     <!--<button type="button" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
               " id="" (click)="submitFeedback(feedbackForm.value)">Register</button>-->
     <button type="button" class="btn cu-green-btn pull-right font-regular f-s-18
-              " (click)="submitFeedback()">{{currentlanguage.feedback_service?.register}}</button>
+              " (click)="submitFeedback()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">{{currentlanguage.feedback_service?.register}}</button>
     <button type="button" class="btn pull-left font-regular f-s-18
               " (click)="showTable()">{{currentlanguage.feedback_service?.back}}</button>
   </div>

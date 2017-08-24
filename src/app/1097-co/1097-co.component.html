@@ -72,8 +72,8 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10 ">
         <button id="previous" type="button" class="btn pull-left font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="prev"
-          [disabled]="true">{{currentlanguage.co?.previous}}</button>
-        <button id="next" type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next" [disabled]="true">{{currentlanguage.co?.next}}</button>
+          [hidden]="!isPrevious">{{currentlanguage.co?.previous}}</button>
+        <button id="next" type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next" [hidden]="!isNext">{{currentlanguage.co?.next}}</button>
         <div class="center-btn">
           <button type="button" value="Cancel" class="btn  font-regular f-s-18 m-r-5" data-slide-to="1" (click)="openDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>
           <button type="button" value="Close" class="btn  font-regular f-s-18 m-r-5" data-slide-to="4" (click)="openDialogClosure()"

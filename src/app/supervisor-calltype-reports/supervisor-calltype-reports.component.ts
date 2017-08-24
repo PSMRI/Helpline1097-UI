@@ -36,13 +36,14 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 		this.tableFlag = false;
 		this.today = new Date();
-		this.maxDate = this.today;
+		
 
 		this.filterCallListArray = [];
 
 	}
 
 	ngOnInit() {
+		this.maxDate = new Date();
 		let requestObject = { 'providerServiceMapID': this.commonDataService.current_service.serviceID };
 		this._SupervisorCallTypeReportService.getCallTypes(requestObject).subscribe((response: Response) => this.callTypes = this.successhandeler(response));
 		this.showPaginationControls = false;

@@ -135,8 +135,6 @@ export class CoInformationServicesComponent implements OnInit {
       console.log('Some error reteriving Information History ', err);
     })
   }
-  getHistory(benID: any) {
-  }
   // get the data from diffrent commponent
   public getData(data: any) {
     this.beneficiaryID = data.dataPass.beneficiaryRegID;
