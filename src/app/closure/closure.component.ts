@@ -102,7 +102,6 @@ export class ClosureComponent implements OnInit
   }
 
   closeCall(values: any) {
-    debugger;
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;

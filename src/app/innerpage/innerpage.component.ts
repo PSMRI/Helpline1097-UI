@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
+import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router'
 
 import { HttpServices } from '../services/http-services/http_services.service';
@@ -26,7 +27,7 @@ export class InnerpageComponent implements OnInit {
   current_campaign: any;
 
   // language change stuff
-  languageFilePath: any = './../../assets/language.json';
+  languageFilePath: any = 'assets/language.json';
   selectedlanguage: any = '';
   currentlanguageSet: any = {};
   language_change: any;
@@ -44,7 +45,8 @@ export class InnerpageComponent implements OnInit {
     public getCommonData: dataService,
     public basicrouter: Router,
     public router: ActivatedRoute,
-    public HttpServices: HttpServices
+    public HttpServices: HttpServices,
+    public http: Http
 
   ) {
     this.currentlanguageSet = [];

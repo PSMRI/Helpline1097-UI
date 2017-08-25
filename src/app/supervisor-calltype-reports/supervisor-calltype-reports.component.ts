@@ -36,7 +36,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 		this.tableFlag = false;
 		this.today = new Date();
-		
+
 
 		this.filterCallListArray = [];
 

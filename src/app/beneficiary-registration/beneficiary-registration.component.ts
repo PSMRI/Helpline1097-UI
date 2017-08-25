@@ -668,9 +668,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // to Calculate the age on the basis of date of birth
   calculateAge(date) {
-    this.age = this.today.getFullYear() - date.getFullYear();
-    const month = this.today.getMonth() - date.getMonth();
-    if (month < 0 || (month === 0 && this.today.getDate() < date.getDate())) {
+    const newDate = new Date(date);
+    this.age = this.today.getFullYear() - newDate.getFullYear();
+    const month = this.today.getMonth() - newDate.getMonth();
+    if (month < 0 || (month === 0 && this.today.getDate() < newDate.getDate())) {
       this.age--;
     }
     return this.age;
@@ -732,7 +733,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // Data has to come from the databanse
   validateID(idType: any) {
-    debugger;
     switch (idType) {
       case 1:
         {

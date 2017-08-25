@@ -147,7 +147,7 @@
         </md-option>
       </md-select>
       <md-hint *ngIf="feedVar.invalid && (feedVar.dirty || feedVar.touched)">
-        <span class="error_text">Designation is required</span>
+        <span class="error_text">Type is required</span>
       </md-hint>
     </md-input-container>
   </div>
@@ -167,7 +167,7 @@
         </md-option>
       </md-select>
       <md-hint *ngIf="severityVar.invalid && (severityVar.dirty || severityVar.touched)">
-        <span class="error_text">Designation is required</span>
+        <span class="error_text">Severity is required</span>
       </md-hint>
     </md-input-container>
   </div>
@@ -180,7 +180,7 @@
       <textarea required #descVar="ngModel" mdInput placeholder="{{currentlanguage.feedback_service?.feedback_description}}" rows="2" name="feedback" [(ngModel)]="feedbackDescription"
         maxlength="300" (keyup)="updateCount()"></textarea>
       <md-hint *ngIf="descVar.invalid && (descVar.dirty || descVar.touched)">
-        <span class="error_text">Designation is required</span>
+        <span class="error_text">Description is required</span>
       </md-hint>
     </md-input-container>
   </div>

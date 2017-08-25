@@ -286,7 +286,7 @@
       </div> -->
       <md-input-container myMobileNumber [style.width]="'100%'">
         <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" required #ageRef min="0" max="120" name="age"
-          [(ngModel)]="age" (change)="calculateDOB(ageRef.value)" #ageEvent="ngModel">
+          [(ngModel)]="age" (change)="calculateDOB(ageRef.value)" #ageEvent="ngModel" (dblclick)="enableAge($event)">
         <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
           <span class="error_text">Enter valid age (max:120) </span>
         </md-hint>
