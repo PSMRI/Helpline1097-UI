@@ -30,7 +30,6 @@ export class dashboardContentClass implements OnInit {
     console.log("url = " + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.dataSettingService.current_campaign = 'INBOUND';
-    this.dataSettingService.current_role
     this.showDashboard();
   }
   showDashboard() {
@@ -102,7 +101,7 @@ export class dashboardContentClass implements OnInit {
 
     }
     if (value === '0') {
-       this.message.confirm('', 'Are you Sure want to change to Outbound?').subscribe((response) => {
+      this.message.confirm('', 'Are you Sure want to change to Outbound?').subscribe((response) => {
         if (response) {
           this.dataSettingService.current_campaign = 'OUTBOUND';
         } else {

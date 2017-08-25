@@ -24,7 +24,7 @@ export class FeedbackTypes {
 
     getTypes(providerServiceMapID: number) {
         let data = {};
-        data["providerServiceMapID"] = providerServiceMapID;
+        data['providerServiceMapID'] = providerServiceMapID;
         return this._http.post(this._servicetypesurl, data, this.options)
             .map(this.extractData)
             .catch(this.handleError);

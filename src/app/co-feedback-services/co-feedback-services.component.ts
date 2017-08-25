@@ -207,8 +207,9 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   // submitFeedback ( object: any )
   submitFeedback() {
+    let selected_Date;
     if (this.selected_doi) {
-      this.selected_doi = new Date((this.selected_doi) - 1 * (this.selected_doi.getTimezoneOffset() * 60 * 1000)).toJSON();
+      selected_Date = new Date((this.selected_doi) - 1 * (this.selected_doi.getTimezoneOffset() * 60 * 1000)).toJSON();
     }
     const feedbackObj = [{
       'institutionID': this.selected_institution,
@@ -217,7 +218,7 @@ export class CoFeedbackServicesComponent implements OnInit {
       'feedbackTypeID': this.selected_feedbackType,
       'feedback': this.feedbackDescription,
       'beneficiaryRegID': this.beneficiaryRegID,
-      'serviceAvailDate': this.selected_doi,
+      'serviceAvailDate': selected_Date,
       'serviceID': this.serviceID,
       'subServiceID': this.subServiceID,
       'userID': this._savedData.uid,
@@ -230,6 +231,7 @@ export class CoFeedbackServicesComponent implements OnInit {
         this.alertMessage.alert('Successfully Created');
         this.showBeneficiaryFeedbackList()
       }, (err) => {
+        this.selected_doi = undefined;
         console.log('Error in Feedback', err);
         this.alertMessage.alert('Internal Error');
       });
@@ -281,7 +283,6 @@ export class CoFeedbackServicesComponent implements OnInit {
   }
 
   setFeedbackHistoryByID(response: any) {
-    debugger;
     console.log('the response for feedback history is', response);
     this.feedbacksArray = response;
   }
