@@ -159,9 +159,8 @@ export class supervisorFeedback implements OnInit {
     // bodyString.emailStatus = undefined;
 
     if (this.action == 'edit') {
-      this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary)
-      this._feedbackservice.requestFeedback(bodyString)
-        .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
+      this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary, bodyString);
+
     }
     // if(this.action == 'edit')
     // this._feedbackservice.updateFeedback( bodyString )
@@ -180,14 +179,16 @@ export class supervisorFeedback implements OnInit {
   }
 
   showUsers(data) {
-    this.onSearch();
+    this.onSearch()
   }
 
   providers(data) {
+
+    this.action = "view";
     this.feedbackList = data;
     this.showUser = true;
-    this.showupdateFeedback = true;
-    this.showupdateFeedback1 = true;
+    // this.showupdateFeedback = true;
+    // this.showupdateFeedback1 = true;
     console.log(data);
   }
 
@@ -342,6 +343,7 @@ export class supervisorFeedback implements OnInit {
         this.providers(resProviderData)
       },
       (err) => {
+        this.alertMessage.alert(err.status);
       });
   }
 
@@ -389,16 +391,20 @@ export class supervisorFeedback implements OnInit {
     }
   }
 
-  saveNSendEmail(feedback) {
+  saveNSendEmail(feedback: any, bodyString: any) {
     let dialogReff = this.dialog.open(AlernateEmailModelComponent, {
       height: '350px',
       width: '620px',
       disableClose: false,
       data: feedback
     });
+    dialogReff.afterClosed().subscribe(result => {
+      this._feedbackservice.requestFeedback(bodyString)
+        .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
+    });
+
   }
   back() {
-
     this.action = "view";
   }
 }
