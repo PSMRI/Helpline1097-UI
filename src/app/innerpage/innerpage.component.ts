@@ -26,7 +26,7 @@ export class InnerpageComponent implements OnInit {
   current_campaign: any;
 
   // language change stuff
-  languageFilePath: any = './../../assets/language.json';
+  languageFilePath: any = 'assets/language.json';
   selectedlanguage: any = '';
   currentlanguageSet: any = {};
   language_change: any;
