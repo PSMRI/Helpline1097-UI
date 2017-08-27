@@ -36,7 +36,7 @@ export class loginService {
     if (response.json().data) {
       return response.json().data;
     } else {
-      return Observable.throw(response);
+      return Observable.throw(response.json());
     }
   };
 

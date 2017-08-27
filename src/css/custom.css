@@ -2122,6 +2122,7 @@ input:-webkit-autofill:hover {
     left: 0;
     opacity: 1;
     z-index: 10;
+    background-color:  rgba(0,0,0,0.01); ;
   }
   .d-inline {
     display: inline!important;

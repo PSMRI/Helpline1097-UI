@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Response, RequestOptions,Headers } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { InterceptedHttp } from './../../http.interceptor'
 
 
 @Injectable()
@@ -18,49 +19,52 @@ export class NotificationService {
     updateNotificationURL = this.configService.getCommonBaseURL() + "notification/updateNotification";
 
     headers = new Headers(
-     {'Content-Type': 'application/json'}
-       );
+        { 'Content-Type': 'application/json' }
+    );
 
-     options = new RequestOptions({ headers: this.headers });
+    options = new RequestOptions({ headers: this.headers });
 
-	constructor(private http: Http, private configService: ConfigService) { };
+    constructor(private http: Http, private configService: ConfigService, private httpIntercepto: InterceptedHttp) { };
 
-    ngOnInit(){
+    ngOnInit() {
 
     }
 
-    getNotificationTypes(providerServiceMapID){
-        let data = {"providerServiceMapID": providerServiceMapID};
-       return this.http.post(this.getNotificationTypesURL,data,this.options)
-            .map((response:Response)=> response.json());
+    getNotificationTypes(providerServiceMapID) {
+        let data = { "providerServiceMapID": providerServiceMapID };
+        return this.http.post(this.getNotificationTypesURL, data, this.options)
+            .map((response: Response) => response.json());
     }
-    getRoles(providerServiceMapID){
-        let data = {"providerServiceMapID": providerServiceMapID};
-        return this.http.post(this.getRolesURL,data,this.options)
-            .map((response:Response)=> response.json());
+    getRoles(providerServiceMapID) {
+        let data = { "providerServiceMapID": providerServiceMapID };
+        return this.http.post(this.getRolesURL, data, this.options)
+            .map((response: Response) => response.json());
     }
-    createNotification(data){
+    createNotification(data) {
         return this.http.post(this.createNotificationURL, data, this.options)
-        .map((response: Response)=> response.json());
+            .map((response: Response) => response.json());
     }
-    getAlerts(data){
+    getAlerts(data) {
         return this.http.post(this.getNotificationsURL, data, this.options)
-        .map((response: Response)=> response.json());
+            .map((response: Response) => response.json());
     }
-    getNotifications(data){
+    getNotifications(data) {
         return this.http.post(this.getNotificationsURL, data, this.options)
-        .map((response: Response)=> response.json());
+            .map((response: Response) => response.json());
     }
-    getKMs(data){
+    getKMs(data) {
         return this.http.post(this.getNotificationsURL, data, this.options)
-        .map((response: Response)=> response.json());
+            .map((response: Response) => response.json());
     }
-    getSupervisorNotifications(data){
-        return this.http.post(this.getSupervisorNotificationsURL, data, this.options)
-        .map((response: Response)=> response.json());
+    getSupervisorNotifications(data) {
+        return this.httpIntercepto.post(this.getSupervisorNotificationsURL, data)
+            .map((response: Response) => response.json()).catch(this.handleError);
     }
-    updateNotification(data){
-        return this.http.post(this.updateNotificationURL, data, this.options)
-        .map((response: Response)=> response.json());
+    updateNotification(data) {
+        return this.httpIntercepto.post(this.updateNotificationURL, data, this.options)
+            .map((response: Response) => response.json()).catch(this.handleError);
+    }
+    handleError(error: Response) {
+        return Observable.throw(error.json());
     }
 }

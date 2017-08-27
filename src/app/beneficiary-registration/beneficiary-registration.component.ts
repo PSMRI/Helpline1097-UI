@@ -420,6 +420,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.benRegistrationResponse = response;
       this.handleRegHistorySuccess([response]);
       this.showAlert();
+      this.onBenSelect.emit('benService');
     }, (err) => {
       this.alertMaessage.alert(err.status);
     });
@@ -621,6 +622,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 		 */
     this.notCalledEarlierLowerPart = false;
     this.calledRadio = true;
+    this.onBenSelect.emit('benService')
 		/**
 	 *End of Neeraj Code; 22-jun-2017
 	 */

@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
+import { InterceptedHttp } from './../../http.interceptor'
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -14,15 +15,14 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UploadServiceService {
 
-  public headers = new Headers({ 'Content-Type': 'application/json' });
-  public options = new RequestOptions({ headers: this.headers });
   public baseUrl = this._config.getCommonBaseURL();
   public uploadDocumentUrl = this.baseUrl + '/kmfilemanager/addFile';
   constructor(private _http: Http,
-    private _config: ConfigService) { }
+    private _config: ConfigService, private httpInter: InterceptedHttp) { }
 
   public uploadDocument(uploadObj: any) {
-    return this._http.post(this.uploadDocumentUrl, JSON.stringify(uploadObj), this.options).map(this.extractData).catch(this.handleError)
+    return this.httpInter.post(this.uploadDocumentUrl, JSON.stringify(uploadObj))
+      .map(this.extractData).catch(this.handleError)
   }
   private extractData(response: Response) {
 
@@ -35,7 +35,8 @@ export class UploadServiceService {
     }
   };
 
-  private handleError(res: Response) {
-    return res.json();
+   private handleError(error: Response | any) {
+    return Observable.throw(error.json());
+
   };
 }
