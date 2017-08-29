@@ -25,13 +25,15 @@ export class BlockUnblockNumberComponent implements OnInit {
   blockForm: FormGroup;
   serviceId: any;
   blackList: any = [];
-
+  searchByPhone: boolean = false;
   constructor(private commonData: dataService, private callService: CallServices,
     private message: ConfirmationDialogsService) { }
 
   ngOnInit() {
+    this.isBlockedType = undefined;
     this.serviceId = this.commonData.current_service.serviceID;
     this.maxDate = new Date();
+    this.addToBlockList();
   }
 
   getBlockedTillDate(date) {
@@ -79,5 +81,12 @@ export class BlockUnblockNumberComponent implements OnInit {
     }, (err) => {
       this.message.alert(err.status);
     })
+  }
+  getBlackList(e: any) {
+    if (!e.checked) {
+      this.phoneNumber = undefined;
+      this.addToBlockList();
+    }
+
   }
 }

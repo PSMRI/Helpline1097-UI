@@ -1,24 +1,28 @@
-<div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <md-checkbox  color="primary" [(ngModel)]="searchByPhone" (change)="getBlackList($event)">Search by Phone Number </md-checkbox>
+  </div>
+</div>
+<div *ngIf="searchByPhone">
   <div class="row">
-
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
       <md-input-container [style.width]="'100%'" myMobileNumber>
-        <input minlength="10" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
-        <!-- <md-hint *ngIf="!number.valid">
+        <input required minlength="10" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
+        <md-hint *ngIf="!number.valid">
           <span class="error_text" *ngIf=" number.dirty || number.touched ">Please enter phone number</span>
-        </md-hint> -->
+        </md-hint>
       </md-input-container>
     </div>
     <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="Blocked Date" name="blockedDate" #blockDate [(ngModel)]="blockedDate"></md2-datepicker> -->
-      <!-- <input mdInput [mdDatepicker]="picker" placeholder="Blocked Date" [(ngModel)]="blockedDate" (blur)="getBlockedTillDate(blockedDate)">
+    <!-- <input mdInput [mdDatepicker]="picker" placeholder="Blocked Date" [(ngModel)]="blockedDate" (blur)="getBlockedTillDate(blockedDate)">
             <button mdSuffix [mdDatepickerToggle]="picker"></button> -->
     <!-- </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md2-datepicker [min]="blockDate.value" [max]="maxDate" [style.width]="'100%'" placeholder="Blocked Till" name="blockedTill"
         [(ngModel)]="blockedTill"></md2-datepicker> -->
-      <!-- <input mdInput placeholder="Blocked Till" [disabled]="true" [(ngModel)]="blockedTill"> -->
+    <!-- <input mdInput placeholder="Blocked Till" [disabled]="true" [(ngModel)]="blockedTill"> -->
     <!-- </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
@@ -26,7 +30,7 @@
       </md-input-container>
     </div>
   </div> -->
-  <!-- <div class="row">
+    <!-- <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
@@ -102,7 +106,7 @@
         <tbody>
           <tr style="cursor: pointer;" *ngFor="let blacklist of blackList">
             <td>{{blacklist.phoneNo}}</td>
-            <td >{{blacklist.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
+            <td>{{blacklist.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
             <!-- <td>24/06/2017</td>
             <td>31/06/2017</td> -->
             <td>Nuisence Call</td>

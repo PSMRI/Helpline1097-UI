@@ -122,7 +122,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   /* Intialization Of value and object has to be written in here */
 
   ngOnInit() {
-
     this.startNewCall();
     this.IntializeSessionValues();
 
@@ -143,6 +142,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   IntializeSessionValues() {
     this.today = new Date();
     this.maxDate = this.today;
+    this.DOB = new Date();
     this._userBeneficiaryData.getUserBeneficaryData()
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
@@ -271,7 +271,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.age = undefined;
       this.TitleId = undefined;
       this.MaritalStatusID = undefined;
-      this.DOB = undefined;
+      this.DOB = new Date();
       this.aadharNo = undefined;
       this.caste = undefined;
       this.BeneficiaryTypeID = undefined;

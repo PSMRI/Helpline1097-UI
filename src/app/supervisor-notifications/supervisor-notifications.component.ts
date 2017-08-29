@@ -22,6 +22,7 @@ export class SupervisorNotificationsComponent implements OnInit {
   notificationPostData: any;
   onConfigSubmit: boolean = false;
   p: number = 1;
+  minDate: Date;
   roleIDs = [];
 
   @ViewChild('showNotificationForm') showNotificationForm: NgForm;
@@ -30,6 +31,7 @@ export class SupervisorNotificationsComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService, public commonDataService: dataService, public dialog: MdDialog) { }
 
   ngOnInit() {
+    this.minDate = new Date();
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.uname;
     this.userId = this.commonDataService.uid;
