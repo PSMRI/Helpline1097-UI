@@ -167,7 +167,8 @@
       "remarks": "Enter Remarks",
       "preferred_date": "Preferred Date (dd-mm-yyyy)",
       "follow_up_reason": "Follow-up Reason",
-      "submit": "Submit"
+      "submitClose": "Submit & Close",
+      "submitContinue": "Submit & Continue"
     }
   },
   "kannada": {
@@ -338,7 +339,8 @@
       "remarks": "Enter Remarks",
       "preferred_date": "Preferred Date (dd-mm-yyyy)",
       "follow_up_reason": "Follow-up Reason",
-      "submit": "Submit"
+      "submitClose": "Submit & Close",
+      "submitContinue": "Submit & Continue"
     }
   }
 }

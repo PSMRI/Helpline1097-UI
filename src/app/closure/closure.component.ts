@@ -22,7 +22,7 @@ export class ClosureComponent implements OnInit
   currentlanguage: any;
 
   @Output() callClosed: EventEmitter<any> = new EventEmitter<any>();
-
+  @Output() closedContinue: EventEmitter<any> = new EventEmitter<any>();
   summaryList: any = [];
   showCallSummary: boolean = false;
   remarks: any;
@@ -118,7 +118,8 @@ export class ClosureComponent implements OnInit
     }
   }
 
-  closeCall(values: any) {
+  closeCall(values: any, btnType: any) {
+
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -140,12 +141,18 @@ export class ClosureComponent implements OnInit
     values.callTypeID = values.callTypeID.split(',')[0];
     console.log('close called with ' + values);
     this._callServices.closeCall(values).subscribe((response) => {
-      this.callClosed.emit(this.current_campaign);
-      // this.pass_data.sendData(this.current_campaign);
       this.showAlert();
+      if (btnType === 'submitClose') {
+        this.callClosed.emit(this.current_campaign);
+      } else {
+        this.closedContinue.emit();
+      }
+      // this.pass_data.sendData(this.current_campaign);
+
     }, (err) => {
       this.message.alert(err.status);
     });
+
   }
 
   showAlert() {

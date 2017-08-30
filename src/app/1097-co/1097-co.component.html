@@ -48,7 +48,7 @@
                 <!--<app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                                         (StartNewCall)="startCall()" #registration></app-beneficiary-registration>-->
 
-                <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
+                <app-beneficiary-registration [onStartNewCall]="StartNewCall"  [onReloadCall]="ReloadCall" (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                   #registration [current_language]="currentlanguage"></app-beneficiary-registration>
               </div>
               <div class="item ">
@@ -64,7 +64,7 @@
                 <!--<app-closure (beneficiarySelected)="onView()" (serviceProvided)="onView()" (callClosed)="startNewCall(); registration.startNewCall();"
                                         #closure></app-closure>-->
                 <!--<app-closure (callClosed)="startNewCall(); registration.startNewCall();" #closure></app-closure>-->
-                <app-closure (callClosed)="closeCall($event);" #closure [current_language]="currentlanguage"></app-closure>
+                <app-closure (callClosed)="closeCall($event);" (closedContinue)="closedContinue()" #closure [current_language]="currentlanguage"></app-closure>
               </div>
             </div>
           </div>

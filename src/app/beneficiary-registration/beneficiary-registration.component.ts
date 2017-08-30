@@ -23,6 +23,8 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 })
 export class BeneficiaryRegistrationComponent implements OnInit {
   @Input() current_language: any;
+  @Input() onReloadCall: any;
+  @Input() onStartNewCall: any;
   currentlanguage: any;
 
 
@@ -113,6 +115,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   patternID: any;
   idErrorText: string;
   idMinValue: any;
+
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
@@ -130,6 +133,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   ngOnChanges() {
     this.setLanguage(this.current_language);
+    if (this.onReloadCall) {
+      this.reloadCall();
+    }
+    if (this.onStartNewCall) {
+      this.startNewCall();
+    }
 
   }
 
@@ -159,7 +168,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.spinnerState = true;
   }
   reloadCall() {
-
     this.retrieveRegHistoryByPhoneNo(this.saved_data.callerNumber);
     this.calledEarlier = true;
     this.showSearchResult = false;
@@ -170,7 +178,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.onBenRegDataSelect.emit(null);
   }
 
-  @Input()
   startNewCall() {
     this.reloadCall();
     this.startCall();
@@ -318,6 +325,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   cityErrFlag: any = false;
   GetTaluks(district: number) {
+
     this.taluks = [];
     this.blocks = [];
     if (district == undefined) {

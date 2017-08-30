@@ -45,7 +45,7 @@ export class BlockUnblockNumberComponent implements OnInit {
     const searchObj = {};
     searchObj['providerServiceMapID'] = this.serviceId;
     searchObj['phoneNo'] = this.phoneNumber;
-    searchObj['isBlocked'] = Boolean(this.isBlockedType);
+    searchObj['isBlocked'] = this.isBlockedType;
     this.isBlocked = Boolean(this.isBlocked);
     this.callService.getBlackListCalls(searchObj).subscribe((response) => {
       this.showTable = true;
@@ -56,19 +56,13 @@ export class BlockUnblockNumberComponent implements OnInit {
   }
   setBlackLists(blackListData: any) {
     this.blackList = blackListData;
-    if (Boolean(blackListData.isBlocked)) {
-      this.isBlocked = true;
-      this.isUnBlocked = false;
-    } else {
-      this.isBlocked = false;
-      this.isUnBlocked = true;
-    }
   }
   unblock(phoneBlockID: any) {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
     this.callService.UnBlockPhoneNumber(blockObj).subscribe((response) => {
       this.message.alert('Successfully Unblocked');
+      this.addToBlockList();
     }, (err) => {
       this.message.alert(err.status);
     })
@@ -78,6 +72,7 @@ export class BlockUnblockNumberComponent implements OnInit {
     blockObj['phoneBlockID'] = phoneBlockID;
     this.callService.blockPhoneNumber(blockObj).subscribe((response) => {
       this.message.alert('Successfully blocked');
+      this.addToBlockList();
     }, (err) => {
       this.message.alert(err.status);
     })

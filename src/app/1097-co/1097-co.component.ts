@@ -26,12 +26,12 @@ export class helpline1097CoComponent implements OnInit {
   isNext: boolean = false
   @Input() current_language: any;
   currentlanguage: any;
-
+  ReloadCall: boolean;
+  StartNewCall: boolean;
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
-  @Output() StartNewCall: EventEmitter<any> = new EventEmitter<any>();
-  @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   @Output() getHistory: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
@@ -226,7 +226,17 @@ export class helpline1097CoComponent implements OnInit {
     this.currentlanguage = language;
     console.log(language, 'language in 1097 co me');
   }
+  closedContinue() {
+    this.startNewCall();
+    const id = jQuery('.carousel-inner div.active').index();
+    jQuery('#myCarousel').carousel(0);
+    jQuery('#one').parent().find('a').removeClass('active-tab');
+    jQuery('#one').find('a').addClass('active-tab');
+    this.isCancelDisable = true;
+    this.isClosureDisable = false;
+    this.isNext = false;
 
+  }
 
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find('a').removeClass('active-tab');
@@ -272,13 +282,14 @@ export class helpline1097CoComponent implements OnInit {
 
   }
 
-  @Input()
   startNewCall() {
-    this.StartNewCall.emit();
-    document.getElementById('cancelLink').click();
+    this.StartNewCall = true;
+    // this.StartNewCall.emit();
+    // document.getElementById('cancelLink').click();
   }
   reloadCall() {
-    this.ReloadCall.emit();
+    this.ReloadCall = true;
+    // this.ReloadCall.emit();
   }
 
   refreshCall() {
@@ -344,7 +355,6 @@ export class helpline1097CoComponent implements OnInit {
   openDialogClosure() {
     this.dialogService.confirm('Closure ', 'Are you sure want to Close the Call ?').subscribe((response) => {
       if (response) {
-        this.reloadCall();
         jQuery('#myCarousel').carousel(3);
         jQuery('#four').parent().find('a').removeClass('active-tab');
         jQuery('#four').find('a').addClass('active-tab');

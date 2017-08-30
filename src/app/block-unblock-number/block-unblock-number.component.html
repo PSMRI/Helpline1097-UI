@@ -112,8 +112,8 @@
             <td>Nuisence Call</td>
             <!-- <td>Neeraj</td> -->
             <td>
-              <button class="btn btn-success" *ngIf="isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
-              <button class="btn" *ngIf="isUnBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
+              <button class="btn btn-success" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
+              <button class="btn" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
             </td>
           </tr>
         </tbody>
