@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
-@Component({
+@Component( {
   selector: 'app-dial-beneficiary',
   templateUrl: './dial-beneficiary.component.html',
-  styleUrls: ['./dial-beneficiary.component.css']
-})
-export class DialBeneficiaryComponent implements OnInit {
+  styleUrls: [ './dial-beneficiary.component.css' ]
+} )
+export class DialBeneficiaryComponent implements OnInit
+{
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit ()
+  {
   }
 
-  resultsFound:boolean=false;
-  findBenByPh()
+  resultsFound: boolean = false;
+  phoneNumber: number;
+  findBenByPh ()
   {
-  	this.resultsFound=true;
+    this.resultsFound = true;
   }
 }
