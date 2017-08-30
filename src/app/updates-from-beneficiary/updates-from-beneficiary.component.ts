@@ -113,6 +113,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   updateBeneficiary(values: any) {
+
     const newOtherData: any = {};
     this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
     this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationID; // values.occupation;
@@ -139,6 +140,13 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   // get the data from diffrent commponent
   public getBenData(data: any) {
     this.PopulateOutBoundData(data.dataPass);
+  }
+  changeRadio(value) {
+    if (value) {
+      this.isHIVPos = value;
+    } else {
+      this.isHIVPos = false;
+    }
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {

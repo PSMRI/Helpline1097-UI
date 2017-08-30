@@ -90,21 +90,32 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4>{{currentlanguage.closure?.call_details}}</h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center" *ngIf="showSlider">
-    <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle>
-  </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-    <form #Form="ngForm" (ngSubmit)="closeCall(Form.value); Form.reset()">
+    <form #Form="ngForm" (ngSubmit)="closeCall(Form.value); Form.reset()" novalidate>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none">
-            <md-select placeholder="{{currentlanguage.closure?.calltype}}" [style.width]="'100%'" [(ngModel)]="callTypeID" name="callTypeID">
-              <md-option *ngFor="let calltype of calltypes" value="{{calltype.callTypeID}},{{calltype.fitToBlock}}" (click)="sliderVisibility(calltype.callTypeDesc)">
+            <md-select required placeholder="{{currentlanguage.closure?.calltype}}" [style.width]="'100%'" ngModel name="callType" #callType="ngModel">
+              <md-option *ngFor="let calltype of calltypes" value="{{calltype.callTypeDesc}}" (click)="getCallSubType(calltype.callTypeDesc)">
                 {{calltype.callTypeDesc}}
-              </md-option></md-select>
-            <md-hint>
-              <span class="error_text"></span>
+              </md-option>
+            </md-select>
+            <md-hint  *ngIf="callType.invalid && (callType.dirty || callType.touched)">
+              <span class="error_text">Call Type is required </span>
+            </md-hint>
+          </md-input-container>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput style="display:none">
+            <md-select required placeholder="{{currentlanguage.closure?.calltype}}" [style.width]="'100%'" [(ngModel)]="callTypeID" name="callTypeID" #subCallType="ngModel">
+              <md-option *ngFor="let callSubtype of callSubTypes" value="{{callSubtype.callTypeID}},{{callSubtype.fitToBlock}}" (click)="sliderVisibility(callSubtype.fitForFollowUp)">
+                {{callSubtype.callType}}
+              </md-option>
+            </md-select>
+            <md-hint *ngIf="subCallType.invalid && (subCallType.dirty || subCallType.touched)">
+              <span class="error_text">Sub Call Type is required </span>
             </md-hint>
           </md-input-container>
         </div>
@@ -114,9 +125,14 @@
           </md-input-container>
         </div>
       </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="left" *ngIf="showSlider">
+        <md-checkbox ngDefaultControl color="primary" name="isFollowupRequired" [value]=true [(ngModel)]="isFollowupRequired" (change)="isFollow($event)">{{currentlanguage.closure?.followup_question}}</md-checkbox>
+        <!-- <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle> -->
+      </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="isFollowUp">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <md2-datepicker [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="{{currentlanguage.closure?.preferred_date}}" [(ngModel)]="preferredDateTime"></md2-datepicker>
+          <md2-datepicker [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="{{currentlanguage.closure?.preferred_date}}"
+            [(ngModel)]="preferredDateTime"></md2-datepicker>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <md-input-container style="width: 100%">
@@ -125,7 +141,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <button type="submit" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18">{{currentlanguage.closure?.submit}}</button>
+        <button type="submit" [disabled]="callType.invalid || subCallType.invalid"class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18">{{currentlanguage.closure?.submit}}</button>
       </div>
     </form>
   </div>

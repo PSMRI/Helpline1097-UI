@@ -45,6 +45,8 @@ export class ClosureComponent implements OnInit
   beneficiaryRegID: any;
   serviceID: any;
   subscription: Subscription
+  callTypeObj: any;
+  callSubTypes: any;
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
@@ -55,7 +57,12 @@ export class ClosureComponent implements OnInit
   ngOnInit() {
     const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
     this.isFollowUp = false;
-    this._callServices.getCallTypes(requestObject).subscribe(response => this.populateCallTypes(response));
+    this._callServices.getCallTypes(requestObject).subscribe(response => {
+      this.callTypeObj = response;
+      this.populateCallTypes(response)
+    }, (err) => {
+
+    });
 
     this.today = new Date();
     this.minDate = this.today;
@@ -75,7 +82,7 @@ export class ClosureComponent implements OnInit
   }
 
   sliderVisibility(val) {
-    if (val === 'Valid Call') {
+    if (val) {
       this.showSlider = true;
     } else {
       this.showSlider = false;
@@ -83,7 +90,17 @@ export class ClosureComponent implements OnInit
   }
 
   populateCallTypes(response: any) {
-    this.calltypes = response;
+    this.calltypes = response.map(function (item) {
+      return { 'callTypeDesc': item.callGroupType };
+    });
+  }
+  getCallSubType(callType: any) {
+
+    this.callSubTypes = this.callTypeObj.filter(function (item) {
+      return item.callGroupType === callType;
+    }).map(function (previousData, item) {
+      return previousData.callTypes;
+    })[0];
   }
   // @Input()
   onView() {
@@ -137,7 +154,6 @@ export class ClosureComponent implements OnInit
   }
   isFollow(e) {
     if (e.checked) {
-
       this.isFollowUp = true;
       this.isFollowupRequired = true
     } else {

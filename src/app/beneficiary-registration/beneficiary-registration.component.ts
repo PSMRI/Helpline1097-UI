@@ -232,11 +232,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   calledEarlierCheck(flag) {
-
     this.genderErrFlag = false;
     this.stateErrFlag = false;
     this.cityErrFlag = false;
-    if (flag.checked) {
+    if (flag) {
       this.calledEarlier = true;
       this.searchValue = 'Advance Search';
       // this.showSearchResult = true;
@@ -252,7 +251,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       }
     }
 
-    if (!flag.checked) {
+    if (!flag) {
       this.searchValue = 'Advance Search';
       this.advanceBtnHide = false;
       this.isParentBeneficiary = false;

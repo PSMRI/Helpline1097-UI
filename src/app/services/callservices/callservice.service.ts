@@ -15,7 +15,7 @@ export class CallServices {
   _commonURL = this._config.getCommonBaseURL();
   _closecallurl = this._commonURL + 'call/closeCall/';
   _callsummaryurl = this._baseUrl + 'services/getCallSummary/';
-  _calltypesurl = this._commonURL + 'call/getCallTypes/';
+  _calltypesurl = this._commonURL + 'call/getCallTypesV1/';
   _outboundCalls = this._commonURL + 'call/outboundCallList/'
   _blacklistCalls = this._commonURL + 'call/getBlacklistNumbers/'
   _blockPhoneNo = this._commonURL + 'call/blockPhoneNumber/'

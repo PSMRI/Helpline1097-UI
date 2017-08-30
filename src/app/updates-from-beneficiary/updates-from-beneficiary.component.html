@@ -99,7 +99,13 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-25">
-        <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">{{currentlanguage.other_details?.hiv_question}}<b>{{currentlanguage.other_details?.hiv_question_condition}}</b></md-slide-toggle>
+        <h5>{{currentlanguage.other_details?.hiv_question}}<b>{{currentlanguage.other_details?.hiv_question_condition}}</b></h5>
+          <md-radio-group>
+          <md-radio-button ngDefaultControl  name="isHIVPos"color="primary" [value]=true [checked]="isHIVPos"  [(ngModel)]="isHIVPos" (change)="changeRadio($event.value)">Yes</md-radio-button>
+          <md-radio-button ngDefaultControl  name="isHIVPos" color="primary" [value]=false  [checked]="!isHIVPos"  [(ngModel)]="isHIVPos" (change)="changeRadio($event.value)">No</md-radio-button>
+        </md-radio-group>
+
+        <!-- <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">{{currentlanguage.other_details?.hiv_question}}<b>{{currentlanguage.other_details?.hiv_question_condition}}</b></md-slide-toggle> -->
       </div>
     </div>
     <!-- <div class="row"> -->
