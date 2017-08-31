@@ -30,14 +30,14 @@ export class UserBeneficiaryData {
         const headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json');
-        let lastName = '';
-        let firstName = '';
-        let fatherNameHusbandNameSearch = '';
-        let gender = '';
-        let beneficiaryID = '';
-        let district = '';
-        let talukSearch = '';
-        let state = '';
+        let lastName = undefined;
+        let firstName = undefined;
+        let fatherNameHusbandNameSearch = undefined;
+        let gender = undefined;
+        let beneficiaryID = undefined;
+        let district = undefined;
+        let talukSearch = undefined;
+        let state = undefined;
         if (values.firstName !== undefined) {
             firstName = values.firstName;
         }
@@ -63,14 +63,16 @@ export class UserBeneficiaryData {
             talukSearch = values.talukSearch;
         }
 
-
-        const createData = '{"firstName":"' + firstName + '","lastName":"'
-            + lastName + '","fatherName":"' + fatherNameHusbandNameSearch + '",'
-            + '"genderID":"' + gender + '","beneficiaryID": "' + beneficiaryID + '","i_bendemographics":{'
-            + '"stateID":"' + state + '",'
-            + '"cityID":"' + district + '"'
-            + '}}';
-
+        const createData = {};
+        createData['firstName'] = firstName;
+        createData['lastName']  = lastName;
+        createData['fatherName']  = fatherNameHusbandNameSearch;
+        createData['genderID'] = gender;
+        createData['beneficiaryID'] = beneficiaryID;
+        createData['firstName'] = firstName;
+        createData['i_bendemographics'] = {};
+        createData['i_bendemographics']['stateID'] = state;
+        createData['i_bendemographics']['districtID'] = district;
         return this._httpInterceptor.post(this._searchBeneficiary, createData)
             .map(this.extractData).catch(this.handleError);
     }

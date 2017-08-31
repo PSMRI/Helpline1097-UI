@@ -115,6 +115,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   patternID: any;
   idErrorText: string;
   idMinValue: any;
+  peopleCalledEarlier: boolean = false;
+  genderErrFlag: any = false;
+  stateErrFlag: any = false;
 
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
@@ -144,7 +147,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language ben reg tk");
+    console.log(language, 'language ben reg tk');
   }
 
 
@@ -261,7 +264,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     if (!flag) {
       this.searchValue = 'Advance Search';
       this.advanceBtnHide = false;
-      this.isParentBeneficiary = false;
+      // this.isParentBeneficiary = false;
       this.notCalledEarlier = true;
       this.notCalledEarlierLowerPart = false;
       this.calledRadio = true;
@@ -298,7 +301,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     }
   }
-  stateErrFlag: any = false;
+
   GetDistricts(state: number) {
     this.districts = [];
 
@@ -441,6 +444,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     const res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
       .subscribe(response => this.handleRegHistorySuccess(response));
 
+
   }
 
 
@@ -461,9 +465,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.saved_data.parentBeneficiaryData = this.regHistoryList[0];
       this.relationshipWith = 'Relationship with ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
       if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
-        this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID)
-
+        this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID);
+        this.peopleCalledEarlier = true;
+        this.isParentBeneficiary = true;
+        this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
+          return item.benRelationshipType !== 'Self'; // This value has to go in constant
+        });
       }
+
     }
   }
 
@@ -527,7 +536,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.blocks = registeredBenData.i_bendemographics.m_districtbranchmapping;
     this.age = registeredBenData.age;
     // Checking whether it has parent or not
-    if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) {
+    // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) {
+    if (!this.peopleCalledEarlier) {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
     } else {
@@ -549,7 +559,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
     this.updatedObj = registeredBenData;
     this.saved_data.beneficiaryData = registeredBenData;
-    // this.onBenRegDataSelect.emit(this.benRegData);
+    this.onBenRegDataSelect.emit(this.benRegData);
     this.sendData(this.benRegData);
   }
 
@@ -793,7 +803,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         break;
     }
   }
-  genderErrFlag: any = false;
   // genderFlag: any = true;
 
   genderchange(value) {
