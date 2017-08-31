@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngIf="calledRadio;">
       <div class="">
-           <h5> {{currentlanguage.beneficiary_registration?.call_confirmation_question}}</h5>
+        <h5> {{currentlanguage.beneficiary_registration?.call_confirmation_question}}</h5>
         <md-radio-group>
-          <md-radio-button ngDefaultControl  color="primary" [value]=true (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">Yes</md-radio-button>
-          <md-radio-button ngDefaultControl  color="primary" [value]=false (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">No</md-radio-button>
+          <md-radio-button ngDefaultControl color="primary" [value]=true (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">Yes</md-radio-button>
+          <md-radio-button ngDefaultControl color="primary" [value]=false (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">No</md-radio-button>
         </md-radio-group>
 
         <!-- <md-slide-toggle ngDefaultControl [(ngModel)]="calledEarlier" color="primary" (change)="calledEarlierCheck($event)">{{currentlanguage.beneficiary_registration?.call_confirmation_question}}</md-slide-toggle> -->
@@ -169,15 +169,15 @@
           <thead>
             <tr>
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_id}}</th>
-              <th class="col-xs-2 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.fullname}}</th>
-              <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.dob}}</th>
+              <th class="col-xs-2 col-md-2">{{currentlanguage.beneficiary_registration?.table_labels?.fullname}}</th>
+              <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.dob}}</th> -->
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.age}}</th>
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.gender}}</th>
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.state}}</th>
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.district}}</th>
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.village}}</th>
-              <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.preferred_language}}</th>
+              <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.preferred_language}}</th> -->
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_tagging}}</th>
             </tr>
           </thead>
@@ -185,14 +185,14 @@
             <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 5, currentPage: p }">
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
-              <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td>
+              <!-- <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td> -->
               <td>{{regHistory.age}}</td>
               <td>{{regHistory.m_gender?.genderName}}</td>
               <td>{{regHistory.i_bendemographics?.m_state?.stateName}}</td>
               <td>{{regHistory.i_bendemographics?.m_district?.districtName}}</td>
               <td>{{regHistory.i_bendemographics?.m_districtblock?.blockName}}</td>
               <td>{{regHistory.i_bendemographics?.m_districtbranchmapping?.villageName}}</td>
-              <td>{{regHistory.i_bendemographics?.m_language?.languageName}}</td>
+              <!-- <td>{{regHistory.i_bendemographics?.m_language?.languageName}}</td> -->
               <td>{{regHistory.benPhoneMaps[0]?.benRelationshipType?.benRelationshipType}}</td>
               <td>
                 <button class=".btn pull-right" (click)="passBenRegHistoryData(regHistory)">Edit</button>

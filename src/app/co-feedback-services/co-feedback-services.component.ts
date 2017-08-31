@@ -59,6 +59,7 @@ export class CoFeedbackServicesComponent implements OnInit
   feedbacksArray: any = [];
   modalArray: any = [];
   providerServiceMapID: number;
+  userID: number;
 
   feedbackcounter: any = 1000;
   today: Date;
@@ -110,6 +111,7 @@ export class CoFeedbackServicesComponent implements OnInit
     this.userName = this._savedData.uname;
     this.serviceID = this._savedData.current_service.serviceID;
     this.providerServiceMapID = this._savedData.current_service.serviceID;
+    this.userID = this._savedData.uid;
     this.GetServiceTypes();
     this._userBeneficiaryData.getUserBeneficaryData()
       .subscribe( response => this.SetUserBeneficiaryFeedbackData( response ) );
