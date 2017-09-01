@@ -7,7 +7,7 @@
 */
 
 // modules or custom components
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdSelectModule } from '@angular/material';
 
@@ -15,15 +15,18 @@ import { MdSelectModule } from '@angular/material';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service';
 import { dataService } from '../services/dataService/data.service';
 import { UploadServiceService } from '../services/upload-services/upload-service.service';
-import { Message } from './../services/common/message.service'
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 
 @Component({
   selector: 'app-knowledge-management',
   templateUrl: './knowledge-management.component.html',
   styleUrls: ['./knowledge-management.component.css']
 })
+
 export class KnowledgeManagementComponent implements OnInit {
   // declaring object
+  @ViewChild('myInput')
+  myInputVariable: any;
   public categories: any = [];
   public subCategories: any = [];
   public file: File;
@@ -38,9 +41,10 @@ export class KnowledgeManagementComponent implements OnInit {
   public fileName;
   public fileExtension;
   public createdBy;
-
+  public fileControl
   constructor(private fb: FormBuilder, private _coCategoryService: CoCategoryService,
-    private _dataService: dataService, private _uploadService: UploadServiceService, private message: Message) {
+    private _dataService: dataService, private _uploadService: UploadServiceService,
+    private message: ConfirmationDialogsService) {
     this.createForm();
   }
 
@@ -124,9 +128,12 @@ export class KnowledgeManagementComponent implements OnInit {
   // Calling service Method to call the services
   uploadFile(uploadObj: any) {
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
-      this.message.openSnackBar('Uploaded Successfully');
+      console.log('KM configuration ', response);
+      this.message.alert('Uploaded Successfully');
+      this.myInputVariable.nativeElement.value = '';
     }, (err) => {
-      this.message.openSnackBar('Failed to Uploaded');
+      this.message.alert('Failed to Uploaded');
+      this.myInputVariable.nativeElement.value = '';
     })
   }
 

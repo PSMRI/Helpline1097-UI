@@ -5,8 +5,9 @@
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput style="display:none">
-      <md-select required placeholder="{{currentlanguage.counselling_service?.select_category}}" [style.width]="'100%'" [(ngModel)]="symptomCategory" name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
-        <md-option *ngFor="let symptomCategory of categoryList" value="{{symptomCategory.categoryID}}">
+      <md-select required placeholder="{{currentlanguage.counselling_service?.select_category}}" [style.width]="'100%'" [(ngModel)]="symptomCategory"
+        name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
+        <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
           {{symptomCategory.categoryName}}
         </md-option>
       </md-select>
@@ -18,8 +19,9 @@
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput style="display:none">
-      <md-select required placeholder="{{currentlanguage.counselling_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory" name="symptomSubCategory" #subCategory="ngModel">
-        <md-option *ngFor="let symptomSubCategory of subCategoryList" value="{{symptomSubCategory.subCategoryID}}">
+      <md-select required placeholder="{{currentlanguage.counselling_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory"
+        name="symptomSubCategory" #subCategory="ngModel">
+        <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
           {{symptomSubCategory.subCategoryName}}
         </md-option>
       </md-select>
@@ -51,13 +53,13 @@
     <thead>
       <tr>
         <th md2SortBy="benCallID">{{currentlanguage.counselling_service?.table_labels?.beneficiary_call_id}}</th>
-        <th md2SortBy="informationServices">{{currentlanguage.counselling_service?.table_labels?.category}}</th>
-        <th md2SortBy="feedbackServices">{{currentlanguage.counselling_service?.table_labels?.subcategory}}</th>
+        <th md2SortBy="categoryDetails.categoryName">{{currentlanguage.counselling_service?.table_labels?.category}}</th>
+        <th md2SortBy="subCategoryDetails.subCategoryName">{{currentlanguage.counselling_service?.table_labels?.subcategory}}</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let counselling of md2.data ">
-        <td>{{counselling.benCallID}}</td>
+        <td width=20%>{{counselling.benCallID}}</td>
         <td>{{counselling?.categoryDetails?.categoryName}}</td>
         <td>{{counselling?.subCategoryDetails?.subCategoryName}}</td>
       </tr>

@@ -15,7 +15,11 @@ export class CallServices {
   _commonURL = this._config.getCommonBaseURL();
   _closecallurl = this._commonURL + 'call/closeCall/';
   _callsummaryurl = this._baseUrl + 'services/getCallSummary/';
-  _calltypesurl = this._commonURL + 'call/getCallTypes/';
+  _calltypesurl = this._commonURL + 'call/getCallTypesV1/';
+  _outboundCalls = this._commonURL + 'call/outboundCallList/'
+  _blacklistCalls = this._commonURL + 'call/getBlacklistNumbers/'
+  _blockPhoneNo = this._commonURL + 'call/blockPhoneNumber/'
+  _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber'
   constructor(
     private _http: Http,
     private _config: ConfigService,
@@ -35,7 +39,19 @@ export class CallServices {
     console.log('call types to be retreived for ', values)
     return this._http.post(this._calltypesurl, values, this.options).map(this.extractData).catch(this.handleError);
   }
-
+  getOutboundCallList(serviceID: any, userID?: any) {
+    const obj = {};
+    if (userID) {
+      obj['providerServiceMapID'] = serviceID;
+      obj['assignedUserID'] = userID;
+    } else {
+      obj['providerServiceMapID'] = serviceID;
+    }
+    return this._http.post(this._outboundCalls, obj, this.options).map(this.extractData).catch(this.handleError);
+  }
+  getBlackListCalls(objSearch: any) {
+    return this._httpInterceptor.post(this._blacklistCalls, objSearch).map(this.extractData).catch(this.handleCustomError);
+  }
   extractData(response: Response) {
     if (response.json().data) {
       return response.json().data;
@@ -43,9 +59,17 @@ export class CallServices {
       return response.json();
     }
   }
-
-  handleError(response: Response) {
-    return response.json()
+  blockPhoneNumber(phoneBlockID: any) {
+    return this._httpInterceptor.post(this._blockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
   }
+  UnBlockPhoneNumber(phoneBlockID: any) {
+    return this._httpInterceptor.post(this._unblockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
 
+  }
+  handleError(error: Response) {
+    return error.json();
+  }
+  handleCustomError(error: Response) {
+    return Observable.throw(error.json());
+  }
 }

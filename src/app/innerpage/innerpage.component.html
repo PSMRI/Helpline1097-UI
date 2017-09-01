@@ -1,4 +1,4 @@
-<div class="container-fluid p-a-0 header p-t-b-3" *ngIf="currentlanguageSet!=undefined">
+<div class="container-fluid p-a-0 header p-t-b-3">
   <div class="header">
     <div class="col-xs-12 col-sm-12">
       <div routerLink="/MultiRoleScreenComponent" class="pull-left"><img src="assets/images/smLogo.png" alt="Logo" title="Logo"></div>
@@ -6,7 +6,7 @@
         <ul class="list-inline list-unstyled pull-left m-b-0">
           <li class="m-l-lg-40 m-t-5" *ngIf='checkRole'><img src="assets/images/transferCallIcon.png " alt="Caller Icon
     " title="Caller Icon " />
-            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green ">{{currentlanguageSet?.innerpage?.on_call}}</span>
+            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green ">ON CALL</span>
           </li>
         </ul>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
@@ -25,9 +25,8 @@
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
           <li>
-            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4 " [(ngModel)]="language_change" (change)="getLanguageObject(language_change)">
-              <option value="english">English </option>
-              <option value="hindi">Hindi </option>
+            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4" [(ngModel)]="language_change" (change)="getLanguageObject(language_change)"> 
+              <option selected="selected " value="english">English </option>
               <option value="kannada">Kannada </option>
             </select>
           </li>
@@ -38,7 +37,7 @@
 </div>
 <div class="col-xs-12 col-sm-12 " (click)="minimizeBar()">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 ">
+    <div class="col-xs-12 col-sm-12 " [hidden]="current_campaign == 'OUTBOUND'">
       <div class="row b-t-2-w ">
         <div class="col-xs-12 col-sm-12 m-t-3 ">
           <div class="row ">
@@ -95,7 +94,7 @@
                 <li class="text-center m-l-lg-40 f-s-9"><span><img src="assets/images/flagCallIcon.png " class="f-s-9" alt="Flag Call
     Icon " title="Flag Call Icon "/></span>
                   <br />
-                  <span class="f-s-14 ">{{currentlanguageSet?.innerpage?.flag_call}}</span></li>
+                  <span class="f-s-14 ">Flag Call</span></li>
                 <!-- <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png " alt="End Call
     Icon " title="End Call Icon "/></span>
               <br />
@@ -115,14 +114,14 @@
 <footer class="footer">
   <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-      <span class="footer-text">{{currentlanguageSet?.innerpage?.powered_by}}: {{currentlanguageSet?.innerpage?.wipro}}</span>
+      <span class="footer-text">Powered by: WIPRO</span>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
       <p class="footer-text t-a-c">2017
         <md-icon color="" class="copyright_icon">copyright</md-icon> PSMRI</p>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-      <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">{{currentlanguageSet?.innerpage?.c_zentix}}</button>
+      <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">CZentrix</button>
     </div>
   </div>
 </footer>

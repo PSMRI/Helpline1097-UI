@@ -1,16 +1,15 @@
-import { Component, OnInit, Output,Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router'
 
-@Component( {
+@Component({
   selector: 'app-1097',
   templateUrl: './1097.component.html',
-  styleUrls: [ './1097.component.css' ]
-} )
-export class helpline1097Component implements OnInit
-{
-    @Input() current_language: any;
+  styleUrls: ['./1097.component.css']
+})
+export class helpline1097Component implements OnInit {
+  @Input() current_language: any;
   currentlanguage: any;
 
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
@@ -19,8 +18,7 @@ export class helpline1097Component implements OnInit
     public getCommonData: dataService
   ) { };
 
-  ngOnInit ()
-  {
+  ngOnInit() {
     this.current_role = this.getCommonData.current_role.RoleName;
   };
 
@@ -36,8 +34,7 @@ export class helpline1097Component implements OnInit
   // }
 
 
-   ngOnChanges()
-  {
+  ngOnChanges() {
     this.setLanguage(this.current_language);
 
   }
@@ -49,14 +46,12 @@ export class helpline1097Component implements OnInit
 
 
 
-  selectBeneficiary ( data: any )
-  {
-    this.beneficiarySelected.emit( data );
+  selectBeneficiary(data: any) {
+    this.beneficiarySelected.emit(data);
   }
   Activity_Number: any;
 
-  show ( value )
-  {
+  show(value) {
     this.Activity_Number = value;
   }
 }

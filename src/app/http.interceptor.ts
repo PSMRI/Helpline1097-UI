@@ -92,7 +92,7 @@ export class InterceptedHttp extends Http {
         if (response.json().data) {
             return response;
         } else {
-            return Observable.throw(response);
+            throw response;
         }
     }
     private onError(error: any) {
@@ -107,7 +107,7 @@ export class InterceptedHttp extends Http {
         console.log('Loader hide')
         this.loaderService.hide();
     }
-    private onCatch(error: any, caught: Observable<Response>): Observable<Response> {
+    private onCatch(error: any, caught?: Observable<Response>): Observable<Response> {
         return Observable.throw(error);
     }
 }

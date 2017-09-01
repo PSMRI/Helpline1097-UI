@@ -7,7 +7,7 @@
   <div class="container">
     <div class="row">
       <!--Form Start  -->
-      <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate>
+      <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm);knowledgeForm.reset()" novalidate>
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
             <md-select placeholder="Select Category" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)">
@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
-            <input type="file" class="form-control" name="file" (change)="changeListener($event)" />
+            <input type="file" class="form-control" #myInput name="file"  (change)="changeListener($event)" />
             <input type="hidden" name="fileHidden" formControlName="fileInput" />
             <!-- Validation Field -->
             <div class="error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">

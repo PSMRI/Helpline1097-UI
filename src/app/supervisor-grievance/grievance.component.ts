@@ -39,6 +39,9 @@ export class supervisorFeedback implements OnInit {
   public isCollapsedResponse = false;
   public beneficiaryID = undefined;
   totalRecord;
+  maxDate: Date;
+  editFeedBack: boolean = false;
+  feedBackDiv: boolean = true;
   public feedbackStatusData: any;
   error: any = { isError: false, errorMessage: '' };
 
@@ -137,10 +140,13 @@ export class supervisorFeedback implements OnInit {
 
     this._feedbackservice.getFeedback(requestData)
       .subscribe(resProviderData => this.providers(resProviderData));
+    this.maxDate = new Date();
+    this.feedBackDiv = true;
 
   }
   onSubmit() {
-    this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary)
+
+
     // this.action = "view";
 
     let bodyString = this.feedbackForm.value;
@@ -153,8 +159,8 @@ export class supervisorFeedback implements OnInit {
     // bodyString.emailStatus = undefined;
 
     if (this.action == 'edit') {
-      this._feedbackservice.requestFeedback(bodyString)
-        .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
+      this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary, bodyString);
+
     }
     // if(this.action == 'edit')
     // this._feedbackservice.updateFeedback( bodyString )
@@ -173,14 +179,16 @@ export class supervisorFeedback implements OnInit {
   }
 
   showUsers(data) {
-    this.onSearch();
+    this.onSearch()
   }
 
   providers(data) {
+
+    this.action = "view";
     this.feedbackList = data;
     this.showUser = true;
-    this.showupdateFeedback = true;
-    this.showupdateFeedback1 = true;
+    // this.showupdateFeedback = true;
+    // this.showupdateFeedback1 = true;
     console.log(data);
   }
 
@@ -193,7 +201,6 @@ export class supervisorFeedback implements OnInit {
   requestFeedback(feedback) {
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = 'edit';
-
 
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
@@ -248,7 +255,6 @@ export class supervisorFeedback implements OnInit {
 
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = 'update';
-
 
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
@@ -333,7 +339,12 @@ export class supervisorFeedback implements OnInit {
     // this._feedbackservice.searchFeedback( bodyString )
     //   .subscribe( resProviderData => this.providers( resProviderData ) );
     this._feedbackservice.getFeedback(bodyString)
-      .subscribe(resProviderData => this.providers(resProviderData));
+      .subscribe((resProviderData) => {
+        this.providers(resProviderData)
+      },
+      (err) => {
+        this.alertMessage.alert(err.status);
+      });
   }
 
   onClick(feedback) {
@@ -380,12 +391,20 @@ export class supervisorFeedback implements OnInit {
     }
   }
 
-  saveNSendEmail(feedback) {
+  saveNSendEmail(feedback: any, bodyString: any) {
     let dialogReff = this.dialog.open(AlernateEmailModelComponent, {
       height: '350px',
       width: '620px',
       disableClose: false,
       data: feedback
     });
+    dialogReff.afterClosed().subscribe(result => {
+      this._feedbackservice.requestFeedback(bodyString)
+        .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
+    });
+
+  }
+  back() {
+    this.action = "view";
   }
 }

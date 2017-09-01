@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 declare var jQuery: any;
 
 @Component({
@@ -8,10 +8,12 @@ declare var jQuery: any;
 })
 export class CoServicesComponent implements OnInit {
 
-   @Input() current_language: any;
+  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
+  @Input() current_language: any;
+  @Input() benData: any;
   currentlanguage: any;
-
-
+  selectedBenData: any;
+  loadComp = false;
   constructor() { }
 
   selectedService: any;
@@ -19,18 +21,14 @@ export class CoServicesComponent implements OnInit {
   ngOnInit() {
   }
 
-   ngOnChanges()
-  {
+  ngOnChanges() {
     this.setLanguage(this.current_language);
-
   }
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language co services tk");
+    console.log(language, 'language co services tk');
   }
-
-  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
 
   updateServiceProvided() {
     this.serviceGiven.emit();
@@ -41,7 +39,7 @@ export class CoServicesComponent implements OnInit {
     // todo in future
   }
   changeService(val) {
-    console.log(val, "value of tab clicked");
+    console.log(val, 'value of tab clicked');
     this.tab_value = val;
     // jQuery( "#service" + val ).parent().find( "li" ).removeClass();
     // jQuery( "#service" + val ).addClass( "animation-nav-active" );

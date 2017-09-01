@@ -1,4 +1,4 @@
-<div (click)="minimizeBar()" *ngIf="currentlanguage!=undefined">
+<div (click)="minimizeBar()" [hidden]="current_campaign == 'OUTBOUND'" *ngIf="currentlanguage!=undefined">
   <div class=" b-t-2-w p-t-20">
     <div class="col-xs-12 col-sm-12 ">
       <div class=" bs-wizard animate-box" style=" position:relative; z-index:1">
@@ -48,11 +48,12 @@
                 <!--<app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                                         (StartNewCall)="startCall()" #registration></app-beneficiary-registration>-->
 
-                <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();" #registration [current_language]="currentlanguage"></app-beneficiary-registration>
+                <app-beneficiary-registration [onStartNewCall]="StartNewCall"  [onReloadCall]="ReloadCall" (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
+                  #registration [current_language]="currentlanguage"></app-beneficiary-registration>
               </div>
               <div class="item ">
                 <!--<app-co-services (beneficiarySelected)="startCOService()" (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>-->
-                <app-co-services (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice [current_language]="currentlanguage"></app-co-services>
+                <app-co-services (serviceGiven)="updateServiceProvided(); closure.onView()" [benHistory]="selectedBenData" #coservice [current_language]="currentlanguage"></app-co-services>
 
               </div>
               <div class="item ">
@@ -63,23 +64,49 @@
                 <!--<app-closure (beneficiarySelected)="onView()" (serviceProvided)="onView()" (callClosed)="startNewCall(); registration.startNewCall();"
                                         #closure></app-closure>-->
                 <!--<app-closure (callClosed)="startNewCall(); registration.startNewCall();" #closure></app-closure>-->
-                <app-closure (callClosed)="closeCall();" #closure [current_language]="currentlanguage"></app-closure>
+                <app-closure (callClosed)="closeCall($event);" (closedContinue)="closedContinue()" #closure [current_language]="currentlanguage"></app-closure>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10 ">
-        <button id="previous" type="button" class="btn pull-left font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="prev">{{currentlanguage.co?.previous}}</button>
-        <button id="next" type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next">{{currentlanguage.co?.next}}</button>
+        <button id="previous" type="button" class="btn pull-left font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="prev"
+          [hidden]="!isPrevious">{{currentlanguage.co?.previous}}</button>
+        <button id="next" type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next" [hidden]="!isNext">{{currentlanguage.co?.next}}</button>
         <div class="center-btn">
-          <button type="button" value="Cancel" class="btn  font-regular f-s-18 m-r-5" data-slide-to="1" (click)="openDialog()">{{currentlanguage.co?.cancel}}</button>
-          <button type="button" value="Close" class="btn  font-regular f-s-18 m-r-5" data-slide-to="4" (click)="openDialogClosure()">{{currentlanguage.co?.closure}}</button>
+          <button type="button" value="Cancel" class="btn  font-regular f-s-18 m-r-5" data-slide-to="1" (click)="openDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>
+          <button type="button" value="Close" class="btn  font-regular f-s-18 m-r-5" data-slide-to="4" (click)="openDialogClosure()"
+            [disabled]="isClosureDisable">{{currentlanguage.co?.closure}}</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+<div (click)="minimizeBar()" [hidden]="current_campaign == 'INBOUND'" *ngIf="currentlanguage!=undefined">
+  <div class="clearfix"></div>
+  <div class="col-xs-12 col-sm-12">
+    <div class="panel-body card p-a-0 bg-white ">
+      <div class="container-fluid p-a-0 height-400 overflow-y">
+        <div class=" b-t-2-w">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
+            <div class="carousel-inner">
+              <div class="item active">
+                <!--<app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
+                                        (StartNewCall)="startCall()" #registration></app-beneficiary-registration>-->
+                <!-- <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
+                  #registration></app-beneficiary-registration> -->
+                <app-outbond-worklist (onOutboundCall)="callBenOutbound($event)"></app-outbond-worklist>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- <md2-dialog #confirm>
   <md2-dialog-title>Are you sure want to {{dialog.value}} ?</md2-dialog-title>
 </md2-dialog> -->

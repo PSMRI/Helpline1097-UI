@@ -6,7 +6,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router'
 declare var jQuery: any;
-
+import { CommunicationService } from './../services/common/communication.service'
 
 @Component({
   selector: 'app-1097-co',
@@ -20,17 +20,21 @@ export class helpline1097CoComponent implements OnInit {
   callID: any;
   barMinimized: boolean = true;
   ctiHandlerURL: any = "";
-
-   @Input() current_language: any;
+  isCancelDisable: boolean = true;
+  isClosureDisable: boolean = false;
+  isPrevious: boolean = false;
+  isNext: boolean = false
+  @Input() current_language: any;
   currentlanguage: any;
-
+  ReloadCall: boolean;
+  StartNewCall: boolean;
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
-  @Output() StartNewCall: EventEmitter<any> = new EventEmitter<any>();
-  @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   @Output() getHistory: EventEmitter<any> = new EventEmitter<any>();
+  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancel') cancel;
 
   constructor(
@@ -41,12 +45,14 @@ export class helpline1097CoComponent implements OnInit {
     private configService: ConfigService,
     public sanitizer: DomSanitizer,
     private dialogService: ConfirmationDialogsService,
-    private _viewContainerRef: ViewContainerRef
+    private _viewContainerRef: ViewContainerRef,
+    private pass_data: CommunicationService
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
     }, 1000);
   }
+  private current_campaign: any;
 
   data: any = this.getCommonData.Userdata;
 
@@ -58,11 +64,25 @@ export class helpline1097CoComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.current_campaign = this.getCommonData.current_campaign;
     var idx = jQuery('.carousel-inner div.active').index();
     console.log("index", idx);
     let url = this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
     console.log("url = " + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    // if (idx > 1) {
+    //   jQuery('#previous').attr('disabled', null);
+    //   //  jQuery('#next').attr('disabled', 'disabled');
+    // }
+    // if (idx === 0) {
+    //   jQuery('#previous').attr('disabled', 'disabled');
+    // }
+    // if (idx > 0) {
+    //   jQuery('#next').attr('disabled', null);
+    // }
+    // if (idx === 4) {
+    //   jQuery('#next').attr('disabled', 'disabled');
+    // }
 
     // jQuery('#closureLink').on('click', function () {
     //   jQuery('#myCarousel').carousel(idx + 3);
@@ -102,36 +122,65 @@ export class helpline1097CoComponent implements OnInit {
       });*/
 
     jQuery("#previous").on('click', function () {
+
       var idx = jQuery('.carousel-inner div.active').index();
+      if (idx > 1) {
+        jQuery('#previous').attr('disabled', null);
+        //  jQuery('#next').attr('disabled', 'disabled');
+      }
+      if (idx === 0) {
+        jQuery('#previous').attr('disabled', 'disabled');
+      }
+      if (idx > 0) {
+        jQuery('#next').attr('disabled', null);
+      }
+      if (idx === 4) {
+        jQuery('#next').attr('disabled', 'disabled');
+      }
+
       console.log('chala with', idx);
       if (idx === 0) {
         console.log('chala')
         jQuery("#one").parent().find("a").removeClass('active-tab');
-        jQuery("#one").find("a").addClass("active-tab");
+        jQuery("#one").find('a').addClass('active-tab');
       }
       if (idx === 1) {
-        jQuery("#two").parent().find("a").removeClass('active-tab');
-        jQuery("#two").find("a").addClass("active-tab");
+        jQuery('#two').parent().find('a').removeClass('active-tab');
+        jQuery('#two').find('a').addClass('active-tab');
       }
       if (idx === 2) {
-        jQuery("#three").parent().find("a").removeClass('active-tab');
-        jQuery("#three").find("a").addClass("active-tab");
+        jQuery('#three').parent().find('a').removeClass('active-tab');
+        jQuery('#three').find('a').addClass('active-tab');
       }
       if (idx === 3) {
 
-        jQuery("#four").parent().find("a").removeClass('active-tab');
-        jQuery("#four").find("a").addClass("active-tab");
+        jQuery('#four').parent().find('a').removeClass('active-tab');
+        jQuery('#four').find('a').addClass('active-tab');
       }
     });
 
 
-    jQuery("#next").on('click', function () {
-
+    jQuery('#next').on('click', function () {
       var idx = jQuery('.carousel-inner div.active').index();
       console.log('chala with', idx);
+      if (idx > 1) {
+        jQuery('#previous').attr('disabled', null);
+        //  jQuery('#next').attr('disabled', 'disabled');
+      }
       if (idx === 0) {
-        jQuery("#one").parent().find("a").removeClass('active-tab');
+        jQuery('#previous').attr('disabled', 'disabled');
+      }
+      if (idx > 0) {
+        jQuery('#next').attr('disabled', null);
+      }
+      if (idx === 4) {
+        jQuery('#next').attr('disabled', 'disabled');
+      }
+
+      if (idx === 0) {
+        jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
+
       }
       if (idx === 1) {
         jQuery('#two').parent().find('a').removeClass('active-tab');
@@ -166,17 +215,28 @@ export class helpline1097CoComponent implements OnInit {
   }
 
 
- ngOnChanges()
-  {
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnChanges() {
+
     this.setLanguage(this.current_language);
 
   }
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language in 1097 co me");
+    console.log(language, 'language in 1097 co me');
   }
+  closedContinue() {
+    this.startNewCall();
+    const id = jQuery('.carousel-inner div.active').index();
+    jQuery('#myCarousel').carousel(0);
+    jQuery('#one').parent().find('a').removeClass('active-tab');
+    jQuery('#one').find('a').addClass('active-tab');
+    this.isCancelDisable = true;
+    this.isClosureDisable = false;
+    this.isNext = false;
 
+  }
 
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find('a').removeClass('active-tab');
@@ -194,9 +254,9 @@ export class helpline1097CoComponent implements OnInit {
 		this.selectedBenData.lname = data.lastName;
 		this.selectedBenData.mob = data.phoneNo;
 */
-		/**
-				 * Neeraj Code; 22-jun-2017
-				 */
+    /**
+         * Neeraj Code; 22-jun-2017
+         */
     //	this.beneficiaryNotSelected = false;
     //	this.updateClosureData.emit();
     //	this.serviceProvided.emit();
@@ -204,7 +264,7 @@ export class helpline1097CoComponent implements OnInit {
 
     if (data != null) {
       //alert(" hai");
-      this.selectedBenData.id = data.beneficiaryID;
+      this.selectedBenData.id = data.beneficiaryRegID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;
     } else {
@@ -214,27 +274,29 @@ export class helpline1097CoComponent implements OnInit {
       this.selectedBenData.lname = '';
     }
     this.beneficiarySelected.emit(data);
-		/**
-		 * End of Neeraj Code; 22-jun-2017
-		 */
+
+    /**
+     * End of Neeraj Code; 22-jun-2017
+     */
 
 
   }
 
-  @Input()
   startNewCall() {
-    this.StartNewCall.emit();
-    document.getElementById('cancelLink').click();
+    this.StartNewCall = true;
+    // this.StartNewCall.emit();
+    // document.getElementById('cancelLink').click();
   }
   reloadCall() {
-    this.ReloadCall.emit();
+    this.ReloadCall = true;
+    // this.ReloadCall.emit();
   }
 
   refreshCall() {
 
   }
 
-  updateServiceProvided() {
+  updateServiceProvided(data: any) {
     this.serviceProvided.emit(null);
   }
   // 	change(no:any){
@@ -267,10 +329,13 @@ export class helpline1097CoComponent implements OnInit {
       jQuery('#myCarousel').carousel(1);
       jQuery('#two').parent().find('a').removeClass('active-tab');
       jQuery('#two').find('a').addClass('active-tab');
+      this.isNext = true;
+      this.isCancelDisable = false;
     }
+
   }
 
-  closeCall() {
+  closeCall(compain_type: any) {
     this.basicrouter.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['dashboard'] } }]);
   }
   openDialog() {
@@ -281,21 +346,32 @@ export class helpline1097CoComponent implements OnInit {
         jQuery('#myCarousel').carousel(0);
         jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
+        this.isCancelDisable = true;
+        this.isClosureDisable = false;
+        this.isNext = false;
       }
     });
   }
   openDialogClosure() {
     this.dialogService.confirm('Closure ', 'Are you sure want to Close the Call ?').subscribe((response) => {
       if (response) {
-        this.reloadCall();
         jQuery('#myCarousel').carousel(3);
         jQuery('#four').parent().find('a').removeClass('active-tab');
         jQuery('#four').find('a').addClass('active-tab');
+        this.isClosureDisable = true;
+        this.isCancelDisable = false;
       }
     });
   }
   getServiceHistory() {
     this.getHistory.emit(null);
+  }
+  public callBenOutbound(event: any) {
+    this.getCommonData.current_campaign = 'INBOUND';
+    this.current_campaign = this.getCommonData.current_campaign;
+    this.getSelectedBenDetails(event.beneficiary);
+    this.benService('benService');
+    this.pass_data.sendData(event.beneficiary);
   }
 
 }

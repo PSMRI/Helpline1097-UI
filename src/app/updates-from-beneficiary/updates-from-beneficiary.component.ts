@@ -1,11 +1,13 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from '../services/update-services/update-service';
 import { dataService } from '../services/dataService/data.service';
 import { Message } from './../services/common/message.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
-
+import { Subscription } from 'rxjs/Subscription';
+// Common service to pass Data
+import { CommunicationService } from './../services/common/communication.service'
 declare let jQuery: any;
 @Component({
   selector: 'app-updates-from-beneficiary',
@@ -29,6 +31,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   count;
   occupationID: any = undefined;
   occupations: any = [];
+  subscription: Subscription;
 
   sourceOfInfo: any = [
     { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1 },
@@ -45,7 +48,9 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     private _util: UpdateService,
     private fb: FormBuilder,
     private saved_data: dataService,
-    private message: ConfirmationDialogsService) {
+    private message: ConfirmationDialogsService,
+    private pass_data: CommunicationService) {
+    this.subscription = this.pass_data.getData().subscribe(benData => { this.getBenData(benData) });
   }
 
 
@@ -60,11 +65,10 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   }
 
-  ngOnChanges()
-    {
-      this.setLanguage(this.current_language);
+  ngOnChanges() {
+    this.setLanguage(this.current_language);
 
-    }
+  }
 
   setLanguage(language) {
     this.currentlanguage = language;
@@ -72,6 +76,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   PopulateUpdateData() {
+
     if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
       this.occupationID = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
@@ -80,6 +85,17 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = this.saved_data.beneficiaryData.isHIVPos;
       this.remarks = this.saved_data.beneficiaryData.remarks;
+    }
+  }
+  PopulateOutBoundData(beneficiaryData: any) {
+    if (beneficiaryData) {
+      this.beneficiaryRegID = beneficiaryData.beneficiaryRegID;
+      this.occupationID = beneficiaryData.i_bendemographics.occupationID;
+      this.educationID = beneficiaryData.i_bendemographics.educationID;
+      this.sexualOrientationID = beneficiaryData.sexualOrientationId;
+      this.placeOfWork = beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
+      this.isHIVPos = beneficiaryData.isHIVPos;
+      this.remarks = beneficiaryData.remarks;
     }
   }
 
@@ -119,5 +135,21 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
   updateCount() {
     this.count = this.remarks.length + '/300';
+  }
+  // get the data from diffrent commponent
+  public getBenData(data: any) {
+    this.PopulateOutBoundData(data.dataPass);
+  }
+  changeRadio(value) {
+    if (value) {
+      this.isHIVPos = value;
+    } else {
+      this.isHIVPos = false;
+    }
+  }
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
   }
 }

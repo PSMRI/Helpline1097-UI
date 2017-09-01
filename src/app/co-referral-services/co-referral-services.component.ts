@@ -3,14 +3,15 @@ import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.serv
 import { LocationService } from "../services/common/location.service";
 import { CoReferralService } from "../services/coService/co_referral.service";
 import { dataService } from "../services/dataService/data.service"
-
-@Component( {
+import { Subscription } from 'rxjs/Subscription';
+// Common service to pass Data
+import { CommunicationService } from './../services/common/communication.service'
+@Component({
   selector: 'app-co-referral-services',
   templateUrl: './co-referral-services.component.html',
-  styleUrls: [ './co-referral-services.component.css' ]
-} )
-export class CoReferralServicesComponent implements OnInit
-{
+  styleUrls: ['./co-referral-services.component.css']
+})
+export class CoReferralServicesComponent implements OnInit {
   @Input() current_language: any;
   currentlanguage: any;
 
@@ -40,16 +41,17 @@ export class CoReferralServicesComponent implements OnInit
   subServiceID: number = 3;
   showSendSMS: boolean = false;
   providerServiceMapID: number;
-
+  subscription: Subscription
+  beneficiaryRegID: any;
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
     private _locationService: LocationService,
     private _coReferralService: CoReferralService,
-    private saved_data: dataService
-  ) { }
+    private saved_data: dataService,
+    private pass_data: CommunicationService
+  ) { this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) }); }
 
-  ngOnInit ()
-  {
+  ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
     // // call the api to get all the referrals done and store them in array;
@@ -59,162 +61,139 @@ export class CoReferralServicesComponent implements OnInit
     // // call the api to get all the states
     // this.states = [];  //substitute it with the response
     this._userBeneficiaryData.getUserBeneficaryData()
-      .subscribe( response => this.SetUserBeneficiaryRegistrationData( response ) );
-    this.setBeneficiaryData();
+      .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
   }
 
-   ngOnChanges()
-  {
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnChanges() {
     this.setLanguage(this.current_language);
 
   }
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language in referral tak");
+    console.log(language, 'language in referral tak');
   }
 
-  GetServiceTypes ()
-  {
-    this._coReferralService.getTypes( this.providerServiceMapID )
-      .subscribe( response => this.setServiceTypes( response ) );
+  GetServiceTypes() {
+    this._coReferralService.getTypes(this.providerServiceMapID)
+      .subscribe(response => this.setServiceTypes(response));
   }
-  setServiceTypes ( response: any )
-  {
-    for ( let i: any = 0; i < response.length; i++ )
-    {
-      if ( response[ i ].subServiceName.toUpperCase().search( "REFE" ) >= 0 )
-      {
-        this.subServiceID = response[ i ].subServiceID;
+  setServiceTypes(response: any) {
+    for (let i: any = 0; i < response.length; i++) {
+      if (response[i].subServiceName.toUpperCase().search('REFE') >= 0) {
+        this.subServiceID = response[i].subServiceID;
         break;
       }
     }
   }
-  @Input()
-  setBeneficiaryData ()
-  {
-    this._coReferralService.getReferralHistoryByID( this.saved_data.beneficiaryData.beneficiaryRegID ).subscribe( response => this.getReferralHistory( response ) );
+
+  setBeneficiaryData() {
+    this._coReferralService.getReferralHistoryByID(this.beneficiaryRegID)
+      .subscribe(response => this.getReferralHistory(response));
   }
 
-  getReferralHistory ( response: any )
-  {
-    console.log( 'referral history is :', response );
+  getReferralHistory(response: any) {
+    console.log('referral history is :', response);
     this.tableArray = response;
   }
 
 
-  showForm ()
-  {
+  showForm() {
     this.showFormCondition = true;
     this.showTableCondition = false;
   }
 
-  showTable ()
-  {
+  showTable() {
     this.showFormCondition = false;
     this.showTableCondition = true;
   }
 
-  SetUserBeneficiaryRegistrationData ( regData: any )
-  {
-    if ( regData.states )
-    {
+  SetUserBeneficiaryRegistrationData(regData: any) {
+    if (regData.states) {
       this.states = regData.states;
     }
-    if ( regData.directory )
-    {
+    if (regData.directory) {
       this.directory = regData.directory;
     }
   }
 
-  GetDistricts ( state: number )
-  {
+  GetDistricts(state: number) {
     this.districts = [];
     this.taluks = [];
     this.blocks = [];
-    this._locationService.getDistricts( state )
-      .subscribe( response => this.SetDistricts( response ) );
+    this._locationService.getDistricts(state)
+      .subscribe(response => this.SetDistricts(response));
   }
-  SetDistricts ( response: any )
-  {
+  SetDistricts(response: any) {
     this.districts = response;
   }
-  GetTaluks ( district: number )
-  {
+  GetTaluks(district: number) {
     this.taluks = [];
     this.blocks = [];
-    this._locationService.getTaluks( district )
-      .subscribe( response => this.SetTaluks( response ) );
-    // this._locationService.getSTB( district )
-    //   .subscribe( response => this.SetTaluks( response ) );
+    this._locationService.getTaluks(district)
+      .subscribe(response => this.SetTaluks(response));
   }
-  SetTaluks ( response: any )
-  {
+  SetTaluks(response: any) {
     this.taluks = response;
   }
-  GetSDTB ( taluk: number )
-  {
+  GetSDTB(taluk: number) {
     this.blocks = [];
-    this._locationService.getBranches( taluk )
-      .subscribe( response => this.SetSDTB( response ) );
-    // this._locationService.getBranch( taluk )
-    //   .subscribe( response => this.SetBlocks( response ) );
+    this._locationService.getBranches(taluk)
+      .subscribe(response => this.SetSDTB(response));
   }
-  SetSDTB ( response: any )
-  {
+  SetSDTB(response: any) {
     this.blocks = response;
   }
 
-  GetSubDirectory ( directoryID: number )
-  {
-    this._locationService.getSubDirectory( directoryID )
-      .subscribe( response => this.SetSubDirectory( response ) );
+  GetSubDirectory(directoryID: number) {
+    this._locationService.getSubDirectory(directoryID)
+      .subscribe(response => this.SetSubDirectory(response));
   }
-  SetSubDirectory ( response: any )
-  {
+  SetSubDirectory(response: any) {
     this.sub_directory = response.subDirectory;
   }
 
-  //GetReferralDetails ( selected_directory: number, selected_sub_directory: number, stateID: number, districtID: number, districtBranchMappingID: number, beneficiaryRegID: number, subServiceID: number, benCallID: number )
-  GetReferralDetails ()
-  {
-    //instituteDirectoryID: number, instituteSubDirectoryID: number, stateID: number, districtID: number,
-    //districtBranchMappingID: number, createdBy: string, beneficiaryRegID: number, subServiceID: number, benCallID: number
-    //this._coReferralService.getDetails( selected_directory, selected_sub_directory, stateID, districtID, districtBranchMappingID, "neer", beneficiaryRegID, subServiceID, benCallID )
+  GetReferralDetails() {
     this._coReferralService.getDetails(
       this.selected_directory, this.selected_sub_directory, this.selected_state, this.selected_district, this.selected_branch,
-      this.saved_data.uname, this.saved_data.beneficiaryData.beneficiaryRegID, this.subServiceID, this.saved_data.callData.benCallID
-    ).subscribe( response => this.SetReferralDetails( response ) );
+      this.saved_data.uname, this.beneficiaryRegID, this.subServiceID, this.saved_data.callData.benCallID
+    ).subscribe(response => this.SetReferralDetails(response));
   }
 
-  SetReferralDetails ( response: any )
-  {
-    console.log( 'success referral', response );
+  SetReferralDetails(response: any) {
+    console.log('success referral', response);
     this.detailsList = response;
-    if ( this.detailsList.length > 0 )
-    {
+    if (this.detailsList.length > 0) {
       this.showSendSMS = true;
     }
     this.referralServiceProvided.emit();
     this.provideReferralDescription();
   }
 
-  provideReferralDescription ()
-  {
-    var refObj = {
-      "state": this.selected_state,
-      "district": this.selected_district,
-      "taluk": this.selected_taluk,
-      "block": this.selected_block,
-      "selected_directory": this.selected_directory,
-      "selected_sub_directory": this.selected_sub_directory,
-      "date": new Date()
+  provideReferralDescription() {
+    const refObj = {
+      'state': this.selected_state,
+      'district': this.selected_district,
+      'taluk': this.selected_taluk,
+      'block': this.selected_block,
+      'selected_directory': this.selected_directory,
+      'selected_sub_directory': this.selected_sub_directory,
+      'date': new Date()
     }
-    this.tableArray.push( refObj );
+    this.tableArray.push(refObj);
 
   }
+  getBenData(benData: any) {
+    this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
+    this.setBeneficiaryData();
+  }
 
-
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
+  }
 
 
 
