@@ -1,0 +1,6 @@
+{
+    "commonBaseURL": "http://l-185000861.wipro.com:8080/CommonV1/",
+    "helpline1097BaseURL": "http://l-185000861.wipro.com:8080/helpline1097APIV1/",
+    "telephonyServerURL": "http: //10.201.13.17/",
+    "localeString": "en-in"
+}
