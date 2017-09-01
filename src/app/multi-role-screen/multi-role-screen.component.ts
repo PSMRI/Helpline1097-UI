@@ -13,11 +13,12 @@ import { Router } from '@angular/router';
 export class MultiRoleScreenComponent implements OnInit {
 
   constructor(public getCommonData: dataService, public router: Router) { }
-  
+
   data: any;
   ngOnInit() {
-	  this.data = this.getCommonData.Userdata;
-    this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [''] } }]);
+    this.data = this.getCommonData.Userdata;
+    // this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [''] } }]);
+    // this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [''] } }]);
   }
 
 }

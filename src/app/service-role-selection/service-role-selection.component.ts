@@ -18,7 +18,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
 
 		this.privleges = this.getCommonData.userPriveliges;
 		// this.privleges[3].roles[1].RoleName = 'Supervisior';
-		this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [''] } }]);
+		// this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [''] } }]);
 	}
 
 	route2dashboard(role, service) {
@@ -29,7 +29,8 @@ export class ServiceRoleSelectionComponent implements OnInit {
 		if (serviceName === '1097' && (roleName === 'CO' || roleName === 'Supervisior')) {
 			this.getCommonData.current_role = role;
 			this.getCommonData.current_service = service;
-			this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['dashboard'] } }]);
+			this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
+			// this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['dashboard'] } }]);
 		}
 		// if ( role === 'ADMIN' )
 		if (roleName === 'ADMIN') {

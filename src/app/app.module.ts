@@ -219,18 +219,18 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
         children: [
           {
             path: '',
-            component: ServiceRoleSelectionComponent,
-            outlet: 'postLogin_router'
+            component: ServiceRoleSelectionComponent
+            // outlet: 'postLogin_router'
           },
           {
             path: 'dashboard',
-            component: dashboardContentClass,
-            outlet: 'postLogin_router'
+            component: dashboardContentClass
+            // outlet: 'postLogin_router'
           },
           {
             path: 'superAdmin',
-            component: SuperAdminComponent,
-            outlet: 'postLogin_router'
+            component: SuperAdminComponent
+            // outlet: 'postLogin_router'
           }
         ]
       },
@@ -240,8 +240,15 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
       },
       {
         path: '',
-        redirectTo: '/loginContentClass',
-        pathMatch: 'full'
+        component: loginContentClass
+      },
+      {
+        path: 'co',
+        component: helpline1097CoComponent
+      },
+      {
+        path: 'supervisor',
+        component: helpline1097SupervisorComponent
       },
       {
         path: 'InnerpageComponent/:mobileNumber/:callID',
