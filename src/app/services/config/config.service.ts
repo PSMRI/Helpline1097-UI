@@ -10,10 +10,10 @@ import 'rxjs/add/operator/map';
 export class ConfigService
 {
 
-    // private _commonBaseURL: String = "http://l-185000861.wipro.com:9090/CommonV1/";
-    // private _helpline1097BaseURL: String = "http://l-185000861.wipro.com:9090/helpline1097APIV1/";
-    private _commonBaseURL: String = "http://10.152.3.99:8080/CommonV1/";
-    private _helpline1097BaseURL: String = "http://10.152.3.99:8080/helpline1097APIV1/";
+    private _commonBaseURL: String = "http://l-185000861.wipro.com:9090/CommonV1/";
+    private _helpline1097BaseURL: String = "http://l-185000861.wipro.com:9090/helpline1097APIV1/";
+    // private _commonBaseURL: String = "http://10.152.3.99:8080/CommonV1/";
+    // private _helpline1097BaseURL: String = "http://10.152.3.99:8080/helpline1097APIV1/";
     private _telephonyServerURL: String = "http://10.201.13.17/";
     private _localeString = 'en-in';
 
