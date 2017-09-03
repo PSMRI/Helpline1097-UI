@@ -9,13 +9,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="piramalIcjon.png">
   <script>
-    document.write('<base href="' + document.location + '" />');
+    // document.write('<base href="' + location.assign('http://localhost:4200') + '" />');
+    document.write('<base href="/" />');
 
   </script>
 </head>
+<style>
+  .loader-overlay {
+    opacity: 0.45;
+    -moz-opacity: 0.45;
+    filter: alpha(opacity=45);
+    /* background-image: url(assets/images/smLogo.png); */
+    background-repeat: no-repeat;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .centeredImage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -32px;
+    /* -1 * image width / 2 */
+    margin-top: -32px;
+    /* -1 * image height / 2 */
+  }
+
+</style>
 
 <body>
-  <app-root>Loading...</app-root>
+  <app-root>
+    <div class="loader-overlay">
+      <image src="assets/images/smLogo.png" class="centeredImage"></image>
+    </div>
+  </app-root>
 
 </body>
+
 </html>

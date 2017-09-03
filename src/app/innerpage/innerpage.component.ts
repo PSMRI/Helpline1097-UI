@@ -3,9 +3,9 @@ import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router'
-
+import { ConfigService } from '../services/config/config.service';
 import { HttpServices } from '../services/http-services/http_services.service';
-
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 declare const jQuery: any;
 
 
@@ -40,20 +40,21 @@ export class InnerpageComponent implements OnInit {
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   current_service: any;
   current_role: any;
-
+  loginUrl = this._config.getCommonLoginUrl();
+  data: any = this.getCommonData.Userdata;
   constructor(
     public getCommonData: dataService,
     public basicrouter: Router,
     public router: ActivatedRoute,
     public HttpServices: HttpServices,
-    public http: Http
+    public http: Http,
+    private _config: ConfigService
 
   ) {
     this.currentlanguageSet = [];
-
   }
 
-  data: any = this.getCommonData.Userdata;
+
 
   // tslint:disable-next-line:member-ordering
   selectedBenData: any = {
@@ -170,6 +171,9 @@ export class InnerpageComponent implements OnInit {
     console.log('language triggered and recieved', response, language);
     this.currentlanguageSet = response[language];
     // this.currentlanguageSet = "LANGUAGE IS ENGLISH PEHLI BAAR ME";
+  }
+  ngOnDestroy() {
+    Cookie.deleteAll();
   }
 
 }
