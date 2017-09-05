@@ -10,9 +10,9 @@ import * as config from "assets/config.json";
 export class ConfigService
 {
 
-    private _commonBaseURL: String = "http://localhost:8080/CommonV1/";
-    private _helpline1097BaseURL: String = "http://localhost:8080/helpline1097APIV1/";
-    private _telephonyServerURL: String = "http://10.201.13.17/";
+    private _commonBaseURL: String = "http://172.16.17.43:8080/CommonV1/";
+    private _helpline1097BaseURL: String = "http://172.16.17.43:8080/helpline1097APIV1/";
+    private _telephonyServerURL: String = "http://172.16.17.41/";
     private _localeString = 'en-in';
 
     constructor()
