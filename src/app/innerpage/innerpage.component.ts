@@ -172,6 +172,10 @@ export class InnerpageComponent implements OnInit {
     this.currentlanguageSet = response[language];
     // this.currentlanguageSet = "LANGUAGE IS ENGLISH PEHLI BAAR ME";
   }
+  logOut() {
+    Cookie.deleteAll();
+    location.assign(this.loginUrl);
+  }
   ngOnDestroy() {
     Cookie.deleteAll();
   }

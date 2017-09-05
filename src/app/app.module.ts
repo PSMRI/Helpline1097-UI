@@ -247,17 +247,9 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
         component: helpline1097CoComponent
       },
       {
-        path: 'supervisor',
-        component: helpline1097SupervisorComponent
-      },
-      {
         path: 'InnerpageComponent/:mobileNumber/:callID',
         component: InnerpageComponent
-      },
-      {
-        path: 'dashboard',
-        component: dashboardContentClass
-      },
+      }
     ]),
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,

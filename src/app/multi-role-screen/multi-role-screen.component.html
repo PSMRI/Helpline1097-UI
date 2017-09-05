@@ -18,7 +18,7 @@
             <li style="color: white"> Welcome {{userName}}</li>
             <li class=""><img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon"></li>
             <li class="help"><a class="">&nbsp;</a></li>
-            <li class="logout"><a href="{{loginUrl}}" class="">&nbsp;</a></li>
+            <li class="logout"><a (click)="logOut()" class="">&nbsp;</a></li>
           </ul>
         </div>
       </div>

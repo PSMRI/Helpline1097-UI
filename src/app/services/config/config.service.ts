@@ -4,7 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import * as config from "assets/config.json";
+import * as config from 'assets/config.json';
 
 @Injectable()
 export class ConfigService {

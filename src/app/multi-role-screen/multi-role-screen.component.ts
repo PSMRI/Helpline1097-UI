@@ -17,17 +17,13 @@ export class MultiRoleScreenComponent implements OnInit {
     public router: Router, private _loginService: loginService) {
   }
   ngOnInit() {
-    const userID = Cookie.get('userID');
-    if (userID) {
-      this._loginService.getUserDetailsByID(userID).subscribe((response) => {
+    const userObj = JSON.parse(Cookie.get('userID'));
+    if (userObj) {
+      this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
         if (response.isAuthenticated === true && response.Status === 'Active') {
-          this.dataSettingService.Userdata = response;
-          // this.dataSettingService.userPriveliges = response.Previlege;
-          this.dataSettingService.userPriveliges = response.previlegeObj;
-          this.dataSettingService.uid = response.userID;
-          this.dataSettingService.uname = response.userName;
+
           this.userName = response.userName;
-          this.router.navigate(['/MultiRoleScreenComponent/roleSelection']);
+          this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
         } else {
           location.assign(this.loginUrl);
           Cookie.deleteAll();
@@ -40,8 +36,9 @@ export class MultiRoleScreenComponent implements OnInit {
       Cookie.deleteAll();
     }
   }
-  ngOnDestroy() {
+  logOut() {
     Cookie.deleteAll();
+    location.assign(this.loginUrl);
   }
 
 }
