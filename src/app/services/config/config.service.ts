@@ -4,7 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import * as config from "assets/config.json";
+import * as config from 'assets/config.json';
 
 @Injectable()
 export class ConfigService
@@ -14,7 +14,7 @@ export class ConfigService
     private _helpline1097BaseURL: String = "http://172.16.17.43:8080/helpline1097APIV1/";
     private _telephonyServerURL: String = "http://172.16.17.41/";
     private _localeString = 'en-in';
-
+    private _loginUrl = 'http://172.16.17.43:8080/common-ui-1.0';
     constructor()
     {
         this.successHandeler( config );
@@ -37,6 +37,10 @@ export class ConfigService
     {
         return this._localeString;
     }
+    getCommonLoginUrl ()
+    {
+        return this._loginUrl;
+    }
 
     successHandeler ( response )
     {
@@ -45,5 +49,6 @@ export class ConfigService
         this._helpline1097BaseURL = response.helpline1097BaseURL;
         this._telephonyServerURL = response.telephonyServerURL;
         this._localeString = response.localeString;
+        this._loginUrl = response.loginURL;
     }
 };

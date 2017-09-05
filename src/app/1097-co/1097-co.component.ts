@@ -336,7 +336,7 @@ export class helpline1097CoComponent implements OnInit {
   }
 
   closeCall(compain_type: any) {
-    this.basicrouter.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['dashboard'] } }]);
+    this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
   }
   openDialog() {
     this.dialogService.confirm('Cancel Call ', 'Are you sure want to Cancel ?').subscribe((response) => {

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
-
-
-
+import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { loginService } from '../services/loginService/login.service';
+import { ConfigService } from '../services/config/config.service';
 
 @Component({
   selector: 'app-multi-role-screen',
@@ -11,14 +11,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./multi-role-screen.component.css']
 })
 export class MultiRoleScreenComponent implements OnInit {
-
-  constructor(public getCommonData: dataService, public router: Router) { }
-
-  data: any;
+  userName: any = '';
+  loginUrl = this._config.getCommonLoginUrl();
+  constructor(public dataSettingService: dataService, private _config: ConfigService,
+    public router: Router, private _loginService: loginService) {
+  }
   ngOnInit() {
-    this.data = this.getCommonData.Userdata;
-    // this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [''] } }]);
-    // this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [''] } }]);
+    const userObj = JSON.parse(Cookie.get('userID'));
+    if (userObj) {
+      this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
+        if (response.isAuthenticated === true && response.Status === 'Active') {
+
+          this.userName = response.userName;
+          this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
+        } else {
+          location.assign(this.loginUrl);
+          Cookie.deleteAll();
+
+        }
+      }, (err) => {
+      })
+    } else {
+      location.assign(this.loginUrl);
+      Cookie.deleteAll();
+    }
+  }
+  logOut() {
+    Cookie.deleteAll();
+    location.assign(this.loginUrl);
   }
 
 }

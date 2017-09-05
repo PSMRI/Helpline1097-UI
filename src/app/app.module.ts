@@ -218,7 +218,7 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
         component: MultiRoleScreenComponent,
         children: [
           {
-            path: '',
+            path: 'roleSelection',
             component: ServiceRoleSelectionComponent
             // outlet: 'postLogin_router'
           },
@@ -240,24 +240,16 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
       },
       {
         path: '',
-        component: loginContentClass
+        component: MultiRoleScreenComponent
       },
       {
         path: 'co',
         component: helpline1097CoComponent
       },
       {
-        path: 'supervisor',
-        component: helpline1097SupervisorComponent
-      },
-      {
         path: 'InnerpageComponent/:mobileNumber/:callID',
         component: InnerpageComponent
-      },
-      {
-        path: 'dashboard',
-        component: dashboardContentClass
-      },
+      }
     ]),
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,

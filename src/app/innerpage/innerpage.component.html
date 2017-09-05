@@ -21,7 +21,7 @@
             </md-list>
             </md-menu>
             <li class="help"><a class="">&nbsp;</a></li>
-            <li class="logout" routerLink="/loginContentClass"><a class="">&nbsp;</a></li>
+            <li class="logout"><a    class="">&nbsp;</a></li>
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
           <li>
@@ -106,7 +106,8 @@
     </div>
     <div class="clearfix "></div>
     <div>
-      <app-1097 *ngIf=" current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
+      <!-- <router-outlet></router-outlet> -->
+      <app-1097 *ngIf="current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
     </div>
   </div>
 </div>
