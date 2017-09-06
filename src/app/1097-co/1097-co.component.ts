@@ -19,7 +19,7 @@ export class helpline1097CoComponent implements OnInit {
   callerNumber: any;
   callID: any;
   barMinimized: boolean = true;
-  ctiHandlerURL: any = "";
+  ctiHandlerURL: any = '';
   isCancelDisable: boolean = true;
   isClosureDisable: boolean = false;
   isPrevious: boolean = false;
@@ -28,7 +28,9 @@ export class helpline1097CoComponent implements OnInit {
   currentlanguage: any;
   ReloadCall: boolean;
   StartNewCall: boolean;
+  private current_campaign: any;
 
+  data: any = this.getCommonData.Userdata;
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
   // @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
@@ -38,7 +40,6 @@ export class helpline1097CoComponent implements OnInit {
   @ViewChild('cancel') cancel;
 
   constructor(
-
     public getCommonData: dataService,
     public basicrouter: Router,
     public router: ActivatedRoute,
@@ -52,10 +53,9 @@ export class helpline1097CoComponent implements OnInit {
       this.callDuration = this.callDuration + 1;
     }, 1000);
   }
-  private current_campaign: any;
 
-  data: any = this.getCommonData.Userdata;
 
+  // tslint:disable-next-line:member-ordering
   selectedBenData: any = {
     'id': '',
     'fname': '',
@@ -66,137 +66,105 @@ export class helpline1097CoComponent implements OnInit {
   ngOnInit() {
     this.current_campaign = this.getCommonData.current_campaign;
     var idx = jQuery('.carousel-inner div.active').index();
-    console.log("index", idx);
-    let url = this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
-    console.log("url = " + url);
+    console.log('index', idx);
+    let url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
+    console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    // if (idx > 1) {
-    //   jQuery('#previous').attr('disabled', null);
-    //   //  jQuery('#next').attr('disabled', 'disabled');
-    // }
-    // if (idx === 0) {
-    //   jQuery('#previous').attr('disabled', 'disabled');
-    // }
-    // if (idx > 0) {
-    //   jQuery('#next').attr('disabled', null);
-    // }
-    // if (idx === 4) {
-    //   jQuery('#next').attr('disabled', 'disabled');
-    // }
 
-    // jQuery('#closureLink').on('click', function () {
-    //   jQuery('#myCarousel').carousel(idx + 3);
-    //   jQuery("#four").parent().find("a").removeClass('active-tab');
-    //   jQuery("#four").find("a").addClass("active-tab");
+
+
+    // jQuery('#previous').on('click', function () {
+    //   debugger;
+    //   var idx = jQuery('.carousel-inner div.active').index();
+    //   if (idx > 1) {
+    //     jQuery('#previous').attr('disabled', null);
+    //     //  jQuery('#next').attr('disabled', 'disabled');
+    //   }
+    //   if (idx === 0) {
+    //     jQuery('#previous').attr('disabled', 'disabled');
+    //   }
+    //   if (idx > 0) {
+    //     jQuery('#next').attr('disabled', null);
+    //   }
+    //   if (idx === 4) {
+    //     jQuery('#next').attr('disabled', 'disabled');
+    //   }
+    //   if (idx === 2) {
+    //     this.isNext = true;
+    //     this.isPrevious = true;
+    //   }
+    //   if (idx === 3) {
+    //     this.isNext = false;
+    //     this.isPrevious = true;
+    //   }
+    //   console.log('chala with', idx);
+    //   if (idx === 0) {
+    //     console.log('chala')
+    //     jQuery('#one').parent().find('a').removeClass('active-tab');
+    //     jQuery('#one').find('a').addClass('active-tab');
+    //   }
+    //   if (idx === 1) {
+    //     jQuery('#two').parent().find('a').removeClass('active-tab');
+    //     jQuery('#two').find('a').addClass('active-tab');
+    //   }
+    //   if (idx === 2) {
+    //     jQuery('#three').parent().find('a').removeClass('active-tab');
+    //     jQuery('#three').find('a').addClass('active-tab');
+    //   }
+    //   if (idx === 3) {
+
+    //     jQuery('#four').parent().find('a').removeClass('active-tab');
+    //     jQuery('#four').find('a').addClass('active-tab');
+    //   }
     // });
-    // jQuery('#cancelLink').on('click', function () {
-    //   jQuery('#myCarousel').carousel(idx);
-    //   jQuery("#one").parent().find("a").removeClass('active-tab');
-    //   jQuery("#one").find("a").addClass("active-tab");
+
+
+    // jQuery('#next').on('click', function () {
+    //   debugger;
+    //   var idx = jQuery('.carousel-inner div.active').index();
+    //   console.log('chala with', idx);
+    //   if (idx > 1) {
+    //     jQuery('#previous').attr('disabled', null);
+    //     //  jQuery('#next').attr('disabled', 'disabled');
+    //   }
+    //   if (idx === 0) {
+    //     jQuery('#previous').attr('disabled', 'disabled');
+    //   }
+    //   if (idx > 0) {
+    //     jQuery('#next').attr('disabled', null);
+    //   }
+    //   if (idx === 4) {
+    //     jQuery('#next').attr('disabled', 'disabled');
+    //   }
+    //   if (idx === 2) {
+    //     this.isNext = true;
+    //     this.isPrevious = true;
+    //   }
+    //   if (idx === 3) {
+    //     this.isNext = false;
+    //     this.isPrevious = true;
+    //   }
+
+    //   if (idx === 0) {
+    //     jQuery('#one').parent().find('a').removeClass('active-tab');
+    //     jQuery('#one').find('a').addClass('active-tab');
+
+    //   }
+    //   if (idx === 1) {
+    //     jQuery('#two').parent().find('a').removeClass('active-tab');
+    //     jQuery('#two').find('a').addClass('active-tab');
+
+    //   }
+    //   if (idx === 2) {
+    //     jQuery('#three').parent().find('a').removeClass('active-tab');
+    //     jQuery('#three').find('a').addClass('active-tab');
+
+    //   }
+    //   if (idx === 3) {
+    //     jQuery('#four').parent().find('a').removeClass('active-tab');
+    //     jQuery('#four').find('a').addClass('active-tab');
+    //   }
     // });
-
-
-
-    /**
-     * Commented by : neeraj (298657); Date: 27-06-2017
-     */
-    /*	jQuery('#one').on('click', function () {
-        jQuery('#myCarousel').carousel(idx);
-        jQuery(this).parent().find("a").removeClass('active-tab');
-        jQuery(this).find("a").addClass("active-tab");
-      });
-      jQuery('#two').on('click', function () {
-        jQuery('#myCarousel').carousel(idx + 1);
-        jQuery(this).parent().find("a").removeClass('active-tab');
-        jQuery(this).find("a").addClass("active-tab");
-      });
-      jQuery('#three').on('click', function () {
-        jQuery('#myCarousel').carousel(idx + 2);
-        jQuery(this).parent().find("a").removeClass('active-tab');
-        jQuery(this).find("a").addClass("active-tab");
-      });
-      jQuery('#four').on('click', function () {
-        jQuery('#myCarousel').carousel(idx + 3);
-        jQuery(this).parent().find("a").removeClass('active-tab');
-        jQuery(this).find("a").addClass("active-tab");
-      });*/
-
-    jQuery("#previous").on('click', function () {
-
-      var idx = jQuery('.carousel-inner div.active').index();
-      if (idx > 1) {
-        jQuery('#previous').attr('disabled', null);
-        //  jQuery('#next').attr('disabled', 'disabled');
-      }
-      if (idx === 0) {
-        jQuery('#previous').attr('disabled', 'disabled');
-      }
-      if (idx > 0) {
-        jQuery('#next').attr('disabled', null);
-      }
-      if (idx === 4) {
-        jQuery('#next').attr('disabled', 'disabled');
-      }
-
-      console.log('chala with', idx);
-      if (idx === 0) {
-        console.log('chala')
-        jQuery("#one").parent().find("a").removeClass('active-tab');
-        jQuery("#one").find('a').addClass('active-tab');
-      }
-      if (idx === 1) {
-        jQuery('#two').parent().find('a').removeClass('active-tab');
-        jQuery('#two').find('a').addClass('active-tab');
-      }
-      if (idx === 2) {
-        jQuery('#three').parent().find('a').removeClass('active-tab');
-        jQuery('#three').find('a').addClass('active-tab');
-      }
-      if (idx === 3) {
-
-        jQuery('#four').parent().find('a').removeClass('active-tab');
-        jQuery('#four').find('a').addClass('active-tab');
-      }
-    });
-
-
-    jQuery('#next').on('click', function () {
-      var idx = jQuery('.carousel-inner div.active').index();
-      console.log('chala with', idx);
-      if (idx > 1) {
-        jQuery('#previous').attr('disabled', null);
-        //  jQuery('#next').attr('disabled', 'disabled');
-      }
-      if (idx === 0) {
-        jQuery('#previous').attr('disabled', 'disabled');
-      }
-      if (idx > 0) {
-        jQuery('#next').attr('disabled', null);
-      }
-      if (idx === 4) {
-        jQuery('#next').attr('disabled', 'disabled');
-      }
-
-      if (idx === 0) {
-        jQuery('#one').parent().find('a').removeClass('active-tab');
-        jQuery('#one').find('a').addClass('active-tab');
-
-      }
-      if (idx === 1) {
-        jQuery('#two').parent().find('a').removeClass('active-tab');
-        jQuery('#two').find('a').addClass('active-tab');
-
-      }
-      if (idx === 2) {
-        jQuery('#three').parent().find('a').removeClass('active-tab');
-        jQuery('#three').find('a').addClass('active-tab');
-
-      }
-      if (idx === 3) {
-        jQuery('#four').parent().find('a').removeClass('active-tab');
-        jQuery('#four').find('a').addClass('active-tab');
-      }
-    });
 
     this.router.params.subscribe((params: Params) => {
       if (params['mobileNumber'] != undefined) {
@@ -211,15 +179,10 @@ export class helpline1097CoComponent implements OnInit {
       }
 
     });
-    // this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': [''] } }]);
   }
 
-
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
-
     this.setLanguage(this.current_language);
-
   }
 
   setLanguage(language) {
@@ -243,53 +206,32 @@ export class helpline1097CoComponent implements OnInit {
     jQuery('#' + val).find('a').addClass('active-tab');
   }
 
-  getSelectedBenDetails(data: any) {/**Code commented by neeraj 23 jun 2017 
-		console.log( 'data recieved', data, data.beneficiaryRegID );
-		this.beneficiaryNotSelected = false;
-		this.updateClosureData.emit();
-		this.serviceProvided.emit();
-		this.beneficiarySelected.emit();
-		this.selectedBenData.id = "BEN" + data.beneficiaryRegID;
-		this.selectedBenData.fname = data.firstName;
-		this.selectedBenData.lname = data.lastName;
-		this.selectedBenData.mob = data.phoneNo;
-*/
-    /**
-         * Neeraj Code; 22-jun-2017
-         */
-    //	this.beneficiaryNotSelected = false;
-    //	this.updateClosureData.emit();
-    //	this.serviceProvided.emit();
-    //	this.beneficiarySelected.emit();
+  getSelectedBenDetails(data: any) {
 
     if (data != null) {
-      //alert(" hai");
+
       this.selectedBenData.id = data.beneficiaryRegID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;
     } else {
-      //	alert("nahi hai");
+
       this.selectedBenData.id = '';
       this.selectedBenData.fname = '';
       this.selectedBenData.lname = '';
     }
     this.beneficiarySelected.emit(data);
 
-    /**
-     * End of Neeraj Code; 22-jun-2017
-     */
 
 
   }
 
   startNewCall() {
     this.StartNewCall = true;
-    // this.StartNewCall.emit();
-    // document.getElementById('cancelLink').click();
+
   }
   reloadCall() {
     this.ReloadCall = true;
-    // this.ReloadCall.emit();
+
   }
 
   refreshCall() {
@@ -299,23 +241,7 @@ export class helpline1097CoComponent implements OnInit {
   updateServiceProvided(data: any) {
     this.serviceProvided.emit(null);
   }
-  // 	change(no:any){
 
-  // if (no === '1') {
-
-  // 	this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': ['registerBeneficiary'] } }]);
-  // }
-  // if (no === '2') {
-  // 	this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': ['servicesForBeneficiary'] } }]);
-  // }
-  // if (no === '3') {
-  // 	this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': ['updates'] } }]);
-  // }
-  // if (no === '4') {
-  // 	this.router.navigate(['/InnerpageComponent', { outlets: { 'innerpage_router': ['closure'] } }]);
-  //    }
-
-  // 	}
 
   minimizeBar() {
     this.barMinimized = true;
@@ -375,43 +301,43 @@ export class helpline1097CoComponent implements OnInit {
   }
 
 
-  nxtVisual()
-  {
+  nxtVisual() {
+    debugger;
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);
-    // if (idx > 1) {
-    //   jQuery('#previous').attr('disabled', null);
-    //   //  jQuery('#next').attr('disabled', 'disabled');
-    // }
-    // if (idx === 0) {
-    //   jQuery('#previous').attr('disabled', 'disabled');
-    // }
-    // if (idx > 0) {
-    //   jQuery('#next').attr('disabled', null);
-    // }
-    // if (idx === 4) {
-    //   jQuery('#next').attr('disabled', 'disabled');
-    // }
 
-    // if (idx === 0) {
-    //   jQuery('#one').parent().find('a').removeClass('active-tab');
-    //   jQuery('#one').find('a').addClass('active-tab');
-
-    // }
     if (idx === 1) {
       jQuery('#three').parent().find('a').removeClass('active-tab');
       jQuery('#three').find('a').addClass('active-tab');
-
+      this.isNext = true;
+      this.isPrevious = true;
     }
     if (idx === 2) {
       jQuery('#four').parent().find('a').removeClass('active-tab');
       jQuery('#four').find('a').addClass('active-tab');
+      this.isNext = false;
+      this.isPrevious = true;
+    }
+
+  }
+  prevVisual() {
+    var idx = jQuery('.carousel-inner div.active').index();
+    console.log('chala with', idx);
+
+    if (idx === 2) {
+      jQuery('#one').parent().find('a').removeClass('active-tab');
+      jQuery('#one').find('a').addClass('active-tab');
+      this.isNext = true;
+      this.isPrevious = false;
 
     }
-    // if (idx === 3) {
-    //   jQuery('#four').parent().find('a').removeClass('active-tab');
-    //   jQuery('#four').find('a').addClass('active-tab');
-    // }
+    if (idx === 3) {
+      jQuery('#two').parent().find('a').removeClass('active-tab');
+      jQuery('#two').find('a').addClass('active-tab');
+      this.isNext = true;
+      this.isPrevious = true;
+
+    }
   }
 
 }
