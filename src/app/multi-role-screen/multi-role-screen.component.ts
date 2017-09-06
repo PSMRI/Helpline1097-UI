@@ -17,28 +17,32 @@ export class MultiRoleScreenComponent implements OnInit {
     public router: Router, private _loginService: loginService) {
   }
   ngOnInit() {
-    const userObj = JSON.parse(Cookie.get('userID'));
-    if (userObj) {
-      this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
-        if (response.isAuthenticated === true && response.Status === 'Active') {
+    debugger;
+    this.userName = this.dataSettingService.Userdata.userName;
+    // this.router.navigate(['/MultiRoleScreenComponent/roleSelection']);
+    // const userObj = JSON.parse(Cookie.get('userID'));
+    // if (userObj) {
+    //   this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
+    //     if (response.isAuthenticated === true && response.Status === 'Active') {
 
-          this.userName = response.userName;
-          this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
-        } else {
-          location.assign(this.loginUrl);
-          Cookie.deleteAll();
+    //       this.userName = response.userName;
+    //       this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
+    //     } else {
+    //       location.assign(this.loginUrl);
+    //       Cookie.deleteAll();
 
-        }
-      }, (err) => {
-      })
-    } else {
-      location.assign(this.loginUrl);
-      Cookie.deleteAll();
-    }
+    //     }
+    //   }, (err) => {
+    //   })
+    // } else {
+    //   location.assign(this.loginUrl);
+    //   Cookie.deleteAll();
+    // }
   }
   logOut() {
-    Cookie.deleteAll();
-    location.assign(this.loginUrl);
+    this.router.navigate([''])
+    // Cookie.deleteAll();
+    // location.assign(this.loginUrl);
   }
 
 }

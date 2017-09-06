@@ -29,6 +29,7 @@ export class loginContentClass {
 	successCallback(response: any) {
 		this.loading = false;
 		console.log(response);
+		debugger;
 		this.dataSettingService.Userdata = response;
 		// this.dataSettingService.userPriveliges = response.Previlege;
 		this.dataSettingService.userPriveliges = response.previlegeObj;

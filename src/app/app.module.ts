@@ -218,7 +218,7 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
         component: MultiRoleScreenComponent,
         children: [
           {
-            path: 'roleSelection',
+            path: '',
             component: ServiceRoleSelectionComponent
             // outlet: 'postLogin_router'
           },
@@ -240,7 +240,7 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
       },
       {
         path: '',
-        component: MultiRoleScreenComponent
+        component: loginContentClass
       },
       {
         path: 'co',

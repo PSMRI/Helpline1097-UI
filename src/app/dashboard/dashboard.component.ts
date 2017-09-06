@@ -31,36 +31,36 @@ export class dashboardContentClass implements OnInit {
     private _loginService: loginService
   ) { };
   ngOnInit() {
-    const userObj = JSON.parse(Cookie.get('userID'));
-    if (userObj) {
-      const roleObj = {};
-      roleObj['RoleName'] = userObj.RoleName;
+    // const userObj = JSON.parse(Cookie.get('userID'));
+    // if (userObj) {
+    //   const roleObj = {};
+    //   roleObj['RoleName'] = userObj.RoleName;
       this.dataSettingService.current_campaign = 'INBOUND';
-      this.dataSettingService.current_role = roleObj;
-      this.dataSettingService.current_service = userObj.serviceObj;
-      this.current_role = this.dataSettingService.current_role.RoleName;
-      this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
-        if (response.isAuthenticated === true && response.Status === 'Active') {
-          this.dataSettingService.Userdata = response;
-          // this.dataSettingService.userPriveliges = response.Previlege;
-          this.dataSettingService.userPriveliges = response.previlegeObj;
-          this.dataSettingService.uid = response.userID;
-          this.dataSettingService.uname = response.userName;
+    //   this.dataSettingService.current_role = roleObj;
+    //   this.dataSettingService.current_service = userObj.serviceObj;
+    //   this.current_role = this.dataSettingService.current_role.RoleName;
+    //   this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
+    //     if (response.isAuthenticated === true && response.Status === 'Active') {
+    //       this.dataSettingService.Userdata = response;
+    //       // this.dataSettingService.userPriveliges = response.Previlege;
+    //       this.dataSettingService.userPriveliges = response.previlegeObj;
+    //       this.dataSettingService.uid = response.userID;
+    //       this.dataSettingService.uname = response.userName;
           const url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
           console.log('url = ' + url);
           this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
           this.showDashboardContent = true;
           this.showDashboard();
-        } else {
-          location.assign(this.loginUrl);
-          Cookie.deleteAll();
-        }
-      }, (err) => {
-      })
-    } else {
-      location.assign(this.loginUrl);
-      Cookie.deleteAll();
-    }
+    //     } else {
+    //       location.assign(this.loginUrl);
+    //       Cookie.deleteAll();
+    //     }
+    //   }, (err) => {
+    //   })
+    // } else {
+    //   location.assign(this.loginUrl);
+    //   Cookie.deleteAll();
+    // }
 
 
 
@@ -68,7 +68,7 @@ export class dashboardContentClass implements OnInit {
   showDashboard() {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
-    // this.current_role = this.dataSettingService.current_role.RoleName;
+     this.current_role = this.dataSettingService.current_role.RoleName;
     this.addListener();
   }
   toggleBar() {

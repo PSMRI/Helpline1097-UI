@@ -18,7 +18,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
 
   this.privleges = this.getCommonData.userPriveliges;
   // this.privleges[3].roles[1].RoleName = 'Supervisior';
-  // this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': [''] } }]);
+  
  }
 
  route2dashboard(role, service) {
