@@ -10,6 +10,7 @@
     <table class="table">
       <thead>
         <tr>
+        <th>S.No.</th>
           <th>{{currentlanguage?.closure?.table_labels?.call_id}}</th>
           <th>{{currentlanguage?.closure?.table_labels?.information}}</th>
           <th>{{currentlanguage?.closure?.table_labels?.counselling}}</th>
@@ -18,7 +19,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList">
+        <tr style="cursor: pointer;" *ngFor="let summaryDetails of summaryList;let i=index ">
+        <td>{{i+1}}</td>
           <td>{{summaryDetails.benCallID}}</td>
           <td>{{summaryDetails.informationServices}}</td>
           <td>{{summaryDetails.counsellingServices}}</td>

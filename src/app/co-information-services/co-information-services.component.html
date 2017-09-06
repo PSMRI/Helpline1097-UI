@@ -58,13 +58,15 @@
     <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
       <thead>
         <tr>
+          <th>{{currentlanguage.information_service?.table_labels?.sno}}</th>
           <th md2SortBy="benCallID">{{currentlanguage.information_service?.table_labels?.beneficiary_call_id}}</th>
           <th md2SortBy="categoryDetails.categoryName">{{currentlanguage.information_service?.table_labels?.category}}</th>
           <th md2SortBy="subCategoryDetails.subCategoryName">{{currentlanguage.information_service?.table_labels?.subcategory}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let Information of md2.data ">
+        <tr *ngFor="let Information of md2.data;let i=index" style="">
+          <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
           <td width=10%>{{Information.benCallID}}</td>
           <td>{{Information?.categoryDetails?.categoryName}}</td>
           <td>{{Information?.subCategoryDetails?.subCategoryName}}</td>

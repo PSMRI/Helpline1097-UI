@@ -52,13 +52,15 @@
   <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
     <thead>
       <tr>
+        <th>S.No.</th>
         <th md2SortBy="benCallID">{{currentlanguage.counselling_service?.table_labels?.beneficiary_call_id}}</th>
         <th md2SortBy="categoryDetails.categoryName">{{currentlanguage.counselling_service?.table_labels?.category}}</th>
         <th md2SortBy="subCategoryDetails.subCategoryName">{{currentlanguage.counselling_service?.table_labels?.subcategory}}</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let counselling of md2.data ">
+      <tr *ngFor="let counselling of md2.data;let i=index ">
+        <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
         <td width=20%>{{counselling.benCallID}}</td>
         <td>{{counselling?.categoryDetails?.categoryName}}</td>
         <td>{{counselling?.subCategoryDetails?.subCategoryName}}</td>

@@ -183,7 +183,8 @@
             </tr>
           </thead>
           <tbody *ngIf="regHistoryList?.length>0">
-            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 3, currentPage: p }">
+            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 3, currentPage: p , id: 'benregpaginate' } ;let i=index " >
+              <td>{{(p-1)*(3)+(i+1)}}</td>
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
               <!-- <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td> -->
@@ -200,7 +201,7 @@
               </td>
             </tr>
             <tr>
-            <td colspan="10"><pagination-controls (pageChange)="p= $event"></pagination-controls></td>
+            <td colspan="10"><pagination-controls id="benregpaginate" (pageChange)="p= $event"></pagination-controls></td>
               
             </tr>
             
