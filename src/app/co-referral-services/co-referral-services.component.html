@@ -187,7 +187,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let referral of tableArray | paginate: { itemsPerPage: 5, currentPage: p }" style="cursor: pointer;">
+          <tr *ngFor="let referral of tableArray | paginate: { itemsPerPage: 3, currentPage: p }" style="cursor: pointer;">
             <td>{{referral.instituteDirMapID}}</td>
             <td>{{referral.instituteDirectoryMapping.institutionDetails.institutionName}}</td>
             <td>{{referral.createdBy}}</td>

@@ -182,7 +182,7 @@
             </tr>
           </thead>
           <tbody *ngIf="regHistoryList?.length>0">
-            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 5, currentPage: p }">
+            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 3, currentPage: p }">
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
               <!-- <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td> -->
@@ -198,7 +198,12 @@
                 <button class=".btn pull-right" (click)="passBenRegHistoryData(regHistory)">Edit</button>
               </td>
             </tr>
-            <pagination-controls (pageChange)="p= $event"></pagination-controls>
+            <tr>
+            <td colspan="10"><pagination-controls (pageChange)="p= $event"></pagination-controls></td>
+              
+            </tr>
+            
+            
           </tbody>
           <tbody *ngIf="regHistoryList?.length==0" class="t-a-c">
             <tr width=100%>{{currentlanguage.beneficiary_registration?.table_labels?.no_records_found}}
