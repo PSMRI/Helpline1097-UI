@@ -19,7 +19,6 @@ export class MultiRoleScreenComponent implements OnInit {
   ngOnInit() {
     const userObj = JSON.parse(Cookie.get('userID'));
     if (userObj) {
-      debugger;
       this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
         if (response.isAuthenticated === true && response.Status === 'Active') {
 

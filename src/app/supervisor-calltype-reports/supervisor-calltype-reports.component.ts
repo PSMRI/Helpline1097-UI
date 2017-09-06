@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SupervisorCallTypeReportService } from '../services/supervisorServices/supervisor-calltype-reports-service.service';
 import { dataService } from '../services/dataService/data.service';
-
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 
 
 @Component({
@@ -32,7 +32,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 
 	constructor(public _SupervisorCallTypeReportService: SupervisorCallTypeReportService,
-		public commonDataService: dataService) {
+		public commonDataService: dataService ,private alertMessage:ConfirmationDialogsService) {
 
 		this.tableFlag = false;
 		this.today = new Date();
@@ -53,7 +53,9 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 		this.tableFlag = val;
 		this.get_filterCallList();
 	}
-
+	audioEvent() {
+		this.alertMessage.alert('Could Not Connect !! Please Try Again');
+	}
 	get_filterCallList() {
 		let requestObj = {
 			"calledServiceID": this.commonDataService.current_service.serviceID,

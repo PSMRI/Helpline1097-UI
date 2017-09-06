@@ -13,6 +13,6 @@ export class DashboardNavigationComponent {
     }
     changeRole() {
         Cookie.deleteAll();
-        location.assign(this.loginUrl + '/MultiRoleScreenComponent');
+        location.assign(this.loginUrl);
     }
 }

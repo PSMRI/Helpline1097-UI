@@ -1,7 +1,7 @@
 <div class="container-fluid p-a-0 header p-t-b-3">
   <div class="header">
     <div class="col-xs-12 col-sm-12">
-      <div routerLink="/MultiRoleScreenComponent" class="pull-left"><img src="assets/images/smLogo.png" alt="Logo" title="Logo"></div>
+      <div class="pull-left"><img src="assets/images/smLogo.png" alt="Logo" title="Logo"></div>
       <div class=" p-t-1">
         <ul class="list-inline list-unstyled pull-left m-b-0">
           <li class="m-l-lg-40 m-t-5" *ngIf='checkRole'><img src="assets/images/transferCallIcon.png " alt="Caller Icon
@@ -20,8 +20,10 @@
               <md-list-item class="b-t-1-w">ID: {{current_role}}-{{current_service}}</md-list-item>
             </md-list>
             </md-menu>
-            <li class="help"><a class="">&nbsp;</a></li>
-            <li class="logout" (click)="logOut()"><a >&nbsp;</a></li>
+            <li class="help cursorPointer" routerLink="/MultiRoleScreenComponent/dashboard" title="Home">
+              <md-icon class="material-icons" class="homeIcon" role="img" aria-hidden="true">home</md-icon>
+            </li>
+            <li class="logout" (click)="logOut()"><a>&nbsp;</a></li>
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
           <li>
