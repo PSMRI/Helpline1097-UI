@@ -182,7 +182,7 @@
             </tr>
           </thead>
           <tbody *ngIf="regHistoryList?.length>0">
-            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 5, currentPage: p }">
+            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 3, currentPage: p }">
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
               <!-- <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td> -->
