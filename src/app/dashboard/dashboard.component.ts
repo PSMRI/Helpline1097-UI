@@ -142,9 +142,9 @@ export class dashboardContentClass implements OnInit {
       })
     }
   }
-  ngOnDestroy() {
-    Cookie.deleteAll();
-  }
+  // ngOnDestroy() {
+  //   Cookie.deleteAll();
+  // }
 
 }
 
