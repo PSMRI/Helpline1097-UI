@@ -41,7 +41,7 @@ export class InnerpageComponent implements OnInit {
   current_service: any;
   current_role: any;
   loginUrl = this._config.getCommonLoginUrl();
-  data: any = this.getCommonData.Userdata;
+  data: any = {};
   constructor(
     public getCommonData: dataService,
     public basicrouter: Router,
@@ -74,7 +74,7 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
-
+    this.data = this.getCommonData.Userdata;
     this.router.params.subscribe((params: Params) => {
       if (params['mobileNumber'] != undefined) {
         // tslint:disable-next-line:radix

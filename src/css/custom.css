@@ -107,9 +107,11 @@ input {
 .b-t-2-w {
   border-top: 2px solid #fff;
 }
+
 .b-t-1-w {
   border-top: 1px solid;
 }
+
 .cu-btn {
   background: #fff;
   color: #000;
@@ -348,6 +350,7 @@ color:#aeaeae;
 color:#545454;  
 }
 */
+
 .f-s-9 {
   font-size: 9px;
 }
@@ -479,9 +482,11 @@ color:#545454;
 .p-t-10 {
   padding-top: 10px;
 }
+
 .p-t-17 {
   padding-top: 17px!important;
 }
+
 .p-t-20 {
   padding-top: 20px;
 }
@@ -876,10 +881,10 @@ color:#545454;
 .m-b-8 {
   margin-bottom: 8px !important;
 }
+
 .m-b-9 {
   margin-bottom: 9px !important;
 }
-
 
 .m-b-10 {
   margin-bottom: 10px !important;
@@ -1434,9 +1439,11 @@ em {
 .height-140 {
   height: 140px !important;
 }
+
 .height-160 {
   height: 160px !important;
 }
+
 .height-170 {
   height: 170px !important;
 }
@@ -1452,9 +1459,11 @@ em {
 .height-180 {
   height: 180px !important;
 }
+
 .height-i {
   height: inherit;
 }
+
 .symptomsList {
   list-style: none;
   padding-left: 0;
@@ -1884,30 +1893,38 @@ input:-webkit-autofill:hover {
   position: relative;
   z-index: 10000;
 }
-.mat-tab-label{
+
+.mat-tab-label {
   font-weight: 800 !important;
 }
+
 .mat-input-infix {
-    font-weight: 800 !important;
-    font-size: 15px !important;
+  font-weight: 800 !important;
+  font-size: 15px !important;
 }
+
 .mat-select-trigger {
   /*  margin-right: 55px !important;
     width: 160px !important;*/
-    font-weight: 700 !important;
-  }
-.md2-datepicker-input {
-    font-weight: 700;
-  }
-.hide_underline .mat-input-underline{
-  display:none;
+  font-weight: 700 !important;
 }
+
+.md2-datepicker-input {
+  font-weight: 700;
+}
+
+.hide_underline .mat-input-underline {
+  display: none;
+}
+
 .error_text {
   color: red;
 }
+
 .display_none {
   display: none;
 }
+
 @media (max-width: 317px) {}
 
 @media (min-width: 480px) {
@@ -2122,7 +2139,15 @@ input:-webkit-autofill:hover {
     left: 0;
     opacity: 1;
     z-index: 10;
-    background-color:  rgba(0,0,0,0.01); ;
+    background-color: rgba(0, 0, 0, 0.01);
+    ;
+  }
+  .homeIcon {
+    color: white;
+    /* margin-top: 6px; */
+    position: absolute;
+    top: 8px;
+    right: 46px;
   }
   .d-inline {
     display: inline!important;
