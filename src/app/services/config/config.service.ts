@@ -9,15 +9,16 @@ import * as config from 'assets/config.json';
 @Injectable()
 export class ConfigService
 {
-
-    private _commonBaseURL: String = "http://172.16.17.43:8080/CommonV1/";
-    private _helpline1097BaseURL: String = "http://172.16.17.43:8080/helpline1097APIV1/";
+    // 172.16.17.43
+    private _commonBaseURL: String = "http://10.152.3.99:8080/CommonV1/";
+    private _helpline1097BaseURL: String = "http://10.152.3.99:8080/helpline1097APIV1/";
     private _telephonyServerURL: String = "http://172.16.17.41/";
     private _localeString = 'en-in';
-    private _loginUrl = 'http://172.16.17.43:8080/common-ui-1.0';
+    // private _loginUrl = 'http://172.16.17.43:8080/common-ui-1.0';
+    private _loginUrl = 'http://localhost:4200';
     constructor()
     {
-        this.successHandeler( config );
+        // this.successHandeler( config );
     }
 
     getCommonBaseURL ()
