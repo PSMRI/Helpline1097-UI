@@ -758,8 +758,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       case 1:
         {
           this.idMaxValue = '14';
-          this.patternID = /^\d{4}\s\d{4}\s\d{4}$/;
-          this.idErrorText = 'Enter valid Aadhar Ex:XXXX XXXX XXXX';
+          this.patternID = /^\d{4}\d{4}\d{4}$/;
+          this.idErrorText = 'Enter valid Aadhar Ex:XXXXXXXXXXXX';
           break;
         }
       case 2:

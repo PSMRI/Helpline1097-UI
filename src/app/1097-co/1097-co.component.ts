@@ -325,15 +325,15 @@ export class helpline1097CoComponent implements OnInit {
     console.log('chala with', idx);
 
     if (idx === 2) {
-      jQuery('#one').parent().find('a').removeClass('active-tab');
-      jQuery('#one').find('a').addClass('active-tab');
+      jQuery('#two').parent().find('a').removeClass('active-tab');
+      jQuery('#two').find('a').addClass('active-tab');
       this.isNext = true;
       this.isPrevious = false;
 
     }
     if (idx === 3) {
-      jQuery('#two').parent().find('a').removeClass('active-tab');
-      jQuery('#two').find('a').addClass('active-tab');
+      jQuery('#three').parent().find('a').removeClass('active-tab');
+      jQuery('#three').find('a').addClass('active-tab');
       this.isNext = true;
       this.isPrevious = true;
 
