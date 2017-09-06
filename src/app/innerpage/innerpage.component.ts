@@ -176,8 +176,8 @@ export class InnerpageComponent implements OnInit {
     Cookie.deleteAll();
     location.assign(this.loginUrl);
   }
-  ngOnDestroy() {
-    Cookie.deleteAll();
-  }
+  // ngOnDestroy() {
+  //   Cookie.deleteAll();
+  // }
 
 }
