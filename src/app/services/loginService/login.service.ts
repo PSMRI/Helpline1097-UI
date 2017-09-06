@@ -13,6 +13,7 @@ export class loginService {
   _baseURL = this._config.getCommonBaseURL();
   _userAuthURL = this._baseURL + 'user/userAuthenticate/';
   _forgotPasswordURL = this._baseURL + 'user/forgetPassword/';
+  _getDetailsByID = this._baseURL + 'user/getUserDetails/';
   constructor(
     private _http: InterceptedHttp,
     private _config: ConfigService
@@ -31,6 +32,11 @@ export class loginService {
       .catch(this.handleError);
   };
 
+  getUserDetailsByID(userID: any) {
+    return this._http.post(this._getDetailsByID, { 'userID': userID })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
   private extractData(response: Response) {
     if (response.json().data) {
@@ -39,6 +45,7 @@ export class loginService {
       return Observable.throw(response.json());
     }
   };
+
 
   private handleError(error: Response | any) {
     return Observable.throw(error.json());

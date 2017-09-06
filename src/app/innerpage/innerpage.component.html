@@ -21,7 +21,7 @@
             </md-list>
             </md-menu>
             <li class="help"><a class="">&nbsp;</a></li>
-            <li class="logout" routerLink="/loginContentClass"><a class="">&nbsp;</a></li>
+            <li class="logout"><a    class="">&nbsp;</a></li>
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
           <li>
@@ -43,8 +43,7 @@
           <div class="row ">
             <div class="col-xs-12 col-sm-8 col-md-2 col-lg-2 m-t-5">
               <ul class="list-inline list-unstyled pull-left m-b-3 ">
-                <li class="cursorPointer " [routerLink]="[ '/MultiRoleScreenComponent', { outlets: {
-    'postLogin_router': [ 'dashboard'] } }] ">
+                <li class="cursorPointer " routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
                   <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i></li>
                 <!--                 <li class="m-l-10 "><img src="assets/images/dashboardIcon.png " alt="Dashboard Icon
     " title="Dashboard Icon " /></li> -->
@@ -107,7 +106,8 @@
     </div>
     <div class="clearfix "></div>
     <div>
-      <app-1097 *ngIf=" current_service==='1097' " (beneficiarySelected)="getSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
+      <!-- <router-outlet></router-outlet> -->
+      <app-1097 *ngIf="current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
     </div>
   </div>
 </div>

@@ -218,19 +218,19 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
         component: MultiRoleScreenComponent,
         children: [
           {
-            path: '',
-            component: ServiceRoleSelectionComponent,
-            outlet: 'postLogin_router'
+            path: 'roleSelection',
+            component: ServiceRoleSelectionComponent
+            // outlet: 'postLogin_router'
           },
           {
             path: 'dashboard',
-            component: dashboardContentClass,
-            outlet: 'postLogin_router'
+            component: dashboardContentClass
+            // outlet: 'postLogin_router'
           },
           {
             path: 'superAdmin',
-            component: SuperAdminComponent,
-            outlet: 'postLogin_router'
+            component: SuperAdminComponent
+            // outlet: 'postLogin_router'
           }
         ]
       },
@@ -240,17 +240,16 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
       },
       {
         path: '',
-        redirectTo: '/loginContentClass',
-        pathMatch: 'full'
+        component: MultiRoleScreenComponent
+      },
+      {
+        path: 'co',
+        component: helpline1097CoComponent
       },
       {
         path: 'InnerpageComponent/:mobileNumber/:callID',
         component: InnerpageComponent
-      },
-      {
-        path: 'dashboard',
-        component: dashboardContentClass
-      },
+      }
     ]),
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,
