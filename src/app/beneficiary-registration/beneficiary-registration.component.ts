@@ -26,7 +26,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   @Input() onReloadCall: any;
   @Input() onStartNewCall: any;
   currentlanguage: any;
-
+  p=1;
 
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();

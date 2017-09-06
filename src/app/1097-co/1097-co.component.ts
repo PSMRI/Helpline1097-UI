@@ -374,4 +374,44 @@ export class helpline1097CoComponent implements OnInit {
     this.pass_data.sendData(event.beneficiary);
   }
 
+
+  nxtVisual()
+  {
+    var idx = jQuery('.carousel-inner div.active').index();
+    console.log('chala with', idx);
+    // if (idx > 1) {
+    //   jQuery('#previous').attr('disabled', null);
+    //   //  jQuery('#next').attr('disabled', 'disabled');
+    // }
+    // if (idx === 0) {
+    //   jQuery('#previous').attr('disabled', 'disabled');
+    // }
+    // if (idx > 0) {
+    //   jQuery('#next').attr('disabled', null);
+    // }
+    // if (idx === 4) {
+    //   jQuery('#next').attr('disabled', 'disabled');
+    // }
+
+    // if (idx === 0) {
+    //   jQuery('#one').parent().find('a').removeClass('active-tab');
+    //   jQuery('#one').find('a').addClass('active-tab');
+
+    // }
+    if (idx === 1) {
+      jQuery('#three').parent().find('a').removeClass('active-tab');
+      jQuery('#three').find('a').addClass('active-tab');
+
+    }
+    if (idx === 2) {
+      jQuery('#four').parent().find('a').removeClass('active-tab');
+      jQuery('#four').find('a').addClass('active-tab');
+
+    }
+    // if (idx === 3) {
+    //   jQuery('#four').parent().find('a').removeClass('active-tab');
+    //   jQuery('#four').find('a').addClass('active-tab');
+    // }
+  }
+
 }

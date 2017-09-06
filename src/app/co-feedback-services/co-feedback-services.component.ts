@@ -27,7 +27,7 @@ export class CoFeedbackServicesComponent implements OnInit
 
   @Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
 
-
+  p = 1;
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
   feedbackServiceID: number = 4;

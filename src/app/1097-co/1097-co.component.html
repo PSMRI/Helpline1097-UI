@@ -2,10 +2,12 @@
   <div class=" b-t-2-w p-t-20">
     <div class="col-xs-12 col-sm-12 ">
       <div class=" bs-wizard animate-box" style=" position:relative; z-index:1">
-        <div id="one" class="col-xs-2 bs-wizard-step complete" style="padding:0px; margin:0px;">
+      <!-- 'complete' css is added at bottom line to show green to next line -->
+        <div id="one" class="col-xs-2 bs-wizard-step disabled" style="padding:0px; margin:0px;">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-16">{{currentlanguage.co?.create_find_beneficiary}}</div>
           <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">P D</div>
-          <div class="progress progress-margin">
+          <!-- progress-bar-disabled   css is added extra in this line to make it grey, remove for green -->
+          <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
           </div>
           <a class="bs-wizard-dot cursorPointer active-tab"></a>
@@ -73,7 +75,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10 ">
         <button id="previous" type="button" class="btn pull-left font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="prev"
           [hidden]="!isPrevious">{{currentlanguage.co?.previous}}</button>
-        <button id="next" type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next" [hidden]="!isNext">{{currentlanguage.co?.next}}</button>
+        <button id="next" type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next" [hidden]="!isNext" (click)="nxtVisual()">{{currentlanguage.co?.next}}</button>
         <div class="center-btn">
           <button type="button" value="Cancel" class="btn  font-regular f-s-18 m-r-5" data-slide-to="1" (click)="openDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>
           <button type="button" value="Close" class="btn  font-regular f-s-18 m-r-5" data-slide-to="4" (click)="openDialogClosure()"

@@ -34,6 +34,7 @@
       "taluk": "Select Taluk",
       "search": "Search",
       "table_labels": {
+        "sno":"S.No.",
         "beneficiary_id": "Beneficiary ID",
         "fullname": "Full Name",
         "dob": "Date Of Birth",
@@ -78,6 +79,7 @@
       "get_details": "Get Details",
       "back": "Back",
       "table_labels": {
+        "sno":"S.No.",
         "beneficiary_call_id": "Beneficiary Call ID",
         "category": "Category",
         "subcategory": "Sub-Category"
@@ -91,6 +93,7 @@
       "get_details": "Get Details",
       "back": "Back",
       "table_labels": {
+        "sno":"S.No.",
         "beneficiary_call_id": "Beneficiary Call ID",
         "category": "Category",
         "subcategory": "Sub-Category"
@@ -109,6 +112,7 @@
       "send_sms": "Send SMS",
       "table_labels": {
         "table_heading": "Referral History",
+        "sno":"S.No.",
         "institute_directory_map_id": "Institute Directory Map ID",
         "institute_name": "Name Of Institute",
         "created_by": "Created By",
@@ -131,6 +135,7 @@
       "back": "Back",
       "table_labels": {
         "table_heading": "Feedback Record",
+        "sno":"S.No.",
         "feedbackID": "Feedback ID",
         "description": "Description",
         "severity": "Severity",
@@ -155,6 +160,7 @@
     "closure": {
       "table_labels": {
         "table_heading": "Services Availed During The Call",
+        "sno":"S.No.",
         "call_id": "Call ID",
         "information": "Information",
         "counselling": "Counselling",
