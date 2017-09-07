@@ -98,8 +98,8 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.institution}}" [style.width]="'100%'"
-        [(ngModel)]="selected_institution" name="institutionName">
+      <md-select placeholder="{{currentlanguage.feedback_service?.institution}}" [style.width]="'100%'" [(ngModel)]="selected_institution"
+        name="institutionName">
         <md-option *ngFor="let institute of institutes" [value]="institute.institutionID">
           {{institute.institutionName}}
         </md-option>
@@ -160,8 +160,8 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select required #severityVar="ngModel" placeholder="{{currentlanguage.feedback_service?.severity}}" [style.width]="'100%'" [(ngModel)]="selected_severity"
-        name="severity">
+      <md-select required #severityVar="ngModel" placeholder="{{currentlanguage.feedback_service?.severity}}" [style.width]="'100%'"
+        [(ngModel)]="selected_severity" name="severity">
         <md-option *ngFor="let feedbackSeverity of feedbackSeverities" [value]="feedbackSeverity.severityID">
           {{feedbackSeverity.severityTypeName}}
         </md-option>
@@ -177,8 +177,8 @@
                     (keyup)="updateCount()"></textarea>
                     <span>{{count}}</span> -->
     <md-input-container [style.width]="'100%'">
-      <textarea required #descVar="ngModel" mdInput placeholder="{{currentlanguage.feedback_service?.feedback_description}}" rows="2" name="feedback" [(ngModel)]="feedbackDescription"
-        maxlength="300" (keyup)="updateCount()"></textarea>
+      <textarea required #descVar="ngModel" mdInput placeholder="{{currentlanguage.feedback_service?.feedback_description}}" rows="2"
+        name="feedback" [(ngModel)]="feedbackDescription" maxlength="300" (keyup)="updateCount()"></textarea>
       <md-hint *ngIf="descVar.invalid && (descVar.dirty || descVar.touched)">
         <span class="error_text">Description is required</span>
       </md-hint>
@@ -222,7 +222,7 @@
           <!-- <th width="20">
                             <input type="checkbox" value="">
                           </th> -->
-                          <th>S.No.</th>
+          <th>S.No.</th>
           <th>{{currentlanguage.feedback_service?.table_labels?.feedbackID}}</th>
           <th>{{currentlanguage.feedback_service?.table_labels?.description}}</th>
           <th>{{currentlanguage.feedback_service?.table_labels?.severity}}</th>
@@ -235,14 +235,15 @@
       </thead>
       <tbody>
         <tr style="cursor: pointer;" *ngFor="let feedback
-                        of feedbacksArray | paginate: { itemsPerPage: 3, currentPage: p, id:'feedbackpagination'} ;let i=index " (click)="modalData(feedback)">
-                        <td>{{(p-1)*(3)+(i+1)}}</td>                        
+                        of feedbacksArray | paginate: { itemsPerPage: 3, currentPage: p, id:'feedbackpagination'} ;let i=index "
+          (click)="modalData(feedback)">
+          <td>{{(p-1)*(3)+(i+1)}}</td>
           <td>{{feedback.feedbackID}}</td>
           <td>{{feedback.feedback}}</td>
-          <td>{{feedback.severityID}}</td>
-          <td>{{feedback.feedbackTypeID}}</td>
+          <td>{{feedback.severity?.severityTypeName}}</td>
+          <td>{{feedback.feedbackType?.feedbackTypeName}}</td>
           <td>{{feedback.createdBy}}</td>
-          <td>{{feedback.feedbackStatusID}}</td>
+          <td>{{feedback.feedbackStatus?.feedbackStatus}}</td>
         </tr>
         <pagination-controls id="feedbackpagination" (pageChange)="p = $event"></pagination-controls>
       </tbody>
