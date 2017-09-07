@@ -1832,7 +1832,9 @@ input:-webkit-autofill:hover {
   cursor: pointer;
   padding-top: 7px;
 }
-
+.md2-datepicker-arrow {
+  display: none;
+}
 .animation-nav>li.active>a,
 .animation-nav>li.active>a:focus,
 .animation-nav>li.active>a:hover {
