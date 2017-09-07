@@ -39,6 +39,9 @@ export class ConfigService {
     getCommonLoginUrl() {
         return this._loginUrl;
     }
+    getAdminBaseURL() {
+        return '';
+    }
 
     successHandeler(response) {
         // console.log( response, "config file obj" );

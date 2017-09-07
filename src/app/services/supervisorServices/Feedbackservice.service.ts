@@ -32,7 +32,6 @@ export class FeedbackService
     ) { }
     getFeedback ( data: any )
     {
-
         return this.httpIterceptor.post( this._feedbackListURL, data ).map( this.handleSuccess ).catch( this.handleError );
         // .map(( response: Response ) => response.json() );
 

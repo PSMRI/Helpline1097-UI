@@ -74,7 +74,6 @@ export class helpline1097CoComponent implements OnInit {
 
 
     // jQuery('#previous').on('click', function () {
-    //   debugger;
     //   var idx = jQuery('.carousel-inner div.active').index();
     //   if (idx > 1) {
     //     jQuery('#previous').attr('disabled', null);
@@ -120,7 +119,6 @@ export class helpline1097CoComponent implements OnInit {
 
 
     // jQuery('#next').on('click', function () {
-    //   debugger;
     //   var idx = jQuery('.carousel-inner div.active').index();
     //   console.log('chala with', idx);
     //   if (idx > 1) {
@@ -268,6 +266,7 @@ export class helpline1097CoComponent implements OnInit {
     this.dialogService.confirm('Cancel Call ', 'Are you sure want to Cancel ?').subscribe((response) => {
       if (response) {
         this.reloadCall();
+        this.beneficiarySelected.emit(null);
         const id = jQuery('.carousel-inner div.active').index();
         jQuery('#myCarousel').carousel(0);
         jQuery('#one').parent().find('a').removeClass('active-tab');
@@ -302,7 +301,6 @@ export class helpline1097CoComponent implements OnInit {
 
 
   nxtVisual() {
-    debugger;
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);
 
