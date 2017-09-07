@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { ConfigService } from '../../config/config.service';
 @Injectable()
 export class SPService
 {
@@ -14,14 +15,13 @@ export class SPService
         //  ,{'Access-Control-Allow-Methods': '*'}
     );
     options = new RequestOptions( { headers: this.headers } );
-    private _geturl: string = "http://10.152.3.152:1040/adminAPI/getprovider";
-    //  private _geturl: string = "http://localhost:8080/adminAPI/getprovider";
-    private _saveurl: string = "http://10.152.3.152:1040/adminAPI/saveprovider";
-    private _deleteurl: string = "http://localhost:8080/adminAPI/Delete"
-    private _updateurl: string = "http://localhost:8080/adminAPI/UpdateServiceProvider"
-    //private _url:string="http://10.152.3.152:1040/Admin1.1/iEMR/Admin/userAuthenticate/test/sinu"
+    private _getAdminBaseURL = this.configService.getAdminBaseURL();
+    private _geturl: string = this._getAdminBaseURL + "getprovider";
+    private _saveurl: string = this._getAdminBaseURL + "saveprovider";
+    private _deleteurl: string = this._getAdminBaseURL + "Delete"
+    private _updateurl: string = this._getAdminBaseURL + "UpdateServiceProvider"
     //private _url:string="./app/providerdata.json"
-    constructor( private _http: Http ) { }
+    constructor( private _http: Http, private configService: ConfigService ) { }
     getProviders ()
     {
 
