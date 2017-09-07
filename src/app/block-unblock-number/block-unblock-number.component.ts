@@ -30,7 +30,7 @@ export class BlockUnblockNumberComponent implements OnInit {
     private message: ConfirmationDialogsService) { }
 
   ngOnInit() {
-    this.isBlockedType = undefined;
+    // this.isBlockedType = undefined;
     this.serviceId = this.commonData.current_service.serviceID;
     this.maxDate = new Date();
     this.addToBlockList();
@@ -45,7 +45,7 @@ export class BlockUnblockNumberComponent implements OnInit {
     const searchObj = {};
     searchObj['providerServiceMapID'] = this.serviceId;
     searchObj['phoneNo'] = this.phoneNumber;
-    searchObj['isBlocked'] = this.isBlockedType;
+    // searchObj['isBlocked'] = this.isBlockedType;
     this.isBlocked = Boolean(this.isBlocked);
     this.callService.getBlackListCalls(searchObj).subscribe((response) => {
       this.showTable = true;

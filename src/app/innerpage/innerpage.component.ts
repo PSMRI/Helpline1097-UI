@@ -130,6 +130,7 @@ export class InnerpageComponent implements OnInit {
       this.selectedBenData.language = 'Preferred Lang: ' + data.i_bendemographics.m_language.languageName;
       this.selectedBenData.relation = 'Family tagging: ' + data.benPhoneMaps[0].benRelationshipType.benRelationshipType;
     } else {
+      this.selectedBenData.name = '';
       this.selectedBenData.id = '';
       this.selectedBenData.fname = '';
       this.selectedBenData.lname = '';
