@@ -1,7 +1,8 @@
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5" align="center">
-  <label><h4>CREATE/FIND A BENEFICIARY</h4></label>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+  <label>
+    <h4>CREATE/FIND A BENEFICIARY</h4></label>
 </div>
-<div class="col-xs-12 col-sm-12">
+<div class="col-xs-12 col-sm-12" style="height: 340px">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngIf="calledRadio;">
       <div class="">
@@ -10,7 +11,6 @@
           <md-radio-button ngDefaultControl color="primary" [value]=true (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">Yes</md-radio-button>
           <md-radio-button ngDefaultControl color="primary" [value]=false (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">No</md-radio-button>
         </md-radio-group>
-
         <!-- <md-slide-toggle ngDefaultControl [(ngModel)]="calledEarlier" color="primary" (change)="calledEarlierCheck($event)">{{currentlanguage.beneficiary_registration?.call_confirmation_question}}</md-slide-toggle> -->
       </div>
     </div>
@@ -47,8 +47,7 @@
           </div>
         </div> -->
         <md-input-container myName [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="firstName" [(ngModel)]="FirstName"
-            #first="ngModel">
+          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="firstName" [(ngModel)]="FirstName" #first="ngModel">
           <!--           <md-hint [hidden]=first.valid>
 
 
@@ -85,8 +84,7 @@
         </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select required placeholder="{{currentlanguage.beneficiary_registration?.gender}}" [style.width]="'100%'" [(ngModel)]="gender"
-            name="gender" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
+          <md-select required placeholder="{{currentlanguage.beneficiary_registration?.gender}}" [style.width]="'100%'" [(ngModel)]="gender" name="gender" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
             <md-option *ngFor="let gen of genders" [value]="gen.genderID">
               {{gen.genderName}}
             </md-option>
@@ -106,8 +104,7 @@
         </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select required placeholder="{{currentlanguage.beneficiary_registration?.state}}" [style.width]="'100%'" [(ngModel)]="state"
-            name="stateSearch" (change)="GetDistricts(state)" #stateSelectedd="ngModel" (blur)="GetDistricts(state)">
+          <md-select required placeholder="{{currentlanguage.beneficiary_registration?.state}}" [style.width]="'100%'" [(ngModel)]="state" name="stateSearch" (change)="GetDistricts(state)" #stateSelectedd="ngModel" (blur)="GetDistricts(state)">
             <md-option *ngFor="let state of states" [value]="state.stateID">
               {{state.stateName}}
             </md-option>
@@ -130,8 +127,7 @@
         </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select required placeholder="{{currentlanguage.beneficiary_registration?.district}}" [style.width]="'100%'" [(ngModel)]="district"
-            name="districtSearch" (change)="GetTaluks(district)" #citySelectedd="ngModel" (blur)="GetTaluks(district)">
+          <md-select required placeholder="{{currentlanguage.beneficiary_registration?.district}}" [style.width]="'100%'" [(ngModel)]="district" name="districtSearch" (change)="GetTaluks(district)" #citySelectedd="ngModel" (blur)="GetTaluks(district)">
             <md-option *ngFor="let district of districts" [value]="district.districtID">
               {{district.districtName}}
             </md-option>
@@ -159,8 +155,7 @@
         </md-input-container>
       </div>
       <div class="pull-right col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
-        <button [disabled]="!(stateSelectedd?.valid) || !(citySelectedd?.valid)" type="button" class="pull-right btn cu-green-btn font-regular f-s-18 m-r-5"
-          value="search" (click)="searchBeneficiary(searchForm.value)">{{currentlanguage.beneficiary_registration?.search}}</button>
+        <button [disabled]="!(stateSelectedd?.valid) || !(citySelectedd?.valid)" type="button" class="pull-right btn cu-green-btn font-regular f-s-18 m-r-5" value="search" (click)="searchBeneficiary(searchForm.value)">{{currentlanguage.beneficiary_registration?.search}}</button>
       </div>
     </form>
   </div>
@@ -185,8 +180,17 @@
               <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_tagging}}</th>
             </tr>
           </thead>
+          <!-- <tbody *ngIf="regHistoryList?.length==0" class="t-a-c">
+            <tr width=100%>{{currentlanguage.beneficiary_registration?.table_labels?.no_records_found}}
+            </tr>
+          </tbody> -->
+          <tbody *ngIf="regHistoryList?.length==0" class="t-a-c">
+            <tr>
+              <td align="center" colspan="10"><img src="assets/images/data_not_found.png" width="400" height="65"></td>
+            </tr>
+          </tbody>
           <tbody *ngIf="regHistoryList?.length>0">
-            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 3, currentPage: p , id: 'benregpaginate' } ;let i=index " >
+            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of regHistoryList | paginate: { itemsPerPage: 3, currentPage: p , id: 'benregpaginate' } ;let i=index ">
               <td>{{(p-1)*(3)+(i+1)}}</td>
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
@@ -204,14 +208,9 @@
               </td>
             </tr>
             <tr>
-            <td colspan="10"><pagination-controls id="benregpaginate" (pageChange)="p= $event"></pagination-controls></td>
-              
-            </tr>
-            
-            
-          </tbody>
-          <tbody *ngIf="regHistoryList?.length==0" class="t-a-c">
-            <tr width=100%>{{currentlanguage.beneficiary_registration?.table_labels?.no_records_found}}
+              <td colspan="10">
+                <pagination-controls id="benregpaginate" (pageChange)="p= $event"></pagination-controls>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -234,8 +233,7 @@
       </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.title}}" [style.width]="'100%'" [(ngModel)]="TitleId"
-          name="TitleId">
+        <md-select placeholder="{{currentlanguage.beneficiary_registration?.title}}" [style.width]="'100%'" [(ngModel)]="TitleId" name="TitleId">
           <md-option *ngFor="let title of titles" [value]="title.titleID">
             {{title.titleName}}
           </md-option>
@@ -244,8 +242,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
       <md-input-container myName [style.width]="'100%'">
-        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="FirstName" [(ngModel)]="FirstName"
-          #first="ngModel">
+        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="FirstName" [(ngModel)]="FirstName" #first="ngModel">
         <!--           <md-hint [hidden]=first.valid>
 
             <span class="error_text" *ngIf="!first.required  && ( first.dirty || first.touched)">Enter atleast 3 characters</span>
@@ -264,8 +261,7 @@
                         <option *ngFor="let gender of genders" value={{gender.genderID}}>{{gender.genderName}}</option>-->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.gender}}" [style.width]="'100%'" [(ngModel)]="GenderID"
-          name="GenderID" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
+        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.gender}}" [style.width]="'100%'" [(ngModel)]="GenderID" name="GenderID" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
           <md-option *ngFor="let gender of genders" [value]="gender.genderID">
             {{gender.genderName}}
           </md-option>
@@ -278,8 +274,7 @@
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.marital_status}}" [style.width]="'100%'" [(ngModel)]="MaritalStatusID"
-          name="MaritalStatusID">
+        <md-select placeholder="{{currentlanguage.beneficiary_registration?.marital_status}}" [style.width]="'100%'" [(ngModel)]="MaritalStatusID" name="MaritalStatusID">
           <md-option *ngFor="let maritalstatus of maritalStatuses" [value]="maritalstatus.maritalStatusID">
             {{maritalstatus.status}}
           </md-option>
@@ -289,8 +284,7 @@
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-7">
       <div class="form-group">
         <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-        <md2-datepicker [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
-          name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB"></md2-datepicker>
+        <md2-datepicker [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}" name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB"></md2-datepicker>
       </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
@@ -300,8 +294,7 @@
           [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
       </div> -->
       <md-input-container myMobileNumber [style.width]="'100%'">
-        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" required #ageRef min="0" max="120" name="age"
-          [(ngModel)]="age" (change)="calculateDOB(ageRef.value)" #ageEvent="ngModel" (dblclick)="enableAge($event)">
+        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" required #ageRef min="0" max="120" name="age" [(ngModel)]="age" (change)="calculateDOB(ageRef.value)" #ageEvent="ngModel" (dblclick)="enableAge($event)">
         <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
           <span class="error_text">Enter valid age (max:120) </span>
         </md-hint>
@@ -313,8 +306,7 @@
         <input type="text" class="form-control" placeholder="Enter PhoneNo" name="PhoneNo" [(ngModel)]="PhoneNo">
       </div> -->
       <md-input-container myMobileNumber [style.width]="'100%'">
-        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}" maxlength="10" name="PhoneNo"
-          [(ngModel)]="PhoneNo">
+        <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}" maxlength="10" name="PhoneNo" [(ngModel)]="PhoneNo">
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9" *ngIf="isParentBeneficiary">
@@ -335,9 +327,8 @@
       </md-input-container>
     </div>
     <!-- </form> -->
-    <div class="col-xs-12 col-sm-12 m-b-10">
-      <button [disabled]="!genderSelected.valid || !ageEvent.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18"
-        (click)="captureOtherInfo()">{{currentlanguage.beneficiary_registration?.next}}</button>
+    <div class="col-xs-12 col-sm-12 col-lg-9 m-b-10">
+      <button [disabled]="!genderSelected.valid || !ageEvent.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" (click)="captureOtherInfo()">{{currentlanguage.beneficiary_registration?.next}}</button>
     </div>
   </div>
   <div class="row bg-white m-t-10" *ngIf="notCalledEarlierLowerPart">
@@ -364,8 +355,7 @@
       </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.identity_type}}" [style.width]="'100%'" [(ngModel)]="identityType"
-          name="identityType" (change)="validateID(identityType)">
+        <md-select placeholder="{{currentlanguage.beneficiary_registration?.identity_type}}" [style.width]="'100%'" [(ngModel)]="identityType" name="identityType" (change)="validateID(identityType)">
           <md-option *ngFor="let identityType of identityTypes" [value]="identityType.govtIdentityTypeID">
             {{identityType.identityType}}
           </md-option>
@@ -378,8 +368,7 @@
         <input type="text" class="form-control" placeholder="Enter Aadhar No." maxlength="15" name="aadharNo" [(ngModel)]="aadharNo">
       </div> -->
       <md-input-container [style.width]="'100%'">
-        <input mdInput required placeholder="{{currentlanguage.beneficiary_registration?.id_number}}" name="aadharNo" [(ngModel)]="aadharNo"
-          [maxlength]="idMaxValue" [minlength]="idMinValue" [pattern]="patternID" #idNumber="ngModel">
+        <input mdInput required placeholder="{{currentlanguage.beneficiary_registration?.id_number}}" name="aadharNo" [(ngModel)]="aadharNo" [maxlength]="idMaxValue" [minlength]="idMinValue" [pattern]="patternID" #idNumber="ngModel">
         <md-hint [hidden]="idNumber.valid || idNumber.pristine">
           <span class=" error_text" [hidden]="!idNumber.hasError('required')">ID Number is required</span>
           <span class=" error_text" [hidden]="!idNumber.hasError('pattern')">{{idErrorText}}</span>

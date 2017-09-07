@@ -31,6 +31,11 @@
             </tr>
           </thead>
           <tbody>
+          <tr *ngIf="md2.data.length < 1">
+            <td colspan="5" align="center">
+              <img src="assets/images/data_not_found.png" width="400" height="65">
+            </td>
+          </tr>
             <tr *ngFor="let service of md2.data ">
               <td>{{service.benCallID}}</td>
               <td>{{service.informationServices}}</td>

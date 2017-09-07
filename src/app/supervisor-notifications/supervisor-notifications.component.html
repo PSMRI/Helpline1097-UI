@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
   <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
     <h4 class="f-c-o m-b-20">Notifications</h4>
     <form (ngSubmit)="onSubmitShowForm()" #showNotificationForm="ngForm">
@@ -30,7 +30,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Sl.No</th>
+              <th>S.No</th>
               <th>Notification Subject</th>
               <th>Notification Desc</th>
               <th>Valid From</th>
@@ -40,16 +40,16 @@
           </thead>
           <tbody>
             <tr *ngIf="notifications?.length == 0">
-              <h4>No records Available</h4>
+              <td colspan="6" align="center"><img src="assets/images/data_not_found.png" width="900" height="80"></td>
             </tr>
-            <tr *ngFor="let row of notifications| paginate: { id :'notifications' ,itemsPerPage: 5, currentPage: p }; let i = index">
+            <tr *ngFor="let row of notifications| paginate: { id :'notifications' ,itemsPerPage: 5, currentPage: p }; let i = index ">
               <td width=10%>{{(p-1)*5+i+1}}</td>
               <td width=20%>{{row.notification}}</td>
               <td width=30%>{{row.notificationDesc}}</td>
               <td width=20%>{{row.validFrom|date:'dd/MM/yyyy'}}</td>
               <td width=20%>{{row.validTill|date:'dd/MM/yyyy'}}</td>
               <td>
-                <a href="#" (click)="onEditClick(row,$event)">
+                <a (click)="onEditClick(row,$event)">
                   <md-icon color="">mode_edit</md-icon>
                 </a>
               </td>
@@ -57,8 +57,85 @@
             <pagination-controls id="notifications" (pageChange)="p = $event"></pagination-controls>
           </tbody>
         </table>
-        <button md-raised-button class="btn btn-primary m-l-15 m-t-15 m-b-20" (click)="createNotification()">Create Notification</button>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button class="pull-right" md-raised-button color="primary" (click)="createNotification()">Create Notification</button>
       </div>
     </div>
   </div>
+</div> -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+  <label>
+    <h4>NOTIFICATIONS</h4></label>
 </div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <form (ngSubmit)="onSubmitShowForm()" #showNotificationForm="ngForm">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15">
+      <md-select placeholder="Notification Type" name="notificationType" ngModel required [style.width]="'100%'">
+        <md-option *ngFor="let notification of notificationTypes" [value]="notification.notificationTypeID">
+          {{ notification.notificationType }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15">
+      <md-select placeholder="Select Roles" [multiple]="true" name="roles" ngModel [style.width]="'100%'">
+        <md-option *ngFor="let role of roleObjArray" [value]="role.RoleID">
+          {{ role.RoleName }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <md2-datepicker name="startDate" placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <md2-datepicker name="endDate" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
+      <br>
+      <span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15">
+      <button class="pull-right" md-raised-button color="primary" [disabled]="!(showNotificationForm.valid)" type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15" *ngIf="onConfigSubmit">
+  <table class="table table-hover ">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Notification Subject</th>
+        <th>Notification Desc</th>
+        <th>Valid From</th>
+        <th>Valid Till</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="notifications?.length < 1">
+        <td colspan="6" align="center"><img src="assets/images/data_not_found.png" width="700" height="75"></td>
+      </tr>
+      <tr *ngFor="let row of notifications| paginate: { id :'notifications' ,itemsPerPage: 3, currentPage: p }; let i = index ">
+        <td width=10%>{{(p-1)*3+i+1}}</td>
+        <td width=20%>{{row.notification}}</td>
+        <td width=30%>{{row.notificationDesc}}</td>
+        <td width=20%>{{row.validFrom|date:'dd/MM/yyyy'}}</td>
+        <td width=20%>{{row.validTill|date:'dd/MM/yyyy'}}</td>
+        <td>
+          <a (click)="onEditClick(row,$event)">
+            <md-icon color="">mode_edit</md-icon>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <pagination-controls id="notifications" (pageChange)="p = $event"></pagination-controls>
+        </td>
+        <td colspan="3">
+          <button class="pull-right" md-raised-button color="primary" (click)="createNotification()">Create Notification</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="onConfigSubmit">
+  <button class="pull-right" md-raised-button color="primary" (click)="createNotification()">Create Notification</button>
+</div> -->
