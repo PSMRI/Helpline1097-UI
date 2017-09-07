@@ -1,30 +1,27 @@
 <div>
-  <div class="col-xs-12 col-sm-12">
-    <h4>{{currentlanguage.information_service?.page_heading}}</h4>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+    <label>
+      <h4>{{currentlanguage.information_service?.page_heading}}</h4>
+    </label>
   </div>
-
   <div *ngIf="showFormCondition">
-
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
-        <md-select required placeholder="{{currentlanguage.information_service?.select_category}}" [style.width]="'100%'" [(ngModel)]="symptomCategory"
-          name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
+        <md-select required placeholder="{{currentlanguage.information_service?.select_category}}" [style.width]="'100%'" [(ngModel)]="symptomCategory" name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
           <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
             {{symptomCategory.categoryName}}
           </md-option>
         </md-select>
-        <md-hint> 
+        <md-hint>
           <span class="error_text"></span>
-        </md-hint>  
+        </md-hint>
       </md-input-container>
     </div>
-
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
-        <md-select required placeholder="{{currentlanguage.information_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory"
-          name="symptomSubCategory" #subCategory="ngModel">
+        <md-select required placeholder="{{currentlanguage.information_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory" name="symptomSubCategory" #subCategory="ngModel">
           <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
             {{symptomSubCategory.subCategoryName}}
           </md-option>
@@ -34,15 +31,12 @@
         </md-hint>
       </md-input-container>
     </div>
-
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-15">
       <button [disabled]="!category.valid || !subCategory.valid" type="button" class="btn cu-btn-default" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.information_service?.get_details}}</button>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 m-t-15">
       <button type="button" class="btn cu-btn-default" (click)="back()">{{currentlanguage.information_service?.back}}</button>
     </div>
-
-
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="min-height-180 border-1-g" for="subCategoryDetails">
         <span *ngFor="let detail of detailsList">
@@ -54,7 +48,6 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
-
     <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
       <thead>
         <tr>
@@ -65,7 +58,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let Information of md2.data;let i=index" style="">
+        <tr *ngFor="let Information of md2.data;let i=index ">
           <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
           <td width=10%>{{Information.benCallID}}</td>
           <td>{{Information?.categoryDetails?.categoryName}}</td>
@@ -74,14 +67,14 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="4">
+          <td colspan="3">
             <md2-pagination></md2-pagination>
           </td>
+          <td colspan="1" *ngIf="showTableCondition"><button class="btn pull-right" (click)="showForm()">{{currentlanguage.information_service?.new_informations}}</button></td>
         </tr>
       </tfoot>
     </table>
-
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
+  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
     <button class="btn pull-right" (click)="showForm()">{{currentlanguage.information_service?.new_informations}}</button>
-  </div>
+  </div> -->

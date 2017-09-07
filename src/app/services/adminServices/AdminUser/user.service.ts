@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { ConfigService } from '../../config/config.service';
 @Injectable()
 export class UserService
 {
@@ -13,10 +14,10 @@ export class UserService
         //  ,{'Access-Control-Allow-Methods': '*'}
     );
     options = new RequestOptions( { headers: this.headers } );
-    private _geturl: string = "http://10.152.3.152:1040/user/iEMR/User/getData"
-    private _saveurl: string = "http://10.152.3.152:1040/user/iEMR/User/saveUser"
+    private _geturl: string = this.configService.getCommonBaseURL() + "user/iEMR/User/getData"
+    private _saveurl: string = this.configService.getCommonBaseURL() + "user/iEMR/User/saveUser"
 
-    constructor( private _http: Http ) { }
+    constructor( private _http: Http, private configService: ConfigService ) { }
     getUsers ()
     {
 
