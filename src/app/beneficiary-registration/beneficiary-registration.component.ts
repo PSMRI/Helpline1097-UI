@@ -23,10 +23,10 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 })
 export class BeneficiaryRegistrationComponent implements OnInit {
   @Input() current_language: any;
-  @Input() onReloadCall: any;
-  @Input() onStartNewCall: any;
+  @Input() onReloadCall: Boolean;
+  @Input() onStartNewCall: Boolean;
   currentlanguage: any;
-  p=1;
+  p = 1;
 
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
@@ -67,8 +67,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   registrationNo: any = '';
   benUpdationResponse: any;
   regHistoryList: any = [];
-  beneficiaryParentList: any[];
-  beneficiaryRelations: any[];
+  beneficiaryParentList: any = [];
+  beneficiaryRelations: any = [];
   states: any = [];
   titles: any = [];
   status: any = [];
@@ -471,7 +471,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.peopleCalledEarlier = true;
         this.isParentBeneficiary = true;
         this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
-          return item.benRelationshipType !== 'Self'; // This value has to go in constant
+          return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
         });
       }
 
@@ -539,12 +539,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.age = registeredBenData.age;
     // Checking whether it has parent or not
     // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) {
-    if (!this.peopleCalledEarlier) {
+    if (registeredBenData.benPhoneMaps[0].parentBenRegID === registeredBenData.benPhoneMaps[0].benificiaryRegID) {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
     } else {
       this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
-        return item.benRelationshipType !== 'Self'; // This value has to go in constant
+        return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
     }
@@ -671,7 +671,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   getRelationShipType(relationShips) {
     let benificiaryRelationType = [];
     benificiaryRelationType = relationShips.filter(function (item) {
-      return item.benRelationshipType === 'Self'; // This value has to go in constant
+      return item.benRelationshipType.toUpperCase() === 'SELF'; // This value has to go in constant
     });
     this.beneficiaryRelationID = benificiaryRelationType[0]['benRelationshipID']
     return this.beneficiaryRelationID;
@@ -758,8 +758,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       case 1:
         {
           this.idMaxValue = '14';
-          this.patternID = /^\d{4}\s\d{4}\s\d{4}$/;
-          this.idErrorText = 'Enter valid Aadhar Ex:XXXX XXXX XXXX';
+          this.patternID = /^\d{4}\d{4}\d{4}$/;
+          this.idErrorText = 'Enter valid Aadhar Ex:XXXXXXXXXXXX';
           break;
         }
       case 2:

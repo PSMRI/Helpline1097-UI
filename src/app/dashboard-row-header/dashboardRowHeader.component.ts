@@ -14,7 +14,8 @@ export class DashboardRowHeaderComponent {
   }
 
   logOut() {
-    Cookie.deleteAll();
-    location.assign(this.loginUrl);
+    // Cookie.deleteAll();
+    // this.router.navigate(['/MultiRoleScreenComponent/roleSelection']);
+    // location.assign(this.loginUrl);
   }
 }

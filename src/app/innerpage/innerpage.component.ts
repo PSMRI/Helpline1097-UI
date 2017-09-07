@@ -174,7 +174,8 @@ export class InnerpageComponent implements OnInit {
   }
   logOut() {
     Cookie.deleteAll();
-    location.assign(this.loginUrl);
+    this.basicrouter.navigate(['']);
+    // location.assign(this.loginUrl);
   }
   // ngOnDestroy() {
   //   Cookie.deleteAll();

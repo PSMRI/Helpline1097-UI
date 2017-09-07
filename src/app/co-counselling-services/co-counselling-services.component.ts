@@ -32,6 +32,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   public totalRecord: any;
   subscription: Subscription;
   beneficiaryID: any;
+  p = 1;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,

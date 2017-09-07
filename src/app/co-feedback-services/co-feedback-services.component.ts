@@ -320,6 +320,7 @@ export class CoFeedbackServicesComponent implements OnInit
 
   setFeedbackHistoryByID ( response: any )
   {
+
     console.log( 'the response for feedback history is', response );
     this.feedbacksArray = response;
   }
