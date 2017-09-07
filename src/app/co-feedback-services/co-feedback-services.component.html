@@ -230,6 +230,11 @@
         </tr>
       </thead>
       <tbody>
+        <tr *ngIf="feedbacksArray.length<1">
+          <td colspan="8" align="center">
+            <img src="assets/images/data_not_found.png" width="400" height="65">
+          </td>
+        </tr>
         <tr style="cursor: pointer;" *ngFor="let feedback
                         of feedbacksArray | paginate: { itemsPerPage: 3, currentPage: p, id:'feedbackpagination'} ;let i=index " (click)="modalData(feedback)">
           <td width=10%>{{(p-1)*(3)+(i+1)}}</td>
@@ -243,16 +248,19 @@
         </tr>
       </tbody>
       <tr>
-        <td colspan="6">
+        <td colspan="5">
           <pagination-controls id="feedbackpagination" (pageChange)="p = $event"></pagination-controls>
+        </td>
+        <td colspan="3">
+          <button class="btn pull-right" (click)="showForm()">{{currentlanguage.feedback_service?.create_feedback}}</button>
         </td>
       </tr>
     </table>
   </div>
 </div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
+<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
   <button class="btn pull-right" (click)="showForm()">{{currentlanguage.feedback_service?.create_feedback}}</button>
-</div>
+</div> -->
 <!-- </div> -->
 <!-- modals -->
 <!--  <div id="myModal" class="modal fade" role="dialog">

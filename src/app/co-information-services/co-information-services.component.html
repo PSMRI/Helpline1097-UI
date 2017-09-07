@@ -58,6 +58,11 @@
         </tr>
       </thead>
       <tbody>
+        <tr *ngIf="md2.data.length < 1">
+          <td colspan="4" align="center">
+            <img src="assets/images/data_not_found.png" width="400" height="65">
+          </td>
+        </tr>
         <tr *ngFor="let Information of md2.data;let i=index ">
           <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
           <td width=10%>{{Information.benCallID}}</td>

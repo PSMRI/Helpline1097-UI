@@ -325,7 +325,11 @@ export class supervisorFeedback implements OnInit {
   }
 
   onSearch() {
+
     let bodyString = this.feedbackForm2.value;
+    let endDate = this.feedbackForm2.value.endDate;
+    endDate.setHours(23,59,59);
+    
     if (bodyString.endDate === '') {
       bodyString.endDate = undefined;
     }
@@ -335,6 +339,7 @@ export class supervisorFeedback implements OnInit {
     if (bodyString.feedbackID === '') {
       bodyString.feedbackID = undefined;
     }
+
     bodyString['serviceID'] = this.serviceID;
     // this._feedbackservice.searchFeedback( bodyString )
     //   .subscribe( resProviderData => this.providers( resProviderData ) );

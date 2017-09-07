@@ -320,7 +320,8 @@
 </form>  -->
 <!-- ========================================NEW LOOK===================================================== -->
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-  <label><h4>FEEDBACK TRACKING</h4></label>
+  <label>
+    <h4>FEEDBACK TRACKING</h4></label>
 </div>
 <div class="row">
   <div *ngIf="action === 'view'">
@@ -362,6 +363,9 @@
             </tr>
           </thead>
           <tbody>
+            <tr *ngIf="feedbackList.length < 1">
+              <td colspan="8" align="center"><img src="assets/images/data_not_found.png" width="400" height="65"></td>
+            </tr>
             <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 5, currentPage: p } ">
               <td (click)="onClick(feedback)">{{feedback.feedbackID}}</td>
               <td>{{feedback.createdDate | date:'dd/MM/yyyy HH:mm'}}</td>
@@ -381,7 +385,11 @@
             </tr>
           </tbody>
         </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <tr>
+          <td colspan="8">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </td>
+        </tr>
       </div>
     </div>
   </div>
@@ -389,7 +397,6 @@
     <div class="col-md-2 col-lg-2 pull-right">
       <button type="button" class="btn cu-btn-default" (click)="back()">back</button>
     </div>
-
     <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
@@ -470,7 +477,6 @@
             <input mdInput placeholder="Modified By" id="ModifiedBy" formControlName="modifiedBy" maxlength="10" readonly>
           </md-input-container>
         </div>
-
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" *ngIf="action==='edit'">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -531,7 +537,7 @@
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4" *ngIf="action==='edit'">
-          <button class="btn cu-green-btn pull-right" type="submit"  name="save"> Save/Email</button>
+          <button class="btn cu-green-btn pull-right" type="submit" name="save"> Save/Email</button>
         </div>
       </div>
     </form>

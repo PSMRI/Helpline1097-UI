@@ -24,6 +24,8 @@ export class NotificationsDialogComponent implements OnInit {
   userId : any;
   file : any;
   fileContent : any;
+
+  mindate: Date;
   @ViewChild('notificationForm') notificationForm: NgForm;
   
   constructor(private notificationService: NotificationService,public commonDataService: dataService, public dialog : MdDialog,@Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<NotificationsDialogComponent>) { }
@@ -32,6 +34,8 @@ export class NotificationsDialogComponent implements OnInit {
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.uname;
     this.userId = this.commonDataService.uid;
+
+  this.mindate = new Date();
   }
 
   onFileUpload(event){

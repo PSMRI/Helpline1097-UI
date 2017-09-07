@@ -85,8 +85,13 @@
           </md-option>
         </md-select>
       </md-input-container>
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 m-t-10">
+
     </div> -->
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 m-t-10">
+
       <button [disabled]="!number.valid" md-raised-button (click)="addToBlockList()">Search</button>
     </div>
   </div>
@@ -117,8 +122,8 @@
             <td>Nuisence Call</td>
             <td>{{blacklist.isBlocked ? (blacklist.blockEndDate|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
             <td>
-              <button class="btn btn-success" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
-              <button class="btn" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
+              <button class="btn btn-success" *ngIf="item.isBlocked" (click)="unblock(item.phoneBlockID)">Unblock</button>
+              <button class="btn" *ngIf="!item.isBlocked" (click)="block(item.phoneBlockID)">Block</button>
             </td>
           </tr>
         </tbody>
