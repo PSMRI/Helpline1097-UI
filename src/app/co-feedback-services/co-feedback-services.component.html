@@ -241,10 +241,10 @@
           <td width=10%>{{(p-1)*(3)+(i+1)}}</td>
           <td>{{feedback.feedbackID}}</td>
           <td>{{feedback.feedback}}</td>
-          <td>{{feedback.severityID}}</td>
-          <td>{{feedback.feedbackTypeID}}</td>
+          <td>{{feedback.severity?.severityTypeName}}</td>
+          <td>{{feedback.feedbackType?.feedbackTypeName}}</td>
           <td>{{feedback.createdBy}}</td>
-          <td>{{feedback.feedbackStatusID}}</td>
+          <td>{{feedback.feedbackStatus?.feedbackStatus}}</td>
           <td>{{feedback.createdDate|date:'dd/MM/yyyy HH:mm'}}</td>
         </tr>
       </tbody>

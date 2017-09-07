@@ -67,8 +67,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   registrationNo: any = '';
   benUpdationResponse: any;
   regHistoryList: any = [];
-  beneficiaryParentList: any[];
-  beneficiaryRelations: any[];
+  beneficiaryParentList: any = [];
+  beneficiaryRelations: any = [];
   states: any = [];
   titles: any = [];
   status: any = [];
@@ -178,7 +178,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updationProcess = false;
     this.notCalledEarlierLowerPart = false;
     this.calledRadio = true;
-    // this.onBenRegDataSelect.emit(null);
+    this.onBenRegDataSelect.emit(null);
   }
 
   startNewCall() {
@@ -433,8 +433,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.showAlert();
       this.onBenSelect.emit('benService');
     }, (err) => {
-      this.alertMaessage.alert(err.status);
-    });
+        this.alertMaessage.alert(err.status);
+      });
   }
 
   showAlert() {
@@ -471,7 +471,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.peopleCalledEarlier = true;
         this.isParentBeneficiary = true;
         this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
-          return item.benRelationshipType !== 'Self'; // This value has to go in constant
+          return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
         });
       }
 
@@ -539,12 +539,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.age = registeredBenData.age;
     // Checking whether it has parent or not
     // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) {
-    if (!this.peopleCalledEarlier) {
+    if (registeredBenData.benPhoneMaps[0].parentBenRegID === registeredBenData.benPhoneMaps[0].benificiaryRegID) {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
     } else {
       this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
-        return item.benRelationshipType !== 'Self'; // This value has to go in constant
+        return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
     }
@@ -623,8 +623,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
     }, (err) => {
-      this.alertMaessage.alert(err.status);
-    });
+        this.alertMaessage.alert(err.status);
+      });
   }
 
   updateSuccessHandeler(response) {
@@ -671,7 +671,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   getRelationShipType(relationShips) {
     let benificiaryRelationType = [];
     benificiaryRelationType = relationShips.filter(function (item) {
-      return item.benRelationshipType === 'Self'; // This value has to go in constant
+      return item.benRelationshipType.toUpperCase() === 'SELF'; // This value has to go in constant
     });
     this.beneficiaryRelationID = benificiaryRelationType[0]['benRelationshipID']
     return this.beneficiaryRelationID;
@@ -683,8 +683,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-      console.log('Something Went Wrong in fetching Parent Data');
-    })
+        console.log('Something Went Wrong in fetching Parent Data');
+      })
 
   }
   // to Calculate the age on the basis of date of birth
@@ -745,10 +745,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
       }
     }, (err) => {
-      console.log('Error advanced Search', err);
-      this.showSearchResult = false;
-      this.isAdvancedSearch = false;
-    });
+        console.log('Error advanced Search', err);
+        this.showSearchResult = false;
+        this.isAdvancedSearch = false;
+      });
 
 
   }
