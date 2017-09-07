@@ -61,7 +61,7 @@ export class NotificationService {
             .map((response: Response) => response.json()).catch(this.handleError);
     }
     updateNotification(data) {
-        return this.httpIntercepto.post(this.updateNotificationURL, data, this.options)
+        return this.httpIntercepto.post(this.updateNotificationURL, data)
             .map((response: Response) => response.json()).catch(this.handleError);
     }
     handleError(error: Response) {

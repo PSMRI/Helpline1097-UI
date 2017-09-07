@@ -32,7 +32,9 @@ export class ConfigService {
     getTelephonyServerURL() {
         return this._telephonyServerURL;
     }
-
+    getAdminBaseURL(){
+        return '';
+    }
     getLocaleString() {
         return this._localeString;
     }

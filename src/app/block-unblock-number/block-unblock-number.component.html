@@ -93,35 +93,42 @@
 </div>
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 p-t-20">
-    <div class="table-responsive ">
-      <table class="table">
+    <div class="table-responsive">
+      <table class="table" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
         <thead>
           <tr>
             <th>Phone Number</th>
-            <th>Status</th>
+            <th md2SortBy="isBlocked">Status</th>
             <!-- <th>Block Date</th>
             <th>Unblock Date</th> -->
             <th>Reason</th>
             <!-- <th>Agent</th> -->
             <th>Blocked Till</th>
             <th>Action</th>
-          
+
           </tr>
         </thead>
         <tbody>
-          <tr style="cursor: pointer;" *ngFor="let blacklist of blackList">
+          <tr style="cursor: pointer;" *ngFor="let blacklist of  md2.data">
             <td>{{blacklist.phoneNo}}</td>
             <td>{{blacklist.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
             <!-- <td>24/06/2017</td>
             <td>31/06/2017</td> -->
             <td>Nuisence Call</td>
-            <td>{{blacklist.isBlocked ? (blacklist.blockEndDate|date: 'dd/MM/yyyy HH:mm'): '00/00/00 00:00'}}</td>
+            <td>{{blacklist.isBlocked ? (blacklist.blockEndDate|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
             <td>
               <button class="btn btn-success" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
               <button class="btn" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <md2-pagination></md2-pagination>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
