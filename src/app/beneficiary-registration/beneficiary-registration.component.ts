@@ -602,7 +602,7 @@ export class BeneficiaryRegistrationComponent implements OnInit
     this.age = registeredBenData.age;
     // Checking whether it has parent or not
     // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) {
-    if ( !this.peopleCalledEarlier )
+    if ( registeredBenData.benPhoneMaps[ 0 ].parentBenRegID === registeredBenData.benPhoneMaps[ 0 ].benificiaryRegID ) 
     {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[ 0 ].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
