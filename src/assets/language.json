@@ -73,7 +73,7 @@
       "feedback_service": "Feedback System"
     },
     "information_service": {
-      "page_heading": "Information Services",
+      "page_heading": "INFORMATION SERVICES",
       "select_category": "Select Category",
       "select_subcategory": "Select Sub-Category",
       "get_details": "Get Details",
@@ -87,7 +87,7 @@
       "new_informations": "New Informations"
     },
     "counselling_service": {
-      "page_heading": "Counselling Services",
+      "page_heading": "COUNSELLING SERVICES",
       "select_category": "Select Category",
       "select_subcategory": "Select Sub-Category",
       "get_details": "Get Details",
@@ -148,7 +148,7 @@
      
     },
     "other_details": {
-      "heading": "Other Details",
+      "heading": "OTHER DETAILS",
       "occupation": "Occupation",
       "qualification": "Select Education Qualification",
       "sexual_orientation": "Sexual Orientation",

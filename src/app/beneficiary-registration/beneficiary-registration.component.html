@@ -1,3 +1,6 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5" align="center">
+  <label><h4>CREATE/FIND A BENEFICIARY</h4></label>
+</div>
 <div class="col-xs-12 col-sm-12">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngIf="calledRadio;">
@@ -24,12 +27,12 @@
             <!--           <span class="glyphicon glyphicon-search form-control-feedback"></span> -->
           </md-input-container>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 m-t-15">
           <button type="button" class="btn btn-default" id="retrieve" (click)="retrieveRegHistory(registrationNo)">{{currentlanguage.beneficiary_registration?.retrieve}}</button>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngIf="advanceBtnHide">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-15" *ngIf="advanceBtnHide">
       <button type="button" class="btn btn-default" id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue}}</button>
     </div>
   </div>
