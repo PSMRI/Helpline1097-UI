@@ -54,6 +54,7 @@ export class SupervisorNotificationsComponent implements OnInit {
       (error) => {
         console.log(error);
       });
+      
   }
 
   createNotification() {
