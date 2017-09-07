@@ -23,10 +23,10 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 })
 export class BeneficiaryRegistrationComponent implements OnInit {
   @Input() current_language: any;
-  @Input() onReloadCall: any;
-  @Input() onStartNewCall: any;
+  @Input() onReloadCall: Boolean;
+  @Input() onStartNewCall: Boolean;
   currentlanguage: any;
-  p=1;
+  p = 1;
 
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
@@ -178,7 +178,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updationProcess = false;
     this.notCalledEarlierLowerPart = false;
     this.calledRadio = true;
-    this.onBenRegDataSelect.emit(null);
+    // this.onBenRegDataSelect.emit(null);
   }
 
   startNewCall() {
@@ -433,8 +433,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.showAlert();
       this.onBenSelect.emit('benService');
     }, (err) => {
-        this.alertMaessage.alert(err.status);
-      });
+      this.alertMaessage.alert(err.status);
+    });
   }
 
   showAlert() {
@@ -623,8 +623,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
     }, (err) => {
-        this.alertMaessage.alert(err.status);
-      });
+      this.alertMaessage.alert(err.status);
+    });
   }
 
   updateSuccessHandeler(response) {
@@ -683,8 +683,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-        console.log('Something Went Wrong in fetching Parent Data');
-      })
+      console.log('Something Went Wrong in fetching Parent Data');
+    })
 
   }
   // to Calculate the age on the basis of date of birth
@@ -745,10 +745,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
       }
     }, (err) => {
-        console.log('Error advanced Search', err);
-        this.showSearchResult = false;
-        this.isAdvancedSearch = false;
-      });
+      console.log('Error advanced Search', err);
+      this.showSearchResult = false;
+      this.isAdvancedSearch = false;
+    });
 
 
   }

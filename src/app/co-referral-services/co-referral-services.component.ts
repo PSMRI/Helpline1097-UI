@@ -43,6 +43,7 @@ export class CoReferralServicesComponent implements OnInit {
   providerServiceMapID: number;
   subscription: Subscription
   beneficiaryRegID: any;
+  p = 1;
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
     private _locationService: LocationService,

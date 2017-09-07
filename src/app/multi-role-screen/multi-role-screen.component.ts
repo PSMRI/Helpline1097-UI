@@ -17,7 +17,7 @@ export class MultiRoleScreenComponent implements OnInit {
     public router: Router, private _loginService: loginService) {
   }
   ngOnInit() {
-    debugger;
+  
     this.userName = this.dataSettingService.Userdata.userName;
     // this.router.navigate(['/MultiRoleScreenComponent/roleSelection']);
     // const userObj = JSON.parse(Cookie.get('userID'));

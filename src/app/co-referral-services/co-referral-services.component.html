@@ -188,15 +188,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let referral of tableArray | paginate: {id:'refpaginate', itemsPerPage: 3, currentPage: p }" style="cursor: pointer;">
-            <td>{{(p-1)*(3)+(i+1)}}</td>
+          <tr *ngFor="let referral of tableArray | paginate: {id:'refpaginate', itemsPerPage: 3, currentPage: p };let i=index " style="cursor: pointer;">
+            <td width=10%>{{(p-1)*(3)+(i+1)}}</td>
             <td>{{referral.instituteDirMapID}}</td>
             <td>{{referral.instituteDirectoryMapping.institutionDetails.institutionName}}</td>
             <td>{{referral.createdBy}}</td>
-            <td>{{referral.createdDate|date:'dd-MM-yyyy'}}</td>
+            <td>{{referral.createdDate|date:'dd/MM/yyyy HH:mm'}}</td>
           </tr>
-          <pagination-controls id="refpaginate" (pageChange)="p = $event"></pagination-controls>
+       
         </tbody>
+        <tr >
+          <td colspan="6">
+            <pagination-controls id="refpaginate" (pageChange)="p = $event"></pagination-controls>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

@@ -46,8 +46,8 @@
               <td width=10%>{{(p-1)*5+i+1}}</td>
               <td width=20%>{{row.notification}}</td>
               <td width=30%>{{row.notificationDesc}}</td>
-              <td width=20%>{{row.validFrom|date:'dd-MM-yyyy'}}</td>
-              <td width=20%>{{row.validTill|date:'dd-MM-yyyy'}}</td>
+              <td width=20%>{{row.validFrom|date:'dd/MM/yyyy'}}</td>
+              <td width=20%>{{row.validTill|date:'dd/MM/yyyy'}}</td>
               <td>
                 <a href="#" (click)="onEditClick(row,$event)">
                   <md-icon color="">mode_edit</md-icon>
