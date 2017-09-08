@@ -46,4 +46,5 @@ Thumbs.db
 #Config files
 config.service.ts
 config.json
-application.properties
+*.properties
+
