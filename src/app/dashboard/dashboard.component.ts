@@ -49,8 +49,13 @@ export class dashboardContentClass implements OnInit
     //       this.dataSettingService.uid = response.userID;
     //       this.dataSettingService.uname = response.userName;
     const url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
+<<<<<<< HEAD
     console.log( 'url = ' + url );
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
+=======
+    console.log('url = ' + url);
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+>>>>>>> 9df089b3f42cb84acee1c1b0a3dae8017dcdf963
     this.showDashboardContent = true;
     this.showDashboard();
     //     } else {
@@ -109,7 +114,11 @@ export class dashboardContentClass implements OnInit
     // spliting test event
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
-    this.eventSpiltData = event.data.split( '|' );
+    if (event.detail.data) {
+      this.eventSpiltData = event.detail.data.split('|');
+    } else {
+      this.eventSpiltData = event.data.split('|');
+    }
     this.handleEvent();
   }
 

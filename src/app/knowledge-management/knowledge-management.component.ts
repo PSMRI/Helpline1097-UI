@@ -29,6 +29,7 @@ export class KnowledgeManagementComponent implements OnInit {
   myInputVariable: any;
   public categories: any = [];
   public subCategories: any = [];
+  public services: any = [];
   public file: File;
   knowledgeForm: FormGroup;
 
@@ -50,24 +51,34 @@ export class KnowledgeManagementComponent implements OnInit {
 
   // Create form intialization and object in ngOnInit
   ngOnInit() {
-    this.getCategory();
     this.providerServiceMapID = this._dataService.current_service.serviceID;
     this.userID = this._dataService.uid;
     this.createdBy = this._dataService.uname;
+    this.getService();
   }
 
   // form creation using reactive form form builder
   createForm() {
     this.knowledgeForm = this.fb.group({
+      service: ['', Validators.required],
       category: ['', Validators.required], // <--- the FormControl called "name"
       subCategory: ['', Validators.required],
       fileInput: ['', Validators.required]
     });
   }
-
+  getService() {
+    // let serviceId= this.providerServiceMapID
+    this._coCategoryService.getTypes(this.providerServiceMapID)
+      .subscribe((response) => {
+        this.services = response;
+      }, (err) => {
+        console.log('Error in Knowledge Managemant Catyegory');
+        // error catch here
+      });
+  }
   // getting list of category
-  getCategory() {
-    this._coCategoryService.getCategories()
+  getCategory(subServiceId: any) {
+    this._coCategoryService.getCategoriesByID(subServiceId)
       .subscribe((response) => {
         this.categories = response;
       }, (err) => {

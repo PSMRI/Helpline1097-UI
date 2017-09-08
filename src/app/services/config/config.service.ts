@@ -7,45 +7,36 @@ import 'rxjs/add/operator/map';
 import * as config from 'assets/config.json';
 
 @Injectable()
-export class ConfigService
-{
+export class ConfigService {
     private _commonBaseURL: String = 'http://14.142.214.242:8080/CommonV1/';
     private _helpline1097BaseURL: String = 'http://14.142.214.242:8080/helpline1097APIV1/';
     private _telephonyServerURL: String = 'http://14.142.214.245/';
     private _localeString = 'en-in';
     private _loginUrl = 'http://14.142.214.242:8080/common-ui-1.0';
-    constructor()
-    {
-        this.successHandeler( config );
+    constructor() {
+        this.successHandeler(config);
     }
 
-    getCommonBaseURL ()
-    {
+    getCommonBaseURL() {
         return this._commonBaseURL;
     }
-    get1097BaseURL ()
-    {
+    get1097BaseURL() {
         return this._helpline1097BaseURL;
     }
-    getTelephonyServerURL ()
-    {
+    getTelephonyServerURL() {
         return this._telephonyServerURL;
     }
-    getLocaleString ()
-    {
+    getLocaleString() {
         return this._localeString;
     }
-    getCommonLoginUrl ()
-    {
+    getCommonLoginUrl() {
         return this._loginUrl;
     }
-    getAdminBaseURL ()
-    {
+    getAdminBaseURL() {
         return '';
     }
 
-    successHandeler ( response )
-    {
+    successHandeler(response) {
         this._commonBaseURL = response.commonBaseURL;
         this._helpline1097BaseURL = response.helpline1097BaseURL;
         this._telephonyServerURL = response.telephonyServerURL;
