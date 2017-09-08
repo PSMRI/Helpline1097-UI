@@ -11,8 +11,19 @@
     </div>
       <!--Form Start  -->
       <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm);knowledgeForm.reset()" novalidate>
-        <div class="row m-t-15">
-          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+        <div >
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
+                <md-select placeholder="Select Service" [style.width]="'100%'" name="service" formControlName="service" (change)="getCategory($event.value)">
+                  <md-option *ngFor="let service of services" [value]="service.subServiceID">
+                    {{service.subServiceName}}
+                  </md-option>
+                </md-select>
+                <!-- Validation Field -->
+                <div class="error" *ngIf="knowledgeForm.get('service').touched && knowledgeForm.get('service').hasError('required')">
+                  Service is required
+                </div>
+              </div>
+          <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
             <md-select placeholder="Select Category" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)">
               <md-option *ngFor="let category of categories" [value]="category.categoryID">
                 {{category.categoryName}}
@@ -23,7 +34,7 @@
               Category is required
             </div>
           </div>
-          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+          <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
             <md-select placeholder="Select Sub Category" [style.width]="'100%'" formControlName="subCategory">
               <md-option *ngFor="let subCategory of subCategories" [value]="subCategory.subCategoryID">
                 {{subCategory.subCategoryName}}
@@ -34,7 +45,7 @@
               Subcategory is required
             </div>
           </div>
-          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+          <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
             <input type="file" class="form-control" #myInput name="file"  (change)="changeListener($event)" />
             <input type="hidden" name="fileHidden" formControlName="fileInput" />
             <!-- Validation Field -->
