@@ -7,46 +7,45 @@ import 'rxjs/add/operator/map';
 import * as config from 'assets/config.json';
 
 @Injectable()
-export class ConfigService {
-
-    private _commonBaseURL: String = 'http://10.152.3.99:8080/CommonV1/';
-    private _helpline1097BaseURL: String = 'http://10.152.3.99:8080/helpline1097APIV1/';
-    private _telephonyServerURL: String = 'http://172.16.17.41/';
+export class ConfigService
+{
+    private _commonBaseURL: String = 'http://14.142.214.242:8080/CommonV1/';
+    private _helpline1097BaseURL: String = 'http://14.142.214.242:8080/helpline1097APIV1/';
+    private _telephonyServerURL: String = 'http://14.142.214.245/';
     private _localeString = 'en-in';
-    private _loginUrl = 'http://localhost:4200';
-    // private _commonBaseURL: String = 'http://172.16.17.43:8080/CommonV1/';
-    // private _helpline1097BaseURL: String = 'http://172.16.17.43:8080/helpline1097APIV1/';
-    // private _telephonyServerURL: String = 'http://172.16.17.41/';
-    // private _localeString = 'en-in';
-    // private _loginUrl = 'http://172.16.17.43:8080/common-ui-1.0';
-    constructor() {
-        // this.successHandeler(config);
+    private _loginUrl = 'http://14.142.214.242:8080/common-ui-1.0';
+    constructor()
+    {
+        this.successHandeler( config );
     }
 
-    getCommonBaseURL() {
+    getCommonBaseURL ()
+    {
         return this._commonBaseURL;
     }
-    get1097BaseURL() {
+    get1097BaseURL ()
+    {
         return this._helpline1097BaseURL;
     }
-    getTelephonyServerURL() {
+    getTelephonyServerURL ()
+    {
         return this._telephonyServerURL;
     }
-    getAdminBaseURL(){
-        return '';
-    }
-    getLocaleString() {
+    getLocaleString ()
+    {
         return this._localeString;
     }
-    getCommonLoginUrl() {
+    getCommonLoginUrl ()
+    {
         return this._loginUrl;
     }
-    getAdminBaseURL() {
+    getAdminBaseURL ()
+    {
         return '';
     }
 
-    successHandeler(response) {
-        // console.log( response, "config file obj" );
+    successHandeler ( response )
+    {
         this._commonBaseURL = response.commonBaseURL;
         this._helpline1097BaseURL = response.helpline1097BaseURL;
         this._telephonyServerURL = response.telephonyServerURL;
