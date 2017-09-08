@@ -211,33 +211,33 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
   <h5 class=""><strong>{{currentlanguage.feedback_service?.table_labels?.table_heading}}</strong></h5>
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-responsive table-striped"   [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
       <thead>
         <tr>
           <!-- <th width="20">
                             <input type="checkbox" value="">
                           </th> -->
           <th>S.No.</th>
-          <th>{{currentlanguage.feedback_service?.table_labels?.feedbackID}}</th>
-          <th>{{currentlanguage.feedback_service?.table_labels?.description}}</th>
-          <th>{{currentlanguage.feedback_service?.table_labels?.severity}}</th>
-          <th>{{currentlanguage.feedback_service?.table_labels?.feedback_type}}</th>
-          <th>{{currentlanguage.feedback_service?.table_labels?.agent}}</th>
-          <th>{{currentlanguage.feedback_service?.table_labels?.status}}</th>
-          <th>{{currentlanguage.feedback_service?.table_labels?.created_date}}</th>
+          <th  md2SortBy="feedbackID">{{currentlanguage.feedback_service?.table_labels?.feedbackID}}</th>
+          <th  md2SortBy="feedback">{{currentlanguage.feedback_service?.table_labels?.description}}</th>
+          <th  md2SortBy="severityTypeName">{{currentlanguage.feedback_service?.table_labels?.severity}}</th>
+          <th  md2SortBy="feedbackTypeName">{{currentlanguage.feedback_service?.table_labels?.feedback_type}}</th>
+          <th  md2SortBy="createdBy">{{currentlanguage.feedback_service?.table_labels?.agent}}</th>
+          <th  md2SortBy="feedbackStatus">{{currentlanguage.feedback_service?.table_labels?.status}}</th>
+          <th  md2SortBy="createdDate">{{currentlanguage.feedback_service?.table_labels?.created_date}}</th>
           <!-- <th>Status</th> -->
           <!-- <th>Action</th> -->
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="feedbacksArray.length<1">
+        <tr *ngIf="md2.data.length<1">
           <td colspan="8" align="center">
             <img src="assets/images/data_not_found.png" width="400" height="65">
           </td>
         </tr>
         <tr style="cursor: pointer;" *ngFor="let feedback
-                        of feedbacksArray | paginate: { itemsPerPage: 3, currentPage: p, id:'feedbackpagination'} ;let i=index " (click)="modalData(feedback)">
-          <td width=10%>{{(p-1)*(3)+(i+1)}}</td>
+                        of md2.data;let i=index " (click)="modalData(feedback)">
+          <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
           <td>{{feedback.feedbackID}}</td>
           <td>{{feedback.feedback}}</td>
           <td>{{feedback.severity?.severityTypeName}}</td>
@@ -249,13 +249,16 @@
       </tbody>
       <tr>
         <td colspan="5">
-          <pagination-controls id="feedbackpagination" (pageChange)="p = $event"></pagination-controls>
+          <md2-pagination></md2-pagination>
         </td>
-        <td colspan="3">
+        <!-- <td colspan="3">
           <button class="btn pull-right" (click)="showForm()">{{currentlanguage.feedback_service?.create_feedback}}</button>
-        </td>
+        </td> -->
       </tr>
     </table>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button class="btn pull-right" (click)="showForm()">{{currentlanguage.feedback_service?.create_feedback}}</button>
+    </div>
   </div>
 </div>
 <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">

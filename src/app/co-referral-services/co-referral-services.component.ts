@@ -21,6 +21,7 @@ export class CoReferralServicesComponent implements OnInit {
   showTableCondition: boolean = true;
 
   tableArray: any = [];
+  data: any = [];
   states: any = [];
   districts: any = [];
   taluks: any = [];
@@ -96,7 +97,8 @@ export class CoReferralServicesComponent implements OnInit {
 
   getReferralHistory(response: any) {
     console.log('referral history is :', response);
-    this.tableArray = response;
+    // this.tableArray = response;
+    this.data = response;
   }
 
 
@@ -182,7 +184,8 @@ export class CoReferralServicesComponent implements OnInit {
       'selected_sub_directory': this.selected_sub_directory,
       'date': new Date()
     }
-    this.tableArray.push(refObj);
+    // this.tableArray.push(refObj);
+    this.data.push(refObj);
 
   }
   getBenData(benData: any) {

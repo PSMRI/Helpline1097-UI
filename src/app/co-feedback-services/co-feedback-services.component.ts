@@ -56,6 +56,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   subServiceID: any = -1;
   count;
   feedbacksArray: any = [];
+  data: any = [];
   modalArray: any = [];
   providerServiceMapID: number;
   userID: number;
@@ -285,7 +286,8 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   setFeedbackHistoryByID(response: any) {
     console.log('the response for feedback history is', response);
-    this.feedbacksArray = response;
+    // this.feedbacksArray = response;
+    this.data = response;
   }
   updateCount() {
     this.count = this.feedbackDescription.length + '/300';
