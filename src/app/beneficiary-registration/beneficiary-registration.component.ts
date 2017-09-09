@@ -296,6 +296,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.pincode = undefined;
       this.preferredLanguage = undefined;
       this.identityType = undefined;
+      // if (this.isParentBeneficiary || this.regHistoryList.length > 0) {
+      //   this.isParentBeneficiary = true;
+      //   this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
+      //     return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
+      //   });
+      // }
       // if ()
       // this.beneficiaryRelationID = this.getRelationShipType(this.beneficiaryRelations);
       // this value also comes from the constants
@@ -431,10 +437,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.benRegistrationResponse = response;
       this.handleRegHistorySuccess([response]);
       this.showAlert();
+      this.populateUserData(response);
       this.onBenSelect.emit('benService');
     }, (err) => {
-        this.alertMaessage.alert(err.status);
-      });
+      this.alertMaessage.alert(err.status);
+    });
   }
 
   showAlert() {
@@ -465,16 +472,17 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.calledRadio = true;
       this.saved_data.parentBeneficiaryData = this.regHistoryList[0];
       this.relationshipWith = 'Relationship with ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
+      this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
       // if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
-      if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benificiaryRegID) {
-        this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID);
-        this.peopleCalledEarlier = true;
-        this.isParentBeneficiary = true;
-        this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
-          return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
-        });
-      }
-
+      // if ((this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID)) {
+      this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID);
+      this.peopleCalledEarlier = true;
+      this.isParentBeneficiary = true;
+      this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
+        return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
+      });
+      // }
+      // this.selectBeneficiary(this.saved_data.parentBeneficiaryData);
     }
   }
 
@@ -623,8 +631,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
     }, (err) => {
-        this.alertMaessage.alert(err.status);
-      });
+      this.alertMaessage.alert(err.status);
+    });
   }
 
   updateSuccessHandeler(response) {
@@ -641,7 +649,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
      */
     this.notCalledEarlierLowerPart = false;
     this.calledRadio = true;
-    this.onBenSelect.emit('benService')
+    this.onBenSelect.emit('benService');
+    this.selectBeneficiary(this.saved_data.beneficiaryData);
+    //populateUserData
     /**
    *End of Neeraj Code; 22-jun-2017
    */
@@ -683,8 +693,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
-        console.log('Something Went Wrong in fetching Parent Data');
-      })
+      console.log('Something Went Wrong in fetching Parent Data');
+    })
 
   }
   // to Calculate the age on the basis of date of birth
@@ -745,10 +755,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
       }
     }, (err) => {
-        console.log('Error advanced Search', err);
-        this.showSearchResult = false;
-        this.isAdvancedSearch = false;
-      });
+      console.log('Error advanced Search', err);
+      this.showSearchResult = false;
+      this.isAdvancedSearch = false;
+    });
 
 
   }

@@ -7,13 +7,12 @@ import { ConfirmationDialogsService } from '../services/dialog/confirmation.serv
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { loginService } from '../services/loginService/login.service';
 
-@Component( {
+@Component({
   selector: 'dashboard-component',
   templateUrl: './dashboard.html'
-} )
+})
 
-export class dashboardContentClass implements OnInit
-{
+export class dashboardContentClass implements OnInit {
   barMinimized: boolean = true;
   eventSpiltData: any;
   data: any;
@@ -31,8 +30,7 @@ export class dashboardContentClass implements OnInit
     private message: ConfirmationDialogsService,
     private _loginService: loginService
   ) { };
-  ngOnInit ()
-  {
+  ngOnInit() {
     // const userObj = JSON.parse(Cookie.get('userID'));
     // if (userObj) {
     //   const roleObj = {};
@@ -49,13 +47,10 @@ export class dashboardContentClass implements OnInit
     //       this.dataSettingService.uid = response.userID;
     //       this.dataSettingService.uname = response.userName;
     const url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
-<<<<<<< HEAD
-    console.log( 'url = ' + url );
-    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
-=======
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
->>>>>>> 9df089b3f42cb84acee1c1b0a3dae8017dcdf963
+    console.log('url = ' + url);
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.showDashboardContent = true;
     this.showDashboard();
     //     } else {
@@ -72,104 +67,86 @@ export class dashboardContentClass implements OnInit
 
 
   }
-  showDashboard ()
-  {
+  showDashboard() {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
     this.addListener();
   }
-  toggleBar ()
-  {
+  toggleBar() {
     // if ( this.barMinimized )
     //   this.barMinimized = false;
     // else
     this.barMinimized = !this.barMinimized;
   }
-  minimizeBar ()
-  {
+  minimizeBar() {
     this.barMinimized = true;
     // this.testEvent();
   }
 
   // testing event
-  testEvent ()
-  {
+  testEvent() {
     // var event = new Event('message');
-    let event = new CustomEvent( 'message', {
+    let event = new CustomEvent('message', {
       detail: {
         data: 'Accept|9845098451|1489742008.5180000000|INBOUND',
         time: new Date(),
       },
       bubbles: true,
       cancelable: true
-    } );
-    // document.dispatchEvent( event );
+    });
+    // document.dispatchEvent(event);
   }
 
-  listener ( event )
-  {
-    console.log( 'listener invoked: ' + event );
-    console.log( 'event received' + JSON.stringify( event ) );
+  listener(event) {
+    console.log('listener invoked: ' + event);
+    console.log('event received' + JSON.stringify(event));
     // spliting test event
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
-    if (event.detail.data) {
-      this.eventSpiltData = event.detail.data.split('|');
-    } else {
+    if (event.data) {
       this.eventSpiltData = event.data.split('|');
+    } else {
+      this.eventSpiltData = event.detail.data.split('|');
     }
     this.handleEvent();
   }
 
-  handleEvent ()
-  {
-    this.router.navigate( [ '/InnerpageComponent', this.eventSpiltData[ 1 ], this.eventSpiltData[ 2 ] ] );
+  handleEvent() {
+    this.router.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2]]);
   }
 
-  addListener ()
-  {
-    if ( window.parent.parent.addEventListener )
-    {
-      console.log( 'adding message listener' );
+  addListener() {
+    if (window.parent.parent.addEventListener) {
+      console.log('adding message listener');
       // document.addEventListener( "message", this.listener.bind( this ), false );
-      addEventListener( 'message', this.listener.bind( this ), false );
-    } else
-    {
-      console.log( 'adding onmessage listener' );
+      addEventListener('message', this.listener.bind(this), false);
+    } else {
+      console.log('adding onmessage listener');
       // document.attachEvent("onmessage", this.listener) 
     }
   }
 
-  campaign ( value )
-  {
-    console.log( value );
-    if ( value === '1' )
-    {
-      this.message.confirm( '', 'Are you Sure want to change to Inbound?' ).subscribe(( response ) =>
-      {
-        if ( response )
-        {
+  campaign(value) {
+    console.log(value);
+    if (value === '1') {
+      this.message.confirm('', 'Are you Sure want to change to Inbound?').subscribe((response) => {
+        if (response) {
           this.dataSettingService.current_campaign = 'INBOUND';
-        } else
-        {
+        } else {
           this.inOutBound = 0;
         }
-      } )
+      })
 
     }
-    if ( value === '0' )
-    {
-      this.message.confirm( '', 'Are you Sure want to change to Outbound?' ).subscribe(( response ) =>
-      {
-        if ( response )
-        {
+    if (value === '0') {
+      this.message.confirm('', 'Are you Sure want to change to Outbound?').subscribe((response) => {
+        if (response) {
           this.dataSettingService.current_campaign = 'OUTBOUND';
-        } else
-        {
+        } else {
           this.inOutBound = 1;
         }
-      } )
+      })
     }
   }
   // ngOnDestroy() {
