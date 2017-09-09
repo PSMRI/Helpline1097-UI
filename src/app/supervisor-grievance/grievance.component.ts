@@ -24,7 +24,7 @@ export class supervisorFeedback implements OnInit {
   public showupdateFeedback1 = true;
   public action = "view";
   public showUser = true;
-  feedbackList: any;
+  feedbackList: any = [];
   feedbackresponceList: any;
   data: any;// it is am using for edit purpose;
   data1: any;
@@ -328,8 +328,8 @@ export class supervisorFeedback implements OnInit {
 
     let bodyString = this.feedbackForm2.value;
     let endDate = this.feedbackForm2.value.endDate;
-    endDate.setHours(23,59,59);
-    
+    endDate.setHours(23, 59, 59);
+
     if (bodyString.endDate === '') {
       bodyString.endDate = undefined;
     }

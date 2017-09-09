@@ -26,6 +26,7 @@ export class BlockUnblockNumberComponent implements OnInit {
   serviceId: any;
   blackList: any = [];
   searchByPhone: boolean = false;
+  data: any = [];
   constructor(private commonData: dataService, private callService: CallServices,
     private message: ConfirmationDialogsService) { }
 
@@ -55,7 +56,7 @@ export class BlockUnblockNumberComponent implements OnInit {
     });
   }
   setBlackLists(blackListData: any) {
-    this.blackList = blackListData;
+    this.data = blackListData;
   }
   unblock(phoneBlockID: any) {
     const blockObj = {};

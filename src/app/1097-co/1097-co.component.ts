@@ -285,6 +285,7 @@ export class helpline1097CoComponent implements OnInit {
         jQuery('#four').find('a').addClass('active-tab');
         this.isClosureDisable = true;
         this.isCancelDisable = false;
+        this.isNext = false;
       }
     });
   }

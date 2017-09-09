@@ -35,7 +35,7 @@ export class dashboardContentClass implements OnInit {
     // if (userObj) {
     //   const roleObj = {};
     //   roleObj['RoleName'] = userObj.RoleName;
-      this.dataSettingService.current_campaign = 'INBOUND';
+    this.dataSettingService.current_campaign = 'INBOUND';
     //   this.dataSettingService.current_role = roleObj;
     //   this.dataSettingService.current_service = userObj.serviceObj;
     //   this.current_role = this.dataSettingService.current_role.RoleName;
@@ -46,11 +46,13 @@ export class dashboardContentClass implements OnInit {
     //       this.dataSettingService.userPriveliges = response.previlegeObj;
     //       this.dataSettingService.uid = response.userID;
     //       this.dataSettingService.uname = response.userName;
-          const url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
-          console.log('url = ' + url);
-          this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-          this.showDashboardContent = true;
-          this.showDashboard();
+    const url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
+    console.log('url = ' + url);
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    console.log('url = ' + url);
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.showDashboardContent = true;
+    this.showDashboard();
     //     } else {
     //       location.assign(this.loginUrl);
     //       Cookie.deleteAll();
@@ -68,7 +70,7 @@ export class dashboardContentClass implements OnInit {
   showDashboard() {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
-     this.current_role = this.dataSettingService.current_role.RoleName;
+    this.current_role = this.dataSettingService.current_role.RoleName;
     this.addListener();
   }
   toggleBar() {
@@ -93,15 +95,20 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-    document.dispatchEvent(event);
+    //document.dispatchEvent(event);
   }
 
   listener(event) {
     console.log('listener invoked: ' + event);
+    console.log('event received' + JSON.stringify(event));
     // spliting test event
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
-    this.eventSpiltData = event.detail.data.split('|');
+    if (event.data) {
+      this.eventSpiltData = event.data.split('|');
+    } else {
+      this.eventSpiltData = event.detail.data.split('|');
+    }
     this.handleEvent();
   }
 

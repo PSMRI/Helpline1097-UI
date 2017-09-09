@@ -20,9 +20,9 @@
               <md-list-item class="b-t-1-w">ID: {{current_role}}-{{current_service}}</md-list-item>
             </md-list>
             </md-menu>
-            <li class="help cursorPointer" routerLink="/MultiRoleScreenComponent/dashboard" title="Home">
+            <!-- <li class="help cursorPointer" *ngIf= routerLink="/MultiRoleScreenComponent/dashboard" title="Home">
               <md-icon class="material-icons" class="homeIcon" role="img" aria-hidden="true">home</md-icon>
-            </li>
+            </li> -->
             <li class="logout" (click)="logOut()"><a>&nbsp;</a></li>
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
@@ -112,6 +112,7 @@
       <app-1097 *ngIf="current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
     </div>
   </div>
+  <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized" (click)="toggleBar()"></iframe>
 </div>
 <footer class="footer">
   <div class="row">

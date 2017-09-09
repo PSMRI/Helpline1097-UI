@@ -1,5 +1,6 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-  <label><h4>BLACKLIST A NUMBER</h4></label>
+  <label>
+    <h4>BLACKLIST A NUMBER</h4></label>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -9,7 +10,6 @@
 <div *ngIf="searchByPhone">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
       <md-input-container [style.width]="'100%'" myMobileNumber>
         <input required minlength="5" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
         <md-hint *ngIf="!number.valid">
@@ -91,47 +91,53 @@
 
     </div> -->
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 m-t-10">
-
       <button [disabled]="!number.valid" md-raised-button (click)="addToBlockList()">Search</button>
     </div>
   </div>
 </div>
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 p-t-20">
-    <div class="table-responsive ">
-      <table class="table">
+    <div class="table-responsive">
+      <table class="table" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
         <thead>
           <tr>
             <th>Phone Number</th>
-            <th>Status</th>
+            <th md2SortBy="isBlocked">Status</th>
             <!-- <th>Block Date</th>
             <th>Unblock Date</th> -->
             <th>Reason</th>
             <!-- <th>Agent</th> -->
             <th>Blocked Till</th>
             <th>Action</th>
-          
+
           </tr>
         </thead>
         <tbody>
-        <tr *ngIf="blackList.length < 1">
-          <td colspan="4" align="center">
-            <img src="assets/images/data_not_found.png" width="400" height="65">
-          </td>
-        </tr>
-          <tr style="cursor: pointer;" *ngFor="let item of blackList">
-            <td>{{item.phoneNo}}</td>
-            <td>{{item.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
+          <tr *ngIf="md2.data.length < 1">
+            <td colspan="4" align="center">
+              <img src="assets/images/data_not_found.png" width="400" height="65">
+            </td>
+          </tr>
+          <tr style="cursor: pointer;" *ngFor="let blacklist of md2.data">
+            <td>{{blacklist.phoneNo}}</td>
+            <td>{{blacklist.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
             <!-- <td>24/06/2017</td>
             <td>31/06/2017</td> -->
             <td>Nuisence Call</td>
-            <td>{{blacklist.isBlocked ? (blacklist.blockEndDate|date: 'dd/MM/yyyy HH:mm'): '00/00/00 00:00'}}</td>
+            <td>{{blacklist.isBlocked ? (blacklist.blockEndDate|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
             <td>
-              <button class="btn btn-success" *ngIf="item.isBlocked" (click)="unblock(item.phoneBlockID)">Unblock</button>
-              <button class="btn" *ngIf="!item.isBlocked" (click)="block(item.phoneBlockID)">Block</button>
+              <button class="btn btn-success" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
+              <button class="btn" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <md2-pagination></md2-pagination>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
