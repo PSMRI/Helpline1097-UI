@@ -49,6 +49,8 @@ export class dashboardContentClass implements OnInit {
     const url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    console.log('url = ' + url);
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.showDashboardContent = true;
     this.showDashboard();
     //     } else {
@@ -93,18 +95,19 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-    document.dispatchEvent(event);
+    //document.dispatchEvent(event);
   }
 
   listener(event) {
     console.log('listener invoked: ' + event);
+    console.log('event received' + JSON.stringify(event));
     // spliting test event
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
-    if (event.detail.data) {
-      this.eventSpiltData = event.detail.data.split('|');
-    } else {
+    if (event.data) {
       this.eventSpiltData = event.data.split('|');
+    } else {
+      this.eventSpiltData = event.detail.data.split('|');
     }
     this.handleEvent();
   }

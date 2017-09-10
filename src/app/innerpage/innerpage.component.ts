@@ -6,6 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router'
 import { ConfigService } from '../services/config/config.service';
 import { HttpServices } from '../services/http-services/http_services.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 declare const jQuery: any;
 
 
@@ -32,6 +33,8 @@ export class InnerpageComponent implements OnInit {
   currentlanguageSet: any = {};
   language_change: any;
 
+  // eventSpiltData: any;
+
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -42,12 +45,15 @@ export class InnerpageComponent implements OnInit {
   current_role: any;
   loginUrl = this._config.getCommonLoginUrl();
   data: any = {};
+  ctiHandlerURL: any;
+
   constructor(
     public getCommonData: dataService,
     public basicrouter: Router,
     public router: ActivatedRoute,
     public HttpServices: HttpServices,
     public http: Http,
+    public sanitizer: DomSanitizer,
     private _config: ConfigService
 
   ) {
@@ -75,6 +81,11 @@ export class InnerpageComponent implements OnInit {
 
   ngOnInit() {
     this.data = this.getCommonData.Userdata;
+    const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
+    console.log('url = ' + url);
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    console.log('url = ' + url);
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.router.params.subscribe((params: Params) => {
       if (params['mobileNumber'] != undefined) {
         // tslint:disable-next-line:radix
@@ -103,6 +114,7 @@ export class InnerpageComponent implements OnInit {
       this.callDuration = this.minutes + 'm ' + this.seconds + 's ';
     }, 1000);
     this.current_campaign = this.getCommonData.current_campaign;
+    this.addListener();
   }
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find('a').removeClass('active-tab');
@@ -182,4 +194,28 @@ export class InnerpageComponent implements OnInit {
   //   Cookie.deleteAll();
   // }
 
+  addListener() {
+    if (window.parent.parent.addEventListener) {
+      console.log('adding message listener');
+      addEventListener('message', this.listener.bind(this), false);
+    } else {
+      console.log('adding onmessage listener');
+    }
+  }
+
+  listener(event) {
+    console.log('listener invoked: ' + event);
+    console.log('event received' + JSON.stringify(event));
+    if (event.data) {
+      console.log('event data received' + JSON.stringify(event.data));
+      // alert(event.data);
+    } else {
+      console.log('event details data received' + JSON.stringify(event.detail.data));
+      // alert(event.detail.data);
+    }
+    this.handleEvent();
+  }
+
+  handleEvent() {
+  }
 }
