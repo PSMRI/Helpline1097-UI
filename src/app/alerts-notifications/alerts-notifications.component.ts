@@ -33,7 +33,7 @@ ngOnInit(){
             return notification.notificationType=="Alert";
         });
         if(this.alertConfig.length > 0){
-            if(this.role.RoleName!="Supervisior"){
+            if(this.role.RoleName!="Supervisor"){
                 this.alertPostData = {
                     "providerServiceMapID": this.service.serviceID,
                     "notificationTypeID": this.alertConfig[0].notificationTypeID,
@@ -58,7 +58,7 @@ ngOnInit(){
             return notification.notificationType=="Notification";
         });
         if(this.notificationConfig.length > 0){
-            if(this.role.RoleName!="Supervisior"){
+            if(this.role.RoleName!="Supervisor"){
                 this.notificationPostData = {
                     "providerServiceMapID": this.service.serviceID,
                     "notificationTypeID": this.notificationConfig[0].notificationTypeID,
@@ -103,7 +103,7 @@ getAlertsandNotifications(){
     // console.log(this.notificationPostData);
     if(this.alertPostData) {
         console.log(this.alertPostData);
-        if(this.role.RoleName!="Supervisior") {
+        if(this.role.RoleName!="Supervisor") {
             this.notificationService.getAlerts(this.alertPostData)
             .subscribe((response)=>{
                 console.log(response);
@@ -126,7 +126,7 @@ getAlertsandNotifications(){
     }
     if(this.notificationPostData){
         console.log(this.notificationPostData);
-        if(this.role.RoleName!="Supervisior") {
+        if(this.role.RoleName!="Supervisor") {
             this.notificationService.getNotifications(this.notificationPostData)
             .subscribe((response)=>{
                 console.log(response);

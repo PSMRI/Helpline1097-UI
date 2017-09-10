@@ -24,7 +24,8 @@
             </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
-        <md-select required placeholder="{{currentlanguage.referral_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state" name="state" #state="ngModel" (change)="GetDistricts(selected_state)">
+        <md-select required placeholder="{{currentlanguage.referral_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state"
+          name="state" #state="ngModel" (change)="GetDistricts(selected_state)">
           <md-option *ngFor="let state of states" [value]="state.stateID">
             {{state.stateName}}
           </md-option>
@@ -46,7 +47,8 @@
             </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
-        <md-select required #district="ngModel" placeholder="{{currentlanguage.referral_service?.district}}" [style.width]="'100%'" [(ngModel)]="selected_district" name="district" (change)="GetTaluks(selected_district)">
+        <md-select required #district="ngModel" placeholder="{{currentlanguage.referral_service?.district}}" [style.width]="'100%'"
+          [(ngModel)]="selected_district" name="district" (change)="GetTaluks(selected_district)">
           <md-option *ngFor="let district of districts" [value]="district.districtID">
             {{district.districtName}}
           </md-option>
@@ -71,7 +73,8 @@
             </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
-        <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk" name="taluk" (change)="GetSDTB(selected_taluk)">
+        <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+          name="taluk" (change)="GetSDTB(selected_taluk)">
           <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
             {{taluk.blockName}}
           </md-option>
@@ -95,7 +98,8 @@
             </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
-        <md-select placeholder="{{currentlanguage.referral_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_branch" name="sdtb" (change)="GetSDTB(selected_taluk)">
+        <md-select placeholder="{{currentlanguage.referral_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_branch"
+          name="sdtb" (change)="GetSDTB(selected_taluk)">
           <md-option *ngFor="let sdtb of blocks" [value]="sdtb.districtBranchID">
             {{sdtb.villageName}}
           </md-option>
@@ -115,7 +119,8 @@
             </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
-        <md-select required #directoryVar="ngModel" placeholder="{{currentlanguage.referral_service?.directory}}" [style.width]="'100%'" [(ngModel)]="selected_directory" name="whatInformation" (change)="GetSubDirectory(selected_directory)">
+        <md-select required #directoryVar="ngModel" placeholder="{{currentlanguage.referral_service?.directory}}" [style.width]="'100%'"
+          [(ngModel)]="selected_directory" name="whatInformation" (change)="GetSubDirectory(selected_directory)">
           <md-option *ngFor="let directoryItem of directory " [value]="directoryItem.instituteDirectoryID">
             {{directoryItem.instituteDirectoryName}}
           </md-option>
@@ -134,7 +139,8 @@
             </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
-        <md-select required #subDirectory="ngModel" placeholder="{{currentlanguage.referral_service?.sub_directory}}" [style.width]="'100%'" [(ngModel)]="selected_sub_directory" name="subDirectory" (change)="GetSubDirectory(selected_directory)">
+        <md-select required #subDirectory="ngModel" placeholder="{{currentlanguage.referral_service?.sub_directory}}" [style.width]="'100%'"
+          [(ngModel)]="selected_sub_directory" name="subDirectory" (change)="GetSubDirectory(selected_directory)">
           <md-option *ngFor="let sub_directoryItem of sub_directory" [value]="sub_directoryItem.instituteSubDirectoryID">
             {{sub_directoryItem.instituteSubDirectoryName}}
           </md-option>
@@ -145,7 +151,8 @@
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-10">
-      <button type="button" class="btn cu-green-btn font-regular f-s-18" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid" (click)="GetReferralDetails()">{{currentlanguage.referral_service?.search}}</button>
+      <button type="button" class="btn cu-green-btn font-regular f-s-18" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
+        (click)="GetReferralDetails()">{{currentlanguage.referral_service?.search}}</button>
       <button class="pull-right btn" (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
     </div>
     <div class="col-xs-12 col-sm-12 m-t-5">
@@ -159,7 +166,7 @@
           <span *ngFor="let detail of detailsList">
             <!--<span ng-repeat="detail in detailsList">-->
                 <!--<a href="{{detail.SubCatFilePath}}" target="_blank">-->
-                    {{detail.institutionDetails.institutionID}},{{detail.institutionDetails.institutionName}}
+                    {{detail.institutionDetails?.institutionID}},{{detail.institutionDetails?.institutionName}}
                 <!--</a>-->
           </span>
           <!--</textarea>-->
@@ -184,15 +191,15 @@
           </tr>
         </thead>
         <tbody>
-        <tr *ngIf="md2.data.length < 1">
-          <td colspan="5" align="center">
-            <img src="assets/images/data_not_found.png" width="400" height="65">
-          </td>
-        </tr>
+          <tr *ngIf="md2.data.length < 1">
+            <td colspan="5" align="center">
+              <img src="assets/images/data_not_found.png" width="400" height="65">
+            </td>
+          </tr>
           <tr *ngFor="let referral of md2.data;let i=index " style="cursor: pointer;">
             <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
             <td>{{referral.instituteDirMapID}}</td>
-            <td>{{referral.instituteDirectoryMapping.institutionDetails.institutionName}}</td>
+            <td>{{referral.instituteDirectoryMapping?.institutionDetails?.institutionName}}</td>
             <td>{{referral.createdBy}}</td>
             <td>{{referral.createdDate|date:'dd/MM/yyyy HH:mm'}}</td>
           </tr>

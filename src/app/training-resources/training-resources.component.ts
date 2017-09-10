@@ -32,7 +32,7 @@ ngOnInit(){
             return notification.notificationType=="KM";
         });
         if(this.kmConfig.length > 0){
-            if(this.role.RoleName!="Supervisior"){
+            if(this.role.RoleName!="Supervisor"){
                 this.kmPostData = {
                     "providerServiceMapID": this.service.serviceID,
                     "notificationTypeID": this.kmConfig[0].notificationTypeID,
@@ -67,7 +67,7 @@ getKmFiles(){
     // console.log(this.notificationPostData);
     if(this.kmPostData) {
         console.log(this.kmPostData);
-        if(this.role.RoleName!="Supervisior") {
+        if(this.role.RoleName!="Supervisor") {
             this.notificationService.getKMs(this.kmPostData)
             .subscribe((response)=>{
                 console.log(response);
