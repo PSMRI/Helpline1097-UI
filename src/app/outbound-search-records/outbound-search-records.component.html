@@ -1,48 +1,30 @@
 <div class="col-xs-12 col-sm-12">
-    <h4>Outbond Call Records</h4>
+  <h4>Outbond Call Records</h4>
 </div>
 <div class="col-xs-12 col-sm-12 row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <h5>Mother Records</h5>
-            <div class="table-responsive">
-                <table id="outbondListTable" class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <th>All Records</th>
-                            <td>{{tot_unAllocatedCalls}} <button type="button" (click)="allocateCalls(_unAllocatedCalls, $event)" class="btn btn-primary btn-xs pull-right">Allocate</button></td>
-                        </tr>
-                        <!--<tr>
-                            <th>General Outbound</th>
-                            <td>{{tot_mother_selfNoCalls_NRM}} <button type="button" (click)="allocateCalls(_mother_selfNoCalls_NRM, $event)"
-                                    class="btn btn-primary btn-xs pull-right">Allocate</button></td>
-                        </tr>
-                        <tr>
-                            <th>Blood Outbound</th>
-                            <td>{{tot_mother_otherNoCalls_NRM}} <button type="button" (click)="allocateCalls(_mother_otherNoCalls_NRM, $event)"
-                                    class="btn btn-primary btn-xs pull-right">Allocate</button></td>
-                        </tr>
-                        <tr>
-                            <th>Diabetic Outbound</th>
-                            <td>{{tot_mother_selfNoCalls_HRS}} <button type="button" (click)="allocateCalls(_mother_selfNoCalls_HRS, $event)"
-                                    class="btn btn-primary btn-xs pull-right">Allocate</button></td>
-                        </tr>
-                        <tr>
-                            <th>BP Outbond</th>
-                            <td>{{tot_mother_otherNoCalls_HRS}} <button type="button" (click)="allocateCalls(_mother_otherNoCalls_HRS, $event)"
-                                    class="btn btn-primary btn-xs pull-right">Allocate</button></td>
-                        </tr>-->
-                    </tbody>
-                </table>
-            </div>
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <!-- <h5>Mother Records</h5> -->
+    <div class="table-responsive">
+      <table id="outbondListTable" class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>All Records</th>
+            <td>{{tot_unAllocatedCalls}} <button type="button" (click)="allocateCalls(_unAllocatedCalls, $event)" class="btn btn-primary btn-xs pull-right">Allocate</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="showFlage">
-       <app-outbound-allocate-records [outboundCallRequests] ="records"></app-outbound-allocate-records>     
+  <div class="row" *ngIf="showFlage">
+    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+      <app-outbound-allocate-records (outboundCount)="assignCount($event)" [outboundCallRequests]="records"></app-outbound-allocate-records>
     </div>
+  </div>
 </div>
 
 <div class="col-xs-12 col-sm-12">
-    <!--(click)="getCount(searchInputs.value) this was to for search option-->
-    <!--<button type="button" class="btn cu-blue-btn p-l-r-38 font-regular f-s-18" id="allocateScreen">Allocate</button>-->
+  <!--(click)="getCount(searchInputs.value) this was to for search option-->
+  <!--<button type="button" class="btn cu-blue-btn p-l-r-38 font-regular f-s-18" id="allocateScreen">Allocate</button>-->
 </div>
 <div class="clearfix"></div>
