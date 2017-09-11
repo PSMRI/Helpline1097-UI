@@ -34,8 +34,8 @@ export class NotificationsDialogComponent implements OnInit {
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.uname;
     this.userId = this.commonDataService.uid;
-
   this.mindate = new Date();
+
   }
 
   onFileUpload(event){

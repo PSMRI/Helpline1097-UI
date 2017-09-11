@@ -95,7 +95,8 @@
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15">
       <button class="pull-right" md-raised-button color="primary" [disabled]="!(showNotificationForm.valid)" type="submit">Submit</button>
     </div>
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15" *ngIf="!onConfigSubmit">
+    <!-- <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15" *ngIf="!onConfigSubmit"> -->
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15"> 
       <button class="pull-right" md-raised-button color="primary" (click)="createNotification()">Create Notification</button>
     </div>
     
@@ -133,9 +134,9 @@
         <td colspan="3">
           <pagination-controls id="notifications" (pageChange)="p = $event"></pagination-controls>
         </td>
-        <td colspan="3">
+        <!-- <td colspan="3">
           <button class="pull-right" md-raised-button color="primary" (click)="createNotification()">Create Notification</button>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </table>

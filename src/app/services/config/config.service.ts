@@ -8,13 +8,23 @@ import * as config from 'assets/config.json';
 
 @Injectable()
 export class ConfigService {
-    private _commonBaseURL: String = 'http://14.142.214.242:8080/CommonV1/';
-    private _helpline1097BaseURL: String = 'http://14.142.214.242:8080/helpline1097APIV1/';
-    private _telephonyServerURL: String = 'http://14.142.214.245/';
+    // private _commonBaseURL: String = 'http://14.142.214.242:8080/CommonV1/';
+    // private _helpline1097BaseURL: String = 'http://14.142.214.242:8080/helpline1097APIV1/';
+    // private _telephonyServerURL: String = 'http://14.142.214.245/';
+    // private _localeString = 'en-in';
+    // private _loginUrl = 'http://14.142.214.242:8080/common-ui-1.0';
+    // private _commonBaseURL: String = 'http://10.152.3.99:8080/CommonV1/';
+    // private _helpline1097BaseURL: String = 'http://10.152.3.99:8080/helpline1097APIV1/';
+    // private _telephonyServerURL: String = 'http://10.152.3.99/';
+    // private _localeString = 'en-in';
+    // private _loginUrl = 'http://14.142.214.242:8080/common-ui-1.0';
+    private _commonBaseURL: String = 'http://localhost:8080/CommonV1/';
+    private _helpline1097BaseURL: String = 'http://localhost:8080/helpline1097APIV1/';
+    private _telephonyServerURL: String = 'http://localhost/';
     private _localeString = 'en-in';
     private _loginUrl = 'http://14.142.214.242:8080/common-ui-1.0';
     constructor() {
-        this.successHandeler(config);
+        // this.successHandeler(config);
     }
 
     getCommonBaseURL() {

@@ -336,9 +336,8 @@ export class supervisorFeedback implements OnInit {
 
   onSearch() {
     let bodyString = this.feedbackForm2.value;
-    let endDate = this.feedbackForm2.value.endDate;
-    endDate.toDate().setHours(23, 59, 59);
-
+    // bodyString.endDate = new Date(this.feedbackForm2.value.endDate);
+    bodyString.endDate.setHours(23, 59, 59);
     if (bodyString.endDate === '') {
       bodyString.endDate = undefined;
     }
