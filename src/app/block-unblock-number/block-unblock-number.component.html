@@ -124,7 +124,7 @@
             <!-- <td>24/06/2017</td>
             <td>31/06/2017</td> -->
             <td>Nuisence Call</td>
-            <td>{{blacklist.isBlocked ? (blacklist.blockEndDate|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
+            <td>{{blacklist.isBlocked ? (millisToUTCDate(blacklist.blockEndDate)|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
             <td>
               <button class="btn btn-success" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
               <button class="btn" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>

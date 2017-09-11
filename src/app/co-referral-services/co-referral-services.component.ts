@@ -192,7 +192,15 @@ export class CoReferralServicesComponent implements OnInit {
     this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
     this.setBeneficiaryData();
   }
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
 
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

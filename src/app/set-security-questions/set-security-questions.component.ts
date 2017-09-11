@@ -4,35 +4,30 @@ import { HttpServices } from '../services/http-services/http_services.service';
 import { Router } from '@angular/router';
 import { ConfigService } from '../services/config/config.service';
 
-@Component( {
+@Component({
   selector: 'app-set-security-questions',
   templateUrl: './set-security-questions.component.html',
-  styleUrls: [ './set-security-questions.component.css' ]
-} )
-export class SetSecurityQuestionsComponent implements OnInit
-{
+  styleUrls: ['./set-security-questions.component.css']
+})
+export class SetSecurityQuestionsComponent implements OnInit {
 
-  constructor( public getUserData: dataService, public http_calls: HttpServices, public router: Router, private configService: ConfigService ) 
-  {
+  constructor(public getUserData: dataService, public http_calls: HttpServices, public router: Router, private configService: ConfigService) {
 
   }
 
-  handleSuccess ( response )
-  {
+  handleSuccess(response) {
     this.questions = response;
-    console.log( this.questions );
+    console.log(this.questions);
   }
-  handleError ( response )
-  {
-    console.log( 'error', this.questions );
+  handleError(response) {
+    console.log('error', this.questions);
   }
 
-  ngOnInit ()
-  {
+  ngOnInit() {
 
-    this.http_calls.getData( this.configService.getCommonBaseURL() + "user/getsecurityquetions" ).subscribe(
-      ( response: any ) => this.handleSuccess( response ),
-      ( error: any ) => this.handleError( error ) );
+    this.http_calls.getData(this.configService.getCommonBaseURL() + "user/getsecurityquetions").subscribe(
+      (response: any) => this.handleSuccess(response),
+      (error: any) => this.handleError(error));
 
   }
 
@@ -41,14 +36,10 @@ export class SetSecurityQuestionsComponent implements OnInit
   questionsection: boolean = true;
   uname: any = this.getUserData.uname;
 
-  switch ()
-  {
+  switch() {
     this.passwordSection = true;
     this.questionsection = false;
   }
-
-
-
   question1: any = "";
   question2: any = "";
   question3: any = "";
@@ -60,31 +51,26 @@ export class SetSecurityQuestionsComponent implements OnInit
   questions: any = [];
   selectedQuestions: any = [];
 
-  updateQuestions ( selectedques: any )
-  {
+  updateQuestions(selectedques: any) {
 
-    if ( this.selectedQuestions.indexOf( selectedques ) == -1 )
-    {
-      this.selectedQuestions.push( selectedques );
+    if (this.selectedQuestions.indexOf(selectedques) == -1) {
+      this.selectedQuestions.push(selectedques);
       // this.questions.splice(this.questions.indexOf(selectedques), 1);
     }
-    else
-    {
-      alert( 'choose a different question... this question is already selected' );
+    else {
+      alert('choose a different question... this question is already selected');
     }
   }
 
   dataArray: any = [];
 
-  setSecurityQuestions ()
-  {
+  setSecurityQuestions() {
 
     // in place of userID, we have to feed it , as of now its hardcoded only for neer
-    console.log( this.selectedQuestions );
-    if ( this.selectedQuestions.length == 3 )
-    {
+    console.log(this.selectedQuestions);
+    if (this.selectedQuestions.length == 3) {
 
-      this.dataArray = [ {
+      this.dataArray = [{
         "userID": this.uid,
         "questionID": this.question1,
         "answers": this.answer1,
@@ -122,66 +108,58 @@ export class SetSecurityQuestionsComponent implements OnInit
       // 	},
 
       // }
-      console.log( JSON.stringify( this.dataArray ) );
+      console.log(JSON.stringify(this.dataArray));
       // alert("the data set is :" + this.dataObj);
-      console.log( this.selectedQuestions );
+      console.log(this.selectedQuestions);
 
-      this.http_calls.postData( this.configService.getCommonBaseURL() + "user/saveUserSecurityQuesAns", this.dataArray ).subscribe(
-        ( response: any ) => this.handleQuestionSaveSuccess( response ),
-        ( error: any ) => this.handleQuestionSaveError( error ) );
+      this.http_calls.postData(this.configService.getCommonBaseURL() + "user/saveUserSecurityQuesAns", this.dataArray).subscribe(
+        (response: any) => this.handleQuestionSaveSuccess(response),
+        (error: any) => this.handleQuestionSaveError(error));
 
     }
-    else
-    {
-      alert( "all 3 ques shud be diff" );
+    else {
+      alert("all 3 ques shud be diff");
     }
 
 
   }
 
-  handleQuestionSaveSuccess ( response )
-  {
-    console.log( 'saved questions', response );
+  handleQuestionSaveSuccess(response) {
+    console.log('saved questions', response);
     this.switch();
 
   }
-  handleQuestionSaveError ( response )
-  {
-    console.log( "question save error", response );
+  handleQuestionSaveError(response) {
+    console.log("question save error", response);
   }
 
   oldpwd: any;
   newpwd: any;
   confirmpwd: any;
 
-  updatePassword ( new_pwd )
-  {
-    if ( new_pwd === this.confirmpwd )
-    {
+  updatePassword(new_pwd) {
+    if (new_pwd === this.confirmpwd) {
 
 
-      this.http_calls.postData( this.configService.getCommonBaseURL() + "user/setForgetPassword", { "userName": this.uname, "password": new_pwd } ).
+      this.http_calls.postData(this.configService.getCommonBaseURL() + "user/setForgetPassword", { "userName": this.uname, "password": new_pwd }).
         subscribe(
-        ( response: any ) => this.successCallback( response ),
-        ( error: any ) => this.errorCallback( error ) );
+        (response: any) => this.successCallback(response),
+        (error: any) => this.errorCallback(error));
 
-      alert( "password is changed for user " + this.uname + " wd new pwd as : " + new_pwd );
+      alert("password is changed for user " + this.uname + " wd new pwd as : " + new_pwd);
     }
-    else
-    {
-      alert( "password dsnt match" );
+    else {
+      alert("password dsnt match");
     }
   }
 
-  successCallback ( response )
-  {
+  successCallback(response) {
 
-    console.log( response );
-    this.router.navigate( [ '/loginContentClass' ] );
+    console.log(response);
+    this.router.navigate(['/loginContentClass']);
   }
-  errorCallback ( response )
-  {
-    console.log( response );
+  errorCallback(response) {
+    console.log(response);
   }
 
 }

@@ -78,7 +78,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
       .subscribe(
       (response) => {
         this.alertMessage.alert('Sucessfully Allocated');
-        //  this.outboundCount.emit(this.outboundCallRequests.length - val.allocateNo);
+         this.outboundCount.emit(this.outboundCallRequests.length - val.allocateNo);
         console.log(response);
       },
       (error) => {

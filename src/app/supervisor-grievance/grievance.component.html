@@ -368,7 +368,7 @@
             </tr>
             <tr *ngFor="let feedback of feedbackList | paginate: { itemsPerPage: 5, currentPage: p } ">
               <td (click)="onClick(feedback)">{{feedback.feedbackID}}</td>
-              <td>{{feedback.createdDate | date:'dd/MM/yyyy HH:mm'}}</td>
+              <td>{{millisToUTCDate(feedback.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
               <td>{{feedback.beneficiaryName}}</td>
               <td>{{feedback.feedbackTypeName}}</td>
               <td>{{feedback.feedbackStatusName}}</td>

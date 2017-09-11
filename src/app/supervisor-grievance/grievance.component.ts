@@ -324,11 +324,20 @@ export class supervisorFeedback implements OnInit {
 
   }
 
-  onSearch() {
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
 
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
+
+  onSearch() {
     let bodyString = this.feedbackForm2.value;
     let endDate = this.feedbackForm2.value.endDate;
-    endDate.setHours(23, 59, 59);
+    endDate.toDate().setHours(23, 59, 59);
 
     if (bodyString.endDate === '') {
       bodyString.endDate = undefined;

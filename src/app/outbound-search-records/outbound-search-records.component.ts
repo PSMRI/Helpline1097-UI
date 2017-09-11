@@ -42,10 +42,9 @@ export class OutboundSearchRecordsComponent implements OnInit {
       });
 
   }
-  // assignCount(length: any) {
-  //   debugger;
-  //   this.tot_unAllocatedCalls = length;
-  // }
+  assignCount(length: any) {
+    this.tot_unAllocatedCalls = length;
+  }
   allocateCalls(values: any, event) {
 
     console.log('valuse: ' + values);
