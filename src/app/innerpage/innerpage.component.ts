@@ -100,7 +100,7 @@ export class InnerpageComponent implements OnInit {
 
     this.current_service = this.getCommonData.current_service.serviceName;
     this.current_role = this.getCommonData.current_role.RoleName;
-    if (this.current_role.toLowerCase() === 'supervisior') {
+    if (this.current_role.toLowerCase() === 'supervisor') {
       this.checkRole = false;
     }
     this.callDuration = this.minutes + 'm ' + this.seconds + 's ';

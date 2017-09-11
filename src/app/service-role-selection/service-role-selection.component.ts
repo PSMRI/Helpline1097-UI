@@ -17,15 +17,15 @@ export class ServiceRoleSelectionComponent implements OnInit {
  ngOnInit() {
 
   this.privleges = this.getCommonData.userPriveliges;
-  // this.privleges[3].roles[1].RoleName = 'Supervisior';
+  // this.privleges[3].roles[1].RoleName = 'Supervisor';
   
  }
 
  route2dashboard(role, service) {
   let roleName = role.RoleName;
   let serviceName = service.serviceName;
-  // if ( service === '1097' && ( role === 'CO' || role === 'Supervisior' ) )
-  if (serviceName === '1097' && (roleName === 'CO' || roleName === 'Supervisior')) {
+  // if ( service === '1097' && ( role === 'CO' || role === 'Supervisor' ) )
+  if (serviceName === '1097' && (roleName === 'CO' || roleName === 'Supervisor')) {
    this.getCommonData.current_role = role;
    this.getCommonData.current_service = service;
    this.router.navigate(['/MultiRoleScreenComponent/dashboard']);

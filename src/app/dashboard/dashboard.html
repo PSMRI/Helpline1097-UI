@@ -15,7 +15,7 @@
           <!--   <label class="p-r-5">{{currentInOutState}}</label>
                             <md-slide-toggle color="primary"  mdTooltip="{{inOutToolTip}}" (change)="slide()" >
                              </md-slide-toggle> -->
-          <div class="pull-right m-a-10 p-t-2" *ngIf="current_role!=='Supervisior'">
+          <div class="pull-right m-a-10 p-t-2" *ngIf="current_role!=='Supervisor'">
             <md-radio-group name=" inOutBound" (change)="campaign(inOutBound)" [(ngModel)]="inOutBound">
               <md-radio-button color="primary" value='1'>Inbound</md-radio-button>
               <md-radio-button color="primary" value='0'>Outbound</md-radio-button>

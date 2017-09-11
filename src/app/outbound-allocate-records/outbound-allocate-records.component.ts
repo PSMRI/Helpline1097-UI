@@ -23,6 +23,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   AllocateNoOfRecords: any;
   users: any = [];
   userID: any;
+  roleID: any;
   savedRes: any;
   allocateNo: any;
   roles: any = [];
