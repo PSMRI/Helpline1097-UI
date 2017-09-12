@@ -58,6 +58,15 @@ export class BlockUnblockNumberComponent implements OnInit {
   setBlackLists(blackListData: any) {
     this.data = blackListData;
   }
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
+
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
   unblock(phoneBlockID: any) {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;

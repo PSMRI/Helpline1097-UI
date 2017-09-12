@@ -13,10 +13,12 @@
         </md-select>
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <md2-datepicker #startDate [md2DatepickerToggle]="startDate" placeholder="Start Date" [(ngModel)]="start_date" #startDate [max]="maxDate"></md2-datepicker>
+        <md2-datepicker #startDate [md2DatepickerToggle]="startDate" placeholder="Start Date" [(ngModel)]="start_date" #startDate
+          [max]="maxDate"></md2-datepicker>
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <md2-datepicker #endDate [md2DatepickerToggle]="endDate" [min]="startDate.value" [max]="maxDate" placeholder="End Date" [(ngModel)]="end_date" [min]=startDate.value></md2-datepicker>
+        <md2-datepicker #endDate [md2DatepickerToggle]="endDate" [min]="startDate.value" [max]="maxDate" placeholder="End Date" [(ngModel)]="end_date"
+          [min]=startDate.value></md2-datepicker>
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
         <button class="pull-right" md-raised-button (click)="setTableFlag(true)">SEARCH</button>
@@ -45,7 +47,7 @@
             <td>{{item.benCallID}}</td>
             <td>{{item.callType}}</td>
             <td>{{item.remarks}}</td>
-            <td>{{item.callTime|date: 'dd/MM/yyyy'}}</td>
+            <td>{{millisToUTCDate(item.callTime)|date: 'dd/MM/yyyy'}}</td>
             <td width=10%>
               <button md-icon-button title="Audio" (click)="audioEvent()">
                 <i class="material-icons">settings_phone</i>
