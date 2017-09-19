@@ -185,7 +185,8 @@ export class CoReferralServicesComponent implements OnInit {
       'date': new Date()
     }
     // this.tableArray.push(refObj);
-    this.data.push(refObj);
+    // this.data.push(refObj);
+    this.setBeneficiaryData();
 
   }
   getBenData(benData: any) {
