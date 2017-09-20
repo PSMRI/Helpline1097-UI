@@ -204,8 +204,26 @@ export class supervisorFeedback implements OnInit {
 
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-      (feedback.feedbackRequests && feedback.feedbackRequests[0] && feedback.feedbackRequests[0].feedbackSupSummary) ?
-        feedback.feedbackRequests[0].feedbackSupSummary : ''
+      feedback.feedbackRequests ?
+        (
+          feedback.feedbackRequests[0] ?
+            (
+              feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
+            )
+            : feedback.feedback
+        )
+        : feedback.feedback
+    );
+    this.feedbackForm.controls.comments.setValue(
+      feedback.feedbackRequests ?
+        (
+          feedback.feedbackRequests[0] ?
+            (
+              feedback.feedbackRequests[0].comments ? feedback.feedbackRequests[0].comments : ""
+            )
+            : ""
+        )
+        : ""
     );
     this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiaryName);
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
@@ -258,12 +276,37 @@ export class supervisorFeedback implements OnInit {
 
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-      (feedback.feedbackRequests && feedback.feedbackRequests[0] && feedback.feedbackRequests[0].feedbackSupSummary) ?
-        feedback.feedbackRequests[0].feedbackSupSummary : ''
+      feedback.feedbackRequests ?
+        (
+          feedback.feedbackRequests[0] ?
+            (
+              feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
+            )
+            : feedback.feedback
+        )
+        : feedback.feedback
     );
     this.feedbackForm.controls.feedbackRequestID.setValue(
-      (feedback.feedbackRequests && feedback.feedbackRequests[0] && feedback.feedbackRequests[0].feedbackRequestID) ?
-        feedback.feedbackRequests[0].feedbackRequestID : undefined
+      feedback.feedbackRequests ?
+        (
+          feedback.feedbackRequests[0] ?
+            (
+              feedback.feedbackRequests[0].feedbackRequestID ? feedback.feedbackRequests[0].feedbackRequestID : undefined
+            )
+            : undefined
+        )
+        : undefined
+    );
+    this.feedbackForm.controls.comments.setValue(
+      feedback.feedbackResponses ?
+        (
+          feedback.feedbackResponses[0] ?
+            (
+              feedback.feedbackResponses[0].comments ? feedback.feedbackResponses[0].comments : ""
+            )
+            : ""
+        )
+        : ""
     );
     this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiaryName);
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
