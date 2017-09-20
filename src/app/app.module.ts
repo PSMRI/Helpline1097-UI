@@ -127,6 +127,8 @@ import { OutboundCallAllocationService } from './services/outboundServices/outbo
 import { OutboundWorklistService } from './services/outboundServices/outbound-work-list.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service'
 import { CommunicationService } from './services/common/communication.service'
+import { CallStatisticsComponent } from "./call-statistics/call-statistics.component";
+import { CzentrixServices } from "./services/czentrix/czentrix.service";
 
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
@@ -177,7 +179,8 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
     FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent,
-    NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent
+    NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent,
+    CallStatisticsComponent
 
   ],
   imports: [
@@ -260,11 +263,12 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, CommunicationService, {
+    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
+    CommunicationService, {
       provide: InterceptedHttp,
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, LoaderService]
-    }],
+    }, CzentrixServices],
 
   bootstrap: [AppComponent]
 })

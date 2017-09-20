@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { CzentrixServices } from './../services/czentrix/czentrix.service'
+import { CzentrixServices } from '../services/czentrix/czentrix.service'
 
 @Component({
 	selector: 'app-call-statistics',

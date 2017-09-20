@@ -134,13 +134,13 @@ export class InnerpageComponent implements OnInit {
       //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
       this.selectedBenData.age = 'Age: ' + data.age;
       // }
-      this.selectedBenData.gender = 'Gender: ' + data.m_gender.genderName;
-      this.selectedBenData.state = 'State: ' + data.i_bendemographics.m_state.stateName;
-      this.selectedBenData.district = 'District: ' + data.i_bendemographics.m_district.districtName;
-      this.selectedBenData.block = 'Taluk: ' + data.i_bendemographics.m_districtblock.blockName;
-      this.selectedBenData.village = 'Village: ' + data.i_bendemographics.m_districtbranchmapping.villageName;
-      this.selectedBenData.language = 'Preferred Lang: ' + data.i_bendemographics.m_language.languageName;
-      this.selectedBenData.relation = 'Family tagging: ' + data.benPhoneMaps[0].benRelationshipType.benRelationshipType;
+      this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
+      this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
+      this.selectedBenData.district = 'District: ' + (data.i_bendemographics ? (data.i_bendemographics.m_district ? (data.i_bendemographics.m_district.districtName ? data.i_bendemographics.m_district.districtName : "") : "") : "");
+      this.selectedBenData.block = 'Taluk: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtblock ? (data.i_bendemographics.m_districtblock.blockName ? data.i_bendemographics.m_districtblock.blockName : "") : "") : "");
+      this.selectedBenData.village = 'Village: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtbranchmapping ? (data.i_bendemographics.m_districtbranchmapping.villageName ? data.i_bendemographics.m_districtbranchmapping.villageName : "") : "") : "");
+      this.selectedBenData.language = 'Preferred Lang: ' + (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : "") : "") : "");
+      this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : "") : "");
     } else {
       this.selectedBenData.name = '';
       this.selectedBenData.id = '';

@@ -1,7 +1,7 @@
 {
-    "commonBaseURL": "http://14.142.214.242:8080/CommonV1/",
-    "helpline1097BaseURL": "http://14.142.214.242:8080/helpline1097APIV1/",
+    "commonBaseURL": "http://14.142.214.242:8080/commonapi-v1.0/",
+    "helpline1097BaseURL": "http://14.142.214.242:8080/1097api-v1.0/",
     "telephonyServerURL": "http://14.142.214.245/",
     "localeString": "en-in",
-    "loginURL": "http://14.142.214.242:8080/common-ui-1.0/"
+    "loginURL": "http://14.142.214.242:8080/commonui-v1.0/"
 }
