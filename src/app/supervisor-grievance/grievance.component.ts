@@ -377,6 +377,11 @@ export class supervisorFeedback implements OnInit {
     return this.toUTCDate(new Date(millis));
   };
 
+  updateTimeOffset(date: Date) {
+    //(this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)
+    date = new Date(date.valueOf() - 1 * date.getTimezoneOffset() * 60 * 1000);
+    return date;
+  }
   onSearch() {
     let bodyString = this.feedbackForm2.value;
     // bodyString.endDate = new Date(this.feedbackForm2.value.endDate);
@@ -384,11 +389,13 @@ export class supervisorFeedback implements OnInit {
       bodyString.endDate = undefined;
     } else {
       bodyString.endDate.setHours(23, 59, 59);
+      bodyString.endDate = this.updateTimeOffset(bodyString.endDate);
     }
     if (bodyString.startDate === '') {
       bodyString.startDate = undefined;
     } else {
       bodyString.startDate.setHours(0, 0, 0);
+      bodyString.startDate = this.updateTimeOffset(bodyString.startDate);
     }
     if (bodyString.feedbackID === '') {
       bodyString.feedbackID = undefined;
