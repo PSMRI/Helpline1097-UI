@@ -798,14 +798,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Passpoert No. Ex:alphanumeric';
+          this.idErrorText = 'Enter valid Passport No. Ex:alphanumeric';
           break;
         }
       case 6:
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Passpoert No. Ex:alphanumeric';
+          this.idErrorText = 'Enter valid Ration No. Ex:alphanumeric';
           break;
         }
       default:
