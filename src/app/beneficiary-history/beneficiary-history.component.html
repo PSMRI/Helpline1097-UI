@@ -40,7 +40,7 @@
             </tr>
             <tr *ngFor="let service of md2.data ">
               <td>{{service.benCallID}}</td>
-              <td>{{millisToUTCDate(service.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
+              <td>{{service.createdDate?(millisToUTCDate(service.createdDate)|date:'dd/MM/yyyy HH:mm'):''}}</td>
               <td>{{service.informationServices}}</td>
               <td>{{service.feedbackServices}}</td>
               <td>{{service.referralServices}}</td>

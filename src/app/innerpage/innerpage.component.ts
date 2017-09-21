@@ -313,6 +313,7 @@ export class InnerpageComponent implements OnInit {
       this.ticks = (this.timeRemaining - t);
       const remarks = 'call tranfered';
       if (t == this.timeRemaining) {
+        this.remarksMessage.close();
         // this.closeCall(eventData, remarks);
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
       }
