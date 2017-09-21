@@ -25,6 +25,7 @@ export class ConfirmationDialogsService {
         dialogRef.componentInstance.btnCancelText = btnCancelText;
         dialogRef.componentInstance.confirmAlert = true;
         dialogRef.componentInstance.alert = false;
+        dialogRef.componentInstance.remarks = false;
         return dialogRef.afterClosed();
     }
 
@@ -43,10 +44,11 @@ export class ConfirmationDialogsService {
         dialogRef.componentInstance.btnCancelText = btnCancelText;
         dialogRef.componentInstance.confirmAlert = true;
         dialogRef.componentInstance.alert = false;
+        dialogRef.componentInstance.remarks = false;
         return dialogRef.afterClosed();
     }
 
-    public alert( message: string, titleAlign: string = 'center',
+    public alert(message: string, titleAlign: string = 'center',
         messageAlign: string = 'center', btnOkText: string = 'Ok'): void {
 
         let dialogRef: MdDialogRef<CommonDialogComponent>;
@@ -55,7 +57,21 @@ export class ConfirmationDialogsService {
         dialogRef = this.dialog.open(CommonDialogComponent, config);
         dialogRef.componentInstance.message = message;
         dialogRef.componentInstance.btnOkText = btnOkText;
-        dialogRef.componentInstance.confirmAlert = true;
+        dialogRef.componentInstance.confirmAlert = false;
+        dialogRef.componentInstance.alert = true;
+        dialogRef.componentInstance.remarks = false;
+    }
+    public remarks(message: string, titleAlign: string = 'center',
+        messageAlign: string = 'center', btnOkText: string = 'Submit'): Observable<any> {
+        let dialogRef: MdDialogRef<CommonDialogComponent>;
+        const config = new MdDialogConfig();
+        // config.viewContainerRef = viewContainerRef;
+        dialogRef = this.dialog.open(CommonDialogComponent, config);
+        dialogRef.componentInstance.message = message;
+        dialogRef.componentInstance.btnOkText = btnOkText;
+        dialogRef.componentInstance.confirmAlert = false;
         dialogRef.componentInstance.alert = false;
+        dialogRef.componentInstance.remarks = true;
+        return dialogRef.afterClosed();
     }
 }

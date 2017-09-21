@@ -6,8 +6,9 @@
         <ul class="list-inline list-unstyled pull-left m-b-0">
           <li class="m-l-lg-40 m-t-5" *ngIf="checkRole && current_campaign == 'INBOUND'"><img src="assets/images/transferCallIcon.png " alt="Caller Icon
     " title="Caller Icon " />
-            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green ">ON CALL</span>
+            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green " (click)="testEvent()">ON CALL</span>
              <span class="m-l-lg-20 f-s-14 whiteC font-Semibold ">{{callDuration}}</span>
+
           </li>
         </ul>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
@@ -124,7 +125,7 @@
       <p class="footer-text t-a-c">2017
         <md-icon color="" class="copyright_icon">copyright</md-icon> PSMRI</p>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" *ngIf="checkRole">
       <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">CZentrix</button>
     </div>
   </div>

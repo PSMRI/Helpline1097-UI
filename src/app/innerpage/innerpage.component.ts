@@ -7,6 +7,9 @@ import { ConfigService } from '../services/config/config.service';
 import { HttpServices } from '../services/http-services/http_services.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CallServices } from '../services/callservices/callservice.service';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { Observable } from "rxjs/Rx";
 declare const jQuery: any;
 
 
@@ -26,12 +29,16 @@ export class InnerpageComponent implements OnInit {
   minutes: number = 0;
   counter: number = 0;
   current_campaign: any;
-
+  eventSpiltData: any;
   // language change stuff
   languageFilePath: any = 'assets/language.json';
   selectedlanguage: any = '';
   currentlanguageSet: any = {};
   language_change: any;
+  beneficiaryRegID: any;
+  providerServiceMapId: any;
+  timeRemaining: number = 30;
+  ticks: any;
 
   // eventSpiltData: any;
 
@@ -46,15 +53,17 @@ export class InnerpageComponent implements OnInit {
   loginUrl = this._config.getCommonLoginUrl();
   data: any = {};
   ctiHandlerURL: any;
-
+  validCallID: any;
   constructor(
     public getCommonData: dataService,
+    private _callServices: CallServices,
     public basicrouter: Router,
     public router: ActivatedRoute,
     public HttpServices: HttpServices,
     public http: Http,
     public sanitizer: DomSanitizer,
-    private _config: ConfigService
+    private _config: ConfigService,
+    private remarksMessage: ConfirmationDialogsService
 
   ) {
     this.currentlanguageSet = [];
@@ -82,6 +91,8 @@ export class InnerpageComponent implements OnInit {
   ngOnInit() {
     this.data = this.getCommonData.Userdata;
 
+    this.providerServiceMapId = this.getCommonData.current_service.serviceID;
+
     const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -95,7 +106,7 @@ export class InnerpageComponent implements OnInit {
         console.log(this.current_service + ':' + this.current_role);
       }
     });
-
+    this.getCallTypes(this.providerServiceMapId);
     this.language_change = 'english';
     this.getLanguageObject(this.language_change);
 
@@ -125,6 +136,7 @@ export class InnerpageComponent implements OnInit {
   getSelectedBenDetails(data: any) {
     if (data != null) {
       this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryRegID;
+      this.beneficiaryRegID = data.beneficiaryRegID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;
       this.selectedBenData.name = 'Name: ' + data.firstName + ' ' + data.lastName;
@@ -137,7 +149,7 @@ export class InnerpageComponent implements OnInit {
       // }
       this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
       this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
-      this.selectedBenData.district = 'District: ' + (data.i_bendemographics ? (data.i_bendemographics.m_district ? (data.i_bendemographics.m_district.districtName ? data.i_bendemographics.m_district.districtName : "") : "") : "");
+      this.selectedBenData.district = 'District: ' + (data.i_bendemographics ? (data.i_bendemographics.m_district ? (data.i_bendemographics.m_district.districtName ? data.i_bendemographics.m_district.districtName : "") : '') : '');
       this.selectedBenData.block = 'Taluk: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtblock ? (data.i_bendemographics.m_districtblock.blockName ? data.i_bendemographics.m_districtblock.blockName : "") : "") : "");
       this.selectedBenData.village = 'Village: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtbranchmapping ? (data.i_bendemographics.m_districtbranchmapping.villageName ? data.i_bendemographics.m_districtbranchmapping.villageName : "") : "") : "");
       this.selectedBenData.language = 'Preferred Lang: ' + (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : "") : "") : "");
@@ -203,20 +215,111 @@ export class InnerpageComponent implements OnInit {
       console.log('adding onmessage listener');
     }
   }
+  getCallTypes(providerServiceMapID) {
+    const requestObject = { 'providerServiceMapID': providerServiceMapID };
+    this._callServices.getCallTypes(requestObject).subscribe(response => {
+      this.validCallID = response.filter(function (item) {
+        return item.callGroupType.toLowerCase() === 'valid'
+      })[0].callTypes.filter(function (previousData) {
+        return previousData.callTypeDesc.toLowerCase() === 'valid'
+      })[0].callTypeID;
+      console.log('valid call id', this.validCallID);
+    }, (err) => {
 
+    });
+
+  }
+  testEvent() {
+    let event = new CustomEvent('message', {
+      detail: {
+        data: 'CustDisconnect|1505969514.3802000000',
+        time: new Date(),
+      },
+      bubbles: true,
+      cancelable: true
+    });
+    document.dispatchEvent(event);
+
+  }
   listener(event) {
     console.log('listener invoked: ' + event);
     console.log('event received' + JSON.stringify(event));
-    if (event.data) {
+    if (event.detail.data) {
+      this.eventSpiltData = event.detail.data.split('|');
       console.log('event data received' + JSON.stringify(event.data));
       // alert(event.data);
     } else {
+      this.eventSpiltData = event.data.split('|');
       console.log('event details data received' + JSON.stringify(event.detail.data));
       // alert(event.detail.data);
     }
-    this.handleEvent();
+    this.handleEvent(this.eventSpiltData);
   }
 
-  handleEvent() {
+  handleEvent(eventData) {
+
+    if (eventData[0] === 'Disconnect') {
+      // handle normal disconnect
+
+    } else if (eventData[0] === 'CustDisconnect') {
+
+      this.startCallWraupup(eventData);
+
+      // handle call transfer
+
+    } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
+      // handle outbound call
+    }
   }
+  closeCall(eventData, remarks) {
+
+    let requestObj = {};
+    requestObj['benCallID'] = this.getCommonData.callData.benCallID;
+    requestObj['callTypeID'] = this.validCallID.toString();
+    requestObj['fitToBlock'] = 'false';
+    requestObj['isFollowupRequired'] = false;
+    requestObj['prefferedDateTime'] = undefined
+    requestObj['callType'] = 'valid';
+    requestObj['beneficiaryRegID'] = this.beneficiaryRegID
+    requestObj['remarks'] = remarks;
+    requestObj['providerServiceMapID'] = this.getCommonData.current_service.serviceID;
+    requestObj['createdBy'] = this.getCommonData.uname;
+    requestObj['endCall'] = false;
+
+    this._callServices.closeCall(requestObj).subscribe((response) => {
+      if (response) {
+        this.remarksMessage.alert('Successfully Call Transfered');
+      }
+    }, (err) => {
+      this.remarksMessage.alert(err.status);
+      // this.message.alert(err.status);
+    });
+  }
+  showRemarks(eventData) {
+    let remarksGiven;
+    remarksGiven = '';
+    this.remarksMessage.remarks('Please Enter Remarks').subscribe((response) => {
+      if (response) {
+        remarksGiven = response;
+      } else {
+        remarksGiven = 'call tranfered';
+      }
+      this.closeCall(eventData, remarksGiven);
+    }, (err) => { });
+
+  }
+  startCallWraupup (eventData) {
+    this.showRemarks(eventData);
+    const timer = Observable.timer(2000, 1000);
+    timer.subscribe(t => {
+      this.ticks = (this.timeRemaining - t);
+      const remarks = 'call tranfered';
+      if (t == this.timeRemaining) {
+        // this.closeCall(eventData, remarks);
+        this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+      }
+    });
+  }
+
+
 }

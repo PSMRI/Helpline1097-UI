@@ -56,10 +56,9 @@ export class CoReferralServicesComponent implements OnInit {
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
-    // // call the api to get all the referrals done and store them in array;
 
+    // call the api to get all the referrals done and store them in array;
     // this.tableArray = []; //substitute it with the response
-
     // // call the api to get all the states
     // this.states = [];  //substitute it with the response
     this._userBeneficiaryData.getUserBeneficaryData()
@@ -101,15 +100,16 @@ export class CoReferralServicesComponent implements OnInit {
     this.data = response;
   }
 
-
   showForm() {
     this.showFormCondition = true;
     this.showTableCondition = false;
+
   }
 
   showTable() {
     this.showFormCondition = false;
     this.showTableCondition = true;
+    this.setBeneficiaryData();
   }
 
   SetUserBeneficiaryRegistrationData(regData: any) {
