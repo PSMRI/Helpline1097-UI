@@ -823,7 +823,9 @@ color:#545454;
 .m-l-2 {
   margin-left: 2px;
 }
-
+.m-l-5 {
+  margin-left: 5px !important;
+}
 .m-l-10 {
   margin-left: 10px;
 }
@@ -859,7 +861,9 @@ color:#545454;
 .m-b-0 {
   margin-bottom: 0px !important;
 }
-
+.m-b-1 {
+  margin-bottom: 1px !important;
+}
 .m-b-3 {
   margin-bottom: 3px !important;
 }
@@ -1722,7 +1726,10 @@ ul.topIcon li.help a:hover {
   /*  border:1px solid #dcdcdb;*/
   margin: 10px;
 }
-
+  .center-btn {
+    justify-content: center;
+    display: flex;  
+  }
 .circle {
   position: relative;
   padding: 0;
@@ -1739,7 +1746,9 @@ ul.topIcon li.help a:hover {
 .circle-admin {
   line-height: 30px !important;
 }
-
+  .whiteC {
+    color: white !important;
+  }
 .subRolecircle {
   display: none;
 }
@@ -2121,6 +2130,7 @@ input:-webkit-autofill:hover {
   .footer-text {
     color: white!important;
   }
+
   .footer-height {
     height: 30px!important;
     line-height: 30px!important;
@@ -2132,10 +2142,7 @@ input:-webkit-autofill:hover {
   .c-b {
     clear: both;
   }
-  .center-btn {
-    justify-content: center;
-    display: flex;  
-  }
+
   .loader-overlay {
     position: absolute;
     width: 100%;

@@ -17,14 +17,14 @@ export class ConfigService {
     // private _helpline1097BaseURL: String = 'http://10.152.3.99:8080/1097api-v1.0/';
     // private _telephonyServerURL: String = 'http://10.201.13.17/';
     // private _localeString = 'en-in';
-    // private _loginUrl = 'http://14.142.214.242:8080/commonui-v1.0';
+    // private _loginUrl = 'http://10.152.3.99:8080/commonui-v1.0';
     // private _commonBaseURL: String = 'http://localhost:8080/commonapi-v1.0/';
     // private _helpline1097BaseURL: String = 'http://localhost:8080/1097api-v1.0V1/';
     // private _telephonyServerURL: String = 'http://localhost/';
     // private _localeString = 'en-in';
     // private _loginUrl = 'http://14.142.214.242:8080/commonui-v1.0';
     constructor() {
-        this.successHandeler(config);
+    //    this.successHandeler(config);
     }
 
     getCommonBaseURL() {
