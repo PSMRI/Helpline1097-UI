@@ -204,8 +204,26 @@ export class supervisorFeedback implements OnInit {
 
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-      (feedback.feedbackRequests && feedback.feedbackRequests[0] && feedback.feedbackRequests[0].feedbackSupSummary) ?
-        feedback.feedbackRequests[0].feedbackSupSummary : ''
+      feedback.feedbackRequests ?
+        (
+          feedback.feedbackRequests[0] ?
+            (
+              feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
+            )
+            : feedback.feedback
+        )
+        : feedback.feedback
+    );
+    this.feedbackForm.controls.comments.setValue(
+      feedback.feedbackRequests ?
+        (
+          feedback.feedbackRequests[0] ?
+            (
+              feedback.feedbackRequests[0].comments ? feedback.feedbackRequests[0].comments : ""
+            )
+            : ""
+        )
+        : ""
     );
     this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiaryName);
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
@@ -258,12 +276,37 @@ export class supervisorFeedback implements OnInit {
 
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-      (feedback.feedbackRequests && feedback.feedbackRequests[0] && feedback.feedbackRequests[0].feedbackSupSummary) ?
-        feedback.feedbackRequests[0].feedbackSupSummary : ''
+      feedback.feedbackRequests ?
+        (
+          feedback.feedbackRequests[0] ?
+            (
+              feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
+            )
+            : feedback.feedback
+        )
+        : feedback.feedback
     );
     this.feedbackForm.controls.feedbackRequestID.setValue(
-      (feedback.feedbackRequests && feedback.feedbackRequests[0] && feedback.feedbackRequests[0].feedbackRequestID) ?
-        feedback.feedbackRequests[0].feedbackRequestID : undefined
+      feedback.feedbackRequests ?
+        (
+          feedback.feedbackRequests[0] ?
+            (
+              feedback.feedbackRequests[0].feedbackRequestID ? feedback.feedbackRequests[0].feedbackRequestID : undefined
+            )
+            : undefined
+        )
+        : undefined
+    );
+    this.feedbackForm.controls.comments.setValue(
+      feedback.feedbackResponses ?
+        (
+          feedback.feedbackResponses[0] ?
+            (
+              feedback.feedbackResponses[0].comments ? feedback.feedbackResponses[0].comments : ""
+            )
+            : ""
+        )
+        : ""
     );
     this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiaryName);
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
@@ -334,15 +377,25 @@ export class supervisorFeedback implements OnInit {
     return this.toUTCDate(new Date(millis));
   };
 
+  updateTimeOffset(date: Date) {
+    //(this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)
+    date = new Date(date.valueOf() - 1 * date.getTimezoneOffset() * 60 * 1000);
+    return date;
+  }
   onSearch() {
     let bodyString = this.feedbackForm2.value;
     // bodyString.endDate = new Date(this.feedbackForm2.value.endDate);
-    bodyString.endDate.setHours(23, 59, 59);
     if (bodyString.endDate === '') {
       bodyString.endDate = undefined;
+    } else {
+      bodyString.endDate.setHours(23, 59, 59);
+      bodyString.endDate = this.updateTimeOffset(bodyString.endDate);
     }
     if (bodyString.startDate === '') {
       bodyString.startDate = undefined;
+    } else {
+      bodyString.startDate.setHours(0, 0, 0);
+      bodyString.startDate = this.updateTimeOffset(bodyString.startDate);
     }
     if (bodyString.feedbackID === '') {
       bodyString.feedbackID = undefined;
