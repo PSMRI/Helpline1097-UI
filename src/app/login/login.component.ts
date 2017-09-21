@@ -46,7 +46,7 @@ export class loginContentClass {
 	};
 	errorCallback(error: any) {
 		if (error.status) {
-			this.loginResult = error.status;
+			this.loginResult = error.errorMessage;
 		} else {
 			this.loginResult = 'Internal issue please try after some time';
 		}

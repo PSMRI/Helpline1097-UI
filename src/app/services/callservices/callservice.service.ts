@@ -28,7 +28,7 @@ export class CallServices {
 
   closeCall(values: any) {
     console.log('data to be updated in service is', values);
-    return this._httpInterceptor.post(this._closecallurl, values).map(this.extractData).catch(this.handleError);
+    return this._httpInterceptor.post(this._closecallurl, values).map(this.extractData).catch(this.handleCustomError);
   }
 
   getCallSummary(values: any) {
