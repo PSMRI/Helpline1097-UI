@@ -4,9 +4,10 @@
       <div class="pull-left"><img src="assets/images/smLogo.png" alt="Logo" title="Logo"></div>
       <div class=" p-t-1">
         <ul class="list-inline list-unstyled pull-left m-b-0">
-          <li class="m-l-lg-40 m-t-5" *ngIf='checkRole'><img src="assets/images/transferCallIcon.png " alt="Caller Icon
+          <li class="m-l-lg-40 m-t-5" *ngIf="checkRole && current_campaign == 'INBOUND'"><img src="assets/images/transferCallIcon.png " alt="Caller Icon
     " title="Caller Icon " />
             <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green ">ON CALL</span>
+             <span class="m-l-lg-20 f-s-14 whiteC font-Semibold ">{{callDuration}}</span>
           </li>
         </ul>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
@@ -43,7 +44,7 @@
       <div class="row b-t-2-w ">
         <div class="col-xs-12 col-sm-12 m-t-3 ">
           <div class="row ">
-            <div class="col-xs-12 col-sm-8 col-md-2 col-lg-2 m-t-5">
+            <div class="m-t-5">
               <ul class="list-inline list-unstyled pull-left m-b-3 ">
                 <li class="cursorPointer " routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
                   <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i></li>
@@ -53,10 +54,10 @@
                 <!--<li class="f-s-16 font-Semibold ">My ID : CO0111120</li>-->
                 <!--<li class="f-s-16 font-Semibold ">Service: {{current_service}}</li>
                                 <li class="f-s-16 font-Semibold ">Role: {{current_role}}</li>-->
-                <li class="m-l-lg-40 " *ngIf='checkRole'><img src="assets/images/durationIcon.png " alt="Caller Icon
+<!--                 <li class="m-l-lg-40 " *ngIf='checkRole'><img src="assets/images/durationIcon.png " alt="Caller Icon
     " title="Caller Icon " />
                   <span class="m-l-lg-20 f-s-14 f-c-14508c font-Semibold ">{{callDuration}}</span>
-                </li>
+                </li> -->
                 <!-- <li class="f-s-14 font-regular ">My ID : CO0111120</li> -->
               </ul>
             </div>
@@ -74,7 +75,7 @@
                   <li class="font-regular ">Total talk time :<span class="f-s-14 f-c-14508c "> 2 hr:30 min:20 sec</span> </li>
                 </ul>
               </div> -->
-              <ul class="list-unstyled list-inline pull-left m-t-lg-10 p-a-0 m-b-3 ">
+              <ul class="list-unstyled list-inline pull-left  p-a-0 m-b-3 ">
                 <!-- <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li> -->
                 <li><span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span></li>
                 <li>{{selectedBenData.name}}</li>

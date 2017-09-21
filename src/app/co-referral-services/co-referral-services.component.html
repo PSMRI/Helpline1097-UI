@@ -12,7 +12,7 @@
       <button class="pull-right btn" (click)="showTable()">All Referrals</button>
     </div> -->
     <!-- <form novalidate #form="ngForm"> -->
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <!--             <div class="form-group">
                 <label class="control-label" for="state">State</label>
                 <select class="form-control drop-arrow ng-pristine ng-valid ng-empty ng-touched" name="state" [(ngModel)]="selected_state"
@@ -35,7 +35,7 @@
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <!--             <div class="form-group">
                 <label class="control-label" for="district">District</label>
                 <select class="form-control drop-arrow ng-pristine ng-valid ng-empty ng-touched" name="district" [(ngModel)]="selected_district"
@@ -58,7 +58,7 @@
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <!--             <div class="form-group">
                 <label class="control-label" for="taluk">Taluk</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="taluk" [(ngModel)]="selected_taluk"
@@ -84,7 +84,7 @@
           </md-hint> -->
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <!--             <div class="form-group">
                 <label class="control-label" for="sdt">Sub-District/Talluka/Block</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="sdtb" [(ngModel)]="selected_branch"> -->
@@ -98,7 +98,7 @@
             </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
-        <md-select placeholder="{{currentlanguage.referral_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_branch"
+        <md-select placeholder="{{currentlanguage.referral_service?.village}}" [style.width]="'100%'" [(ngModel)]="selected_branch"
           name="sdtb" (change)="GetSDTB(selected_taluk)">
           <md-option *ngFor="let sdtb of blocks" [value]="sdtb.districtBranchID">
             {{sdtb.villageName}}
@@ -109,7 +109,7 @@
           </md-hint> -->
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <!--             <div class="form-group has-label">
                 <label class="control-label" for="whatInformation">What Information do you require?(Directory)</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="whatInformation" [(ngModel)]="selected_directory"
@@ -130,7 +130,7 @@
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <!--             <div class="form-group">
                 <label class="control-label" for="subDirectory">Sub Directory</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="subDirectory" [(ngModel)]="selected_sub_directory">

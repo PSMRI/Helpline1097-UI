@@ -81,6 +81,7 @@ export class InnerpageComponent implements OnInit {
 
   ngOnInit() {
     this.data = this.getCommonData.Userdata;
+
     const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
