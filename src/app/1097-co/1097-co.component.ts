@@ -271,9 +271,11 @@ export class helpline1097CoComponent implements OnInit {
         jQuery('#myCarousel').carousel(0);
         jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
+        jQuery('#btnClosure').attr('disabled', null);
         this.isCancelDisable = true;
         this.isClosureDisable = false;
         this.isNext = false;
+        this.isPrevious = false;
       }
     });
   }
@@ -286,6 +288,7 @@ export class helpline1097CoComponent implements OnInit {
         this.isClosureDisable = true;
         this.isCancelDisable = false;
         this.isNext = false;
+        this.isPrevious = true;
       }
     });
   }

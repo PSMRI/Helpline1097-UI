@@ -184,7 +184,6 @@ export class InnerpageComponent implements OnInit {
 
   }
 
-
   // language change stuff
   getLanguageObject(language) {
     this.selectedlanguage = language;
@@ -210,7 +209,15 @@ export class InnerpageComponent implements OnInit {
   addListener() {
     if (window.parent.parent.addEventListener) {
       console.log('adding message listener');
-      addEventListener('message', this.listener.bind(this), false);
+      addEventListener('message', this.listener1.bind(this), false);
+    } else {
+      console.log('adding onmessage listener');
+    }
+  }
+  removeEventListener() {
+    if (window.parent.parent.removeEventListener) {
+      console.log('adding message listener');
+      addEventListener('message', null, false);
     } else {
       console.log('adding onmessage listener');
     }
@@ -229,20 +236,20 @@ export class InnerpageComponent implements OnInit {
     });
 
   }
-  
+
   testEvent() {
     let event = new CustomEvent('message', {
       detail: {
-        data: 'CustDisconnect|1505969514.3802000000',
+        data: 'Disconnect|1505969514.3802000000',
         time: new Date(),
       },
       bubbles: true,
       cancelable: true
     });
-    document.dispatchEvent(event);
+    // document.dispatchEvent(event);
 
   }
-  listener(event) {
+  listener1(event) {
     console.log('listener invoked: ' + event);
     console.log('event received' + JSON.stringify(event));
     if (event.detail.data) {
@@ -258,13 +265,13 @@ export class InnerpageComponent implements OnInit {
   }
 
   handleEvent(eventData) {
-
     if (eventData[0] === 'Disconnect') {
+      this.disconnectCall();
       // handle normal disconnect
 
     } else if (eventData[0] === 'CustDisconnect') {
 
-      this.startCallWraupup(eventData);
+      this.showRemarks(eventData);
 
       // handle call transfer
 
@@ -273,7 +280,6 @@ export class InnerpageComponent implements OnInit {
     }
   }
   closeCall(eventData, remarks) {
-
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
     requestObj['callTypeID'] = this.validCallID.toString();
@@ -308,21 +314,32 @@ export class InnerpageComponent implements OnInit {
       }
       this.closeCall(eventData, remarksGiven);
     }, (err) => { });
+    this.startCallWraupup(eventData);
 
   }
   startCallWraupup (eventData) {
-    this.showRemarks(eventData);
     const timer = Observable.timer(2000, 1000);
     timer.subscribe(t => {
       this.ticks = (this.timeRemaining - t);
       const remarks = 'call tranfered';
       if (t == this.timeRemaining) {
-        debugger
         this.remarksMessage.close();
         // this.closeCall(eventData, remarks);
       }
     });
   }
+  disconnectCall() {
+    this.remarksMessage.alert('Call Disconnected!!!');
+    jQuery('#myCarousel').carousel(3);
+    jQuery('#four').parent().find('a').removeClass('active-tab');
+    jQuery('#four').find('a').addClass('active-tab');
+    jQuery('#btnClosure').attr('disabled', 'disabled');
+    jQuery('#next').hide();
+    jQuery('#previous').show();
 
-
+  }
+  ngOnDestroy() {
+    this.removeEventListener();
+    //this.removeEventListener();
+  }
 }

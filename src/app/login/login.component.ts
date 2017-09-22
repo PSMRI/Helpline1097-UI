@@ -24,11 +24,11 @@ export class loginContentClass {
     // this.loading = true;
     console.log(userId, password);
     this.loginservice.authenticateUser(userId, password).subscribe(
-      (response: any) => this.successCallback(response),
+      (response: any) => this.successCallback(response, userId, password),
       (error: any) => this.errorCallback(error));
   };
 
-  successCallback(response: any) {
+  successCallback(response: any, userID: any, password: any) {
     this.loading = false;
     console.log(response);
     this.dataSettingService.Userdata = response;
@@ -36,9 +36,11 @@ export class loginContentClass {
     this.dataSettingService.userPriveliges = response.previlegeObj;
     this.dataSettingService.uid = response.userID;
     this.dataSettingService.uname = this.userID;
-    this.dataSettingService.CZentrixIP = response.agentID;
-    // console.log( "array" + response.Previlege );
-    console.log('array' + response.previlegeObj);
+    this.dataSettingService.Userdata.agentID = response.agentID;
+    this.dataSettingService.loginIP = response.loginIPAddress;
+    this.getLoginKey(userID, password);
+      // console.log( "array" + response.Previlege );
+      console.log('array' + response.previlegeObj);
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
       this.router.navigate(['/MultiRoleScreenComponent']);

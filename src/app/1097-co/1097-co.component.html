@@ -76,8 +76,8 @@
         <button id="previous" type="button" class="btn pull-left font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="prev"  [hidden]="!isPrevious" (click)="prevVisual()">{{currentlanguage.co?.previous}}</button>
         <button id="next"  type="button" class="btn pull-right font-regular f-s-18 m-r-5" href="#myCarousel" data-slide="next" [hidden]="!isNext" (click)="nxtVisual()">{{currentlanguage.co?.next}}</button>
         <div class="center-btn" align="center">
-          <button type="button" value="Cancel" class="btn  font-regular f-s-18 m-r-5" data-slide-to="1" (click)="openDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>
-          <button type="button" value="Close" class="btn  font-regular f-s-18 m-r-5" data-slide-to="4" (click)="openDialogClosure()"
+          <button type="button" id="btnCancel" value="Cancel" class="btn  font-regular f-s-18 m-r-5" data-slide-to="1" (click)="openDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>
+          <button type="button" id="btnClosure" value="Close" class="btn  font-regular f-s-18 m-r-5" data-slide-to="4" (click)="openDialogClosure()"
           [disabled]="isClosureDisable">{{currentlanguage.co?.closure}}</button>
         </div>
 

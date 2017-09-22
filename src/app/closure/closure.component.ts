@@ -6,7 +6,7 @@ import { CallServices } from '../services/callservices/callservice.service'
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { CommunicationService } from './../services/common/communication.service'
 import { Subscription } from 'rxjs/Subscription';
-
+import { CzentrixServices } from '../services/czentrix/czentrix.service';
 
 
 @Component({
@@ -37,7 +37,8 @@ export class ClosureComponent implements OnInit
   followUpDate: any;
   picker = '';
   current_campaign: any;
-
+  ipAddress: any;
+  agentID: number;
   today: Date;
 
   showSlider: boolean;
@@ -52,6 +53,7 @@ export class ClosureComponent implements OnInit
     private saved_data: dataService,
     private message: ConfirmationDialogsService,
     private pass_data: CommunicationService,
+    private czentrixServices: CzentrixServices
   ) { this.subscription = this.pass_data.getData().subscribe(benData => { this.outBoundCloseCall(benData) }); }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
@@ -68,6 +70,11 @@ export class ClosureComponent implements OnInit
     this.minDate = this.today;
     this.showSlider = false;
     this.current_campaign = this.saved_data.current_campaign;
+    if (!this.saved_data.loginIP) {
+      this.getIpAddress();
+    } else {
+      this.ipAddress = this.saved_data.loginIP;
+    }
   }
 
 
@@ -139,7 +146,7 @@ export class ClosureComponent implements OnInit
     values.fitToBlock = values.callTypeID.split(',')[1];
     values.callTypeID = values.callTypeID.split(',')[0];
     values.agentID = this.saved_data.Userdata.agentID;
-    values.agentIPAddress = this.saved_data.Userdata.loginIPAddress;
+    values.agentIPAddress = this.ipAddress;
     if (btnType === 'submitClose') {
       values.endCall = true;
     }
@@ -185,5 +192,12 @@ export class ClosureComponent implements OnInit
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
-
+  getIpAddress() {
+    this.czentrixServices.getIpAddress(this.saved_data.Userdata.agentID)
+      .subscribe(response => this.ipSuccessHandler(response));
+  }
+  ipSuccessHandler(response) {
+    console.log('fetch ip response: ' + JSON.stringify(response));
+    this.ipAddress = response.response.agent_ip;
+  }
 }
