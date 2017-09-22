@@ -31,6 +31,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   count;
   occupationID: any = undefined;
   occupations: any = [];
+  cameToKnowFrom: any;
   subscription: Subscription;
 
   sourceOfInfo: any = [
@@ -123,6 +124,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.saved_data.beneficiaryData.remarks = values.remarks;
 
     // alert( values );
+    debugger;
     const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe((response) => {
       this.showAlert();
     }, (err) => {

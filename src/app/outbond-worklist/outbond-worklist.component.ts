@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { CallServices } from './../services/callservices/callservice.service';
 import { dataService } from './../services/dataService/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-outbond-worklist',
@@ -11,7 +12,7 @@ import { dataService } from './../services/dataService/data.service';
 export class OutbondWorklistComponent implements OnInit {
   @Output() onOutboundCall: EventEmitter<any> = new EventEmitter<any>();
   data: any;
-  constructor(private _outBoundService: CallServices, private _common: dataService) {
+  constructor(private _outBoundService: CallServices, private _common: dataService, public router: Router) {
   }
 
   ngOnInit() {
@@ -31,6 +32,10 @@ export class OutbondWorklistComponent implements OnInit {
   //   modaldata:any;
   viewHistory(data: any) {
     this.onOutboundCall.emit(data);
+  }
+  backToDashBoard() {
+    this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
+
   }
 
 }

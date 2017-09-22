@@ -7,9 +7,10 @@
     <h4>FEEDBACK SERVICES</h4>
   </label>
 </div>
-<div style="height:240px" *ngIf="showFormCondition">
+<div  *ngIf="showFormCondition">
   <!--<form #feedbackForm="ngForm" *ngIf="showFormCondition">-->
   <!-- <div class="row" > -->
+  <form id="feedbackForm">
   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
     <!--                 <div class="form-group">
                     <label class="control-label" for="state1">State</label>
@@ -206,6 +207,7 @@
   </div>
   <!-- </div> -->
   <!--</form>-->
+  </form>
 </div>
 <!-- <div class="bg-white p-t-20 m-t-10" > -->
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
@@ -251,14 +253,17 @@
         <td colspan="5">
           <md2-pagination></md2-pagination>
         </td>
+        <td colspan="3">
+          <button class="btn pull-right" (click)="showForm()">{{currentlanguage.feedback_service?.create_feedback}}</button>
+        </td>
         <!-- <td colspan="3">
           <button class="btn pull-right" (click)="showForm()">{{currentlanguage.feedback_service?.create_feedback}}</button>
         </td> -->
       </tr>
     </table>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <button class="btn pull-right" (click)="showForm()">{{currentlanguage.feedback_service?.create_feedback}}</button>
-    </div>
+<!--     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    </div> -->
   </div>
 </div>
 <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">

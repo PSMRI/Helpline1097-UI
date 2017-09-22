@@ -126,10 +126,11 @@
     <!--</div>-->
     <!--  </div> -->
     <div class="row m-t-10">
-      <div class="col-xs-12 col-sm-12">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
         <h5>{{currentlanguage.other_details?.feedback_question}}</h5>
+
       </div>
-      <div class="col-xs-12 col-sm-12">
         <!--<div>
                     <label class="checkbox-inline">
                     <input type="checkbox" value="Pamphlet" [(ngModel)]="knowHow.pamphlet">Pamphlet</label>
@@ -148,14 +149,22 @@
                 </div>-->
         <!--<div *ngFor="let source of sourceOfInfo; let i=index">-->
         <!--<div *ngFor="let source of sourceOfInfo">-->
-        <div>
-          <!--<input type="checkbox" [formControl]="sourceOfInformation" value="{{sourceOfInfo[i].name}}"/> {{sourceOfInfo[i].name}}-->
-          <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
-            <!--<input type="checkbox" value="{{source.value}}" [(ngModel)]="sourceOfInformation"/> {{source.name}}</label>-->
-            <!-- <input type="checkbox" value="{{source.value}}" /> {{source.name}}</label> -->
-            <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label>
-        </div>  
-      </div>
+       
+<!--           <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
+
+            <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label> -->
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none">
+
+          <md-select multiple placeholder="Select" [style.width]="'100%'" [(ngModel)]="cameToKnowFrom" name="cameToKnowFrom">
+            <md-option *ngFor="let source of sourceOfInfo" value="{{source.value}}">
+
+              {{source.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+</div>
     </div>
     <!--<div class="col-xs-12 col-sm-12 m-t-5 m-b-5">
             <div class="row">

@@ -11,7 +11,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { Subscription } from 'rxjs/Subscription';
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
-
+declare var jQuery: any;
 
 @Component({
   selector: 'app-co-feedback-services',
@@ -231,7 +231,9 @@ export class CoFeedbackServicesComponent implements OnInit {
     this._coFeedbackService.createFeedback(feedbackObj)
       .subscribe((response) => {
         this.alertMessage.alert('Successfully Created');
-        this.showBeneficiaryFeedbackList()
+        this.showBeneficiaryFeedbackList();
+        this.feedbackServiceProvided.emit();
+        jQuery('#feedbackForm').trigger("reset");
       }, (err) => {
         this.selected_doi = undefined;
         console.log('Error in Feedback', err);
