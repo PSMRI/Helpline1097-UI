@@ -15,6 +15,7 @@ export class CommonDialogComponent implements OnInit {
   public btnCancelText?: string;
   public alert: boolean;
   public confirmAlert: boolean;
+  public remarks: boolean;
   constructor(public dialogRef: MdDialogRef<CommonDialogComponent>) { }
 
   ngOnInit() {

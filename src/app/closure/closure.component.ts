@@ -119,7 +119,6 @@ export class ClosureComponent implements OnInit
   }
 
   closeCall(values: any, btnType: any) {
-
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -139,16 +138,23 @@ export class ClosureComponent implements OnInit
     values.createdBy = this.saved_data.uname;
     values.fitToBlock = values.callTypeID.split(',')[1];
     values.callTypeID = values.callTypeID.split(',')[0];
+    values.agentID = this.saved_data.Userdata.agentID;
+    values.agentIPAddress = this.saved_data.Userdata.loginIPAddress;
+    if (btnType === 'submitClose') {
+      values.endCall = true;
+    }
     console.log('close called with ' + values);
-    this._callServices.closeCall(values).subscribe((response) => {
-      this.showAlert();
-      if (btnType === 'submitClose') {
-        this.callClosed.emit(this.current_campaign);
-      } else {
-        this.closedContinue.emit();
-      }
-      // this.pass_data.sendData(this.current_campaign);
 
+    this._callServices.closeCall(values).subscribe((response) => {
+      if (response) {
+        this.showAlert();
+        if (btnType === 'submitClose') {
+          this.callClosed.emit(this.current_campaign);
+        } else {
+          this.closedContinue.emit();
+        }
+        // this.pass_data.sendData(this.current_campaign);
+      }
     }, (err) => {
       this.message.alert(err.status);
     });

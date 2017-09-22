@@ -80,7 +80,7 @@
                       </div> -->
     <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput class="display_none">
-      <md-select placeholder="{{currentlanguage.feedback_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_sdtb" name="sdtb" (change)="GetInstitutes()">
+      <md-select placeholder="{{currentlanguage.feedback_service?.village}}" [style.width]="'100%'" [(ngModel)]="selected_sdtb" name="sdtb" (change)="GetInstitutes()">
         <md-option *ngFor="let block of blocks" [value]="block.districtBranchID">
           {{block.villageName}}
         </md-option>
@@ -244,7 +244,7 @@
           <td>{{feedback.feedbackType?.feedbackTypeName}}</td>
           <td>{{feedback.createdBy}}</td>
           <td>{{feedback.feedbackStatus?.feedbackStatus}}</td>
-          <td>{{feedback.createdDate|date:'dd/MM/yyyy HH:mm'}}</td>
+          <td>{{millisToUTCDate(feedback.createdDate)|date:'dd/MM/yyyy HH:mm'}}</td>
         </tr>
       </tbody>
       <tr>

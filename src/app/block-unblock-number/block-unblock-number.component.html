@@ -103,13 +103,10 @@
           <tr>
             <th>Phone Number</th>
             <th md2SortBy="isBlocked">Status</th>
-            <!-- <th>Block Date</th>
-            <th>Unblock Date</th> -->
+            <th>Call Count</th>
             <th>Reason</th>
-            <!-- <th>Agent</th> -->
             <th>Blocked Till</th>
             <th>Action</th>
-
           </tr>
         </thead>
         <tbody>
@@ -121,10 +118,9 @@
           <tr style="cursor: pointer;" *ngFor="let blacklist of md2.data">
             <td>{{blacklist.phoneNo}}</td>
             <td>{{blacklist.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
-            <!-- <td>24/06/2017</td>
-            <td>31/06/2017</td> -->
+            <td>{{blacklist.noOfNuisanceCall ? ((blacklist.noOfNuisanceCall>0) ? blacklist.noOfNuisanceCall : 0): 0}}</td>
             <td>Nuisence Call</td>
-            <td>{{blacklist.isBlocked ? (blacklist.blockEndDate|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
+            <td>{{blacklist.isBlocked ? (millisToUTCDate(blacklist.blockEndDate)|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
             <td>
               <button class="btn btn-success" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
               <button class="btn" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>

@@ -32,7 +32,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 
 	constructor(public _SupervisorCallTypeReportService: SupervisorCallTypeReportService,
-		public commonDataService: dataService ,private alertMessage:ConfirmationDialogsService) {
+		public commonDataService: dataService, private alertMessage: ConfirmationDialogsService) {
 
 		this.tableFlag = false;
 		this.today = new Date();
@@ -77,7 +77,15 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 		this._SupervisorCallTypeReportService.filterCallList(requestObj).subscribe(
 			(response: Response) => this.filterCallListArray = this.successhandeler(response));
 	}
+	toUTCDate(date) {
+		const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+			date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+		return _utc;
+	};
 
+	millisToUTCDate(millis) {
+		return this.toUTCDate(new Date(millis));
+	};
 	successhandeler(response) {
 		console.log(response, "respinse call wala");
 		if (response.length > 5) {

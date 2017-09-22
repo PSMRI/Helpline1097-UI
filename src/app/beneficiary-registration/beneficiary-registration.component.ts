@@ -710,11 +710,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   // calculate date of birth on the basis of age
   calculateDOB(age) {
     const currentYear = this.today.getFullYear();
+    this.DOB = new Date(this.today.setFullYear(currentYear - age));
     // int parsing in decimal format
     // if (this.DOB) {
     //   this.DOB = new Date(this.DOB.getDate() + '/' + (this.DOB.getMonth() + 1) + '/' + (currentYear - parseInt(age, 10)))
     // } else {
-    this.DOB = new Date('' + (currentYear - parseInt(age, 10)));
+    // this.DOB = new Date('' + (currentYear - parseInt(age, 10)));
     // }
 
     this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', 'readonly');
@@ -798,14 +799,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Passpoert No. Ex:alphanumeric';
+          this.idErrorText = 'Enter valid Passport No. Ex:alphanumeric';
           break;
         }
       case 6:
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Passpoert No. Ex:alphanumeric';
+          this.idErrorText = 'Enter valid Ration No. Ex:alphanumeric';
           break;
         }
       default:

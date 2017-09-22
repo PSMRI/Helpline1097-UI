@@ -16,7 +16,8 @@ export class OutbondWorklistComponent implements OnInit {
 
   ngOnInit() {
     const serviceProviderMapID = this._common.current_service.serviceID;
-    this._outBoundService.getOutboundCallList(serviceProviderMapID).subscribe((response) => {
+    const userId = this._common.uid;
+    this._outBoundService.getOutboundCallList(serviceProviderMapID, userId).subscribe((response) => {
       this.AssignData(response);
       console.log('Call History Data is', response);
     }, (err) => {

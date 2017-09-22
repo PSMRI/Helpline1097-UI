@@ -56,10 +56,9 @@ export class CoReferralServicesComponent implements OnInit {
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
-    // // call the api to get all the referrals done and store them in array;
 
+    // call the api to get all the referrals done and store them in array;
     // this.tableArray = []; //substitute it with the response
-
     // // call the api to get all the states
     // this.states = [];  //substitute it with the response
     this._userBeneficiaryData.getUserBeneficaryData()
@@ -101,15 +100,16 @@ export class CoReferralServicesComponent implements OnInit {
     this.data = response;
   }
 
-
   showForm() {
     this.showFormCondition = true;
     this.showTableCondition = false;
+
   }
 
   showTable() {
     this.showFormCondition = false;
     this.showTableCondition = true;
+    this.setBeneficiaryData();
   }
 
   SetUserBeneficiaryRegistrationData(regData: any) {
@@ -185,14 +185,23 @@ export class CoReferralServicesComponent implements OnInit {
       'date': new Date()
     }
     // this.tableArray.push(refObj);
-    this.data.push(refObj);
+    // this.data.push(refObj);
+    this.setBeneficiaryData();
 
   }
   getBenData(benData: any) {
     this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
     this.setBeneficiaryData();
   }
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
 
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
