@@ -24,7 +24,7 @@ export class ConfigService {
     // private _localeString = 'en-in';
     // private _loginUrl = 'http://14.142.214.242:8080/commonui-v1.0';
     constructor() {
-        this.successHandeler(config);
+     //   this.successHandeler(config);
     }
 
     getCommonBaseURL() {
