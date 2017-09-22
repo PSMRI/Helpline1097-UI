@@ -26,6 +26,9 @@ export class dataService {
 	current_role: any;
 	current_service: any;
 	parentBeneficiaryData: any = {};
+	cZentrixAgentID: number;
+	CZentrixIP: any;
+	loginKey: any;
 };
 
 
