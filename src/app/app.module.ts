@@ -6,11 +6,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { InterceptedHttp } from './http.interceptor'
-import {
-  MaterialModule,
-  MdMenuModule,
-  MdCardModule
-} from '@angular/material';
+import { MaterialModule, MdMenuModule,MdCardModule } from '@angular/material';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';

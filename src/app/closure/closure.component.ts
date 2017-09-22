@@ -138,10 +138,13 @@ export class ClosureComponent implements OnInit
     values.createdBy = this.saved_data.uname;
     values.fitToBlock = values.callTypeID.split(',')[1];
     values.callTypeID = values.callTypeID.split(',')[0];
-    console.log('close called with ' + values);
+    values.agentID = this.saved_data.Userdata.agentID;
+    values.agentIPAddress = this.saved_data.Userdata.loginIPAddress;
     if (btnType === 'submitClose') {
       values.endCall = true;
     }
+    console.log('close called with ' + values);
+
     this._callServices.closeCall(values).subscribe((response) => {
       if (response) {
         this.showAlert();
