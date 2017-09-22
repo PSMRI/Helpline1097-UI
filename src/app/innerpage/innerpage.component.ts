@@ -37,7 +37,7 @@ export class InnerpageComponent implements OnInit {
   language_change: any;
   beneficiaryRegID: any;
   providerServiceMapId: any;
-  timeRemaining: number = 30;
+  timeRemaining: number = 3;
   ticks: any;
 
   // eventSpiltData: any;
@@ -229,6 +229,7 @@ export class InnerpageComponent implements OnInit {
     });
 
   }
+  
   testEvent() {
     let event = new CustomEvent('message', {
       detail: {
@@ -289,6 +290,7 @@ export class InnerpageComponent implements OnInit {
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
         this.remarksMessage.alert('Successfully Call Transfered');
+        this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
       }
     }, (err) => {
       this.remarksMessage.alert(err.status);
@@ -315,9 +317,9 @@ export class InnerpageComponent implements OnInit {
       this.ticks = (this.timeRemaining - t);
       const remarks = 'call tranfered';
       if (t == this.timeRemaining) {
+        debugger
         this.remarksMessage.close();
         // this.closeCall(eventData, remarks);
-        this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
       }
     });
   }
