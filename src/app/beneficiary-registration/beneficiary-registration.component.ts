@@ -10,10 +10,11 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { Message } from './../services/common/message.service'
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
 import { CommunicationService } from './../services/common/communication.service'
-
+import { CzentrixServices } from '../services/czentrix/czentrix.service';
 
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
-
+import { OutboundService } from './../services/common/outbound.services';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-beneficiary-registration',
@@ -118,12 +119,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   peopleCalledEarlier: boolean = false;
   genderErrFlag: any = false;
   stateErrFlag: any = false;
-
+  subscription: Subscription;
+  cZentrixIp: any;
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
     private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
-    private pass_data: CommunicationService) { }
+    private pass_data: CommunicationService, private outboundService: OutboundService, private czentrixService: CzentrixServices) {
+    this.subscription = this.outboundService.getOutboundData().subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
+  }
 
   /* Intialization Of value and object has to be written in here */
 
@@ -169,6 +173,48 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.advanceBtnHide = true;
     this.spinner = false;
     this.spinnerState = true;
+  }
+
+  startOutBoundCall(outboundData: any) {
+    const data: any = {};
+    data.callID = this.saved_data.callID;
+    data.is1097 = true;
+    data.createdBy = this.saved_data.uname;
+    data.calledServiceID = this.saved_data.current_service.serviceID;
+    data.phoneNo = outboundData.outboundData.benPhoneMaps[0].phoneNo;
+    this._util.startCall(data).subscribe((response) => {
+      this.setBenCall(response);
+      this.czentrixService.getIpAddress(this.saved_data.Userdata.agentID)
+        .subscribe((ipAddressresponse) => {
+          this.cZentrixIp = ipAddressresponse.agent_ip;
+          if (!this.cZentrixIp) {
+            this.cZentrixIp = this.saved_data.loginIP;
+          }
+          this.outboundEvent(outboundData, this.cZentrixIp)
+        },
+        (error) => {
+          this.alertMaessage.alert('Some Error while calling Czentrix');
+        });
+
+    });
+  }
+  outboundEvent(outboundData: any, IpAddress: any) {
+    const params = 'transaction_id=CTI_DIAL&agent_id=' + this.saved_data.Userdata.agentID +
+      '&ip=' + IpAddress + '&phone_num=' + outboundData.outboundData.benPhoneMaps[0].phoneNo +
+      '&resFormat=3';
+    this.czentrixService.callAPI(params)
+      .subscribe((res) => {
+        console.log(res);
+        if (res.status === 'SUCCESS') {
+          this.retrieveRegHistory(outboundData.outboundData.beneficiaryRegID);
+          this.commonData.current_campaign = 'OUTBOUND';
+        } else {
+          this.alertMaessage.alert('Issue In Calling Outbound');
+        }
+      },
+      (error) => {
+        this.alertMaessage.alert('Some Error while calling Czentrix');
+      });
   }
   reloadCall() {
     this.retrieveRegHistoryByPhoneNo(this.saved_data.callerNumber);
@@ -451,8 +497,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
     const res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
       .subscribe(response => this.handleRegHistorySuccess(response));
-
-
   }
 
 
@@ -834,6 +878,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.pass_data.sendData(data);
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];
   //   this.pincodeLocation.forEach((element: any) => {
