@@ -6,10 +6,26 @@
     <div id="dashboardContent">
       <!--  <button type="button" class="hamburger is-open" data-toggle="offcanvas"> <span class="hamb-top"></span> <span class="hamb-middle"></span> <span class="hamb-bottom"></span> </button> -->
       <div>
-        <div class="col-xs-6 col-sm-6 col-md-9 col-lg-9">
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
           <dashboard-user-id (click)="testEvent()" *ngIf="showDashboardContent"></dashboard-user-id>
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+        <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4 p-t-5">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <select class="form-control" name="widget_adder" [(ngModel)]="widget">
+                <option value="0">Select Widget</option>
+                <option value="1">Activity this week</option>
+                <option value="2">Rating</option>
+                <option value="3">Alerts n Notifications</option>
+                <!-- <option value="4">Daily Tasks</option> -->
+                <option value="5">News Information</option>
+                <option value="6">Call Statistics</option>
+            </select>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <button md-raised-button color="primary" type="button" (click)="addWidget(widget)">Add Widget</button>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
           <!-- <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3"> -->
           <!-- <div > -->
           <!--   <label class="p-r-5">{{currentInOutState}}</label>
@@ -25,14 +41,20 @@
           <!-- </div> -->
         </div>
         <div class="" *ngIf="showDashboardContent">
-          <activity-this-week></activity-this-week>
+          <!-- <activity-this-week></activity-this-week>
           <rating></rating>
-          <alerts-notifications></alerts-notifications>
+          <alerts-notifications></alerts-notifications> -->
           <!-- <daily-tasks></daily-tasks> -->
-          <news-informations></news-informations>
+          <!-- <news-informations></news-informations>
 
           <weather-warnings *ngIf="false"></weather-warnings>
-          <app-training-resources></app-training-resources>
+          <app-training-resources></app-training-resources> -->
+          <activity-this-week *ngIf="activity_component" (hide_component)="hideComponentHandeler($event)"></activity-this-week>
+          <rating *ngIf="ratings_component" (hide_component)="hideComponentHandeler($event)"></rating>
+          <alerts-notifications *ngIf="alerts_component" (hide_component)="hideComponentHandeler($event)"></alerts-notifications>
+          <!-- <daily-tasks *ngIf="daily_tasks_component" (hide_component)="hideComponentHandeler($event)"></daily-tasks> -->
+          <news-informations *ngIf="news_component" (hide_component)="hideComponentHandeler($event)"></news-informations>
+          <app-call-statistics *ngIf="call_statistics" (hide_component)="hideComponentHandeler($event)"></app-call-statistics>
         </div>
       </div>
     </div>

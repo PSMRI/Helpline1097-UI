@@ -84,6 +84,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   showTable() {
     this.showFormCondition = false;
     this.showTableCondition = true;
+    // this.showBeneficiaryFeedbackList();
   }
 
   GetServiceTypes() {
@@ -133,6 +134,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   }
 
   showBeneficiaryFeedbackList() {
+    debugger;
     this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryRegID, this.serviceID)
       .subscribe((response) => {
         this.setFeedbackHistoryByID(response)

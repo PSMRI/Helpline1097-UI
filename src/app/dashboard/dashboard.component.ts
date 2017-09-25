@@ -21,6 +21,13 @@ export class dashboardContentClass implements OnInit {
   current_role: any;
   inOutBound: any = '1';
   showDashboardContent: boolean = false;
+  activity_component: boolean = true;
+  ratings_component: boolean = true;
+  alerts_component: boolean = true;
+  // daily_tasks_component: boolean = true;
+  news_component: boolean = true;
+  call_statistics: boolean = true;
+  widget: any = '0';
   loginUrl = this.configService.getCommonLoginUrl();
   constructor(
     public dataSettingService: dataService,
@@ -96,6 +103,7 @@ export class dashboardContentClass implements OnInit {
       cancelable: true
     });
      document.dispatchEvent(event);
+
   }
 
   listener(event) {
@@ -152,6 +160,46 @@ export class dashboardContentClass implements OnInit {
   // ngOnDestroy() {
   //   Cookie.deleteAll();
   // }
-
+  addWidget(widget_name) {
+    if (widget_name === '1') {
+      this.activity_component = true;
+    }
+    if (widget_name === "2") {
+      this.ratings_component = true;
+    }
+    if (widget_name === "3") {
+      this.alerts_component = true;
+    }
+    // if (widget_name === "4") {
+    //   this.daily_tasks_component = true;
+    // }
+    if (widget_name === "5") {
+      this.news_component = true;
+    }
+    if (widget_name === "6") {
+      this.call_statistics = true;
+    }
+  }
+  hideComponentHandeler(event) {
+    console.log('event is', event);
+    if (event === "1") {
+      this.activity_component = false;
+    }
+    if (event === "2") {
+      this.ratings_component = false;
+    }
+    if (event === "3") {
+      this.alerts_component = false;
+    }
+    // if (event === "4") {
+    //   this.daily_tasks_component = false;
+    // }
+    if (event === "5") {
+      this.news_component = false;
+    }
+    if (event === "6") {
+      this.call_statistics = false;
+    }
+  }
 }
 
