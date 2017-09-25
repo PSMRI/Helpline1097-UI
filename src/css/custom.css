@@ -1775,7 +1775,9 @@ ul.topIcon li.help a:hover {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
-
+.t-a-c {
+  text-align: center;
+}
 .circle-btn {
   position: relative;
   display: block;
@@ -1792,7 +1794,9 @@ ul.topIcon li.help a:hover {
 .circle-btn>* {
   position: relative;
 }
-
+.footer-text {
+  color: white!important;
+}
 .circle-btn:before {
   content: "";
   position: absolute;
@@ -1831,7 +1835,14 @@ input:-webkit-autofill:hover {
 .overflow-y {
   overflow-y: auto;
 }
-
+.footer-height {
+  height: 30px!important;
+  line-height: 30px!important;
+}
+.copyright_icon {
+  width: 10px!important;
+  font-size: 10px;
+}
 .animation-nav {
   margin-bottom: 4px;
   background: #fff;
@@ -2115,9 +2126,7 @@ input:-webkit-autofill:hover {
   .width-lg-97 {
     width: 97% !important;
   }
-  .t-a-c {
-    text-align: center;
-  }
+
   .footer {
     position: absolute;
     bottom: 0;
@@ -2126,18 +2135,6 @@ input:-webkit-autofill:hover {
     line-height: 30px;
     padding-left: 15px;
     padding-right: 15px;
-  }
-  .footer-text {
-    color: white!important;
-  }
-
-  .footer-height {
-    height: 30px!important;
-    line-height: 30px!important;
-  }
-  .copyright_icon {
-    width: 10px!important;
-    font-size: 10px;
   }
   .c-b {
     clear: both;
