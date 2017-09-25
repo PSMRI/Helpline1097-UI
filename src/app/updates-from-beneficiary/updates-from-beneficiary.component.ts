@@ -77,7 +77,6 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   PopulateUpdateData() {
-
     if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
       this.occupationID = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
@@ -124,7 +123,6 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.saved_data.beneficiaryData.remarks = values.remarks;
 
     // alert( values );
-    debugger;
     const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe((response) => {
       this.showAlert();
     }, (err) => {

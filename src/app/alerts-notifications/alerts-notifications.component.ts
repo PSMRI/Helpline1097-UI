@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DashboardHttpServices } from '../http-service/http-service.service';
 import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
@@ -19,6 +19,7 @@ export class AlertsNotificationComponent implements OnInit {
     notifications: any;
     alertPostData: any;
     notificationPostData: any;
+    @Output() hide_component: EventEmitter<any> = new EventEmitter<any>();
     constructor(private dashboardHttpServices: DashboardHttpServices, private dataService: dataService, private notificationService: NotificationService, public dialog: MdDialog) { }
 
 
@@ -177,4 +178,7 @@ export class AlertsNotificationComponent implements OnInit {
         });
     }
 
+    close() {
+        this.hide_component.emit("3");
+    };
 }
