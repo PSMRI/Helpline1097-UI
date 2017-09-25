@@ -102,7 +102,7 @@ export class SupervisorNotificationsComponent implements OnInit {
   }
   onSubmitShowForm() {
     console.log(this.showNotificationForm.value);
-    console.log(new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z");
+    // console.log(new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z");
     this.onConfigSubmit = true;
     this.notificationPostData = {
       "providerServiceMapID": this.providerServiceMapID,

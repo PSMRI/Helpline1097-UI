@@ -102,7 +102,8 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-    document.dispatchEvent(event);
+     document.dispatchEvent(event);
+
   }
 
   listener(event) {

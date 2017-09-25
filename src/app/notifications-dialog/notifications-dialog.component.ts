@@ -19,13 +19,14 @@ export class NotificationsDialogComponent implements OnInit {
   fileList: FileList;
   error1: boolean = false;
   error2: boolean = false;
+  error3: boolean = false;
   createdBy: any;
   requiredArr = [];
   userId : any;
   file : any;
   fileContent : any;
 
-  mindate: Date;
+  minDate: Date;
   @ViewChild('notificationForm') notificationForm: NgForm;
   
   constructor(private notificationService: NotificationService,public commonDataService: dataService, public dialog : MdDialog,@Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<NotificationsDialogComponent>) { }
@@ -34,7 +35,10 @@ export class NotificationsDialogComponent implements OnInit {
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.uname;
     this.userId = this.commonDataService.uid;
-  this.mindate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate()-1);
+  // this.mindate.toJSON();
+  // // this.mindate.toISOString();
 
   }
 
@@ -50,17 +54,27 @@ export class NotificationsDialogComponent implements OnInit {
     if(this.fileList.length==0){
       this.error1 = true;
       this.error2 = false;
+      this.error3 = false;
     }
     else if(this.fileList.length > 0 && this.fileList[0].size/1000/1000 <=this.maxFileSize){
       console.log(this.fileList[0].size/1000/1000);
       this.error1 = false;
       this.error2 = false;
+      this.error3 = false;
+    }
+    else if(this.fileList[0].size/1000/1000 == 0){
+      console.log(this.fileList[0].size/1000/1000);
+      this.error2 = false;
+      this.error1 = false;
+      this.error3 = true
     }
     else if(this.fileList[0].size/1000/1000 >this.maxFileSize){
       console.log(this.fileList[0].size/1000/1000);
       this.error2 = true;
       this.error1 = false;
+      this.error3 = false;
     }
+
   }
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;

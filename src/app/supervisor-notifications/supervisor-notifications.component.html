@@ -85,7 +85,7 @@
       </md-select>
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
-      <md2-datepicker name="startDate" placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
+      <md2-datepicker name="startDate" placeholder="Valid From"  #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
       <md2-datepicker name="endDate" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
@@ -97,7 +97,7 @@
     </div>
     <!-- <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15" *ngIf="!onConfigSubmit"> -->
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15"> 
-      <button class="pull-right" md-raised-button color="primary" (click)="createNotification()">Create Notification</button>
+      <button class="pull-right" type="button" md-raised-button color="primary" (click)="createNotification()">Create Notification</button>
     </div>
     
   </form>
