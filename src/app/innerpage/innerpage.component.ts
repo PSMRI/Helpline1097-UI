@@ -232,9 +232,12 @@ export class InnerpageComponent implements OnInit {
   getCallTypes(providerServiceMapID) {
     const requestObject = { 'providerServiceMapID': providerServiceMapID };
     this._callServices.getCallTypes(requestObject).subscribe(response => {
+      console.log(response);
       this.validCallID = response.filter(function (item) {
+        console.log(item.callGroupType);
         return item.callGroupType.toLowerCase() === 'valid'
       })[0].callTypes.filter(function (previousData) {
+        console.log(previousData.callTypeDesc);
         return previousData.callTypeDesc.toLowerCase() === 'valid'
       })[0].callTypeID;
       console.log('valid call id', this.validCallID);

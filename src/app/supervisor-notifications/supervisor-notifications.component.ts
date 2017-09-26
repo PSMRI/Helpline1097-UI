@@ -78,14 +78,14 @@ export class SupervisorNotificationsComponent implements OnInit {
                     type: "Message"
                   }
                 });
-                this.notificationService.getSupervisorNotifications(this.notificationPostData)
-                  .subscribe((response) => {
-                    this.notifications = response.data;
-                    console.log(this.notifications);
-                  },
-                  (error) => {
-                    this.alertMessage.alert(error.status);
-                  });
+                // this.notificationService.getSupervisorNotifications(this.notificationPostData)
+                //   .subscribe((response) => {
+                //     this.notifications = response.data;
+                //     console.log(this.notifications);
+                //   },
+                //   (error) => {
+                //     this.alertMessage.alert(error.status);
+                //   });
               }
             },
             (error) => {
