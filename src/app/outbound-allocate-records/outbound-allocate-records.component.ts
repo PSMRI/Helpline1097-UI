@@ -78,7 +78,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this._OCAService.allocateCallsToAgenta(this.allocateForm.value)
       .subscribe(
       (response) => {
-        this.alertMessage.alert('Sucessfully Allocated');
+        this.alertMessage.alert('Successfully Allocated');
          this.outboundCount.emit(this.outboundCallRequests.length - val.allocateNo);
         console.log(response);
       },

@@ -75,7 +75,5 @@ export class ConfirmationDialogsService {
         return dialogRef.afterClosed();
     }
     public close(): void {
-        let dialogRef: MdDialogRef<CommonDialogComponent>;
-        dialogRef.close();
     }
 }

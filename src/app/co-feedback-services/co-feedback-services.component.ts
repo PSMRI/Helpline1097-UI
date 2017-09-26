@@ -134,7 +134,6 @@ export class CoFeedbackServicesComponent implements OnInit {
   }
 
   showBeneficiaryFeedbackList() {
-    debugger;
     this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryRegID, this.serviceID)
       .subscribe((response) => {
         this.setFeedbackHistoryByID(response)

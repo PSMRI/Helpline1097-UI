@@ -6,7 +6,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { InterceptedHttp } from './http.interceptor'
-import { MaterialModule, MdMenuModule,MdCardModule } from '@angular/material';
+import { MaterialModule, MdMenuModule, MdCardModule } from '@angular/material';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -123,9 +123,10 @@ import { OutboundCallAllocationService } from './services/outboundServices/outbo
 import { OutboundWorklistService } from './services/outboundServices/outbound-work-list.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service'
 import { CommunicationService } from './services/common/communication.service'
-import { CallStatisticsComponent } from "./call-statistics/call-statistics.component";
-import { CzentrixServices } from "./services/czentrix/czentrix.service";
-
+import { CallStatisticsComponent } from './call-statistics/call-statistics.component';
+import { CzentrixServices } from './services/czentrix/czentrix.service';
+import { OutboundService } from './services/common/outbound.services';
+import { ListnerService } from './services/common/listner.service';
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
 
@@ -260,7 +261,7 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
-    CommunicationService, {
+    CommunicationService, OutboundService, ListnerService, {
       provide: InterceptedHttp,
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, LoaderService]

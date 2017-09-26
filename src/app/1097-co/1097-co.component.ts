@@ -6,7 +6,8 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router'
 declare var jQuery: any;
-import { CommunicationService } from './../services/common/communication.service'
+import { CommunicationService } from './../services/common/communication.service';
+import { OutboundService } from './../services/common/outbound.services';
 
 @Component({
   selector: 'app-1097-co',
@@ -47,7 +48,8 @@ export class helpline1097CoComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private dialogService: ConfirmationDialogsService,
     private _viewContainerRef: ViewContainerRef,
-    private pass_data: CommunicationService
+    private pass_data: CommunicationService,
+    private outBoundService: OutboundService
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -298,9 +300,10 @@ export class helpline1097CoComponent implements OnInit {
   public callBenOutbound(event: any) {
     this.getCommonData.current_campaign = 'INBOUND';
     this.current_campaign = this.getCommonData.current_campaign;
-    this.getSelectedBenDetails(event.beneficiary);
-    this.benService('benService');
-    this.pass_data.sendData(event.beneficiary);
+    // this.getSelectedBenDetails(event.beneficiary);
+    // this.benService('benService');
+    this.basicrouter.navigate(['/InnerpageComponent']);
+    this.outBoundService.sendOutboundData(event.beneficiary);
   }
 
 
