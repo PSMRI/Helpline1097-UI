@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dataService } from '../services/dataService/data.service';
@@ -6,6 +6,7 @@ import { ConfigService } from '../services/config/config.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service'
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { loginService } from '../services/loginService/login.service';
+import { ListnerService } from './../services/common/listner.service';
 
 @Component({
   selector: 'dashboard-component',
@@ -29,6 +30,7 @@ export class dashboardContentClass implements OnInit {
   call_statistics: boolean = true;
   training_resources: boolean = true;
   widget: any = '0';
+  listenCall: any;
   loginUrl = this.configService.getCommonLoginUrl();
   constructor(
     public dataSettingService: dataService,
@@ -36,7 +38,8 @@ export class dashboardContentClass implements OnInit {
     private configService: ConfigService,
     public sanitizer: DomSanitizer,
     private message: ConfirmationDialogsService,
-    private _loginService: loginService
+    private _loginService: loginService,
+    private renderer: Renderer
   ) { };
   ngOnInit() {
     // const userObj = JSON.parse(Cookie.get('userID'));
@@ -79,7 +82,11 @@ export class dashboardContentClass implements OnInit {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
-    this.addListener();
+    // this.addListener();
+    this.listenCall = this.renderer.listenGlobal('window', 'message', (event) => {
+      this.listener(event);
+      // Do something with 'event'
+    });
   }
   toggleBar() {
     // if ( this.barMinimized )
@@ -103,7 +110,7 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-     document.dispatchEvent(event);
+    // document.dispatchEvent(event);
 
   }
 
@@ -119,6 +126,7 @@ export class dashboardContentClass implements OnInit {
       this.eventSpiltData = event.detail.data.split('|');
     }
     this.handleEvent();
+
   }
 
   handleEvent() {
@@ -132,14 +140,14 @@ export class dashboardContentClass implements OnInit {
       addEventListener('message', this.listener.bind(this), false);
     } else {
       console.log('adding onmessage listener');
-      // document.attachEvent("onmessage", this.listener) 
+      // document.attachEvent("onmessage", this.listener);
     }
   }
 
   campaign(value) {
     console.log(value);
     if (value === '1') {
-      this.message.confirm('', 'Are you Sure want to change to Inbound?').subscribe((response) => {
+      this.message.confirm('', 'are you sure want to change to Inbound?').subscribe((response) => {
         if (response) {
           this.dataSettingService.current_campaign = 'INBOUND';
         } else {
@@ -149,7 +157,7 @@ export class dashboardContentClass implements OnInit {
 
     }
     if (value === '0') {
-      this.message.confirm('', 'Are you Sure want to change to Outbound?').subscribe((response) => {
+      this.message.confirm('', 'are you sure want to change to Outbound?').subscribe((response) => {
         if (response) {
           this.dataSettingService.current_campaign = 'OUTBOUND';
         } else {
@@ -207,6 +215,9 @@ export class dashboardContentClass implements OnInit {
     if (event === "7") {
       this.training_resources = false;
     }
+  }
+  ngOnDestroy() {
+    this.listenCall();
   }
 }
 

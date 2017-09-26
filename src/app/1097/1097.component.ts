@@ -36,12 +36,10 @@ export class helpline1097Component implements OnInit {
 
   ngOnChanges() {
     this.setLanguage(this.current_language);
-
   }
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language in 1097");
   }
 
 
