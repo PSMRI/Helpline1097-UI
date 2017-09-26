@@ -213,7 +213,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         }
       },
       (error) => {
-        this.alertMaessage.alert('Some Error while calling Czentrix');
+        this.alertMaessage.alert('Something went wrong in Oubound Call');
       });
   }
   reloadCall() {

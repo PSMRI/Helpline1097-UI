@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, Renderer } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { Http, Response } from '@angular/http';
@@ -54,6 +54,7 @@ export class InnerpageComponent implements OnInit {
   data: any = {};
   ctiHandlerURL: any;
   validCallID: any;
+  listenCallEvent: any;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -63,10 +64,12 @@ export class InnerpageComponent implements OnInit {
     public http: Http,
     public sanitizer: DomSanitizer,
     private _config: ConfigService,
-    private remarksMessage: ConfirmationDialogsService
+    private remarksMessage: ConfirmationDialogsService,
+    private renderer: Renderer
 
   ) {
     this.currentlanguageSet = [];
+
   }
 
 
@@ -126,7 +129,11 @@ export class InnerpageComponent implements OnInit {
       this.callDuration = this.minutes + 'm ' + this.seconds + 's ';
     }, 1000);
     this.current_campaign = this.getCommonData.current_campaign;
-    this.addListener();
+    this.listenCallEvent = this.renderer.listenGlobal('window', 'message', (event) => {
+      this.listener(event);
+      // Do something with 'event'
+    });
+    // this.addListener();
   }
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find('a').removeClass('active-tab');
@@ -206,22 +213,22 @@ export class InnerpageComponent implements OnInit {
   //   Cookie.deleteAll();
   // }
 
-  addListener() {
-    if (window.parent.parent.addEventListener) {
-      console.log('adding message listener');
-      addEventListener('message', this.listener1.bind(this), false);
-    } else {
-      console.log('adding onmessage listener');
-    }
-  }
-  removeEventListener() {
-    if (window.parent.parent.removeEventListener) {
-      console.log('adding message listener');
-      addEventListener('message', null, false);
-    } else {
-      console.log('adding onmessage listener');
-    }
-  }
+  // addListener() {
+  //   if (window.parent.parent.addEventListener) {
+  //     console.log('adding message listener');
+  //     addEventListener('message', this.listener1.bind(this), false);
+  //   } else {
+  //     console.log('adding onmessage listener');
+  //   }
+  // }
+  // removeEventListener() {
+  //   if (window.parent.parent.removeEventListener) {
+  //     console.log('adding message listener');
+  //     addEventListener('message', null, false);
+  //   } else {
+  //     console.log('adding onmessage listener');
+  //   }
+  // }
   getCallTypes(providerServiceMapID) {
     const requestObject = { 'providerServiceMapID': providerServiceMapID };
     this._callServices.getCallTypes(requestObject).subscribe(response => {
@@ -249,34 +256,27 @@ export class InnerpageComponent implements OnInit {
     // document.dispatchEvent(event);
 
   }
-  listener1(event) {
+  listener(event) {
     console.log('listener invoked: ' + event);
     console.log('event received' + JSON.stringify(event));
-    if (event.detail.data) {
-      this.eventSpiltData = event.detail.data.split('|');
-      console.log('event data received' + JSON.stringify(event.data));
+    if (event.data) {
+      this.eventSpiltData = event.data.split('|');
       // alert(event.data);
     } else {
-      this.eventSpiltData = event.data.split('|');
-      console.log('event details data received' + JSON.stringify(event.detail.data));
-      // alert(event.detail.data);
+      this.eventSpiltData = event.detail.data.split('|');
     }
     this.handleEvent(this.eventSpiltData);
   }
 
   handleEvent(eventData) {
     if (eventData[0] === 'Disconnect') {
+
+    } else if (eventData[0] === 'CustDisconnect' || eventData[0] === 'CallDisconnect') {
       this.disconnectCall();
-      // handle normal disconnect
+      // this.showRemarks(eventData);
 
-    } else if (eventData[0] === 'CustDisconnect') {
-
-      this.showRemarks(eventData);
-
-      // handle call transfer
 
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
-      // handle outbound call
     }
   }
   closeCall(eventData, remarks) {
@@ -339,7 +339,7 @@ export class InnerpageComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    this.removeEventListener();
+    this.listenCallEvent();
     //this.removeEventListener();
   }
 }
