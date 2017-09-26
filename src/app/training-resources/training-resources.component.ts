@@ -48,11 +48,11 @@ export class TrainingResourcesComponent implements OnInit {
                         "providerServiceMapID": this.service.serviceID,
                         "notificationTypeID": this.kmConfig[0].notificationTypeID,
                         "roleIDs": [this.role.RoleID],
-                        // "validStartDate": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
-                        "validFrom": currentDate,
+                        "validFrom": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
+                        // "validFrom": currentDate,
                         //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                        // "validEndDate": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
-                        "validTill": currentDate
+                        "validTill": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
+                        // "validTill": currentDate
                     };
                     // }
                 }
@@ -70,17 +70,7 @@ export class TrainingResourcesComponent implements OnInit {
         // console.log(this.notificationPostData);
         if (this.kmPostData) {
             console.log(this.kmPostData);
-            if (this.role.RoleName != "Supervisor") {
-                this.notificationService.getKMs(this.kmPostData)
-                    .subscribe((response) => {
-                        console.log(response);
-                        this.kmfiles = response.data;
-                    },
-                    (err) => {
-                        console.log(err);
-                    });
-            }
-            else {
+            // if (this.role.RoleName != "Supervisor") {
                 this.notificationService.getSupervisorNotifications(this.kmPostData)
                     .subscribe((response) => {
                         console.log(response);
@@ -89,7 +79,17 @@ export class TrainingResourcesComponent implements OnInit {
                     (err) => {
                         console.log(err);
                     });
-            }
+            // }
+            // else {
+            //     this.notificationService.getSupervisorNotifications(this.kmPostData)
+            //         .subscribe((response) => {
+            //             console.log(response);
+            //             this.kmfiles = response.data;
+            //         },
+            //         (err) => {
+            //             console.log(err);
+            //         });
+            // }
         }
     }
 

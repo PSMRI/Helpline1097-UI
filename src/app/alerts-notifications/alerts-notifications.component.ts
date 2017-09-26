@@ -50,11 +50,11 @@ export class AlertsNotificationComponent implements OnInit {
                         "providerServiceMapID": this.service.serviceID,
                         "notificationTypeID": this.alertConfig[0].notificationTypeID,
                         "roleIDs": [this.role.RoleID],
-                        // "validStartDate": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
-                        "validFrom": currentDate,
+                        "validFrom": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
+                        // "validFrom": currentDate,
                         //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                        // "validEndDate": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
-                        "validTill": currentDate
+                        "validTill": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
+                        // "validTill": currentDate
                     };
                     // }
                 }
@@ -77,11 +77,11 @@ export class AlertsNotificationComponent implements OnInit {
                         "providerServiceMapID": this.service.serviceID,
                         "notificationTypeID": this.notificationConfig[0].notificationTypeID,
                         "roleIDs": [this.role.RoleID],
-                        // "validStartDate": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
-                        "validFrom": currentDate,
+                        "validFrom": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
+                        // "validFrom": currentDate,
                         //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                        // "validEndDate": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
-                        "validTill": currentDate
+                        "validTill": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
+                        // "validTill": currentDate
                     }
                     // }
                 }
@@ -110,7 +110,7 @@ export class AlertsNotificationComponent implements OnInit {
         if (this.alertPostData) {
             console.log(this.alertPostData);
             // if (this.role.RoleName != "Supervisor") {
-            this.notificationService.getAlerts(this.alertPostData)
+            this.notificationService.getSupervisorNotifications(this.alertPostData)
                 .subscribe((response) => {
                     console.log(response);
                     this.alerts = response.data;
@@ -133,7 +133,7 @@ export class AlertsNotificationComponent implements OnInit {
         if (this.notificationPostData) {
             console.log(this.notificationPostData);
             // if (this.role.RoleName != "Supervisor") {
-            this.notificationService.getNotifications(this.notificationPostData)
+            this.notificationService.getSupervisorNotifications(this.notificationPostData)
                 .subscribe((response) => {
                     console.log(response);
                     this.notifications = response.data;
