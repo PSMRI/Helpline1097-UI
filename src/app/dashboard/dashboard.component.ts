@@ -28,6 +28,7 @@ export class dashboardContentClass implements OnInit {
   // daily_tasks_component: boolean = true;
   news_component: boolean = true;
   call_statistics: boolean = true;
+  training_resources: boolean = true;
   widget: any = '0';
   listenCall: any;
   loginUrl = this.configService.getCommonLoginUrl();
@@ -187,6 +188,9 @@ export class dashboardContentClass implements OnInit {
     if (widget_name === "6") {
       this.call_statistics = true;
     }
+    if (widget_name === "7") {
+      this.training_resources = true;
+    }
   }
   hideComponentHandeler(event) {
     console.log('event is', event);
@@ -207,6 +211,9 @@ export class dashboardContentClass implements OnInit {
     }
     if (event === "6") {
       this.call_statistics = false;
+    }
+    if (event === "7") {
+      this.training_resources = false;
     }
   }
   ngOnDestroy() {
