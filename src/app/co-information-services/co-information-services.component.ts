@@ -112,6 +112,7 @@ export class CoInformationServicesComponent implements OnInit {
   }
 
   SetSubCategoryDetails(response: any) {
+    debugger;
     console.log('success', response);
     this.detailsList = response;
     this.informationServiceProvided.emit();

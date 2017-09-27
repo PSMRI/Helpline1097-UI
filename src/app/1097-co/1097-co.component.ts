@@ -6,7 +6,8 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router'
 declare var jQuery: any;
-import { CommunicationService } from './../services/common/communication.service'
+import { CommunicationService } from './../services/common/communication.service';
+import { OutboundService } from './../services/common/outbound.services';
 
 @Component({
   selector: 'app-1097-co',
@@ -47,7 +48,8 @@ export class helpline1097CoComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private dialogService: ConfirmationDialogsService,
     private _viewContainerRef: ViewContainerRef,
-    private pass_data: CommunicationService
+    private pass_data: CommunicationService,
+    private outBoundService: OutboundService
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -260,10 +262,11 @@ export class helpline1097CoComponent implements OnInit {
   }
 
   closeCall(compain_type: any) {
-    this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+    this.getCommonData.current_campaign = compain_type;
+    this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }
   openDialog() {
-    this.dialogService.confirm('Cancel Call ', 'Are you sure want to Cancel ?').subscribe((response) => {
+    this.dialogService.confirm('Cancel Call ', 'are you sure want to Cancel ?').subscribe((response) => {
       if (response) {
         this.reloadCall();
         this.beneficiarySelected.emit(null);
@@ -276,11 +279,14 @@ export class helpline1097CoComponent implements OnInit {
         this.isClosureDisable = false;
         this.isNext = false;
         this.isPrevious = false;
+        // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
+        //   this.ReloadBenOutbound(this.getCommonData.benData);
+        // }
       }
     });
   }
   openDialogClosure() {
-    this.dialogService.confirm('Closure ', 'Are you sure want to Close the Call ?').subscribe((response) => {
+    this.dialogService.confirm('Closure ', 'are you sure want to Close the Call ?').subscribe((response) => {
       if (response) {
         jQuery('#myCarousel').carousel(3);
         jQuery('#four').parent().find('a').removeClass('active-tab');
@@ -298,12 +304,14 @@ export class helpline1097CoComponent implements OnInit {
   public callBenOutbound(event: any) {
     this.getCommonData.current_campaign = 'INBOUND';
     this.current_campaign = this.getCommonData.current_campaign;
-    this.getSelectedBenDetails(event.beneficiary);
-    this.benService('benService');
-    this.pass_data.sendData(event.beneficiary);
+    // this.getSelectedBenDetails(event.beneficiary);
+    // this.benService('benService');
+    this.basicrouter.navigate(['/InnerpageComponent']);
+    this.outBoundService.sendOutboundData(event);
   }
-
-
+  public ReloadBenOutbound(event: any) {
+    this.outBoundService.sendOutboundData(event);
+  }
   nxtVisual() {
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);

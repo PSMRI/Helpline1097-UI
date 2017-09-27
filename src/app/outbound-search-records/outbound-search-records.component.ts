@@ -53,7 +53,9 @@ export class OutboundSearchRecordsComponent implements OnInit {
       event.target.parentNode.parentNode.parentNode.children[i].className = '';
     }
     event.target.parentNode.parentNode.className = 'highlightTrBg';
-    this.showFlage = true;
+    if (this.tot_unAllocatedCalls > 0) {
+      this.showFlage = true;
+    }
     this.records = values;
   }
 }

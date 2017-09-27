@@ -29,6 +29,7 @@ export class dataService {
 	cZentrixAgentID: number;
 	loginIP: any;
 	loginKey: any;
+	outBoundCallID: any;
 };
 
 

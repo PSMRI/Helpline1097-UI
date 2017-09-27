@@ -7,7 +7,7 @@
           <li class="m-l-lg-40 m-t-5" *ngIf="checkRole && current_campaign == 'INBOUND'"><img src="assets/images/transferCallIcon.png " alt="Caller Icon
     " title="Caller Icon " />
             <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green " (click)="testEvent()">ON CALL</span>
-             <span class="m-l-lg-20 f-s-14 whiteC font-Semibold ">{{callDuration}}</span>
+            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold ">{{callDuration}}</span>
 
           </li>
         </ul>
@@ -41,13 +41,13 @@
 </div>
 <div class="col-xs-12 col-sm-12 " (click)="minimizeBar()">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 " [hidden]="current_campaign == 'OUTBOUND'">
+    <div class="col-xs-12 col-sm-12 ">
       <div class="row b-t-2-w ">
         <div class="col-xs-12 col-sm-12 m-t-3 ">
           <div class="row ">
             <div class="m-t-5">
               <ul class="list-inline list-unstyled pull-left m-b-3 ">
-                <li class="cursorPointer " routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
+                <li class="cursorPointer" *ngIf='!checkRole' routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
                   <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i></li>
                 <!--                 <li class="m-l-10 "><img src="assets/images/dashboardIcon.png " alt="Dashboard Icon
     " title="Dashboard Icon " /></li> -->
@@ -55,7 +55,7 @@
                 <!--<li class="f-s-16 font-Semibold ">My ID : CO0111120</li>-->
                 <!--<li class="f-s-16 font-Semibold ">Service: {{current_service}}</li>
                                 <li class="f-s-16 font-Semibold ">Role: {{current_role}}</li>-->
-<!--                 <li class="m-l-lg-40 " *ngIf='checkRole'><img src="assets/images/durationIcon.png " alt="Caller Icon
+                <!--                 <li class="m-l-lg-40 " *ngIf='checkRole'><img src="assets/images/durationIcon.png " alt="Caller Icon
     " title="Caller Icon " />
                   <span class="m-l-lg-20 f-s-14 f-c-14508c font-Semibold ">{{callDuration}}</span>
                 </li> -->

@@ -6,21 +6,34 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
-        <md-select placeholder="CallType" [style.width]="'100%'" [(ngModel)]="callType" name="callType">
+        <md-select placeholder="CallType" [style.width]="'100%'" ngModel name="callType" #callType="ngModel">
+          <md-option *ngFor="let calltype of calltypes" value="{{calltype.callTypeDesc}}" (click)="getCallSubType(calltype.callTypeDesc)">
+            {{calltype.callTypeDesc}}
+          </md-option>
+        </md-select>
+
+        <!-- <md-select placeholder="CallType" [style.width]="'100%'" [(ngModel)]="callType" name="callType">
           <md-option *ngFor="let item of callTypes" [value]="item.callTypeID">
             {{item.callType}}
           </md-option>
+        </md-select> -->
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
+        <md-select required placeholder="CallSubType" [style.width]="'100%'" [(ngModel)]="callTypeID" name="callTypeID" #subCallType="ngModel">
+          <md-option *ngFor="let callSubtype of callSubTypes" value="{{callSubtype.callTypeID}}" (click)="sliderVisibility(callSubtype.fitForFollowUp)">
+            {{callSubtype.callType}}
+          </md-option>
         </md-select>
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
         <md2-datepicker #startDate [md2DatepickerToggle]="startDate" placeholder="Start Date" [(ngModel)]="start_date" #startDate
           [max]="maxDate"></md2-datepicker>
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
         <md2-datepicker #endDate [md2DatepickerToggle]="endDate" [min]="startDate.value" [max]="maxDate" placeholder="End Date" [(ngModel)]="end_date"
           [min]=startDate.value></md2-datepicker>
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
+      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right m-t-15">
         <button class="pull-right" md-raised-button (click)="setTableFlag(true)">SEARCH</button>
       </div>
     </div>
@@ -29,7 +42,7 @@
 <md-card class="m-t-10" *ngIf="tableFlag">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-      <table [md2Data]="dummyArray" #md2="md2DataTable" class="table">
+      <table [md2Data]="data" #md2="md2DataTable" class="table" [rowsPerPage]="3">
         <thead>
           <tr>
             <th>Beneficiary Call ID</th>
@@ -40,23 +53,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="filterCallListArray.length < 1">
+          <tr *ngIf="md2.data.length < 1">
             <td colspan="5" align="center"><img src="assets/images/data_not_found.png" width="400" height="65"></td>
           </tr>
-          <tr *ngFor="let item of filterCallListArray| paginate: {id:'filtercalllist', itemsPerPage: 5, currentPage: b}">
+          <tr *ngFor="let item of md2.data">
             <td>{{item.benCallID}}</td>
             <td>{{item.callType}}</td>
             <td>{{item.remarks}}</td>
             <td>{{millisToUTCDate(item.callTime)|date: 'dd/MM/yyyy'}}</td>
             <td width=10%>
               <button md-icon-button title="Audio" (click)="audioEvent()">
-                <i class="material-icons">settings_phone</i>
+                <i class="material-icons" style="font-size: 18px" >settings_phone</i>
               </button>
             </td>
           </tr>
           <tr>
             <td colspan="5">
-              <pagination-controls *ngIf="showPaginationControls" (pageChange)="b = $event" id="filtercalllist"></pagination-controls>
+              <md2-pagination></md2-pagination>
             </td>
           </tr>
         </tbody>

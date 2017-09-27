@@ -16,10 +16,11 @@ export class CallServices {
   _closecallurl = this._commonURL + 'call/closeCall/';
   _callsummaryurl = this._baseUrl + 'services/getCallSummary/';
   _calltypesurl = this._commonURL + 'call/getCallTypesV1/';
-  _outboundCalls = this._commonURL + 'call/outboundCallList/'
-  _blacklistCalls = this._commonURL + 'call/getBlacklistNumbers/'
-  _blockPhoneNo = this._commonURL + 'call/blockPhoneNumber/'
-  _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber'
+  _outboundCalls = this._commonURL + 'call/outboundCallList/';
+  _blacklistCalls = this._commonURL + 'call/getBlacklistNumbers/';
+  _blockPhoneNo = this._commonURL + 'call/blockPhoneNumber/';
+  _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber';
+  _outbouncClose_url = this._commonURL + '/call/completeOutboundCall';
   constructor(
     private _http: Http,
     private _config: ConfigService,
@@ -30,7 +31,12 @@ export class CallServices {
     console.log('data to be updated in service is', values);
     return this._httpInterceptor.post(this._closecallurl, values).map(this.extractData).catch(this.handleCustomError);
   }
-
+  closeOutBoundCall(callID: any, isCompleted: boolean) {
+    let outboundObj = {};
+    outboundObj['outboundCallReqID'] = callID;
+    outboundObj['isCompleted'] = isCompleted;
+    return this._httpInterceptor.post(this._outbouncClose_url, outboundObj).map(this.extractData).catch(this.handleCustomError);
+  }
   getCallSummary(values: any) {
     console.log('Call summary to be retreived for ', values)
     return this._http.post(this._callsummaryurl, values, this.options).map(this.extractData).catch(this.handleError);
@@ -47,7 +53,7 @@ export class CallServices {
     } else {
       obj['providerServiceMapID'] = serviceID;
     }
-    return this._http.post(this._outboundCalls, obj, this.options).map(this.extractData).catch(this.handleError);
+    return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleCustomError);
   }
   getBlackListCalls(objSearch: any) {
     return this._httpInterceptor.post(this._blacklistCalls, objSearch).map(this.extractData).catch(this.handleCustomError);

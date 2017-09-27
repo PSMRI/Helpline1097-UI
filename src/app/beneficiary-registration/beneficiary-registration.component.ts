@@ -10,10 +10,11 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { Message } from './../services/common/message.service'
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
 import { CommunicationService } from './../services/common/communication.service'
-
+import { CzentrixServices } from '../services/czentrix/czentrix.service';
 
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
-
+import { OutboundService } from './../services/common/outbound.services';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-beneficiary-registration',
@@ -118,19 +119,24 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   peopleCalledEarlier: boolean = false;
   genderErrFlag: any = false;
   stateErrFlag: any = false;
-
+  subscription: Subscription;
+  cZentrixIp: any;
+  current_campaign: any;
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
     private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
-    private pass_data: CommunicationService) { }
+    private pass_data: CommunicationService, private outboundService: OutboundService, private czentrixService: CzentrixServices) {
+    this.subscription = this.outboundService.getOutboundData().subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
+  }
 
   /* Intialization Of value and object has to be written in here */
 
   ngOnInit() {
     this.startNewCall();
     this.IntializeSessionValues();
-
+    this.current_campaign = this.saved_data.current_campaign;
+    // this.reloadOutBoundCall(this.current_campaign);
   }
 
 
@@ -169,6 +175,55 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.advanceBtnHide = true;
     this.spinner = false;
     this.spinnerState = true;
+  }
+
+  startOutBoundCall(outboundData: any) {
+    const data: any = {};
+    data.callID = this.saved_data.callID;
+    data.is1097 = true;
+    data.createdBy = this.saved_data.uname;
+    data.calledServiceID = this.saved_data.current_service.serviceID;
+    data.phoneNo = outboundData.outboundData.beneficiary.benPhoneMaps[0].phoneNo;
+    this._util.startCall(data).subscribe((response) => {
+      this.setBenCall(response);
+      this.czentrixService.getIpAddress(this.saved_data.Userdata.agentID)
+        .subscribe((ipAddressresponse) => {
+          this.cZentrixIp = ipAddressresponse.agent_ip;
+          if (!this.cZentrixIp) {
+            this.cZentrixIp = this.saved_data.loginIP;
+          }
+          this.outboundEvent(outboundData.outboundData, this.cZentrixIp)
+        },
+        (error) => {
+          this.alertMaessage.alert('Some Error while calling Czentrix');
+        });
+
+    });
+  }
+  reloadOutBoundCall(current_campaign: any) {
+    if (current_campaign.toUpperCase() === 'OUTBOUND') {
+      this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
+    }
+  }
+  outboundEvent(outboundData: any, IpAddress: any) {
+    const params = 'transaction_id=CTI_DIAL&agent_id=' + this.saved_data.Userdata.agentID +
+      '&ip=' + IpAddress + '&phone_num=' + outboundData.beneficiary.benPhoneMaps[0].phoneNo +
+      '&resFormat=3';
+    // this.czentrixService.callAPI(params)
+    //   .subscribe((res) => {
+    //     console.log(res);
+    //     if (res.response.status == 'SUCCESS') {
+          this.retrieveRegHistory(313);
+          this.saved_data.current_campaign = 'OUTBOUND';
+          this.saved_data.outBoundCallID = outboundData.outboundCallReqID;
+          this.current_campaign = this.saved_data.current_campaign;
+      //   } else {
+      //     this.alertMaessage.alert('Call Not Intiating Please try again!!!');
+      //   }
+      // },
+      // (error) => {
+      //   this.alertMaessage.alert('Something went wrong in Oubound Call');
+      // });
   }
   reloadCall() {
     this.retrieveRegHistoryByPhoneNo(this.saved_data.callerNumber);
@@ -365,9 +420,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // 	this.blocks.push( response[ i ] );
   }
 
-	/**
-		* Neeraj Code; 22-jun-2017
-		*/
+  /**
+    * Neeraj Code; 22-jun-2017
+    */
   capturePrimaryInfo() {
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
@@ -385,9 +440,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.notCalledEarlier = true;
     this.calledRadio = true;
   }
-	/**
-	 *End of Neeraj Code; 22-jun-2017
-	 */
+  /**
+   *End of Neeraj Code; 22-jun-2017
+   */
 
   registerBeneficiary() {
     this.updatedObj = {};
@@ -451,8 +506,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
     const res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
       .subscribe(response => this.handleRegHistorySuccess(response));
-
-
   }
 
 
@@ -690,7 +743,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   getParentData(parentBenID) {
     this._util.retrieveRegHistory(parentBenID).subscribe((response) => {
       if (response) {
-        this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
+        this.relationshipWith = 'Relationship with' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
       console.log('Something Went Wrong in fetching Parent Data');
@@ -834,6 +887,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.pass_data.sendData(data);
   }
 
+  ngOnDestroy() {
+    debugger
+    this.subscription.unsubscribe();
+  }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];
   //   this.pincodeLocation.forEach((element: any) => {

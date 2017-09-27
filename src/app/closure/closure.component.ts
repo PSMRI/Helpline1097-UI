@@ -151,20 +151,29 @@ export class ClosureComponent implements OnInit
       values.endCall = true;
     }
     console.log('close called with ' + values);
+    if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+      this.current_campaign = this.saved_data.current_campaign;
+      this._callServices.closeOutBoundCall(this.saved_data.outBoundCallID, true).subscribe((response) => {
+        this.closeOutboundCall(btnType, values);
+      }, (err) => {
+        this.message.alert(err.status);
+      })
 
-    this._callServices.closeCall(values).subscribe((response) => {
-      if (response) {
-        this.showAlert();
-        if (btnType === 'submitClose') {
-          this.callClosed.emit(this.current_campaign);
-        } else {
-          this.closedContinue.emit();
+    } else {
+      this._callServices.closeCall(values).subscribe((response) => {
+        if (response) {
+          this.showAlert();
+          if (btnType === 'submitClose') {
+            this.callClosed.emit(this.current_campaign);
+          } else {
+            this.closedContinue.emit();
+          }
+          // this.pass_data.sendData(this.current_campaign);
         }
-        // this.pass_data.sendData(this.current_campaign);
-      }
-    }, (err) => {
-      this.message.alert(err.status);
-    });
+      }, (err) => {
+        this.message.alert(err.status);
+      });
+    }
 
   }
 
@@ -199,5 +208,20 @@ export class ClosureComponent implements OnInit
   ipSuccessHandler(response) {
     console.log('fetch ip response: ' + JSON.stringify(response));
     this.ipAddress = response.response.agent_ip;
+  }
+  closeOutboundCall(btnType: any, values: any) {
+    this._callServices.closeCall(values).subscribe((response) => {
+      if (response) {
+        this.message.alert('Outbound Call Sucessfully Closed');
+        if (btnType === 'submitClose') {
+          this.callClosed.emit(this.current_campaign);
+        } else {
+          this.closedContinue.emit();
+        }
+        // this.pass_data.sendData(this.current_campaign);
+      }
+    }, (err) => {
+      this.message.alert(err.status);
+    });
   }
 }
