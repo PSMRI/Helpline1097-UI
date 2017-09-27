@@ -43,6 +43,7 @@
             <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank">
                     {{detail?.subCategoryName}}:{{detail?.subCategoryDesc}}
             </a>
+            <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">No Document Available</span>
         </span>
       </div>
     </div>

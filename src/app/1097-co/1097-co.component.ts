@@ -262,7 +262,8 @@ export class helpline1097CoComponent implements OnInit {
   }
 
   closeCall(compain_type: any) {
-    this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+    this.getCommonData.current_campaign = compain_type;
+    this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }
   openDialog() {
     this.dialogService.confirm('Cancel Call ', 'are you sure want to Cancel ?').subscribe((response) => {
@@ -278,6 +279,9 @@ export class helpline1097CoComponent implements OnInit {
         this.isClosureDisable = false;
         this.isNext = false;
         this.isPrevious = false;
+        // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
+        //   this.ReloadBenOutbound(this.getCommonData.benData);
+        // }
       }
     });
   }
@@ -303,10 +307,11 @@ export class helpline1097CoComponent implements OnInit {
     // this.getSelectedBenDetails(event.beneficiary);
     // this.benService('benService');
     this.basicrouter.navigate(['/InnerpageComponent']);
-    this.outBoundService.sendOutboundData(event.beneficiary);
+    this.outBoundService.sendOutboundData(event);
   }
-
-
+  public ReloadBenOutbound(event: any) {
+    this.outBoundService.sendOutboundData(event);
+  }
   nxtVisual() {
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);

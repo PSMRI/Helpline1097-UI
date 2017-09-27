@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dataService } from '../services/dataService/data.service';
 import { ConfigService } from '../services/config/config.service';
@@ -32,9 +32,11 @@ export class dashboardContentClass implements OnInit {
   widget: any = '0';
   listenCall: any;
   loginUrl = this.configService.getCommonLoginUrl();
+  compainType: any;
   constructor(
     public dataSettingService: dataService,
     public router: Router,
+    public activeRoute: ActivatedRoute,
     private configService: ConfigService,
     public sanitizer: DomSanitizer,
     private message: ConfirmationDialogsService,
@@ -42,11 +44,23 @@ export class dashboardContentClass implements OnInit {
     private renderer: Renderer
   ) { };
   ngOnInit() {
+    this.activeRoute
+      .queryParams
+      .subscribe(params => {
+        // Defaults to 0 if no query param provided.
+        if (params['compain']) {
+          this.compainType = params['compain'];
+        } else {
+          this.compainType = 'INBOUND';
+        }
+        this.setCompain(this.compainType);
+      });
     // const userObj = JSON.parse(Cookie.get('userID'));
     // if (userObj) {
     //   const roleObj = {};
     //   roleObj['RoleName'] = userObj.RoleName;
-    this.dataSettingService.current_campaign = 'INBOUND';
+
+
     //   this.dataSettingService.current_role = roleObj;
     //   this.dataSettingService.current_service = userObj.serviceObj;
     //   this.current_role = this.dataSettingService.current_role.RoleName;
@@ -143,7 +157,14 @@ export class dashboardContentClass implements OnInit {
       // document.attachEvent("onmessage", this.listener);
     }
   }
-
+  setCompain(compain: any) {
+    if (compain.toUpperCase() === 'OUTBOUND') {
+      this.inOutBound = 0;
+    } else {
+      this.inOutBound = 1;
+      this.dataSettingService.current_campaign = 'INBOUND';
+    }
+  }
   campaign(value) {
     console.log(value);
     if (value === '1') {

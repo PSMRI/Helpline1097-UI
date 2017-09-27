@@ -99,7 +99,6 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     return response;
   }
   populateCallTypes(response: any) {
-    debugger;
     this.calltypes = response.map(function (item) {
       return { 'callTypeDesc': item.callGroupType };
     });
