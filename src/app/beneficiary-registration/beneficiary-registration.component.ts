@@ -121,6 +121,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   stateErrFlag: any = false;
   subscription: Subscription;
   cZentrixIp: any;
+  current_campaign: any;
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
@@ -134,7 +135,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   ngOnInit() {
     this.startNewCall();
     this.IntializeSessionValues();
-
+    this.current_campaign = this.saved_data.current_campaign;
   }
 
 
@@ -205,11 +206,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.czentrixService.callAPI(params)
       .subscribe((res) => {
         console.log(res);
-        if (res.status === 'SUCCESS') {
+        if (res.response.status == 'SUCCESS') {
           this.retrieveRegHistory(outboundData.outboundData.beneficiaryRegID);
-          this.commonData.current_campaign = 'OUTBOUND';
+          this.saved_data.current_campaign = 'OUTBOUND';
+          this.current_campaign = this.saved_data.current_campaign;
         } else {
-          this.alertMaessage.alert('Issue In Calling Outbound');
+          this.alertMaessage.alert('Call Not Intiating Please try again!!!');
         }
       },
       (error) => {
@@ -411,9 +413,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // 	this.blocks.push( response[ i ] );
   }
 
-	/**
-		* Neeraj Code; 22-jun-2017
-		*/
+  /**
+    * Neeraj Code; 22-jun-2017
+    */
   capturePrimaryInfo() {
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
@@ -431,9 +433,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.notCalledEarlier = true;
     this.calledRadio = true;
   }
-	/**
-	 *End of Neeraj Code; 22-jun-2017
-	 */
+  /**
+   *End of Neeraj Code; 22-jun-2017
+   */
 
   registerBeneficiary() {
     this.updatedObj = {};
@@ -734,7 +736,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   getParentData(parentBenID) {
     this._util.retrieveRegHistory(parentBenID).subscribe((response) => {
       if (response) {
-        this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
+        this.relationshipWith = 'Relationship with' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
       console.log('Something Went Wrong in fetching Parent Data');

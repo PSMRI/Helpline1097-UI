@@ -13,7 +13,7 @@ export class SupervisorCallTypeReportService {
   constructor(private _http: Http,private _config: ConfigService) {
     this.commonBaseURL = this._config.getCommonBaseURL();
     this.filterCallList_URL = this.commonBaseURL + "call/filterCallList";
-    this.getCallTypes_URL = this.commonBaseURL + "call/getCallTypes";
+    this.getCallTypes_URL = this.commonBaseURL + "call/getCallTypesV1";
   }
 
   filterCallList(requestObject)

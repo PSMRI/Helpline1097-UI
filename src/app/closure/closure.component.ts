@@ -151,7 +151,9 @@ export class ClosureComponent implements OnInit
       values.endCall = true;
     }
     console.log('close called with ' + values);
-
+    if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+      this.current_campaign = this.saved_data.current_campaign;
+    }
     this._callServices.closeCall(values).subscribe((response) => {
       if (response) {
         this.showAlert();

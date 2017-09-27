@@ -34,13 +34,19 @@ export class OutboundCallAllocationService {
     getAgents(providerServiceMapID: number) {
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
+
         return this.httpIntercept.post(this._geturl, body)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getAgentsbyRoleID(providerServiceMapID: number, roleID: number) {
+    getAgentsbyRoleID(providerServiceMapID: number, roleID?: number) {
+        let userArray = [];
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
+        if (roleID) {
+            body['RoleID'] = roleID;
+        }
+        userArray.push(body);
         return this._http.post(this._geturl, body, this.options)
             .map(this.extractData)
             .catch(this.handleError);
