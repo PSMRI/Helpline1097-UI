@@ -110,9 +110,7 @@ export class CoInformationServicesComponent implements OnInit {
       this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
     ).subscribe(response => this.SetSubCategoryDetails(response));
   }
-
   SetSubCategoryDetails(response: any) {
-    debugger;
     console.log('success', response);
     this.detailsList = response;
     this.informationServiceProvided.emit();

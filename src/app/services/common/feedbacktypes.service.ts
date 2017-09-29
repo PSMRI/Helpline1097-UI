@@ -12,8 +12,8 @@ export class FeedbackTypes {
     _helpline1097BaseURL = this._config.get1097BaseURL();
     _commonURL = this._config.getCommonBaseURL();
     _servicetypesurl = this._commonURL + "service/servicetypes";
-    _getFeedbackTypesURL = this._helpline1097BaseURL + "feedback/gettype/";
-    _getFeedbackSeverityURL = this._helpline1097BaseURL + "feedback/getseverity/";
+    _getFeedbackTypesURL = this._commonURL + "/feedback/getFeedbackType";
+    _getFeedbackSeverityURL = this._commonURL + "/feedback/getSeverity";
     // _servicetypesurl = this._helpline1097BaseURL + "api/helpline1097/co/get/servicetypes"
     headers = new Headers({ 'Content-Type': 'application/json' });
     options = new RequestOptions({ headers: this.headers });
@@ -31,15 +31,15 @@ export class FeedbackTypes {
     }
 
 
-    getFeedbackTypesData() {
-        let data = {};
+    getFeedbackTypesData(serviceID: any) {
+        let data = { 'providerServiceMapID': serviceID };
         return this._http.post(this._getFeedbackTypesURL, data, this.options)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    getFeedbackSeverityData() {
-        let data = {};
+    getFeedbackSeverityData(serviceID: any) {
+        let data = { 'providerServiceMapID': serviceID };
         return this._http.post(this._getFeedbackSeverityURL, data, this.options)
             .map(this.extractData)
             .catch(this.handleError);

@@ -16,7 +16,7 @@ export class CoCategoryService {
     options = new RequestOptions({ headers: this.headers });
     _baseurl = this._config.get1097BaseURL();
     _commonURL = this._config.getCommonBaseURL();
-    _servicetypesurl = this._commonURL + "service/servicetypes";
+    _servicetypesurl = this._commonURL + 'service/servicetypes';
     // _servicetypesurl = this._baseurl + 'api/helpline1097/co/get/servicetypes'
     _categoryurl = this._baseurl + 'api/helpline1097/co/get/category';
     _categorybyidurl = this._baseurl + 'api/helpline1097/co/get/categoryByID';

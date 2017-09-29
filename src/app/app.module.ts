@@ -127,6 +127,7 @@ import { CallStatisticsComponent } from './call-statistics/call-statistics.compo
 import { CzentrixServices } from './services/czentrix/czentrix.service';
 import { OutboundService } from './services/common/outbound.services';
 import { ListnerService } from './services/common/listner.service';
+import { ReloadService } from './services/common/reload.service';
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
 
@@ -261,7 +262,7 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
-    CommunicationService, OutboundService, ListnerService, {
+    CommunicationService, OutboundService, ListnerService, ReloadService, {
       provide: InterceptedHttp,
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, LoaderService]

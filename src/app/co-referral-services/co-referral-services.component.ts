@@ -61,8 +61,9 @@ export class CoReferralServicesComponent implements OnInit {
     // this.tableArray = []; //substitute it with the response
     // // call the api to get all the states
     // this.states = [];  //substitute it with the response
-    this._userBeneficiaryData.getUserBeneficaryData()
+    this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
+    this.GetInformationDirectory();
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -117,10 +118,16 @@ export class CoReferralServicesComponent implements OnInit {
       this.states = regData.states;
     }
     if (regData.directory) {
-      this.directory = regData.directory;
+      // this.directory = regData.directory;
     }
   }
+  GetInformationDirectory() {
+    this._locationService.getDirectory(this.providerServiceMapID).subscribe((response) => {
+      this.directory = response.directory;
+    }, (err) => {
 
+    });
+  }
   GetDistricts(state: number) {
     this.districts = [];
     this.taluks = [];

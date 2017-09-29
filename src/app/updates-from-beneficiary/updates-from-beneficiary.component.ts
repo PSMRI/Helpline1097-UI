@@ -56,7 +56,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
 
   ngOnInit() {
-    this._userBeneficiaryData.getUserBeneficaryData()
+    this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe(response => {
         this.SetUserBeneficiaryRegistrationData(response);
       });

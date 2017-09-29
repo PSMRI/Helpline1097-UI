@@ -14,6 +14,7 @@ import { CzentrixServices } from '../services/czentrix/czentrix.service';
 
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { OutboundService } from './../services/common/outbound.services';
+import { ReloadService } from './../services/common/reload.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -120,14 +121,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   genderErrFlag: any = false;
   stateErrFlag: any = false;
   subscription: Subscription;
+  subcriptionOutbound: Subscription;
   cZentrixIp: any;
   current_campaign: any;
+
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
     private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
-    private pass_data: CommunicationService, private outboundService: OutboundService, private czentrixService: CzentrixServices) {
-    this.subscription = this.outboundService.getOutboundData().subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
+    private pass_data: CommunicationService, private outboundService: OutboundService, private czentrixService: CzentrixServices
+    , private reload_call: ReloadService) {
+    this.subcriptionOutbound = this.outboundService.getOutboundData()
+      .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
+    this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) });
   }
 
   /* Intialization Of value and object has to be written in here */
@@ -142,12 +148,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   ngOnChanges() {
     this.setLanguage(this.current_language);
-    if (this.onReloadCall) {
-      this.reloadCall();
-    }
-    if (this.onStartNewCall) {
-      this.startNewCall();
-    }
+    // if (this.onReloadCall) {
+    //   this.reloadCall();
+    // }
+    // if (this.onStartNewCall) {
+    //   this.startNewCall();
+    // }
 
   }
 
@@ -161,7 +167,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.today = new Date();
     this.maxDate = this.today;
     this.DOB = new Date();
-    this._userBeneficiaryData.getUserBeneficaryData()
+    this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
@@ -200,30 +206,44 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     });
   }
-  reloadOutBoundCall(current_campaign: any) {
-    if (current_campaign.toUpperCase() === 'OUTBOUND') {
-      this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
+  reloadCampainCall(current_campaign: any) {
+    if (current_campaign.compainType.toLowerCase() === 'reloadcall') {
+      if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+        this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
+      }
+      if (this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
+        this.reloadCall();
+      }
+    }
+    if (current_campaign.compainType.toLowerCase() === 'startcall') {
+      if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+        this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
+        this.startCall();
+      }
+      if (this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
+        this.startNewCall();
+      }
     }
   }
   outboundEvent(outboundData: any, IpAddress: any) {
     const params = 'transaction_id=CTI_DIAL&agent_id=' + this.saved_data.Userdata.agentID +
       '&ip=' + IpAddress + '&phone_num=' + outboundData.beneficiary.benPhoneMaps[0].phoneNo +
       '&resFormat=3';
-    // this.czentrixService.callAPI(params)
-    //   .subscribe((res) => {
-    //     console.log(res);
-    //     if (res.response.status == 'SUCCESS') {
-          this.retrieveRegHistory(313);
+    this.czentrixService.callAPI(params)
+      .subscribe((res) => {
+        console.log(res);
+        if (res.response.status == 'SUCCESS') {
+          this.retrieveRegHistory(outboundData.beneficiary.beneficiaryRegID);
           this.saved_data.current_campaign = 'OUTBOUND';
           this.saved_data.outBoundCallID = outboundData.outboundCallReqID;
           this.current_campaign = this.saved_data.current_campaign;
-      //   } else {
-      //     this.alertMaessage.alert('Call Not Intiating Please try again!!!');
-      //   }
-      // },
-      // (error) => {
-      //   this.alertMaessage.alert('Something went wrong in Oubound Call');
-      // });
+        } else {
+          this.alertMaessage.alert('Czentrix user not logged In');
+        }
+      },
+      (error) => {
+        this.alertMaessage.alert('Call Not Intiating Please try again!!!');
+      });
   }
   reloadCall() {
     this.retrieveRegHistoryByPhoneNo(this.saved_data.callerNumber);
@@ -888,8 +908,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    debugger
     this.subscription.unsubscribe();
+    this.subcriptionOutbound.unsubscribe(); 
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];

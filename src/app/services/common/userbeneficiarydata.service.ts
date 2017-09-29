@@ -20,8 +20,8 @@ export class UserBeneficiaryData {
         private _config: ConfigService,
         private _httpInterceptor: InterceptedHttp
     ) { }
-    getUserBeneficaryData() {
-        let data = {};
+    getUserBeneficaryData(serviceID: any) {
+        let data = { 'providerServiceMapID': serviceID };
         return this._http.post(this._getUserBeneficaryDataURL, data, this.options)
             .map(this.extractData)
             .catch(this.handleError);
@@ -65,8 +65,8 @@ export class UserBeneficiaryData {
 
         const createData = {};
         createData['firstName'] = firstName;
-        createData['lastName']  = lastName;
-        createData['fatherName']  = fatherNameHusbandNameSearch;
+        createData['lastName'] = lastName;
+        createData['fatherName'] = fatherNameHusbandNameSearch;
         createData['genderID'] = gender;
         createData['beneficiaryID'] = beneficiaryID;
         createData['firstName'] = firstName;

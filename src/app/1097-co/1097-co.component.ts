@@ -8,6 +8,7 @@ import { ActivatedRoute, Params } from '@angular/router'
 declare var jQuery: any;
 import { CommunicationService } from './../services/common/communication.service';
 import { OutboundService } from './../services/common/outbound.services';
+import { ReloadService } from './../services/common/reload.service';
 
 @Component({
   selector: 'app-1097-co',
@@ -27,8 +28,6 @@ export class helpline1097CoComponent implements OnInit {
   isNext: boolean = false
   @Input() current_language: any;
   currentlanguage: any;
-  ReloadCall: boolean;
-  StartNewCall: boolean;
   private current_campaign: any;
 
   data: any = this.getCommonData.Userdata;
@@ -49,7 +48,8 @@ export class helpline1097CoComponent implements OnInit {
     private dialogService: ConfirmationDialogsService,
     private _viewContainerRef: ViewContainerRef,
     private pass_data: CommunicationService,
-    private outBoundService: OutboundService
+    private outBoundService: OutboundService,
+    private reloadCall: ReloadService
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -190,7 +190,8 @@ export class helpline1097CoComponent implements OnInit {
     console.log(language, 'language in 1097 co me');
   }
   closedContinue() {
-    this.startNewCall();
+    // this.startNewCall();
+    this.ReloadBenOutbound('startcall');
     const id = jQuery('.carousel-inner div.active').index();
     jQuery('#myCarousel').carousel(0);
     jQuery('#one').parent().find('a').removeClass('active-tab');
@@ -198,6 +199,7 @@ export class helpline1097CoComponent implements OnInit {
     this.isCancelDisable = true;
     this.isClosureDisable = false;
     this.isNext = false;
+    this.isPrevious = false;
 
   }
 
@@ -225,14 +227,14 @@ export class helpline1097CoComponent implements OnInit {
 
   }
 
-  startNewCall() {
-    this.StartNewCall = true;
+  // startNewCall() {
+  //   this.StartNewCall = true;
 
-  }
-  reloadCall() {
-    this.ReloadCall = true;
+  // }
+  // reloadCall() {
+  //   // this.ReloadCall = true;
 
-  }
+  // }
 
   refreshCall() {
 
@@ -268,7 +270,7 @@ export class helpline1097CoComponent implements OnInit {
   openDialog() {
     this.dialogService.confirm('Cancel Call ', 'are you sure want to Cancel ?').subscribe((response) => {
       if (response) {
-        this.reloadCall();
+        // this.reloadCall();
         this.beneficiarySelected.emit(null);
         const id = jQuery('.carousel-inner div.active').index();
         jQuery('#myCarousel').carousel(0);
@@ -279,9 +281,7 @@ export class helpline1097CoComponent implements OnInit {
         this.isClosureDisable = false;
         this.isNext = false;
         this.isPrevious = false;
-        // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
-        //   this.ReloadBenOutbound(this.getCommonData.benData);
-        // }
+        this.ReloadBenOutbound('reloadcall');
       }
     });
   }
@@ -309,8 +309,8 @@ export class helpline1097CoComponent implements OnInit {
     this.basicrouter.navigate(['/InnerpageComponent']);
     this.outBoundService.sendOutboundData(event);
   }
-  public ReloadBenOutbound(event: any) {
-    this.outBoundService.sendOutboundData(event);
+  public ReloadBenOutbound(callType) {
+    this.reloadCall.sendReloadCall(callType);
   }
   nxtVisual() {
     var idx = jQuery('.carousel-inner div.active').index();

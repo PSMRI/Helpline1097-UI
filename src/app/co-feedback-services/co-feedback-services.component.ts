@@ -107,13 +107,13 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.providerServiceMapID = this._savedData.current_service.serviceID;
     this.userID = this._savedData.uid;
     this.GetServiceTypes();
-    this._userBeneficiaryData.getUserBeneficaryData()
+    this._userBeneficiaryData.getUserBeneficaryData(this._savedData.current_service.serviceID)
       .subscribe(response => this.SetUserBeneficiaryFeedbackData(response));
     this._coFeedbackService.getDesignations()
       .subscribe(response => this.setDesignation(response));
-    this._feedbackTypes.getFeedbackTypesData()
+    this._feedbackTypes.getFeedbackTypesData(this.providerServiceMapID)
       .subscribe(response => this.setFeedbackTypes(response));
-    this._feedbackTypes.getFeedbackSeverityData()
+    this._feedbackTypes.getFeedbackSeverityData(this.providerServiceMapID)
       .subscribe(response => this.setFeedbackSeverity(response));
     this.count = '0/300';
 
@@ -214,6 +214,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     if (this.selected_doi) {
       selected_Date = new Date((this.selected_doi) - 1 * (this.selected_doi.getTimezoneOffset() * 60 * 1000)).toJSON();
     }
+    debugger;
     const feedbackObj = [{
       'institutionID': this.selected_institution,
       'designationID': this.selected_designation,

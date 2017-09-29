@@ -50,7 +50,7 @@
                 <!--<app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                                         (StartNewCall)="startCall()" #registration></app-beneficiary-registration>-->
 
-                <app-beneficiary-registration [onStartNewCall]="StartNewCall"  [onReloadCall]="ReloadCall" (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
+                <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                   #registration [current_language]="currentlanguage"></app-beneficiary-registration>
               </div>
               <div class="item ">
