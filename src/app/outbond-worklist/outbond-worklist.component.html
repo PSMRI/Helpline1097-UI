@@ -1,40 +1,42 @@
 <div class="col-xs-12 col-sm-12 m-t-10">
   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
     <h4> Outbound Work List </h4>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
     <button type="button" class="pull-right btn cu-green-btn " (click)="backToDashBoard()">Back to Dashboard</button>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-  <div class="table-responsive">
-    <table id="outbondListTable" class="table table-bordered" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
-      <thead>
-        <tr>
-          <th style="width:20%" md2SortBy="phoneNo">Phone No</th>
-          <th md2SortBy="beneficiaryRegID">Beneficiary ID</th>
-          <th md2SortBy="firstName">Beneficiary Name</th>
-          <th md2SortBy="requestedFor">Remarks</th>
-          <th>Call </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let listItem of  md2.data">
-          <td width=20%>{{listItem.beneficiary.benPhoneMaps[0].phoneNo}}</td>
-          <td width=10%>{{listItem.beneficiary.beneficiaryRegID}}</td>
-          <td width=40%>{{listItem.beneficiary.firstName}} {{listItem.beneficiary.lastName}}</td>
-          <td width=20%>{{listItem.requestedFor}}</td>
-          <td width=10%>
-            <button md-icon-button title="call" (click)="viewHistory(listItem)">
+    <div class="table-responsive">
+      <table id="outbondListTable" class="table table-bordered" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
+        <thead>
+          <tr>
+            <th style="width:20%" md2SortBy="phoneNo">Phone No</th>
+            <th md2SortBy="beneficiaryRegID">Beneficiary ID</th>
+            <th md2SortBy="firstName">Beneficiary Name</th>
+            <th md2SortBy="requestedDate">Requested Date</th>
+            <th md2SortBy="requestedFor">Remarks</th>
+            <th>Call </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let listItem of  md2.data">
+            <td width=20%>{{listItem.beneficiary.benPhoneMaps[0].phoneNo}}</td>
+            <td width=10%>{{listItem.beneficiary.beneficiaryRegID}}</td>
+            <td width=20%>{{listItem.beneficiary.firstName}} {{listItem.beneficiary.lastName}}</td>
+            <td width=20%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy HH:mm'):''}}</td>
+            <td width=20%>{{listItem.requestedFor}}</td>
+            <td width=10%>
+              <button md-icon-button title="call" (click)="viewHistory(listItem)">
             <i class="material-icons">settings_phone</i>
              </button>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <md2-pagination></md2-pagination>
-      </tfoot>
-    </table>
-  </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <md2-pagination></md2-pagination>
+        </tfoot>
+      </table>
+    </div>
   </div>
 </div>
 <div class="clearfix"></div>

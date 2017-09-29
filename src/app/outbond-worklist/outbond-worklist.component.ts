@@ -37,5 +37,14 @@ export class OutbondWorklistComponent implements OnInit {
     this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
 
   }
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
+
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
 
 }
