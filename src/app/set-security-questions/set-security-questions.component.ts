@@ -123,19 +123,19 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
     }
     else {
-      alert('all 3 ques shud be diff');
+      alert('All 3 questions should be different');
     }
 
 
   }
 
   handleQuestionSaveSuccess(response) {
-    console.log('saved questions', response);
+    console.log('Saved questions', response);
     this.switch();
 
   }
   handleQuestionSaveError(response) {
-    console.log('question save error', response);
+    console.log('Question save error', response);
   }
 
 
@@ -149,10 +149,10 @@ export class SetSecurityQuestionsComponent implements OnInit {
         (response: any) => this.successCallback(response),
         (error: any) => this.errorCallback(error));
 
-      alert('password is changed for user ' + this.uname + ' wd new pwd as : ' + new_pwd);
+      alert('Password is changed for user ' + this.uname);
     }
     else {
-      alert('password dsnt match');
+      alert('Password does not match');
     }
   }
 
