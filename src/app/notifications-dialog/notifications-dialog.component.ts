@@ -92,18 +92,20 @@ export class NotificationsDialogComponent implements OnInit {
               "notification": this.notificationForm.value.notificationSubject,
               "notificationDesc": this.notificationForm.value.notificationMessage,
               "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-              "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-              "kmFileManager": {
-                "fileName": (this.file!=undefined)? this.file.name : '', 
-                "fileExtension": (this.file!=undefined)? '.' + this.file.name.split('.')[1]: '', 
-                "providerServiceMapID": this.providerServiceMapID, 
-                "userID": this.userId, 
-                "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
-                "validUpto": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
-                "fileContent":(this.fileContent!=undefined)?this.fileContent.split(',')[1]: '', 
-                "createdBy":this.createdBy
-              }
+              "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON()
           }];
+          if(this.file!=undefined){
+            data[0]['kmFileManager'] = {
+              "fileName": (this.file!=undefined)? this.file.name : '', 
+              "fileExtension": (this.file!=undefined)? '.' + this.file.name.split('.')[1]: '', 
+              "providerServiceMapID": this.providerServiceMapID, 
+              "userID": this.userId, 
+              "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
+              "validUpto": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
+              "fileContent":(this.fileContent!=undefined)?this.fileContent.split(',')[1]: '', 
+              "createdBy":this.createdBy
+            };
+          }
           resolve(postData);
       }
       for(var i= 0 ; i< this.notificationForm.value.roles.length;i++){
@@ -115,8 +117,10 @@ export class NotificationsDialogComponent implements OnInit {
           "notification": this.notificationForm.value.notificationSubject,
           "notificationDesc": this.notificationForm.value.notificationMessage,
           "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-          "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-          "kmFileManager": {
+          "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON()
+        }
+        if(this.file!=undefined){
+          data['kmFileManager'] = {
             "fileName": (this.file!=undefined)? this.file.name : '', 
             "fileExtension": (this.file!=undefined)? '.' + this.file.name.split('.')[1]: '', 
             "providerServiceMapID": this.providerServiceMapID, 
@@ -125,7 +129,7 @@ export class NotificationsDialogComponent implements OnInit {
             "validUpto": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(), 
             "fileContent":(this.fileContent!=undefined)?this.fileContent.split(',')[1]: '', 
             "createdBy":this.createdBy
-          }
+          };
         }
         this.requiredArr.push(data);
         if(i==(this.notificationForm.value.roles.length-1)){
@@ -135,7 +139,7 @@ export class NotificationsDialogComponent implements OnInit {
     })
     .then(
       (data) => { 
-        console.log(data);
+        console.log(JSON.stringify(data));
         this.dialogRef.close(data);
       },
       (err) => { console.log(err); }
