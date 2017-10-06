@@ -55,6 +55,15 @@ export class OutboundAllocateRecordsComponent implements OnInit {
 
     this.initialCount = this.outboundCallRequests.length;
   }
+  getRoles() {
+    // this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
+    //   .subscribe(resProviderData => {
+    //     console.log('reading...')
+    //     this.users = resProviderData;
+    //     console.log('users: ', this.users);
+    //   }
+    //   );
+  }
   getAgents(roleID: any) {
     this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID)
       .subscribe(resProviderData => {
