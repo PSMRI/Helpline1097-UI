@@ -28,7 +28,7 @@ export class TrainingResourcesComponent implements OnInit {
         this.notificationService.getNotificationTypes(this.service.serviceID)
             .subscribe((response) => {
                 console.log(response);
-                let currentDate = new Date();
+                let currentDate = this.getOffsetTime();
                 this.kmConfig = response.data.filter((notification) => {
                     return notification.notificationType == "KM";
                 });
@@ -48,11 +48,11 @@ export class TrainingResourcesComponent implements OnInit {
                         "providerServiceMapID": this.service.serviceID,
                         "notificationTypeID": this.kmConfig[0].notificationTypeID,
                         "roleIDs": [this.role.RoleID],
-                        "validFrom": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
-                        // "validFrom": currentDate,
+                        // "validFrom": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
+                        "validFrom": currentDate,
                         //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                        "validTill": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
-                        // "validTill": currentDate
+                        // "validTill": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
+                        "validTill": currentDate
                     };
                     // }
                 }
@@ -71,14 +71,14 @@ export class TrainingResourcesComponent implements OnInit {
         if (this.kmPostData) {
             console.log(this.kmPostData);
             // if (this.role.RoleName != "Supervisor") {
-                this.notificationService.getSupervisorNotifications(this.kmPostData)
-                    .subscribe((response) => {
-                        console.log(response);
-                        this.kmfiles = response.data;
-                    },
-                    (err) => {
-                        console.log(err);
-                    });
+            this.notificationService.getKMs(this.kmPostData)
+                .subscribe((response) => {
+                    console.log(response);
+                    this.kmfiles = response.data;
+                },
+                (err) => {
+                    console.log(err);
+                });
             // }
             // else {
             //     this.notificationService.getSupervisorNotifications(this.kmPostData)
@@ -104,4 +104,8 @@ export class TrainingResourcesComponent implements OnInit {
         });
     }
 
+    getOffsetTime() {
+        let date = new Date();
+        return new Date((date.getTime() - 1 * (date.getTimezoneOffset() * 60 * 1000)));
+    }
 }

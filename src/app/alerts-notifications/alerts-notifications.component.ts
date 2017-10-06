@@ -29,32 +29,18 @@ export class AlertsNotificationComponent implements OnInit {
         console.log("providerServiceMapID" + this.service.serviceID);
         this.notificationService.getNotificationTypes(this.service.serviceID)
             .subscribe((response) => {
-                let currentDate = new Date();
+                let currentDate = this.getOffsetTime();
                 console.log(response);
                 this.alertConfig = response.data.filter((notification) => {
                     return notification.notificationType == "Alert";
                 });
                 if (this.alertConfig.length > 0) {
-                    // if (this.role.RoleName != "Supervisor") {
-                    //     this.alertPostData = {
-                    //         "providerServiceMapID": this.service.serviceID,
-                    //         "notificationTypeID": this.alertConfig[0].notificationTypeID,
-                    //         "roleIDs": [this.role.RoleID],
-                    //         "validFrom": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
-                    //         //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                    //         "validTill": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
-                    //     };
-                    // }
-                    // else {
                     this.alertPostData = {
                         "providerServiceMapID": this.service.serviceID,
                         "notificationTypeID": this.alertConfig[0].notificationTypeID,
                         "roleIDs": [this.role.RoleID],
-                        "validFrom": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
-                        // "validFrom": currentDate,
-                        //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                        "validTill": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
-                        // "validTill": currentDate
+                        "validFrom": currentDate,
+                        "validTill": currentDate
                     };
                     // }
                 }
@@ -62,26 +48,12 @@ export class AlertsNotificationComponent implements OnInit {
                     return notification.notificationType == "Notification";
                 });
                 if (this.notificationConfig.length > 0) {
-                    // if(this.role.RoleName!="Supervisor"){
-                    //     this.notificationPostData = {
-                    //         "providerServiceMapID": this.service.serviceID,
-                    //         "notificationTypeID": this.notificationConfig[0].notificationTypeID,
-                    //         "roleIDs": [this.role.RoleID],
-                    //         "validFrom": new Date().toISOString().slice(0,10) + "T00:00:00.000Z",
-                    //         //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                    //         "validTill": new Date(Date.now()+7*24*60*60*1000).toISOString().slice(0,10) + "T23:59:59.999Z"
-                    //     }
-                    // }
-                    // else {
                     this.notificationPostData = {
                         "providerServiceMapID": this.service.serviceID,
                         "notificationTypeID": this.notificationConfig[0].notificationTypeID,
                         "roleIDs": [this.role.RoleID],
-                        "validFrom": new Date().toISOString().slice(0, 10) + "T00:00:00.000Z",
-                        // "validFrom": currentDate,
-                        //currently alerts and notifications from current date to one week(7*24*60*60*1000)
-                        "validTill": new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) + "T23:59:59.999Z"
-                        // "validTill": currentDate
+                        "validFrom": currentDate,
+                        "validTill": currentDate
                     }
                     // }
                 }
@@ -105,12 +77,9 @@ export class AlertsNotificationComponent implements OnInit {
     }
 
     getAlertsandNotifications() {
-        // console.log(this.alertPostData);
-        // console.log(this.notificationPostData);
         if (this.alertPostData) {
             console.log(this.alertPostData);
-            // if (this.role.RoleName != "Supervisor") {
-            this.notificationService.getSupervisorNotifications(this.alertPostData)
+            this.notificationService.getAlerts(this.alertPostData)
                 .subscribe((response) => {
                     console.log(response);
                     this.alerts = response.data;
@@ -118,22 +87,10 @@ export class AlertsNotificationComponent implements OnInit {
                 (err) => {
                     console.log(err);
                 });
-            // }
-            // else {
-            //     this.notificationService.getSupervisorNotifications(this.alertPostData)
-            //         .subscribe((response) => {
-            //             console.log(response);
-            //             this.alerts = response.data;
-            //         },
-            //         (err) => {
-            //             console.log(err);
-            //         });
-            // }
         }
         if (this.notificationPostData) {
             console.log(this.notificationPostData);
-            // if (this.role.RoleName != "Supervisor") {
-            this.notificationService.getSupervisorNotifications(this.notificationPostData)
+            this.notificationService.getNotifications(this.notificationPostData)
                 .subscribe((response) => {
                     console.log(response);
                     this.notifications = response.data;
@@ -141,17 +98,6 @@ export class AlertsNotificationComponent implements OnInit {
                 (err) => {
                     console.log(err);
                 });
-            // }
-            // else {
-            //     this.notificationService.getSupervisorNotifications(this.notificationPostData)
-            //         .subscribe((response) => {
-            //             console.log(response);
-            //             this.notifications = response.data;
-            //         },
-            //         (err) => {
-            //             console.log(err);
-            //         });
-            // }
         }
 
     }
@@ -181,4 +127,9 @@ export class AlertsNotificationComponent implements OnInit {
     close() {
         this.hide_component.emit("3");
     };
+
+    getOffsetTime() {
+        let date = new Date();
+        return new Date((date.getTime() - 1 * (date.getTimezoneOffset() * 60 * 1000)));
+    }
 }
