@@ -28,7 +28,7 @@
             <td width=20%>{{listItem.beneficiary.benPhoneMaps[0].phoneNo}}</td>
             <td width=10%>{{listItem.beneficiary.beneficiaryRegID}}</td>
             <td width=20%>{{listItem.beneficiary.firstName}} {{listItem.beneficiary.lastName}}</td>
-            <td width=20%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy HH:mm'):''}}</td>
+            <td width=20%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td>
             <td width=20%>{{listItem.requestedFor}}</td>
             <td width=10%>
               <button md-icon-button title="call" (click)="viewHistory(listItem)">
