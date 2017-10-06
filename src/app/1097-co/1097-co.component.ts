@@ -9,6 +9,7 @@ declare var jQuery: any;
 import { CommunicationService } from './../services/common/communication.service';
 import { OutboundService } from './../services/common/outbound.services';
 import { ReloadService } from './../services/common/reload.service';
+import { CzentrixServices } from '../services/czentrix/czentrix.service';
 
 @Component({
   selector: 'app-1097-co',
@@ -49,7 +50,8 @@ export class helpline1097CoComponent implements OnInit {
     private _viewContainerRef: ViewContainerRef,
     private pass_data: CommunicationService,
     private outBoundService: OutboundService,
-    private reloadCall: ReloadService
+    private reloadCall: ReloadService,
+    private czentrixService: CzentrixServices
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -73,98 +75,6 @@ export class helpline1097CoComponent implements OnInit {
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
-
-
-    // jQuery('#previous').on('click', function () {
-    //   var idx = jQuery('.carousel-inner div.active').index();
-    //   if (idx > 1) {
-    //     jQuery('#previous').attr('disabled', null);
-    //     //  jQuery('#next').attr('disabled', 'disabled');
-    //   }
-    //   if (idx === 0) {
-    //     jQuery('#previous').attr('disabled', 'disabled');
-    //   }
-    //   if (idx > 0) {
-    //     jQuery('#next').attr('disabled', null);
-    //   }
-    //   if (idx === 4) {
-    //     jQuery('#next').attr('disabled', 'disabled');
-    //   }
-    //   if (idx === 2) {
-    //     this.isNext = true;
-    //     this.isPrevious = true;
-    //   }
-    //   if (idx === 3) {
-    //     this.isNext = false;
-    //     this.isPrevious = true;
-    //   }
-    //   console.log('chala with', idx);
-    //   if (idx === 0) {
-    //     console.log('chala')
-    //     jQuery('#one').parent().find('a').removeClass('active-tab');
-    //     jQuery('#one').find('a').addClass('active-tab');
-    //   }
-    //   if (idx === 1) {
-    //     jQuery('#two').parent().find('a').removeClass('active-tab');
-    //     jQuery('#two').find('a').addClass('active-tab');
-    //   }
-    //   if (idx === 2) {
-    //     jQuery('#three').parent().find('a').removeClass('active-tab');
-    //     jQuery('#three').find('a').addClass('active-tab');
-    //   }
-    //   if (idx === 3) {
-
-    //     jQuery('#four').parent().find('a').removeClass('active-tab');
-    //     jQuery('#four').find('a').addClass('active-tab');
-    //   }
-    // });
-
-
-    // jQuery('#next').on('click', function () {
-    //   var idx = jQuery('.carousel-inner div.active').index();
-    //   console.log('chala with', idx);
-    //   if (idx > 1) {
-    //     jQuery('#previous').attr('disabled', null);
-    //     //  jQuery('#next').attr('disabled', 'disabled');
-    //   }
-    //   if (idx === 0) {
-    //     jQuery('#previous').attr('disabled', 'disabled');
-    //   }
-    //   if (idx > 0) {
-    //     jQuery('#next').attr('disabled', null);
-    //   }
-    //   if (idx === 4) {
-    //     jQuery('#next').attr('disabled', 'disabled');
-    //   }
-    //   if (idx === 2) {
-    //     this.isNext = true;
-    //     this.isPrevious = true;
-    //   }
-    //   if (idx === 3) {
-    //     this.isNext = false;
-    //     this.isPrevious = true;
-    //   }
-
-    //   if (idx === 0) {
-    //     jQuery('#one').parent().find('a').removeClass('active-tab');
-    //     jQuery('#one').find('a').addClass('active-tab');
-
-    //   }
-    //   if (idx === 1) {
-    //     jQuery('#two').parent().find('a').removeClass('active-tab');
-    //     jQuery('#two').find('a').addClass('active-tab');
-
-    //   }
-    //   if (idx === 2) {
-    //     jQuery('#three').parent().find('a').removeClass('active-tab');
-    //     jQuery('#three').find('a').addClass('active-tab');
-
-    //   }
-    //   if (idx === 3) {
-    //     jQuery('#four').parent().find('a').removeClass('active-tab');
-    //     jQuery('#four').find('a').addClass('active-tab');
-    //   }
-    // });
 
     this.router.params.subscribe((params: Params) => {
       if (params['mobileNumber'] != undefined) {
@@ -302,12 +212,40 @@ export class helpline1097CoComponent implements OnInit {
     this.getHistory.emit(null);
   }
   public callBenOutbound(event: any) {
-    this.getCommonData.current_campaign = 'INBOUND';
-    this.current_campaign = this.getCommonData.current_campaign;
     // this.getSelectedBenDetails(event.beneficiary);
     // this.benService('benService');
-    this.basicrouter.navigate(['/InnerpageComponent']);
-    this.outBoundService.sendOutboundData(event);
+    this.czentrixService.getIpAddress(this.getCommonData.Userdata.agentID)
+      .subscribe((ipAddressresponse) => {
+        let cZentrixIp = ipAddressresponse.agent_ip;
+        if (!cZentrixIp) {
+          cZentrixIp = this.getCommonData.loginIP;
+        }
+        this.outboundEvent(event, cZentrixIp)
+      },
+      (error) => {
+        this.dialogService.alert('Some Error while calling Czentrix');
+      });
+  }
+
+  public outboundEvent(event: any, IpAddress: any) {
+    const params = 'transaction_id=CTI_DIAL&agent_id=' + this.getCommonData.Userdata.agentID +
+      '&ip=' + IpAddress + '&phone_num=' + event.beneficiary.benPhoneMaps[0].phoneNo +
+      '&resFormat=3';
+    this.czentrixService.callAPI(params)
+      .subscribe((res) => {
+        console.log(res);
+        if (res.response.status == 'SUCCESS') {
+          this.getCommonData.current_campaign = 'INBOUND';
+          this.current_campaign = this.getCommonData.current_campaign;
+          this.basicrouter.navigate(['/InnerpageComponent']);
+          this.outBoundService.sendOutboundData(event);
+        } else {
+          this.dialogService.alert('Czentrix user not logged In');
+        }
+      },
+      (error) => {
+        this.dialogService.alert('Call Not Intiating Please try again!!!');
+      });
   }
   public ReloadBenOutbound(callType) {
     this.reloadCall.sendReloadCall(callType);
