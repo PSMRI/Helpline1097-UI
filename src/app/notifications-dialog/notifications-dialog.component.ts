@@ -95,7 +95,7 @@ export class NotificationsDialogComponent implements OnInit {
               "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,10)+"T23:59:59.999Z"
           }];
           if(this.file!=undefined){
-            data[0]['kmFileManager'] = {
+            postData[0]['kmFileManager'] = {
               "fileName": (this.file!=undefined)? this.file.name : '', 
               "fileExtension": (this.file!=undefined)? '.' + this.file.name.split('.')[1]: '', 
               "providerServiceMapID": this.providerServiceMapID, 
