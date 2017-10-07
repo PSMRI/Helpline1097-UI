@@ -82,31 +82,31 @@ export class NotificationsDialogComponent implements OnInit {
 
   onSubmit() {
     console.log(this.notificationForm.value);
-    const promise = new Promise((resolve, reject) => {
-      if (this.notificationForm.value.roles == "") {
-        var postData = [{
-          "providerServiceMapID": this.providerServiceMapID,
-          "notificationTypeID": this.notificationForm.value.notificationType,
-          "roleID": undefined,
-          "createdBy": this.createdBy,
-          "notification": this.notificationForm.value.notificationSubject,
-          "notificationDesc": this.notificationForm.value.notificationMessage,
-          "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z",
-          "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z"
-        }];
-        if (this.file != undefined) {
-          data[0]['kmFileManager'] = {
-            "fileName": (this.file != undefined) ? this.file.name : '',
-            "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
-            "providerServiceMapID": this.providerServiceMapID,
-            "userID": this.userId,
-            "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z",
-            "validUpto": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z",
-            "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
-            "createdBy": this.createdBy
-          };
-        }
-        resolve(postData);
+    const promise = new Promise((resolve, reject)=>{
+       if(this.notificationForm.value.roles == ""){
+          var postData = [{
+              "providerServiceMapID": this.providerServiceMapID,
+              "notificationTypeID": this.notificationForm.value.notificationType,
+              "roleID": undefined,
+              "createdBy": this.createdBy,
+              "notification": this.notificationForm.value.notificationSubject,
+              "notificationDesc": this.notificationForm.value.notificationMessage,
+              "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,10)+"T00:00:00.000Z",
+              "validTill": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,10)+"T23:59:59.999Z"
+          }];
+          if(this.file!=undefined){
+            postData[0]['kmFileManager'] = {
+              "fileName": (this.file!=undefined)? this.file.name : '', 
+              "fileExtension": (this.file!=undefined)? '.' + this.file.name.split('.')[1]: '', 
+              "providerServiceMapID": this.providerServiceMapID, 
+              "userID": this.userId, 
+              "validFrom": new Date((this.notificationForm.value.startDate) - 1 * (this.notificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,10)+"T00:00:00.000Z", 
+              "validUpto": new Date((this.notificationForm.value.endDate) - 1 * (this.notificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,10)+"T23:59:59.999Z", 
+              "fileContent":(this.fileContent!=undefined)?this.fileContent.split(',')[1]: '', 
+              "createdBy":this.createdBy
+            };
+          }
+          resolve(postData);
       }
       for (var i = 0; i < this.notificationForm.value.roles.length; i++) {
         var data = {
