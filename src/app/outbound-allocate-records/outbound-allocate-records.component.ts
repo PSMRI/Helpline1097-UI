@@ -58,9 +58,8 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   getRoles() {
     // this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
     //   .subscribe(resProviderData => {
-    //     console.log('reading...')
-    //     this.users = resProviderData;
-    //     console.log('users: ', this.users);
+    //     this.roles = resProviderData;
+    //     console.log('roles: ', this.roles);
     //   }
     //   );
   }

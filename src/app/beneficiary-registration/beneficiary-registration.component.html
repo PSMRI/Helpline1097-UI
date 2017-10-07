@@ -369,7 +369,7 @@
         <input type="text" class="form-control" name="BeneficiaryTypeID" [(ngModel)]="BeneficiaryTypeID">
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> -->
       <!--       <div class="form-group">
         <label class="control-label" for="identityType">Identity Type </label>
         <select class="form-control drop-arrow" #idType name="identityType" [(ngModel)]="identityType">
@@ -377,8 +377,8 @@
                             {{identityType.identityType}}</option>
                     </select>
                   </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
-        <input mdInput style="display:none">
+      <!-- <md-input-container class="hide_underline" [style.width]="'100%'"> -->
+        <!-- <input mdInput style="display:none">
 
         <md-select placeholder="{{currentlanguage.beneficiary_registration?.identity_type}}" [style.width]="'100%'" [(ngModel)]="identityType"
           name="identityType" (change)="validateID(identityType)">
@@ -388,24 +388,24 @@
         </md-select>
       </md-input-container>
 
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
+    </div> -->
+    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9"> -->
       <!--       <div class="form-group">
         <label class="control-label" for="aadharNo">ID No.</label>
         <input type="text" class="form-control" placeholder="Enter Aadhar No." maxlength="15" name="aadharNo" [(ngModel)]="aadharNo">
       </div> -->
-      <md-input-container [style.width]="'100%'">
+      <!-- <md-input-container [style.width]="'100%'">
         <input mdInput required placeholder="{{currentlanguage.beneficiary_registration?.id_number}}" name="aadharNo" [(ngModel)]="aadharNo"
           [maxlength]="idMaxValue" [minlength]="idMinValue" [pattern]="patternID" #idNumber="ngModel">
         <md-hint [hidden]="idNumber.valid || idNumber.pristine">
           <span class=" error_text" [hidden]="!idNumber.hasError('required')">ID Number is required</span>
           <span class=" error_text" [hidden]="!idNumber.hasError('pattern')">{{idErrorText}}</span>
-        </md-hint>
+        </md-hint> -->
         <!-- <md-hint *ngIf="!idNumber.valid && ( idNumber.dirty || idNumber.touched)">
           <span>{{idErrorText}}</span>
         </md-hint> -->
-      </md-input-container>
-    </div>
+      <!-- </md-input-container>
+    </div> -->
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <!--       <div class="form-group">
         <label class="control-label" for="caste">Select Caste</label>

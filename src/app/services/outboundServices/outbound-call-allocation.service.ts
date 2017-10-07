@@ -21,6 +21,7 @@ export class OutboundCallAllocationService {
 
     options = new RequestOptions({ headers: this.headers });
     private _geturl: string = this._baseurl + 'user/getUsersByProviderID';
+    private _getRole_url: string = this._baseurl + 'user/getUsersByProviderID';
     private _allocateurl: string = this._baseurl + 'call/outboundAllocation';
 
     constructor(private _http: Http, private _config: ConfigService, private httpIntercept: InterceptedHttp) { }
@@ -28,6 +29,13 @@ export class OutboundCallAllocationService {
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
         return this._http.post(this._geturl, body, this.options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    getRolesbyProviderID(providerServiceMapID: number) {
+        let body = {};
+        body['providerServiceMapID'] = providerServiceMapID;
+        return this._http.post(this._getRole_url, body, this.options)
             .map(this.extractData)
             .catch(this.handleError);
     }
