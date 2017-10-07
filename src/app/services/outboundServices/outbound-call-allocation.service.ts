@@ -21,7 +21,7 @@ export class OutboundCallAllocationService {
 
     options = new RequestOptions({ headers: this.headers });
     private _geturl: string = this._baseurl + 'user/getUsersByProviderID';
-    private _getRole_url: string = this._baseurl + 'user/getUsersByProviderID';
+    private _getRole_url: string = this._baseurl + 'user/getRolesByProviderID';
     private _allocateurl: string = this._baseurl + 'call/outboundAllocation';
 
     constructor(private _http: Http, private _config: ConfigService, private httpIntercept: InterceptedHttp) { }

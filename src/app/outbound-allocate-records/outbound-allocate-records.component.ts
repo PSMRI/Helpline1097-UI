@@ -50,18 +50,21 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
 
-    this.roles = this.saved_data.userPriveliges[0].roles;
+    // this.roles = this.saved_data.userPriveliges[0].roles;
 
-
+    this.getRoles();
     this.initialCount = this.outboundCallRequests.length;
   }
   getRoles() {
-    // this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
-    //   .subscribe(resProviderData => {
-    //     this.roles = resProviderData;
-    //     console.log('roles: ', this.roles);
-    //   }
-    //   );
+    this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
+      .subscribe(resProviderData => {
+        debugger;
+        this.roles = resProviderData.filter(function (item) {
+          return item.RoleName.toLowerCase() !== 'supervisor' && item.RoleName.toLowerCase() !== 'provideradmin';
+        })
+        console.log('roles: ', this.roles);
+      }
+      );
   }
   getAgents(roleID: any) {
     this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID)
