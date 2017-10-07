@@ -274,11 +274,11 @@ export class InnerpageComponent implements OnInit {
   handleEvent(eventData) {
     if (eventData[0] === 'Disconnect') {
 
-    } else if (eventData[0] === 'CustDisconnect' || eventData[0] === 'CallDisconnect') {
-      this.disconnectCall();
+    } else if (eventData[0] === 'CustDisconnect') {
+      this.showRemarks(eventData);
       // this.showRemarks(eventData);
-
-
+    } else if (eventData[0] === 'CallDisconnect') {
+      this.disconnectCall();
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
     }
   }
