@@ -299,7 +299,14 @@ export class InnerpageComponent implements OnInit {
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
         this.remarksMessage.alert('Successfully Call Transfered');
-        this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+        // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
+        //   debugger;
+        //   this.current_campaign = 'OUTBOUND';
+        //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+        //   this.basicrouter.navigate(['/InnerpageComponent']);
+        // } else {
+          this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+        // }
       }
     }, (err) => {
       this.remarksMessage.alert(err.status);
