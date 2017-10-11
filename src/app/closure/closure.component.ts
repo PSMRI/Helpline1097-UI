@@ -40,7 +40,7 @@ export class ClosureComponent implements OnInit
   ipAddress: any;
   agentID: number;
   today: Date;
-
+  compaignSpecific: boolean = false;
   showSlider: boolean;
   benCallID: any;
   beneficiaryRegID: any;

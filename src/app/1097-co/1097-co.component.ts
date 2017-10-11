@@ -196,7 +196,7 @@ export class helpline1097CoComponent implements OnInit {
     });
   }
   openDialogClosure() {
-    this.dialogService.confirm('Closure ', 'close the call ?').subscribe((response) => {
+    this.dialogService.confirm('Closure ', 'Close call ?').subscribe((response) => {
       if (response) {
         jQuery('#myCarousel').carousel(3);
         jQuery('#four').parent().find('a').removeClass('active-tab');
