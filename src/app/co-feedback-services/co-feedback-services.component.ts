@@ -119,6 +119,7 @@ export class CoFeedbackServicesComponent implements OnInit {
 
     this.today = new Date();
     this.maxDate = this.today;
+    this.GetInstitutes();
   }
 
 
@@ -189,7 +190,7 @@ export class CoFeedbackServicesComponent implements OnInit {
       .subscribe(response => this.SetInstitutes(response));
   }
   SetInstitutes(response: any) {
-    this.institutes = response.institute;
+    this.institutes = response;
   }
 
   setDesignation(response: any) {

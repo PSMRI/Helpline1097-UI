@@ -71,11 +71,11 @@ export class LocationService {
 
     }
     getInstituteList(object: any) {
-        let data = {
-            'stateID': object.stateID, 'districtID': object.districtID,
-            'districtBranchMappingID': object.districtBranchMappingID
-        };
-        return this._http.post(this._getInstituteListURL, data, this.options)
+        // let data = {
+        //     'stateID': object.stateID, 'districtID': object.districtID,
+        //     'districtBranchMappingID': object.districtBranchMappingID
+        // };
+        return this._http.post(this._getInstituteListURL, {}, this.options)
             .map(this.extractData)
             .catch(this.handleError);
     }

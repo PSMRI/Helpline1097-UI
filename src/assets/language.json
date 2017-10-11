@@ -73,7 +73,7 @@
       "feedback_service": "Feedback System"
     },
     "information_service": {
-      "page_heading": "INFORMATION SERVICES",
+      "page_heading": "Information Service",
       "select_category": "Select Category",
       "select_subcategory": "Select Sub-Category",
       "get_details": "Get Details",
@@ -89,7 +89,7 @@
       "new_informations": "New Informations"
     },
     "counselling_service": {
-      "page_heading": "COUNSELLING SERVICES",
+      "page_heading": "Counselling Services",
       "select_category": "Select Category",
       "select_subcategory": "Select Sub-Category",
       "get_details": "Get Details",
