@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
+// import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { loginService } from '../services/loginService/login.service';
 import { ConfigService } from '../services/config/config.service';
 

@@ -5,7 +5,7 @@ import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router'
 import { ConfigService } from '../services/config/config.service';
 import { HttpServices } from '../services/http-services/http_services.service';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
+// import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CallServices } from '../services/callservices/callservice.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
@@ -205,7 +205,7 @@ export class InnerpageComponent implements OnInit {
     // this.currentlanguageSet = "LANGUAGE IS ENGLISH PEHLI BAAR ME";
   }
   logOut() {
-    Cookie.deleteAll();
+    // Cookie.deleteAll();
     this.basicrouter.navigate(['']);
     // location.assign(this.loginUrl);
   }

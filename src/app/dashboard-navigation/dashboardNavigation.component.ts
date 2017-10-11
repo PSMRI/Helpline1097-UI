@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
+// import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { ConfigService } from './../services/config/config.service';
 import { Router } from '@angular/router';
 import { dataService } from './../services/dataService/data.service';
@@ -26,7 +26,7 @@ export class DashboardNavigationComponent implements OnInit {
     }
     changeRole() {
         this.router.navigate(['/MultiRoleScreenComponent']);
-        Cookie.deleteAll();
+        // Cookie.deleteAll();
 
     }
     // location.assign(this.loginUrl);
