@@ -11,7 +11,7 @@ import { InterceptedHttp } from './../../http.interceptor'
 @Injectable()
 export class UserBeneficiaryData {
     _commonBaseURL = this._config.getCommonBaseURL();
-    _getUserBeneficaryDataURL = this._commonBaseURL + 'beneficiary/getRegistrationData/';
+    _getUserBeneficaryDataURL = this._commonBaseURL + 'beneficiary/getRegistrationDataV1/';
     _searchBeneficiary = this._commonBaseURL + '/beneficiary/searchBeneficiary';
     headers = new Headers({ 'Content-Type': 'application/json' });
     options = new RequestOptions({ headers: this.headers });

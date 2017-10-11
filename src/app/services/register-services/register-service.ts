@@ -19,7 +19,7 @@ export class RegisterService {
   _getuserdatabyno = this._baseUrl + 'beneficiary/searchUserByPhone/';
   _startCall = this._baseUrl + 'call/startCall/';
   _updatebeneficiaryincall = this._baseUrl + 'call/updatebeneficiaryincall';
-  _getregistrationdata = this._baseUrl + 'beneficiary/getRegistrationData';
+  _getregistrationdata = this._baseUrl + 'beneficiary/getRegistrationDataV1';
   _searchBeneficiaryURL = this._baseUrl + "/beneficiary/searchBeneficiary";
   constructor(
     private _http: Http,
