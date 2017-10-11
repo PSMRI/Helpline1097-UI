@@ -184,7 +184,8 @@
         <thead>
           <tr>
             <th>S.No.</th>
-            <th md2SortBy="instituteDirMapID">{{currentlanguage.referral_service?.table_labels?.institute_directory_map_id}}</th>
+            <!-- <th md2SortBy="instituteDirMapID">{{currentlanguage.referral_service?.table_labels?.institute_directory_map_id}}</th> -->
+            <th md2SortBy="benCallID">{{currentlanguage.referral_service?.table_labels?.call_id}}</th>
             <th md2SortBy="institutionName">{{currentlanguage.referral_service?.table_labels?.institute_name}}</th>
             <th md2SortBy="createdBy">{{currentlanguage.referral_service?.table_labels?.created_by}}</th>
             <th md2SortBy="createdDate">{{currentlanguage.referral_service?.table_labels?.created_on}}</th>
@@ -198,21 +199,25 @@
           </tr>
           <tr *ngFor="let referral of md2.data;let i=index " style="cursor: pointer;">
             <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
-            <td>{{referral.instituteDirMapID}}</td>
+            <!-- <td>{{referral.instituteDirMapID}}</td> -->
+            <td>{{referral.benCallID}}</td>
             <td>{{referral.instituteDirectoryMapping?.institutionDetails?.institutionName}}</td>
             <td>{{referral.createdBy}}</td>
             <td>{{millisToUTCDate(referral.createdDate)|date:'dd/MM/yyyy HH:mm'}}</td>
           </tr>
         </tbody>
         <tr>
-          <td colspan="6">
+          <td colspan="3">
             <md2-pagination></md2-pagination>
+          </td>
+          <td colspan="2">
+            <button class="btn pull-right" (click)="showForm()">{{currentlanguage.referral_service?.new_referral}}</button>
           </td>
         </tr>
       </table>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
+  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
     <button class="btn pull-right" (click)="showForm()">{{currentlanguage.referral_service?.new_referral}}</button>
-  </div>
+  </div> -->
 </div>

@@ -4,7 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dataService } from '../services/dataService/data.service';
 import { ConfigService } from '../services/config/config.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service'
-import { Cookie } from 'ng2-cookies/ng2-cookies';
+// import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { loginService } from '../services/loginService/login.service';
 import { ListnerService } from './../services/common/listner.service';
 
