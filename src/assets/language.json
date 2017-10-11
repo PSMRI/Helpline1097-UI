@@ -83,8 +83,8 @@
         "beneficiary_call_id": "Call ID",
         "category": "Category",
         "subcategory": "Sub-Category",
-        "created_by": "Information Given By",
-        "created_on": "Information Given On"
+        "created_by": "Information Provided By",
+        "created_on": "Information Provided On"
       },
       "new_informations": "New Informations"
     },
@@ -99,8 +99,8 @@
         "beneficiary_call_id": "Call ID",
         "category": "Category",
         "subcategory": "Sub-Category",
-        "created_by": "Counselled By",
-        "created_on": "Counselled On"
+        "created_by": "Counselling Provided By",
+        "created_on": "Counselling Provided On"
       },
       "new_counsellings": "New Counsellings"
     },
@@ -266,8 +266,8 @@
         "beneficiary_call_id": "Call ID",
         "category": "Category",
         "subcategory": "Sub-Category",
-        "created_by": "Information Given By",
-        "created_on": "Information Given On"
+        "created_by": "Information Provided By",
+        "created_on": "Information Provided On"
       },
       "new_informations": "New Informations"
     },
@@ -281,8 +281,8 @@
         "beneficiary_call_id": "Call ID",
         "category": "Category",
         "subcategory": "Sub-Category",
-        "created_by": "Counselled By",
-        "created_on": "Counselled On"
+        "created_by": "Counselling Provided By",
+        "created_on": "Counselling Provided On"
       },
       "new_counsellings": "New Counsellings"
     },
