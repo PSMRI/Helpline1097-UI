@@ -48,7 +48,7 @@
             <th>Call Type</th>
             <th>Remarks</th>
             <th>Time Of Call</th>
-            <th>Audio</th>
+            <!-- <th>Audio</th> -->
           </tr>
         </thead>
         <tbody>
@@ -59,15 +59,15 @@
             <td>{{item.benCallID}}</td>
             <td>{{item.callType}}</td>
             <td>{{item.remarks}}</td>
-            <td>{{millisToUTCDate(item.callTime)|date: 'dd/MM/yyyy'}}</td>
-            <td width=10%>
+            <td>{{millisToUTCDate(item.callTime)|date: 'dd/MM/yyyy HH:mm'}}</td>
+            <!-- <td width=10%>
               <button md-icon-button title="Audio" (click)="audioEvent()">
                 <i class="material-icons" style="font-size: 18px" >settings_phone</i>
               </button>
-            </td>
+            </td> -->
           </tr>
           <tr>
-            <td colspan="5">
+            <td colspan="4">
               <md2-pagination></md2-pagination>
             </td>
           </tr>
