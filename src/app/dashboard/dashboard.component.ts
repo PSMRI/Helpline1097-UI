@@ -168,7 +168,7 @@ export class dashboardContentClass implements OnInit {
   campaign(value) {
     console.log(value);
     if (value === '1') {
-      this.message.confirm('', 'are you sure want to change to Inbound?').subscribe((response) => {
+      this.message.confirm('', 'Switch to Inbound?').subscribe((response) => {
         if (response) {
           this.dataSettingService.current_campaign = 'INBOUND';
         } else {
@@ -178,7 +178,7 @@ export class dashboardContentClass implements OnInit {
 
     }
     if (value === '0') {
-      this.message.confirm('', 'are you sure want to change to Outbound?').subscribe((response) => {
+      this.message.confirm('', 'Switch to Outbound?').subscribe((response) => {
         if (response) {
           this.dataSettingService.current_campaign = 'OUTBOUND';
         } else {

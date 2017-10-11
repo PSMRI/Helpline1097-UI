@@ -58,7 +58,6 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   getRoles() {
     this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
       .subscribe(resProviderData => {
-        debugger;
         this.roles = resProviderData.filter(function (item) {
           return item.RoleName.toLowerCase() !== 'supervisor' && item.RoleName.toLowerCase() !== 'provideradmin';
         })
