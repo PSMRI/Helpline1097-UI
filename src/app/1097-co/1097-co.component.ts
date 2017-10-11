@@ -178,7 +178,7 @@ export class helpline1097CoComponent implements OnInit {
     this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }
   openDialog() {
-    this.dialogService.confirm('Cancel Call ', 'are you sure want to Cancel ?').subscribe((response) => {
+    this.dialogService.confirm('Cancel Call ', 'Cancel Call?').subscribe((response) => {
       if (response) {
         // this.reloadCall();
         this.beneficiarySelected.emit(null);
@@ -196,7 +196,7 @@ export class helpline1097CoComponent implements OnInit {
     });
   }
   openDialogClosure() {
-    this.dialogService.confirm('Closure ', 'are you sure want to Close the Call ?').subscribe((response) => {
+    this.dialogService.confirm('Closure ', 'close the call ?').subscribe((response) => {
       if (response) {
         jQuery('#myCarousel').carousel(3);
         jQuery('#four').parent().find('a').removeClass('active-tab');

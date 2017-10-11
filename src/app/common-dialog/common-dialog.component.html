@@ -1,18 +1,18 @@
 <div class="container-fluid" *ngIf="confirmAlert">
   <h3 md-dialog-title>
     <div class="row">
-      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">{{message}}</div>
-      <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 ">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-btn">{{message}}</div>
+      <!-- <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 ">
         <button class="pull-right" md-icon-button class="closeBtn" md-dialog-close>
           <i class="material-icons">close</i>
         </button>
-      </div>
+      </div> -->
     </div>
   </h3>
   <md-dialog-content>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div md-dialog-content>
+        <div class="center-btn" md-dialog-content>
           <!-- <div>
             <h3>{{message}}</h3>
           </div> -->
@@ -61,7 +61,7 @@
   <md-dialog-content>
     <div class="row ">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-btn">
-        <md-input-container  [style.width]="'100%'">
+        <md-input-container [style.width]="'100%'">
           <input mdInput placeholder="Enter Remarks" name="Remarks" #remarksRef>
         </md-input-container>
       </div>

@@ -178,7 +178,7 @@ export class ClosureComponent implements OnInit
   }
 
   showAlert() {
-    this.message.alert('Call closed Successful!!!!');
+    this.message.alert('Call Closed Successfully');
     // alert('Call closed Successful!!!!');
   }
   isFollow(e) {

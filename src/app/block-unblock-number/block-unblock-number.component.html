@@ -116,11 +116,11 @@
             </td>
           </tr>
           <tr style="cursor: pointer;" *ngFor="let blacklist of md2.data">
-            <td>{{blacklist.phoneNo}}</td>
-            <td>{{blacklist.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
-            <td>{{blacklist.noOfNuisanceCall ? ((blacklist.noOfNuisanceCall>0) ? blacklist.noOfNuisanceCall : 0): 0}}</td>
-            <td>Nuisence Call</td>
-            <td>{{blacklist.isBlocked ? (millisToUTCDate(blacklist.blockEndDate)|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
+            <td>{{blacklist?.phoneNo}}</td>
+            <td>{{blacklist?.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
+            <td>{{blacklist?.noOfNuisanceCall ? ((blacklist.noOfNuisanceCall>0) ? blacklist.noOfNuisanceCall : 0): 0}}</td>
+            <td>Nuisance Call</td>
+            <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist.blockEndDate)|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
             <td>
               <button class="btn btn-success" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
               <button class="btn" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
