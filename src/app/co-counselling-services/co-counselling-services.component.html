@@ -60,6 +60,8 @@
         <th md2SortBy="benCallID">{{currentlanguage.counselling_service?.table_labels?.beneficiary_call_id}}</th>
         <th md2SortBy="categoryDetails.categoryName">{{currentlanguage.counselling_service?.table_labels?.category}}</th>
         <th md2SortBy="subCategoryDetails.subCategoryName">{{currentlanguage.counselling_service?.table_labels?.subcategory}}</th>
+        <th md2SortBy="createdBy">{{currentlanguage.counselling_service?.table_labels?.created_by}}</th>
+        <th md2SortBy="createdDate">{{currentlanguage.counselling_service?.table_labels?.created_on}}</th>
       </tr>
     </thead>
     <tbody>
@@ -68,20 +70,25 @@
       </tr>
       <tr *ngFor="let counselling of md2.data;let i=index ">
         <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
-        <td width=20%>{{counselling.benCallID}}</td>
+        <td width=20%>{{counselling?.benCallID}}</td>
         <td>{{counselling?.categoryDetails?.categoryName}}</td>
         <td>{{counselling?.subCategoryDetails?.subCategoryName}}</td>
+        <td>{{counselling?.createdBy}}</td>
+        <td>{{counselling?.createdDate?(millisToUTCDate(counselling.createdDate)|date:'dd/MM/yyyy HH:mm'):''}}</td>
       </tr>
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="4">
+        <td colspan="3">
           <md2-pagination></md2-pagination>
+        </td>
+        <td colspan="3">
+          <button class="btn pull-right" (click)="showForm()">{{currentlanguage.counselling_service?.new_counsellings}}</button>
         </td>
       </tr>
     </tfoot>
   </table>
 </div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
+<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
   <button class="btn pull-right" (click)="showForm()">{{currentlanguage.counselling_service?.new_counsellings}}</button>
-</div>
+</div> -->

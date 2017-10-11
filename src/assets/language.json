@@ -80,9 +80,11 @@
       "back": "Back",
       "table_labels": {
         "sno": "S.No.",
-        "beneficiary_call_id": "Beneficiary Call ID",
+        "beneficiary_call_id": "Call ID",
         "category": "Category",
-        "subcategory": "Sub-Category"
+        "subcategory": "Sub-Category",
+        "created_by": "Information Given By",
+        "created_on": "Information Given On"
       },
       "new_informations": "New Informations"
     },
@@ -94,9 +96,11 @@
       "back": "Back",
       "table_labels": {
         "sno": "S.No.",
-        "beneficiary_call_id": "Beneficiary Call ID",
+        "beneficiary_call_id": "Call ID",
         "category": "Category",
-        "subcategory": "Sub-Category"
+        "subcategory": "Sub-Category",
+        "created_by": "Counselled By",
+        "created_on": "Counselled On"
       },
       "new_counsellings": "New Counsellings"
     },
@@ -114,9 +118,10 @@
         "table_heading": "Referral History",
         "sno": "S.No.",
         "institute_directory_map_id": "Institute Directory Map ID",
+        "call_id": "Call ID",
         "institute_name": "Name Of Institute",
-        "created_by": "Created By",
-        "created_on": "Created On"
+        "created_by": "Referral Provided By",
+        "created_on": "Referral Provided On"
       },
       "new_referral": "New Referral"
     },
@@ -145,7 +150,6 @@
         "created_date": "Created Date"
       },
       "create_feedback": "Create Feedback"
-     
     },
     "other_details": {
       "heading": "OTHER DETAILS",
@@ -259,9 +263,11 @@
       "get_details": "Get Details",
       "back": "Back",
       "table_labels": {
-        "beneficiary_call_id": "Beneficiary Call ID",
+        "beneficiary_call_id": "Call ID",
         "category": "Category",
-        "subcategory": "Sub-Category"
+        "subcategory": "Sub-Category",
+        "created_by": "Information Given By",
+        "created_on": "Information Given On"
       },
       "new_informations": "New Informations"
     },
@@ -272,9 +278,11 @@
       "get_details": "Get Details",
       "back": "Back",
       "table_labels": {
-        "beneficiary_call_id": "Beneficiary Call ID",
+        "beneficiary_call_id": "Call ID",
         "category": "Category",
-        "subcategory": "Sub-Category"
+        "subcategory": "Sub-Category",
+        "created_by": "Counselled By",
+        "created_on": "Counselled On"
       },
       "new_counsellings": "New Counsellings"
     },
@@ -291,9 +299,10 @@
       "table_labels": {
         "table_heading": "Referral History",
         "institute_directory_map_id": "Institute Directory Map ID",
+        "call_id": "Call ID",
         "institute_name": "Name Of Institute",
-        "created_by": "Created By",
-        "created_on": "Created On"
+        "created_by": "Referral Provided By",
+        "created_on": "Referral Provided On"
       },
       "new_referral": "New Referral"
     },
@@ -321,7 +330,6 @@
         "created_date": "Created Date"
       },
       "create_feedback": "Create Feedback"
-
     },
     "other_details": {
       "heading": "Other Details",
