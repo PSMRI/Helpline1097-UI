@@ -160,6 +160,7 @@ export class dashboardContentClass implements OnInit {
   setCompain(compain: any) {
     if (compain.toUpperCase() === 'OUTBOUND') {
       this.inOutBound = 0;
+      this.router.navigate(['/InnerpageComponent']);
     } else {
       this.inOutBound = 1;
       this.dataSettingService.current_campaign = 'INBOUND';
