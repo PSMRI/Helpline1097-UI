@@ -160,19 +160,40 @@ export class ClosureComponent implements OnInit
       })
 
     } else {
-      this._callServices.closeCall(values).subscribe((response) => {
-        if (response) {
-          this.showAlert();
-          if (btnType === 'submitClose') {
+      if (btnType === 'submitClose') {
+        this._callServices.closeCall(values).subscribe((response) => {
+          if (response) {
+            this.showAlert();
+            // if (btnType === 'submitClose') {
             this.callClosed.emit(this.current_campaign);
-          } else {
-            this.closedContinue.emit();
+            // } else {
+            //   this.closedContinue.emit();
+            // }
+            // this.pass_data.sendData(this.current_campaign);
           }
-          // this.pass_data.sendData(this.current_campaign);
-        }
-      }, (err) => {
-        this.message.alert(err.status);
-      });
+        }, (err) => {
+          this.message.alert(err.status);
+        });
+      } else {
+        this.message.confirm('Continue', 'Providing New Service to Beneficiary ?').subscribe((res) => {
+          if (res) {
+            this._callServices.closeCall(values).subscribe((response) => {
+              if (response) {
+                this.showAlert();
+                // if (btnType === 'submitClose') {
+                // this.callClosed.emit(this.current_campaign);
+                // } else {
+                  this.closedContinue.emit();
+                // }
+                // this.pass_data.sendData(this.current_campaign);
+              }
+            }, (err) => {
+              this.message.alert(err.status);
+            });
+          }
+
+        })
+      }
     }
 
   }
