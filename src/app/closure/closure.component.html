@@ -122,7 +122,7 @@
             <input mdInput style="display:none">
             <md-select required placeholder="{{currentlanguage.closure?.callSubtype}}" [style.width]="'100%'" [(ngModel)]="callTypeID"
               name="callTypeID" #subCallType="ngModel">
-              <md-option *ngFor="let callSubtype of callSubTypes" value="{{callSubtype.callTypeID}},{{callSubtype.fitToBlock}}" (click)="sliderVisibility(callSubtype.fitForFollowUp)">
+              <md-option *ngFor="let callSubtype of callSubTypes" value="{{callSubtype?.callTypeID}},{{callSubtype?.fitToBlock}}" (click)="sliderVisibility(callSubtype.fitForFollowUp)">
                 {{callSubtype.callType}}
               </md-option>
             </md-select>

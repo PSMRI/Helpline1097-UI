@@ -34,25 +34,33 @@ export class OutboundSearchRecordsComponent implements OnInit {
 
   ngOnInit() {
     this.serviceProviderMapID = this.saved_data.current_service.serviceID;
-    this._OSRService.getUnallocatedCalls(this.serviceProviderMapID)
+    this.getOutboundCall(this.serviceProviderMapID);
+    // this._OSRService.getUnallocatedCalls(this.serviceProviderMapID)
+    //   .subscribe(resProviderData => {
+    //     this._unAllocatedCalls = resProviderData.data;
+    //     this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
+    //   });
+
+  }
+  assignCount(providerServiceMapId: any) {
+    this.getOutboundCall(providerServiceMapId);
+  }
+  getOutboundCall(serviceProviderMapID) {
+    this._OSRService.getUnallocatedCalls(serviceProviderMapID)
       .subscribe(resProviderData => {
         this._unAllocatedCalls = resProviderData.data;
-
         this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
       });
+  }
 
-  }
-  assignCount(length: any) {
-    this.tot_unAllocatedCalls = length;
-  }
   allocateCalls(values: any, event) {
 
     console.log('valuse: ' + values);
 
-    for (var i = 0; i < event.target.parentNode.parentNode.parentNode.children.length; i++) {
-      event.target.parentNode.parentNode.parentNode.children[i].className = '';
-    }
-    event.target.parentNode.parentNode.className = 'highlightTrBg';
+    // for (var i = 0; i < event.target.parentNode.parentNode.parentNode.children.length; i++) {
+    //   event.target.parentNode.parentNode.parentNode.children[i].className = '';
+    // }
+    // event.target.parentNode.parentNode.className = 'highlightTrBg';
     if (this.tot_unAllocatedCalls > 0) {
       this.showFlage = true;
     }

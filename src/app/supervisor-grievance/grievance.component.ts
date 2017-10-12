@@ -43,6 +43,7 @@ export class supervisorFeedback implements OnInit {
   editFeedBack: boolean = false;
   feedBackDiv: boolean = true;
   public feedbackStatusData: any;
+  dateIncident: any = undefined;
   error: any = { isError: false, errorMessage: '' };
 
   constructor(
@@ -256,7 +257,6 @@ export class supervisorFeedback implements OnInit {
     //   }, (err) => {
     //     console.log('Error in fetching Data of FeedBack');
     //   });
-
     this.feedBackRequestsResponse = feedback.feedbackRequests;
     this.feedBackResponses = feedback.feedbackResponses;
 
@@ -330,7 +330,6 @@ export class supervisorFeedback implements OnInit {
      editor:Diamond Khanna
      date:16 Aug,2017
    */
-
     this.feedBackRequestsResponse = feedback.feedbackRequests;
     this.feedBackResponses = feedback.feedbackResponses;
 

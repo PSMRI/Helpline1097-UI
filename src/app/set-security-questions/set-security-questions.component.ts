@@ -56,7 +56,6 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
 
   updateQuestions(selectedques: any) {
-
     if (selectedques) {
       this.selectedQuestions.push(selectedques);
       this.questions = this.questions.filter(val => !(this.selectedQuestions.includes(val.QuestionID)));
@@ -64,7 +63,6 @@ export class SetSecurityQuestionsComponent implements OnInit {
     } else {
       alert('Please select a question');
     }
-
   }
 
 
