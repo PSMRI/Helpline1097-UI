@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'login-component',
   templateUrl: './login.html',
-  styles: ['body{ background:red !important; }']
+  styleUrls: ['./login.component.css']
 })
 
 export class loginContentClass {
