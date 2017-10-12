@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { ConfigService } from "../config/config.service";
+import { dataService } from "../dataService/data.service";
 
 
 @Injectable()
@@ -12,14 +13,14 @@ export class CzentrixServices {
   options = new RequestOptions({ headers: this.headers });
 
   address = this._config.getTelephonyServerURL();
+  agent_id: any = this._data.cZentrixAgentID;
   path = 'apps/appsHandler.php?';
-  _getTodaysCallReport = this.address + 'apps/cust_appsHandler.php?transaction_id=CTI_AGENT_CALL_RECORD&agent_id=201&resFormat=3'
+  // _getTodaysCallReport = this.address + 'apps/cust_appsHandler.php?transaction_id=CTI_AGENT_CALL_RECORD&agent_id=' + this.agent_id + '&resFormat=3'
   resFormat = 3;
   transaction_id: any;
-  agent_id: any;
   ip: any;
   phone_num: number;
-  constructor(private http: Http, private _config: ConfigService) { }
+  constructor(private http: Http, private _config: ConfigService, private _data: dataService) { }
 
 
 
@@ -145,7 +146,10 @@ export class CzentrixServices {
   }
 
   getTodayCallReports() {
-    return this.http.get(this._getTodaysCallReport).map(this.extractData).catch(this.handleError);
+    this.transaction_id = 'CTI_AGENT_CALL_RECORD';
+    this.agent_id = this._data.cZentrixAgentID;
+    let params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
+    return this.http.get(this.address + params).map(this.extractData).catch(this.handleError);
   }
 
   private extractData(res: Response) {

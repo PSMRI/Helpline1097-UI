@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
   <label class="pull-left">
     <h4>Blacklist a Number</h4></label>
 </div>
@@ -120,7 +120,7 @@
             <td>{{blacklist?.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
             <td>{{blacklist?.noOfNuisanceCall ? ((blacklist.noOfNuisanceCall>0) ? blacklist.noOfNuisanceCall : 0): 0}}</td>
             <td>Nuisance Call</td>
-            <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist.blockEndDate)|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
+            <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockEndDate)|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
             <td>
               <button class="btn btn-success" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
               <button class="btn" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
