@@ -61,7 +61,7 @@
                       </div> -->
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
-        <md-select placeholder="{{currentlanguage.feedback_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+        <md-select placeholder="{{currentlanguage.feedback_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
           name="taluk" (change)="GetBlocks(selected_taluk)">
           <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
             {{taluk.blockName}}
@@ -72,15 +72,15 @@
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <!--                 <div class="form-group">
+    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> -->
+    <!--                 <div class="form-group">
                     <label class="control-label" for="sdt">Sub-District/Taluka/Block</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="sdtb" [(ngModel)]="selected_sdtb"
                         (change)="GetInstitutes()">
                             <option *ngFor="let block of blocks" value="{{block.districtBranchID}}">{{block.villageName}}</option>
                         </select>
                       </div> -->
-      <md-input-container class="hide_underline" [style.width]="'100%'">
+    <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput class="display_none">
         <md-select placeholder="{{currentlanguage.feedback_service?.village}}" [style.width]="'100%'" [(ngModel)]="selected_sdtb"
           name="sdtb">
@@ -92,7 +92,7 @@
           <span class="error_text"></span>
         </md-hint>
       </md-input-container>
-    </div>
+    </div> -->
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <!--                 <div class="form-group has-label">
                     <label class="control-label" for="whatInformation">Institution Name</label>

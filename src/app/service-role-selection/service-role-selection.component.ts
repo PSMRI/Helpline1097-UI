@@ -3,38 +3,39 @@ import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 
 @Component({
- selector: 'app-service-role-selection',
- templateUrl: './service-role-selection.component.html',
- styleUrls: ['./service-role-selection.component.css']
+    selector: 'app-service-role-selection',
+    templateUrl: './service-role-selection.component.html',
+    styleUrls: ['./service-role-selection.component.css']
 })
 export class ServiceRoleSelectionComponent implements OnInit {
- privleges: any;
- constructor(
-  public getCommonData: dataService,
-  public router: Router
- ) { }
+    privleges: any;
+    constructor(
+        public getCommonData: dataService,
+        public router: Router
+    ) { }
 
- ngOnInit() {
+    ngOnInit() {
 
-  this.privleges = this.getCommonData.userPriveliges;
-  // this.privleges[3].roles[1].RoleName = 'Supervisor';
-  
- }
+        this.privleges = this.getCommonData.userPriveliges;
+        // this.privleges[3].roles[1].RoleName = 'Supervisor';
 
- route2dashboard(role, service) {
-  let roleName = role.RoleName;
-  let serviceName = service.serviceName;
-  // if ( service === '1097' && ( role === 'CO' || role === 'Supervisor' ) )
-  if (serviceName === '1097' && (roleName === 'CO' || roleName === 'Supervisor')) {
-   this.getCommonData.current_role = role;
-   this.getCommonData.current_service = service;
-   this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
-   // this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['dashboard'] } }]);
-  }
-  // if ( role === 'ADMIN' )
-  if (roleName === 'ADMIN') {
-   this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['superAdmin'] } }]);
-  }
- }
+    }
+
+    route2dashboard(role, service) {
+        let roleName = role.RoleName;
+        let serviceName = service.serviceName;
+        // if ( service === '1097' && ( role === 'CO' || role === 'Supervisor' ) )
+        if (serviceName === '1097' && (roleName === 'CO' || roleName === 'Supervisor')) {
+            this.getCommonData.current_role = role;
+            this.getCommonData.current_service = service;
+            this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
+            this.getCommonData.cZentrixAgentID = (role.agentID ? role.agentID : (this.getCommonData.Userdata.agentID ? this.getCommonData.Userdata.agentID : undefined));
+            // this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['dashboard'] } }]);
+        }
+        // if ( role === 'ADMIN' )
+        if (roleName === 'ADMIN') {
+            this.router.navigate(['/MultiRoleScreenComponent', { outlets: { 'postLogin_router': ['superAdmin'] } }]);
+        }
+    }
 
 }
