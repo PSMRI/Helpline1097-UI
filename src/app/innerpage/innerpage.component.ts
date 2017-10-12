@@ -300,7 +300,6 @@ export class InnerpageComponent implements OnInit {
       if (response) {
         this.remarksMessage.alert('Successfully Call Transfered');
         // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
-        //   debugger;
         //   this.current_campaign = 'OUTBOUND';
         //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         //   this.basicrouter.navigate(['/InnerpageComponent']);

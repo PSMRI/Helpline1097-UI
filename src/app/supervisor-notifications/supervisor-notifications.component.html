@@ -64,8 +64,10 @@
     </div>
   </div>
 </div> -->
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-  <label class="pull-left"><h4> Notifications </h4> </label>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <label class="pull-left"><h4 class="f-s-b m-b-30"> Notifications </h4> </label>
+  </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
   <form (ngSubmit)="onSubmitShowForm()" #showNotificationForm="ngForm">
@@ -130,7 +132,7 @@
         </td>
       </tr>
       <tr>
-        <td colspan="3">
+        <td colspan="6">
           <pagination-controls id="notifications" (pageChange)="p = $event"></pagination-controls>
         </td>
         <!-- <td colspan="3">

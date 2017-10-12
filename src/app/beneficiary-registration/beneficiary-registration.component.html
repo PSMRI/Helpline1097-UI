@@ -1,6 +1,8 @@
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-  <label>
-    <h4>CREATE/FIND A BENEFICIARY</h4></label>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+    <label>
+      <h4 class="f-s-b m-b-30">CREATE/FIND A BENEFICIARY</h4></label>
+  </div>
 </div>
 <div class="col-xs-12 col-sm-12">
   <div class="row" *ngIf="current_campaign == 'INBOUND'">
@@ -31,7 +33,7 @@
       <button type="button" class="btn btn-default m-t-10 m-l-5 pull-left" id="retrieve" (click)="retrieveRegHistory(registrationNo)">{{currentlanguage.beneficiary_registration?.retrieve}}</button>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-10" *ngIf="advanceBtnHide">
-      <button type="button" class="btn btn-default" id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue}}</button>
+      <button type="button" md-raised-button color="primary" id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue}}</button>
     </div>
   </div>
   <div class="row" [collapse]="isAdvancedSearch">
@@ -236,7 +238,7 @@
   <!-- <form #Form="ngForm" (submit)="registerBeneficiary(Form.value); Form.reset()" *ngIf="notCalledEarlier"> -->
   <div class="row" *ngIf="notCalledEarlier">
     <div class=" col-xs-12 col-sm-12">
-      <h4>{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
+      <h4 class="f-s-b m-b-30">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
     </div>
     <!-- <form autocomplete="off"> -->
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -574,13 +576,13 @@
     </div>
     <!-- </form> -->
     <div class="col-xs-12 col-sm-12 m-b-10">
-      <button class="btn cu-green-btn p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
-      <button [disabled]="!stateSelected.valid || !citySelected.valid" class="btn cu-green-btn pull-right p-l-r-38 font-regular
+      <button md-raised-button color="primary" class="p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
+      <button md-raised-button color="primary" [disabled]="!stateSelected.valid || !citySelected.valid" class="pull-right p-l-r-38 font-regular
                 f-s-18" *ngIf="!updationProcess" (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
     </div>
     <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="updationProcess">
-      <button class="btn cu-green-btn p-l-r-38 font-regular f-s-18" (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>
-      <button class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18" (click)="updateBeneficiary()">{{currentlanguage.beneficiary_registration?.update}}</button>
+      <button md-raised-button color="primary" class="p-l-r-38 font-regular f-s-18" (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>
+      <button md-raised-button color="primary" class="pull-right p-l-r-38 font-regular f-s-18" (click)="updateBeneficiary()">{{currentlanguage.beneficiary_registration?.update}}</button>
     </div>
   </div>
   <!-- </form> -->

@@ -17,10 +17,10 @@
             <h3>{{message}}</h3>
           </div> -->
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <button md-button style="color: #fff;background-color: #153961;" (click)="dialogRef.close(true)">{{btnOkText}}</button>
+            <button md-raised-button color="primary" (click)="dialogRef.close(true)">{{btnOkText}}</button>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <button md-button (click)="dialogRef.close(false)">{{btnCancelText}}</button>
+            <button md-raised-button (click)="dialogRef.close(false)">{{btnCancelText}}</button>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
   <md-dialog-content>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-btn ">
-        <button md-button style="color: #fff;background-color: #153961; " (click)="dialogRef.close(true) ">{{btnOkText}}</button>
+        <button md-raised-button color="primary" (click)="dialogRef.close(true) ">{{btnOkText}}</button>
       </div>
     </div>
   </md-dialog-content>
@@ -68,7 +68,7 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pull-right">
-        <button md-button class="pull-right" style="color: #fff;background-color: #153961; " (click)="dialogRef.close(remarksRef.value) ">{{btnOkText}}</button>
+        <button md-raised-button class="pull-right" color="primary" (click)="dialogRef.close(remarksRef.value) ">{{btnOkText}}</button>
       </div>
     </div>
   </md-dialog-content>

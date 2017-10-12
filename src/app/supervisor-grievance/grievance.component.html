@@ -319,9 +319,13 @@
   </div>
 </form>  -->
 <!-- ========================================NEW LOOK===================================================== -->
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-  <label class="pull-left">
-    <h4>Feedback Tracking</h4></label>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+    <label class="pull-left">
+      <h4 class="f-s-b m-b-30">Feedback Tracking</h4></label>
+</div>
+
 </div>
 <div class="row">
   <div *ngIf="action === 'view'">
@@ -339,12 +343,12 @@
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-          <button class="btn cu-green-btn m-t-lg-20" type="submit" name="search">Search</button>
+          <button md-raised-button color="primary" class="m-t-lg-20" type="submit" name="search">Search</button>
         </div>
       </div>
     </form>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="action === 'view'">
-      <h4 class="pull-left">FeedBack Details</h4>
+      <h4 class="pull-left f-s-b m-b-30">FeedBack Details</h4>
     </div>
     <div class="col-xs-12 col-sm-12" *ngIf="action === 'view'">
       <div class="table-responsive m-t-10">
@@ -377,10 +381,10 @@
                 <input type="checkbox" value="" />
               </td> -->
               <td>
-                <button class="btn cu-green-btn f-s-13 p-t-b-3" type="button" (click)="requestFeedback(feedback)">Edit</button>
+                <button md-raised-button color="accent" type="button" (click)="requestFeedback(feedback)">Edit</button>
               </td>
               <td>
-                <button class="btn cu-green-btn f-s-13 p-t-b-3" type="submit" (click)="updateResponse(feedback)" *ngIf="feedback?.feedbackRequests?.length > 0">Update</button>
+                <button md-raised-button color="primary"  type="submit" (click)="updateResponse(feedback)" *ngIf="feedback?.feedbackRequests?.length > 0">Update</button>
               </td>
             </tr>
           </tbody>
@@ -395,7 +399,7 @@
   </div>
   <div class="row" *ngIf="(action === 'edit') || (action === 'update')">
     <div class="col-md-2 col-lg-2 pull-right">
-      <button type="button" class="btn cu-btn-default" (click)="back()">back</button>
+      <button type="button" md-raised-button color="primary" (click)="back()">back</button>
     </div>
     <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -460,11 +464,13 @@
             <input mdInput placeholder="UserName" id="UserName" formControlName="userName" maxlength="50" readonly>
           </md-input-container>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
-          <md-input-container style="width: 100%">
+        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+            <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="Incident Date"
+            name="dateIncident" [(ngModel)]="dateIncident"></md2-datepicker>
+         <md-input-container style="width: 100%">
             <input mdInput placeholder="Phone Number For SMS" id="SMSPhoneNo" formControlName="smsPhoneNo" maxlength="50" readonly>
           </md-input-container>
-        </div>
+        </div> -->
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
@@ -537,7 +543,7 @@
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4" *ngIf="action==='edit'">
-          <button class="btn cu-green-btn pull-right" type="submit" name="save"> Save/Email</button>
+          <button md-raised-button color="primary" class="pull-right" type="submit" name="save"> Save/Email</button>
         </div>
       </div>
     </form>
@@ -552,6 +558,7 @@
             <th>Comments</th>
             <th>Email Status</th>
             <th>Email Status Description</th>
+            <th> Updated Date</th>
           </tr>
         </thead>
         <tbody *ngFor="let feedBackRequest of feedBackRequestsResponse | paginate: { itemsPerPage: 5, currentPage: pa } ">
@@ -559,6 +566,7 @@
             <td>{{feedBackRequest.feedbackRequestID}}</td>
             <td>{{feedBackRequest.comments}}</td>
             <td>{{feedBackRequest.emailStatus?.emailStatus}}</td>
+            <td>{{feedBackRequest.emailStatus?.emailStatusDesc}}</td>
             <td>{{feedBackRequest.emailStatus?.emailStatusDesc}}</td>
           </tr>
           <tr *ngFor="let feedBackResponse of feedBackResponses" [collapse]="isCollapsedResponse">

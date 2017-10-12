@@ -1,0 +1,98 @@
+md-card {
+    width: 400px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .formIcons {
+    padding-top: 30px;
+    color: gray;
+  }
+  
+  form {
+    font-size: 17px;
+  }
+  
+  button {
+    font-size: 15px;
+  }
+  
+  .forgotBtn {
+    margin: 10px;
+  }
+  
+  md-card {
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px gray;
+  }
+  
+  md-card-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 25px;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .errorStyle {
+    position: absolute;
+    font-size: 12px;
+    transition: all .7s;
+    color: #F44336;
+  }
+  
+  .loader-overlay {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+  
+  .googleBtn {
+    background-color: #F44336;
+    color: white;
+    /*background-color: white;
+      color: #F44336;*/
+  }
+  
+  .fbBtn {
+    background-color: #3f51b5;
+    color: white;
+    /*color: #3f51b5;
+      background-color: white;*/
+  }
+  
+  
+  /*for smaller screens*/
+  
+  @media (min-width: 10px) {
+    md-card {
+      top: 30px;
+    }
+  }
+  
+  @media (min-width: 370px) {}
+  
+  
+  /*for Medium screens*/
+  
+  @media (min-width: 480px) {
+    md-card {
+      top: 0px;
+    }
+  }
+  
+  
+  /*for large screens*/
+  
+  @media (min-width: 768px) {
+    md-card {
+      top: 0px;
+    }
+  }
+  

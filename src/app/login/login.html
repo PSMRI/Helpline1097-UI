@@ -5,7 +5,84 @@
     </div>
   </div>
 </div> -->
-<div class="col-xs-12 col-sm-12">
+<md-grid-list cols="1" rowHeight="650px">
+    <md-grid-tile>
+      <md-card class="loginCard">
+        <md-card-title>
+          <div class="btn-center"> <img src="assets/images/Piramal-logo-login.png" alt="Logo"> </div>
+        </md-card-title>
+        <md-card-content>
+          <form class="form-horizontal cu-form-horizontal-label-left" name="loginForm" (ngSubmit)="f.form.valid && login(userID,password)"
+            #f="ngForm">
+            <!-- <div class="row text-center">
+              <div class=""> <img src="assets/images/Piramal-logo-login.png" alt="Logo"> </div>
+            </div> -->
+            <div class="row" >
+              <div class="col-xs-1 col-md-1 col-sm-1">
+                <i class="material-icons formIcons">account_box</i>
+              </div>
+              <div class="col-xs-11 col-md-11 col-sm-11">
+                <!-- <div class="form-group m-t-25">
+                  <div class="col-xs-12 col-sm-1 center-btn " for="userID"> <i class="material-icons formIcons">account_box</i></div>
+                  <div class="col-xs-12 col-sm-11"> -->
+                <md-input-container class="full-width">
+                  <input autocomplete='off' mdInput type="text" id="userID" placeholder="Enter User Name" [(ngModel)]="userID"
+                    name="userID" />
+                </md-input-container>
+                <!-- <input type="text" class="form-control" id="userID" placeholder="Enter userID" [(ngModel)]="userID" name="userID"> -->
+              </div>
+            </div>
+            <div class="row" fxLayoutAlign="start end">
+              <div class="col-xs-1 col-md-1 col-sm-1">
+                <i class="material-icons formIcons">lock</i>
+              </div>
+              <div class="col-xs-11 col-md-11 col-sm-11">
+                <md-input-container class="full-width">
+                  <input mdInput type="password"  id="password" placeholder="Enter Password" [(ngModel)]="password" name="password"
+                  />
+                </md-input-container>
+                <!-- <input type="password" class="form-control" id="password" placeholder="Enter password" [(ngModel)]="password" name="password"> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-12 col-sm-12">
+                <button md-raised-button color="primary" type="submit" class="full-width largeBtn">Login</button>
+                <!-- <button type="submit" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18">Login</button> -->
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <label class="m-t-10 ">
+                <input type="checkbox" name="remember" >
+                <span class="f-s-n-b">Remember me</span></label>
+                <button type="submit" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18">Login</button>
+              </div>
+            </div> -->
+            <!-- <div fxLayout="row">
+                <div fxFlex="100" fxLayoutAlign="center center">
+                    <li class="m-r-10"><a class="cursorPointer f-c-54 font-regular" routerLink="/resetPassword">Forgot Password?</a></li>
+                </div>
+              </div> -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 t-a-c "><span class=" error_text" name="message">{{loginResult}}</span></div>
+            <div class="row m-t-25">
+              <div class="col-xs-12 col-sm-3"></div>
+              <div class="col-xs-12 col-sm-9">
+                <ul class="list-unstyled list-inline pull-right">
+                  <li class="m-r-10"><a class="cursorPointer f-c-54 font-regular" routerLink="/resetPassword">Forgot Password?</a></li>
+  
+                </ul>
+              </div>
+            </div>
+  
+          </form>
+        </md-card-content>
+      </md-card>
+      <!--card-ends-->
+    </md-grid-tile>
+  </md-grid-list>
+<!-- <div class="col-xs-12 col-sm-12">
   <div class="row m-t-158">
     <div class="login-div ">
       <div class="panel-body p-l-r-50 p-b-25 p-t-30 bg-white boxShadow">
@@ -30,16 +107,16 @@
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             </div>
             <div class="col-xs-12 col-sm-9">
-              <label class="m-t-10 ">
+              <!--<label class="m-t-10 ">
               <input type="checkbox" name="remember" >
-              <span class="f-s-n-b">Remember me</span></label>
-              <button type="submit" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18">Login</button>
+              <span class="f-s-n-b">Remember me</span></label>-->
+              <!-- <button type="submit" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18">Login</button>
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 t-a-c "><span class=" error_text" name="message">{{loginResult}}</span></div>
           <div class="row m-t-25">
-            <div class="col-xs-12 col-sm-3"></div>
-            <div class="col-xs-12 col-sm-9">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"></div>
+            <div class="col-xs-12 col-sm-9 m-l-15">
               <ul class="list-unstyled list-inline pull-right">
                 <li class="m-r-10"><a class="cursorPointer f-c-54 font-regular" routerLink="/resetPassword">Forgot Password?</a></li>
 
@@ -51,7 +128,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <footer class="footer">
   <div class="row" >
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -65,4 +142,4 @@
       <!--<button md-raised-button type="button" color="primary" class="footer-height pull-right czenrix-bar" *ngIf="!barMinimized" (click)="toggleBar()">CZentrix</button>-->
     </div>
   </div>
-</footer>
+</footer> -->

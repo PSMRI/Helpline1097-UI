@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, ElementRef, Renderer } from '@angular/core';
 import { enableProdMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { OutboundCallAllocationService } from '../services/outboundServices/outbound-call-allocation.service';
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
-
+import { OutboundSearchRecordService } from '../services/outboundServices/outbound-search-records.service';
 
 @Component({
   selector: 'app-outbound-allocate-records',
@@ -29,31 +29,54 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   roles: any = [];
   providerServiceMapID: number;
   @Input() outboundCallRequests: any = [];
-  @ViewChild('allocateForm') allocateForm: NgForm;
+  allocateForm: FormGroup;
+  // @ViewChild('allocateForm') allocateForm: NgForm;
   @Output() outboundCount: EventEmitter<any> = new EventEmitter<any>();
   initialCount: number;
-  outboundallocateform = new FormGroup({
-    totalNewRecords: new FormControl(),
-    userID: new FormControl(),
-    AllocateNoOfRecords: new FormControl(),
-    roleID: new FormControl(),
-  });
+  @ViewChild('allocateRef') input: ElementRef;
+  // outboundallocateform = new FormGroup({
+  //   totalNewRecords: new FormControl(),
+  //   userID: new FormControl(),
+  //   AllocateNoOfRecords: new FormControl(),
+  //   roleID: new FormControl(),
+  //   OutboundSearchRecordService
+  // });
 
   constructor(
     private _OCAService: OutboundCallAllocationService,
     private saved_data: dataService,
-    private alertMessage: ConfirmationDialogsService
+    private alertMessage: ConfirmationDialogsService,
+    private fb: FormBuilder,
+    private _OSRService: OutboundSearchRecordService,
+    private renderer: Renderer
   ) {
-
+    // this.providerServiceMapID = this.saved_data.current_service.serviceID;
+    // this.getOutboundCall(this.providerServiceMapID);
+    this.createForm();
   }
 
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
-
     // this.roles = this.saved_data.userPriveliges[0].roles;
-
     this.getRoles();
-    this.initialCount = this.outboundCallRequests.length;
+    // this.initialCount = this.outboundCallRequests.length;
+    // this.outboundCallRequests = this.outboundCallRequests;
+    //  this.getOutboundCall(this.providerServiceMapID);
+  }
+  getOutboundCall(serviceProviderMapID) {
+    this._OSRService.getUnallocatedCalls(serviceProviderMapID)
+      .subscribe(resProviderData => {
+        this.initialCount = resProviderData.data.length;
+        this.allocateForm.controls['outboundCallRequests'].setValue(resProviderData.data);
+      });
+  }
+  createForm() {
+    this.allocateForm = this.fb.group({
+      roleID: ['', Validators.required],
+      userID: ['', Validators.required], // <--- the FormControl called "name"
+      allocateNo: ['', Validators.required],
+      outboundCallRequests: [null]
+    });
   }
   getRoles() {
     this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
@@ -75,36 +98,40 @@ export class OutboundAllocateRecordsComponent implements OnInit {
       );
 
   }
+
   ngOnChanges() {
-    this.initialCount = this.outboundCallRequests.length;
-    this.allocateForm.form.patchValue({
+    //  this.initialCount = this.outboundCallRequests.length;
+    this.allocateForm.controls['outboundCallRequests'].setValue(this.outboundCallRequests);
+    // this.outboundCallRequests = this.outboundCallRequests;
+    this.allocateForm.patchValue({
       userID: []
     });
   }
 
   onCreate(val: any) {
-    // this.outboundCallRequests.length = this.outboundCallRequests.length - val.allocateNo;
-    console.log('Request: ' + JSON.stringify(this.allocateForm.value));
     this._OCAService.allocateCallsToAgenta(this.allocateForm.value)
       .subscribe(
       (response) => {
         this.alertMessage.alert('Successfully Allocated');
-        this.outboundCount.emit(this.outboundCallRequests.length - val.allocateNo);
-        console.log(response);
+        this.outboundCount.emit(this.providerServiceMapID);
+        this.getOutboundCall(this.providerServiceMapID);
       },
       (error) => {
         this.alertMessage.alert(error.errorMessage);
-        console.log(error);
       }
       );
   }
 
   OnSelectChange() {
-    console.log(this.allocateForm.value);
-    var tempValue = Math.ceil(this.outboundCallRequests.length / this.allocateForm.value.userID.length);
-    this.allocateForm.form.patchValue({
+    let outboundlistCount = this.allocateForm.get('outboundCallRequests').value;
+    let tempValue = Math.floor(outboundlistCount.length / this.allocateForm.value.userID.length);
+    this.initialCount = tempValue;
+    this.allocateForm.patchValue({
       allocateNo: tempValue
     });
+
   }
 
 }
+
+

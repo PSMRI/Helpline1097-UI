@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { InterceptedHttp } from '../../http.interceptor';
 
 @Injectable()
 export class OutboundSearchRecordService {
@@ -21,7 +22,7 @@ export class OutboundSearchRecordService {
     options = new RequestOptions({ headers: this.headers });
     private _outboundCalls: string = this._baseurl + 'call/outboundCallList';
     private _allocateurl: string = this._baseurl + '';
-    constructor(private _http: Http, private _config: ConfigService) {
+    constructor(private _http: Http, private _config: ConfigService, private _httpInterceptor: InterceptedHttp) {
 
 
     }
@@ -34,7 +35,7 @@ export class OutboundSearchRecordService {
         } else {
             obj['providerServiceMapID'] = serviceID;
         }
-        return this._http.post(this._outboundCalls, obj, this.options).map(this.extractData).catch(this.handleError);
+        return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleError);
     }
     // getUnallocatedCalls(val: any) {
 
