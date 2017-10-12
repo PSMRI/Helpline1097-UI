@@ -216,7 +216,10 @@ export class CoFeedbackServicesComponent implements OnInit {
       selected_Date = new Date((this.selected_doi) - 1 * (this.selected_doi.getTimezoneOffset() * 60 * 1000)).toJSON();
     }
     const feedbackObj = [{
-      'institutionID': this.selected_institution,
+      'institutionTypeID': this.selected_institution,
+      'stateID': this.selected_state,
+      'districtID': this.selected_district,
+      'blockID': this.selected_taluk,
       'designationID': this.selected_designation,
       'severityID': this.selected_severity,
       'feedbackTypeID': this.selected_feedbackType,
