@@ -319,9 +319,11 @@
   </div>
 </form>  -->
 <!-- ========================================NEW LOOK===================================================== -->
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-  <label class="pull-left">
-    <h4>Feedback Tracking</h4></label>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+    <label class="pull-left">
+      <h4 class="f-s-b m-b-30">Feedback Tracking</h4></label>
+  </div>
 </div>
 <div class="row">
   <div *ngIf="action === 'view'">
@@ -339,12 +341,12 @@
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-          <button class="btn cu-green-btn m-t-lg-20" type="submit" name="search">Search</button>
+          <button md-raised-button color="primary" class="m-t-lg-20" type="submit" name="search">Search</button>
         </div>
       </div>
     </form>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="action === 'view'">
-      <h4 class="pull-left">FeedBack Details</h4>
+      <h4 class="pull-left f-s-b m-b-30">FeedBack Details</h4>
     </div>
     <div class="col-xs-12 col-sm-12" *ngIf="action === 'view'">
       <div class="table-responsive m-t-10">
@@ -377,10 +379,10 @@
                 <input type="checkbox" value="" />
               </td> -->
               <td>
-                <button class="btn cu-green-btn f-s-13 p-t-b-3" type="button" (click)="requestFeedback(feedback)">Edit</button>
+                <button md-raised-button color="primary" class="f-s-13 p-t-b-3" type="button" (click)="requestFeedback(feedback)">Edit</button>
               </td>
               <td>
-                <button class="btn cu-green-btn f-s-13 p-t-b-3" type="submit" (click)="updateResponse(feedback)" *ngIf="feedback?.feedbackRequests?.length > 0">Update</button>
+                <button md-raised-button color="primary" class="f-s-13 p-t-b-3" type="submit" (click)="updateResponse(feedback)" *ngIf="feedback?.feedbackRequests?.length > 0">Update</button>
               </td>
             </tr>
           </tbody>
@@ -395,7 +397,7 @@
   </div>
   <div class="row" *ngIf="(action === 'edit') || (action === 'update')">
     <div class="col-md-2 col-lg-2 pull-right">
-      <button type="button" class="btn cu-btn-default" (click)="back()">back</button>
+      <button type="button" md-raised-button color="primary" (click)="back()">back</button>
     </div>
     <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -537,7 +539,7 @@
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4" *ngIf="action==='edit'">
-          <button class="btn cu-green-btn pull-right" type="submit" name="save"> Save/Email</button>
+          <button md-raised-button color="primary" class="pull-right" type="submit" name="save"> Save/Email</button>
         </div>
       </div>
     </form>

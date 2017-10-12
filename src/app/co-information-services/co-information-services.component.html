@@ -1,7 +1,7 @@
-<div>
+<div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4>{{currentlanguage.information_service?.page_heading}}</h4>
+      <h4 class="f-s-b m-b-30">{{currentlanguage.information_service?.page_heading}}</h4>
     </label>
   </div>
   <div *ngIf="showFormCondition">
@@ -82,7 +82,7 @@
           <td colspan="3">
             <md2-pagination></md2-pagination>
           </td>
-          <td colspan="3" *ngIf="showTableCondition"><button class="btn pull-right" (click)="showForm()">{{currentlanguage.information_service?.new_informations}}</button></td>
+          <td colspan="3" *ngIf="showTableCondition"><button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.information_service?.new_informations}}</button></td>
         </tr>
       </tfoot>
     </table>

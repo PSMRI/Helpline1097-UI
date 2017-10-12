@@ -14,6 +14,11 @@
                   </div>
                   <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                      <li class="cursorPointer dropdown" routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i>
+                        </a>
+                      </li>
                       <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activities<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           <li style="cursor: pointer" (click)='show("2")'><a>Agent Status</a></li>

@@ -3,10 +3,12 @@
     <h4>REFERRAL SERVICES</h4>
   </label>
 </div> -->
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <label class="pull-left"><h4> Refrerral Services </h4> </label>
-  </div>
-<div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <label class="pull-left"><h4 class="f-s-b m-b-30" > Refrerral Services </h4> </label>
+    </div>
+  <div>
+</div>
   <!--     <div class="col-xs-12 col-sm-12">
         <h4>Referral Services</h4>
     </div> -->
@@ -154,9 +156,9 @@
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-10">
-      <button type="button" class="btn cu-green-btn font-regular f-s-18" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
+      <button type="button" class="font-regular f-s-18" md-raised-button color="primary" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
         (click)="GetReferralDetails()">{{currentlanguage.referral_service?.search}}</button>
-      <button class="pull-right btn" (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
+      <button class="pull-right" md-raised-button (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
     </div>
     <div class="col-xs-12 col-sm-12 m-t-5">
       <!--<button type="button" class="btn btn-default cu-btn-default">Search</button>-->
@@ -176,7 +178,7 @@
         </div>
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" *ngIf="showSendSMS">
-        <button type="button" class="btn cu-green-btn pull-left font-regular f-s-18">{{currentlanguage.referral_service?.send_sms}}</button>
+        <button type="button" md-raised-button color="primary" class="pull-left font-regular f-s-18">{{currentlanguage.referral_service?.send_sms}}</button>
       </div>
     </div>
   </div>
@@ -214,7 +216,7 @@
             <md2-pagination></md2-pagination>
           </td>
           <td colspan="2">
-            <button class="btn pull-right" (click)="showForm()">{{currentlanguage.referral_service?.new_referral}}</button>
+            <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.referral_service?.new_referral}}</button>
           </td>
         </tr>
       </table>
