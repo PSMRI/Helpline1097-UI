@@ -19,7 +19,8 @@
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
 
-          <md-select placeholder="{{currentlanguage.other_details?.occupation}}" [style.width]="'100%'" [(ngModel)]="occupationID" name="occupationID">
+          <md-select placeholder="{{currentlanguage.other_details?.occupation}}" [style.width]="'100%'" [(ngModel)]="occupationID"
+            name="occupationID">
             <md-option *ngFor="let occupation of occupations" [value]="occupation.occupationID">
 
               {{occupation.occupationType}}
@@ -42,7 +43,8 @@
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
 
-          <md-select placeholder="{{currentlanguage.other_details?.qualification}}" [style.width]="'100%'" [(ngModel)]="educationID" name="educationID">
+          <md-select placeholder="{{currentlanguage.other_details?.qualification}}" [style.width]="'100%'" [(ngModel)]="educationID"
+            name="educationID">
             <md-option *ngFor="let educationQualification of educationQualifications" [value]="educationQualification.educationID">
 
               {{educationQualification.educationType}}
@@ -64,7 +66,8 @@
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
 
-          <md-select placeholder="{{currentlanguage.other_details?.sexual_orientation}}" [style.width]="'100%'" [(ngModel)]="sexualOrientationID" name="sexualOrientationID">
+          <md-select placeholder="{{currentlanguage.other_details?.sexual_orientation}}" [style.width]="'100%'" [(ngModel)]="sexualOrientationID"
+            name="sexualOrientationID">
             <md-option *ngFor="let sexualOrientation of sexualOrientations" [value]="sexualOrientation.sexualOrientationId">
 
               {{sexualOrientation.sexualOrientation}}
@@ -92,7 +95,8 @@
           <span id="count">{{count}}</span>
         </div> -->
         <md-input-container [style.width]="'100%'">
-          <textarea mdInput placeholder="{{currentlanguage.other_details?.remarks}}" rows="2" name="remarks" maxlength="300" [(ngModel)]="remarks" maxlength="300" (keyup)="updateCount()"></textarea>
+          <textarea mdInput placeholder="{{currentlanguage.other_details?.remarks}}" rows="2" name="remarks" maxlength="300" [(ngModel)]="remarks"
+            maxlength="300" (keyup)="updateCount()"></textarea>
           <md-hint>
             <span>{{count}}</span>
           </md-hint>
@@ -100,9 +104,11 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-25">
         <h5>{{currentlanguage.other_details?.hiv_question}}<b>{{currentlanguage.other_details?.hiv_question_condition}}</b></h5>
-          <md-radio-group>
-          <md-radio-button ngDefaultControl  name="isHIVPos"color="primary" [value]=true [checked]="isHIVPos"  [(ngModel)]="isHIVPos" (change)="changeRadio($event.value)">Yes</md-radio-button>
-          <md-radio-button ngDefaultControl  name="isHIVPos" color="primary" [value]=false  [checked]="!isHIVPos"  [(ngModel)]="isHIVPos" (change)="changeRadio($event.value)">No</md-radio-button>
+        <md-radio-group>
+          <md-radio-button ngDefaultControl name="isHIVPos" color="primary" [value]=true [checked]="isHIVPos" [(ngModel)]="isHIVPos"
+            (change)="changeRadio($event.value)">Yes</md-radio-button>
+          <md-radio-button ngDefaultControl name="isHIVPos" color="primary" [value]=false [checked]="!isHIVPos" [(ngModel)]="isHIVPos"
+            (change)="changeRadio($event.value)">No</md-radio-button>
         </md-radio-group>
 
         <!-- <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">{{currentlanguage.other_details?.hiv_question}}<b>{{currentlanguage.other_details?.hiv_question_condition}}</b></md-slide-toggle> -->
@@ -110,12 +116,12 @@
     </div>
     <!-- <div class="row"> -->
     <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"> -->
-      <!-- <h4 class="">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</h4>  -->
-      <!-- </div> -->
-      <!-- <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">Is beneficiary suffering from HIV/AIDS?<b>(Captured only if, caller voluntarily informs)</b></md-slide-toggle> -->
-      <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">-->
-      <!-- <div class=""> -->
-      <!-- <label class="" for="sufferingFromAids"><span class="f-c-g">Is beneficiary suffering from AIDS/HIV?</span></label>
+    <!-- <h4 class="">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</h4>  -->
+    <!-- </div> -->
+    <!-- <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">Is beneficiary suffering from HIV/AIDS?<b>(Captured only if, caller voluntarily informs)</b></md-slide-toggle> -->
+    <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">-->
+    <!-- <div class=""> -->
+    <!-- <label class="" for="sufferingFromAids"><span class="f-c-g">Is beneficiary suffering from AIDS/HIV?</span></label>
          <label class="radio-inline">
                         <input type="radio" name="isHIVPos" value=true [(ngModel)]="isHIVPos"> Yes 
                     </label>
@@ -131,7 +137,7 @@
         <h5>{{currentlanguage.other_details?.feedback_question}}</h5>
 
       </div>
-        <!--<div>
+      <!--<div>
                     <label class="checkbox-inline">
                     <input type="checkbox" value="Pamphlet" [(ngModel)]="knowHow.pamphlet">Pamphlet</label>
                     <label class="checkbox-inline">
@@ -147,13 +153,13 @@
                     <label class="checkbox-inline">
                     <input type="checkbox" value="Not Disclosed" [(ngModel)]="knowHow.notdisclosed">Not Disclosed</label>
                 </div>-->
-        <!--<div *ngFor="let source of sourceOfInfo; let i=index">-->
-        <!--<div *ngFor="let source of sourceOfInfo">-->
-       
-<!--           <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
+      <!--<div *ngFor="let source of sourceOfInfo; let i=index">-->
+      <!--<div *ngFor="let source of sourceOfInfo">-->
+
+      <!--           <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
 
             <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label> -->
-  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
 
@@ -164,15 +170,16 @@
             </md-option>
           </md-select>
         </md-input-container>
-</div>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-lg-12 col-lg-6 m-b-10">
+        <button type="submit" md-raised-button color="primary" class="pull-right p-l-r-38 font-regular f-s-18">{{currentlanguage.other_details?.save}}</button>
+      </div>
     </div>
     <!--<div class="col-xs-12 col-sm-12 m-t-5 m-b-5">
             <div class="row">
                 <button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18" id="">Save</button>
             </div>
         </div>-->
-    <div class="col-xs-12 col-sm-12 m-b-10">
-      <button type="submit" md-raised-button color="primay" class="pull-right p-l-r-38 font-regular f-s-18">{{currentlanguage.other_details?.save}}</button>
-    </div>
+
   </div>
 </form>

@@ -46,7 +46,8 @@
         "village": "Village",
         "preferred_language": "Preferred Language",
         "beneficiary_tagging": "Beneficiary Tagging",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No Records Found",
+        "action": "Action"
       },
       "registration_form": "Registration Form",
       "title": "Title",

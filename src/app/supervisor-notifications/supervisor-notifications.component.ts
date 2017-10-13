@@ -74,7 +74,7 @@ export class SupervisorNotificationsComponent implements OnInit {
               if (response.data.length > 0) {
                 let dialog = this.dialog.open(MessageDialogComponent, {
                   data: {
-                    message: "Succesfully created notification",
+                    message: "Successfully created notification",
                     type: "Message"
                   }
                 });
@@ -137,7 +137,7 @@ export class SupervisorNotificationsComponent implements OnInit {
               if (response.data != {}) {
                 let dialog = this.dialog.open(MessageDialogComponent, {
                   data: {
-                    message: "Succesfully edited notification",
+                    message: "Successfully edited notification",
                     type: "Message"
                   }
                 });

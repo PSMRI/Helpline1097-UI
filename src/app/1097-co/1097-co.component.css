@@ -1,3 +1,7 @@
 [hidden] {
   display: none !important;
 }
+
+.mar-right {
+  margin-right: 10px;
+}

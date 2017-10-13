@@ -478,9 +478,11 @@ color:#545454;
 .p-t-8 {
   padding-top: 8px;
 }
+
 .p-t-9 {
   padding-top: 9px;
 }
+
 .p-t-10 {
   padding-top: 10px;
 }
@@ -823,9 +825,11 @@ color:#545454;
 .m-l-2 {
   margin-left: 2px;
 }
+
 .m-l-5 {
   margin-left: 5px !important;
 }
+
 .m-l-10 {
   margin-left: 10px;
 }
@@ -861,9 +865,11 @@ color:#545454;
 .m-b-0 {
   margin-bottom: 0px !important;
 }
+
 .m-b-1 {
   margin-bottom: 1px !important;
 }
+
 .m-b-3 {
   margin-bottom: 3px !important;
 }
@@ -899,9 +905,11 @@ color:#545454;
 .m-b-20 {
   margin-bottom: 20px !important;
 }
+
 .m-b-30 {
   margin-bottom: 30px !important;
 }
+
 .m-b-40 {
   margin-bottom: 40px !important;
 }
@@ -1728,10 +1736,12 @@ ul.topIcon li.help a:hover {
   /*  border:1px solid #dcdcdb;*/
   margin: 10px;
 }
-  .center-btn {
-    justify-content: center;
-    display: flex;  
-  }
+
+.center-btn {
+  justify-content: center;
+  display: flex;
+}
+
 .circle {
   position: relative;
   padding: 0;
@@ -1748,9 +1758,11 @@ ul.topIcon li.help a:hover {
 .circle-admin {
   line-height: 30px !important;
 }
-  .whiteC {
-    color: white !important;
-  }
+
+.whiteC {
+  color: white !important;
+}
+
 .subRolecircle {
   display: none;
 }
@@ -1777,9 +1789,11 @@ ul.topIcon li.help a:hover {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
+
 .t-a-c {
   text-align: center;
 }
+
 .circle-btn {
   position: relative;
   display: block;
@@ -1796,9 +1810,11 @@ ul.topIcon li.help a:hover {
 .circle-btn>* {
   position: relative;
 }
+
 .footer-text {
   color: white!important;
 }
+
 .circle-btn:before {
   content: "";
   position: absolute;
@@ -1837,14 +1853,17 @@ input:-webkit-autofill:hover {
 .overflow-y {
   overflow-y: auto;
 }
+
 .footer-height {
   height: 30px!important;
   line-height: 30px!important;
 }
+
 .copyright_icon {
   width: 10px!important;
   font-size: 10px;
 }
+
 .animation-nav {
   margin-bottom: 4px;
   background: #fff;
@@ -1856,9 +1875,11 @@ input:-webkit-autofill:hover {
   cursor: pointer;
   padding-top: 7px;
 }
+
 .md2-datepicker-arrow {
   display: none;
 }
+
 .animation-nav>li.active>a,
 .animation-nav>li.active>a:focus,
 .animation-nav>li.active>a:hover {
@@ -2128,7 +2149,6 @@ input:-webkit-autofill:hover {
   .width-lg-97 {
     width: 97% !important;
   }
-
   .footer {
     position: absolute;
     bottom: 0;
@@ -2141,7 +2161,6 @@ input:-webkit-autofill:hover {
   .c-b {
     clear: both;
   }
-
   .loader-overlay {
     position: absolute;
     width: 100%;
@@ -2162,4 +2181,15 @@ input:-webkit-autofill:hover {
   .d-inline {
     display: inline!important;
   }
+}
+
+.md-sm-button {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  min-height: 20px;
+  vertical-align: top;
+  font-size: 10px;
+  padding: 0 0;
+  margin: 0;
 }
