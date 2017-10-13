@@ -234,7 +234,12 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.emailStatus.setValue(feedback.emailStatusName);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
-    this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);
+    // this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);instituteType
+    this.feedbackForm.controls.institutionName.setValue(
+      feedback.instituteType ? (
+        feedback.instituteType.institutionType ? feedback.instituteType.institutionType : undefined
+      ) : undefined
+    );
     this.feedbackForm.controls.designationName.setValue(feedback.designationName);
     this.feedbackForm.controls.severityTypeName.setValue(feedback.severityTypeName);
     this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
@@ -316,7 +321,12 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.emailStatus.setValue(feedback.emailStatusName);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
-    this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);
+    // this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);
+    this.feedbackForm.controls.institutionName.setValue(
+      feedback.instituteType ? (
+        feedback.instituteType.institutionType ? feedback.instituteType.institutionType : undefined
+      ) : undefined
+    );
     this.feedbackForm.controls.designationName.setValue(feedback.designationName);
     this.feedbackForm.controls.severityTypeName.setValue(feedback.severityTypeName);
     this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
