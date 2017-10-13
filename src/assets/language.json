@@ -105,12 +105,15 @@
       "new_counsellings": "New Counsellings"
     },
     "referral_service": {
+      "page_heading": "Referral Services",
       "state": "State",
       "district": "District",
       "taluk": "Taluk",
       "village": "Village",
       "directory": "Information Required (Directory)",
+      "sub_taluk": "Sub District/Sub Taluk/Block",
       "sub_directory": "Sub-Directory",
+      "get_details": "Get Details",
       "search": "Search",
       "back": "Back",
       "send_sms": "Send SMS",
@@ -126,9 +129,11 @@
       "new_referral": "New Referral"
     },
     "feedback_service": {
+      "page_heading": "Feedback Services",
       "state": "State",
       "district": "District",
       "taluk": "Taluk",
+      "sub_taluk": "Sub District/Sub Taluk/Block",
       "village": "Village",
       "institution": "Institution Name",
       "designation": "Designation",
@@ -287,6 +292,7 @@
       "new_counsellings": "New Counsellings"
     },
     "referral_service": {
+      "page_heading": "Referral Services",
       "state": "State",
       "district": "District",
       "taluk": "Taluk",
@@ -307,6 +313,7 @@
       "new_referral": "New Referral"
     },
     "feedback_service": {
+      "page_heading": "Feedback Services",
       "state": "State",
       "district": "District",
       "taluk": "Taluk",
