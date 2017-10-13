@@ -79,7 +79,7 @@
             </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
-          <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+          <md-select placeholder="{{currentlanguage.referral_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
             name="taluk" (change)="GetSDTB(selected_taluk)">
             <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
               {{taluk.blockName}}
@@ -90,31 +90,31 @@
           </md-hint> -->
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <!--             <div class="form-group">
+      <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> -->
+      <!--             <div class="form-group">
                 <label class="control-label" for="sdt">Sub-District/Talluka/Block</label>
                 <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="sdtb" [(ngModel)]="selected_branch"> -->
-        <!--<option *ngFor="let sdtb of sdtbs" value="{{sdtb.blockID}}">
+      <!--<option *ngFor="let sdtb of sdtbs" value="{{sdtb.blockID}}">
                         {{sdtb.blockName}}
                     </option>-->
-        <!--                     <option *ngFor="let sdtb of blocks" value={{sdtb.districtBranchID}}>
+      <!--                     <option *ngFor="let sdtb of blocks" value={{sdtb.districtBranchID}}>
                         {{sdtb.villageName}}
                     </option>
                 </select>
             </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
+      <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
           <md-select placeholder="{{currentlanguage.referral_service?.village}}" [style.width]="'100%'" [(ngModel)]="selected_branch"
             name="sdtb" (change)="GetSDTB(selected_taluk)">
             <md-option *ngFor="let sdtb of blocks" [value]="sdtb.districtBranchID">
               {{sdtb.villageName}}
             </md-option>
-          </md-select>
-          <!-- <md-hint *ngIf="branch.invalid && (branch.dirty || branch.touched)">
+          </md-select> -->
+      <!-- <md-hint *ngIf="branch.invalid && (branch.dirty || branch.touched)">
             <span class="error_text">Branch is required</span>
           </md-hint> -->
-        </md-input-container>
-      </div>
+      <!-- </md-input-container>
+      </div> -->
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <!--             <div class="form-group has-label">
                 <label class="control-label" for="whatInformation">What Information do you require?(Directory)</label>
