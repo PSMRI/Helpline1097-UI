@@ -1,14 +1,28 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-30">Blacklist a Number</h4></label>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-    <md-checkbox color="primary" [(ngModel)]="searchByPhone" (change)="getBlackList($event)">Search by Phone Number </md-checkbox>
+      <h4 class="f-s-b m-b-30">Blacklist a Number</h4>
+    </label>
   </div>
 </div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 m-t-15">
+    <md-checkbox color="primary" [(ngModel)]="searchByPhone" (change)="getBlackList($event)">Search by Phone Number </md-checkbox>
+  </div>
+  <!--<div *ngIf="searchByPhone" class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <md-input-container [style.width]="'100%'" myMobileNumber>
+      <input required minlength="5" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
+      <md-hint *ngIf="!number.valid">
+        <span class="error_text" *ngIf=" number.dirty || number.touched ">Please enter phone number</span>
+      </md-hint>
+    </md-input-container>
+  </div>
+  <div *ngIf="searchByPhone" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10">
+    <button [disabled]="!number.valid" md-raised-button color="primary" (click)="addToBlockList()">Search</button>
+  </div>-->
+
 <div *ngIf="searchByPhone">
-  <div class="row">
+  <!--<div class="row">-->
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
       <md-input-container [style.width]="'100%'" myMobileNumber>
         <input required minlength="5" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
@@ -93,7 +107,8 @@
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 m-t-10">
       <button [disabled]="!number.valid" md-raised-button color="primary" (click)="addToBlockList()">Search</button>
     </div>
-  </div>
+  <!--</div>-->
+</div>
 </div>
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 p-t-20">
@@ -115,15 +130,17 @@
               <img src="assets/images/data_not_found.png" width="400" height="65">
             </td>
           </tr>
-          <tr style="cursor: pointer;" *ngFor="let blacklist of md2.data">
+          <tr *ngFor="let blacklist of md2.data">
             <td>{{blacklist?.phoneNo}}</td>
             <td>{{blacklist?.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
             <td>{{blacklist?.noOfNuisanceCall ? ((blacklist.noOfNuisanceCall>0) ? blacklist.noOfNuisanceCall : 0): 0}}</td>
             <td>Nuisance Call</td>
             <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockEndDate)|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
             <td>
-              <button md-raised-button color="primary" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
-              <button md-raised-button color="primary" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>
+              <!--<button md-raised-button color="primary" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
+              <button md-raised-button color="primary" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>-->
+              <a style="cursor:pointer" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</a>
+              <a style="cursor:pointer" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</a>
             </td>
           </tr>
         </tbody>

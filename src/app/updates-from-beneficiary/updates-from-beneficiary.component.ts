@@ -60,7 +60,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       .subscribe(response => {
         this.SetUserBeneficiaryRegistrationData(response);
       });
-    this.PopulateUpdateData();
+   // this.PopulateUpdateData();
 
     this.count = '0/300';
 
@@ -73,7 +73,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, "language updates frm ben tak");
+    console.log(language, 'language updates frm ben tak');
   }
 
   PopulateUpdateData() {
