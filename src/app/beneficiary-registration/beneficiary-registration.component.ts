@@ -643,7 +643,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updatedObj = registeredBenData;
     this.saved_data.beneficiaryData = registeredBenData;
     this.onBenRegDataSelect.emit(this.benRegData);
-    this.sendData(this.benRegData);
+    this.sendData(registeredBenData);
   }
 
   updateBeneficiary() {
