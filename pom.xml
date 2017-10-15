@@ -7,20 +7,23 @@
         @Email  : sunil.ks@gmail.com
     -->
 	<modelVersion>4.0.0</modelVersion>
-    <groupId>com.iemr.helpline1097</groupId>
-    <artifactId>1097-ui</artifactId>
-    <version>1.1</version>
-    <name>1097-ui</name>
+    <groupId>com.iemr.common</groupId>
+    <artifactId>admin</artifactId>
+    <version>1.0</version>
+    <name>admin</name>
     <packaging>war</packaging>
 
     <!-- we could create individual properties similar to variables -->
     <!-- <properties>
         <ui-base-dir>iemrdash</ui-base-dir>
     </properties> -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <!-- install the necessary node_modules & compile in prod mode -->
     <build>
-	    <finalName>1097ui-v1.0</finalName>
+	    <finalName>adminui-v1.0</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -90,6 +93,26 @@
                                 <argument>--prod</argument>
                             </arguments>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.2.0.Final</version>
+                <!-- For a time when ready to push to a remote server -->
+                <!-- <configuration>
+                    <hostname>..hostname..</hostname>
+                    <port>..port..</port>
+                    <username>..username..</username>
+                    <password>..password..</password>
+                </configuration> -->
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
