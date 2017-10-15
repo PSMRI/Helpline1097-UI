@@ -79,7 +79,7 @@
             </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
-          <md-select placeholder="{{currentlanguage.referral_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+          <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
             name="taluk" (change)="GetSDTB(selected_taluk)">
             <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
               {{taluk.blockName}}
