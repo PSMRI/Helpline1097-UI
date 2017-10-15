@@ -8,9 +8,9 @@
     -->
 	<modelVersion>4.0.0</modelVersion>
     <groupId>com.iemr.common</groupId>
-    <artifactId>admin</artifactId>
+    <artifactId>1097</artifactId>
     <version>1.0</version>
-    <name>admin</name>
+    <name>1097</name>
     <packaging>war</packaging>
 
     <!-- we could create individual properties similar to variables -->
@@ -23,7 +23,7 @@
 
     <!-- install the necessary node_modules & compile in prod mode -->
     <build>
-	    <finalName>adminui-v1.0</finalName>
+	    <finalName>1097ui-v1.0</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
