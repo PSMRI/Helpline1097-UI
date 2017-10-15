@@ -79,7 +79,7 @@
             </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
-          <md-select placeholder="{{currentlanguage.referral_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+          <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
             name="taluk" (change)="GetSDTB(selected_taluk)">
             <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
               {{taluk.blockName}}
@@ -153,7 +153,7 @@
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-15">
         <button type="button" class="font-regular mar-right f-s-18" md-raised-button color="primary" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
           (click)="GetReferralDetails()">{{currentlanguage.referral_service?.get_details}}</button>
-        <button  color="accent" md-raised-button (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
+        <button color="accent" md-raised-button (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
       </div>
       <div class="col-xs-12 col-sm-12">
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="padding: 0px">
