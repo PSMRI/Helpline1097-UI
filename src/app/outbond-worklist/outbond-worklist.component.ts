@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 export class OutbondWorklistComponent implements OnInit {
   @Output() onOutboundCall: EventEmitter<any> = new EventEmitter<any>();
-  data: any;
+  data: any = [];
   constructor(private _outBoundService: CallServices, private _common: dataService, public router: Router) {
   }
 

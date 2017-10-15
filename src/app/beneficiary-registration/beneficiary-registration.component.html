@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pull-left">
+  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pull-left">
       <label>
       <h4 class="f-s-b m-b-30">Create/Find Beneficiary</h4></label>
   </div> -->
@@ -133,9 +133,11 @@
           </md-select>
         </md-input-container>
       </div>
-      <div class="pull-right col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
-        <button [disabled]="!(stateSelectedd?.valid) || !(citySelectedd?.valid)" type="button" md-raised-button color="primary" class="pull-right f-s-18 m-r-5"
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
+        <button [disabled]="!(stateSelectedd?.valid) || !(citySelectedd?.valid)" type="button" md-raised-button color="primary" class="f-s-18 m-r-10"
           value="search" (click)="searchBeneficiary(searchForm.value)">{{currentlanguage.beneficiary_registration?.search}}</button>
+        <button type="button" md-raised-button color="accent" class="f-s-18"
+          value="search" (click)="back()">{{currentlanguage.beneficiary_registration?.back}}</button>
       </div>
     </form>
   </div>
@@ -185,7 +187,9 @@
               <!-- <td>{{regHistory.i_bendemographics?.m_language?.languageName}}</td> -->
               <td>{{regHistory.benPhoneMaps[0]?.benRelationshipType?.benRelationshipType}}</td>
               <td>
-                <a class="pull-right" (click)="passBenRegHistoryData(regHistory)"> <md-icon style="font-size:15px" color="">mode_edit</md-icon></a>
+                <a class="pull-right" (click)="passBenRegHistoryData(regHistory)">
+                  <md-icon style="font-size:15px" color="">mode_edit</md-icon>
+                </a>
               </td>
             </tr>
           </tbody>

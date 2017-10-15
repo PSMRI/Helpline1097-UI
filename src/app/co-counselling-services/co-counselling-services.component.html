@@ -71,7 +71,9 @@
       </thead>
       <tbody>
         <tr *ngIf="md2.data.length < 1">
-          <td colspan="4" align="center"><img src="assets/images/data_not_found.png" width="400" height="65"></td>
+          <p width=100% align="center">
+            No Records Found
+          </p>
         </tr>
         <tr *ngFor="let counselling of md2.data;let i=index ">
           <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>

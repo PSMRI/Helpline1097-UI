@@ -159,7 +159,7 @@
       "create_feedback": "Create Feedback"
     },
     "other_details": {
-      "heading": "OTHER DETAILS",
+      "heading": "Other Details",
       "occupation": "Occupation",
       "qualification": "Education Qualification",
       "sexual_orientation": "Sexual Orientation",
@@ -171,6 +171,7 @@
       "save": "Save"
     },
     "closure": {
+      "page_heading": "Closure",
       "table_labels": {
         "table_heading": "Services Availed During The Call",
         "sno": "S.No.",

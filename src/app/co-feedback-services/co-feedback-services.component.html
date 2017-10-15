@@ -223,7 +223,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
       <!-- <h5 class="f-s-b m-b-20"><strong>{{currentlanguage.feedback_service?.table_labels?.table_heading}}</strong></h5> -->
       <div class="table-responsive">
-        <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="4">
+        <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
           <thead>
             <tr>
               <!-- <th width="20">
@@ -243,9 +243,9 @@
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length<1">
-              <td colspan="8" align="center">
-                <img src="assets/images/data_not_found.png" width="400" height="65">
-              </td>
+              <p width=100% align="center">
+                No Records Found
+              </p>
             </tr>
             <tr style="cursor: pointer;" *ngFor="let feedback
                         of md2.data;let i=index " (click)="modalData(feedback)">

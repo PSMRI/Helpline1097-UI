@@ -152,7 +152,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './services/common/loader.service';
 import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
 import { EditNotificationsComponent } from './edit-notifications/edit-notifications.component';
-import { TrainingResourcesComponent } from './training-resources/training-resources.component'
+import { TrainingResourcesComponent } from './training-resources/training-resources.component';
+// import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
 
 
 @NgModule({

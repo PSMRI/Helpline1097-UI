@@ -811,7 +811,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
   }
-
+  back() {
+    this.isAdvancedSearch = !this.isAdvancedSearch;
+    this.searchValue = 'Advanced Search';
+    this.calledEarlier = true;
+    this.showSearchResult = true;
+  }
   /** Purpose: function to retrive beneficiaries based on the fileds entered */
   searchBeneficiary(values: any) {
     this._userBeneficiaryData.searchBenficiary(values).subscribe((response) => {
