@@ -176,8 +176,11 @@
         "information": "Information",
         "counselling": "Counselling",
         "referral": "Referral",
-        "feedback": "Feedback"
+        "feedback": "Feedback",
+        "service_name": "Service Name",
+        "count": "Count"
       },
+      "language": "Select Preferred Language",
       "call_details": "Call Details",
       "followup_question": "Is Follow-Up Required?",
       "calltype": "Select Call Type",

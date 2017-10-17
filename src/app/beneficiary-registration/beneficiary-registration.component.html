@@ -136,8 +136,7 @@
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
         <button [disabled]="!(stateSelectedd?.valid) || !(citySelectedd?.valid)" type="button" md-raised-button color="primary" class="f-s-18 m-r-10"
           value="search" (click)="searchBeneficiary(searchForm.value)">{{currentlanguage.beneficiary_registration?.search}}</button>
-        <button type="button" md-raised-button color="accent" class="f-s-18"
-          value="search" (click)="back()">{{currentlanguage.beneficiary_registration?.back}}</button>
+        <button type="button" md-raised-button color="accent" class="f-s-18" value="search" (click)="back()">{{currentlanguage.beneficiary_registration?.back}}</button>
       </div>
     </form>
   </div>
@@ -211,7 +210,7 @@
       <h4 class="f-s-b m-b-30">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
     </div>
     <!-- <form autocomplete="off"> -->
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       <!--       <div class="form-group">
         <label class="control-label" for="TitleId">TitleId</label>
         <select class="form-control drop-arrow" name="TitleId" [(ngModel)]="TitleId">
@@ -230,7 +229,7 @@
       </md-input-container>
 
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 m-b-9">
       <md-input-container myName [style.width]="'100%'">
         <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="FirstName" [(ngModel)]="FirstName"
           #first="ngModel">
@@ -240,12 +239,12 @@
           </md-hint> -->
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 m-b-9">
       <md-input-container myName [style.width]="'100%'">
         <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.last_name}}" maxlength="25" name="LastName" [(ngModel)]="LastName">
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       <!--       <div class="form-group">
         <label class="control-label" for="firstName">Select Gender</label>
         <select class="form-control drop-arrow" name="GenderID" [(ngModel)]="GenderID">
@@ -266,7 +265,7 @@
 
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 ">
       <div class="form-group">
         <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
         <md2-datepicker [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
@@ -274,7 +273,7 @@
       </div>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-7">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 m-b-7">
       <!--       <div class="form-group">
         <label class="control-label" for="lastName">Age </label>
         <input type="text" class="form-control" #ageRef placeholder="Enter age" name="age" (blur)="calculateDOB(ageRef.value)"
@@ -288,7 +287,7 @@
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
 
@@ -302,7 +301,7 @@
 
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-9" *ngIf="isParentBeneficiary">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 m-b-9" *ngIf="isParentBeneficiary">
       <!--       <div class="form-group">
         <label class="control-label" for="beneficiaryRealtion">{{relationshipWith}}</label>
         <select class="form-control drop-arrow" name="beneficiaryRealtionID" [(ngModel)]="beneficiaryRelationID">
