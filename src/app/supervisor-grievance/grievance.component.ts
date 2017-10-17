@@ -89,6 +89,7 @@ export class supervisorFeedback implements OnInit {
     userName: new FormControl(),
     smsPhoneNo: new FormControl(),
     modifiedBy: new FormControl(),
+    incidentDate: new FormControl(),
     updateResponse: new FormControl(),
     emailStatusID: new FormControl(),
     feedbackStatusID: new FormControl(),
@@ -246,6 +247,7 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.userName.setValue(feedback.userName);
     this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
     this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
+    this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
@@ -333,6 +335,7 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.userName.setValue(feedback.userName);
     this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
     this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
+    this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
