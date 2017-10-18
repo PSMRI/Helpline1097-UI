@@ -101,12 +101,12 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.2.0.Final</version>
                 <!-- For a time when ready to push to a remote server -->
-                <!-- <configuration>
-                    <hostname>..hostname..</hostname>
-                    <port>..port..</port>
-                    <username>..username..</username>
-                    <password>..password..</password>
-                </configuration> -->
+                <configuration>
+                    <hostname>10.152.3.99</hostname>
+                    <port>9990</port>
+                    <username>admin</username>
+                    <password>ad@min123</password>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>install</phase>

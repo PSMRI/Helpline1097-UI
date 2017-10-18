@@ -28,7 +28,6 @@ export class OutboundSearchRecordService {
     }
 
     getUnallocatedCalls(serviceID: any, startDate?: any, endDate?: any, language?: any, userID?: any) {
-        ;
         const obj = {};
         if (userID) {
             obj['providerServiceMapID'] = serviceID;

@@ -13,6 +13,8 @@ export class CzentrixServices {
   options = new RequestOptions({ headers: this.headers });
   common_url = this._config.getCommonBaseURL();
   address = this._config.getTelephonyServerURL();
+  _getAgentStatus_url = this.common_url + '/cti/getAgentState';
+  _getCallDetails = this.common_url + '/cti/getAgentCallStats';
   agent_id: any = this._data.cZentrixAgentID;
   path = 'apps/appsHandler.php?';
   resFormat = 3;
@@ -57,11 +59,15 @@ export class CzentrixServices {
     return this.callAPI(params);
   }
 
-
   getAgentStatus() {
-
+    let obj = { 'agent_id': this.agent_id };
+    return this.http.post(this._getAgentStatus_url, obj, this.options).map(this.extractData).catch(this.handleError);
   }
 
+  getCallDetails() {
+    let obj = { 'agent_id': this.agent_id };
+    return this.http.post(this._getCallDetails, obj, this.options).map(this.extractData).catch(this.handleError);
+  }
   manualDialaNumber(agentId, ipAddress, phoneNum) {
     this.transaction_id = 'CTI_DIAL';
     this.agent_id = agentId;

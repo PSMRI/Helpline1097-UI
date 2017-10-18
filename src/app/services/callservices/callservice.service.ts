@@ -22,7 +22,7 @@ export class CallServices {
   _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber';
   _outbouncClose_url = this._commonURL + '/call/completeOutboundCall';
   _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList'
-  _getAgentStatus_url = this._commonURL + '';
+  
   constructor(
     private _http: Http,
     private _config: ConfigService,
@@ -77,6 +77,7 @@ export class CallServices {
     return this._httpInterceptor.post(this._unblockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
 
   }
+
   handleError(error: Response) {
     return error.json();
   }

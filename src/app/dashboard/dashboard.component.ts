@@ -124,7 +124,7 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-   //  document.dispatchEvent(event);
+    //  document.dispatchEvent(event);
 
   }
 
@@ -238,6 +238,7 @@ export class dashboardContentClass implements OnInit {
       this.training_resources = false;
     }
   }
+
   ngOnDestroy() {
     this.listenCall();
   }
