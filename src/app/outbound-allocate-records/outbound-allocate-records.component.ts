@@ -34,13 +34,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   @Output() outboundCount: EventEmitter<any> = new EventEmitter<any>();
   initialCount: number;
   @ViewChild('allocateRef') input: ElementRef;
-  // outboundallocateform = new FormGroup({
-  //   totalNewRecords: new FormControl(),
-  //   userID: new FormControl(),
-  //   AllocateNoOfRecords: new FormControl(),
-  //   roleID: new FormControl(),
-  //   OutboundSearchRecordService
-  // });
+
 
   constructor(
     private _OCAService: OutboundCallAllocationService,
@@ -50,8 +44,6 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     private _OSRService: OutboundSearchRecordService,
     private renderer: Renderer
   ) {
-    // this.providerServiceMapID = this.saved_data.current_service.serviceID;
-    // this.getOutboundCall(this.providerServiceMapID);
     this.createForm();
   }
 
