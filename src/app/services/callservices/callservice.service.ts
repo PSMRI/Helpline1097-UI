@@ -21,6 +21,8 @@ export class CallServices {
   _blockPhoneNo = this._commonURL + 'call/blockPhoneNumber/';
   _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber';
   _outbouncClose_url = this._commonURL + '/call/completeOutboundCall';
+  _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList'
+  
   constructor(
     private _http: Http,
     private _config: ConfigService,
@@ -65,6 +67,9 @@ export class CallServices {
       return response.json();
     }
   }
+  getLanguages() {
+    return this._http.get(this._getLanguage_url, this.options).map(this.extractData).catch(this.handleError);
+  }
   blockPhoneNumber(phoneBlockID: any) {
     return this._httpInterceptor.post(this._blockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
   }
@@ -72,6 +77,7 @@ export class CallServices {
     return this._httpInterceptor.post(this._unblockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
 
   }
+
   handleError(error: Response) {
     return error.json();
   }

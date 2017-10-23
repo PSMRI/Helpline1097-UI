@@ -46,7 +46,8 @@
         "village": "Village",
         "preferred_language": "Preferred Language",
         "beneficiary_tagging": "Beneficiary Tagging",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No Records Found",
+        "action": "Action"
       },
       "registration_form": "Registration Form",
       "title": "Title",
@@ -105,12 +106,14 @@
       "new_counsellings": "New Counsellings"
     },
     "referral_service": {
+      "page_heading": "Referral Services",
       "state": "State",
       "district": "District",
-      "taluk": "Taluk",
+      "taluk": "Sub District / Taluk / Block",
       "village": "Village",
       "directory": "Information Required (Directory)",
       "sub_directory": "Sub-Directory",
+      "get_details": "Get Details",
       "search": "Search",
       "back": "Back",
       "send_sms": "Send SMS",
@@ -126,9 +129,10 @@
       "new_referral": "New Referral"
     },
     "feedback_service": {
+      "page_heading": "Feedback Services",
       "state": "State",
       "district": "District",
-      "taluk": "Taluk",
+      "taluk": "Sub District / Taluk / Block",
       "village": "Village",
       "institution": "Institution Name",
       "designation": "Designation",
@@ -152,7 +156,7 @@
       "create_feedback": "Create Feedback"
     },
     "other_details": {
-      "heading": "OTHER DETAILS",
+      "heading": "Other Details",
       "occupation": "Occupation",
       "qualification": "Education Qualification",
       "sexual_orientation": "Sexual Orientation",
@@ -164,6 +168,7 @@
       "save": "Save"
     },
     "closure": {
+      "page_heading": "Closure",
       "table_labels": {
         "table_heading": "Services Availed During The Call",
         "sno": "S.No.",
@@ -171,8 +176,11 @@
         "information": "Information",
         "counselling": "Counselling",
         "referral": "Referral",
-        "feedback": "Feedback"
+        "feedback": "Feedback",
+        "service_name": "Service Name",
+        "count": "Count"
       },
+      "language": "Select Preferred Language",
       "call_details": "Call Details",
       "followup_question": "Is Follow-Up Required?",
       "calltype": "Select Call Type",
@@ -287,10 +295,10 @@
       "new_counsellings": "New Counsellings"
     },
     "referral_service": {
+      "page_heading": "Referral Services",
       "state": "State",
       "district": "District",
-      "taluk": "Taluk",
-      "sub_taluk": "Sub District/Sub Taluk/Block",
+      "taluk": "Sub District / Taluk / Block",
       "directory": "Information Required (Directory)",
       "sub_directory": "Sub-Directory",
       "search": "Search",
@@ -307,10 +315,10 @@
       "new_referral": "New Referral"
     },
     "feedback_service": {
+      "page_heading": "Feedback Services",
       "state": "State",
       "district": "District",
-      "taluk": "Taluk",
-      "sub_taluk": "Sub District/Sub Taluk/Block",
+      "taluk": "Sub District / Taluk / Block",
       "institution": "Institution Name",
       "designation": "Designation",
       "feedback_type": "Type Of Feedback",

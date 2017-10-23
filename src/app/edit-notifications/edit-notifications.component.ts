@@ -63,6 +63,19 @@ export class EditNotificationsComponent implements OnInit {
   onSubmit() {
     console.log(this.editNotificationForm.value);
     console.log(this.data);
+    let startDate: Date = new Date(this.editNotificationForm.value.startDate);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0);
+    // startDate = new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60 * 1000);
+
+    let endDate: Date = new Date(this.editNotificationForm.value.endDate);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    endDate.setMilliseconds(0);
+    // endDate = new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60 * 1000);
     if (this.file && this.fileContent) {
       this.postData = {
         "providerServiceMapID": this.providerServiceMapID,
@@ -72,8 +85,8 @@ export class EditNotificationsComponent implements OnInit {
         "createdBy": this.data.notificationType.createdBy,
         "notification": this.editNotificationForm.value.notificationSubject,
         "notificationDesc": this.editNotificationForm.value.notificationDesc,
-        "validFrom": new Date((this.editNotificationForm.value.startDate) - 1 * (this.editNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-        "validTill": new Date((this.editNotificationForm.value.endDate) - 1 * (this.editNotificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
+        "validFrom": startDate,
+        "validTill": endDate,
         "deleted": this.data.notificationType.deleted,
         "modifiedBy": this.createdBy,
         "kmFileManager": {
@@ -81,8 +94,8 @@ export class EditNotificationsComponent implements OnInit {
           "fileExtension": '.' + this.file.name.split('.')[1],
           "providerServiceMapID": this.providerServiceMapID,
           "userID": this.userId,
-          "validFrom": new Date((this.editNotificationForm.value.startDate) - 1 * (this.editNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-          "validUpto": new Date((this.editNotificationForm.value.endDate) - 1 * (this.editNotificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
+          "validFrom": startDate,
+          "validUpto": endDate,
           "fileContent": this.fileContent.split(',')[1],
           "createdBy": this.createdBy
         }
@@ -97,8 +110,8 @@ export class EditNotificationsComponent implements OnInit {
         "createdBy": this.data.notificationType.createdBy,
         "notification": this.editNotificationForm.value.notificationSubject,
         "notificationDesc": this.editNotificationForm.value.notificationDesc,
-        "validFrom": new Date((this.editNotificationForm.value.startDate) - 1 * (this.editNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
-        "validTill": new Date((this.editNotificationForm.value.endDate) - 1 * (this.editNotificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON(),
+        "validFrom": startDate,
+        "validTill": endDate,
         "deleted": this.data.notificationType.deleted,
         "modifiedBy": this.createdBy
       }

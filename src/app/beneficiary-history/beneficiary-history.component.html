@@ -23,20 +23,20 @@
               </td>
             </tr> -->
             <tr>
-              <th md2SortBy="benCallID">BeneficiaryCall ID</th>
-              <th md2SortBy="benCallID">Call Time</th>
-              <th md2SortBy="informationServices">Information Services</th>
-              <th md2SortBy="feedbackServices">Feedback Services</th>
-              <th md2SortBy="referralServices">Referral Services</th>
-              <th md2SortBy="counsellingServices">Counselling Services</th>
-              <th md2SortBy="remarks">Remarks</th>
+              <th  md2SortBy="benCallID">BeneficiaryCall ID</th>
+              <th  md2SortBy="benCallID">Call Time</th>
+              <th  md2SortBy="informationServices">Information Services</th>
+              <th  md2SortBy="feedbackServices">Feedback Services</th>
+              <th  md2SortBy="referralServices">Referral Services</th>
+              <th  md2SortBy="counsellingServices">Counselling Services</th>
+              <th  md2SortBy="remarks">Remarks</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length < 1">
-              <td colspan="5" align="center">
-                <img src="assets/images/data_not_found.png" width="400" height="65">
-              </td>
+                <p width=100% align="center">
+                  No Records Found
+                </p>
             </tr>
             <tr *ngFor="let service of md2.data ">
               <td>{{service.benCallID}}</td>

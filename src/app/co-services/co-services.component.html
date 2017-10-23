@@ -36,25 +36,21 @@
         </div>
     </div>
 </div> -->
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <div class="container-fluid">
-      <md-tab-group>
-
-        <md-tab label="{{currentlanguage.co_services?.information_services}}" md-active="true">
-          <app-co-information-services (informationServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-information-services>
-
-        </md-tab>
-        <md-tab label="{{currentlanguage.co_services?.counselling_service}}" >
-          <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-counselling-services>
-        </md-tab>
-        <md-tab label="{{currentlanguage.co_services?.referral_service}}">
-          <app-co-referral-services (referralServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-referral-services>
-        </md-tab>
-        <md-tab label="{{currentlanguage.co_services?.feedback_service}}">
-          <app-co-feedback-services (feedbackServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-feedback-services>
-        </md-tab>
-      </md-tab-group>
-    </div>
+<div class="container-fluid">
+  <div class="row">
+    <md-tab-group>
+      <md-tab label="{{currentlanguage.co_services?.information_services}}" md-active="true">
+        <app-co-information-services (informationServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-information-services>
+      </md-tab>
+      <md-tab label="{{currentlanguage.co_services?.counselling_service}}">
+        <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-counselling-services>
+      </md-tab>
+      <md-tab label="{{currentlanguage.co_services?.referral_service}}">
+        <app-co-referral-services (referralServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-referral-services>
+      </md-tab>
+      <md-tab label="{{currentlanguage.co_services?.feedback_service}}">
+        <app-co-feedback-services (feedbackServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-feedback-services>
+      </md-tab>
+    </md-tab-group>
   </div>
 </div>

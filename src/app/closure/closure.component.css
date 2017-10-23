@@ -1,13 +1,19 @@
 @media (max-width: 480px) {
-  .container-fluid, .row {
-    padding:0px;
+  .container-fluid,
+  .row {
+    padding: 0px;
   }
   .navbar-header {
-    margin:0px;
+    margin: 0px;
   }
 }
+
 @media (min-width: 480px) {
-.padding{
-    padding-left:230px;
+  .padding {
+    padding-left: 230px;
+  }
 }
+
+.mar-right {
+  margin-right: 10px;
 }

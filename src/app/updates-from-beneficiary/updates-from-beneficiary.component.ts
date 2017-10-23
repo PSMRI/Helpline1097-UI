@@ -131,7 +131,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   showAlert() {
-    this.message.alert('Update Successfully');
+    this.message.alert('Updated Successfully');
   }
   updateCount() {
     this.count = this.remarks.length + '/300';

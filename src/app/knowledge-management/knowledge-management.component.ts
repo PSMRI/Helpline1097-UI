@@ -70,7 +70,10 @@ export class KnowledgeManagementComponent implements OnInit {
     // let serviceId= this.providerServiceMapID
     this._coCategoryService.getTypes(this.providerServiceMapID)
       .subscribe((response) => {
-        this.services = response;
+        this.services = response.filter(function (item) {
+          return item.subServiceName.trim().toLowerCase() === 'information service'
+            || item.subServiceName.trim().toLowerCase() === 'counselling service'
+        });
       }, (err) => {
         console.log('Error in Knowledge Managemant Catyegory');
         // error catch here

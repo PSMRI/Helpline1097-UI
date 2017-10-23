@@ -6,7 +6,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label class="pull-left"><h4 class="f-s-b m-b-30" > Refrerral Services </h4> </label>
+      <label class="pull-left"><h4 class="f-s-b m-b-30" >{{currentlanguage.referral_service?.page_heading}}</h4> </label>
     </div>
     <div>
     </div>
@@ -79,7 +79,7 @@
             </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
-          <md-select placeholder="{{currentlanguage.referral_service?.sub_taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+          <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
             name="taluk" (change)="GetSDTB(selected_taluk)">
             <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
               {{taluk.blockName}}
@@ -137,12 +137,6 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <!--             <div class="form-group">
-                <label class="control-label" for="subDirectory">Sub Directory</label>
-                <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="subDirectory" [(ngModel)]="selected_sub_directory">
-                    <option *ngFor="let sub_directoryItem of sub_directory" value={{sub_directoryItem.instituteSubDirectoryID}}>{{sub_directoryItem.instituteSubDirectoryName}}</option>
-                </select>
-            </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
           <md-select required #subDirectory="ngModel" placeholder="{{currentlanguage.referral_service?.sub_directory}}" [style.width]="'100%'"
@@ -156,26 +150,22 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-10">
-        <button type="button" class="font-regular f-s-18" md-raised-button color="primary" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
-          (click)="GetReferralDetails()">{{currentlanguage.referral_service?.search}}</button>
-        <button class="pull-right" md-raised-button (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
-      </div>
-      <div class="col-xs-12 col-sm-12 m-t-5">
-        <!--<button type="button" class="btn btn-default cu-btn-default">Search</button>-->
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-15">
+        <button type="button" class="font-regular mar-right f-s-18" md-raised-button color="primary" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
+          (click)="GetReferralDetails()">{{currentlanguage.referral_service?.get_details}}</button>
+        <button color="accent" md-raised-button (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
       </div>
       <div class="col-xs-12 col-sm-12">
-        <!--<label class="control-label" for="feedbackDesc"> Description</label>
-            <textarea class="form-control" rows="3" id="feedbackDescription" [(ngModel)]="description">-->
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="padding: 0px">
           <div class=" min-height-180 border-1-g" for="subCategoryDetails">
             <span *ngFor="let detail of detailsList">
-            <!--<span ng-repeat="detail in detailsList">-->
-                <!--<a href="{{detail.SubCatFilePath}}" target="_blank">-->
+                <md-checkbox color="primary" class="m-l-10" name={{detail.institutionDetails.institutionID}}>
+                  </md-checkbox>
                     {{detail.institutionDetails?.institutionID}},{{detail.institutionDetails?.institutionName}}
-                <!--</a>-->
-          </span>
-            <!--</textarea>-->
+                    <span *ngIf="detail.institutionDetails?.contactNo1"> ,{{detail.institutionDetails?.contactNo1}}</span>
+            <span *ngIf="detail.institutionDetails?.contactNo2"> ,{{detail.institutionDetails?.contactNo2}}</span>
+            <span *ngIf="detail.institutionDetails?.contactNo3"> ,{{detail.institutionDetails?.contactNo3}}</span>
+            </span>
           </div>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" *ngIf="showSendSMS">
@@ -199,9 +189,9 @@
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length < 1">
-              <td colspan="5" align="center">
-                <img src="assets/images/data_not_found.png" width="400" height="65">
-              </td>
+              <p width=100% align="center">
+                No Records Found
+              </p>
             </tr>
             <tr *ngFor="let referral of md2.data;let i=index " style="cursor: pointer;">
               <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
@@ -212,14 +202,16 @@
               <td>{{millisToUTCDate(referral.createdDate)|date:'dd/MM/yyyy HH:mm'}}</td>
             </tr>
           </tbody>
-          <tr>
-            <td colspan="3">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="2">
-              <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.referral_service?.new_referral}}</button>
-            </td>
-          </tr>
+          <tfoot>
+            <tr>
+              <td colspan="3">
+                <md2-pagination></md2-pagination>
+              </td>
+              <td colspan="2">
+                <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.referral_service?.new_referral}}</button>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>

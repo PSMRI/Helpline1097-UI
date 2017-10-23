@@ -7,9 +7,9 @@
         @Email  : sunil.ks@gmail.com
     -->
 	<modelVersion>4.0.0</modelVersion>
-    <groupId>com.iemr.helpline1097</groupId>
+    <groupId>com.iemr.common</groupId>
     <artifactId>1097-ui</artifactId>
-    <version>1.1</version>
+    <version>1.0</version>
     <name>1097-ui</name>
     <packaging>war</packaging>
 
@@ -17,6 +17,9 @@
     <!-- <properties>
         <ui-base-dir>iemrdash</ui-base-dir>
     </properties> -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <!-- install the necessary node_modules & compile in prod mode -->
     <build>

@@ -48,6 +48,9 @@ export class ClosureComponent implements OnInit
   subscription: Subscription
   callTypeObj: any;
   callSubTypes: any;
+  language: any;
+  languages: any = [];
+  preferredLanguageName: any;
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
@@ -75,6 +78,7 @@ export class ClosureComponent implements OnInit
     } else {
       this.ipAddress = this.saved_data.loginIP;
     }
+    this.getLanguages();
   }
 
 
@@ -119,17 +123,27 @@ export class ClosureComponent implements OnInit
     console.log(JSON.stringify(response));
     this.summaryList = response;
 
-    this.showCallSummary = false;
-    if (this.summaryList.length > 0) {
-      this.showCallSummary = true;
-    }
+    // this.showCallSummary = false;
+    // if (this.summaryList.length > 0) {
+    //   this.showCallSummary = true;
+    // }
   }
+  getLanguages() {
+    this._callServices.getLanguages().subscribe(response => {
 
+      this.languages = response;
+      this.preferredLanguageName = this.languages.filter(lang => {
+        return lang.languageName.toLowerCase() === 'hindi'
+      })[0].languageName;
+    }, (err) => {
+
+    });
+  }
   closeCall(values: any, btnType: any) {
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
-
+    // values.preferredLanguageName = values.preferredLanguageName.languageName;
     // Gursimran to look at fixing of followupRequired issue
     if (values.isFollowupRequired == undefined) {
       values.isFollowupRequired = false;
@@ -183,7 +197,7 @@ export class ClosureComponent implements OnInit
                 // if (btnType === 'submitClose') {
                 // this.callClosed.emit(this.current_campaign);
                 // } else {
-                  this.closedContinue.emit();
+                this.closedContinue.emit();
                 // }
                 // this.pass_data.sendData(this.current_campaign);
               }
@@ -214,6 +228,16 @@ export class ClosureComponent implements OnInit
   }
   outBoundCloseCall(benData: any) {
     this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
+    if (benData.dataPass.i_bendemographics.m_language || benData.dataPass.i_bendemographics.m_language.languageName) {
+      ;
+      this.preferredLanguageName = benData.dataPass.i_bendemographics.m_language.languageName;
+      // this.preferredLanguageName = benData.dataPass.i_bendemographics.m_language.map(function (item) {
+      //   return {
+      //     'languageID': item.languageID,
+      //     'languageName': item.languageName
+      //   }
+      // });
+    }
     this.onView();
   }
 
@@ -233,7 +257,7 @@ export class ClosureComponent implements OnInit
   closeOutboundCall(btnType: any, values: any) {
     this._callServices.closeCall(values).subscribe((response) => {
       if (response) {
-        this.message.alert('Outbound Call Sucessfully Closed');
+        this.message.alert('Outbound Call Successfully Closed');
         if (btnType === 'submitClose') {
           this.callClosed.emit(this.current_campaign);
         } else {

@@ -14,9 +14,9 @@
           <div>
             <div *ngIf="altEmail">
               <label>Email : <em>*</em></label><input class="form-control" type="text" required minlength="10" placeholder="Enter email address"
-                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" name="email" [(ngModel)]="email" #emailAdd="ngModel">
+                [pattern]="emailPattern" name="email" [(ngModel)]="email" #emailAdd="ngModel">
 
-              <div [hidden]="emailAdd.valid || emailAdd.pristine">
+              <div [hidden]="emailAdd.valid">
                 <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
                 <span class=" error_text" [hidden]="!emailAdd.hasError('pattern')">Please enter valid email</span>
               </div>

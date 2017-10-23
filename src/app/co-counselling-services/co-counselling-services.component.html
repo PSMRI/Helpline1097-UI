@@ -8,7 +8,7 @@
   </div>
   <div *ngIf="showFormCondition">
 
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
         <md-select required placeholder="{{currentlanguage.counselling_service?.select_category}}" [style.width]="'100%'" [(ngModel)]="symptomCategory"
@@ -22,7 +22,7 @@
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
         <md-select required placeholder="{{currentlanguage.counselling_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory"
@@ -36,13 +36,15 @@
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-15">
-      <button [disabled]="!category.valid || !subCategory.valid" type="button" md-raised-button color="primary" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.counselling_service?.get_details}}</button>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-15">
+      <button class="mar-right" [disabled]="!category.valid || !subCategory.valid" type="button" md-raised-button color="primary"
+        (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.counselling_service?.get_details}}</button>
+      <button type="button" md-raised-button color="accent" (click)="back()">{{currentlanguage.counselling_service?.back}}</button>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 m-t-15">
-      <button type="button" md-raised-button (click)="back()">{{currentlanguage.counselling_service?.back}}</button>
-    </div>
-    <div class="col-xs-12 col-sm-12">
+    <!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 m-t-15">
+
+    </div> -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="min-height-180 border-1-g" for="subCategoryDetails">
         <span *ngFor="let detail of detailsList">
 
@@ -69,7 +71,9 @@
       </thead>
       <tbody>
         <tr *ngIf="md2.data.length < 1">
-          <td colspan="4" align="center"><img src="assets/images/data_not_found.png" width="400" height="65"></td>
+          <p width=100% align="center">
+            No Records Found
+          </p>
         </tr>
         <tr *ngFor="let counselling of md2.data;let i=index ">
           <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
@@ -93,6 +97,6 @@
     </table>
   </div>
 </div>
-  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
+<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
   <button class="btn pull-right" (click)="showForm()">{{currentlanguage.counselling_service?.new_counsellings}}</button>
 </div> -->

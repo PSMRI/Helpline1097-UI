@@ -27,13 +27,16 @@ export class OutboundSearchRecordService {
 
     }
 
-    getUnallocatedCalls(serviceID: any, userID?: any) {
+    getUnallocatedCalls(serviceID: any, startDate?: any, endDate?: any, language?: any, userID?: any) {
         const obj = {};
         if (userID) {
             obj['providerServiceMapID'] = serviceID;
             obj['assignedUserID'] = userID;
         } else {
             obj['providerServiceMapID'] = serviceID;
+            obj['filterStartDate'] = startDate;
+            obj['filterEndDate'] = endDate;
+            obj['preferredLanguageName'] = language;
         }
         return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleError);
     }

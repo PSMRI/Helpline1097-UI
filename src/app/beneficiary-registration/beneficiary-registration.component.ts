@@ -773,17 +773,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   // to Calculate the age on the basis of date of birth
   calculateAge(date) {
     const newDate = new Date(date);
-    this.age = this.today.getFullYear() - newDate.getFullYear();
-    const month = this.today.getMonth() - newDate.getMonth();
-    if (month < 0 || (month === 0 && this.today.getDate() < newDate.getDate())) {
-      this.age--;
+    const today = new Date();
+    let age = today.getFullYear() - newDate.getFullYear();
+    const month = today.getMonth() - newDate.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < newDate.getDate())) {
+      age--;
     }
-    return this.age;
+    this.age = age;
   }
   // calculate date of birth on the basis of age
   calculateDOB(age) {
-    const currentYear = this.today.getFullYear();
-    this.DOB = new Date(this.today.setFullYear(currentYear - age));
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    this.DOB = new Date(today.setFullYear(currentYear - age));
     // int parsing in decimal format
     // if (this.DOB) {
     //   this.DOB = new Date(this.DOB.getDate() + '/' + (this.DOB.getMonth() + 1) + '/' + (currentYear - parseInt(age, 10)))
@@ -811,7 +813,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
   }
-
+  back() {
+    this.isAdvancedSearch = !this.isAdvancedSearch;
+    this.searchValue = 'Advanced Search';
+    this.calledEarlier = true;
+    this.showSearchResult = true;
+  }
   /** Purpose: function to retrive beneficiaries based on the fileds entered */
   searchBeneficiary(values: any) {
     this._userBeneficiaryData.searchBenficiary(values).subscribe((response) => {

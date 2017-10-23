@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { OutboundSearchRecordService } from '../services/outboundServices/outbound-search-records.service';
 import { dataService } from '../services/dataService/data.service';
+import { CallServices } from '../services/callservices/callservice.service'
 declare var jQuery: any;
 
 @Component({
@@ -22,12 +23,13 @@ export class OutboundSearchRecordsComponent implements OnInit {
   showFlage: boolean = false;
   _unAllocatedCalls: any;
   serviceProviderMapID: number;
-
+  languages: any = [];
   tot_unAllocatedCalls: any;
 
   constructor(
     private _OSRService: OutboundSearchRecordService,
-    private saved_data: dataService
+    private saved_data: dataService,
+    private _callServices: CallServices
   ) {
 
   }
@@ -40,13 +42,14 @@ export class OutboundSearchRecordsComponent implements OnInit {
     //     this._unAllocatedCalls = resProviderData.data;
     //     this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
     //   });
-
+    this.getLanguages();
   }
   assignCount(providerServiceMapId: any) {
     this.getOutboundCall(providerServiceMapId);
   }
-  getOutboundCall(serviceProviderMapID) {
-    this._OSRService.getUnallocatedCalls(serviceProviderMapID)
+  getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
+    ;
+    this._OSRService.getUnallocatedCalls(serviceProviderMapID, startDate, endDate, language)
       .subscribe(resProviderData => {
         this._unAllocatedCalls = resProviderData.data;
         this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
@@ -66,4 +69,25 @@ export class OutboundSearchRecordsComponent implements OnInit {
     }
     this.records = values;
   }
+  getLanguages() {
+    this._callServices.getLanguages().subscribe(response => {
+      this.languages = response;
+    }, (err) => {
+
+    });
+  }
+  getUnallocateCall(values) {
+    // tslint:disable-next-line:max-line-length
+    let startDate: Date = new Date(values.filterStartDate);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    let endDate: Date = new Date(values.filterEndDate);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    this.getOutboundCall(this.serviceProviderMapID, startDate,
+      endDate, values.preferredLanguageName.languageName);
+  }
+
 }
