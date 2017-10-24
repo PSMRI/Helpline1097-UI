@@ -124,6 +124,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   subcriptionOutbound: Subscription;
   cZentrixIp: any;
   current_campaign: any;
+  cityErrFlag: any = false;
 
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
@@ -408,7 +409,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.spinnerState = true;
     this.districts = response;
   }
-  cityErrFlag: any = false;
+
   GetTaluks(district: number) {
 
     this.taluks = [];
