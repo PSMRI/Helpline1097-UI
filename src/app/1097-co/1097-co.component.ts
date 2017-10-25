@@ -10,6 +10,7 @@ import { CommunicationService } from './../services/common/communication.service
 import { OutboundService } from './../services/common/outbound.services';
 import { ReloadService } from './../services/common/reload.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
+import { CollapseDirective } from './../directives/collapse/collapse.directive'
 
 @Component({
   selector: 'app-1097-co',
@@ -21,7 +22,7 @@ export class helpline1097CoComponent implements OnInit {
   beneficiaryNotSelected: boolean = true;
   callerNumber: any;
   callID: any;
-  barMinimized: boolean = true;
+  barMinimized: any = 'false';
   ctiHandlerURL: any = '';
   isCancelDisable: boolean = true;
   isClosureDisable: boolean = false;
@@ -156,10 +157,16 @@ export class helpline1097CoComponent implements OnInit {
 
 
   minimizeBar() {
-    this.barMinimized = true;
+    this.barMinimized = 'false';
   }
   toggleBar() {
-    this.barMinimized = !this.barMinimized;
+    // this.barMinimized = !this.barMinimized;
+    if (this.barMinimized === 'true') {
+      this.barMinimized = 'false';
+    }
+    else{
+      this.barMinimized = 'true';
+    }
   }
   benService(data) {
     // alert(this.getCommonData.benRegId);

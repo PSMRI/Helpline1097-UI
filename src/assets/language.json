@@ -10,9 +10,13 @@
     },
     "co": {
       "create_find_beneficiary": "Create/Find Beneficiary",
+      "create_find_beneficiary_mobile": "C/F B",
       "provide_service": "Provide Services",
+      "provide_service_mobile": "P S",
       "other_details": "Other Details",
+      "other_details_mobile": "O D",
       "closure": "Closure",
+      "closure_mobile": "C L",
       "previous": "Previous",
       "next": "Next",
       "cancel": "Cancel"
