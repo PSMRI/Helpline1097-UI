@@ -4,11 +4,12 @@
       <div class="pull-left"><img src="assets/images/smLogo.png" alt="Logo"></div>
       <div class=" p-t-1">
         <ul class="list-inline list-unstyled pull-left m-b-0">
-          <li class="m-l-lg-40 m-t-5" *ngIf="checkRole && current_campaign == 'INBOUND'"><img src="assets/images/transferCallIcon.png " alt="Caller Icon
-    " title="Caller Icon " />
-            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green " (click)="testEvent()">ON CALL</span>
-            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold ">{{callDuration}}</span>
-
+          <li class="m-l-lg-40 m-t-5" *ngIf="checkRole && current_campaign == 'INBOUND'">
+            <!-- <img src="assets/images/transferCallIcon.png " alt="Caller Icon
+    " title="Caller Icon " /> -->
+            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green" (click)="testEvent()">{{callStatus}}</span>
+            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold" *ngIf="callTime">{{callDuration}}</span>
+            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold" *ngIf="wrapupTime"> Time Remaining -{{ticks}}</span>
           </li>
         </ul>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
@@ -35,9 +36,15 @@
             </select>
           </li>
         </ul>
+        <ul class="list-inline list-unstyled pull-right m-l-20  m-b-0">
+          <li class="m-l-lg-40 m-t-5">
+            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold">{{TotalCalls}}</span>
+            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold">{{TotalTime}}</span>
+          </li>
+        </ul>
         <!-- <ul>
             <li>Total Calls -11 </li> -->
-            <!-- <li>Total Call Duration -</li> -->
+        <!-- <li>Total Call Duration -</li> -->
         <!-- </ul> -->
       </div>
     </div>

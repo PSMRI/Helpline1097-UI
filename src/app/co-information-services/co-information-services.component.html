@@ -24,7 +24,7 @@
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select required placeholder="{{currentlanguage.information_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory"
-            name="symptomSubCategory" #subCategory="ngModel">
+            name="symptomSubCategory" #subCategory="ngModel" (change)="EnabledGetDetails()">
             <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
               {{symptomSubCategory.subCategoryName}}
             </md-option>
@@ -35,7 +35,7 @@
         </md-input-container>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <button md-raised-button color="primary" class="mar-right" [disabled]="!category.valid || !subCategory.valid" type="button"
+        <button md-raised-button color="primary" class="mar-right" [disabled]="!category.valid || !subCategory.valid ||getDetailsFlag" type="button"
           (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.information_service?.get_details}}</button>
         <button type="button" md-raised-button color="accent" (click)="back()">{{currentlanguage.information_service?.back}}</button>
       </div>

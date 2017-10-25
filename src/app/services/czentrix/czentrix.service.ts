@@ -60,7 +60,6 @@ export class CzentrixServices {
   }
 
   getAgentStatus() {
-    debugger;
     this.agent_id = this._data.cZentrixAgentID;
     let obj = { 'agent_id': this.agent_id };
 
@@ -195,7 +194,6 @@ export class CzentrixServices {
     // console.error(errMsg);
     return Observable.throw(error.json());
   };
-
 
 }
 

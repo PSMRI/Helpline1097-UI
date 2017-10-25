@@ -8,13 +8,10 @@ import { dataService } from '../services/dataService/data.service';
 @Component({
     selector:'ResetComponent',
     templateUrl: './resetPassword.html',
-	styles: ['body{ background:red !important; }']
+	styles: ['./resetPassword.component.css']
 })
 
 export class ResetComponent{
-
-	constructor(public loginservice: loginService, public getUserData: dataService, public router: Router) { };
-
 	public response:any;
 	public error:any;
 	showQuestions: boolean = false;
@@ -28,6 +25,12 @@ export class ResetComponent{
 	public questions: any[]=[];
 	public correctAnswers: any[]=[];
 	public userAnswers: any[]=[];
+
+	bufferQuestion: any;
+	counter: number = 0;
+
+	constructor(public loginservice: loginService, public getUserData: dataService, public router: Router) { };
+
 
 
 	getQuestions(username:any)
@@ -83,9 +86,6 @@ export class ResetComponent{
 		
 	}
 
-
-	bufferQuestion: any;
-	counter: number = 0;
 
 	showMyQuestion()
 	{

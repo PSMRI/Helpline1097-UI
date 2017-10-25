@@ -25,7 +25,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
         let roleName = role.RoleName;
         let serviceName = service.serviceName;
         // if ( service === '1097' && ( role === 'CO' || role === 'Supervisor' ) )
-        if (serviceName === '1097' && (roleName === 'CO' || roleName === 'Supervisor')) {
+        if (serviceName === '1097' && (roleName.toLowerCase().trim() === 'co' || roleName.toLowerCase().trim() === 'supervisor')) {
             this.getCommonData.current_role = role;
             this.getCommonData.current_service = service;
             this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
