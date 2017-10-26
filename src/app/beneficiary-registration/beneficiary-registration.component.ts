@@ -724,7 +724,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.notCalledEarlierLowerPart = false;
     this.calledRadio = true;
     this.onBenSelect.emit('benService');
-    this.selectBeneficiary(this.saved_data.beneficiaryData);
+    this.selectBeneficiary(this.saved_data.beneficiaryData, 'update');
     //populateUserData
     /**
    *End of Neeraj Code; 22-jun-2017
@@ -734,21 +734,28 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   /**
    * NEERAJ; Select beneficiary for service provided; 27-JUN-2017
    */
-  selectBeneficiary(regHistory: any) {
+  selectBeneficiary(regHistory: any, Type?: any) {
 
     this.saved_data.benRegId = regHistory.beneficiaryRegID;
 
-    const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
-      height: '75%',
-      width: '75%',
-      data: regHistory.beneficiaryRegID,
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    if (Type === 'update') {
       this.populateUserData(regHistory);
       this.onBenSelect.emit('benService');
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
-    });
+    } else {
+      const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
+        height: '75%',
+        width: '75%',
+        data: regHistory.beneficiaryRegID,
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.populateUserData(regHistory);
+        this.onBenSelect.emit('benService');
+        this.showSearchResult = false;
+        this.notCalledEarlierLowerPart = false;
+      });
+    }
 
   }
 
@@ -914,7 +921,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // send message to subscribers via observable subject
     this.pass_data.sendData(data);
   }
+  countSerial(event: any) {
+    debugger
 
+  }
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subcriptionOutbound.unsubscribe();

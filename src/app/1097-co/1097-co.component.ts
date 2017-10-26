@@ -164,7 +164,7 @@ export class helpline1097CoComponent implements OnInit {
     if (this.barMinimized === 'true') {
       this.barMinimized = 'false';
     }
-    else{
+    else {
       this.barMinimized = 'true';
     }
   }
