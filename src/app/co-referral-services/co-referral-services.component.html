@@ -6,7 +6,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label class="pull-left"><h4 class="f-s-b m-b-30" >{{currentlanguage.referral_service?.page_heading}}</h4> </label>
+      <label class="pull-left">
+        <h4 class="f-s-b m-b-30">{{currentlanguage.referral_service?.page_heading}}</h4>
+      </label>
     </div>
     <div>
     </div>
@@ -157,14 +159,23 @@
       </div>
       <div class="col-xs-12 col-sm-12">
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="padding: 0px">
-          <div class=" min-height-180 border-1-g" for="subCategoryDetails">
+          <div class=" height-120 border-1-g overflow-auto" for="subCategoryDetails">
             <span *ngFor="let detail of detailsList">
-                <md-checkbox color="primary" class="m-l-10" name={{detail.institutionDetails.institutionID}}>
-                  </md-checkbox>
-                    {{detail.institutionDetails?.institutionID}},{{detail.institutionDetails?.institutionName}}
-                    <span *ngIf="detail.institutionDetails?.contactNo1"> ,{{detail.institutionDetails?.contactNo1}}</span>
-            <span *ngIf="detail.institutionDetails?.contactNo2"> ,{{detail.institutionDetails?.contactNo2}}</span>
-            <span *ngIf="detail.institutionDetails?.contactNo3"> ,{{detail.institutionDetails?.contactNo3}}</span>
+              <md-checkbox color="primary" class="m-l-10" name={{detail.institutionDetails.institutionID}}>
+              </md-checkbox>
+              {{detail.institutionDetails?.institutionName}}
+              <span *ngIf="detail.institutionDetails?.address">, {{detail.institutionDetails?.address}}</span>
+              <span *ngIf="detail.institutionDetails?.website">, {{detail.institutionDetails?.website}}</span>
+              <span *ngIf="detail.institutionDetails?.contactPerson1">, {{detail.institutionDetails?.contactPerson1}}</span>
+              <span *ngIf="detail.institutionDetails?.contactNo1">, {{detail.institutionDetails?.contactNo1}}</span>
+              <span *ngIf="detail.institutionDetails?.contactPerson1Email">, {{detail.institutionDetails?.contactPerson1Email}}</span>
+              <span *ngIf="detail.institutionDetails?.contactPerson2">, {{detail.institutionDetails?.contactPerson2}}</span>
+              <span *ngIf="detail.institutionDetails?.contactNo2">, {{detail.institutionDetails?.contactNo2}}</span>
+              <span *ngIf="detail.institutionDetails?.contactPerson2Email">, {{detail.institutionDetails?.contactPerson2Email}}</span>
+              <span *ngIf="detail.institutionDetails?.contactPerson3">, {{detail.institutionDetails?.contactPerson3}}</span>
+              <span *ngIf="detail.institutionDetails?.contactNo3">, {{detail.institutionDetails?.contactNo3}}</span>
+              <span *ngIf="detail.institutionDetails?.contactPerson3Email">, {{detail.institutionDetails?.contactPerson3Email}}</span>
+              <br/>
             </span>
           </div>
         </div>
