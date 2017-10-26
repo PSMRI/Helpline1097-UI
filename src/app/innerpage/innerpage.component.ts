@@ -61,6 +61,7 @@ export class InnerpageComponent implements OnInit {
   ctiHandlerURL: any;
   validCallID: any;
   listenCallEvent: any;
+  transferInProgress: Boolean = false;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -281,13 +282,15 @@ export class InnerpageComponent implements OnInit {
   }
 
   handleEvent(eventData) {
+    console.log("received event " + eventData);
     if (eventData[0] === 'Disconnect') {
 
-    } else if (eventData[0] === 'CustDisconnect') {
+    } else if (eventData[0] === 'AgentXfer' || eventData[0] === 'CampaignXfer') {
       this.getAgentStatus();
       this.showRemarks(eventData);
+      this.transferInProgress = true;
       // this.showRemarks(eventData);
-    } else if (eventData[0] === 'CallDisconnect') {
+    } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress) {
       this.getAgentStatus();
       this.disconnectCall();
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {

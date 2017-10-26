@@ -1466,7 +1466,9 @@ em {
 .height-170 {
   height: 170px !important;
 }
-
+.height-180 {
+  height: 180px !important;
+}
 .height-220 {
   height: 220px !important;
 }
@@ -1852,10 +1854,14 @@ input:-webkit-autofill:hover {
 .height-400 {
   height: 400px !important;
 }
-
+.overflow-auto {
+  overflow: auto;
+  
+}
 .overflow-y {
   overflow-y: auto;
 }
+
 
 .footer-height {
   height: 30px!important;
