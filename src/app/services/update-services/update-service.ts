@@ -32,8 +32,9 @@ export class UpdateService {
     }
   };
 
-  private handleError(res: Response) {
-    return res.json();
+  private handleError(error: Response | any) {
+    return Observable.throw(error.json());
+
   };
 
 }

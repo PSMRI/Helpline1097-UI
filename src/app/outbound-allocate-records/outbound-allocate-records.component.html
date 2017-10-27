@@ -1,4 +1,4 @@
-<form [formGroup]="allocateForm" novalidat>
+<form [formGroup]="allocateForm" novalidat *ngIf="afterAllocate">
   <div class="col-xs-12 col-sm-12">
     <h4 class="f-s-b m-b-30">Allocate Records</h4>
     <div class="row">
@@ -17,12 +17,11 @@
             <md-option *ngFor="let user of users" [value]="user.userID"> {{user.firstName+ " "+user.lastName}}</md-option>
           </md-select>
         </md-input-container>
-
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         <md-input-container [style.width]="'100%'">
-          <input #allocateRef type="number" min="1" max={{initialCount}} mdInput placeholder="Allocate No of Records" id="allocateNo" formControlName="allocateNo"
-            name="allocateNo">
+          <input #allocateRef type="number" min="1" max={{initialCount}} mdInput placeholder="Allocate No of Records" id="allocateNo"
+            formControlName="allocateNo" name="allocateNo">
           <input type="hidden" class="form-control" placeholder="Enter Total New Records" id="outboundCallRequests" formControlName="outboundCallRequests"
             name="outboundCallRequests">
         </md-input-container>
@@ -31,7 +30,8 @@
   </div>
   <div class="col-xs-12 col-sm-12">
     <div class="row col-xs-12 col-sm-12 col-md-4 col-lg-4 pull-right">
-      <button type="button" [disabled]="!allocateForm.valid" md-raised-button color="primary" class=" font-regular pull-right" (click)="onCreate(allocateForm.value);allocateForm.reset()">Allocate</button>
+      <button type="button" [disabled]="!allocateForm.valid" md-raised-button color="primary" class=" font-regular pull-right"
+        (click)="onCreate(allocateForm.value);allocateForm.reset()">Allocate</button>
     </div>
   </div>
 </form>

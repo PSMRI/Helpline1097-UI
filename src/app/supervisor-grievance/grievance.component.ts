@@ -80,8 +80,8 @@ export class supervisorFeedback implements OnInit {
     supUserID: new FormControl(),
     feedbackDate: new FormControl(),
     feedbackTypeName: new FormControl(),
-    feedbackStatus: new FormControl(),
-    emailStatus: new FormControl(),
+    feedbackStatusName: new FormControl(),
+    emailStatusName: new FormControl(),
     institutionName: new FormControl(),
     designationName: new FormControl(),
     severityTypeName: new FormControl(),
@@ -150,11 +150,10 @@ export class supervisorFeedback implements OnInit {
 
 
     // this.action = "view";
-
     let bodyString = this.feedbackForm.value;
     bodyString['serviceID'] = this.serviceID;
-    bodyString['feedbackStatus'] = undefined;
-    bodyString['emailStatus'] = undefined;
+    // bodyString['feedbackStatus'] = undefined;
+    // bodyString['emailStatus'] = undefined;
     // bodyString[ "" ] = undefined;
     console.log('SPData' + JSON.stringify(bodyString));
     // bodyString.feedbackStatus = undefined;
@@ -231,8 +230,8 @@ export class supervisorFeedback implements OnInit {
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackTypeName);
-    this.feedbackForm.controls.feedbackStatus.setValue(feedback.feedbackStatusName);
-    this.feedbackForm.controls.emailStatus.setValue(feedback.emailStatusName);
+    this.feedbackForm.controls.feedbackStatusName.setValue(feedback.feedbackStatusName);
+    this.feedbackForm.controls.emailStatusName.setValue(feedback.emailStatusName);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
     // this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);instituteType
@@ -319,8 +318,8 @@ export class supervisorFeedback implements OnInit {
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackTypeName);
-    this.feedbackForm.controls.feedbackStatus.setValue(feedback.feedbackStatusName);
-    this.feedbackForm.controls.emailStatus.setValue(feedback.emailStatusName);
+    this.feedbackForm.controls.feedbackStatusName.setValue(feedback.feedbackStatusName);
+    this.feedbackForm.controls.emailStatusName.setValue(feedback.emailStatusName);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
     // this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);
@@ -478,7 +477,10 @@ export class supervisorFeedback implements OnInit {
     });
     dialogReff.afterClosed().subscribe(result => {
       this._feedbackservice.requestFeedback(bodyString)
-        .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
+        .subscribe(resfeedbackData =>
+          this.showUsers(resfeedbackData), err => {
+            this.alertMessage.alert(err.status);
+          })
     });
 
   }

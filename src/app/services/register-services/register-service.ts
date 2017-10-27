@@ -55,7 +55,7 @@ export class RegisterService {
   retrieveRegHistory(registrationNo: any) {
     return this.httpInterceptor.get(this._getuserdata + registrationNo)
       .map(this.extractData)
-      .catch(this.handleError);
+      .catch(this.customhandleError);
   }
 
   retrieveRegHistoryByPhoneNo(phoneNo: any) {
@@ -119,6 +119,10 @@ export class RegisterService {
     }
   };
 
+  private customhandleError(error: Response | any) {
+    return Observable.throw(error.json());
+
+  };
   private handleError(res: Response) {
     return res.json();
   };

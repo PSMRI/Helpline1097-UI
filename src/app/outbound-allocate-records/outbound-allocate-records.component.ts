@@ -29,6 +29,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   roles: any = [];
   providerServiceMapID: number;
   @Input() outboundCallRequests: any = [];
+  afterAllocate:boolean=true;
   allocateForm: FormGroup;
   // @ViewChild('allocateForm') allocateForm: NgForm;
   @Output() outboundCount: EventEmitter<any> = new EventEmitter<any>();
@@ -55,13 +56,17 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     // this.outboundCallRequests = this.outboundCallRequests;
     //  this.getOutboundCall(this.providerServiceMapID);
   }
-  getOutboundCall(serviceProviderMapID) {
-    this._OSRService.getUnallocatedCalls(serviceProviderMapID)
+
+  getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
+    this._OSRService.getUnallocatedCalls(serviceProviderMapID, startDate, endDate, language)
       .subscribe(resProviderData => {
         this.initialCount = resProviderData.data.length;
         this.allocateForm.controls['outboundCallRequests'].setValue(resProviderData.data);
+      },err=>{
+        this.alertMessage.alert(err.errorMessage);
       });
   }
+
   createForm() {
     this.allocateForm = this.fb.group({
       roleID: ['', Validators.required],
@@ -93,7 +98,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
 
   ngOnChanges() {
     //  this.initialCount = this.outboundCallRequests.length;
-    this.allocateForm.controls['outboundCallRequests'].setValue(this.outboundCallRequests);
+    this.allocateForm.controls['outboundCallRequests'].setValue(this.outboundCallRequests.outboundList);
     // this.outboundCallRequests = this.outboundCallRequests;
     this.allocateForm.patchValue({
       userID: []
@@ -105,8 +110,14 @@ export class OutboundAllocateRecordsComponent implements OnInit {
       .subscribe(
       (response) => {
         this.alertMessage.alert('Successfully Allocated');
-        this.outboundCount.emit(this.providerServiceMapID);
-        this.getOutboundCall(this.providerServiceMapID);
+        this.afterAllocate=false;
+        let obj={};
+        obj['startDate']=this.outboundCallRequests.startDate;
+        obj['providerServiceMapId']=this.providerServiceMapID;
+        obj['endDate']=this.outboundCallRequests.endDate;
+        obj['language']=this.outboundCallRequests.language.languageName;
+        this.outboundCount.emit(obj);
+        this.getUnallocateCall(this.providerServiceMapID);
       },
       (error) => {
         this.alertMessage.alert(error.errorMessage);
@@ -123,7 +134,19 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     });
 
   }
-
+getUnallocateCall(serviceProviderMapId) {
+    // tslint:disable-next-line:max-line-length
+    let startDate: Date = new Date(this.outboundCallRequests.startDate);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    let endDate: Date = new Date(this.outboundCallRequests.endDate);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    this.getOutboundCall(serviceProviderMapId, startDate,
+      endDate,this.outboundCallRequests.language.languageName);
+  }
 }
 
 

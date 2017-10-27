@@ -25,6 +25,7 @@ export class OutboundSearchRecordsComponent implements OnInit {
   serviceProviderMapID: number;
   languages: any = [];
   tot_unAllocatedCalls: any;
+  showCount:boolean = false;
 
   constructor(
     private _OSRService: OutboundSearchRecordService,
@@ -37,37 +38,33 @@ export class OutboundSearchRecordsComponent implements OnInit {
   ngOnInit() {
     this.serviceProviderMapID = this.saved_data.current_service.serviceID;
     this.getOutboundCall(this.serviceProviderMapID);
-    // this._OSRService.getUnallocatedCalls(this.serviceProviderMapID)
-    //   .subscribe(resProviderData => {
-    //     this._unAllocatedCalls = resProviderData.data;
-    //     this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
-    //   });
     this.getLanguages();
+    this.showCount=false;
   }
   assignCount(providerServiceMapId: any) {
     this.getOutboundCall(providerServiceMapId);
+    this.showCount=false;
   }
   getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
-    ;
     this._OSRService.getUnallocatedCalls(serviceProviderMapID, startDate, endDate, language)
       .subscribe(resProviderData => {
         this._unAllocatedCalls = resProviderData.data;
         this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
+        this.showCount=true;
       });
   }
 
-  allocateCalls(values: any, event) {
-
+  allocateCalls(values: any ,startDate : Date, endDate : Date, language:any , event) {
     console.log('valuse: ' + values);
-
-    // for (var i = 0; i < event.target.parentNode.parentNode.parentNode.children.length; i++) {
-    //   event.target.parentNode.parentNode.parentNode.children[i].className = '';
-    // }
-    // event.target.parentNode.parentNode.className = 'highlightTrBg';
     if (this.tot_unAllocatedCalls > 0) {
       this.showFlage = true;
     }
-    this.records = values;
+    const outboundObj={};
+    outboundObj['outboundList']=values;
+    outboundObj['startDate']=startDate;
+    outboundObj['endDate']=endDate;
+    outboundObj['langauge']=language;
+    this.records =outboundObj;
   }
   getLanguages() {
     this._callServices.getLanguages().subscribe(response => {
