@@ -124,7 +124,7 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-    //  document.dispatchEvent(event);
+    // document.dispatchEvent(event);
 
   }
 
@@ -144,7 +144,9 @@ export class dashboardContentClass implements OnInit {
   }
 
   handleEvent() {
-    this.router.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2]]);
+    if (this.eventSpiltData.length > 2) {
+      this.router.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2]]);
+    }
   }
 
   addListener() {
