@@ -287,7 +287,7 @@ export class InnerpageComponent implements OnInit {
 
     } else if (eventData[0] === 'AgentXfer' || eventData[0] === 'CampaignXfer') {
       this.getAgentStatus();
-      this.showRemarks(eventData);
+      this.showRemarksNew(eventData);
       this.transferInProgress = true;
       // this.showRemarks(eventData);
     } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress) {
@@ -340,6 +340,14 @@ export class InnerpageComponent implements OnInit {
     // this.startCallWraupup(eventData);
 
   }
+
+
+  showRemarksNew(eventData) {
+    let remarksGiven;
+    remarksGiven = eventData[0] + ' to ' + eventData[2];
+    this.closeCall(eventData, remarksGiven);
+  }
+
   startCallWraupup (eventData) {
     const timer = Observable.timer(2000, 1000);
     timer.subscribe(t => {
@@ -376,6 +384,7 @@ export class InnerpageComponent implements OnInit {
 
     })
   }
+
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe((res) => {
       this.TotalCalls = 'Total Calls : ' + res.data.total_calls;
