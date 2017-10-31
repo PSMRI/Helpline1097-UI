@@ -1,20 +1,24 @@
 <div class="container-fluid p-a-0 header p-t-b-3">
   <div class="header">
     <div class="col-xs-12 col-sm-12">
-      <div class="pull-left"><img src="assets/images/smLogo.png" alt="Logo"></div>
+      <div class="pull-left">
+        <img src="assets/images/smLogo.png" alt="Logo">
+      </div>
       <div class=" p-t-1">
         <ul class="list-inline list-unstyled pull-left m-b-0">
           <li class="m-l-lg-40 m-t-5" *ngIf="checkRole && current_campaign == 'INBOUND'">
             <!-- <img src="assets/images/transferCallIcon.png " alt="Caller Icon
     " title="Caller Icon " /> -->
-            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green" (click)="testEvent()">{{callStatus}}</span>
+            <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green">{{callStatus}}</span>
             <span class="m-l-lg-20 f-s-14 whiteC font-Semibold" *ngIf="callTime">{{callDuration}}</span>
             <span class="m-l-lg-20 f-s-14 whiteC font-Semibold" *ngIf="wrapupTime"> Time Remaining -{{ticks}}</span>
           </li>
         </ul>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
           <!--   <li style="color: white"> Welcome {{data.userName}}</li> -->
-          <li class=""><img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon" [mdMenuTriggerFor]="menuNotification"></li>
+          <li class="">
+            <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon" [mdMenuTriggerFor]="menuNotification">
+          </li>
           <md-menu #menuNotification x-position="before"  class="m-t-40"  >
             <md-list class="p-t-0">
               <md-list-item>
@@ -26,11 +30,13 @@
             <!-- <li class="help cursorPointer" *ngIf= routerLink="/MultiRoleScreenComponent/dashboard" title="Home">
               <md-icon class="material-icons" class="homeIcon" role="img" aria-hidden="true">home</md-icon>
             </li> -->
-            <li class="logout" (click)="logOut()"><a>&nbsp;</a></li>
+            <li class="logout" (click)="logOut()">
+              <a>&nbsp;</a>
+            </li>
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
           <li>
-            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4" [(ngModel)]="language_change" (change)="getLanguageObject(language_change)"> 
+            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4" [(ngModel)]="language_change" (change)="getLanguageObject(language_change)">
               <option selected="selected " value="english">English </option>
               <option value="kannada">Kannada </option>
             </select>
@@ -59,7 +65,8 @@
             <div class="m-t-5">
               <ul class="list-inline list-unstyled pull-left m-b-3 ">
                 <li class="cursorPointer" *ngIf='!checkRole' routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
-                  <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i></li>
+                  <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i>
+                </li>
                 <!--                 <li class="m-l-10 "><img src="assets/images/dashboardIcon.png " alt="Dashboard Icon
     " title="Dashboard Icon " /></li> -->
                 <!--   <li class="f-s-16 font-Semibold ">My ID : {{current_role}} - {{current_service}}</li> -->
@@ -89,7 +96,9 @@
               </div> -->
               <ul class="list-unstyled list-inline pull-left  p-a-0 m-b-3 ">
                 <!-- <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li> -->
-                <li><span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span></li>
+                <li>
+                  <span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span>
+                </li>
                 <li>{{selectedBenData.name}}</li>
                 <li>{{selectedBenData.mob}}</li>
                 <li>{{selectedBenData.age}}</li>

@@ -125,6 +125,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   cZentrixIp: any;
   current_campaign: any;
   cityErrFlag: any = false;
+  unMaskedNumber: any;
 
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
@@ -605,6 +606,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
     if (registeredBenData.benPhoneMaps[1]) {
       this.PhoneNo = registeredBenData.benPhoneMaps[1].phoneNo;
+      // this.PhoneNo = 'XXXXXX' + registeredBenData.benPhoneMaps[1].phoneNo.toString()
+      //   .substring(this.unMaskedNumber.length - 4 > 0 ? (this.unMaskedNumber.length - 4) : 0, this.unMaskedNumber.length);
     }
     this.aadharNo = registeredBenData.govtIdentityNo;
     this.identityType = registeredBenData.govtIdentityTypeID;
@@ -620,7 +623,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.blocks = registeredBenData.i_bendemographics.m_districtbranchmapping;
     this.age = registeredBenData.age;
     // Checking whether it has parent or not
-    // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) {
+    // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) { 
     if (registeredBenData.benPhoneMaps[0].parentBenRegID === registeredBenData.benPhoneMaps[0].benificiaryRegID) {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
@@ -641,6 +644,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
     this.pincode = registeredBenData.i_bendemographics.pinCode;
     this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
+
     this.updatedObj = registeredBenData;
     this.saved_data.beneficiaryData = registeredBenData;
     this.onBenRegDataSelect.emit(this.benRegData);
@@ -662,6 +666,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.updatedObj.parentBenRegID = this.ParentBenRegID;
     // this.updatedObj.altPhoneNo = this.PhoneNo;
     let phones = this.updatedObj.benPhoneMaps.length;
+    if (this.PhoneNo && phones === 1) {
+    }
+
     // if (phones > 0) {
     //   phones = 1;
     // }
@@ -725,7 +732,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.calledRadio = true;
     this.onBenSelect.emit('benService');
     this.selectBeneficiary(this.saved_data.beneficiaryData, 'update');
-    //populateUserData
+    // populateUserData
     /**
    *End of Neeraj Code; 22-jun-2017
    */
@@ -764,8 +771,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     benificiaryRelationType = relationShips.filter(function (item) {
       return item.benRelationshipType.toUpperCase() === 'SELF'; // This value has to go in constant
     });
-    this.beneficiaryRelationID = benificiaryRelationType[0]['benRelationshipID']
-    return this.beneficiaryRelationID;
+    let beneficiaryRelationID;
+    if (benificiaryRelationType.length > 0) {
+      beneficiaryRelationID = benificiaryRelationType[0]['benRelationshipID']
+    }
+    return beneficiaryRelationID;
   }
   // Handling Error
   getParentData(parentBenID) {
@@ -922,7 +932,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.pass_data.sendData(data);
   }
   countSerial(event: any) {
-    debugger
 
   }
   ngOnDestroy() {

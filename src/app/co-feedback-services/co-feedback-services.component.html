@@ -9,12 +9,12 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-            <h4 class="f-s-b m-b-30">{{currentlanguage.feedback_service?.page_heading}}</h4>
-          </label>
+        <h4 class="f-s-b m-b-30">{{currentlanguage.feedback_service?.page_heading}}</h4>
+      </label>
     </div>
   </div>
   <div class="row">
-    <form id="feedbackForm" *ngIf="showFormCondition">
+    <form id="feedbackForm" form="ngForm" *ngIf="showFormCondition">
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
@@ -208,7 +208,7 @@
         <!--<button type="button" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
               " id="" (click)="submitFeedback(feedbackForm.value)">Register</button>-->
         <button type="button" md-raised-button color="primary" class="pull-right font-regular f-s-18 m-t-15
-              " (click)="submitFeedback()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">{{currentlanguage.feedback_service?.register}}</button>
+              " (click)="submitFeedback();form.reset()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">{{currentlanguage.feedback_service?.register}}</button>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
         <button type="button" md-raised-button color="accent" class="pull-left font-regular f-s-18 m-t-15

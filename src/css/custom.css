@@ -2202,3 +2202,6 @@ input:-webkit-autofill:hover {
   padding: 0 0;
   margin: 0;
 }
+.cZentrixBar{
+  display:none
+}

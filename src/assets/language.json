@@ -23,7 +23,7 @@
     },
     "beneficiary_registration": {
       "call_confirmation_question": "Have You Called Earlier?",
-      "registration_number": "Registration Number",
+      "registration_number": "Beneficiary ID",
       "retrieve": "Retrieve",
       "first_name": "First Name",
       "name_is_required": "Name Is Required",
