@@ -188,7 +188,7 @@ export class helpline1097CoComponent implements OnInit {
     this.dialogService.confirm('Cancel Call ', 'Cancel Call?').subscribe((response) => {
       if (response) {
         // this.reloadCall();
-        this.beneficiarySelected.emit(null);
+        //   this.beneficiarySelected.emit(null);
         const id = jQuery('.carousel-inner div.active').index();
         jQuery('#myCarousel').carousel(0);
         jQuery('#one').parent().find('a').removeClass('active-tab');

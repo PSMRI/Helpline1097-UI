@@ -34,7 +34,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('ageRef') input: ElementRef;
-
+  @ViewChild('BeneficaryForm') BeneficaryForm;
   fname: any = '';
   lname: any = '';
   fhname: any = '';
@@ -522,6 +522,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   showAlert() {
+    this.BeneficaryForm.resetForm();
     this.alertMaessage.alert('Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
   }
 
@@ -667,6 +668,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.updatedObj.altPhoneNo = this.PhoneNo;
     let phones = this.updatedObj.benPhoneMaps.length;
     if (this.PhoneNo && phones === 1) {
+      const obj = {};
+      obj['parentBenRegID'] = this.ParentBenRegID;
+      obj['benificiaryRegID'] = this.updatedObj.beneficiaryRegID;
+      obj['benRelationshipID'] = this.beneficiaryRelationID;
+      obj['phoneNo'] = this.PhoneNo;
+      obj['modifiedBy'] = this.saved_data.uname;
+      obj['createdBy'] = this.saved_data.uname;
+      obj['deleted'] = false;
+      this.updatedObj.benPhoneMaps.push(obj);
     }
 
     // if (phones > 0) {
@@ -717,25 +727,21 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   updateSuccessHandeler(response) {
-    this.alertMaessage.alert('Successfully Updated');
-    this.benUpdationResponse = response;
-    // this.regHistoryList = [response];
-    this.regHistoryList = '';
-    this.regHistoryList = [response];
-    this.showSearchResult = true;
-    this.notCalledEarlier = false;
-    this.updationProcess = false;
-    /**
-     *Neeraj Code; 22-jun-2017
-     */
-    this.notCalledEarlierLowerPart = false;
-    this.calledRadio = true;
-    this.onBenSelect.emit('benService');
-    this.selectBeneficiary(this.saved_data.beneficiaryData, 'update');
-    // populateUserData
-    /**
-   *End of Neeraj Code; 22-jun-2017
-   */
+    if (response) {
+      this.alertMaessage.alert('Successfully Updated');
+      this.BeneficaryForm.resetForm();
+      this.benUpdationResponse = response;
+      // this.regHistoryList = [response];
+      this.regHistoryList = '';
+      this.regHistoryList = [response];
+      this.showSearchResult = true;
+      this.notCalledEarlier = false;
+      this.updationProcess = false;
+      this.notCalledEarlierLowerPart = false;
+      this.calledRadio = true;
+      this.onBenSelect.emit('benService');
+      this.selectBeneficiary(this.saved_data.beneficiaryData, 'update');
+    }
   }
 
   /**

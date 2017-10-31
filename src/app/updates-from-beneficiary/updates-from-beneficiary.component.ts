@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from '../services/update-services/update-service';
@@ -18,7 +18,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   @Input() current_language: any;
   currentlanguage: any;
-
+  @ViewChild('Form') form;
   occupation: any;
   educationID: any;
   sexualOrientationID: any;
@@ -60,7 +60,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       .subscribe(response => {
         this.SetUserBeneficiaryRegistrationData(response);
       });
-   // this.PopulateUpdateData();
+    // this.PopulateUpdateData();
 
     this.count = '0/300';
 
@@ -132,6 +132,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   showAlert() {
     this.message.alert('Updated Successfully');
+    this.form.reset();
   }
   updateCount() {
     this.count = this.remarks.length + '/300';
