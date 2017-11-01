@@ -11,7 +11,7 @@ import { OutboundService } from './../services/common/outbound.services';
 import { ReloadService } from './../services/common/reload.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
-
+import { ClearFormService } from './../services/common/clearform.service';
 @Component({
   selector: 'app-1097-co',
   templateUrl: './1097-co.component.html',
@@ -52,7 +52,8 @@ export class helpline1097CoComponent implements OnInit {
     private pass_data: CommunicationService,
     private outBoundService: OutboundService,
     private reloadCall: ReloadService,
-    private czentrixService: CzentrixServices
+    private czentrixService: CzentrixServices,
+    private ClearForm: ClearFormService
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -194,6 +195,10 @@ export class helpline1097CoComponent implements OnInit {
         jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
         jQuery('#btnClosure').attr('disabled', null);
+        jQuery('#benForm').trigger('reset');
+        jQuery('#closeForm').trigger('reset');
+        this.ClearForm.clearFormSender('closure');
+        jQuery('#otherDetailsForm').trigger('reset');
         this.isCancelDisable = true;
         this.isClosureDisable = false;
         this.isNext = false;

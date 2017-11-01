@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { dataService } from '../services/dataService/data.service';
@@ -7,7 +7,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { CommunicationService } from './../services/common/communication.service'
 import { Subscription } from 'rxjs/Subscription';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
-
+import { ClearFormService } from './../services/common/clearform.service'
 
 @Component({
   selector: 'app-closure',
@@ -20,7 +20,7 @@ export class ClosureComponent implements OnInit
 
   @Input() current_language: any;
   currentlanguage: any;
-
+  @ViewChild('Form') closureForm;
   @Output() callClosed: EventEmitter<any> = new EventEmitter<any>();
   @Output() closedContinue: EventEmitter<any> = new EventEmitter<any>();
   summaryList: any = [];
@@ -56,8 +56,12 @@ export class ClosureComponent implements OnInit
     private saved_data: dataService,
     private message: ConfirmationDialogsService,
     private pass_data: CommunicationService,
-    private czentrixServices: CzentrixServices
-  ) { this.subscription = this.pass_data.getData().subscribe(benData => { this.outBoundCloseCall(benData) }); }
+    private czentrixServices: CzentrixServices,
+    private clearfornData: ClearFormService
+  ) {
+    this.subscription = this.pass_data.getData().subscribe(benData => { this.outBoundCloseCall(benData) });
+    this.subscription = this.clearfornData.clearFormGetter().subscribe(data => { this.clearForm(data) });
+  }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
     const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
@@ -97,6 +101,8 @@ export class ClosureComponent implements OnInit
       this.showSlider = true;
     } else {
       this.showSlider = false;
+      this.isFollowUp = false;
+      this.isFollowupRequired = false;
     }
   }
 
@@ -193,6 +199,10 @@ export class ClosureComponent implements OnInit
           if (res) {
             this._callServices.closeCall(values).subscribe((response) => {
               if (response) {
+                this.closureForm.reset();
+                this.showSlider = false;
+                this.isFollowUp = false;
+                this.isFollowupRequired = false;
                 this.showAlert();
                 // if (btnType === 'submitClose') {
                 // this.callClosed.emit(this.current_campaign);
@@ -268,5 +278,13 @@ export class ClosureComponent implements OnInit
     }, (err) => {
       this.message.alert(err.status);
     });
+  }
+  clearForm(item) {
+    if (item.dataPass === 'closure') {
+      this.closureForm.reset();
+      this.showSlider = false;
+      this.isFollowUp = false;
+      this.isFollowupRequired = false;
+    }
   }
 }

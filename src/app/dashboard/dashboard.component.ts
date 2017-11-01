@@ -124,7 +124,7 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-    // document.dispatchEvent(event);
+    document.dispatchEvent(event);
 
   }
 
@@ -156,7 +156,7 @@ export class dashboardContentClass implements OnInit {
       addEventListener('message', this.listener.bind(this), false);
     } else {
       console.log('adding onmessage listener');
-      // document.attachEvent("onmessage", this.listener);
+      //document.attachEvent("onmessage", this.listener);
     }
   }
   setCompain(compain: any) {

@@ -121,6 +121,9 @@
       "search": "Search",
       "back": "Back",
       "send_sms": "Send SMS",
+      "alternate_number": "Alternate Number",
+      "mobile_number": "Mobile Number",
+      "mobile_validation": "10 Digit Mobile Number Required",
       "table_labels": {
         "table_heading": "Referral History",
         "sno": "S.No.",

@@ -128,6 +128,7 @@ import { CzentrixServices } from './services/czentrix/czentrix.service';
 import { OutboundService } from './services/common/outbound.services';
 import { ListnerService } from './services/common/listner.service';
 import { ReloadService } from './services/common/reload.service';
+import { ClearFormService } from './services/common/clearform.service'
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
 
@@ -153,6 +154,7 @@ import { LoaderService } from './services/common/loader.service';
 import { NotificationsDialogComponent } from './notifications-dialog/notifications-dialog.component';
 import { EditNotificationsComponent } from './edit-notifications/edit-notifications.component';
 import { TrainingResourcesComponent } from './training-resources/training-resources.component';
+import { CoAlternateNumberComponent } from './co-referral-services/co-alternate-number/co-alternate-number.component';
 // import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
 
 
@@ -179,7 +181,8 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
     FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent,
     NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent,
-    CallStatisticsComponent
+    CallStatisticsComponent,
+    CoAlternateNumberComponent
 
   ],
   imports: [
@@ -255,9 +258,10 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
     ]),
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,
-    AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent],
+    AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
+    , CoAlternateNumberComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [loginService, dataService, DashboardHttpServices, SPService, RegisterService,
+  providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
