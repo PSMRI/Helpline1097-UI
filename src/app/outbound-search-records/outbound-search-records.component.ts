@@ -25,7 +25,7 @@ export class OutboundSearchRecordsComponent implements OnInit {
   serviceProviderMapID: number;
   languages: any = [];
   tot_unAllocatedCalls: any;
-  showCount:boolean = false;
+  showCount: boolean = false;
 
   constructor(
     private _OSRService: OutboundSearchRecordService,
@@ -39,32 +39,32 @@ export class OutboundSearchRecordsComponent implements OnInit {
     this.serviceProviderMapID = this.saved_data.current_service.serviceID;
     this.getOutboundCall(this.serviceProviderMapID);
     this.getLanguages();
-    this.showCount=false;
+    this.showCount = false;
   }
   assignCount(providerServiceMapId: any) {
     this.getOutboundCall(providerServiceMapId);
-    this.showCount=false;
+    this.showCount = false;
   }
   getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
     this._OSRService.getUnallocatedCalls(serviceProviderMapID, startDate, endDate, language)
       .subscribe(resProviderData => {
         this._unAllocatedCalls = resProviderData.data;
         this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
-        this.showCount=true;
+        this.showCount = true;
       });
   }
 
-  allocateCalls(values: any ,startDate : Date, endDate : Date, language:any , event) {
+  allocateCalls(values: any, startDate: Date, endDate: Date, language: any, event) {
     console.log('valuse: ' + values);
     if (this.tot_unAllocatedCalls > 0) {
       this.showFlage = true;
     }
-    const outboundObj={};
-    outboundObj['outboundList']=values;
-    outboundObj['startDate']=startDate;
-    outboundObj['endDate']=endDate;
-    outboundObj['langauge']=language;
-    this.records =outboundObj;
+    const outboundObj = {};
+    outboundObj['outboundList'] = values;
+    outboundObj['startDate'] = startDate;
+    outboundObj['endDate'] = endDate;
+    outboundObj['langauge'] = language;
+    this.records = outboundObj;
   }
   getLanguages() {
     this._callServices.getLanguages().subscribe(response => {
@@ -74,6 +74,7 @@ export class OutboundSearchRecordsComponent implements OnInit {
     });
   }
   getUnallocateCall(values) {
+    debugger;
     // tslint:disable-next-line:max-line-length
     let startDate: Date = new Date(values.filterStartDate);
     startDate.setHours(0);
@@ -83,8 +84,14 @@ export class OutboundSearchRecordsComponent implements OnInit {
     endDate.setHours(23);
     endDate.setMinutes(59);
     endDate.setSeconds(59);
-    this.getOutboundCall(this.serviceProviderMapID, startDate,
-      endDate, values.preferredLanguageName.languageName);
+    if (!values.preferredLanguageName) {
+      this.getOutboundCall(this.serviceProviderMapID, startDate,
+        endDate);
+    }
+    else {
+      this.getOutboundCall(this.serviceProviderMapID, startDate,
+        endDate, values.preferredLanguageName.languageName);
+    }
   }
 
 }
