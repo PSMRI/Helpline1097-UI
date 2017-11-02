@@ -48,6 +48,7 @@ export class CoReferralServicesComponent implements OnInit {
   subscription: Subscription
   beneficiaryRegID: any;
   p = 1;
+  enableSms: boolean = true;
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
     private _locationService: LocationService,
@@ -224,6 +225,7 @@ export class CoReferralServicesComponent implements OnInit {
         'currentlanguage': this.current_language
       }
     });
+
     dialogReff.afterClosed().subscribe(result => {
       if (result) {
         this.message.alert('Message Sent to Alternate Number');
@@ -233,6 +235,14 @@ export class CoReferralServicesComponent implements OnInit {
         this.message.alert('Message Sent to Primary Number');
       }
     });
+  }
+  toggleSms(e: any) {
+    debugger
+    if (!e.checked) {
+      this.enableSms = true;
+    } else {
+      this.enableSms = false;
+    }
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
