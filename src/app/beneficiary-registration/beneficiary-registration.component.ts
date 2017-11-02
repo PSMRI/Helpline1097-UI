@@ -135,7 +135,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     , private reload_call: ReloadService) {
     this.subcriptionOutbound = this.outboundService.getOutboundData()
       .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
-    this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) });
+    this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {
+      this.alertMaessage.alert(err.status);
+    });
   }
 
   /* Intialization Of value and object has to be written in here */
@@ -206,6 +208,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       //   this.alertMaessage.alert('Some Error while calling Czentrix');
       // });
 
+    }, (err) => {
+
     });
   }
   reloadCampainCall(current_campaign: any) {
@@ -270,7 +274,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.createdBy = this.saved_data.uname;
     data.calledServiceID = this.saved_data.current_service.serviceID;
     data.phoneNo = this.saved_data.callerNumber;
-    this._util.startCall(data).subscribe(response => this.setBenCall(response));
+    this._util.startCall(data).subscribe((response) => { this.setBenCall(response) }, (err) => {
+
+    });
   }
 
   setBenCall(response) {
@@ -399,7 +405,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       this.stateErrFlag = false;
       this._locationService.getDistricts(state)
-        .subscribe(response => this.SetDistricts(response));
+        .subscribe((response) => this.SetDistricts(response), (err) => { });
     }
   }
   SetDistricts(response: any) {
@@ -421,7 +427,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     else {
       this.cityErrFlag = false;
       this._locationService.getTaluks(district)
-        .subscribe(response => this.SetTaluks(response));
+        .subscribe((response) => this.SetTaluks(response), (err) => { });
     }
   }
   SetTaluks(response: any) {
@@ -433,7 +439,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   GetBlocks(taluk: number) {
     this.blocks = [];
     this._locationService.getBranches(taluk)
-      .subscribe(response => this.SetBlocks(response));
+      .subscribe((response) => { this.SetBlocks(response) }, (err) => { });
   }
   SetBlocks(response: any) {
     this.blocks = response;
@@ -527,21 +533,30 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
+    debugger;
     const res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
-      .subscribe(response => this.handleRegHistorySuccess(response));
+      .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
+        debugger
+        this.alertMaessage.alert(err.status);
+      });
   }
 
 
   retrieveRegHistory(reg_no: any) {
     const res = this._util.retrieveRegHistory(reg_no)
-      .subscribe(response => this.handleRegHistorySuccess(response));
+      .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
+        this.alertMaessage.alert(err.status);
+      });
 
   }
 
   handleRegHistorySuccess(response: any) {
-    this.regHistoryList = response;
-    if (this.regHistoryList.length > 0) {
+    debugger
+    if (response) {
+      this.regHistoryList = response;
       this.showSearchResult = true;
+    }
+    if (this.regHistoryList.length > 0) {
       this.notCalledEarlier = false;
       this.updationProcess = false;
       this.notCalledEarlierLowerPart = false;
@@ -589,6 +604,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     const res = this._util.retrieveRegHistory(benRegData.beneficiaryRegID)
       .subscribe(response => {
         this.populateRegistrationFormForUpdate(response[0])
+      }, err => {
+
       });
 
     this.benRegData = benRegData;
