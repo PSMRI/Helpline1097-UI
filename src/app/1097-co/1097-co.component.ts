@@ -195,10 +195,10 @@ export class helpline1097CoComponent implements OnInit {
         jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
         jQuery('#btnClosure').attr('disabled', null);
-        jQuery('#benForm').trigger('reset');
-        jQuery('#closeForm').trigger('reset');
+        // jQuery('#benForm').trigger('reset');
+        // jQuery('#closeForm').trigger('reset');
         this.ClearForm.clearFormSender('closure');
-        jQuery('#otherDetailsForm').trigger('reset');
+        //jQuery('#otherDetailsForm').trigger('reset');
         this.isCancelDisable = true;
         this.isClosureDisable = false;
         this.isNext = false;
@@ -228,7 +228,7 @@ export class helpline1097CoComponent implements OnInit {
     // this.benService('benService');
     this.czentrixService.getIpAddress(this.getCommonData.Userdata.agentID)
       .subscribe((ipAddressresponse) => {
-        let cZentrixIp = ipAddressresponse.agent_ip;
+        let cZentrixIp = ipAddressresponse.response.agent_ip;
         if (!cZentrixIp) {
           cZentrixIp = this.getCommonData.loginIP;
         }

@@ -45,9 +45,9 @@
         </thead>
         <tbody>
           <tr *ngIf="md2.data.length < 1">
-            <p width=100% align="center">
+            <td class="t-a-c" colspan="8">
               No Records Found
-            </p>
+            </td>
           </tr>
           <tr *ngFor="let feedback of md2.data">
             <td (click)="onClick(feedback)">{{feedback.feedbackID}}</td>

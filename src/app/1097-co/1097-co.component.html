@@ -53,12 +53,12 @@
                 <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                   #registration [current_language]="currentlanguage"></app-beneficiary-registration>
               </div>
-              <div class="item ">
+              <div class="item">
                 <!--<app-co-services (beneficiarySelected)="startCOService()" (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>-->
                 <app-co-services (serviceGiven)="updateServiceProvided(); closure.onView()" [benHistory]="selectedBenData" #coservice [current_language]="currentlanguage"></app-co-services>
 
               </div>
-              <div class="item ">
+              <div class="item">
                 <!--<app-updates-from-beneficiary (beneficiarySelected)="PopulateUpdateData()" #updatebeneficiary></app-updates-from-beneficiary>-->
                 <app-updates-from-beneficiary #updatebeneficiary [current_language]="currentlanguage"></app-updates-from-beneficiary>
               </div>

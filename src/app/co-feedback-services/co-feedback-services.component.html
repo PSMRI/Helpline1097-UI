@@ -243,9 +243,9 @@
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length<1">
-              <p width=100% align="center">
-                No Records Found
-              </p>
+              <td class="t-a-c" colspan="8">
+                {{currentlanguage.feedback_service?.table_labels?.no_records_found}}
+              </td>
             </tr>
             <tr style="cursor: pointer;" *ngFor="let feedback
                         of md2.data;let i=index " (click)="modalData(feedback)">

@@ -36,9 +36,9 @@
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length < 1">
-              <p width=100% align="center">
+              <td class="t-a-c" colspan="9">
                 No Records Found
-              </p>
+              </td>
             </tr>
             <tr *ngFor="let service of md2.data ">
               <td>{{service.benCallID}}</td>

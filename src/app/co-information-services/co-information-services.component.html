@@ -67,9 +67,7 @@
         </thead>
         <tbody>
           <tr *ngIf="md2.data.length < 1">
-            <p width=100% align="center">
-              No Records Found
-            </p>
+            {{currentlanguage.information_service?.table_labels?.no_records_found}}
           </tr>
           <tr *ngFor="let Information of md2.data;let i=index ">
             <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>

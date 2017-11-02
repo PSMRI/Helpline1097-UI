@@ -37,8 +37,8 @@
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-15">
-      <button class="mar-right" [disabled]="!category.valid || !subCategory.valid || getDetailsFlag" type="button" md-raised-button color="primary"
-        (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.counselling_service?.get_details}}</button>
+      <button class="mar-right" [disabled]="!category.valid || !subCategory.valid || getDetailsFlag" type="button" md-raised-button
+        color="primary" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.counselling_service?.get_details}}</button>
       <button type="button" md-raised-button color="accent" (click)="back()">{{currentlanguage.counselling_service?.back}}</button>
     </div>
     <!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 m-t-15">
@@ -48,11 +48,11 @@
       <div class="min-height-180 border-1-g" for="subCategoryDetails">
         <span *ngFor="let detail of detailsList">
 
-            <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank"> 
+          <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank">
 
-                    {{detail?.subCategoryName}}:{{detail?.subCategoryDesc}}
-            </a>
-            <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">No Document Available</span>
+            {{detail?.subCategoryName}}:{{detail?.subCategoryDesc}}
+          </a>
+          <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">No Document Available</span>
         </span>
       </div>
     </div>
@@ -71,9 +71,9 @@
       </thead>
       <tbody>
         <tr *ngIf="md2.data.length < 1">
-          <p width=100% align="center">
-            No Records Found
-          </p>
+          <td class="t-a-c" colspan="6">
+            {{currentlanguage.counselling_service?.table_labels?.no_records_found}}
+          </td>
         </tr>
         <tr *ngFor="let counselling of md2.data;let i=index ">
           <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>

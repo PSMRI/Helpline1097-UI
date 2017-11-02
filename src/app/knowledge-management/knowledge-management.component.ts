@@ -145,6 +145,7 @@ export class KnowledgeManagementComponent implements OnInit {
       console.log('KM configuration ', response);
       this.message.alert('Uploaded Successfully');
       this.myInputVariable.nativeElement.value = '';
+      this.knowledgeForm.reset(this.knowledgeForm.value);
     }, (err) => {
       this.message.alert('Failed to Uploaded');
       this.myInputVariable.nativeElement.value = '';

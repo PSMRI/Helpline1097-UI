@@ -41,8 +41,8 @@ export class OutboundSearchRecordsComponent implements OnInit {
     this.getLanguages();
     this.showCount = false;
   }
-  assignCount(providerServiceMapId: any) {
-    this.getOutboundCall(providerServiceMapId);
+  assignCount(data: any) {
+    this.getOutboundCall(data.providerServiceMapId, data.startDate, data.endDate, data.language);
     this.showCount = false;
   }
   getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
@@ -74,8 +74,8 @@ export class OutboundSearchRecordsComponent implements OnInit {
     });
   }
   getUnallocateCall(values) {
-    debugger;
     // tslint:disable-next-line:max-line-length
+    this.showFlage = false;
     let startDate: Date = new Date(values.filterStartDate);
     startDate.setHours(0);
     startDate.setMinutes(0);
@@ -87,8 +87,7 @@ export class OutboundSearchRecordsComponent implements OnInit {
     if (!values.preferredLanguageName) {
       this.getOutboundCall(this.serviceProviderMapID, startDate,
         endDate);
-    }
-    else {
+    } else {
       this.getOutboundCall(this.serviceProviderMapID, startDate,
         endDate, values.preferredLanguageName.languageName);
     }

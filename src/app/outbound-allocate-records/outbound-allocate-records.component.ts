@@ -29,7 +29,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   roles: any = [];
   providerServiceMapID: number;
   @Input() outboundCallRequests: any = [];
-  afterAllocate:boolean=true;
+  afterAllocate: boolean = true;
   allocateForm: FormGroup;
   // @ViewChild('allocateForm') allocateForm: NgForm;
   @Output() outboundCount: EventEmitter<any> = new EventEmitter<any>();
@@ -62,7 +62,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
       .subscribe(resProviderData => {
         this.initialCount = resProviderData.data.length;
         this.allocateForm.controls['outboundCallRequests'].setValue(resProviderData.data);
-      },err=>{
+      }, err => {
         this.alertMessage.alert(err.errorMessage);
       });
   }
@@ -100,6 +100,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     //  this.initialCount = this.outboundCallRequests.length;
     this.allocateForm.controls['outboundCallRequests'].setValue(this.outboundCallRequests.outboundList);
     // this.outboundCallRequests = this.outboundCallRequests;
+    this.afterAllocate = true;
     this.allocateForm.patchValue({
       userID: []
     });
@@ -110,14 +111,16 @@ export class OutboundAllocateRecordsComponent implements OnInit {
       .subscribe(
       (response) => {
         this.alertMessage.alert('Successfully Allocated');
-        this.afterAllocate=false;
-        let obj={};
-        obj['startDate']=this.outboundCallRequests.startDate;
-        obj['providerServiceMapId']=this.providerServiceMapID;
-        obj['endDate']=this.outboundCallRequests.endDate;
-        obj['language']=this.outboundCallRequests.language.languageName;
+        this.afterAllocate = false;
+        let obj = {};
+        obj['startDate'] = this.outboundCallRequests.startDate;
+        obj['providerServiceMapId'] = this.providerServiceMapID;
+        obj['endDate'] = this.outboundCallRequests.endDate;
+        if (this.outboundCallRequests.language) {
+          obj['language'] = this.outboundCallRequests.language.languageName;
+        }
         this.outboundCount.emit(obj);
-        this.getUnallocateCall(this.providerServiceMapID);
+        // this.getUnallocateCall(this.providerServiceMapID);
       },
       (error) => {
         this.alertMessage.alert(error.errorMessage);
@@ -134,7 +137,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     });
 
   }
-getUnallocateCall(serviceProviderMapId) {
+  getUnallocateCall(serviceProviderMapId) {
     // tslint:disable-next-line:max-line-length
     let startDate: Date = new Date(this.outboundCallRequests.startDate);
     startDate.setHours(0);
@@ -145,7 +148,7 @@ getUnallocateCall(serviceProviderMapId) {
     endDate.setMinutes(59);
     endDate.setSeconds(59);
     this.getOutboundCall(serviceProviderMapId, startDate,
-      endDate,this.outboundCallRequests.language.languageName);
+      endDate, this.outboundCallRequests.language.languageName);
   }
 }
 

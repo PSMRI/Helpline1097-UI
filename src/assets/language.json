@@ -89,7 +89,8 @@
         "category": "Category",
         "subcategory": "Sub-Category",
         "created_by": "Information Provided By",
-        "created_on": "Information Provided On"
+        "created_on": "Information Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_informations": "New Informations"
     },
@@ -105,7 +106,8 @@
         "category": "Category",
         "subcategory": "Sub-Category",
         "created_by": "Counselling Provided By",
-        "created_on": "Counselling Provided On"
+        "created_on": "Counselling Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_counsellings": "New Counsellings"
     },
@@ -131,7 +133,8 @@
         "call_id": "Call ID",
         "institute_name": "Name Of Institute",
         "created_by": "Referral Provided By",
-        "created_on": "Referral Provided On"
+        "created_on": "Referral Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_referral": "New Referral"
     },
@@ -158,7 +161,8 @@
         "feedback_type": "Feedback Type",
         "agent": "Agent",
         "status": "Status",
-        "created_date": "Created Date"
+        "created_date": "Created Date",
+        "no_records_found": "No Records Found"
       },
       "create_feedback": "Create Feedback"
     },
@@ -282,7 +286,8 @@
         "category": "Category",
         "subcategory": "Sub-Category",
         "created_by": "Information Provided By",
-        "created_on": "Information Provided On"
+        "created_on": "Information Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_informations": "New Informations"
     },
@@ -297,7 +302,8 @@
         "category": "Category",
         "subcategory": "Sub-Category",
         "created_by": "Counselling Provided By",
-        "created_on": "Counselling Provided On"
+        "created_on": "Counselling Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_counsellings": "New Counsellings"
     },
@@ -317,7 +323,8 @@
         "call_id": "Call ID",
         "institute_name": "Name Of Institute",
         "created_by": "Referral Provided By",
-        "created_on": "Referral Provided On"
+        "created_on": "Referral Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_referral": "New Referral"
     },
@@ -342,7 +349,8 @@
         "feedback_type": "Feedback Type",
         "agent": "Agent",
         "status": "Status",
-        "created_date": "Created Date"
+        "created_date": "Created Date",
+        "no_records_found": "No Records Found"
       },
       "create_feedback": "Create Feedback"
     },

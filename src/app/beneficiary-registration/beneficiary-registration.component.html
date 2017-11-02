@@ -166,10 +166,10 @@
             <tr width=100%>{{currentlanguage.beneficiary_registration?.table_labels?.no_records_found}}
             </tr>
           </tbody> -->
-          <tbody *ngIf="md2.data?.length==0" class="t-a-c">
+          <tbody *ngIf="md2.data?.length==0">
             <tr>
-              <td align="center" colspan="10">
-                <img src="assets/images/data_not_found.png" width="400" height="65">
+              <td class="t-a-c" colspan="11">
+                {{currentlanguage.beneficiary_registration?.table_labels?.no_records_found}}
               </td>
             </tr>
           </tbody>
