@@ -134,7 +134,7 @@
       <app-1097 *ngIf="current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
     </div>
   </div>
-  <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized" (click)="toggleBar()"></iframe>
+  <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
 </div>
 <footer class="footer">
   <div class="row">
