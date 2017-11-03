@@ -39,8 +39,8 @@ export class loginContentClass {
     this.dataSettingService.Userdata.agentID = response.agentID;
     this.dataSettingService.loginIP = response.loginIPAddress;
     this.getLoginKey(userID, password);
-      // console.log( "array" + response.Previlege );
-      console.log('array' + response.previlegeObj);
+    // console.log( "array" + response.Previlege );
+    console.log('array' + response.previlegeObj);
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
       this.router.navigate(['/MultiRoleScreenComponent']);
@@ -53,7 +53,7 @@ export class loginContentClass {
     if (error.status) {
       this.loginResult = error.errorMessage;
     } else {
-      this.loginResult = 'Internal issue please try after some time';
+      this.loginResult = 'Server seems to busy please try after some time';
     }
     // this.loading = false;
     console.log(error);

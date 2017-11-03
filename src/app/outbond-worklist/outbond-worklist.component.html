@@ -1,7 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label class="pull-left"><h4 class="f-s-b m-b-30"> Outbound Work List </h4> </label>
+      <label class="pull-left">
+        <h4 class="f-s-b m-b-30"> Outbound Work List </h4>
+      </label>
       <button type="button" md-raised-button color="accent" class="pull-right mar-top" (click)="backToDashBoard()">Back to Dashboard</button>
     </div>
   </div>
@@ -15,9 +17,9 @@
           <thead>
             <tr>
               <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
-              <th md2SortBy="beneficiaryRegID">Beneficiary ID</th>
-              <th md2SortBy="firstName">Beneficiary Name</th>
-              <th md2SortBy="requestedDate">Requested Date</th>
+              <th md2SortBy="beneficiary.beneficiaryRegID">Beneficiary ID</th>
+              <th md2SortBy="beneficiary.firstName">Beneficiary Name</th>
+              <th md2SortBy="prefferedDateTime">Requested Date</th>
               <th md2SortBy="requestedFor">Remarks</th>
               <th>Call </th>
             </tr>
@@ -36,8 +38,8 @@
               <td width=20%>{{listItem.requestedFor}}</td>
               <td width=20% height="20px">
                 <button md-icon-button title="call" (click)="viewHistory(listItem)">
-                <i class="material-icons" style="font-size: 18px;">settings_phone</i>
-             </button>
+                  <i class="material-icons" style="font-size: 18px;">settings_phone</i>
+                </button>
               </td>
             </tr>
           </tbody>

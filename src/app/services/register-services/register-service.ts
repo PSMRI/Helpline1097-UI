@@ -59,7 +59,7 @@ export class RegisterService {
   }
 
   retrieveRegHistoryByPhoneNo(phoneNo: any) {
-    debugger;
+    
     let data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000 };
     return this.httpInterceptor.post(this._getuserdatabyno, data)
       .map(this.extractData)

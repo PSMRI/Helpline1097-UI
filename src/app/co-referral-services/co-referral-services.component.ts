@@ -237,7 +237,6 @@ export class CoReferralServicesComponent implements OnInit {
     });
   }
   toggleSms(e: any) {
-    debugger
     if (!e.checked) {
       this.enableSms = true;
     } else {

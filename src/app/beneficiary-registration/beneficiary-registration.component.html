@@ -270,7 +270,7 @@
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 ">
         <div class="form-group">
           <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-          <md2-datepicker [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
+          <md2-datepicker (keydown)="false" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
             name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB"></md2-datepicker>
         </div>
       </div>
@@ -303,7 +303,7 @@
 
       </div>
 
-      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 m-b-9" *ngIf="isParentBeneficiary">
+      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 m-b-9" [hidden]="!isParentBeneficiary">
         <!--       <div class="form-group">
         <label class="control-label" for="beneficiaryRealtion">{{relationshipWith}}</label>
         <select class="form-control drop-arrow" name="beneficiaryRealtionID" [(ngModel)]="beneficiaryRelationID">
@@ -313,18 +313,21 @@
               </div> -->
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-
-          <md-select required placeholder="{{relationshipWith}}" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID" name="beneficiaryRealtionID">
+          <md-select required placeholder="{{relationshipWith}}" #benRelation="ngModel" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID"
+            name="beneficiaryRealtionID">
             <md-option *ngFor="let beneficiaryRelation of beneficiaryRelations" [value]="beneficiaryRelation.benRelationshipID">
               {{beneficiaryRelation.benRelationshipType}}
             </md-option>
           </md-select>
+          <md-hint *ngIf="showTagging">
+            <span class="error_text">Please Select Beneficiary Tagging</span>
+          </md-hint>
         </md-input-container>
 
       </div>
       <!-- </form> -->
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10">
-        <button [disabled]="!genderSelected.valid || !ageEvent.valid" md-raised-button color="primary" class="pull-right font-regular"
+        <button [disabled]="!genderSelected.valid || !ageEvent.valid || !benRelation.valid" md-raised-button color="primary" class="pull-right font-regular"
           (click)="captureOtherInfo()">{{currentlanguage.beneficiary_registration?.next}}</button>
       </div>
     </div>

@@ -138,9 +138,12 @@ export class ClosureComponent implements OnInit
     this._callServices.getLanguages().subscribe(response => {
 
       this.languages = response;
-      this.preferredLanguageName = this.languages.filter(lang => {
+      let preferredlanguageList = this.languages.filter(lang => {
         return lang.languageName.toLowerCase() === 'hindi'
-      })[0].languageName;
+      });
+      if (preferredlanguageList) {
+        this.preferredLanguageName = preferredlanguageList[0].languageName;
+      }
     }, (err) => {
 
     });
@@ -237,9 +240,9 @@ export class ClosureComponent implements OnInit
 
   }
   outBoundCloseCall(benData: any) {
+
     this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
-    if (benData.dataPass.i_bendemographics.m_language || benData.dataPass.i_bendemographics.m_language.languageName) {
-      ;
+    if (benData.dataPass.i_bendemographics.m_language) {
       this.preferredLanguageName = benData.dataPass.i_bendemographics.m_language.languageName;
       // this.preferredLanguageName = benData.dataPass.i_bendemographics.m_language.map(function (item) {
       //   return {

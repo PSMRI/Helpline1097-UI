@@ -170,7 +170,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   IntializeSessionValues() {
     this.today = new Date();
     this.maxDate = this.today;
-    this.DOB = new Date();
+    // this.DOB = new Date();
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
@@ -315,8 +315,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.language = regData.m_language;
     }
     if (regData.benRelationshipTypes) {
+
       this.beneficiaryRelations = regData.benRelationshipTypes;
-      this.getRelationShipType(this.beneficiaryRelations);
+      this.relationshipWith = 'Beneficiary Tagging';
+      this.beneficiaryRelationID = this.getRelationShipType(this.beneficiaryRelations);
     }
     if (regData.govtIdentityTypes) {
       this.identityTypes = regData.govtIdentityTypes;
@@ -364,7 +366,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.age = undefined;
       this.TitleId = undefined;
       this.MaritalStatusID = undefined;
-      this.DOB = new Date();
+      this.DOB = undefined;
       this.aadharNo = undefined;
       this.caste = undefined;
       this.BeneficiaryTypeID = undefined;
@@ -533,10 +535,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
-    debugger;
+
     const res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
       .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
-        debugger
         this.alertMaessage.alert(err.status);
       });
   }
@@ -551,7 +552,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   handleRegHistorySuccess(response: any) {
-    debugger
     if (response) {
       this.regHistoryList = response;
       this.showSearchResult = true;
@@ -562,16 +562,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.notCalledEarlierLowerPart = false;
       this.calledRadio = true;
       this.saved_data.parentBeneficiaryData = this.regHistoryList[0];
-      this.relationshipWith = 'Relationship with ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
+      this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
+        return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
+      });
+      this.beneficiaryRelationID = undefined;
+
+      this.relationshipWith = 'Relationship with  ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
       this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
       // if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
       // if ((this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID)) {
       this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID);
       this.peopleCalledEarlier = true;
       this.isParentBeneficiary = true;
-      this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
-        return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
-      });
+
       // }
       // this.selectBeneficiary(this.saved_data.parentBeneficiaryData);
     }
@@ -804,7 +807,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   getParentData(parentBenID) {
     this._util.retrieveRegHistory(parentBenID).subscribe((response) => {
       if (response) {
-        this.relationshipWith = 'Relationship with' + response[0].firstName + ' ' + response[0].lastName;
+        this.beneficiaryRelationID = undefined;
+        this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
       console.log('Something Went Wrong in fetching Parent Data');
@@ -813,20 +817,26 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // to Calculate the age on the basis of date of birth
   calculateAge(date) {
-    const newDate = new Date(date);
-    const today = new Date();
-    let age = today.getFullYear() - newDate.getFullYear();
-    const month = today.getMonth() - newDate.getMonth();
-    if (month < 0 || (month === 0 && today.getDate() < newDate.getDate())) {
-      age--;
+    if (date) {
+      const newDate = new Date(date);
+      const today = new Date();
+      let age = today.getFullYear() - newDate.getFullYear();
+      const month = today.getMonth() - newDate.getMonth();
+      if (month < 0 || (month === 0 && today.getDate() < newDate.getDate())) {
+        age--;
+      }
+      this.age = age;
+    } else {
+      this.age = undefined;
     }
-    this.age = age;
   }
   // calculate date of birth on the basis of age
   calculateDOB(age) {
     const today = new Date();
     const currentYear = today.getFullYear();
-    this.DOB = new Date(today.setFullYear(currentYear - age));
+    if (age) {
+      this.DOB = new Date(today.setFullYear(currentYear - age));
+    }
     // int parsing in decimal format
     // if (this.DOB) {
     //   this.DOB = new Date(this.DOB.getDate() + '/' + (this.DOB.getMonth() + 1) + '/' + (currentYear - parseInt(age, 10)))

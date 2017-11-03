@@ -9,10 +9,10 @@
   <div class="row">
     <form #getOutboundForm="ngForm">
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker name="startDate" placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'" name="filterStartDate"></md2-datepicker>
+        <md2-datepicker name="startDate" placeholder="Valid From" #startDate="ngModel" ngModel [style.width]="'100%'" name="filterStartDate"></md2-datepicker>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker name="endDate" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel required [style.width]="'100%'"
+        <md2-datepicker name="endDate" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel [style.width]="'100%'"
           name="filterEndDate"></md2-datepicker>
         <br>
         <span class="error-text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>

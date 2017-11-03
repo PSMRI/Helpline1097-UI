@@ -382,6 +382,7 @@ color:#545454;
 .f-s-5 {
   font-size: 5px;
 }
+
 .f-s-13 {
   font-size: 13px;
 }
@@ -1466,9 +1467,11 @@ em {
 .height-170 {
   height: 170px !important;
 }
+
 .height-180 {
   height: 180px !important;
 }
+
 .height-220 {
   height: 220px !important;
 }
@@ -1854,14 +1857,14 @@ input:-webkit-autofill:hover {
 .height-400 {
   height: 400px !important;
 }
+
 .overflow-auto {
   overflow: auto;
-  
 }
+
 .overflow-y {
   overflow-y: auto;
 }
-
 
 .footer-height {
   height: 30px!important;
@@ -2202,6 +2205,7 @@ input:-webkit-autofill:hover {
   padding: 0 0;
   margin: 0;
 }
-.cZentrixBar{
-  display:none
+
+.cZentrixBar {
+  display: none
 }
