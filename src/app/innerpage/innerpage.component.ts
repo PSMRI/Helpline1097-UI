@@ -214,10 +214,38 @@ export class InnerpageComponent implements OnInit {
     this.currentlanguageSet = response[language];
     // this.currentlanguageSet = "LANGUAGE IS ENGLISH PEHLI BAAR ME";
   }
+  // logOut() {
+  //   // Cookie.deleteAll();
+  //   this.basicrouter.navigate(['']);
+  //   // location.assign(this.loginUrl);
+  // }
+
   logOut() {
-    // Cookie.deleteAll();
-    this.basicrouter.navigate(['']);
-    // location.assign(this.loginUrl);
+    if (this.getCommonData.loginIP === undefined || this.getCommonData.loginIP === '') {
+      this.Czentrix.getIpAddress(this.getCommonData.cZentrixAgentID).subscribe((res) => {
+        if (res) {
+          this.ipSuccessLogoutHandler(res.response.agent_ip);
+        }
+      });
+    } else {
+      this.ipSuccessLogoutHandler(this.getCommonData.loginIP);
+    }
+
+  }
+  ipSuccessLogoutHandler(response) {
+    this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
+      if (res.response.status.toUpperCase() !== 'FAIL') {
+        this.basicrouter.navigate(['']);
+      } else {
+        if(this.current_role.toLowerCase() !== 'supervisor'){
+        this.remarksMessage.alert('cannot logout agent is in call');
+        }else
+        {
+          this.basicrouter.navigate(['']);
+        }
+      }
+    }, (err) => {
+    });
   }
   // ngOnDestroy() {
   //   Cookie.deleteAll();

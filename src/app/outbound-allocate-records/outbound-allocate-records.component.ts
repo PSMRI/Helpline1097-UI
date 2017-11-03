@@ -113,9 +113,12 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         this.alertMessage.alert('Successfully Allocated');
         this.afterAllocate = false;
         let obj = {};
-        obj['startDate'] = this.outboundCallRequests.startDate;
+        if (this.outboundCallRequests.startDate) {
+          obj['startDate'] = this.outboundCallRequests.startDate;
+          obj['endDate'] = this.outboundCallRequests.endDate;
+        }
         obj['providerServiceMapId'] = this.providerServiceMapID;
-        obj['endDate'] = this.outboundCallRequests.endDate;
+
         if (this.outboundCallRequests.language) {
           obj['language'] = this.outboundCallRequests.language.languageName;
         }
@@ -124,8 +127,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
       },
       (error) => {
         this.alertMessage.alert(error.errorMessage);
-      }
-      );
+      });
   }
 
   OnSelectChange() {

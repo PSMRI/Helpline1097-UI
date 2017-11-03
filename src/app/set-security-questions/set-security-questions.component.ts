@@ -4,37 +4,30 @@ import { HttpServices } from '../services/http-services/http_services.service';
 import { Router } from '@angular/router';
 import { ConfigService } from '../services/config/config.service';
 
+import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
+declare let jQuery: any;
+
+
 @Component({
   selector: 'app-set-security-questions',
   templateUrl: './set-security-questions.component.html',
   styleUrls: ['./set-security-questions.component.css']
 })
 export class SetSecurityQuestionsComponent implements OnInit {
-  question1: any = '';
-  question2: any = '';
-  question3: any = '';
 
-  answer1: any = '';
-  answer2: any = '';
-  answer3: any = '';
+  constructor(
+              public getUserData: dataService,
+              public http_calls: HttpServices,
+              public router: Router,
+              private configService: ConfigService,
+              private alertService:ConfirmationDialogsService
+              ) {
 
-  questions: any = [];
-  selectedQuestions: any = [];
-
-  passwordSection: boolean = false;
-  questionsection: boolean = true;
-  uname: any = this.getUserData.uname;
-  uid: any;
-  dataArray: any = [];
-  oldpwd: any;
-  newpwd: any;
-  confirmpwd: any;
-  constructor(public getUserData: dataService, public http_calls: HttpServices
-    , public router: Router, private configService: ConfigService) {
   }
 
   handleSuccess(response) {
-    this.questions = response;
+    this.questions = response.data;
+    this.replica_questions=response.data;
     console.log(this.questions);
   }
   handleError(response) {
@@ -42,12 +35,17 @@ export class SetSecurityQuestionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uid = this.getUserData.uid;
-    this.http_calls.getData(this.configService.getCommonBaseURL() + 'user/getsecurityquetions').subscribe(
-      (response: any) => this.handleSuccess(response),
-      (error: any) => this.handleError(error));
+
+    this.http_calls.getData(this.configService.getCommonBaseURL() + "user/getsecurityquetions").subscribe(
+                                                                                                          (response: any) => this.handleSuccess(response),
+                                                                                                          (error: any) => this.handleError(error));
 
   }
+
+  uid: any = this.getUserData.uid;
+  passwordSection: boolean = false;
+  questionsection: boolean = true;
+  uname: any = this.getUserData.uname;
 
   switch() {
     this.passwordSection = true;
@@ -55,109 +53,228 @@ export class SetSecurityQuestionsComponent implements OnInit {
   }
 
 
-  updateQuestions(selectedques: any) {
-    if (selectedques) {
-      this.selectedQuestions.push(selectedques);
-      this.questions = this.questions.filter(val => !(this.selectedQuestions.includes(val.QuestionID)));
-      // this.questions.splice(this.questions.indexOf(selectedques), 1);
-    } else {
-      alert('Please select a question');
-    }
+  dynamictype:any="password";
+  
+  showPWD() {
+    this.dynamictype = 'text';
+  }
+
+  hidePWD()
+  {
+    this.dynamictype = 'password';
   }
 
 
 
+  question1: any = "";
+  question2: any = "";
+  question3: any = "";
+
+  answer1: any = '';
+  answer2: any = '';
+  answer3: any = '';
+
+  questions: any = [];
+  replica_questions:any=[];
+  Q_array_one:any=[];
+  Q_array_two:any=[];
+
+  selectedQuestions: any = [];
+
+  updateQuestions(selectedques,position) {
+    console.log("position",position,"Selected Question",selectedques);
+    console.log("before if else block, selected questions",this.selectedQuestions);
+
+    if (this.selectedQuestions.indexOf(selectedques) == -1) {
+      this.selectedQuestions[position]=selectedques;
+      if(position===0)
+      {
+        this.answer1="";
+        // jQuery("#ans1").prop("disabled",false);
+      }
+      if(position===1)
+      {
+        this.answer2="";
+        // jQuery("#ans2").prop("disabled",false);
+      }
+      if(position===2)
+      {
+        this.answer3="";
+        // jQuery("#ans3").prop("disabled",false);
+      }
+
+      console.log("if block, selected questions",this.selectedQuestions);
+
+    }
+    else {
+      if(this.selectedQuestions.indexOf(selectedques) != position)
+      {
+        this.alertService.alert("This Question is already selected. Choose Unique Question");
+      }
+      else
+      {
+        this.alertService.alert("This question is mapped at this position already");
+      }
+      console.log("else block, selected questions",this.selectedQuestions);
+      console.log("position else block",position);
+      
+      // this.disableAnswerField(position);
+    }
+  }
+
+  filterArrayOne(questionID)
+  {
+
+    /*reset the 2nd and 3rd question and answer fields */
+    this.question2="";
+    this.answer2="";
+
+    this.question3="";
+    this.answer3="";
+
+
+    /*filter the primary array based on the selection and feed resultant to Q_array_one*/
+    this.Q_array_one=this.filter_function(questionID,this.replica_questions);
+    // this.questions=this.Q_array_one;
+    
+
+
+  }
+
+  filterArrayTwo(questionID)
+  {
+    /*reset the 3rd question and answer field */
+    this.question3="";
+    this.answer3="";
+
+    /*filter the Q_array_one based on the selection and feed resultant to Q_array_two*/
+    this.Q_array_two=this.filter_function(questionID,this.Q_array_one);
+    
+
+
+
+  }
+
+  filter_function(questionID,array)
+  {
+    let dummy_array=[];
+    for(let i=0;i<array.length;i++)
+    {
+      if(array[i].QuestionID===questionID)
+      {
+       continue;
+      }
+      else
+      {
+        dummy_array.push(array[i]);
+      }
+    }
+    return dummy_array;
+    
+  }
+
+ /* disableAnswerField(position)
+  {
+    if(position===0)
+    {
+      console.log("pehla");
+      this.answer1="";
+      this.question1="";
+      // jQuery("#ans1").prop("disabled",true);
+    }
+    if(position===1)
+    {
+      console.log("dusra");
+      this.answer2="";
+      this.question2="";
+      // jQuery("#ans2").prop("disabled",true);
+    }
+    if(position===2)
+    {
+      console.log("teesra");
+      this.answer3="";
+      this.question3="";
+      // jQuery("#ans3").prop("disabled",true);
+    }
+  }*/
+
+  dataArray: any = [];
+
   setSecurityQuestions() {
 
-    // in place of userID, we have to feed it , as of now its hardcoded only for neer
-    console.log(this.selectedQuestions);
+   
+
     if (this.selectedQuestions.length == 3) {
+
+      this.alertService.alert("GOOD TO GO");
 
       this.dataArray = [{
         'userID': this.uid,
         'questionID': this.question1,
         'answers': this.answer1,
         'mobileNumber': '1234567890',
-        'createdBy': 'neeraj'
+        'createdBy': this.uname
       },
       {
         'userID': this.uid,
         'questionID': this.question2,
         'answers': this.answer2,
         'mobileNumber': '1234567890',
-        'createdBy': 'neeraj'
+        'createdBy': this.uname
       },
       {
         'userID': this.uid,
         'questionID': this.question3,
         'answers': this.answer3,
         'mobileNumber': '1234567890',
-        'createdBy': 'neeraj'
+        'createdBy': this.uname
       }
       ]
-      // this.dataArray = {
-      // 	username: this.uname,
-      // 	one: {
-      // 		"question": this.question1,
-      // 		"answer": this.answer1
-      // 	},
-      // 	two: {
-      // 		"question": this.question2,
-      // 		"answer": this.answer2
-      // 	},
-      // 	three: {
-      // 		"question": this.question3,
-      // 		"answer": this.answer3
-      // 	},
+      
 
-      // }
-      console.log(JSON.stringify(this.dataArray));
-      // alert("the data set is :" + this.dataObj);
-      console.log(this.selectedQuestions);
+      console.log("Request Array",this.dataArray);
+      console.log("selected questions",this.selectedQuestions);
 
       this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/saveUserSecurityQuesAns', this.dataArray).subscribe(
-        (response: any) => this.handleQuestionSaveSuccess(response),
-        (error: any) => this.handleQuestionSaveError(error));
+                                                                                                                                 (response: any) => this.handleQuestionSaveSuccess(response),
+                                                                                                                                 (error: any) => this.handleQuestionSaveError(error));
 
-    }
+    } 
     else {
-      alert('All 3 questions should be different');
+      this.alertService.alert("All 3 questions should be different. Please check your selected Questions");
     }
-
-
   }
 
   handleQuestionSaveSuccess(response) {
-    console.log('Saved questions', response);
+    console.log('saved questions', response);
     this.switch();
 
   }
   handleQuestionSaveError(response) {
-    console.log('Question save error', response);
+    console.log('question save error', response);
   }
 
-
+  oldpwd: any;
+  newpwd: any;
+  confirmpwd: any;
 
   updatePassword(new_pwd) {
     if (new_pwd === this.confirmpwd) {
-
-
       this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/setForgetPassword', { 'userName': this.uname, 'password': new_pwd }).
-        subscribe(
-        (response: any) => this.successCallback(response),
-        (error: any) => this.errorCallback(error));
-
-      alert('Password is changed for user ' + this.uname);
+      subscribe(
+                (response: any) => this.successCallback(response),
+                (error: any) => this.errorCallback(error));
     }
     else {
-      alert('Password does not match');
+      this.alertService.alert("Password doesn't match");
     }
   }
 
   successCallback(response) {
 
     console.log(response);
-    this.router.navigate(['/loginContentClass']);
+    this.alertService.alert("Password changed Successfully");
+    this.router.navigate(['']);
   }
   errorCallback(response) {
     console.log(response);

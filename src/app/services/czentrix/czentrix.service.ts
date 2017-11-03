@@ -43,10 +43,11 @@ export class CzentrixServices {
 
   }
   agentLogout(agentId, ipAddress) {
+
     this.transaction_id = 'CTI_LOGOUT';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
-    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+    // this.agent_id = agentId;
+    // this.ip = ipAddress;
+    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + agentId + '&ip=' + ipAddress + '&resFormat=' + this.resFormat;
     return this.callAPI(params);
   }
 
