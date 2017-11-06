@@ -54,7 +54,7 @@ export class SupervisorNotificationsComponent implements OnInit {
       (error) => {
         console.log(error);
       });
-      
+
   }
 
   createNotification() {
@@ -161,6 +161,13 @@ export class SupervisorNotificationsComponent implements OnInit {
             })
         }
       })
+  }
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

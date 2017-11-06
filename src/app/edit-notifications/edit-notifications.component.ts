@@ -118,4 +118,11 @@ export class EditNotificationsComponent implements OnInit {
     }
     this.dialogRef.close(this.postData);
   }
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

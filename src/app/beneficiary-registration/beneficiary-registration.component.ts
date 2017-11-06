@@ -851,6 +851,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   enableAge(data) {
     this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', null);
   }
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   // for advanced Search
   toggleSearch(data: any) {
     this.isAdvancedSearch = !this.isAdvancedSearch;

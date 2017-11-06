@@ -88,10 +88,10 @@
       </md-select>
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
-      <md2-datepicker name="startDate" (keydown)=false placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
+      <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
-      <md2-datepicker name="endDate" (keydown)=false placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel
+      <md2-datepicker name="endDate" (keydown)="blockey($event)" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel
         required [style.width]="'100%'"></md2-datepicker>
       <br>
       <span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>

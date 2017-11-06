@@ -312,6 +312,13 @@ export class CoFeedbackServicesComponent implements OnInit {
   millisToUTCDate(millis) {
     return this.toUTCDate(new Date(millis));
   };
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

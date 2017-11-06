@@ -290,4 +290,11 @@ export class ClosureComponent implements OnInit
       this.isFollowupRequired = false;
     }
   }
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

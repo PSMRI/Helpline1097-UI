@@ -39,7 +39,7 @@
         <!-- <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle> -->
       </div>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" *ngIf="isFollowUp">
-        <md2-datepicker required (keydown)=false [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="{{currentlanguage.closure?.preferred_date}}"
+        <md2-datepicker required (keydown)="blockey($event)" [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="{{currentlanguage.closure?.preferred_date}}"
           [(ngModel)]="preferredDateTime"></md2-datepicker>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 m-t-3" *ngIf="isFollowUp">

@@ -92,5 +92,12 @@ export class OutboundSearchRecordsComponent implements OnInit {
         endDate, values.preferredLanguageName.languageName);
     }
   }
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }

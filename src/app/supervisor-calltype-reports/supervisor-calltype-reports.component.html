@@ -27,12 +27,12 @@
         </md-select>
       </div>
       <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
-        <md2-datepicker (keydown)=false #startDate [md2DatepickerToggle]="startDate" placeholder="Start Date" [(ngModel)]="start_date"
+        <md2-datepicker (keydown)="blockey($event)" #startDate [md2DatepickerToggle]="startDate" placeholder="Start Date" [(ngModel)]="start_date"
           #startDate [max]="maxDate"></md2-datepicker>
       </div>
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        <md2-datepicker (keydown)=false #endDate [md2DatepickerToggle]="endDate" [min]="startDate.value" [max]="maxDate" placeholder="End Date"
-          [(ngModel)]="end_date" [min]=startDate.value></md2-datepicker>
+        <md2-datepicker (keydown)="blockey($event)" #endDate [md2DatepickerToggle]="endDate" [min]="startDate.value" [max]="maxDate"
+          placeholder="End Date" [(ngModel)]="end_date" [min]=startDate.value></md2-datepicker>
       </div>
       <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right m-t-15">
         <button class="pull-right" md-raised-button color="primary" (click)="setTableFlag(true)">SEARCH</button>

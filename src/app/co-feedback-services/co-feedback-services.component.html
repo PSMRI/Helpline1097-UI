@@ -167,7 +167,7 @@
                       </div> -->
         <!-- <div class="form-group"> -->
         <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-        <md2-datepicker (keydown)=false [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.feedback_service?.incident_date}}"
+        <md2-datepicker (keydown)="keyblock($event)" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.feedback_service?.incident_date}}"
           name="incidentdate" [(ngModel)]="selected_doi"></md2-datepicker>
         <!-- </div> -->
       </div>

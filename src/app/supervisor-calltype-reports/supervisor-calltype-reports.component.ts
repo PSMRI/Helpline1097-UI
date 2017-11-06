@@ -103,6 +103,13 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       return { 'callTypeDesc': item.callGroupType };
     });
   }
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   getCallSubType(callType: any) {
 
     this.callSubTypes = this.callTypeObj.filter(function (item) {
