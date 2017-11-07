@@ -212,7 +212,6 @@ export class InnerpageComponent implements OnInit {
   successhandeler(response, language) {
     console.log('language triggered and recieved', response, language);
     this.currentlanguageSet = response[language];
-    // this.currentlanguageSet = "LANGUAGE IS ENGLISH PEHLI BAAR ME";
   }
   // logOut() {
   //   // Cookie.deleteAll();
@@ -237,47 +236,62 @@ export class InnerpageComponent implements OnInit {
       if (res.response.status.toUpperCase() !== 'FAIL') {
         this.basicrouter.navigate(['']);
       } else {
-        if(this.current_role.toLowerCase() !== 'supervisor'){
-        this.remarksMessage.alert('cannot logout agent is in call');
-        }else
-        {
+        if (this.current_role.toLowerCase() !== 'supervisor') {
+          this.remarksMessage.alert('cannot logout agent is in call');
+        } else {
           this.basicrouter.navigate(['']);
         }
       }
     }, (err) => {
     });
   }
-  // ngOnDestroy() {
-  //   Cookie.deleteAll();
-  // }
-
-  // addListener() {
-  //   if (window.parent.parent.addEventListener) {
-  //     console.log('adding message listener');
-  //     addEventListener('message', this.listener1.bind(this), false);
-  //   } else {
-  //     console.log('adding onmessage listener');
-  //   }
-  // }
-  // removeEventListener() {
-  //   if (window.parent.parent.removeEventListener) {
-  //     console.log('adding message listener');
-  //     addEventListener('message', null, false);
-  //   } else {
-  //     console.log('adding onmessage listener');
-  //   }
-  // }
   getCallTypes(providerServiceMapID) {
+    debugger;
     const requestObject = { 'providerServiceMapID': providerServiceMapID };
     this._callServices.getCallTypes(requestObject).subscribe(response => {
       console.log(response);
-      this.validCallID = response.filter(function (item) {
+      let transferObj = response.filter(function (item) {
         console.log(item.callGroupType);
-        return item.callGroupType.toLowerCase() === 'valid'
-      })[0].callTypes.filter(function (previousData) {
-        console.log(previousData.callTypeDesc);
-        return previousData.callTypeDesc.toLowerCase() === 'valid'
-      })[0].callTypeID;
+        return item.callGroupType.toLowerCase().toLowerCase().trim().startsWith('transfer');
+      });
+      if (transferObj) {
+        transferObj = transferObj[0].callTypes.filter(function (previousData) {
+          console.log(previousData.callTypeDesc);
+          return previousData.callTypeDesc.toLowerCase().trim().startsWith('transfer');
+        });
+        if (transferObj) {
+          this.validCallID = transferObj[0].callTypeID;
+        } else {
+          let validObj = response.filter(function (item) {
+            console.log(item.callGroupType);
+            return item.callGroupType.toLowerCase().trim().startsWith('valid');
+          });
+          if (validObj) {
+            validObj = validObj[0].callTypes.filter(function (previousData) {
+              console.log(previousData.callTypeDesc);
+              return previousData.callTypeDesc.toLowerCase().trim().startsWith('valid');
+            });
+            if (validObj) {
+              this.validCallID = validObj[0].callTypeID;
+            }
+          } else {
+            this.remarksMessage.alert('Something went wrong !! Please contact Administrator');
+          }
+        }
+      } else {
+        this.remarksMessage.alert('Something went wrong !! Please contact Administrator');
+      }
+
+      // this.validCallID = response.filter(function (item) {
+      //   console.log(item.callGroupType);
+      //   return item.callGroupType.toLowerCase() === 'valid'
+      // })[0].callTypes.filter(function (previousData) {
+      //   console.log(previousData.callTypeDesc);
+      //   return previousData.callTypeDesc.toLowerCase() === 'valid'
+      // })[0].callTypeID;
+
+
+
       console.log('valid call id', this.validCallID);
     }, (err) => {
 
@@ -327,7 +341,7 @@ export class InnerpageComponent implements OnInit {
   closeCall(eventData, remarks) {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
-    requestObj['callTypeID'] = this.validCallID.toString();
+    requestObj['callTypeID'] = this.validCallID;
     requestObj['fitToBlock'] = 'false';
     requestObj['isFollowupRequired'] = false;
     requestObj['prefferedDateTime'] = undefined
