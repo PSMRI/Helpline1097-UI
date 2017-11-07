@@ -9,60 +9,56 @@ import { ConfirmationDialogsService } from '../services/dialog/confirmation.serv
 
 
 @Component({
-	selector: 'app-set-password',
-	templateUrl: './set-password.component.html',
-	styleUrls: ['./set-password.component.css']
+  selector: 'app-set-password',
+  templateUrl: './set-password.component.html',
+  styleUrls: ['./set-password.component.css']
 })
 export class SetPasswordComponent implements OnInit {
+  newpwd: any;
+  confirmpwd: any;
+  uname: any = this.getUserData.uname;
+  dynamictype: any = 'password';
 
-	constructor(
-		public http_calls: HttpServices,
-		public getUserData: dataService,
-		private configService: ConfigService,
-		public router: Router, private alertService: ConfirmationDialogsService) { }
+  constructor(
+    public http_calls: HttpServices,
+    public getUserData: dataService,
+    private configService: ConfigService,
+    public router: Router, private alertService: ConfirmationDialogsService) { }
 
-	ngOnInit() {
-	}
+  ngOnInit() {
+  }
 
-	newpwd: any;
-	confirmpwd: any;
 
-	uname: any = this.getUserData.uname;
+  showPWD() {
+    this.dynamictype = 'text';
+  }
 
-	dynamictype:any="password";
-	
-	showPWD() {
-		this.dynamictype = 'text';
-	}
+  hidePWD() {
+    this.dynamictype = 'password';
+  }
 
-	hidePWD()
-	{
-		this.dynamictype = 'password';
-	}
+  updatePassword(new_pwd) {
+    if (new_pwd === this.confirmpwd) {
+      this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/setForgetPassword',
+        { 'userName': this.uname, 'password': new_pwd }
+      ).subscribe(
+        (response: any) => this.successCallback(response),
+        (error: any) => this.errorCallback(error)
+        );
+    } else {
+      this.alertService.alert('Password does not match');
+    }
+  }
 
-	updatePassword(new_pwd) {
-		if (new_pwd === this.confirmpwd) {
-			this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/setForgetPassword',
-				{ 'userName': this.uname, 'password': new_pwd }
-			).subscribe(
-				(response: any) => this.successCallback(response),
-				(error: any) => this.errorCallback(error)
-				);
-		}
-		else {
-			this.alertService.alert('Password does not match');
-		}
-	}
+  successCallback(response) {
 
-	successCallback(response) {
-
-		console.log(response);
-		this.alertService.alert('Password changed Successfully');
-		this.router.navigate(['']);
-	}
-	errorCallback(response) {
-		console.log(response);
-	}
+    console.log(response);
+    this.alertService.alert('Password changed Successfully');
+    this.router.navigate(['']);
+  }
+  errorCallback(response) {
+    console.log(response);
+  }
 
 
 }
