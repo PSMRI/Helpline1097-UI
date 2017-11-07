@@ -10,16 +10,20 @@
     },
     "co": {
       "create_find_beneficiary": "Create/Find Beneficiary",
+      "create_find_beneficiary_mobile": "C/F B",
       "provide_service": "Provide Services",
+      "provide_service_mobile": "P S",
       "other_details": "Other Details",
+      "other_details_mobile": "O D",
       "closure": "Closure",
+      "closure_mobile": "C L",
       "previous": "Previous",
       "next": "Next",
       "cancel": "Cancel"
     },
     "beneficiary_registration": {
       "call_confirmation_question": "Have You Called Earlier?",
-      "registration_number": "Registration Number",
+      "registration_number": "Beneficiary ID",
       "retrieve": "Retrieve",
       "first_name": "First Name",
       "name_is_required": "Name Is Required",
@@ -85,7 +89,8 @@
         "category": "Category",
         "subcategory": "Sub-Category",
         "created_by": "Information Provided By",
-        "created_on": "Information Provided On"
+        "created_on": "Information Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_informations": "New Informations"
     },
@@ -101,7 +106,8 @@
         "category": "Category",
         "subcategory": "Sub-Category",
         "created_by": "Counselling Provided By",
-        "created_on": "Counselling Provided On"
+        "created_on": "Counselling Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_counsellings": "New Counsellings"
     },
@@ -117,6 +123,9 @@
       "search": "Search",
       "back": "Back",
       "send_sms": "Send SMS",
+      "alternate_number": "Alternate Number",
+      "mobile_number": "Mobile Number",
+      "mobile_validation": "10 Digit Mobile Number Required",
       "table_labels": {
         "table_heading": "Referral History",
         "sno": "S.No.",
@@ -124,7 +133,8 @@
         "call_id": "Call ID",
         "institute_name": "Name Of Institute",
         "created_by": "Referral Provided By",
-        "created_on": "Referral Provided On"
+        "created_on": "Referral Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_referral": "New Referral"
     },
@@ -151,7 +161,8 @@
         "feedback_type": "Feedback Type",
         "agent": "Agent",
         "status": "Status",
-        "created_date": "Created Date"
+        "created_date": "Created Date",
+        "no_records_found": "No Records Found"
       },
       "create_feedback": "Create Feedback"
     },
@@ -275,7 +286,8 @@
         "category": "Category",
         "subcategory": "Sub-Category",
         "created_by": "Information Provided By",
-        "created_on": "Information Provided On"
+        "created_on": "Information Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_informations": "New Informations"
     },
@@ -290,7 +302,8 @@
         "category": "Category",
         "subcategory": "Sub-Category",
         "created_by": "Counselling Provided By",
-        "created_on": "Counselling Provided On"
+        "created_on": "Counselling Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_counsellings": "New Counsellings"
     },
@@ -310,7 +323,8 @@
         "call_id": "Call ID",
         "institute_name": "Name Of Institute",
         "created_by": "Referral Provided By",
-        "created_on": "Referral Provided On"
+        "created_on": "Referral Provided On",
+        "no_records_found": "No Records Found"
       },
       "new_referral": "New Referral"
     },
@@ -335,7 +349,8 @@
         "feedback_type": "Feedback Type",
         "agent": "Agent",
         "status": "Status",
-        "created_date": "Created Date"
+        "created_date": "Created Date",
+        "no_records_found": "No Records Found"
       },
       "create_feedback": "Create Feedback"
     },

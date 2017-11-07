@@ -1,24 +1,28 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label class="pull-left"><h4 class="f-s-b m-b-30"> Outbound Call Report </h4> </label>
+      <label class="pull-left">
+        <h4 class="f-s-b m-b-30">Outbound Call Records </h4>
+      </label>
     </div>
   </div>
   <div class="row">
     <form #getOutboundForm="ngForm">
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker name="startDate" placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'" name="filterStartDate"></md2-datepicker>
+        <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" required #startDate="ngModel" ngModel [style.width]="'100%'"
+          name="filterStartDate"></md2-datepicker>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker name="endDate" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel required [style.width]="'100%'"
-          name="filterEndDate"></md2-datepicker>
+        <md2-datepicker name="endDate" (keydown)="blockey($event)" placeholder="Valid Till" required [min]="startDate.value" #endDate="ngModel"
+          ngModel [style.width]="'100%'" name="filterEndDate"></md2-datepicker>
         <br>
         <span class="error-text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select required placeholder="Select Language" [style.width]="'100%'" ngModel name="preferredLanguageName">
+          <md-select placeholder="Select Language" [style.width]="'100%'" #language="ngModel" ngModel name="preferredLanguageName">
+            <md-option> </md-option>
             <md-option *ngFor="let lang of languages" [value]="lang">
               {{lang.languageName}}
             </md-option>
@@ -42,12 +46,17 @@
           <tbody>
             <tr>
               <th>All Records</th>
-              <td>{{tot_unAllocatedCalls}} <button type="button" (click)="allocateCalls(_unAllocatedCalls, $event)" md-raised-button
-                  color="primary" class="md-btn pull-right">Allocate</button></td>
+              <td>{{tot_unAllocatedCalls}}
+                <button type="button" (click)="allocateCalls(_unAllocatedCalls,startDate.value,endDate.value,language.value, $event)" md-raised-button
+                  color="primary" class="md-btn pull-right">Allocate</button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <p class="error_text pull-right"> Note: Default count of calls between today and next seven days </p>
     </div>
 
     <div class="row" *ngIf="showFlage">

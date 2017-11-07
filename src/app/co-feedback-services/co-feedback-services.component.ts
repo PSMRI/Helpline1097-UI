@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter, Directive } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, Directive, ViewChild } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
 import { LocationService } from '../services/common/location.service';
 import { CoFeedbackService } from '../services/coService/co_feedback.service';
@@ -25,7 +25,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   currentlanguage: any;
 
   @Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
-
+  @ViewChild('form') form;
   p = 1;
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
@@ -312,6 +312,13 @@ export class CoFeedbackServicesComponent implements OnInit {
   millisToUTCDate(millis) {
     return this.toUTCDate(new Date(millis));
   };
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

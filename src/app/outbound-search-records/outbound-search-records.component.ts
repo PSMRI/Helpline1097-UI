@@ -25,6 +25,7 @@ export class OutboundSearchRecordsComponent implements OnInit {
   serviceProviderMapID: number;
   languages: any = [];
   tot_unAllocatedCalls: any;
+  showCount: boolean = false;
 
   constructor(
     private _OSRService: OutboundSearchRecordService,
@@ -37,37 +38,33 @@ export class OutboundSearchRecordsComponent implements OnInit {
   ngOnInit() {
     this.serviceProviderMapID = this.saved_data.current_service.serviceID;
     this.getOutboundCall(this.serviceProviderMapID);
-    // this._OSRService.getUnallocatedCalls(this.serviceProviderMapID)
-    //   .subscribe(resProviderData => {
-    //     this._unAllocatedCalls = resProviderData.data;
-    //     this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
-    //   });
     this.getLanguages();
+    this.showCount = false;
   }
-  assignCount(providerServiceMapId: any) {
-    this.getOutboundCall(providerServiceMapId);
+  assignCount(data: any) {
+    this.getOutboundCall(data.providerServiceMapId, data.startDate, data.endDate, data.language);
+    this.showCount = false;
   }
   getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
-    ;
     this._OSRService.getUnallocatedCalls(serviceProviderMapID, startDate, endDate, language)
       .subscribe(resProviderData => {
         this._unAllocatedCalls = resProviderData.data;
         this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
+        this.showCount = true;
       });
   }
 
-  allocateCalls(values: any, event) {
-
+  allocateCalls(values: any, startDate: Date, endDate: Date, language: any, event) {
     console.log('valuse: ' + values);
-
-    // for (var i = 0; i < event.target.parentNode.parentNode.parentNode.children.length; i++) {
-    //   event.target.parentNode.parentNode.parentNode.children[i].className = '';
-    // }
-    // event.target.parentNode.parentNode.className = 'highlightTrBg';
     if (this.tot_unAllocatedCalls > 0) {
       this.showFlage = true;
     }
-    this.records = values;
+    const outboundObj = {};
+    outboundObj['outboundList'] = values;
+    outboundObj['startDate'] = startDate;
+    outboundObj['endDate'] = endDate;
+    outboundObj['langauge'] = language;
+    this.records = outboundObj;
   }
   getLanguages() {
     this._callServices.getLanguages().subscribe(response => {
@@ -78,6 +75,7 @@ export class OutboundSearchRecordsComponent implements OnInit {
   }
   getUnallocateCall(values) {
     // tslint:disable-next-line:max-line-length
+    this.showFlage = false;
     let startDate: Date = new Date(values.filterStartDate);
     startDate.setHours(0);
     startDate.setMinutes(0);
@@ -86,8 +84,20 @@ export class OutboundSearchRecordsComponent implements OnInit {
     endDate.setHours(23);
     endDate.setMinutes(59);
     endDate.setSeconds(59);
-    this.getOutboundCall(this.serviceProviderMapID, startDate,
-      endDate, values.preferredLanguageName.languageName);
+    if (!values.preferredLanguageName) {
+      this.getOutboundCall(this.serviceProviderMapID, startDate,
+        endDate);
+    } else {
+      this.getOutboundCall(this.serviceProviderMapID, startDate,
+        endDate, values.preferredLanguageName.languageName);
+    }
+  }
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

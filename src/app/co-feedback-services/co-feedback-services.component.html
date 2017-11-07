@@ -9,12 +9,12 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-            <h4 class="f-s-b m-b-30">{{currentlanguage.feedback_service?.page_heading}}</h4>
-          </label>
+        <h4 class="f-s-b m-b-30">{{currentlanguage.feedback_service?.page_heading}}</h4>
+      </label>
     </div>
   </div>
   <div class="row">
-    <form id="feedbackForm" *ngIf="showFormCondition">
+    <form id="feedbackForm" form="ngForm" *ngIf="showFormCondition">
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
@@ -167,8 +167,8 @@
                       </div> -->
         <!-- <div class="form-group"> -->
         <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-        <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.feedback_service?.incident_date}}"
-          name="dateOfBirth" [(ngModel)]="selected_doi"></md2-datepicker>
+        <md2-datepicker (keydown)="keyblock($event)" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.feedback_service?.incident_date}}"
+          name="incidentdate" [(ngModel)]="selected_doi"></md2-datepicker>
         <!-- </div> -->
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -208,7 +208,7 @@
         <!--<button type="button" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
               " id="" (click)="submitFeedback(feedbackForm.value)">Register</button>-->
         <button type="button" md-raised-button color="primary" class="pull-right font-regular f-s-18 m-t-15
-              " (click)="submitFeedback()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">{{currentlanguage.feedback_service?.register}}</button>
+              " (click)="submitFeedback();form.reset()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">{{currentlanguage.feedback_service?.register}}</button>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
         <button type="button" md-raised-button color="accent" class="pull-left font-regular f-s-18 m-t-15
@@ -243,9 +243,9 @@
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length<1">
-              <p width=100% align="center">
-                No Records Found
-              </p>
+              <td class="t-a-c" colspan="8">
+                {{currentlanguage.feedback_service?.table_labels?.no_records_found}}
+              </td>
             </tr>
             <tr style="cursor: pointer;" *ngFor="let feedback
                         of md2.data;let i=index " (click)="modalData(feedback)">

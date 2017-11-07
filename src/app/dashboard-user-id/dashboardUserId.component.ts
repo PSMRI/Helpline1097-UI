@@ -23,7 +23,10 @@ export class DashboardUserIdComponent implements OnInit {
     }
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
-            this.status = res.data.state.split('###')[0];
+            this.status = res.data.stateObj.stateName;
+            if (res.data.stateObj.stateType) {
+                this.status += ' (' + res.data.stateObj.stateType + ')';
+            }
         }, (err) => {
 
         })

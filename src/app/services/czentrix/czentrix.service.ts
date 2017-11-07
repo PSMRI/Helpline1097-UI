@@ -15,15 +15,16 @@ export class CzentrixServices {
   address = this._config.getTelephonyServerURL();
   _getAgentStatus_url = this.common_url + '/cti/getAgentState';
   _getCallDetails = this.common_url + '/cti/getAgentCallStats';
-  agent_id: any = this._data.cZentrixAgentID;
+  agent_id: any;
   path = 'apps/appsHandler.php?';
   resFormat = 3;
   transaction_id: any;
   ip: any;
+
   phone_num: number;
-  constructor(private http: Http, private _config: ConfigService, private _data: dataService) { }
-
-
+  constructor(private http: Http, private _config: ConfigService, private _data: dataService) {
+    this.agent_id = this._data.cZentrixAgentID;
+  }
 
   agentLogin(agentId, ipAddress) {
     this.transaction_id = 'CTI_LOGIN';
@@ -42,11 +43,11 @@ export class CzentrixServices {
 
   }
   agentLogout(agentId, ipAddress) {
-    this.transaction_id = 'CTI_LOGOUT';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
 
-    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+    this.transaction_id = 'CTI_LOGOUT';
+    // this.agent_id = agentId;
+    // this.ip = ipAddress;
+    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + agentId + '&ip=' + ipAddress + '&resFormat=' + this.resFormat;
     return this.callAPI(params);
   }
 
@@ -60,11 +61,15 @@ export class CzentrixServices {
   }
 
   getAgentStatus() {
+    this.agent_id = this._data.cZentrixAgentID;
     let obj = { 'agent_id': this.agent_id };
+
     return this.http.post(this._getAgentStatus_url, obj, this.options).map(this.extractData).catch(this.handleError);
   }
 
   getCallDetails() {
+    this.agent_id = this._data.cZentrixAgentID;
+
     let obj = { 'agent_id': this.agent_id };
     return this.http.post(this._getCallDetails, obj, this.options).map(this.extractData).catch(this.handleError);
   }
@@ -191,7 +196,6 @@ export class CzentrixServices {
     // console.error(errMsg);
     return Observable.throw(error.json());
   };
-
 
 }
 

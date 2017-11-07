@@ -6,13 +6,15 @@
 <md-card>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label class="pull-left"><h4 class="f-s-b m-b-30"> Knowledge Management </h4> </label>
+      <label class="pull-left">
+        <h4 class="f-s-b m-b-30"> Knowledge Management </h4>
+      </label>
     </div>
   </div>
   <div class="container">
     <div class="row">
       <!--Form Start  -->
-      <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm);knowledgeForm.reset()" novalidate>
+      <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate>
         <div>
           <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
             <md-select placeholder="Select Service" [style.width]="'100%'" name="service" formControlName="service" (change)="getCategory($event.value)">

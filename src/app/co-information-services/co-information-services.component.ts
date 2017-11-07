@@ -31,6 +31,7 @@ export class CoInformationServicesComponent implements OnInit {
   subscription: Subscription;
   beneficiaryID: any;
   benCallID: any;
+  getDetailsFlag: boolean = false;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -68,6 +69,7 @@ export class CoInformationServicesComponent implements OnInit {
     }
     this.GetCategoriesByID(this.subServiceID);
   }
+
   GetCategories() {
 
     this._coCategoryService.getCategories()
@@ -103,7 +105,9 @@ export class CoInformationServicesComponent implements OnInit {
     console.log('success', response);
     this.subCategoryList = response;
   }
-
+  EnabledGetDetails() {
+    this.getDetailsFlag = false;
+  }
   GetSubCategoryDetails(id: any) {
     this._coCategoryService.getDetails(
       id, this.saved_data.uname, this.beneficiaryID,
@@ -113,6 +117,7 @@ export class CoInformationServicesComponent implements OnInit {
   SetSubCategoryDetails(response: any) {
     console.log('success', response);
     this.detailsList = response;
+    this.getDetailsFlag = true;
     this.informationServiceProvided.emit();
   }
   showForm() {

@@ -9,6 +9,7 @@ import { HttpServices } from '../services/http-services/http_services.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CallServices } from '../services/callservices/callservice.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { CzentrixServices } from './../services/czentrix/czentrix.service';
 import { Observable } from "rxjs/Rx";
 declare const jQuery: any;
 
@@ -39,6 +40,11 @@ export class InnerpageComponent implements OnInit {
   providerServiceMapId: any;
   timeRemaining: number = 3;
   ticks: any;
+  callStatus: any;
+  callTime: boolean = true;
+  wrapupTime: boolean = false;
+  TotalCalls: any;
+  TotalTime: any;
 
   // eventSpiltData: any;
 
@@ -55,6 +61,7 @@ export class InnerpageComponent implements OnInit {
   ctiHandlerURL: any;
   validCallID: any;
   listenCallEvent: any;
+  transferInProgress: Boolean = false;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -65,7 +72,8 @@ export class InnerpageComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private _config: ConfigService,
     private remarksMessage: ConfirmationDialogsService,
-    private renderer: Renderer
+    private renderer: Renderer,
+    private Czentrix: CzentrixServices
 
   ) {
     this.currentlanguageSet = [];
@@ -134,6 +142,8 @@ export class InnerpageComponent implements OnInit {
       // Do something with 'event'
     });
     // this.addListener();
+    this.getAgentStatus();
+    this.getAgentCallDetails();
   }
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find('a').removeClass('active-tab');
@@ -204,10 +214,38 @@ export class InnerpageComponent implements OnInit {
     this.currentlanguageSet = response[language];
     // this.currentlanguageSet = "LANGUAGE IS ENGLISH PEHLI BAAR ME";
   }
+  // logOut() {
+  //   // Cookie.deleteAll();
+  //   this.basicrouter.navigate(['']);
+  //   // location.assign(this.loginUrl);
+  // }
+
   logOut() {
-    // Cookie.deleteAll();
-    this.basicrouter.navigate(['']);
-    // location.assign(this.loginUrl);
+    if (this.getCommonData.loginIP === undefined || this.getCommonData.loginIP === '') {
+      this.Czentrix.getIpAddress(this.getCommonData.cZentrixAgentID).subscribe((res) => {
+        if (res) {
+          this.ipSuccessLogoutHandler(res.response.agent_ip);
+        }
+      });
+    } else {
+      this.ipSuccessLogoutHandler(this.getCommonData.loginIP);
+    }
+
+  }
+  ipSuccessLogoutHandler(response) {
+    this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
+      if (res.response.status.toUpperCase() !== 'FAIL') {
+        this.basicrouter.navigate(['']);
+      } else {
+        if(this.current_role.toLowerCase() !== 'supervisor'){
+        this.remarksMessage.alert('cannot logout agent is in call');
+        }else
+        {
+          this.basicrouter.navigate(['']);
+        }
+      }
+    }, (err) => {
+    });
   }
   // ngOnDestroy() {
   //   Cookie.deleteAll();
@@ -272,12 +310,16 @@ export class InnerpageComponent implements OnInit {
   }
 
   handleEvent(eventData) {
+    console.log("received event " + eventData);
     if (eventData[0] === 'Disconnect') {
 
-    } else if (eventData[0] === 'CustDisconnect') {
-      this.showRemarks(eventData);
+    } else if (eventData[0] === 'AgentXfer' || eventData[0] === 'CampaignXfer') {
+      this.getAgentStatus();
+      this.showRemarksNew(eventData);
+      this.transferInProgress = true;
       // this.showRemarks(eventData);
-    } else if (eventData[0] === 'CallDisconnect') {
+    } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress) {
+      this.getAgentStatus();
       this.disconnectCall();
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
     }
@@ -304,7 +346,7 @@ export class InnerpageComponent implements OnInit {
         //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         //   this.basicrouter.navigate(['/InnerpageComponent']);
         // } else {
-          this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+        this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         // }
       }
     }, (err) => {
@@ -323,17 +365,26 @@ export class InnerpageComponent implements OnInit {
       }
       this.closeCall(eventData, remarksGiven);
     }, (err) => { });
-    this.startCallWraupup(eventData);
+    // this.startCallWraupup(eventData);
 
   }
+
+
+  showRemarksNew(eventData) {
+    let remarksGiven;
+    remarksGiven = eventData[0] + ' to ' + eventData[2];
+    this.closeCall(eventData, remarksGiven);
+  }
+
   startCallWraupup (eventData) {
     const timer = Observable.timer(2000, 1000);
     timer.subscribe(t => {
       this.ticks = (this.timeRemaining - t);
+      this.ticks = this.ticks + 's';
       const remarks = 'call tranfered';
       if (t == this.timeRemaining) {
         this.remarksMessage.close();
-        // this.closeCall(eventData, remarks);
+        this.closeCall(eventData, remarks);
       }
     });
   }
@@ -346,6 +397,36 @@ export class InnerpageComponent implements OnInit {
     jQuery('#next').hide();
     jQuery('#previous').show();
 
+  }
+  getAgentStatus() {
+    this.Czentrix.getAgentStatus().subscribe((res) => {
+      this.callStatus = res.data.stateObj.stateName;
+      // if (this.callStatus.toLowerCase().trim() === 'closure') {
+      //   this.wrapupTime = true;
+      //   this.callTime = false;
+      // }
+      if (res.data.stateObj.stateType) {
+        this.callStatus += ' (' + res.data.stateObj.stateType + ')';
+      }
+    }, (err) => {
+
+    })
+  }
+
+  getAgentCallDetails() {
+    this.Czentrix.getCallDetails().subscribe((res) => {
+      this.TotalCalls = 'Total Calls : ' + res.data.total_calls;
+      this.TotalTime = 'Total Calls Durations : ' + res.data.total_call_duration;
+      // if (this.callStatus.toLowerCase().trim() === 'closure') {
+      //   this.wrapupTime = true;
+      //   this.callTime = false;
+      // }
+      // if (res.data.stateObj.stateType) {
+      //   this.callStatus += ' (' + res.data.stateObj.stateType + ')';
+      // }
+    }, (err) => {
+
+    })
   }
   ngOnDestroy() {
     this.listenCallEvent();

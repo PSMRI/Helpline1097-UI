@@ -55,14 +55,15 @@ export class RegisterService {
   retrieveRegHistory(registrationNo: any) {
     return this.httpInterceptor.get(this._getuserdata + registrationNo)
       .map(this.extractData)
-      .catch(this.handleError);
+      .catch(this.customhandleError);
   }
 
   retrieveRegHistoryByPhoneNo(phoneNo: any) {
-    const data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000 };
-    return this._http.post(this._getuserdatabyno, data)
+    
+    let data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000 };
+    return this.httpInterceptor.post(this._getuserdatabyno, data)
       .map(this.extractData)
-      .catch(this.handleError);
+      .catch(this.customhandleError);
   }
 
   searchBenficiary(values: any) {
@@ -119,6 +120,10 @@ export class RegisterService {
     }
   };
 
+  private customhandleError(error: Response | any) {
+    return Observable.throw(error.json());
+
+  };
   private handleError(res: Response) {
     return res.json();
   };

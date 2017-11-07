@@ -9,10 +9,12 @@
   <form [formGroup]="feedbackForm2" (ngSubmit)="onSearch()">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker [max]="maxDate" #startDate [style.width]="'100%'" formControlName="startDate" placeholder="Start Date (dd/MM/yyyy)"></md2-datepicker>
+        <md2-datepicker (keydown)="blockey($event)" [max]="maxDate" #startDate [style.width]="'100%'" formControlName="startDate"
+          placeholder="Start Date (dd/MM/yyyy)"></md2-datepicker>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker [style.width]="'100%'" [min]="startDate.value" [max]="maxDate" formControlName="endDate" placeholder="End Date(dd/MM/yyyy)"></md2-datepicker>
+        <md2-datepicker (keydown)="blockey($event)" [style.width]="'100%'" [min]="startDate.value" [max]="maxDate" formControlName="endDate"
+          placeholder="End Date(dd/MM/yyyy)"></md2-datepicker>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md-input-container style="width: 100%">
@@ -45,9 +47,9 @@
         </thead>
         <tbody>
           <tr *ngIf="md2.data.length < 1">
-            <p width=100% align="center">
+            <td class="t-a-c" colspan="8">
               No Records Found
-            </p>
+            </td>
           </tr>
           <tr *ngFor="let feedback of md2.data">
             <td (click)="onClick(feedback)">{{feedback.feedbackID}}</td>
@@ -108,12 +110,12 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
         <md-input-container style="width: 100%">
-          <input mdInput placeholder="Feedback Status" id="FeedbackStatus" formControlName="feedbackStatus" maxlength="20" readonly>
+          <input mdInput placeholder="Feedback Status" id="FeedbackStatus" formControlName="feedbackStatusName" maxlength="20" readonly>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
         <md-input-container style="width: 100%">
-          <input mdInput placeholder="Email Status" id="EmailStatus" formControlName="emailStatus" maxlength="10" readonly>
+          <input mdInput placeholder="Email Status" id="EmailStatus" formControlName="emailStatusName" maxlength="10" readonly>
         </md-input-container>
       </div>
     </div>
@@ -199,7 +201,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="action==='update'">
-      <button class="btn cu-green-btn pull-right" type="submit" name="save">Save</button>
+      <button md-raised-button color="primary" class="pull-right" type="submit" name="save">Save</button>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">

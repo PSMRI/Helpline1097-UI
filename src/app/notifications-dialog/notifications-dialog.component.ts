@@ -159,6 +159,13 @@ export class NotificationsDialogComponent implements OnInit {
       );
 
   }
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 
 }

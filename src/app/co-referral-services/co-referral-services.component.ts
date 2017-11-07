@@ -4,6 +4,9 @@ import { LocationService } from "../services/common/location.service";
 import { CoReferralService } from "../services/coService/co_referral.service";
 import { dataService } from "../services/dataService/data.service"
 import { Subscription } from 'rxjs/Subscription';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { CoAlternateNumberComponent } from './co-alternate-number/co-alternate-number.component';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
 @Component({
@@ -45,12 +48,15 @@ export class CoReferralServicesComponent implements OnInit {
   subscription: Subscription
   beneficiaryRegID: any;
   p = 1;
+  enableSms: boolean = true;
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
     private _locationService: LocationService,
     private _coReferralService: CoReferralService,
     private saved_data: dataService,
-    private pass_data: CommunicationService
+    private pass_data: CommunicationService,
+    private dialog: MdDialog,
+    private message: ConfirmationDialogsService
   ) { this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) }); }
 
   ngOnInit() {
@@ -209,6 +215,34 @@ export class CoReferralServicesComponent implements OnInit {
   millisToUTCDate(millis) {
     return this.toUTCDate(new Date(millis));
   };
+
+  sendSMS() {
+    let dialogReff = this.dialog.open(CoAlternateNumberComponent, {
+      height: '280px',
+      width: '420px',
+      disableClose: true,
+      data: {
+        'currentlanguage': this.current_language
+      }
+    });
+
+    dialogReff.afterClosed().subscribe(result => {
+      if (result) {
+        this.message.alert('Message Sent to Alternate Number');
+      }
+      else {
+        let primaryNumber = this.saved_data.callerNumber;
+        this.message.alert('Message Sent to Primary Number');
+      }
+    });
+  }
+  toggleSms(e: any) {
+    if (!e.checked) {
+      this.enableSms = true;
+    } else {
+      this.enableSms = false;
+    }
+  }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

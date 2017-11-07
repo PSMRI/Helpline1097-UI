@@ -5,7 +5,7 @@
         <!-- 'complete' css is added at bottom line to show green to next line -->
         <div id="one" class="col-xs-2 bs-wizard-step disabled" style="padding:0px; margin:0px;">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-16">{{currentlanguage.co?.create_find_beneficiary}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">P D</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">{{currentlanguage.co?.create_find_beneficiary_mobile}}</div>
           <!-- progress-bar-disabled   css is added extra in this line to make it grey, remove for green -->
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
@@ -14,7 +14,7 @@
         </div>
         <div id="two" class="col-xs-2 bs-wizard-step disabled">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-16">{{currentlanguage.co?.provide_service}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">A S</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">{{currentlanguage.co?.provide_service_mobile}}</div>
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
           </div>
@@ -22,7 +22,7 @@
         </div>
         <div id="three" class="col-xs-2 bs-wizard-step disabled">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-16">{{currentlanguage.co?.other_details}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">R M</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">{{currentlanguage.co?.other_details_mobile}}</div>
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
           </div>
@@ -30,7 +30,7 @@
         </div>
         <div id="four" class="col-xs-2 bs-wizard-step disabled">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-16">{{currentlanguage.co?.closure}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">R M M</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-18">{{currentlanguage.co?.closure_mobile}}</div>
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
           </div>
@@ -53,12 +53,12 @@
                 <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                   #registration [current_language]="currentlanguage"></app-beneficiary-registration>
               </div>
-              <div class="item ">
+              <div class="item">
                 <!--<app-co-services (beneficiarySelected)="startCOService()" (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>-->
                 <app-co-services (serviceGiven)="updateServiceProvided(); closure.onView()" [benHistory]="selectedBenData" #coservice [current_language]="currentlanguage"></app-co-services>
 
               </div>
-              <div class="item ">
+              <div class="item">
                 <!--<app-updates-from-beneficiary (beneficiarySelected)="PopulateUpdateData()" #updatebeneficiary></app-updates-from-beneficiary>-->
                 <app-updates-from-beneficiary #updatebeneficiary [current_language]="currentlanguage"></app-updates-from-beneficiary>
               </div>
@@ -123,4 +123,4 @@
   (click)="toggleBar()">C-Zentrix</button>-->
 <!--<iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized"
   (click)="toggleBar()"></iframe>-->
-<iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" *ngIf="!barMinimized" (click)="toggleBar()"></iframe>
+<!-- <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe> -->

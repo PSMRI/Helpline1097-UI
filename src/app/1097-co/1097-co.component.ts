@@ -10,7 +10,8 @@ import { CommunicationService } from './../services/common/communication.service
 import { OutboundService } from './../services/common/outbound.services';
 import { ReloadService } from './../services/common/reload.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
-
+import { CollapseDirective } from './../directives/collapse/collapse.directive'
+import { ClearFormService } from './../services/common/clearform.service';
 @Component({
   selector: 'app-1097-co',
   templateUrl: './1097-co.component.html',
@@ -21,7 +22,7 @@ export class helpline1097CoComponent implements OnInit {
   beneficiaryNotSelected: boolean = true;
   callerNumber: any;
   callID: any;
-  barMinimized: boolean = true;
+  barMinimized: any = 'false';
   ctiHandlerURL: any = '';
   isCancelDisable: boolean = true;
   isClosureDisable: boolean = false;
@@ -51,7 +52,8 @@ export class helpline1097CoComponent implements OnInit {
     private pass_data: CommunicationService,
     private outBoundService: OutboundService,
     private reloadCall: ReloadService,
-    private czentrixService: CzentrixServices
+    private czentrixService: CzentrixServices,
+    private ClearForm: ClearFormService
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -156,10 +158,16 @@ export class helpline1097CoComponent implements OnInit {
 
 
   minimizeBar() {
-    this.barMinimized = true;
+    this.barMinimized = 'false';
   }
   toggleBar() {
-    this.barMinimized = !this.barMinimized;
+    // this.barMinimized = !this.barMinimized;
+    if (this.barMinimized === 'true') {
+      this.barMinimized = 'false';
+    }
+    else {
+      this.barMinimized = 'true';
+    }
   }
   benService(data) {
     // alert(this.getCommonData.benRegId);
@@ -181,12 +189,16 @@ export class helpline1097CoComponent implements OnInit {
     this.dialogService.confirm('Cancel Call ', 'Cancel Call?').subscribe((response) => {
       if (response) {
         // this.reloadCall();
-        this.beneficiarySelected.emit(null);
+        //   this.beneficiarySelected.emit(null);
         const id = jQuery('.carousel-inner div.active').index();
         jQuery('#myCarousel').carousel(0);
         jQuery('#one').parent().find('a').removeClass('active-tab');
         jQuery('#one').find('a').addClass('active-tab');
         jQuery('#btnClosure').attr('disabled', null);
+        // jQuery('#benForm').trigger('reset');
+        // jQuery('#closeForm').trigger('reset');
+        this.ClearForm.clearFormSender('closure');
+        //jQuery('#otherDetailsForm').trigger('reset');
         this.isCancelDisable = true;
         this.isClosureDisable = false;
         this.isNext = false;
@@ -216,7 +228,7 @@ export class helpline1097CoComponent implements OnInit {
     // this.benService('benService');
     this.czentrixService.getIpAddress(this.getCommonData.Userdata.agentID)
       .subscribe((ipAddressresponse) => {
-        let cZentrixIp = ipAddressresponse.agent_ip;
+        let cZentrixIp = ipAddressresponse.response.agent_ip;
         if (!cZentrixIp) {
           cZentrixIp = this.getCommonData.loginIP;
         }

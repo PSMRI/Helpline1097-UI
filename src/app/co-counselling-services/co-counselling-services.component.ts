@@ -32,6 +32,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   public totalRecord: any;
   subscription: Subscription;
   beneficiaryID: any;
+  getDetailsFlag: boolean = false;
   p = 1;
   constructor(
     private _coCategoryService: CoCategoryService,
@@ -96,6 +97,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   SetSubCategories(response: any) {
     console.log('success', response);
     this.subCategoryList = response;
+    // this.getDetailsFlag = false;
   }
 
   GetSubCategoryDetails(id: any) {
@@ -104,11 +106,15 @@ export class CoCounsellingServicesComponent implements OnInit {
       this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID
     ).subscribe(response => this.SetSubCategoryDetails(response));
   }
-
+  EnabledGetDetails() {
+    this.getDetailsFlag = false;
+  }
   SetSubCategoryDetails(response: any) {
     console.log('success', response);
     this.detailsList = response;
+    this.getDetailsFlag = true;
     this.counsellingServiceProvided.emit();
+
   }
   showForm() {
     this.showFormCondition = true;

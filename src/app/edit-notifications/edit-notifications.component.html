@@ -1,42 +1,49 @@
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <button type="button" class="close" md-dialog-close><span class="pull-right">&times;</span></button>
-        <h2 md-dialog-title class="f-s-b m-b-20 m-l-15">Edit Notification</h2>
-        <md-dialog-content class="m-b-10">
-          <form #editNotificationForm="ngForm">
-            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 c-b p-l-lg-1">
-                <md2-datepicker name="startDate" placeholder="Start Date" #startDate="ngModel" [ngModel]="validFrom" required></md2-datepicker>
-            </div>
-            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 p-l-lg-1">
-                <md2-datepicker name="endDate" placeholder="End Date" [min]="startDate.value" #endDate="ngModel" [ngModel]="validTill" required></md2-datepicker>
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <md-input-container class="width100">
-                <input type="text" mdInput placeholder="Notification Subject" name="notificationSubject" [ngModel]="data.notification" required>
-              </md-input-container>
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <md-input-container class="width100">
-                <textarea rows="3" mdInput placeholder="Notification Description" name="notificationDesc" [ngModel]="data.notificationDesc" required></textarea>
-              </md-input-container>
-            </div>
-            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" *ngIf="data?.kmFileManager?.fileName">
-              <md-input-container class="width100">
-                <input type="text" mdInput placeholder="UploadedFile" name="uploadedFile" [ngModel]="data.kmFileManager.fileName" disabled required>
-              </md-input-container>
-            </div>
-            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                  <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
-                  <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file" ngModel #uploadfile="ngModel">
-            </div>
-            <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span>
-            <span class="help-block m-l-15" *ngIf="error2">File Size should not exceed {{maxFileSize}} MB</span>
-            <span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
-          </form>
-        </md-dialog-content>
-        <md-dialog-actions class="m-b-5">
-          <button md-raised-button class="m-l-15 m-r-15 pull-right" color="primary" [disabled]="!(editNotificationForm.valid)|| error1 || error2" type="button" (click)="onSubmit()" >Save</button>
-          <button md-raised-button class="m-l-15 m-r-15 pull-right" md-dialog-close>Close</button>
-        </md-dialog-actions>
-    </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <button type="button" class="close" md-dialog-close>
+      <span class="pull-right">&times;</span>
+    </button>
+    <h2 md-dialog-title class="f-s-b m-b-20 m-l-15">Edit Notification</h2>
+    <md-dialog-content class="m-b-10">
+      <form #editNotificationForm="ngForm">
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 c-b p-l-lg-1">
+          <md2-datepicker (keydown)="blockey($event)" name="startDate" placeholder="Start Date" #startDate="ngModel" [ngModel]="validFrom" required></md2-datepicker>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 p-l-lg-1">
+          <md2-datepicker (keydown)="blockey($event)" name="endDate" placeholder="End Date" [min]="startDate.value" #endDate="ngModel" [ngModel]="validTill"
+            required></md2-datepicker>
+        </div>
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <md-input-container class="width100">
+            <input type="text" mdInput placeholder="Notification Subject" name="notificationSubject" [ngModel]="data.notification" required>
+          </md-input-container>
+        </div>
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <md-input-container class="width100">
+            <textarea rows="3" mdInput placeholder="Notification Description" name="notificationDesc" [ngModel]="data.notificationDesc"
+              required></textarea>
+          </md-input-container>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" *ngIf="data?.kmFileManager?.fileName">
+          <md-input-container class="width100">
+            <input type="text" mdInput placeholder="UploadedFile" name="uploadedFile" [ngModel]="data.kmFileManager.fileName" disabled
+              required>
+          </md-input-container>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
+          <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file"
+            ngModel #uploadfile="ngModel">
+        </div>
+        <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span>
+        <span class="help-block m-l-15" *ngIf="error2">File Size should not exceed {{maxFileSize}} MB</span>
+        <span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
+      </form>
+    </md-dialog-content>
+    <md-dialog-actions class="m-b-5">
+      <button md-raised-button class="m-l-15 m-r-15 pull-right" color="primary" [disabled]="!(editNotificationForm.valid)|| error1 || error2"
+        type="button" (click)="onSubmit()">Save</button>
+      <button md-raised-button class="m-l-15 m-r-15 pull-right" md-dialog-close>Close</button>
+    </md-dialog-actions>
+  </div>
 </div>

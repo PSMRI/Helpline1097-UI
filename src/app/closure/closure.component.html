@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <form #Form="ngForm" novalidate>
+  <form id="closeForm" #Form="ngForm" novalidate>
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 m-t-10">
       <h4 align="center" class="f-s-b m-b-30">{{currentlanguage.closure?.call_details}}</h4>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
@@ -39,7 +39,7 @@
         <!-- <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle> -->
       </div>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" *ngIf="isFollowUp">
-        <md2-datepicker [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="{{currentlanguage.closure?.preferred_date}}"
+        <md2-datepicker required (keydown)="blockey($event)" [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="{{currentlanguage.closure?.preferred_date}}"
           [(ngModel)]="preferredDateTime"></md2-datepicker>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 m-t-3" *ngIf="isFollowUp">
@@ -50,8 +50,8 @@
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 m-t-3" *ngIf="isFollowUp">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select required placeholder="{{currentlanguage.closure?.language}}" [style.width]="'100%'" [(ngModel)]="preferredLanguageName" name="preferredLanguageName"
-            #languageName="ngModel">
+          <md-select required placeholder="{{currentlanguage.closure?.language}}" [style.width]="'100%'" [(ngModel)]="preferredLanguageName"
+            name="preferredLanguageName" #languageName="ngModel">
             <md-option *ngFor="let lang of languages" [value]="lang.languageName">
               {{lang.languageName}}
             </md-option>
@@ -64,7 +64,8 @@
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-        <label class="control-label" for="callSummary">{{currentlanguage.closure?.table_labels?.table_heading}} ({{currentlanguage?.closure?.table_labels?.call_id}} - {{summaryList[0]?.benCallID}}) </label>
+        <label class="control-label" for="callSummary">{{currentlanguage.closure?.table_labels?.table_heading}} ({{currentlanguage?.closure?.table_labels?.call_id}} - {{summaryList[0]?.benCallID}})
+        </label>
       </div>
       <table class="table table-bordered ta">
         <thead>
@@ -105,7 +106,7 @@
       <button md-raised-button color="primary" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid"
         class="font-regular mar-right" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentlanguage.closure?.submitClose}}</button>
       <button *ngIf="current_campaign.toUpperCase() !== 'OUTBOUND'" md-raised-button color="primary" type="submit" name="save"
-        value="submitContinue" [disabled]="callType.invalid || subCallType.invalid" class="font-regular" (click)="closeCall(Form.value,$event.currentTarget.value);">{{currentlanguage.closure?.submitContinue}}</button>
+        value="submitContinue" [disabled]="callType.invalid || subCallType.invalid" class="font-regular" (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentlanguage.closure?.submitContinue}}</button>
     </div>
     <!-- </div> -->
   </form>

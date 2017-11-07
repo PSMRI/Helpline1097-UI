@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from '../services/update-services/update-service';
@@ -18,7 +18,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   @Input() current_language: any;
   currentlanguage: any;
-
+  @ViewChild('Form') form;
   occupation: any;
   educationID: any;
   sexualOrientationID: any;
@@ -60,7 +60,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       .subscribe(response => {
         this.SetUserBeneficiaryRegistrationData(response);
       });
-   // this.PopulateUpdateData();
+    // this.PopulateUpdateData();
 
     this.count = '0/300';
 
@@ -96,6 +96,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       this.placeOfWork = beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = beneficiaryData.isHIVPos;
       this.remarks = beneficiaryData.remarks;
+      this.cameToKnowFrom = beneficiaryData.sourceOfInformation ? beneficiaryData.sourceOfInformation.split(',') : undefined;
     }
   }
 
@@ -121,10 +122,13 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.saved_data.beneficiaryData.sexualOrientationId = values.sexualOrientationID;
     this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
     this.saved_data.beneficiaryData.remarks = values.remarks;
+   // this.saved_data.beneficiaryData.sourceOfInformation = values.cameToKnowFrom.toString();
 
     // alert( values );
+   // console.log("Update Data is", JSON.stringify(this.saved_data.beneficiaryData));
     const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe((response) => {
       this.showAlert();
+      this.PopulateOutBoundData(response);
     }, (err) => {
       this.message.alert(err.status);
     });
@@ -132,6 +136,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   showAlert() {
     this.message.alert('Updated Successfully');
+
+    //this.form.reset();
   }
   updateCount() {
     this.count = this.remarks.length + '/300';

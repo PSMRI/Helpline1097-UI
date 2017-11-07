@@ -58,13 +58,16 @@ export class NotificationService {
     }
     getSupervisorNotifications(data) {
         return this.httpIntercepto.post(this.getSupervisorNotificationsURL, data)
-            .map((response: Response) => response.json()).catch(this.handleError);
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
     }
     updateNotification(data) {
         return this.httpIntercepto.post(this.updateNotificationURL, data)
-            .map((response: Response) => response.json()).catch(this.handleError);
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
     }
     handleError(error: Response) {
+        return Observable.throw(error.json());
+    }
+    handleCustomError(error: Response) {
         return Observable.throw(error.json());
     }
 }

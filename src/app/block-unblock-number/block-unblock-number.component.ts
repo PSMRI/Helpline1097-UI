@@ -89,7 +89,7 @@ export class BlockUnblockNumberComponent implements OnInit {
   }
   getBlackList(e: any) {
     if (!e.checked) {
-      // this.phoneNumber = undefined;
+      this.phoneNumber = undefined;
       this.addToBlockList();
     }
 

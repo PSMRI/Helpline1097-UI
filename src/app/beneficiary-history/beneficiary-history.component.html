@@ -23,20 +23,22 @@
               </td>
             </tr> -->
             <tr>
-              <th  md2SortBy="benCallID">BeneficiaryCall ID</th>
-              <th  md2SortBy="benCallID">Call Time</th>
-              <th  md2SortBy="informationServices">Information Services</th>
-              <th  md2SortBy="feedbackServices">Feedback Services</th>
-              <th  md2SortBy="referralServices">Referral Services</th>
-              <th  md2SortBy="counsellingServices">Counselling Services</th>
-              <th  md2SortBy="remarks">Remarks</th>
+              <th md2SortBy="benCallID">BeneficiaryCall ID</th>
+              <th md2SortBy="createdDate">Call Time</th>
+              <th md2SortBy="informationServices">Informations</th>
+              <th md2SortBy="feedbackServices">Feedbacks</th>
+              <th md2SortBy="referralServices">Referrals</th>
+              <th md2SortBy="counsellingServices">Counsellings</th>
+              <th>Call Type</th>
+              <th>Call Sub-Type</th>
+              <th md2SortBy="remarks">Remarks</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length < 1">
-                <p width=100% align="center">
-                  No Records Found
-                </p>
+              <td class="t-a-c" colspan="9">
+                No Records Found
+              </td>
             </tr>
             <tr *ngFor="let service of md2.data ">
               <td>{{service.benCallID}}</td>
@@ -45,6 +47,8 @@
               <td>{{service.feedbackServices}}</td>
               <td>{{service.referralServices}}</td>
               <td>{{service.counsellingServices}}</td>
+              <td>{{service.callTypeObj?.callGroupType}}</td>
+              <td>{{service.callTypeObj?.callType}}</td>
               <td>{{service.remarks}}</td>
             </tr>
           </tbody>

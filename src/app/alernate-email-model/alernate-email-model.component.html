@@ -5,16 +5,20 @@
     <md-card-content>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <label><b>Feedback: </b>{{this.data}}</label>
+          <label>
+            <b>Feedback: </b>{{this.data}}</label>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <md-checkbox style="margin: 0 10px" name="altEmail" [(ngModel)]="altEmail">
+          <md-checkbox style="margin: 0 10px" name="altEmail" color="primary" [(ngModel)]="altEmail">
             Alternate Email
           </md-checkbox>
           <div>
             <div *ngIf="altEmail">
-              <label>Email : <em>*</em></label><input class="form-control" type="text" required minlength="10" placeholder="Enter email address"
-                [pattern]="emailPattern" name="email" [(ngModel)]="email" #emailAdd="ngModel">
+              <label>Email :
+                <em>*</em>
+              </label>
+              <input class="form-control" type="text" required minlength="10" placeholder="Enter email address" [pattern]="emailPattern"
+                name="email" [(ngModel)]="email" #emailAdd="ngModel">
 
               <div [hidden]="emailAdd.valid">
                 <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
@@ -22,8 +26,8 @@
               </div>
 
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <button [disabled]="emailAdd.invalid" class="btn cu-green-btn pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close(altEmail)">Send Email
-                    </button>
+                <button [disabled]="emailAdd.invalid" md-raised-button color="primary" class="font-regular m-t-8" (click)="dialogReff.close(altEmail)">Send Email
+                </button>
               </div>
             </div>
           </div>

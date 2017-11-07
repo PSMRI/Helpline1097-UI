@@ -18,14 +18,18 @@ export class UploadServiceService {
   public baseUrl = this._config.getCommonBaseURL();
   public uploadDocumentUrl = this.baseUrl + '/kmfilemanager/addFile';
   constructor(private _http: Http,
-    private _config: ConfigService, private httpInter: InterceptedHttp) { }
+    private _config: ConfigService,
+    private httpInter: InterceptedHttp
+  ) {
+
+  }
 
   public uploadDocument(uploadObj: any) {
     return this.httpInter.post(this.uploadDocumentUrl, JSON.stringify(uploadObj))
       .map(this.extractData).catch(this.handleError)
   }
-  private extractData(response: Response) {
 
+  private extractData(response: Response) {
     if (response.json().data) {
       return response.json().data;
     } else {
@@ -35,7 +39,7 @@ export class UploadServiceService {
     }
   };
 
-   private handleError(error: Response | any) {
+  private handleError(error: Response | any) {
     return Observable.throw(error.json());
 
   };
