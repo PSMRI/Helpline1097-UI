@@ -128,7 +128,8 @@ import { CzentrixServices } from './services/czentrix/czentrix.service';
 import { OutboundService } from './services/common/outbound.services';
 import { ListnerService } from './services/common/listner.service';
 import { ReloadService } from './services/common/reload.service';
-import { ClearFormService } from './services/common/clearform.service'
+import { ClearFormService } from './services/common/clearform.service';
+import { OutboundReAllocationService } from './services/outboundServices/outbound-call-reallocation.service';
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
 
@@ -155,6 +156,7 @@ import { NotificationsDialogComponent } from './notifications-dialog/notificatio
 import { EditNotificationsComponent } from './edit-notifications/edit-notifications.component';
 import { TrainingResourcesComponent } from './training-resources/training-resources.component';
 import { CoAlternateNumberComponent } from './co-referral-services/co-alternate-number/co-alternate-number.component';
+import { ReallocateCallsComponent } from './reallocate-calls/reallocate-calls.component';
 // import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
 
 
@@ -182,7 +184,8 @@ import { CoAlternateNumberComponent } from './co-referral-services/co-alternate-
     FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent,
     NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent,
     CallStatisticsComponent,
-    CoAlternateNumberComponent
+    CoAlternateNumberComponent,
+    ReallocateCallsComponent
 
   ],
   imports: [
@@ -267,7 +270,7 @@ import { CoAlternateNumberComponent } from './co-referral-services/co-alternate-
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
-    CommunicationService, OutboundService, ListnerService, ReloadService, {
+    CommunicationService, OutboundService, ListnerService, OutboundReAllocationService, ReloadService, {
       provide: InterceptedHttp,
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, LoaderService]

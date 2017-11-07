@@ -1,0 +1,13 @@
+.highlightTrBg {
+    background: #f5f5f5;
+}
+.form-group {
+    margin-bottom: 25px;
+}
+.md-small {
+    width: 20px;
+    height: 25px;
+    padding: 0px;
+    font-size: 12px;
+    line-height: 20px;
+}

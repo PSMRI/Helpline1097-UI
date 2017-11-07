@@ -33,9 +33,12 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   allocateForm: FormGroup;
   // @ViewChild('allocateForm') allocateForm: NgForm;
   @Output() outboundCount: EventEmitter<any> = new EventEmitter<any>();
+  @Input() filterAgent: any = '';
+  @Input() reallocationFlag: boolean = false;
+  @Output() refreshScreen: EventEmitter<any> = new EventEmitter<any>();
   initialCount: number;
   @ViewChild('allocateRef') input: ElementRef;
-
+  selectedLanguage: any;
 
   constructor(
     private _OCAService: OutboundCallAllocationService,
@@ -91,9 +94,33 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         console.log('reading...')
         this.users = resProviderData;
         console.log('users: ', this.users);
+        console.log("selected Agent",this.filterAgent);
+        if(this.filterAgent!=''){
+          this.users = this.users.filter((obj)=>{
+            return (obj.firstName+" "+obj.lastName)!=this.filterAgent.agentName;
+          })
+          console.log("filtered List",this.users);
+        }
       }
       );
 
+  }
+
+  getAgentsbyLanguageName(roleID: any, languageName){
+    this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID, languageName)
+      .subscribe(resProviderData => {
+        console.log('reading...')
+        this.users = resProviderData;
+        console.log('users: ', this.users);
+        console.log("selected Agent",this.filterAgent);
+        if(this.filterAgent!=''){
+          this.users = this.users.filter((obj)=>{
+            return (obj.firstName+" "+obj.lastName)!=this.filterAgent.agentName;
+          })
+          console.log("filtered List",this.users);
+        }
+      }
+    );
   }
 
   ngOnChanges() {
@@ -104,6 +131,13 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this.allocateForm.patchValue({
       userID: []
     });
+    if(this.reallocationFlag){
+      console.log("reallocationFlag",this.reallocationFlag);
+      this.selectedLanguage = this.filterAgent.languageName;
+      this.allocateForm.controls['roleID'].setValue(this.filterAgent.roleID);
+      this.providerServiceMapID = this.saved_data.current_service.serviceID;
+      this.getAgentsbyLanguageName(this.filterAgent.roleID, this.filterAgent.languageName);
+    }
   }
 
   onCreate(val: any) {
@@ -123,6 +157,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
           obj['language'] = this.outboundCallRequests.language.languageName;
         }
         this.outboundCount.emit(obj);
+        this.refreshScreen.emit();
         // this.getUnallocateCall(this.providerServiceMapID);
       },
       (error) => {
@@ -132,6 +167,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
 
   OnSelectChange() {
     let outboundlistCount = this.allocateForm.get('outboundCallRequests').value;
+    console.log(outboundlistCount);
     let tempValue = Math.floor(outboundlistCount.length / this.allocateForm.value.userID.length);
     this.initialCount = tempValue;
     this.allocateForm.patchValue({
