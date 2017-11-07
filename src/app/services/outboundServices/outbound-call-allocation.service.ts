@@ -47,12 +47,15 @@ export class OutboundCallAllocationService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getAgentsbyRoleID(providerServiceMapID: number, roleID?: number) {
+    getAgentsbyRoleID(providerServiceMapID: number, roleID?: number, languageName?: any) {
         let userArray = [];
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
         if (roleID) {
             body['RoleID'] = roleID;
+        }
+        if (languageName) {
+            body['languageName'] = languageName;
         }
         userArray.push(body);
         return this._http.post(this._geturl, body, this.options)

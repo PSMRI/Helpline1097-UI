@@ -37,6 +37,9 @@
                           <li style="cursor: pointer" (click)='show("12")'>
                             <a>Outbound Call List</a>
                           </li>
+                          <li style="cursor: pointer" (click)='show("13")'>
+                            <a>Outbound Call Re-Allocation</a>
+                          </li>
                           <li style="cursor: pointer" (click)='show("5")'>
                             <a>Call Auditing</a>
                           </li>
@@ -89,6 +92,7 @@
                 <app-supervisor-calltype-reports *ngSwitchCase="9"></app-supervisor-calltype-reports>
                 <app-knowledge-management *ngSwitchCase="10"></app-knowledge-management>
                 <app-outbound-search-records *ngSwitchCase="12"></app-outbound-search-records>
+                <app-reallocate-calls *ngSwitchCase="13"></app-reallocate-calls>
               </div>
             </div>
           </div>
