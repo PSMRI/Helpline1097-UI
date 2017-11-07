@@ -252,24 +252,24 @@ export class InnerpageComponent implements OnInit {
       console.log(response);
       let transferObj = response.filter(function (item) {
         console.log(item.callGroupType);
-        return item.callGroupType.toLowerCase().toLowerCase() === 'transfer'
+        return item.callGroupType.toLowerCase().toLowerCase().trim().startsWith('transfer');
       });
       if (transferObj) {
         transferObj = transferObj[0].callTypes.filter(function (previousData) {
           console.log(previousData.callTypeDesc);
-          return previousData.callTypeDesc.toLowerCase() === 'transfer'
+          return previousData.callTypeDesc.toLowerCase().trim().startsWith('transfer');
         });
         if (transferObj) {
           this.validCallID = transferObj[0].callTypeID;
         } else {
           let validObj = response.filter(function (item) {
             console.log(item.callGroupType);
-            return item.callGroupType.toLowerCase() === 'valid'
+            return item.callGroupType.toLowerCase().trim().startsWith('valid');
           });
           if (validObj) {
             validObj = validObj[0].callTypes.filter(function (previousData) {
               console.log(previousData.callTypeDesc);
-              return previousData.callTypeDesc.toLowerCase() === 'valid'
+              return previousData.callTypeDesc.toLowerCase().trim().startsWith('valid');
             });
             if (validObj) {
               this.validCallID = validObj[0].callTypeID;
@@ -341,7 +341,7 @@ export class InnerpageComponent implements OnInit {
   closeCall(eventData, remarks) {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
-    requestObj['callTypeID'] = this.validCallID.toString();
+    requestObj['callTypeID'] = this.validCallID;
     requestObj['fitToBlock'] = 'false';
     requestObj['isFollowupRequired'] = false;
     requestObj['prefferedDateTime'] = undefined
