@@ -246,30 +246,29 @@ export class InnerpageComponent implements OnInit {
     });
   }
   getCallTypes(providerServiceMapID) {
-    debugger;
     const requestObject = { 'providerServiceMapID': providerServiceMapID };
     this._callServices.getCallTypes(requestObject).subscribe(response => {
       console.log(response);
       let transferObj = response.filter(function (item) {
         console.log(item.callGroupType);
-        return item.callGroupType.toLowerCase().toLowerCase().trim().startsWith('transfer');
+        return item.callGroupType.toLowerCase().toLowerCase() === 'transfer'
       });
       if (transferObj) {
         transferObj = transferObj[0].callTypes.filter(function (previousData) {
           console.log(previousData.callTypeDesc);
-          return previousData.callTypeDesc.toLowerCase().trim().startsWith('transfer');
+          return previousData.callTypeDesc.toLowerCase() === 'transfer'
         });
         if (transferObj) {
           this.validCallID = transferObj[0].callTypeID;
         } else {
           let validObj = response.filter(function (item) {
             console.log(item.callGroupType);
-            return item.callGroupType.toLowerCase().trim().startsWith('valid');
+            return item.callGroupType.toLowerCase() === 'valid'
           });
           if (validObj) {
             validObj = validObj[0].callTypes.filter(function (previousData) {
               console.log(previousData.callTypeDesc);
-              return previousData.callTypeDesc.toLowerCase().trim().startsWith('valid');
+              return previousData.callTypeDesc.toLowerCase() === 'valid'
             });
             if (validObj) {
               this.validCallID = validObj[0].callTypeID;
@@ -341,7 +340,7 @@ export class InnerpageComponent implements OnInit {
   closeCall(eventData, remarks) {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
-    requestObj['callTypeID'] = this.validCallID;
+    requestObj['callTypeID'] = this.validCallID.toString();
     requestObj['fitToBlock'] = 'false';
     requestObj['isFollowupRequired'] = false;
     requestObj['prefferedDateTime'] = undefined

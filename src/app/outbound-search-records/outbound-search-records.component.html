@@ -9,20 +9,21 @@
   <div class="row">
     <form #getOutboundForm="ngForm">
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" required #startDate="ngModel" ngModel [style.width]="'100%'"
-          name="filterStartDate"></md2-datepicker>
+        <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" required #startDate="ngModel" ngModel
+          [style.width]="'100%'" name="filterStartDate" [(ngModel)]="startOutboundDate"></md2-datepicker>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
         <md2-datepicker name="endDate" (keydown)="blockey($event)" placeholder="Valid Till" required [min]="startDate.value" #endDate="ngModel"
-          ngModel [style.width]="'100%'" name="filterEndDate"></md2-datepicker>
+          ngModel [style.width]="'100%'" name="filterEndDate" [(ngModel)]="endOutboundDate"></md2-datepicker>
         <br>
         <span class="error-text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
-          <md-select placeholder="Select Language" [style.width]="'100%'" #language="ngModel" ngModel name="preferredLanguageName">
-            <md-option> </md-option>
+          <md-select required placeholder="Select Language" [style.width]="'100%'" #language="ngModel" ngModel name="preferredLanguageName"
+            [(ngModel)]="preferredLanguageName">
+            <md-option value=undefined> All </md-option>
             <md-option *ngFor="let lang of languages" [value]="lang">
               {{lang.languageName}}
             </md-option>
@@ -33,7 +34,7 @@
         </md-input-container>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 m-t-10">
-        <button type="button" md-raised-button color="primary" [disabled]="startDate.invalid || endDate.invalid" (click)="getUnallocateCall(getOutboundForm.value)">Search</button>
+        <button type="button" md-raised-button color="primary" [disabled]="startDate.invalid || endDate.invalid || language.invalid" (click)="getUnallocateCall(getOutboundForm.value)">Search</button>
       </div>
     </form>
   </div>
@@ -42,12 +43,18 @@
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
       <!-- <h5>Mother Records</h5> -->
       <div class="table-responsive">
-        <table id="outbondListTable" class="table table-bordered">
+        <table id="outbondListTable" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Language Name</th>
+              <th>No.of Records</th>
+            </tr>
+          </thead>
           <tbody>
             <tr>
-              <th>All Records</th>
+              <th>{{selectedlang?  selectedlang : 'All'}}</th>
               <td>{{tot_unAllocatedCalls}}
-                <button type="button" (click)="allocateCalls(_unAllocatedCalls,startDate.value,endDate.value,language.value, $event)" md-raised-button
+                <button type="button" *ngIf="selectedlangflag" [disabled]="!(_unAllocatedCalls?.length)" (click)="allocateCalls(_unAllocatedCalls,startDate.value,endDate.value,preferredLanguageName, $event)" md-raised-button
                   color="primary" class="md-btn pull-right">Allocate</button>
               </td>
             </tr>
@@ -56,7 +63,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-      <p class="error_text pull-right"> Note: Default count of calls between today and next seven days </p>
+      <p class="error_text pull-right"> Note: To Allocate Record Please select any language </p>
     </div>
 
     <div class="row" *ngIf="showFlage">

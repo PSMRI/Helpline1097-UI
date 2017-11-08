@@ -89,38 +89,42 @@ export class OutboundAllocateRecordsComponent implements OnInit {
       );
   }
   getAgents(roleID: any) {
-    this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID)
+    let languageName;
+    if (this.outboundCallRequests.langauge) {
+      languageName = this.outboundCallRequests.langauge.langName;
+    }
+    this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID, languageName)
       .subscribe(resProviderData => {
         console.log('reading...')
         this.users = resProviderData;
         console.log('users: ', this.users);
-        console.log("selected Agent",this.filterAgent);
-        if(this.filterAgent!=''){
-          this.users = this.users.filter((obj)=>{
-            return (obj.firstName+" "+obj.lastName)!=this.filterAgent.agentName;
+        console.log("selected Agent", this.filterAgent);
+        if (this.filterAgent != '') {
+          this.users = this.users.filter((obj) => {
+            return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
           })
-          console.log("filtered List",this.users);
+          console.log("filtered List", this.users);
         }
       }
       );
 
   }
 
-  getAgentsbyLanguageName(roleID: any, languageName){
+  getAgentsbyLanguageName(roleID: any, languageName) {
     this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID, languageName)
       .subscribe(resProviderData => {
         console.log('reading...')
         this.users = resProviderData;
         console.log('users: ', this.users);
-        console.log("selected Agent",this.filterAgent);
-        if(this.filterAgent!=''){
-          this.users = this.users.filter((obj)=>{
-            return (obj.firstName+" "+obj.lastName)!=this.filterAgent.agentName;
+        console.log("selected Agent", this.filterAgent);
+        if (this.filterAgent != '') {
+          this.users = this.users.filter((obj) => {
+            return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
           })
-          console.log("filtered List",this.users);
+          console.log("filtered List", this.users);
         }
       }
-    );
+      );
   }
 
   ngOnChanges() {
@@ -131,8 +135,8 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this.allocateForm.patchValue({
       userID: []
     });
-    if(this.reallocationFlag){
-      console.log("reallocationFlag",this.reallocationFlag);
+    if (this.reallocationFlag) {
+      console.log('reallocationFlag', this.reallocationFlag);
       this.selectedLanguage = this.filterAgent.languageName;
       this.allocateForm.controls['roleID'].setValue(this.filterAgent.roleID);
       this.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -153,8 +157,8 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         }
         obj['providerServiceMapId'] = this.providerServiceMapID;
 
-        if (this.outboundCallRequests.language) {
-          obj['language'] = this.outboundCallRequests.language.languageName;
+        if (this.outboundCallRequests.langauge) {
+          obj['language'] = this.outboundCallRequests.langauge.langName;
         }
         this.outboundCount.emit(obj);
         this.refreshScreen.emit();
@@ -186,7 +190,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     endDate.setMinutes(59);
     endDate.setSeconds(59);
     this.getOutboundCall(serviceProviderMapId, startDate,
-      endDate, this.outboundCallRequests.language.languageName);
+      endDate, this.outboundCallRequests.language.langName);
   }
 }
 
