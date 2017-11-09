@@ -17,6 +17,7 @@ export class loginContentClass {
   password: any;
   loading = false;
   public loginResult: string;
+  dynamictype: any = 'password';
 
   constructor(public loginservice: loginService, public router: Router,
     public dataSettingService: dataService, private czentrixServices: CzentrixServices) { };
@@ -69,5 +70,13 @@ export class loginContentClass {
 
 
   }
+	showPWD() {
+		this.dynamictype = 'text';
+	}
+
+	hidePWD()
+	{
+		this.dynamictype = 'password';
+	} 
 
 }

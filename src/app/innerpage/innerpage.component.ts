@@ -353,7 +353,7 @@ export class InnerpageComponent implements OnInit {
 
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
-        this.remarksMessage.alert('Successfully Call Transfered');
+        this.remarksMessage.alert('Successfully Call Transffered');
         // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
         //   this.current_campaign = 'OUTBOUND';
         //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
