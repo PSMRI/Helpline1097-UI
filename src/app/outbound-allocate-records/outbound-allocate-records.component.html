@@ -1,7 +1,9 @@
-<form [formGroup]="allocateForm" novalidat *ngIf="afterAllocate">
+<form [formGroup]="allocateForm" novalidate *ngIf="afterAllocate">
   <div class="col-xs-12 col-sm-12">
     <h4 class="f-s-b m-b-20">Allocate Records</h4>
-    <span class="m-b-30 width100" *ngIf="reallocationFlag">Preferred Language: <strong>{{selectedLanguage}}</strong></span>
+    <span class="m-b-30 width100" *ngIf="reallocationFlag">Preferred Language:
+      <strong>{{selectedLanguage}}</strong>
+    </span>
     <div class="row">
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         <md-input-container class="hide_underline" [style.width]="'100%'">
@@ -17,6 +19,9 @@
           <md-select multiple [style.width]="'100%'" formControlName="userID" name="userID" (change)="OnSelectChange()" placeholder="Allocate To">
             <md-option *ngFor="let user of users" [value]="user.userID"> {{user.firstName+ " "+user.lastName}}</md-option>
           </md-select>
+          <md-hint *ngIf="showAgents">
+            <span class="error_text"> No Agents Available for this language</span>
+          </md-hint>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">

@@ -21,6 +21,7 @@ export class OutboundSearchRecordService {
 
     options = new RequestOptions({ headers: this.headers });
     private _outboundCalls: string = this._baseurl + 'call/outboundCallList';
+    private _outboundCallsCount: string = this._baseurl + 'call/outboundCallCount'
     private _allocateurl: string = this._baseurl + '';
     constructor(private _http: Http, private _config: ConfigService, private _httpInterceptor: InterceptedHttp) {
 
@@ -39,6 +40,20 @@ export class OutboundSearchRecordService {
             obj['preferredLanguageName'] = language;
         }
         return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleError);
+    }
+
+    getUnallocatedCallsCount(serviceID: any, startDate?: any, endDate?: any, language?: any, userID?: any) {
+        const obj = {};
+        if (userID) {
+            obj['providerServiceMapID'] = serviceID;
+            obj['assignedUserID'] = userID;
+        } else {
+            obj['providerServiceMapID'] = serviceID;
+            obj['filterStartDate'] = startDate;
+            obj['filterEndDate'] = endDate;
+            obj['preferredLanguageName'] = language;
+        }
+        return this._httpInterceptor.post(this._outboundCallsCount, obj).map(this.extractData).catch(this.handleError);
     }
     // getUnallocatedCalls(val: any) {
 

@@ -47,36 +47,34 @@ export class OutboundSearchRecordsComponent implements OnInit {
     this.endOutboundDate = new Date();
     this.endOutboundDate.setDate(this.endOutboundDate.getDate() + 7);
     //  this.endOutboundDate.setDate(this.startOutboundDate.getDate() + 7);
-    this.getOutboundCall(this.serviceProviderMapID, this.startOutboundDate, this.endOutboundDate);
+    this.getOutboundCallCount(this.serviceProviderMapID, this.startOutboundDate, this.endOutboundDate);
     this.getLanguages();
     this.showCount = false;
   }
   assignCount(data: any) {
-    this.getOutboundCall(data.providerServiceMapId, data.startDate, data.endDate, data.language);
+    this.getOutboundCallCount(data.providerServiceMapId, data.startDate, data.endDate, data.language);
     this.showCount = false;
   }
-  getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
-    this._OSRService.getUnallocatedCalls(serviceProviderMapID, startDate, endDate, language)
+  getOutboundCallCount(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
+    this._OSRService.getUnallocatedCallsCount(serviceProviderMapID, startDate, endDate, language)
       .subscribe(resProviderData => {
         this._unAllocatedCalls = resProviderData.data;
-        this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
+        // this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
         this.showCount = true;
         this.selectedlang = language;
       });
   }
-
-  allocateCalls(values: any, startDate: Date, endDate: Date, language: any, event) {
-
-    console.log('valuse: ' + values);
-    if (this.tot_unAllocatedCalls > 0) {
+  allocateCalls(startDate: Date, endDate: Date, language: any, event) {
+    // console.log('valuse: ' + values);
+    if (this._unAllocatedCalls.length > 0) {
       this.showFlage = true;
     }
     const outboundObj = {};
-    outboundObj['outboundList'] = values;
+    //  outboundObj['outboundList'] = values;
     outboundObj['startDate'] = startDate;
     outboundObj['endDate'] = endDate;
-    if (language) {
-      outboundObj['langauge'] = { languageID: language.languageID, langName: language.languageName };
+    if (language || language !== "") {
+      outboundObj['langaugeName'] = { langName: language };
     }
     this.records = outboundObj;
   }
@@ -100,11 +98,11 @@ export class OutboundSearchRecordsComponent implements OnInit {
     endDate.setMinutes(59);
     endDate.setSeconds(59);
     if (!values.preferredLanguageName || values.preferredLanguageName === 'undefined') {
-      this.getOutboundCall(this.serviceProviderMapID, startDate,
+      this.getOutboundCallCount(this.serviceProviderMapID, startDate,
         endDate);
       this.selectedlangflag = false;
     } else {
-      this.getOutboundCall(this.serviceProviderMapID, startDate,
+      this.getOutboundCallCount(this.serviceProviderMapID, startDate,
         endDate, values.preferredLanguageName.languageName);
       this.selectedlangflag = true;
     }

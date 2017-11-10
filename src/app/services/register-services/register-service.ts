@@ -15,7 +15,7 @@ export class RegisterService {
   _helplineURL = this._config.get1097BaseURL();
   _createbeneficiaryurl = this._baseUrl + 'beneficiary/create/';
   _getrelationshipurl = this._baseUrl + 'get/beneficiaryRelationship/';
-  _getuserdata = this._baseUrl + 'beneficiary/searchUser/';
+  _getuserdata = this._baseUrl + 'beneficiary/searchUserByID/';
   _getuserdatabyno = this._baseUrl + 'beneficiary/searchUserByPhone/';
   _startCall = this._baseUrl + 'call/startCall/';
   _updatebeneficiaryincall = this._baseUrl + 'call/updatebeneficiaryincall';
@@ -53,13 +53,14 @@ export class RegisterService {
   }
 
   retrieveRegHistory(registrationNo: any) {
-    return this.httpInterceptor.get(this._getuserdata + registrationNo)
+    const obj = { 'beneficiaryID': registrationNo };
+    return this.httpInterceptor.post(this._getuserdata, obj)
       .map(this.extractData)
       .catch(this.customhandleError);
   }
 
   retrieveRegHistoryByPhoneNo(phoneNo: any) {
-    
+
     let data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000 };
     return this.httpInterceptor.post(this._getuserdatabyno, data)
       .map(this.extractData)

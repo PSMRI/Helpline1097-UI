@@ -11,3 +11,7 @@
     padding: 0 0;
     margin: 0;
   }
+  .scroll-container{
+    max-height: 190px;
+    overflow-y: scroll;
+}

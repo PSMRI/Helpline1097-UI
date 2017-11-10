@@ -31,6 +31,8 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   @Input() outboundCallRequests: any = [];
   afterAllocate: boolean = true;
   allocateForm: FormGroup;
+  showAgents:boolean=false;
+  //  @ViewChild('allocateForm') outboundForm;
   // @ViewChild('allocateForm') allocateForm: NgForm;
   @Output() outboundCount: EventEmitter<any> = new EventEmitter<any>();
   @Input() filterAgent: any = '';
@@ -84,26 +86,28 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         this.roles = resProviderData.filter(function (item) {
           return item.RoleName.toLowerCase() !== 'supervisor' && item.RoleName.toLowerCase() !== 'provideradmin';
         })
-        console.log('roles: ', this.roles);
       }
       );
   }
   getAgents(roleID: any) {
     let languageName;
-    if (this.outboundCallRequests.langauge) {
-      languageName = this.outboundCallRequests.langauge.langName;
+    if (this.outboundCallRequests.langaugeName) {
+      languageName = this.outboundCallRequests.langaugeName.langName;
     }
     this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID, languageName)
       .subscribe(resProviderData => {
         console.log('reading...')
-        this.users = resProviderData;
-        console.log('users: ', this.users);
-        console.log("selected Agent", this.filterAgent);
+        if (resProviderData.length > 0) {
+          this.users = resProviderData;
+          this.showAgents=false;
+        } else {
+          this.showAgents=true;
+        }
+
         if (this.filterAgent != '') {
           this.users = this.users.filter((obj) => {
             return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
           })
-          console.log("filtered List", this.users);
         }
       }
       );
@@ -113,30 +117,31 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   getAgentsbyLanguageName(roleID: any, languageName) {
     this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID, languageName)
       .subscribe(resProviderData => {
-        console.log('reading...')
         this.users = resProviderData;
-        console.log('users: ', this.users);
-        console.log("selected Agent", this.filterAgent);
         if (this.filterAgent != '') {
           this.users = this.users.filter((obj) => {
             return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
           })
-          console.log("filtered List", this.users);
         }
       }
       );
   }
 
   ngOnChanges() {
+    this.providerServiceMapID = this.saved_data.current_service.serviceID;
+    this.allocateForm.reset();
+    this.users=[];
+    this.showAgents=false;
+    this.getUnallocateCall(this.providerServiceMapID);
     //  this.initialCount = this.outboundCallRequests.length;
-    this.allocateForm.controls['outboundCallRequests'].setValue(this.outboundCallRequests.outboundList);
+
+    // this.allocateForm.controls['outboundCallRequests'].setValue(this.outboundCallRequests.outboundList);
     // this.outboundCallRequests = this.outboundCallRequests;
     this.afterAllocate = true;
     this.allocateForm.patchValue({
       userID: []
     });
     if (this.reallocationFlag) {
-      console.log('reallocationFlag', this.reallocationFlag);
       this.selectedLanguage = this.filterAgent.languageName;
       this.allocateForm.controls['roleID'].setValue(this.filterAgent.roleID);
       this.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -157,9 +162,9 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         }
         obj['providerServiceMapId'] = this.providerServiceMapID;
 
-        if (this.outboundCallRequests.langauge) {
-          obj['language'] = this.outboundCallRequests.langauge.langName;
-        }
+        // if (this.outboundCallRequests.langaugeName) {
+        //   obj['language'] = this.outboundCallRequests.langaugeName.langName;
+        // }
         this.outboundCount.emit(obj);
         this.refreshScreen.emit();
         // this.getUnallocateCall(this.providerServiceMapID);
@@ -171,7 +176,6 @@ export class OutboundAllocateRecordsComponent implements OnInit {
 
   OnSelectChange() {
     let outboundlistCount = this.allocateForm.get('outboundCallRequests').value;
-    console.log(outboundlistCount);
     let tempValue = Math.floor(outboundlistCount.length / this.allocateForm.value.userID.length);
     this.initialCount = tempValue;
     this.allocateForm.patchValue({
@@ -190,7 +194,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     endDate.setMinutes(59);
     endDate.setSeconds(59);
     this.getOutboundCall(serviceProviderMapId, startDate,
-      endDate, this.outboundCallRequests.language.langName);
+      endDate, this.outboundCallRequests.langaugeName.langName);
   }
 }
 

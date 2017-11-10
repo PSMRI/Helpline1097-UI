@@ -544,10 +544,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   retrieveRegHistory(reg_no: any) {
-    const res = this._util.retrieveRegHistory(reg_no)
-      .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
-        this.alertMaessage.alert(err.status);
-      });
+    if (!reg_no || reg_no === '') {
+      this.reloadCall();
+    } else {
+      const res = this._util.retrieveRegHistory(reg_no)
+        .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
+          this.alertMaessage.alert(err.status);
+        });
+    }
+
 
   }
 
