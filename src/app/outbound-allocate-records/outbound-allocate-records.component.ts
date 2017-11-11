@@ -31,7 +31,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   @Input() outboundCallRequests: any = [];
   afterAllocate: boolean = true;
   allocateForm: FormGroup;
-  showAgents:boolean=false;
+  showAgents: boolean = false;
   //  @ViewChild('allocateForm') outboundForm;
   // @ViewChild('allocateForm') allocateForm: NgForm;
   @Output() outboundCount: EventEmitter<any> = new EventEmitter<any>();
@@ -62,8 +62,8 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     //  this.getOutboundCall(this.providerServiceMapID);
   }
 
-  getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any) {
-    this._OSRService.getUnallocatedCalls(serviceProviderMapID, startDate, endDate, language)
+  getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any, userID?: any) {
+    this._OSRService.getUnallocatedCalls(serviceProviderMapID, startDate, endDate, language, userID)
       .subscribe(resProviderData => {
         this.initialCount = resProviderData.data.length;
         this.allocateForm.controls['outboundCallRequests'].setValue(resProviderData.data);
@@ -99,9 +99,9 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         console.log('reading...')
         if (resProviderData.length > 0) {
           this.users = resProviderData;
-          this.showAgents=false;
+          this.showAgents = false;
         } else {
-          this.showAgents=true;
+          this.showAgents = true;
         }
 
         if (this.filterAgent != '') {
@@ -130,8 +130,8 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   ngOnChanges() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.allocateForm.reset();
-    this.users=[];
-    this.showAgents=false;
+    this.users = [];
+    this.showAgents = false;
     this.getUnallocateCall(this.providerServiceMapID);
     //  this.initialCount = this.outboundCallRequests.length;
 
@@ -194,7 +194,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     endDate.setMinutes(59);
     endDate.setSeconds(59);
     this.getOutboundCall(serviceProviderMapId, startDate,
-      endDate, this.outboundCallRequests.langaugeName.langName);
+      endDate, this.outboundCallRequests.langaugeName.langName, this.outboundCallRequests.assignedUserID);
   }
 }
 
