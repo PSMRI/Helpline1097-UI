@@ -30,6 +30,7 @@ export class dataService {
 	loginIP: any;
 	loginKey: any;
 	outBoundCallID: any;
+	isCallDisconnected: boolean = false;
 };
 
 

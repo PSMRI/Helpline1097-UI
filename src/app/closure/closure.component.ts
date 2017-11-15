@@ -51,6 +51,7 @@ export class ClosureComponent implements OnInit
   language: any;
   languages: any = [];
   preferredLanguageName: any;
+  isCallDisconnected: boolean = false;
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
@@ -82,6 +83,7 @@ export class ClosureComponent implements OnInit
     } else {
       this.ipAddress = this.saved_data.loginIP;
     }
+    this.isCallDisconnected = this.saved_data.isCallDisconnected;
     this.getLanguages();
   }
 
@@ -115,7 +117,8 @@ export class ClosureComponent implements OnInit
     })
   }
   getCallSubType(callType: any) {
-
+    // Below variable is used to disable save and continue when call is already disconnected.
+    this.isCallDisconnected = this.saved_data.isCallDisconnected;
     this.callSubTypes = this.callTypeObj.filter(function (item) {
       return item.callGroupType === callType;
     }).map(function (previousData, item) {

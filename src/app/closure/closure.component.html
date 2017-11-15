@@ -106,7 +106,8 @@
       <button md-raised-button color="primary" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid"
         class="font-regular mar-right" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentlanguage.closure?.submitClose}}</button>
       <button *ngIf="current_campaign.toUpperCase() !== 'OUTBOUND'" md-raised-button color="primary" type="submit" name="save"
-        value="submitContinue" [disabled]="callType.invalid || subCallType.invalid" class="font-regular" (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentlanguage.closure?.submitContinue}}</button>
+        value="submitContinue" [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid " class="font-regular"
+        (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentlanguage.closure?.submitContinue}}</button>
     </div>
     <!-- </div> -->
   </form>
