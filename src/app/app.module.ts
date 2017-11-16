@@ -157,6 +157,7 @@ import { EditNotificationsComponent } from './edit-notifications/edit-notificati
 import { TrainingResourcesComponent } from './training-resources/training-resources.component';
 import { CoAlternateNumberComponent } from './co-referral-services/co-alternate-number/co-alternate-number.component';
 import { ReallocateCallsComponent } from './reallocate-calls/reallocate-calls.component';
+import { SupervisorCampaignStatusComponent } from './supervisor-campaign-status/supervisor-campaign-status.component';
 // import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
 
 
@@ -185,7 +186,8 @@ import { ReallocateCallsComponent } from './reallocate-calls/reallocate-calls.co
     NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent,
     CallStatisticsComponent,
     CoAlternateNumberComponent,
-    ReallocateCallsComponent
+    ReallocateCallsComponent,
+    SupervisorCampaignStatusComponent
 
   ],
   imports: [

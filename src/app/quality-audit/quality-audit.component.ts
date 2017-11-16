@@ -17,13 +17,13 @@ export class QualityAuditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.qualityAuditURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='
-      + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
-    this.qualityAuditURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.qualityAuditURL);
-    console.log('reportsURL: ' + this.qualityAuditURL);
-    // let url = this.configService.getTelephonyServerURL() + "adminui.php?voice_logger";
-    // console.log("url = " + url);
-    // this.qualityAuditURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    // this.qualityAuditURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='
+    //   + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
+    // this.qualityAuditURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.qualityAuditURL);
+    // console.log('reportsURL: ' + this.qualityAuditURL);
+    let url = this.configService.getTelephonyServerURL() + "adminui.php?voice_logger";
+    console.log("url = " + url);
+    this.qualityAuditURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   showSearchPanel: boolean = true;

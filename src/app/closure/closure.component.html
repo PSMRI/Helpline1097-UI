@@ -44,7 +44,7 @@
       </div>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 m-t-3" *ngIf="isFollowUp">
         <md-input-container style="width: 100%">
-          <input mdInput placeholder="{{currentlanguage.closure?.follow_up_reason}}" name="requestedFor" [(ngModel)]="requestedFor">
+          <input mdInput placeholder="{{currentlanguage.closure?.follow_up_reason}}" name="requestedFor" required [(ngModel)]="requestedFor">
         </md-input-container>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 m-t-3" *ngIf="isFollowUp">
@@ -103,10 +103,10 @@
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-right">
-      <button md-raised-button color="primary" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid"
+      <button md-raised-button color="primary" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid || Form.invalid"
         class="font-regular mar-right" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentlanguage.closure?.submitClose}}</button>
       <button *ngIf="current_campaign.toUpperCase() !== 'OUTBOUND'" md-raised-button color="primary" type="submit" name="save"
-        value="submitContinue" [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid " class="font-regular"
+        value="submitContinue" [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid || Form.invalid" class="font-regular"
         (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentlanguage.closure?.submitContinue}}</button>
     </div>
     <!-- </div> -->
