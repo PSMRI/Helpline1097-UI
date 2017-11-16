@@ -15,18 +15,21 @@ export class FeedbackStatusComponent implements OnInit {
   public feedBackResponses: any;
   public isCollapsedResponse = false;
   totalRecord;
+  consolidatedRequests: any;
   constructor(public dialogRef: MdDialogRef<FeedbackStatusComponent>,
     @Inject(MD_DIALOG_DATA) public feedbackStatusData: any, private renderer: Renderer) { }
 
   ngOnInit() {
     this.isCollapsedResponse = true;
     const feedbackStatusData = this.feedbackStatusData;
+    let dataLength = feedbackStatusData.length;
     console.log('Feed back data is', feedbackStatusData);
-    this.feedBackRequests = this.feedbackStatusData[0].feedbackRequests;
+    this.feedBackRequests = this.feedbackStatusData[dataLength - 1].feedbackRequests;
     console.log('Feed back request data', this.feedBackRequests);
-    this.feedBackResponses = this.feedbackStatusData[0].feedbackResponses;
+    this.feedBackResponses = this.feedbackStatusData[dataLength - 1].feedbackResponses;
     console.log('feed back response data', this.feedBackResponses);
     this.totalRecord = this.feedBackRequests.length;
+    this.consolidatedRequests = this.feedbackStatusData[dataLength - 1].consolidatedRequests;
 
   }
   showResponse(data: any) {
@@ -35,6 +38,14 @@ export class FeedbackStatusComponent implements OnInit {
     console.log('Tr data is', this.trChild.nativeElement.parent);
     // this.renderer.setElementAttribute(this.trChild.nativeElement, 'collapse', 'isCollapsedResponse');
   }
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
 
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
 
 }

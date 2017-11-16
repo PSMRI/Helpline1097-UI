@@ -279,7 +279,8 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.modalArray = this.modalArray.map(function (data) {
       return {
         'feedbackRequests': data.feedbackRequests,
-        'feedbackResponses': data.feedbackResponses
+        'feedbackResponses': data.feedbackResponses,
+        'consolidatedRequests': data.consolidatedRequests,
       }
     })
     const dialogRef = this.dialog.open(FeedbackStatusComponent, {
