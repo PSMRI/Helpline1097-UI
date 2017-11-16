@@ -38,6 +38,8 @@ export class supervisorFeedback implements OnInit {
   public feedBackResponses: any;
   public isCollapsedResponse = false;
   public beneficiaryID = undefined;
+  consolidatedRequests: any;
+  feedbackStatusName: any;
   totalRecord;
   maxDate: Date;
   editFeedBack: boolean = false;
@@ -158,16 +160,16 @@ export class supervisorFeedback implements OnInit {
     console.log('SPData' + JSON.stringify(bodyString));
     // bodyString.feedbackStatus = undefined;
     // bodyString.emailStatus = undefined;
-
     if (this.action == 'edit') {
+      bodyString['feedbackRequestID'] = undefined;
       this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary, bodyString);
-
     }
     // if(this.action == 'edit')
     // this._feedbackservice.updateFeedback( bodyString )
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
     if (this.action == 'update') {
+      bodyString['feedbackResponseID'] = undefined;
       this._feedbackservice.updateResponce(bodyString)
         .subscribe((resfeedbackData) => {
           this.alertMessage.alert('Successfully Updated');
@@ -231,6 +233,7 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackTypeName);
     this.feedbackForm.controls.feedbackStatusName.setValue(feedback.feedbackStatusName);
+    this.feedbackStatusName = feedback.feedbackStatusName;
     this.feedbackForm.controls.emailStatusName.setValue(feedback.emailStatusName);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
@@ -265,7 +268,9 @@ export class supervisorFeedback implements OnInit {
     //   });
     this.feedBackRequestsResponse = feedback.feedbackRequests;
     this.feedBackResponses = feedback.feedbackResponses;
-
+    this.consolidatedRequests = feedback.consolidatedRequests;
+    let requestsLength = feedback.feedbackRequests.length();
+    let responsesLength = feedback.feedbackResponses.length();
     /*
      end
    */
@@ -319,6 +324,7 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackTypeName);
     this.feedbackForm.controls.feedbackStatusName.setValue(feedback.feedbackStatusName);
+    this.feedbackStatusName = feedback.feedbackStatusName;
     this.feedbackForm.controls.emailStatusName.setValue(feedback.emailStatusName);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
@@ -344,6 +350,7 @@ export class supervisorFeedback implements OnInit {
    */
     this.feedBackRequestsResponse = feedback.feedbackRequests;
     this.feedBackResponses = feedback.feedbackResponses;
+    this.consolidatedRequests = feedback.consolidatedRequests;
 
     /*
       end
