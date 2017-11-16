@@ -28,7 +28,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   allocateNo: any;
   roles: any = [];
   providerServiceMapID: number;
-  @Input() outboundCallRequests: any = [];
+  @Input() outboundCallRequests: any;
   afterAllocate: boolean = true;
   allocateForm: FormGroup;
   showAgents: boolean = false;
@@ -132,7 +132,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this.allocateForm.reset();
     this.users = [];
     this.showAgents = false;
-    this.getUnallocateCall(this.providerServiceMapID);
+    this.getUnallocateCall(this.providerServiceMapID,this.outboundCallRequests);
     //  this.initialCount = this.outboundCallRequests.length;
 
     // this.allocateForm.controls['outboundCallRequests'].setValue(this.outboundCallRequests.outboundList);
@@ -183,18 +183,34 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     });
 
   }
-  getUnallocateCall(serviceProviderMapId) {
+  // getUnallocateCall(serviceProviderMapId) {
+  //   // tslint:disable-next-line:max-line-length
+  //   let startDate: Date = new Date(this.outboundCallRequests.startDate);
+  //   startDate.setHours(0);
+  //   startDate.setMinutes(0);
+  //   startDate.setSeconds(0);
+  //   let endDate: Date = new Date(this.outboundCallRequests.endDate);
+  //   endDate.setHours(23);
+  //   endDate.setMinutes(59);
+  //   endDate.setSeconds(59);
+  //   let startDate:Date;
+  //   let endDate:Date;
+  //   this.getOutboundCall(serviceProviderMapId, startDate,
+  //     endDate, this.filterAgent.languageName, this.filterAgent.assignedUserID);
+  // }
+  getUnallocateCall(serviceProviderMapId,value) {
     // tslint:disable-next-line:max-line-length
-    let startDate: Date = new Date(this.outboundCallRequests.startDate);
+console.log(value,"value");
+    let startDate: Date = new Date(value.startDate);
     startDate.setHours(0);
     startDate.setMinutes(0);
     startDate.setSeconds(0);
-    let endDate: Date = new Date(this.outboundCallRequests.endDate);
+    let endDate: Date = new Date(value.endDate);
     endDate.setHours(23);
     endDate.setMinutes(59);
     endDate.setSeconds(59);
     this.getOutboundCall(serviceProviderMapId, startDate,
-      endDate, this.outboundCallRequests.langaugeName.langName, this.outboundCallRequests.assignedUserID);
+      endDate, value.langaugeName.langName, value.assignedUserID);
   }
 }
 

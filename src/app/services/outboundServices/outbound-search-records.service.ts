@@ -33,6 +33,7 @@ export class OutboundSearchRecordService {
         if (userID) {
             obj['providerServiceMapID'] = serviceID;
             obj['assignedUserID'] = userID;
+            obj['preferredLanguageName'] = language;
         } else {
             obj['providerServiceMapID'] = serviceID;
             obj['filterStartDate'] = startDate;
