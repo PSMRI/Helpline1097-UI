@@ -281,6 +281,7 @@ export class CoFeedbackServicesComponent implements OnInit {
         'feedbackRequests': data.feedbackRequests,
         'feedbackResponses': data.feedbackResponses,
         'consolidatedRequests': data.consolidatedRequests,
+        'feedbackStatusName': data.feedbackStatusName
       }
     })
     const dialogRef = this.dialog.open(FeedbackStatusComponent, {

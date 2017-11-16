@@ -16,6 +16,7 @@ export class FeedbackStatusComponent implements OnInit {
   public isCollapsedResponse = false;
   totalRecord;
   consolidatedRequests: any;
+  feedbackStatusName: any;
   constructor(public dialogRef: MdDialogRef<FeedbackStatusComponent>,
     @Inject(MD_DIALOG_DATA) public feedbackStatusData: any, private renderer: Renderer) { }
 
@@ -30,6 +31,7 @@ export class FeedbackStatusComponent implements OnInit {
     console.log('feed back response data', this.feedBackResponses);
     this.totalRecord = this.feedBackRequests.length;
     this.consolidatedRequests = this.feedbackStatusData[dataLength - 1].consolidatedRequests;
+    this.feedbackStatusName = this.feedbackStatusData[dataLength - 1].feedbackStatusName;
 
   }
   showResponse(data: any) {
