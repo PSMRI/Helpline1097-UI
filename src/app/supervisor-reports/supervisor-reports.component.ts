@@ -18,13 +18,13 @@ export class SupervisorReportsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.reportsURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='
-      + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
-    this.reportsURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.reportsURL);
-    console.log('reportsURL: ' + this.reportsURL);
-    // let url = this.configService.getTelephonyServerURL() + "adminui.php?reportUI";
-    // console.log("url = " + url);
-    // this.reportsURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    // this.reportsURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='
+    //   + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
+    // this.reportsURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.reportsURL);
+    // console.log('reportsURL: ' + this.reportsURL);
+    let url = this.configService.getTelephonyServerURL() + "adminui.php?reportUI";
+    console.log("url = " + url);
+    this.reportsURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
 }

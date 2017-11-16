@@ -46,6 +46,9 @@
                           <li style="cursor: pointer" (click)='show("1")'>
                             <a>Feedback Tracking</a>
                           </li>
+                          <li style="cursor: pointer" (click)='show("14")'>
+                            <a>Campaign Status</a>
+                          </li>
                         </ul>
                       </li>
                       <li class="dropdown">
@@ -93,6 +96,7 @@
                 <app-knowledge-management *ngSwitchCase="10"></app-knowledge-management>
                 <app-outbound-search-records *ngSwitchCase="12"></app-outbound-search-records>
                 <app-reallocate-calls *ngSwitchCase="13"></app-reallocate-calls>
+                <app-supervisor-campaign-status *ngSwitchCase="14"></app-supervisor-campaign-status>
               </div>
             </div>
           </div>
@@ -100,4 +104,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div [hidden]="true">
+  <iframe [src]="ssoURL" width="100%" height="700px"></iframe>
+
 </div>

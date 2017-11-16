@@ -17,14 +17,14 @@ export class AgentStatusComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.agentStatusURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='
-      + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
-    this.agentStatusURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.agentStatusURL);
-    console.log('reportsURL: ' + this.agentStatusURL);
-    // //this.agentStatusURL = "http://10.201.13.17/adminui.php?agentStatus";
-    // let url = this.configService.getTelephonyServerURL() + "adminui.php?agentStatus";
-    // console.log( "url = " + url );
-    // this.agentStatusURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
+    // this.agentStatusURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='
+    //   + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
+    // this.agentStatusURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.agentStatusURL);
+    // console.log('reportsURL: ' + this.agentStatusURL);
+    // this.agentStatusURL = "http://10.201.13.17/adminui.php?agentStatus";
+    let url = this.configService.getTelephonyServerURL() + "adminui.php?agentStatus";
+    console.log( "url = " + url );
+    this.agentStatusURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
   }
 
 }
