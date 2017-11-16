@@ -25,15 +25,17 @@ export class OutboundReAllocationService{
     options = new RequestOptions({ headers: this.headers });
     private _geturl: string = this._baseurl + 'user/getUsersByProviderID';
     private _getRolesURL: string = this._baseurl + "user/getRolesByProviderID";
-    private _getReallocationDataURL: string = this._baseurl+"call/outboundCallList";
+    private _getReallocationDataURL: string = this._baseurl+"call/outboundCallCount";
+    private _getoutboundCallListURL: string = this._baseurl+"call/outboundCallList";
+
     private moveToBinURL: string = this._baseurl + "call/resetOutboundCall";
 
-    getAgents ( providerServiceMapID: number, roleID: any, languageName )
+    getAgents ( providerServiceMapID: number, roleID: any)
     {
         let body = {};
         body[ "providerServiceMapID" ] = providerServiceMapID;
         body["RoleID"] = roleID;
-        body["languageName"] = languageName;
+        // body["languageName"] = languageName;
         return this._http.post( this._geturl, body, this.options )
             .map( this.extractData )
             .catch( this.handleError );
@@ -51,6 +53,12 @@ export class OutboundReAllocationService{
             .catch( this.handleError ); 
     }
 
+    getOutboundCallList(data){
+       return this._http.post( this._getoutboundCallListURL, data, this.options )
+            .map( this.extractDataSuccess )
+            .catch( this.handleError ); 
+    }
+
     moveToBin(data){
        return this._http.post( this.moveToBinURL, data, this.options )
             .map( this.extractData )
@@ -59,7 +67,6 @@ export class OutboundReAllocationService{
 
     private extractData ( response: Response )
     {
-
         if ( response.json().data )
         {
             return response.json().data;
@@ -68,6 +75,13 @@ export class OutboundReAllocationService{
             return response.json();
         }
     };
+
+    private extractDataSuccess(response:Response)
+    {
+       
+        console.log("service me original",response.json().data);
+        return response.json().data;
+    }
 
     private handleError ( error: Response | any )
     {

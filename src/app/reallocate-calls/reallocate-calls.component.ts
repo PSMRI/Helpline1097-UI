@@ -5,6 +5,8 @@ import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { CallServices } from '../services/callservices/callservice.service'
 
+declare var jQuery:any;
+
 @Component({
   selector: 'app-reallocate-calls',
   templateUrl: './reallocate-calls.component.html',
@@ -28,9 +30,18 @@ export class ReallocateCallsComponent implements OnInit {
   languages = [];
   searchLanguage: any;
 
+  startDatee:Date;
+  endDatee:Date;
+
+  startMinDate:Date;
+  endMinDate:Date;
+
+  a:any=[];
+
   constructor(private OCRService: OutboundReAllocationService,
-    private getCommonData: dataService, private alertService: ConfirmationDialogsService, private _callServices: CallServices
-  ) { }
+              private getCommonData: dataService, private alertService: ConfirmationDialogsService,
+              private _callServices: CallServices
+              ) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.getCommonData.current_service.serviceID;
@@ -44,14 +55,36 @@ export class ReallocateCallsComponent implements OnInit {
       });
       console.log("roles:", JSON.stringify(this.roles));
     })
+
+
+    // this.startMinDate=new Date();
+    // this.startDatee=new Date();
+
+    // this.endMinDate=new Date();
+    // this.endMinDate.setDate(this.endMinDate.getDate()+7);
+    // this.endDatee=this.endMinDate;
+
   }
 
-  getAgents(roleID: any, languageObj) {
-    this.OCRService.getAgents(this.providerServiceMapID, roleID, languageObj.languageName)
-      .subscribe((response) => {
-        this.users = response;
-        console.log("users: " + JSON.stringify(this.users));
-      })
+  updateMinValue(d)
+  {
+
+    console.log("date updated",d);
+    this.endMinDate.setDate(d.getDate()+7);
+
+    this.endDatee =new Date(this.endMinDate);
+    
+    console.log("end min date",this.endMinDate,"end Date",this.endDatee);
+
+
+  }
+
+  getAgents(roleID: any) {
+    this.OCRService.getAgents(this.providerServiceMapID, roleID)
+    .subscribe((response) => {
+      this.users = response;
+      console.log("users: " + JSON.stringify(this.users));
+    })
     this.reallocationForm.form.patchValue({
       userID: []
     });
@@ -70,11 +103,11 @@ export class ReallocateCallsComponent implements OnInit {
     this.showFlag = false;
     console.log(this.searchAgent, "searchAgent");
     this.agentName = this.searchAgent.firstName + " " + this.searchAgent.lastName;
-    console.log(this.reallocationForm.value);
+    console.log(this.reallocationForm.value,"FORM VALUE");
     this.postData = {
       "providerServiceMapID": this.providerServiceMapID,
-      "assignedUserID": this.reallocationForm.value.agentName.userID,
-      "preferredLanguageName": this.reallocationForm.value.preferredLanguage.languageName
+      "assignedUserID": this.reallocationForm.value.agentName.userID
+      // "preferredLanguageName": this.reallocationForm.value.preferredLanguage.languageName
     };
     if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
       this.postData["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
@@ -85,27 +118,28 @@ export class ReallocateCallsComponent implements OnInit {
     console.log(JSON.stringify(this.postData));
     this.onAgentSelected = false;
     this.OCRService.getReallocationCalls(this.postData)
-      .subscribe((resProviderData) => {
-        console.log(resProviderData);
-        this.totalAgentRecords = resProviderData;
-        if (this.totalAgentRecords.length == 0) {
-          this.alertService.alert("No Records available");
-        }
-        else {
-          this.onAgentSelected = true;
-        }
-      },
-      (error) => {
-        console.log(error);
-      });
+    .subscribe((resProviderData) => {
+      console.log(resProviderData,"in component reallocate-calls, post successful response");
+      this.totalAgentRecords = resProviderData;
+      if (this.totalAgentRecords.length == 0) {
+        this.alertService.alert("No Records available");
+      }
+      else {
+        this.onAgentSelected = true;
+      }
+    },
+    (error) => {
+      console.log(error);
+    });
   }
 
   reallocationDone() {
     this.showFlag = false;
     //refreshing reallocation screen
     this.OCRService.getReallocationCalls(this.postData)
-      .subscribe((resProviderData) => {
+    .subscribe((resProviderData) => {
         // console.log(resProviderData);
+        // this.alertService.alert("Moved to Bin Successfully");
         this.totalAgentRecords = resProviderData;
       },
       (error) => {
@@ -113,31 +147,80 @@ export class ReallocateCallsComponent implements OnInit {
       });
   }
 
-  moveToBin(agentName, values, event) {
-    // console.log("move to bin api followed by refresh logic");
-    var tempArray = [];
-    for (var i = 0; i < values.length; i++) {
-      tempArray.push(values[i].outboundCallReqID);
+  moveToBin(language, event) {
+
+    let values=[];
+
+    let reqObj={
+      "providerServiceMapID":this.providerServiceMapID,
+      "assignedUserID":this.reallocationForm.value.agentName.userID,
+      "preferredLanguageName":language
     }
-    console.log(JSON.stringify(tempArray));
-    this.OCRService.moveToBin({
-      "outboundCallReqIDs": tempArray
-    }).subscribe((response) => {
-      console.log(response);
+
+    if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
+      reqObj["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    }
+    if (this.reallocationForm.value.endDate != '' && this.reallocationForm.value.endDate != null) {
+      reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    }
+
+    this.OCRService.getOutboundCallList(reqObj).subscribe(response=>{
+      console.log("OUTBOUND CALL LIST",response);
+      values=response;
+
+      // console.log("move to bin api followed by refresh logic");
+      var tempArray = [];
+      for (var i = 0; i < values.length; i++) {
+        tempArray.push(values[i].outboundCallReqID);
+      }
+      console.log(JSON.stringify(tempArray));
+      this.OCRService.moveToBin({
+        "outboundCallReqIDs": tempArray
+      }).subscribe((response) => {
+        console.log(response);
+        this.alertService.alert("Moved to Bin Successfully");
       // refreshing after moving to bin
       this.reallocationDone();
     },
-      (error) => {
-        console.log(error);
-      })
+    (error) => {
+      console.log(error);
+    })
+    });
+
+    
   }
 
-  allocateCalls(agentName, values: any, event) {
+  allocateCalls(language: any, event) {
+    
     this.selectedAgent = {
-      "agentName": agentName,
+      "agentName": this.agentName,
       "roleID": this.search_role,
-      "languageName": this.searchLanguage.languageName
+      "languageName": language,
+      "assignedUserID":this.reallocationForm.value.agentName.userID
     }
+
+    let reqObj={
+      "providerServiceMapID":this.providerServiceMapID,
+      "assignedUserID":this.reallocationForm.value.agentName.userID,
+      "preferredLanguageName":language
+    }
+
+    if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
+      reqObj["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    }
+    if (this.reallocationForm.value.endDate != '' && this.reallocationForm.value.endDate != null) {
+      reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    }
+
+    this.OCRService.getOutboundCallList(reqObj).subscribe(response =>this.success(response));
+      this.records = {
+        'outboundList': this.a
+      }
+
+      this.records['langaugeName'] = { "langName": language };
+      this.records['assignedUserID'] = this.reallocationForm.value.agentName.userID;
+    
+
     console.log("selectedAgent", this.selectedAgent);
     if (event.target.className == "mat-button-wrapper") {
       for (var i = 0; i < event.target.parentNode.parentNode.parentNode.parentNode.children.length; i++) {
@@ -152,11 +235,13 @@ export class ReallocateCallsComponent implements OnInit {
       event.target.parentNode.parentNode.className = "highlightTrBg";
     }
     this.showFlag = true;
-    this.records = {
-      'outboundList': values
-    }
-    this.records['langaugeName'] = { "langName": this.searchLanguage.languageName };
-    this.records['assignedUserID'] = this.reallocationForm.value.agentName.userID;
+    
+    
+  }
+  success(res) {
+    
+    debugger;
+    this.a=res;
   }
 
 }
