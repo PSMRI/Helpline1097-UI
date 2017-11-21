@@ -18,6 +18,11 @@ export class NotificationService {
     getSupervisorNotificationsURL = this.configService.getCommonBaseURL() + "notification/getSupervisorNotification";
     updateNotificationURL = this.configService.getCommonBaseURL() + "notification/updateNotification";
 
+    getLanguagesURL=this.configService.getCommonBaseURL()+"beneficiary/getRegistrationData";
+    getOfficesURL=this.configService.getAdminBaseUrl()+"m/location/getAlllocation";
+    getUsersByProviderID_URL=this.configService.getCommonBaseURL()+"user/getUsersByProviderID";
+    getServiceProviderID_url = this.configService.getAdminBaseUrl() + "getServiceProviderid";
+
     headers = new Headers(
         { 'Content-Type': 'application/json' }
     );
@@ -28,6 +33,32 @@ export class NotificationService {
 
     ngOnInit() {
 
+    }
+
+    getUsersByProviderID(psmID)
+    {
+        return this.http.post(this.getUsersByProviderID_URL,{"providerServiceMapID":psmID})
+        .map((response: Response)=> response.json().data);
+    }
+
+    getLanguages()
+    {
+        return this.http.post(this.getLanguagesURL,{})
+        .map((response: Response)=> response.json().data.m_language);
+    }
+
+    getOffices(serviceProviderID,stateID,serviceID)
+    {
+        console.log(serviceProviderID,stateID,serviceID);
+        return this.http.post(this.getOfficesURL,{"serviceProviderID":serviceProviderID,
+                                                  "stateID":stateID,
+                                                  "serviceID":serviceID})
+        .map((response: Response)=> response.json().data);
+    }
+
+    getServiceProviderID(providerServiceMapID) {
+        return this.http.post(this.getServiceProviderID_url, { 'providerServiceMapID': providerServiceMapID })
+            .map((response: Response)=> response.json().data);
     }
 
     getNotificationTypes(providerServiceMapID) {
