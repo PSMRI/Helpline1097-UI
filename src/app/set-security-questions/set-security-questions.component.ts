@@ -28,6 +28,9 @@ export class SetSecurityQuestionsComponent implements OnInit {
   handleSuccess(response) {
     this.questions = response;
     this.replica_questions=response;
+
+    this.Q_array_one=response.data;
+    this.Q_array_two=response.data;
     console.log(this.questions);
   }
   handleError(response) {
@@ -113,7 +116,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
       }
       else
       {
-        this.alertService.alert("This question is mapped at this position already");
+        // this.alertService.alert("This question is mapped at this position already");
       }
       console.log("else block, selected questions",this.selectedQuestions);
       console.log("position else block",position);
@@ -126,26 +129,34 @@ export class SetSecurityQuestionsComponent implements OnInit {
   {
 
     /*reset the 2nd and 3rd question and answer fields */
-    this.question2="";
+   /* this.question2="";
     this.answer2="";
 
     this.question3="";
     this.answer3="";
-
+    */
 
     /*filter the primary array based on the selection and feed resultant to Q_array_one*/
-    this.Q_array_one=this.filter_function(questionID,this.replica_questions);
+    this.Q_array_one=this.filter_function(questionID,this.Q_array_one);
+    this.Q_array_two=this.filter_function(questionID,this.Q_array_two);
     // this.questions=this.Q_array_one;
   }
 
   filterArrayTwo(questionID)
   {
     /*reset the 3rd question and answer field */
-    this.question3="";
+    /*this.question3="";
     this.answer3="";
-
+    */
     /*filter the Q_array_one based on the selection and feed resultant to Q_array_two*/
-    this.Q_array_two=this.filter_function(questionID,this.Q_array_one);
+    this.Q_array_two=this.filter_function(questionID,this.Q_array_two);
+    this.questions=this.filter_function(questionID,this.questions);
+  }
+
+  filterArrayThree(questionID)
+  {
+    this.Q_array_one=this.filter_function(questionID,this.Q_array_one);
+    this.questions=this.filter_function(questionID,this.questions);
   }
 
   filter_function(questionID,array)

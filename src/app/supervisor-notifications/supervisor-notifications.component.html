@@ -36,9 +36,9 @@
       </md-select>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 m-t-15" *ngIf="show==2">
-      <md-select placeholder="Users" [multiple]="true" name="Users" ngModel [style.width]="'100%'" required>
+      <md-select placeholder="Users" name="Users" ngModel [style.width]="'100%'" required>
         <md-option *ngFor="let item of users" [value]="item.userID">
-          {{ item.firstName+" "+item.middleName+" "+item.lastName }}
+          {{ (item.firstName?item.firstName:"")+" "+(item.middleName?item.middleName:"")+" "+(item.lastName?item.lastName:"") }}
         </md-option>
       </md-select>
     </div>

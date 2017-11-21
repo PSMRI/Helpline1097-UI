@@ -26,6 +26,11 @@ export class NotificationsDialogComponent implements OnInit {
   file: any;
   fileContent: any;
 
+  serviceID:any;
+  stateID:any;
+  serviceProviderID:any;
+
+
   minDate: Date;
   @ViewChild('notificationForm') notificationForm: NgForm;
 
@@ -40,6 +45,80 @@ export class NotificationsDialogComponent implements OnInit {
     // this.mindate.toJSON();
     // // this.mindate.toISOString();
 
+    this.notificationService.getServiceProviderID(this.providerServiceMapID).subscribe(response=>this.getProviderIDSuccess(response));
+
+
+  }
+
+  getProviderIDSuccess(response)
+  {
+    this.serviceProviderID=response.serviceProviderID;
+    console.log(this.serviceProviderID,"SP_ID");
+    this.serviceID=response.serviceID;
+    this.stateID=response.stateID;
+    // invoke these all
+    this.getAllLanguages();
+    this.getOffices(this.serviceProviderID,this.stateID,this.serviceID);
+    this.getUsers(this.providerServiceMapID);
+  }
+
+   getAllLanguages()
+  {
+    this.notificationService.getLanguages().subscribe(response=>this.getLanguageSuccessHandeler(response));
+  }
+
+  languages:any=[];
+  users:any=[];
+  offices:any=[];
+  getLanguageSuccessHandeler(response)
+  {
+    console.log(response,"Languages");
+    this.languages=response;
+
+  }
+
+  getOffices(providerID,stateID,serviceID)
+  {
+    this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response));
+  }
+
+  getOfficesSuccessHandeler(response)
+  {
+    console.log(response,"offices");
+    this.offices=response;
+  }
+
+  getUsers(psmID)
+  {
+    this.notificationService.getUsersByProviderID(psmID).subscribe(response=>this.getUsersSuccessHandeler(response));
+  }
+
+  getUsersSuccessHandeler(response)
+  {
+    console.log(response,"users");
+    this.users=response;
+  }
+
+
+  show:any=0;
+  checkNotificationType(notification_type)
+  {
+    if(notification_type.toUpperCase()==="Language Message".toUpperCase())
+    {
+      this.show=1;
+    }
+    else if(notification_type.toUpperCase()==="User Message".toUpperCase()||notification_type.toUpperCase()==="User Ratings".toUpperCase())
+    {
+      this.show=2;
+    }
+    else if(notification_type.toUpperCase()==="Location Message".toUpperCase())
+    {
+      this.show=3;
+    }
+    else
+    {
+      this.show=0;
+    }
   }
 
   onFileUpload(event) {

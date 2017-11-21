@@ -181,10 +181,39 @@ export class SupervisorNotificationsComponent implements OnInit {
     console.log(this.showNotificationForm.value);
     // console.log(new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z");
     this.onConfigSubmit = true;
+
+    let roleIDs=undefined;
+    if(this.show===0)
+    {
+    roleIDs=(this.showNotificationForm.value.roles == "") ? this.roleIDs : this.showNotificationForm.value.roles;
+    }
+
+    let languageIDs=undefined;
+    if(this.show===1)
+    {
+    languageIDs=(this.showNotificationForm.value.Languages == "") ? languageIDs : this.showNotificationForm.value.Languages;
+    }
+
+    let workingLocationIDs=undefined;
+    if(this.show===3)
+    {
+    workingLocationIDs=(this.showNotificationForm.value.Offices == "") ? workingLocationIDs : this.showNotificationForm.value.Offices;
+    }
+
+    let userIDs=undefined;
+    if(this.show===2)
+    {
+    userIDs=[(this.showNotificationForm.value.Users == "") ? userIDs : this.showNotificationForm.value.Users];
+    }
+
+
     this.notificationPostData = {
       "providerServiceMapID": this.providerServiceMapID,
       "notificationTypeID": this.showNotificationForm.value.notificationType,
-      "roleIDs": (this.showNotificationForm.value.roles == "") ? this.roleIDs : this.showNotificationForm.value.roles,
+      "roleIDs":roleIDs,
+      "userIDs":userIDs,
+      "workingLocationIDs":workingLocationIDs,
+      "languageIDs":languageIDs,
       "validStartDate": new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z",
       "validEndDate": new Date((this.showNotificationForm.value.endDate) - 1 * (this.showNotificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z"
     };
