@@ -26,6 +26,12 @@ export class NotificationsDialogComponent implements OnInit {
   file: any;
   fileContent: any;
 
+  serviceID:any;
+  stateID:any;
+  serviceProviderID:any;
+   request_array:any=[];
+
+
   minDate: Date;
   @ViewChild('notificationForm') notificationForm: NgForm;
 
@@ -40,6 +46,80 @@ export class NotificationsDialogComponent implements OnInit {
     // this.mindate.toJSON();
     // // this.mindate.toISOString();
 
+    this.notificationService.getServiceProviderID(this.providerServiceMapID).subscribe(response=>this.getProviderIDSuccess(response));
+
+
+  }
+
+  getProviderIDSuccess(response)
+  {
+    this.serviceProviderID=response.serviceProviderID;
+    console.log(this.serviceProviderID,"SP_ID");
+    this.serviceID=response.serviceID;
+    this.stateID=response.stateID;
+    // invoke these all
+    this.getAllLanguages();
+    this.getOffices(this.serviceProviderID,this.stateID,this.serviceID);
+    this.getUsers(this.providerServiceMapID);
+  }
+
+  getAllLanguages()
+  {
+    this.notificationService.getLanguages().subscribe(response=>this.getLanguageSuccessHandeler(response));
+  }
+
+  languages:any=[];
+  users:any=[];
+  offices:any=[];
+  getLanguageSuccessHandeler(response)
+  {
+    console.log(response,"Languages");
+    this.languages=response;
+
+  }
+
+  getOffices(providerID,stateID,serviceID)
+  {
+    this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response));
+  }
+
+  getOfficesSuccessHandeler(response)
+  {
+    console.log(response,"offices");
+    this.offices=response;
+  }
+
+  getUsers(psmID)
+  {
+    this.notificationService.getUsersByProviderID(psmID).subscribe(response=>this.getUsersSuccessHandeler(response));
+  }
+
+  getUsersSuccessHandeler(response)
+  {
+    console.log(response,"users");
+    this.users=response;
+  }
+
+
+  show:any=0;
+  checkNotificationType(notification_type)
+  {
+    if(notification_type.toUpperCase()==="Language Message".toUpperCase())
+    {
+      this.show=1;
+    }
+    else if(notification_type.toUpperCase()==="User Message".toUpperCase()||notification_type.toUpperCase()==="User Ratings".toUpperCase())
+    {
+      this.show=2;
+    }
+    else if(notification_type.toUpperCase()==="Location Message".toUpperCase())
+    {
+      this.show=3;
+    }
+    else
+    {
+      this.show=0;
+    }
   }
 
   onFileUpload(event) {
@@ -95,7 +175,9 @@ export class NotificationsDialogComponent implements OnInit {
     endDate.setSeconds(59);
     endDate.setMilliseconds(0);
     // endDate = new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60 * 1000);
-    const promise = new Promise((resolve, reject) => {
+
+
+    /*const promise = new Promise((resolve, reject) => {
       if (this.notificationForm.value.roles == "") {
         var postData = [{
           "providerServiceMapID": this.providerServiceMapID,
@@ -156,16 +238,199 @@ export class NotificationsDialogComponent implements OnInit {
         this.dialogRef.close(data);
       },
       (err) => { console.log(err); }
-      );
+      );*/
 
-  }
-  blockey(e: any) {
-    if (e.keyCode === 9) {
-      return true;
-    } else {
-      return false;
+      this.request_array=[];
+
+      let kmFileManager = undefined;
+      if(this.file!=undefined)
+      {
+        kmFileManager={
+          "fileName": (this.file != undefined) ? this.file.name : '',
+          "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+          "providerServiceMapID": this.providerServiceMapID,
+          "userID": this.userId,
+          "validFrom": startDate,
+          "validUpto": endDate,
+          "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+          "createdBy": this.createdBy
+        }
+      }
+
+      let defaultObj={
+            "providerServiceMapID": this.providerServiceMapID,
+            "notificationTypeID": this.notificationForm.value.notificationType,
+            "createdBy": this.createdBy,
+            "notification": this.notificationForm.value.notificationSubject,
+            "notificationDesc": this.notificationForm.value.notificationMessage,
+            "validFrom": startDate,
+            "validTill": endDate,
+            "kmFileManager":kmFileManager
+          }
+
+      let roleIDs=undefined;
+      if(this.show===0)
+      {
+        roleIDs=(this.notificationForm.value.roles == "") ? roleIDs : this.notificationForm.value.roles;
+        if(roleIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['roleID']=roleIDs;
+          // obj={
+          //   "providerServiceMapID": this.providerServiceMapID,
+          //   "notificationTypeID": this.notificationForm.value.notificationType,
+          //   "roleID": roleIDs,
+          //   "createdBy": this.createdBy,
+          //   "notification": this.notificationForm.value.notificationSubject,
+          //   "notificationDesc": this.notificationForm.value.notificationMessage,
+          //   "validFrom": startDate,
+          //   "validTill": endDate,
+          //   "kmFileManager":kmFileManager
+          // }
+          // if(this.file!=undefined)
+          // {
+          //   obj['kmFileManager']={
+          //     "fileName": (this.file != undefined) ? this.file.name : '',
+          //     "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+          //     "providerServiceMapID": this.providerServiceMapID,
+          //     "userID": this.userId,
+          //     "validFrom": startDate,
+          //     "validUpto": endDate,
+          //     "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+          //     "createdBy": this.createdBy
+          //   }
+          // }
+          this.request_array.push(obj);
+        }
+        
+        if(roleIDs.length>0)
+        {
+          
+          for (var i = 0; i < roleIDs.length; i++)
+          {
+            var obj = Object.assign({},defaultObj);
+            obj['roleID']=roleIDs[i];
+            // obj={
+            //   "providerServiceMapID": this.providerServiceMapID,
+            //   "notificationTypeID": this.notificationForm.value.notificationType,
+            //   "roleID": roleIDs[i],
+            //   "createdBy": this.createdBy,
+            //   "notification": this.notificationForm.value.notificationSubject,
+            //   "notificationDesc": this.notificationForm.value.notificationMessage,
+            //   "validFrom": startDate,
+            //   "validTill": endDate,
+            //   "kmFileManager": kmFileManager
+            // }
+
+            // if(this.file!=undefined)
+            // {
+            //   obj['kmFileManager']={
+            //     "fileName": (this.file != undefined) ? this.file.name : '',
+            //     "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+            //     "providerServiceMapID": this.providerServiceMapID,
+            //     "userID": this.userId,
+            //     "validFrom": startDate,
+            //     "validUpto": endDate,
+            //     "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+            //     "createdBy": this.createdBy
+            //   }
+            // }
+            this.request_array.push(obj);
+          }
+        }
+      }
+
+      let languageIDs=undefined;
+      if(this.show===1)
+      {
+        languageIDs=(this.notificationForm.value.Languages == "") ? languageIDs : this.notificationForm.value.Languages;
+
+        if(languageIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['languageID']=languageIDs;
+          
+          this.request_array.push(obj);
+        }
+        
+        if(languageIDs.length>0)
+        {
+         
+          for (var i = 0; i < languageIDs.length; i++)
+          {
+            var obj = Object.assign({},defaultObj);
+            obj['languageID']=languageIDs[i];
+            
+            this.request_array.push(obj);
+          }
+        }
+      }
+
+      let workingLocationIDs=undefined;
+      if(this.show===3)
+      {
+        workingLocationIDs=(this.notificationForm.value.Offices == "") ? workingLocationIDs : this.notificationForm.value.Offices;
+
+        if(workingLocationIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['workingLocationID']=workingLocationIDs;
+          
+          this.request_array.push(obj);
+        }
+        
+        if(workingLocationIDs.length>0)
+        {
+          for (var i = 0; i < workingLocationIDs.length; i++)
+          {
+            var obj = Object.assign({},defaultObj);
+            obj['workingLocationID']=workingLocationIDs[i];
+            
+            this.request_array.push(obj);
+          }
+        }
+      }
+
+      let userIDs=undefined;
+      if(this.show===2)
+      {
+        userIDs=[(this.notificationForm.value.Users == "") ? userIDs : this.notificationForm.value.Users];
+
+        if(userIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['userID']=userIDs;
+          
+          this.request_array.push(obj);
+        }
+        
+        if(userIDs.length>0)
+        {
+         
+          for (var i = 0; i < userIDs.length; i++)
+          {
+            var obj = Object.assign({},defaultObj);
+            obj['userID']=userIDs[i];
+            
+            this.request_array.push(obj);
+          }
+        }
+      }
+
+
+      console.log("request array",this.request_array);
+      this.dialogRef.close(this.request_array);
+
+
     }
+
+    blockey(e: any) {
+      if (e.keyCode === 9) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+
   }
-
-
-}

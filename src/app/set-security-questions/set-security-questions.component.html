@@ -127,7 +127,7 @@
           </form>
           <form #form3="ngForm">
             <div class="col-xs-12 col-sm-12 m-t-25">
-              <md-select placeholder="Question 3" [disabled]="!form2.valid" [(ngModel)]="question3" name="question3" [style.width]="'100%'" required (blur)="updateQuestions(question3,2)">
+              <md-select placeholder="Question 3" [disabled]="!form2.valid" [(ngModel)]="question3" name="question3" [style.width]="'100%'" required (blur)="updateQuestions(question3,2)" (change)="filterArrayThree(question3)">
                 <md-option *ngFor="let question of Q_array_two" [value]="question.QuestionID" >
                   {{question.Question}}
                 </md-option>

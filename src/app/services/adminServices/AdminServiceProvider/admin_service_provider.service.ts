@@ -15,7 +15,7 @@ export class SPService
         //  ,{'Access-Control-Allow-Methods': '*'}
     );
     options = new RequestOptions( { headers: this.headers } );
-    private _getAdminBaseURL = this.configService.getAdminBaseURL();
+    private _getAdminBaseURL = this.configService.getAdminBaseUrl();
     private _geturl: string = this._getAdminBaseURL + "getprovider";
     private _saveurl: string = this._getAdminBaseURL + "saveprovider";
     private _deleteurl: string = this._getAdminBaseURL + "Delete"

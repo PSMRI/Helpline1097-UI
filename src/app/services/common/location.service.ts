@@ -75,7 +75,7 @@ export class LocationService {
         //     'stateID': object.stateID, 'districtID': object.districtID,
         //     'districtBranchMappingID': object.districtBranchMappingID
         // };
-        return this._http.post(this._getInstituteListURL, {}, this.options)
+        return this._http.post(this._getInstituteListURL, object, this.options)
             .map(this.extractData)
             .catch(this.handleError);
     }

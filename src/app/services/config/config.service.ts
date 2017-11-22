@@ -18,6 +18,8 @@ export class ConfigService {
     private _telephonyServerURL: String = 'http://10.201.13.17/';
     private _localeString = 'en-in';
     private _loginUrl = 'http://10.152.3.99:8080/commonui-v1.0';
+    private adminBaseUrl: String = "http://10.152.3.99:8080/adminapi-v1.0/";
+
     // private _commonBaseURL: String = 'http://l-185000861.wipro.com:8080/commonapi-v1.0/';
     // private _helpline1097BaseURL: String = 'http://l-185000861.wipro.com:8080/1097api-v1.0/';
     // private _telephonyServerURL: String = 'http://10.201.13.17/';
@@ -42,8 +44,8 @@ export class ConfigService {
     getCommonLoginUrl() {
         return this._loginUrl;
     }
-    getAdminBaseURL() {
-        return '';
+    getAdminBaseUrl() {
+        return this.adminBaseUrl;
     }
 
     successHandeler(response) {

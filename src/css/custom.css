@@ -954,6 +954,12 @@ color:#545454;
   min-height: 100px;
 }
 
+.full-width {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
 .max-h-410 {
   min-height: 410px !important;
 }
