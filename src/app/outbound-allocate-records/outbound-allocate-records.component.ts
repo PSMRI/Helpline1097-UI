@@ -132,7 +132,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this.allocateForm.reset();
     this.users = [];
     this.showAgents = false;
-    this.getUnallocateCall(this.providerServiceMapID,this.outboundCallRequests);
+    this.getUnallocateCall(this.providerServiceMapID, this.outboundCallRequests);
     //  this.initialCount = this.outboundCallRequests.length;
 
     // this.allocateForm.controls['outboundCallRequests'].setValue(this.outboundCallRequests.outboundList);
@@ -153,7 +153,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this._OCAService.allocateCallsToAgenta(this.allocateForm.value)
       .subscribe(
       (response) => {
-        this.alertMessage.alert('Successfully Allocated');
+        this.alertMessage.alert('Successfully Allocated Call/s.');
         this.afterAllocate = false;
         let obj = {};
         if (this.outboundCallRequests.startDate) {
@@ -198,9 +198,9 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   //   this.getOutboundCall(serviceProviderMapId, startDate,
   //     endDate, this.filterAgent.languageName, this.filterAgent.assignedUserID);
   // }
-  getUnallocateCall(serviceProviderMapId,value) {
+  getUnallocateCall(serviceProviderMapId, value) {
     // tslint:disable-next-line:max-line-length
-console.log(value,"value");
+    console.log(value, "value");
     let startDate: Date = new Date(value.startDate);
     startDate.setHours(0);
     startDate.setMinutes(0);

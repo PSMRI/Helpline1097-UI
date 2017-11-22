@@ -16,18 +16,18 @@ declare let jQuery: any;
 export class SetSecurityQuestionsComponent implements OnInit {
 
   constructor(
-              public getUserData: dataService,
-              public http_calls: HttpServices,
-              public router: Router,
-              private configService: ConfigService,
-              private alertService:ConfirmationDialogsService
-              ) {
+    public getUserData: dataService,
+    public http_calls: HttpServices,
+    public router: Router,
+    private configService: ConfigService,
+    private alertService: ConfirmationDialogsService
+  ) {
 
   }
 
   handleSuccess(response) {
     this.questions = response;
-    this.replica_questions=response;
+    this.replica_questions = response;
     console.log(this.questions);
   }
   handleError(response) {
@@ -37,8 +37,8 @@ export class SetSecurityQuestionsComponent implements OnInit {
   ngOnInit() {
 
     this.http_calls.getData(this.configService.getCommonBaseURL() + "user/getsecurityquetions").subscribe(
-                                                                                                          (response: any) => this.handleSuccess(response),
-                                                                                                          (error: any) => this.handleError(error));
+      (response: any) => this.handleSuccess(response),
+      (error: any) => this.handleError(error));
 
   }
 
@@ -53,14 +53,13 @@ export class SetSecurityQuestionsComponent implements OnInit {
   }
 
 
-  dynamictype:any="password";
-  
+  dynamictype: any = "password";
+
   showPWD() {
     this.dynamictype = 'text';
   }
 
-  hidePWD()
-  {
+  hidePWD() {
     this.dynamictype = 'password';
   }
 
@@ -75,172 +74,161 @@ export class SetSecurityQuestionsComponent implements OnInit {
   answer3: any = '';
 
   questions: any = [];
-  replica_questions:any=[];
-  Q_array_one:any=[];
-  Q_array_two:any=[];
+  replica_questions: any = [];
+  Q_array_one: any = [];
+  Q_array_two: any = [];
 
   selectedQuestions: any = [];
 
-  updateQuestions(selectedques,position) {
-    console.log("position",position,"Selected Question",selectedques);
-    console.log("before if else block, selected questions",this.selectedQuestions);
+  updateQuestions(selectedques, position) {
+    console.log("position", position, "Selected Question", selectedques);
+    console.log("before if else block, selected questions", this.selectedQuestions);
 
     if (this.selectedQuestions.indexOf(selectedques) == -1) {
-      this.selectedQuestions[position]=selectedques;
-      if(position===0)
-      {
-        this.answer1="";
+      this.selectedQuestions[position] = selectedques;
+      if (position === 0) {
+        this.answer1 = "";
         // jQuery("#ans1").prop("disabled",false);
       }
-      if(position===1)
-      {
-        this.answer2="";
+      if (position === 1) {
+        this.answer2 = "";
         // jQuery("#ans2").prop("disabled",false);
       }
-      if(position===2)
-      {
-        this.answer3="";
+      if (position === 2) {
+        this.answer3 = "";
         // jQuery("#ans3").prop("disabled",false);
       }
 
-      console.log("if block, selected questions",this.selectedQuestions);
+      console.log("if block, selected questions", this.selectedQuestions);
 
     }
     else {
-      if(this.selectedQuestions.indexOf(selectedques) != position)
-      {
-        this.alertService.alert("This Question is already selected. Choose Unique Question");
+      if (this.selectedQuestions.indexOf(selectedques) != position) {
+        this.alertService.alert("This Question Is Already Selected. Choose Another Question.");
       }
-      else
-      {
+      else {
         this.alertService.alert("This question is mapped at this position already");
       }
-      console.log("else block, selected questions",this.selectedQuestions);
-      console.log("position else block",position);
-      
+      console.log("else block, selected questions", this.selectedQuestions);
+      console.log("position else block", position);
+
       // this.disableAnswerField(position);
     }
   }
 
-  filterArrayOne(questionID)
-  {
+  filterArrayOne(questionID) {
 
     /*reset the 2nd and 3rd question and answer fields */
-    this.question2="";
-    this.answer2="";
+    this.question2 = "";
+    this.answer2 = "";
 
-    this.question3="";
-    this.answer3="";
+    this.question3 = "";
+    this.answer3 = "";
 
 
     /*filter the primary array based on the selection and feed resultant to Q_array_one*/
-    this.Q_array_one=this.filter_function(questionID,this.replica_questions);
+    this.Q_array_one = this.filter_function(questionID, this.replica_questions);
     // this.questions=this.Q_array_one;
   }
 
-  filterArrayTwo(questionID)
-  {
+  filterArrayTwo(questionID) {
     /*reset the 3rd question and answer field */
-    this.question3="";
-    this.answer3="";
+    this.question3 = "";
+    this.answer3 = "";
 
     /*filter the Q_array_one based on the selection and feed resultant to Q_array_two*/
-    this.Q_array_two=this.filter_function(questionID,this.Q_array_one);
+    this.Q_array_two = this.filter_function(questionID, this.Q_array_one);
   }
 
-  filter_function(questionID,array)
-  {
-    let dummy_array=[];
-    for(let i=0;i<array.length;i++)
-    {
-      if(array[i].QuestionID===questionID){
-       continue;
-     }
-     else{
-      dummy_array.push(array[i]);
+  filter_function(questionID, array) {
+    let dummy_array = [];
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].QuestionID === questionID) {
+        continue;
+      }
+      else {
+        dummy_array.push(array[i]);
+      }
+    }
+    return dummy_array;
+  }
+
+  dataArray: any = [];
+
+  setSecurityQuestions() {
+    if (this.selectedQuestions.length == 3) {
+      this.dataArray = [
+        {
+          'userID': this.uid,
+          'questionID': this.question1,
+          'answers': this.answer1,
+          'mobileNumber': '1234567890',
+          'createdBy': this.uname
+        },
+        {
+          'userID': this.uid,
+          'questionID': this.question2,
+          'answers': this.answer2,
+          'mobileNumber': '1234567890',
+          'createdBy': this.uname
+        },
+        {
+          'userID': this.uid,
+          'questionID': this.question3,
+          'answers': this.answer3,
+          'mobileNumber': '1234567890',
+          'createdBy': this.uname
+        }];
+
+      console.log("Request Array", this.dataArray);
+      console.log("selected questions", this.selectedQuestions);
+
+      this.switch();
+    }
+    else {
+      this.alertService.alert("All 3 questions should be different. Please check your selected Questions");
     }
   }
-  return dummy_array;
-}
 
-dataArray: any = [];
 
-setSecurityQuestions() {
-  if (this.selectedQuestions.length == 3) 
-  {
-    this.dataArray = [
-    {
-      'userID': this.uid,
-      'questionID': this.question1,
-      'answers': this.answer1,
-      'mobileNumber': '1234567890',
-      'createdBy': this.uname
-    },
-    {
-      'userID': this.uid,
-      'questionID': this.question2,
-      'answers': this.answer2,
-      'mobileNumber': '1234567890',
-      'createdBy': this.uname
-    },
-    {
-      'userID': this.uid,
-      'questionID': this.question3,
-      'answers': this.answer3,
-      'mobileNumber': '1234567890',
-      'createdBy': this.uname
-    }];
 
-    console.log("Request Array",this.dataArray);
-    console.log("selected questions",this.selectedQuestions);                                                                                                                         
+  oldpwd: any;
+  newpwd: any;
+  confirmpwd: any;
 
-    this.switch();
-  } 
-  else 
-  {
-    this.alertService.alert("All 3 questions should be different. Please check your selected Questions");
+  updatePassword(new_pwd) {
+    if (new_pwd === this.confirmpwd) {
+      this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/saveUserSecurityQuesAns', this.dataArray)
+        .subscribe((response: any) => this.handleQuestionSaveSuccess(response, new_pwd),
+        (error: any) => this.handleQuestionSaveError(error));
+
+    }
+    else {
+      this.alertService.alert("Password doesn't match");
+    }
   }
-}
 
 
-
-oldpwd: any;
-newpwd: any;
-confirmpwd: any;
-
-updatePassword(new_pwd) {
-  if (new_pwd === this.confirmpwd) {
-    this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/saveUserSecurityQuesAns', this.dataArray)
-    .subscribe((response: any) => this.handleQuestionSaveSuccess(response,new_pwd),
-               (error: any) => this.handleQuestionSaveError(error));
+  handleQuestionSaveSuccess(response, new_pwd) {
+    console.log('saved questions', response);
+    this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/setForgetPassword',
+      { 'userName': this.uname, 'password': new_pwd })
+      .subscribe((response: any) => this.successCallback(response),
+      (error: any) => this.errorCallback(error));
 
   }
-  else {
-    this.alertService.alert("Password doesn't match");
+  handleQuestionSaveError(response) {
+    console.log('question save error', response);
   }
-}
 
+  successCallback(response) {
 
-handleQuestionSaveSuccess(response,new_pwd) {
-  console.log('saved questions', response);
-  this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/setForgetPassword',
-                           { 'userName': this.uname, 'password': new_pwd })
-  .subscribe((response: any) => this.successCallback(response),
-             (error: any) => this.errorCallback(error));
-
-}
-handleQuestionSaveError(response) {
-  console.log('question save error', response);
-}
-
-successCallback(response) {
-
-  console.log(response);
-  this.alertService.alert("Password changed Successfully");
-  this.router.navigate(['']);
-}
-errorCallback(response) {
-  console.log(response);
-}
+    console.log(response);
+    this.alertService.alert("Password changed Successfully");
+    this.router.navigate(['']);
+  }
+  errorCallback(response) {
+    console.log(response);
+  }
 
 }

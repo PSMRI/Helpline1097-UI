@@ -232,7 +232,7 @@ export class ClosureComponent implements OnInit
   }
 
   showAlert() {
-    this.message.alert('Call Closed Successfully');
+    this.message.alert('Call Closed Successfully.');
     // alert('Call closed Successful!!!!');
   }
   isFollow(e) {
@@ -276,7 +276,7 @@ export class ClosureComponent implements OnInit
   closeOutboundCall(btnType: any, values: any) {
     this._callServices.closeCall(values).subscribe((response) => {
       if (response) {
-        this.message.alert('Outbound Call Successfully Closed');
+        this.message.alert('Outbound Call Successfully Closed.');
         if (btnType === 'submitClose') {
           this.callClosed.emit(this.current_campaign);
         } else {

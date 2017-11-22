@@ -531,7 +531,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   showAlert() {
     this.BeneficaryForm.resetForm();
-    this.alertMaessage.alert('Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
+    this.alertMaessage.alert('Registration Successful. Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -753,7 +753,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   updateSuccessHandeler(response) {
     if (response) {
-      this.alertMaessage.alert('Successfully Updated');
+      this.alertMaessage.alert('Successfully Updated.');
       this.BeneficaryForm.resetForm();
       this.benUpdationResponse = response;
       // this.regHistoryList = [response];

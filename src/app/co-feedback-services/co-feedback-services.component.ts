@@ -140,8 +140,8 @@ export class CoFeedbackServicesComponent implements OnInit {
         this.setFeedbackHistoryByID(response)
         this.showTable();
       }, (err) => {
-        this.alertMessage.alert('Some Internal Error');
-        console.log('Error in fetching Data of FeedBack');
+        this.alertMessage.alert('Error In Fetching Previous Feedback. Please Try Again.');
+        console.log('Error in fetching Data of FeedBack' + err);
       });
 
 
@@ -242,7 +242,7 @@ export class CoFeedbackServicesComponent implements OnInit {
       }, (err) => {
         this.selected_doi = undefined;
         console.log('Error in Feedback', err);
-        this.alertMessage.alert('Internal Error');
+        this.alertMessage.alert('Error In Saving Feedback. Please Try Again.');
       });
   }
   // showtable(response, obj) {

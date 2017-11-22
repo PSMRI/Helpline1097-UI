@@ -228,11 +228,11 @@ export class CoReferralServicesComponent implements OnInit {
 
     dialogReff.afterClosed().subscribe(result => {
       if (result) {
-        this.message.alert('Message Sent to Alternate Number');
+        this.message.alert('Message Sent to Alternate Number.');
       }
       else {
         let primaryNumber = this.saved_data.callerNumber;
-        this.message.alert('Message Sent to Primary Number');
+        this.message.alert('Message Sent to Primary Number.');
       }
     });
   }

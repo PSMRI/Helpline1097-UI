@@ -236,7 +236,7 @@ export class helpline1097CoComponent implements OnInit {
         this.outboundEvent(event, cZentrixIp)
       },
       (error) => {
-        this.dialogService.alert('Some Error while calling Czentrix');
+        this.dialogService.alert('Some Error while calling Czentrix.');
       });
   }
 
@@ -253,11 +253,11 @@ export class helpline1097CoComponent implements OnInit {
           this.basicrouter.navigate(['/InnerpageComponent']);
           this.outBoundService.sendOutboundData(event);
         } else {
-          this.dialogService.alert('Czentrix user not logged In');
+          this.dialogService.alert('Czentrix user not logged In.');
         }
       },
       (error) => {
-        this.dialogService.alert('Call Not Intiating Please try again!!!');
+        this.dialogService.alert('Call Not Intiating Please try again.');
       });
   }
   public ReloadBenOutbound(callType) {
