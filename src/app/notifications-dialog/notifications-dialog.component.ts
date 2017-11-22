@@ -29,6 +29,7 @@ export class NotificationsDialogComponent implements OnInit {
   serviceID:any;
   stateID:any;
   serviceProviderID:any;
+   request_array:any=[];
 
 
   minDate: Date;
@@ -62,7 +63,7 @@ export class NotificationsDialogComponent implements OnInit {
     this.getUsers(this.providerServiceMapID);
   }
 
-   getAllLanguages()
+  getAllLanguages()
   {
     this.notificationService.getLanguages().subscribe(response=>this.getLanguageSuccessHandeler(response));
   }
@@ -174,7 +175,9 @@ export class NotificationsDialogComponent implements OnInit {
     endDate.setSeconds(59);
     endDate.setMilliseconds(0);
     // endDate = new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60 * 1000);
-    const promise = new Promise((resolve, reject) => {
+
+
+    /*const promise = new Promise((resolve, reject) => {
       if (this.notificationForm.value.roles == "") {
         var postData = [{
           "providerServiceMapID": this.providerServiceMapID,
@@ -235,16 +238,199 @@ export class NotificationsDialogComponent implements OnInit {
         this.dialogRef.close(data);
       },
       (err) => { console.log(err); }
-      );
+      );*/
 
-  }
-  blockey(e: any) {
-    if (e.keyCode === 9) {
-      return true;
-    } else {
-      return false;
+      this.request_array=[];
+
+      let kmFileManager = undefined;
+      if(this.file!=undefined)
+      {
+        kmFileManager={
+          "fileName": (this.file != undefined) ? this.file.name : '',
+          "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+          "providerServiceMapID": this.providerServiceMapID,
+          "userID": this.userId,
+          "validFrom": startDate,
+          "validUpto": endDate,
+          "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+          "createdBy": this.createdBy
+        }
+      }
+
+      let defaultObj={
+            "providerServiceMapID": this.providerServiceMapID,
+            "notificationTypeID": this.notificationForm.value.notificationType,
+            "createdBy": this.createdBy,
+            "notification": this.notificationForm.value.notificationSubject,
+            "notificationDesc": this.notificationForm.value.notificationMessage,
+            "validFrom": startDate,
+            "validTill": endDate,
+            "kmFileManager":kmFileManager
+          }
+
+      let roleIDs=undefined;
+      if(this.show===0)
+      {
+        roleIDs=(this.notificationForm.value.roles == "") ? roleIDs : this.notificationForm.value.roles;
+        if(roleIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['roleID']=roleIDs;
+          // obj={
+          //   "providerServiceMapID": this.providerServiceMapID,
+          //   "notificationTypeID": this.notificationForm.value.notificationType,
+          //   "roleID": roleIDs,
+          //   "createdBy": this.createdBy,
+          //   "notification": this.notificationForm.value.notificationSubject,
+          //   "notificationDesc": this.notificationForm.value.notificationMessage,
+          //   "validFrom": startDate,
+          //   "validTill": endDate,
+          //   "kmFileManager":kmFileManager
+          // }
+          // if(this.file!=undefined)
+          // {
+          //   obj['kmFileManager']={
+          //     "fileName": (this.file != undefined) ? this.file.name : '',
+          //     "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+          //     "providerServiceMapID": this.providerServiceMapID,
+          //     "userID": this.userId,
+          //     "validFrom": startDate,
+          //     "validUpto": endDate,
+          //     "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+          //     "createdBy": this.createdBy
+          //   }
+          // }
+          this.request_array.push(obj);
+        }
+        
+        if(roleIDs.length>0)
+        {
+          
+          for (var i = 0; i < roleIDs.length; i++)
+          {
+            var obj = Object.assign({},defaultObj);
+            obj['roleID']=roleIDs[i];
+            // obj={
+            //   "providerServiceMapID": this.providerServiceMapID,
+            //   "notificationTypeID": this.notificationForm.value.notificationType,
+            //   "roleID": roleIDs[i],
+            //   "createdBy": this.createdBy,
+            //   "notification": this.notificationForm.value.notificationSubject,
+            //   "notificationDesc": this.notificationForm.value.notificationMessage,
+            //   "validFrom": startDate,
+            //   "validTill": endDate,
+            //   "kmFileManager": kmFileManager
+            // }
+
+            // if(this.file!=undefined)
+            // {
+            //   obj['kmFileManager']={
+            //     "fileName": (this.file != undefined) ? this.file.name : '',
+            //     "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+            //     "providerServiceMapID": this.providerServiceMapID,
+            //     "userID": this.userId,
+            //     "validFrom": startDate,
+            //     "validUpto": endDate,
+            //     "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+            //     "createdBy": this.createdBy
+            //   }
+            // }
+            this.request_array.push(obj);
+          }
+        }
+      }
+
+      let languageIDs=undefined;
+      if(this.show===1)
+      {
+        languageIDs=(this.notificationForm.value.Languages == "") ? languageIDs : this.notificationForm.value.Languages;
+
+        if(languageIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['languageID']=languageIDs;
+          
+          this.request_array.push(obj);
+        }
+        
+        if(languageIDs.length>0)
+        {
+         
+          for (var i = 0; i < languageIDs.length; i++)
+          {
+            var obj = Object.assign({},defaultObj);
+            obj['languageID']=languageIDs[i];
+            
+            this.request_array.push(obj);
+          }
+        }
+      }
+
+      let workingLocationIDs=undefined;
+      if(this.show===3)
+      {
+        workingLocationIDs=(this.notificationForm.value.Offices == "") ? workingLocationIDs : this.notificationForm.value.Offices;
+
+        if(workingLocationIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['workingLocationID']=workingLocationIDs;
+          
+          this.request_array.push(obj);
+        }
+        
+        if(workingLocationIDs.length>0)
+        {
+          for (var i = 0; i < workingLocationIDs.length; i++)
+          {
+            var obj = Object.assign({},defaultObj);
+            obj['workingLocationID']=workingLocationIDs[i];
+            
+            this.request_array.push(obj);
+          }
+        }
+      }
+
+      let userIDs=undefined;
+      if(this.show===2)
+      {
+        userIDs=[(this.notificationForm.value.Users == "") ? userIDs : this.notificationForm.value.Users];
+
+        if(userIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['userID']=userIDs;
+          
+          this.request_array.push(obj);
+        }
+        
+        if(userIDs.length>0)
+        {
+         
+          for (var i = 0; i < userIDs.length; i++)
+          {
+            var obj = Object.assign({},defaultObj);
+            obj['userID']=userIDs[i];
+            
+            this.request_array.push(obj);
+          }
+        }
+      }
+
+
+      console.log("request array",this.request_array);
+      this.dialogRef.close(this.request_array);
+
+
     }
+
+    blockey(e: any) {
+      if (e.keyCode === 9) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+
   }
-
-
-}
