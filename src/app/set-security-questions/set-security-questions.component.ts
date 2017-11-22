@@ -196,7 +196,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
       this.switch();
     }
     else {
-      this.alertService.alert("All 3 questions should be different. Please check your selected Questions");
+      this.alertService.alert("All 3 questions should be different.");
     }
   }
 
@@ -214,7 +214,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
     }
     else {
-      this.alertService.alert("Password doesn't match");
+      this.alertService.alert("Passwords Do Not Match.");
     }
   }
 
@@ -234,7 +234,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
   successCallback(response) {
 
     console.log(response);
-    this.alertService.alert("Password changed Successfully");
+    this.alertService.alert("Password Changed Successfully.");
     this.router.navigate(['']);
   }
   errorCallback(response) {

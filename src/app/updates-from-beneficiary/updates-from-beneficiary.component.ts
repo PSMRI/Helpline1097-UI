@@ -122,10 +122,10 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.saved_data.beneficiaryData.sexualOrientationId = values.sexualOrientationID;
     this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
     this.saved_data.beneficiaryData.remarks = values.remarks;
-   this.saved_data.beneficiaryData.sourceOfInformation = values.cameToKnowFrom.toString();
+    this.saved_data.beneficiaryData.sourceOfInformation = values.cameToKnowFrom ? values.cameToKnowFrom.toString() : undefined;
 
     // alert( values );
-   // console.log("Update Data is", JSON.stringify(this.saved_data.beneficiaryData));
+    // console.log("Update Data is", JSON.stringify(this.saved_data.beneficiaryData));
     const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe((response) => {
       this.showAlert();
       this.PopulateOutBoundData(response);
@@ -135,7 +135,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   showAlert() {
-    this.message.alert('Updated Successfully');
+    this.message.alert('Updated Successfully.');
 
     //this.form.reset();
   }
