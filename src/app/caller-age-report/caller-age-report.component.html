@@ -1,0 +1,60 @@
+<md-card>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <label class="pull-left">
+        <h4 class="f-s-b m-b-30">Caller Age Report</h4>
+      </label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-lg-1">
+      <form #callerAgeSearchForm="ngForm">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
+            #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
+            #endDate [max]="today" required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 m-t-10">
+          <button md-raised-button [disabled]="callerAgeSearchForm.invalid || ((endDate.value < startDate.value))" color="primary" (click)="getReports()">SEARCH</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20" *ngIf="tableFlag">
+      <table class="table table-striped table-bordered width60">
+        <thead>
+          <tr>
+            <th>Caller Age Group</th>
+            <th>Count</th> 
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Below 15</td>
+            <td>{{data['Below 15']}}</td>
+          </tr>
+          <tr>
+            <td>15 to 24</td>
+            <td>{{data['15 to 24']}}</td>
+          </tr>
+          <tr>
+            <td>24 to 39</td>
+            <td>{{data['24 to 39']}}</td>
+          </tr>
+          <tr>
+            <td>40 to 59</td>
+            <td>{{data['40 to 59']}}</td>
+          </tr>
+          <tr>
+            <td>Above 59</td>
+            <td>{{data['Above 59']}}</td>
+          </tr>
+        </tbody> 
+      </table> 
+    </div>
+  </div>
+</md-card>
