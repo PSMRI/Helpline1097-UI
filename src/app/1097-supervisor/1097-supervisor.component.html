@@ -62,6 +62,18 @@
                           <li style="cursor: pointer" (click)='show("7")'>
                             <a>Telephony Reports</a>
                           </li>
+                          <li style="cursor: pointer" (click)='show("15")'>
+                            <a>Caller Age Report</a>
+                          </li>
+                          <li style="cursor: pointer" (click)='show("16")'>
+                            <a>Sexual Orientation Report</a>
+                          </li>
+                          <li style="cursor: pointer" (click)='show("17")'>
+                            <a>Language Distribution Report</a>
+                          </li>
+                          <li style="cursor: pointer" (click)='show("18")'>
+                            <a>Gender Distribution Report</a>
+                          </li>
                         </ul>
                       </li>
                       <li class="dropdown">
@@ -97,6 +109,10 @@
                 <app-outbound-search-records *ngSwitchCase="12"></app-outbound-search-records>
                 <app-reallocate-calls *ngSwitchCase="13"></app-reallocate-calls>
                 <app-supervisor-campaign-status *ngSwitchCase="14"></app-supervisor-campaign-status>
+                <app-caller-age-report *ngSwitchCase="15"></app-caller-age-report>
+                <app-sexual-orientation-report *ngSwitchCase="16"></app-sexual-orientation-report>
+                <app-language-distribution-report *ngSwitchCase="17"></app-language-distribution-report>
+                <app-gender-distribution-report *ngSwitchCase="18"></app-gender-distribution-report>
               </div>
             </div>
           </div>
