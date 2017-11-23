@@ -265,7 +265,7 @@ import { GenderDistributionReportComponent } from './gender-distribution-report/
         component: helpline1097CoComponent
       },
       {
-        path: 'InnerpageComponent/:mobileNumber/:callID',
+        path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
         component: InnerpageComponent
       }
     ]),

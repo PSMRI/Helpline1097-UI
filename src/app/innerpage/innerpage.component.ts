@@ -116,6 +116,13 @@ export class InnerpageComponent implements OnInit {
         console.log(' this.callerNumber:' + this.callerNumber);
         console.log(this.current_service + ':' + this.current_role);
       }
+      if (params['callCategory'] != undefined) {
+        if (params['callCategory'] === 'OUTBOUND') {
+          this.getCommonData.isOutbound = true;
+        } else {
+          this.getCommonData.isOutbound = false;
+        }
+      }
     });
     this.getCallTypes(this.providerServiceMapId);
     this.language_change = 'english';
