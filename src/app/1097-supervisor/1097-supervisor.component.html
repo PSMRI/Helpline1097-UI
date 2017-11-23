@@ -56,23 +56,28 @@
                           <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                          <li style="cursor: pointer" (click)='show("9")'>
-                            <a>Call Type Reports</a>
-                          </li>
                           <li style="cursor: pointer" (click)='show("7")'>
                             <a>Telephony Reports</a>
                           </li>
-                          <li style="cursor: pointer" (click)='show("15")'>
-                            <a>Caller Age Report</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("16")'>
-                            <a>Sexual Orientation Report</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("17")'>
-                            <a>Language Distribution Report</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("18")'>
-                            <a>Gender Distribution Report</a>
+                          <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Call Reports</a>
+                            <ul class="dropdown-menu">
+                                <li style="cursor: pointer" (click)='show("9")'>
+                                  <a>Call Type Report</a>
+                                </li>
+                                <li style="cursor: pointer" (click)='show("15")'>
+                                  <a>Caller Age Report</a>
+                                </li>
+                                <li style="cursor: pointer" (click)='show("16")'>
+                                  <a>Sexual Orientation Report</a>
+                                </li>
+                                <li style="cursor: pointer" (click)='show("17")'>
+                                  <a>Language Distribution Report</a>
+                                </li>
+                                <li style="cursor: pointer" (click)='show("18")'>
+                                  <a>Gender Distribution Report</a>
+                                </li>
+                            </ul>
                           </li>
                         </ul>
                       </li>
