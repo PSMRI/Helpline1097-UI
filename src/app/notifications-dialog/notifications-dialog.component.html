@@ -13,28 +13,28 @@
             </md-option>
           </md-select>
         </div>
-        <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-t-17" *ngIf="show==0">
+        <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-t-17" *ngIf="show==0 && visibility_Flag">
           <md-select class="d-inline" placeholder="Select Roles" [multiple]="true" name="roles" ngModel required>
             <md-option *ngFor="let role of data.roleObjArray" [value]="role.RoleID">
               {{ role.RoleName }}
             </md-option>
           </md-select>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2  p-t-17" *ngIf="show==3">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2  p-t-17" *ngIf="show==3 && visibility_Flag">
           <md-select class="d-inline" placeholder="Offices" [multiple]="true" name="Offices" ngModel [style.width]="'100%'" required>
             <md-option *ngFor="let item of offices" [value]="item.pSAddMapID">
               {{ item.locationName }}
             </md-option>
           </md-select>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2  p-t-17" *ngIf="show==1">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2  p-t-17" *ngIf="show==1 && visibility_Flag">
           <md-select class="d-inline" placeholder="Language" [multiple]="true" name="Languages" ngModel [style.width]="'100%'" required>
             <md-option *ngFor="let item of languages" [value]="item.languageID">
               {{ item.languageName }}
             </md-option>
           </md-select>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2  p-t-17" *ngIf="show==2">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2  p-t-17" *ngIf="show==2 && visibility_Flag">
           <md-select class="d-inline" placeholder="Users" name="Users" ngModel [style.width]="'100%'" required>
             <md-option *ngFor="let item of users" [value]="item.userID">
               {{ (item.firstName?item.firstName:"")+" "+(item.middleName?item.middleName:"")+" "+(item.lastName?item.lastName:"") }}
@@ -42,10 +42,10 @@
           </md-select>
         </div>
         <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-l-lg-1">
-          <md2-datepicker (keydown)="blockey($event)" name="startDate" placeholder="Valid From" [min]="minDate" #startDate="ngModel" ngModel required></md2-datepicker>
+          <md2-datepicker [disabled]="!visibility_Flag" (keydown)="blockey($event)" name="startDate" placeholder="Valid From" [min]="minDate" #startDate="ngModel" ngModel required></md2-datepicker>
         </div>
         <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3 p-l-lg-1">
-          <md2-datepicker (keydown)="blockey($event)" name="endDate" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel required></md2-datepicker>
+          <md2-datepicker [disabled]="!visibility_Flag" (keydown)="blockey($event)" name="endDate" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel required></md2-datepicker>
         </div>
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <md-input-container class="width100">

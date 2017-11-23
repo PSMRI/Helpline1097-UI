@@ -31,6 +31,10 @@ export class NotificationsDialogComponent implements OnInit {
   serviceProviderID:any;
    request_array:any=[];
 
+     visibility_Flag:boolean=true;
+
+sDate:Date=new Date();
+  eDate:Date=new Date();
 
   minDate: Date;
   @ViewChild('notificationForm') notificationForm: NgForm;
@@ -107,14 +111,36 @@ export class NotificationsDialogComponent implements OnInit {
     if(notification_type.toUpperCase()==="Language Message".toUpperCase())
     {
       this.show=1;
+      this.visibility_Flag=true;
     }
     else if(notification_type.toUpperCase()==="User Message".toUpperCase()||notification_type.toUpperCase()==="User Ratings".toUpperCase())
     {
       this.show=2;
+      this.visibility_Flag=true;
     }
     else if(notification_type.toUpperCase()==="Location Message".toUpperCase())
     {
       this.show=3;
+      this.visibility_Flag=true;
+    }
+    else if(notification_type.toUpperCase()==="Emergency Contact".toUpperCase())
+    {
+      let today=new Date();
+      let future_day: Date;
+
+      this.visibility_Flag=false;
+      this.show=-1;
+
+      future_day = new Date(today);
+      future_day.setFullYear(today.getFullYear() + 10,today.getMonth(),today.getDate());
+
+      console.log("sDate:",today,"edate:",future_day);
+      this.sDate=new Date();
+      this.eDate=future_day;
+
+      this.notificationForm.value.startDate=this.sDate;
+      this.notificationForm.value.endDate=this.eDate;
+
     }
     else
     {
@@ -162,6 +188,22 @@ export class NotificationsDialogComponent implements OnInit {
 
   onSubmit() {
     console.log(this.notificationForm.value);
+    if(this.show===-1)
+    {
+      let today=new Date();
+      let future_day: Date;
+
+      future_day = new Date(today);
+      future_day.setFullYear(today.getFullYear() + 10,today.getMonth(),today.getDate());
+
+      console.log("sDate:",today,"edate:",future_day);
+      this.sDate=new Date();
+      this.eDate=future_day;
+
+      this.notificationForm.value.startDate=this.sDate;
+      this.notificationForm.value.endDate=this.eDate;
+
+    }
     let startDate: Date = new Date(this.notificationForm.value.startDate);
     startDate.setHours(0);
     startDate.setMinutes(0);
@@ -337,6 +379,17 @@ export class NotificationsDialogComponent implements OnInit {
             // }
             this.request_array.push(obj);
           }
+        }
+      }
+
+       if(this.show===-1)
+      {
+        roleIDs=undefined;
+         if(roleIDs===undefined)
+        {
+          var obj = Object.assign({},defaultObj);
+          obj['roleID']=roleIDs;
+          this.request_array.push(obj);
         }
       }
 

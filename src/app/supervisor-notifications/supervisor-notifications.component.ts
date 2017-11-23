@@ -28,6 +28,11 @@ export class SupervisorNotificationsComponent implements OnInit {
   minDate: Date;
   roleIDs = [];
 
+  sDate:Date=new Date();
+  eDate:Date=new Date();
+
+  visibility_Flag:boolean=true;
+
   @ViewChild('showNotificationForm') showNotificationForm: NgForm;
 
   constructor(private notificationService: NotificationService,
@@ -70,18 +75,41 @@ export class SupervisorNotificationsComponent implements OnInit {
     if(notification_type.toUpperCase()==="Language Message".toUpperCase())
     {
       this.show=1;
+      this.visibility_Flag=true;
     }
     else if(notification_type.toUpperCase()==="User Message".toUpperCase()||notification_type.toUpperCase()==="User Ratings".toUpperCase())
     {
       this.show=2;
+      this.visibility_Flag=true;
     }
     else if(notification_type.toUpperCase()==="Location Message".toUpperCase())
     {
       this.show=3;
+      this.visibility_Flag=true;
+    }
+    else if(notification_type.toUpperCase()==="Emergency Contact".toUpperCase())
+    {
+      let today=new Date();
+    let future_day: Date;
+
+      this.visibility_Flag=false;
+      this.show=-1;
+
+      future_day = new Date(today);
+      future_day.setFullYear(today.getFullYear() + 10,today.getMonth(),today.getDate());
+
+      console.log("sDate:",today,"edate:",future_day);
+      this.sDate=new Date();
+      this.eDate=future_day;
+
+      this.showNotificationForm.value.startDate=this.sDate;
+      this.showNotificationForm.value.endDate=this.eDate;
+
     }
     else
     {
       this.show=0;
+      this.visibility_Flag=true;
     }
   }
 
@@ -178,6 +206,8 @@ export class SupervisorNotificationsComponent implements OnInit {
     });
   }
   onSubmitShowForm() {
+    let today=new Date();
+    let future_day: Date;
     console.log(this.showNotificationForm.value);
     // console.log(new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z");
     this.onConfigSubmit = true;
@@ -185,26 +215,44 @@ export class SupervisorNotificationsComponent implements OnInit {
     let roleIDs=undefined;
     if(this.show===0)
     {
-    roleIDs=(this.showNotificationForm.value.roles == "") ? this.roleIDs : this.showNotificationForm.value.roles;
+      roleIDs=(this.showNotificationForm.value.roles == "") ? this.roleIDs : this.showNotificationForm.value.roles;
+    }
+
+    if(this.show===-1)
+    {
+      roleIDs=undefined;
+      future_day = new Date(today);
+      future_day.setFullYear(today.getFullYear() + 10,today.getMonth(),today.getDate());
+
+      console.log("sDate:",today,"edate:",future_day);
+      this.sDate=new Date();
+      this.eDate=future_day;
+
+      this.showNotificationForm.value.startDate=this.sDate;
+      this.showNotificationForm.value.endDate=this.eDate;
+
+
     }
 
     let languageIDs=undefined;
     if(this.show===1)
     {
-    languageIDs=(this.showNotificationForm.value.Languages == "") ? languageIDs : this.showNotificationForm.value.Languages;
+      languageIDs=(this.showNotificationForm.value.Languages == "") ? languageIDs : this.showNotificationForm.value.Languages;
     }
 
     let workingLocationIDs=undefined;
     if(this.show===3)
     {
-    workingLocationIDs=(this.showNotificationForm.value.Offices == "") ? workingLocationIDs : this.showNotificationForm.value.Offices;
+      workingLocationIDs=(this.showNotificationForm.value.Offices == "") ? workingLocationIDs : this.showNotificationForm.value.Offices;
     }
 
     let userIDs=undefined;
     if(this.show===2)
     {
-    userIDs=[(this.showNotificationForm.value.Users == "") ? userIDs : this.showNotificationForm.value.Users];
+      userIDs=[(this.showNotificationForm.value.Users == "") ? userIDs : this.showNotificationForm.value.Users];
     }
+
+
 
 
     this.notificationPostData = {
@@ -217,6 +265,21 @@ export class SupervisorNotificationsComponent implements OnInit {
       "validStartDate": new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z",
       "validEndDate": new Date((this.showNotificationForm.value.endDate) - 1 * (this.showNotificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z"
     };
+
+    // if(this.show==-1)
+    // {
+    //    this.notificationPostData = {
+    //   "providerServiceMapID": this.providerServiceMapID,
+    //   "notificationTypeID": this.showNotificationForm.value.notificationType,
+    //   "roleIDs":roleIDs,
+    //   "userIDs":userIDs,
+    //   "workingLocationIDs":workingLocationIDs,
+    //   "languageIDs":languageIDs,
+    //   "validStartDate": new Date((this.sDate) - 1 * (this.sDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z",
+    //   "validEndDate": new Date((this.eDate) - 1 * (this.eDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z"
+    // };
+    // }
+
     console.log(JSON.stringify(this.notificationPostData));
     this.notificationService.getSupervisorNotifications(this.notificationPostData)
     .subscribe((response) => {

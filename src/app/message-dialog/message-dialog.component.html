@@ -1,4 +1,4 @@
-<h2 md-dialog-title>{{data.type}}</h2>
+<!-- <h2 md-dialog-title>{{data.type}}</h2>
 <md-dialog-content>
   <p>{{data.message}}</p>
   <p *ngIf="data.kmFilePath"><a href="{{data?.kmFilePath}}" target="_blank">Click here for more info</a></p>
@@ -6,3 +6,17 @@
 <md-dialog-actions>
   <button md-raised-button color="primary" md-dialog-close>OK</button>
 </md-dialog-actions>
+ -->
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px">
+    <h3 class="pull-left">{{data.type}}</h3>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" align="center">
+    <p class="f-s-17">{{data.message}}</p>
+    <p *ngIf="data.kmFilePath"><a href="{{data?.kmFilePath}}" target="_blank">Click here for more info</a></p>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" align="center">
+   <button md-raised-button color="primary" md-dialog-close>OK</button>
+  </div>
+</div>

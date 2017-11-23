@@ -65,7 +65,7 @@
   <!--<iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar
            " *ngIf="!barMinimized"
         (click)="toggleBar()"></iframe>-->
-  <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
+  <iframe *ngIf="current_role.toLowerCase().trim()!=='supervisor'" [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
 
 </div>
 
