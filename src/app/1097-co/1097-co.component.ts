@@ -227,7 +227,7 @@ export class helpline1097CoComponent implements OnInit {
   public callBenOutbound(event: any) {
     // this.getSelectedBenDetails(event.beneficiary);
     // this.benService('benService');
-    this.czentrixService.getIpAddress(this.getCommonData.Userdata.agentID)
+    this.czentrixService.getIpAddress(this.getCommonData.cZentrixAgentID)
       .subscribe((ipAddressresponse) => {
         let cZentrixIp = ipAddressresponse.response.agent_ip;
         if (!cZentrixIp) {
@@ -241,7 +241,7 @@ export class helpline1097CoComponent implements OnInit {
   }
 
   public outboundEvent(event: any, IpAddress: any) {
-    const params = 'transaction_id=CTI_DIAL&agent_id=' + this.getCommonData.Userdata.agentID +
+    const params = 'transaction_id=CTI_DIAL&agent_id=' + this.getCommonData.cZentrixAgentID +
       '&ip=' + IpAddress + '&phone_num=' + event.beneficiary.benPhoneMaps[0].phoneNo +
       '&resFormat=3';
     this.czentrixService.callAPI(params)

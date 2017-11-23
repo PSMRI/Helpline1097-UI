@@ -185,7 +185,7 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   GetInstitutes() {
     this.institutes = [];
-    let object = { 'providerServiceMapID': this.providerServiceMapID};
+    let object = { 'providerServiceMapID': this.providerServiceMapID };
     this._locationService.getInstituteList(object)
       .subscribe(response => this.SetInstitutes(response));
   }
@@ -294,7 +294,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   }
 
   setFeedbackHistoryByID(response: any) {
-    debugger;
+    // debugger;
     console.log('the response for feedback history is', response);
     // this.feedbacksArray = response;
     this.data = response;

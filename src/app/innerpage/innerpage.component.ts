@@ -335,6 +335,7 @@ export class InnerpageComponent implements OnInit {
       this.getAgentStatus();
       this.disconnectCall();
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
+      this.getCommonData.isOutbound = true;
     }
   }
   closeCall(eventData, remarks) {

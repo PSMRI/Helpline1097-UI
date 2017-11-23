@@ -239,7 +239,7 @@ export class ReallocateCallsComponent implements OnInit {
   }
   success(res) {
 
-    debugger;
+    // debugger;
     this.a = res;
   }
 
