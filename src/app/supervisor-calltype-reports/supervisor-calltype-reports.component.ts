@@ -59,7 +59,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     this.get_filterCallList();
   }
   audioEvent() {
-    this.alertMessage.alert('No Audio File Uploded!!');
+    this.alertMessage.alert('No Audio File Uploded.');
   }
   get_filterCallList() {
     let requestObj = {

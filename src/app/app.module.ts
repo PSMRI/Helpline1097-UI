@@ -158,6 +158,10 @@ import { TrainingResourcesComponent } from './training-resources/training-resour
 import { CoAlternateNumberComponent } from './co-referral-services/co-alternate-number/co-alternate-number.component';
 import { ReallocateCallsComponent } from './reallocate-calls/reallocate-calls.component';
 import { SupervisorCampaignStatusComponent } from './supervisor-campaign-status/supervisor-campaign-status.component';
+import { CallerAgeReportComponent } from './caller-age-report/caller-age-report.component';
+import { SexualOrientationReportComponent } from './sexual-orientation-report/sexual-orientation-report.component';
+import { LanguageDistributionReportComponent } from './language-distribution-report/language-distribution-report.component';
+import { GenderDistributionReportComponent } from './gender-distribution-report/gender-distribution-report.component';
 // import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
 
 
@@ -187,7 +191,11 @@ import { SupervisorCampaignStatusComponent } from './supervisor-campaign-status/
     CallStatisticsComponent,
     CoAlternateNumberComponent,
     ReallocateCallsComponent,
-    SupervisorCampaignStatusComponent
+    SupervisorCampaignStatusComponent,
+    CallerAgeReportComponent,
+    SexualOrientationReportComponent,
+    LanguageDistributionReportComponent,
+    GenderDistributionReportComponent
 
   ],
   imports: [
@@ -257,7 +265,7 @@ import { SupervisorCampaignStatusComponent } from './supervisor-campaign-status/
         component: helpline1097CoComponent
       },
       {
-        path: 'InnerpageComponent/:mobileNumber/:callID',
+        path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
         component: InnerpageComponent
       }
     ]),

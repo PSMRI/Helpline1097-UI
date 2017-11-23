@@ -71,7 +71,7 @@ export class BlockUnblockNumberComponent implements OnInit {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
     this.callService.UnBlockPhoneNumber(blockObj).subscribe((response) => {
-      this.message.alert('Successfully Unblocked');
+      this.message.alert('Successfully Unblocked.');
       this.addToBlockList();
     }, (err) => {
       this.message.alert(err.status);
@@ -81,7 +81,7 @@ export class BlockUnblockNumberComponent implements OnInit {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
     this.callService.blockPhoneNumber(blockObj).subscribe((response) => {
-      this.message.alert('Successfully blocked');
+      this.message.alert('Successfully blocked.');
       this.addToBlockList();
     }, (err) => {
       this.message.alert(err.status);

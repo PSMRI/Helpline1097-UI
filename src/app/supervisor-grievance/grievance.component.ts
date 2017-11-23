@@ -172,7 +172,7 @@ export class supervisorFeedback implements OnInit {
       bodyString['feedbackResponseID'] = undefined;
       this._feedbackservice.updateResponce(bodyString)
         .subscribe((resfeedbackData) => {
-          this.alertMessage.alert('Successfully Updated');
+          this.alertMessage.alert('Successfully Updated.');
           this.showUsers(resfeedbackData)
         }, (err) => {
           this.alertMessage.alert(err.status);
