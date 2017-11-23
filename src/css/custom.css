@@ -198,11 +198,11 @@ aF {
 
 .bs-wizard>.bs-wizard-step>.bs-wizard-dot {
   position: absolute;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   display: block;
   background: #fbe8aa;
-  top: 44px;
+  top: 38px;
   left: 50%;
   margin-top: -15px;
   margin-left: -15px;
@@ -224,9 +224,9 @@ aF {
 .bs-wizard>.bs-wizard-step>.progress {
   position: relative;
   border-radius: 0px;
-  height: 8px;
+  height: 4px;
   box-shadow: none;
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 .bs-wizard>.bs-wizard-step>.progress>.progress-bar {
@@ -291,6 +291,9 @@ aF {
 
 .f-s-20 {
   font-size: 20px !important;
+}
+.f-s-22 {
+  font-size: 22px !important;
 }
 
 .f-s-24 {
@@ -543,7 +546,7 @@ color:#545454;
 }
 
 .p-b-40 {
-  padding-bottom: 40px;
+  padding-bottom: 40px!important;
 }
 
 .p-b-60 {
@@ -630,7 +633,7 @@ color:#545454;
 }
 
 .p-r-0 {
-  padding-right: 0px;
+  padding-right: 0px!important;
 }
 
 .p-r-2 {
@@ -934,7 +937,7 @@ color:#545454;
 }
 
 .m-r-10 {
-  margin-right: 10px;
+  margin-right: 10px!important;
 }
 
 .m-r-15 {
@@ -1410,6 +1413,12 @@ em {
   opacity: 0;
 }
 
+.mat-dialog-container {
+  padding: 15px!important;
+}
+.mat-dialog-container{
+  overflow:hidden !important;
+}
 .symptomsBox {
   width: 98%;
   min-height: 100px;
@@ -1427,6 +1436,9 @@ em {
 
 .tableHeaderBg th {
   color: #84320a;
+}
+.table th {
+  color: rgba(0,0,0,0.54);
 }
 
 .width250px {
@@ -1969,6 +1981,7 @@ input:-webkit-autofill:hover {
 .mat-input-infix {
   font-weight: 800 !important;
   font-size: 15px !important;
+  width: inherit;
 }
 
 .mat-select-trigger {
@@ -1992,10 +2005,32 @@ input:-webkit-autofill:hover {
 .display_none {
   display: none;
 }
+.mat-dialog-title{
 
+margin-bottom: 5px !important; 
+}
+.white-space-nowrap{
+white-space: nowrap!important;
+}
+.mat-select-placeholder, .mat-select-value-text{
+   font-family: SF-UI-Display-Regular !important;
+   font-size: 15px !important;
+   font-weight: 800 !important;
+}
+.mat-input-wrapper {
+    padding-bottom: 1.5em !important;
+}
 @media (max-width: 317px) {}
 
 @media (min-width: 480px) {
+  body{
+    font-size: 13px !important;
+    
+  }
+  .m-t-sm-10{
+margin-top: 10px;
+  
+  }
   .cu-nav-top li {
     background: #fff;
   }
@@ -2017,6 +2052,13 @@ input:-webkit-autofill:hover {
 }
 
 @media (min-width: 767px) {
+   body{
+    font-size: 14px !important;
+  }
+  .m-t-sm-10{
+margin-top: 10px;
+  
+  }
   .cu-nav-top li {
     background: none;
   }
@@ -2062,6 +2104,7 @@ input:-webkit-autofill:hover {
   .f-s-lg-18 {
     font-size: 15px;
   }
+  
   .cu-sm-22-3 {
     width: 22.3%;
   }
@@ -2074,6 +2117,10 @@ input:-webkit-autofill:hover {
 }
 
 @media (min-width: 992px) {
+  .m-t-sm-10{
+margin-top:0px;
+  
+  }
   .p-l-lg-0 {
     padding-left: 0px;
   }

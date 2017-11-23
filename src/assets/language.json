@@ -92,7 +92,7 @@
         "created_on": "Information Provided On",
         "no_records_found": "No Records Found"
       },
-      "new_informations": "New Informations"
+      "new_informations": "New Information"
     },
     "counselling_service": {
       "page_heading": "Counselling Services",
@@ -109,7 +109,7 @@
         "created_on": "Counselling Provided On",
         "no_records_found": "No Records Found"
       },
-      "new_counsellings": "New Counsellings"
+      "new_counsellings": "New Counselling"
     },
     "referral_service": {
       "page_heading": "Referral Services",

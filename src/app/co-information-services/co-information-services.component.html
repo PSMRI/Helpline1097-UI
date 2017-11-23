@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-30">{{currentlanguage.information_service?.page_heading}}</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.information_service?.page_heading}}</h4>
       </label>
     </div>
     <div *ngIf="showFormCondition">
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
+        <md-input-container class="hide_underline width100">
           <input mdInput style="display:none">
-          <md-select required placeholder="{{currentlanguage.information_service?.select_category}}" [style.width]="'100%'" [(ngModel)]="symptomCategory"
+          <md-select required placeholder="{{currentlanguage.information_service?.select_category}}" class="width100" [(ngModel)]="symptomCategory"
             name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
             <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
               {{symptomCategory.categoryName}}
@@ -21,9 +21,9 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
+        <md-input-container class="hide_underline width100">
           <input mdInput style="display:none">
-          <md-select required placeholder="{{currentlanguage.information_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory"
+          <md-select required placeholder="{{currentlanguage.information_service?.select_subcategory}}" class="width100" [(ngModel)]="symptomSubCategory"
             name="symptomSubCategory" #subCategory="ngModel" (change)="EnabledGetDetails()">
             <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
               {{symptomSubCategory.subCategoryName}}
@@ -85,7 +85,7 @@
             <td colspan="3">
               <md2-pagination></md2-pagination>
             </td>
-            <td colspan="3" *ngIf="showTableCondition">
+            <td colspan="3" class="p-r-0" *ngIf="showTableCondition">
               <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.information_service?.new_informations}}</button>
             </td>
           </tr>

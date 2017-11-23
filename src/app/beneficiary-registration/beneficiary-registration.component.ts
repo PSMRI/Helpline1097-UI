@@ -789,7 +789,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.notCalledEarlierLowerPart = false;
     } else {
       const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
-        height: '75%',
+        height: '68%',
         width: '75%',
         data: regHistory.beneficiaryRegID,
       });

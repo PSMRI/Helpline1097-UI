@@ -1,5 +1,6 @@
 <div class="container-fluid">
-  <h2 md-dialog-title>
+  <div class="row">
+  <h2 md-dialog-title class="m-b-5">
     <div class="row">
       <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">Beneficiary History</div>
       <div class="col-xs-1 col-sm-1 col-md-4 col-lg-4"></div>
@@ -15,7 +16,8 @@
   <div fxLayout="row"> -->
     <div class="row">
       <div class="col-md-12 col-lg-12">
-        <table class="table table-responsive table-striped text-center" style="border:0ch" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
+        <div class="table-responsive">
+        <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="9">
           <thead>
             <!-- <tr>
               <td class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -42,28 +44,32 @@
             </tr>
             <tr *ngFor="let service of md2.data ">
               <td>{{service.benCallID}}</td>
-              <td>{{service.createdDate?(millisToUTCDate(service.createdDate)|date:'dd/MM/yyyy HH:mm'):''}}</td>
-              <td>{{service.informationServices}}</td>
-              <td>{{service.feedbackServices}}</td>
-              <td>{{service.referralServices}}</td>
-              <td>{{service.counsellingServices}}</td>
-              <td>{{service.callTypeObj?.callGroupType}}</td>
-              <td>{{service.callTypeObj?.callType}}</td>
-              <td>{{service.remarks}}</td>
+              <td class="white-space-nowrap">{{service.createdDate?(millisToUTCDate(service.createdDate)|date:'dd/MM/yyyy HH:mm'):''}}</td>
+              <td class="white-space-nowrap">{{service.informationServices}}</td>
+              <td class="white-space-nowrap">{{service.feedbackServices}}</td>
+              <td class="white-space-nowrap">{{service.referralServices}}</td>
+              <td class="white-space-nowrap">{{service.counsellingServices}}</td>
+              <td class="white-space-nowrap">{{service.callTypeObj?.callGroupType}}</td>
+              <td class="white-space-nowrap">{{service.callTypeObj?.callType}}</td>
+              <td class="white-space-nowrap">{{service.remarks}}</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="8">
+              <td colspan="6">
                 <md2-pagination></md2-pagination>
+              </td>
+              <td colspan="3">
+                <p class="pull-right">Total no of Records : {{totalRecord}} </p>
               </td>
             </tr>
           </tfoot>
         </table>
-        <p class="pull-right">Total no of Records : {{totalRecord}} </p>
+        </div>
       </div>
     </div>
     <!-- </div> -->
 
   </md-dialog-content>
+</div>
 </div>
