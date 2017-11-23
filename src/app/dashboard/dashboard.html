@@ -47,7 +47,6 @@
           <alerts-notifications></alerts-notifications> -->
           <!-- <daily-tasks></daily-tasks> -->
           <!--<news-informations></news-informations>-->
-
           <!--<weather-warnings *ngIf="false"></weather-warnings>-->
           <activity-this-week *ngIf="activity_component" (hide_component)="hideComponentHandeler($event)"></activity-this-week>
           <rating *ngIf="ratings_component" (hide_component)="hideComponentHandeler($event)"></rating>
@@ -66,11 +65,9 @@
            " *ngIf="!barMinimized"
         (click)="toggleBar()"></iframe>-->
   <iframe *ngIf="current_role.toLowerCase().trim()!=='supervisor'" [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
-
 </div>
-
 <footer class="footer">
-  <div class="row">
+  <div class="row" style="left: 0px">
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
       <span class="footer-text">Powered by: WIPRO</span>
     </div>
