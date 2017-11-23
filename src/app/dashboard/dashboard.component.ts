@@ -145,7 +145,7 @@ export class dashboardContentClass implements OnInit {
 
   handleEvent() {
     if (this.eventSpiltData.length > 2) {
-      this.router.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2]]);
+      this.router.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2], , this.eventSpiltData[3]]);
     }
   }
 

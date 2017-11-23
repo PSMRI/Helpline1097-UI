@@ -237,7 +237,7 @@ export class InnerpageComponent implements OnInit {
         this.basicrouter.navigate(['']);
       } else {
         if (this.current_role.toLowerCase() !== 'supervisor') {
-          this.remarksMessage.alert('cannot logout agent is in call');
+          this.remarksMessage.alert('Cannot Logout During Active Call.');
         } else {
           this.basicrouter.navigate(['']);
         }
@@ -274,11 +274,11 @@ export class InnerpageComponent implements OnInit {
               this.validCallID = validObj[0].callTypeID;
             }
           } else {
-            this.remarksMessage.alert('Something went wrong !! Please contact Administrator');
+            this.remarksMessage.alert('Failed To Get Call Types. Please Try Again.');
           }
         }
       } else {
-        this.remarksMessage.alert('Something went wrong !! Please contact Administrator');
+        this.remarksMessage.alert('Failed To Get Call Types. Please Try Again.');
       }
 
       // this.validCallID = response.filter(function (item) {
@@ -335,6 +335,7 @@ export class InnerpageComponent implements OnInit {
       this.getAgentStatus();
       this.disconnectCall();
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
+      this.getCommonData.isOutbound = true;
     }
   }
   closeCall(eventData, remarks) {
@@ -353,7 +354,7 @@ export class InnerpageComponent implements OnInit {
 
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
-        this.remarksMessage.alert('Successfully Call Transffered');
+        this.remarksMessage.alert('Successfully Transffered Call.');
         // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
         //   this.current_campaign = 'OUTBOUND';
         //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
@@ -402,7 +403,7 @@ export class InnerpageComponent implements OnInit {
     });
   }
   disconnectCall() {
-    this.remarksMessage.alert('Call Disconnected!!!');
+    this.remarksMessage.alert('Call Disconnected From Caller. Please Proceed To Call Closure.');
     this.getCommonData.isCallDisconnected = true;
     jQuery('#myCarousel').carousel(3);
     jQuery('#four').parent().find('a').removeClass('active-tab');

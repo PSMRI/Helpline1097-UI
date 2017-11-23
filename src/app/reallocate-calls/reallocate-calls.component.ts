@@ -5,7 +5,7 @@ import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { CallServices } from '../services/callservices/callservice.service'
 
-declare var jQuery:any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-reallocate-calls',
@@ -30,18 +30,18 @@ export class ReallocateCallsComponent implements OnInit {
   languages = [];
   searchLanguage: any;
 
-  startDatee:Date;
-  endDatee:Date;
+  startDatee: Date;
+  endDatee: Date;
 
-  startMinDate:Date;
-  endMinDate:Date;
+  startMinDate: Date;
+  endMinDate: Date;
 
-  a:any=[];
+  a: any = [];
 
   constructor(private OCRService: OutboundReAllocationService,
-              private getCommonData: dataService, private alertService: ConfirmationDialogsService,
-              private _callServices: CallServices
-              ) { }
+    private getCommonData: dataService, private alertService: ConfirmationDialogsService,
+    private _callServices: CallServices
+  ) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.getCommonData.current_service.serviceID;
@@ -66,25 +66,24 @@ export class ReallocateCallsComponent implements OnInit {
 
   }
 
-  updateMinValue(d)
-  {
+  updateMinValue(d) {
 
-    console.log("date updated",d);
-    this.endMinDate.setDate(d.getDate()+7);
+    console.log("date updated", d);
+    this.endMinDate.setDate(d.getDate() + 7);
 
-    this.endDatee =new Date(this.endMinDate);
-    
-    console.log("end min date",this.endMinDate,"end Date",this.endDatee);
+    this.endDatee = new Date(this.endMinDate);
+
+    console.log("end min date", this.endMinDate, "end Date", this.endDatee);
 
 
   }
 
   getAgents(roleID: any) {
     this.OCRService.getAgents(this.providerServiceMapID, roleID)
-    .subscribe((response) => {
-      this.users = response;
-      console.log("users: " + JSON.stringify(this.users));
-    })
+      .subscribe((response) => {
+        this.users = response;
+        console.log("users: " + JSON.stringify(this.users));
+      })
     this.reallocationForm.form.patchValue({
       userID: []
     });
@@ -103,7 +102,7 @@ export class ReallocateCallsComponent implements OnInit {
     this.showFlag = false;
     console.log(this.searchAgent, "searchAgent");
     this.agentName = this.searchAgent.firstName + " " + this.searchAgent.lastName;
-    console.log(this.reallocationForm.value,"FORM VALUE");
+    console.log(this.reallocationForm.value, "FORM VALUE");
     this.postData = {
       "providerServiceMapID": this.providerServiceMapID,
       "assignedUserID": this.reallocationForm.value.agentName.userID
@@ -118,26 +117,26 @@ export class ReallocateCallsComponent implements OnInit {
     console.log(JSON.stringify(this.postData));
     this.onAgentSelected = false;
     this.OCRService.getReallocationCalls(this.postData)
-    .subscribe((resProviderData) => {
-      console.log(resProviderData,"in component reallocate-calls, post successful response");
-      this.totalAgentRecords = resProviderData;
-      if (this.totalAgentRecords.length == 0) {
-        this.alertService.alert("No Records available");
-      }
-      else {
-        this.onAgentSelected = true;
-      }
-    },
-    (error) => {
-      console.log(error);
-    });
+      .subscribe((resProviderData) => {
+        console.log(resProviderData, "in component reallocate-calls, post successful response");
+        this.totalAgentRecords = resProviderData;
+        if (this.totalAgentRecords.length == 0) {
+          this.alertService.alert("No Records Available.");
+        }
+        else {
+          this.onAgentSelected = true;
+        }
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 
   reallocationDone() {
     this.showFlag = false;
     //refreshing reallocation screen
     this.OCRService.getReallocationCalls(this.postData)
-    .subscribe((resProviderData) => {
+      .subscribe((resProviderData) => {
         // console.log(resProviderData);
         // this.alertService.alert("Moved to Bin Successfully");
         this.totalAgentRecords = resProviderData;
@@ -149,12 +148,12 @@ export class ReallocateCallsComponent implements OnInit {
 
   moveToBin(language, event) {
 
-    let values=[];
+    let values = [];
 
-    let reqObj={
-      "providerServiceMapID":this.providerServiceMapID,
-      "assignedUserID":this.reallocationForm.value.agentName.userID,
-      "preferredLanguageName":language
+    let reqObj = {
+      "providerServiceMapID": this.providerServiceMapID,
+      "assignedUserID": this.reallocationForm.value.agentName.userID,
+      "preferredLanguageName": language
     }
 
     if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
@@ -164,9 +163,9 @@ export class ReallocateCallsComponent implements OnInit {
       reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
     }
 
-    this.OCRService.getOutboundCallList(reqObj).subscribe(response=>{
-      console.log("OUTBOUND CALL LIST",response);
-      values=response;
+    this.OCRService.getOutboundCallList(reqObj).subscribe(response => {
+      console.log("OUTBOUND CALL LIST", response);
+      values = response;
 
       // console.log("move to bin api followed by refresh logic");
       var tempArray = [];
@@ -178,31 +177,31 @@ export class ReallocateCallsComponent implements OnInit {
         "outboundCallReqIDs": tempArray
       }).subscribe((response) => {
         console.log(response);
-        this.alertService.alert("Moved to Bin Successfully");
-      // refreshing after moving to bin
-      this.reallocationDone();
-    },
-    (error) => {
-      console.log(error);
-    })
+        this.alertService.alert("Moved To Bin Successfully.");
+        // refreshing after moving to bin
+        this.reallocationDone();
+      },
+        (error) => {
+          console.log(error);
+        })
     });
 
-    
+
   }
 
   allocateCalls(language: any, event) {
-    
+
     this.selectedAgent = {
       "agentName": this.agentName,
       "roleID": this.search_role,
       "languageName": language,
-      "assignedUserID":this.reallocationForm.value.agentName.userID
+      "assignedUserID": this.reallocationForm.value.agentName.userID
     }
 
-    let reqObj={
-      "providerServiceMapID":this.providerServiceMapID,
-      "assignedUserID":this.reallocationForm.value.agentName.userID,
-      "preferredLanguageName":language
+    let reqObj = {
+      "providerServiceMapID": this.providerServiceMapID,
+      "assignedUserID": this.reallocationForm.value.agentName.userID,
+      "preferredLanguageName": language
     }
 
     if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
@@ -212,14 +211,14 @@ export class ReallocateCallsComponent implements OnInit {
       reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
     }
 
-    this.OCRService.getOutboundCallList(reqObj).subscribe(response =>this.success(response));
-      this.records = {
-        'outboundList': this.a
-      }
+    this.OCRService.getOutboundCallList(reqObj).subscribe(response => this.success(response));
+    this.records = {
+      'outboundList': this.a
+    }
 
-      this.records['langaugeName'] = { "langName": language };
-      this.records['assignedUserID'] = this.reallocationForm.value.agentName.userID;
-    
+    this.records['langaugeName'] = { "langName": language };
+    this.records['assignedUserID'] = this.reallocationForm.value.agentName.userID;
+
 
     console.log("selectedAgent", this.selectedAgent);
     if (event.target.className == "mat-button-wrapper") {
@@ -235,13 +234,13 @@ export class ReallocateCallsComponent implements OnInit {
       event.target.parentNode.parentNode.className = "highlightTrBg";
     }
     this.showFlag = true;
-    
-    
+
+
   }
   success(res) {
-    
-    debugger;
-    this.a=res;
+
+    // debugger;
+    this.a = res;
   }
 
 }

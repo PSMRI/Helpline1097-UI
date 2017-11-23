@@ -143,11 +143,11 @@ export class KnowledgeManagementComponent implements OnInit {
   uploadFile(uploadObj: any) {
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
       console.log('KM configuration ', response);
-      this.message.alert('Uploaded Successfully');
+      this.message.alert('Uploaded Successfully.');
       this.myInputVariable.nativeElement.value = '';
       this.knowledgeForm.reset(this.knowledgeForm.value);
     }, (err) => {
-      this.message.alert('Failed to Uploaded');
+      this.message.alert('Failed To Upload.');
       this.myInputVariable.nativeElement.value = '';
     })
   }

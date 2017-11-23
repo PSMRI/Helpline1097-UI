@@ -33,7 +33,8 @@ export class dataService {
 	isCallDisconnected: boolean = false;
 
 
-	serviceProviderID:any;
+	serviceProviderID: any;
+	isOutbound: boolean = false;
 };
 
 

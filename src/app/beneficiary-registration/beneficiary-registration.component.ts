@@ -126,6 +126,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   current_campaign: any;
   cityErrFlag: any = false;
   unMaskedNumber: any;
+  // agentID: any;
 
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
@@ -146,6 +147,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.startNewCall();
     this.IntializeSessionValues();
     this.current_campaign = this.saved_data.current_campaign;
+    // this.agentID = this.saved_data.cZentrixAgentID;
     // this.reloadOutBoundCall(this.current_campaign);
   }
 
@@ -194,6 +196,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.createdBy = this.saved_data.uname;
     data.calledServiceID = this.saved_data.current_service.serviceID;
     data.phoneNo = outboundData.outboundData.beneficiary.benPhoneMaps[0].phoneNo;
+    data.agentID = this.saved_data.cZentrixAgentID;
+    data.isOutbound = this.saved_data.isOutbound;
     this._util.startCall(data).subscribe((response) => {
       this.setBenCall(response);
       // this.czentrixService.getIpAddress(this.saved_data.Userdata.agentID)
@@ -274,6 +278,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.createdBy = this.saved_data.uname;
     data.calledServiceID = this.saved_data.current_service.serviceID;
     data.phoneNo = this.saved_data.callerNumber;
+    data.agentID = this.saved_data.cZentrixAgentID;
+    data.isOutbound = this.saved_data.isOutbound;
     this._util.startCall(data).subscribe((response) => { this.setBenCall(response) }, (err) => {
 
     });
@@ -531,7 +537,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   showAlert() {
     this.BeneficaryForm.resetForm();
-    this.alertMaessage.alert('Registration Successful!!!! Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
+    this.alertMaessage.alert('Registration Successful. Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -753,7 +759,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   updateSuccessHandeler(response) {
     if (response) {
-      this.alertMaessage.alert('Successfully Updated');
+      this.alertMaessage.alert('Successfully Updated.');
       this.BeneficaryForm.resetForm();
       this.benUpdationResponse = response;
       // this.regHistoryList = [response];

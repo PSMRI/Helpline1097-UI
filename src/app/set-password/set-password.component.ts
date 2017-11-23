@@ -46,14 +46,14 @@ export class SetPasswordComponent implements OnInit {
         (error: any) => this.errorCallback(error)
         );
     } else {
-      this.alertService.alert('Password does not match');
+      this.alertService.alert('Passwords Do Not Match.');
     }
   }
 
   successCallback(response) {
 
     console.log(response);
-    this.alertService.alert('Password changed Successfully');
+    this.alertService.alert('Password Changed Successfully.');
     this.router.navigate(['']);
   }
   errorCallback(response) {
