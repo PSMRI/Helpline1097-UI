@@ -15,7 +15,7 @@
   </div>
   <div class="row">
     <form id="feedbackForm" form="ngForm" *ngIf="showFormCondition">
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
           <md-select required #state="ngModel" placeholder="{{currentlanguage.feedback_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state"
@@ -29,7 +29,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--                 <div class="form-group">
                     <label class="control-label" for="district1">District</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="district" [(ngModel)]="selected_district"
@@ -50,7 +50,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--                 <div class="form-group">
                     <label class="control-label" for="taluk1">Taluk</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="taluk" [(ngModel)]="selected_taluk"
@@ -92,7 +92,7 @@
         </md-hint>
       </md-input-container>
     </div> -->
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--                 <div class="form-group has-label">
                     <label class="control-label" for="whatInformation">Institution Name</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="institutionName" [(ngModel)]="selected_institution">
@@ -112,7 +112,7 @@
       </md-hint> -->
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--                 <div class="form-group">
                     <label class="control-label" for="designation">Designation</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="designation" [(ngModel)]="selected_designation">
@@ -132,7 +132,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--                 <div class="form-group">
                     <label class="control-label" for="FeedbackType">Type of feedback</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="feedbackType" [(ngModel)]="selected_feedbackType">
@@ -154,7 +154,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--                 <div class="col-md-8 col-lg-8">
                         <div class="form-group">
                             <label class="control-label" for="DOI">Date of Incidence</label>
@@ -171,7 +171,7 @@
           name="incidentdate" [(ngModel)]="selected_doi"></md2-datepicker>
         <!-- </div> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--                 <div class="form-group">
                     <label class="control-label" for="severity">Severity</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="severity" [(ngModel)]="selected_severity">
@@ -204,16 +204,13 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-t-lg-20">
         <!--<button type="button" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
               " id="" (click)="submitFeedback(feedbackForm.value)">Register</button>-->
-        <button type="button" md-raised-button color="primary" class="pull-right font-regular f-s-18 m-t-15
-              " (click)="submitFeedback();form.reset()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">{{currentlanguage.feedback_service?.register}}</button>
-      </div>
-      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-        <button type="button" md-raised-button color="accent" class="pull-left font-regular f-s-18 m-t-15
-          
-                        " (click)="showTable()">{{currentlanguage.feedback_service?.back}}</button>
+        <button type="button" md-raised-button color="accent" class="pull-left font-regular f-s-18 m-t-15 m-r-10" (click)="showTable()">
+          {{currentlanguage.feedback_service?.back}}</button>
+        <button type="button" md-raised-button color="primary" class="pull-left font-regular f-s-18 m-t-15" (click)="submitFeedback();form.reset()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">
+          {{currentlanguage.feedback_service?.register}}</button>
       </div>
       <!-- </div> -->
       <!--</form>-->
