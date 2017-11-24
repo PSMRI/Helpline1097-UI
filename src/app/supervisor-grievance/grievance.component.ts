@@ -20,6 +20,10 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 })
 export class supervisorFeedback implements OnInit {
 
+  providerServiceMapID:any;
+  userId:any;
+  current_agent:any;
+
   public showupdateFeedback = true;
   public showupdateFeedback1 = true;
   public action = "view";
@@ -49,30 +53,30 @@ export class supervisorFeedback implements OnInit {
   error: any = { isError: false, errorMessage: '' };
 
   constructor(
-    private _feedbackservice: FeedbackService,
-    private _saved_data: dataService,
-    private _coFeedbackService: CoFeedbackService,
-    private dialog: MdDialog,
-    private alertMessage: ConfirmationDialogsService
-  ) {
+              private _feedbackservice: FeedbackService,
+              private _saved_data: dataService,
+              private _coFeedbackService: CoFeedbackService,
+              private dialog: MdDialog,
+              private alertMessage: ConfirmationDialogsService
+              ) {
     this.feedbackList;
     this.feedbackresponceList;
 
     /*
       editor:Diamond Khanna
       date:16 Aug,2017
-    */
-    this.feedBackRequestsResponse = [];
-    this.feedBackResponses = [];
+      */
+      this.feedBackRequestsResponse = [];
+      this.feedBackResponses = [];
 
     /*
      end
-   */
-  }
+     */
+   }
 
 
 
-  feedbackForm = new FormGroup({
+   feedbackForm = new FormGroup({
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
     beneficiaryName: new FormControl(),
@@ -98,7 +102,7 @@ export class supervisorFeedback implements OnInit {
     feedbackRequestID: new FormControl()
   });
 
-  feedbackForm1 = new FormGroup({
+   feedbackForm1 = new FormGroup({
 
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
@@ -115,13 +119,13 @@ export class supervisorFeedback implements OnInit {
   });
 
 
-  feedbackForm3 = new FormGroup({
+   feedbackForm3 = new FormGroup({
     feedbackID: new FormControl()
 
   })
 
 
-  feedbackForm2 = new FormGroup({
+   feedbackForm2 = new FormGroup({
 
     feedbackID: new FormControl('', CustomValidators.number),
 
@@ -133,7 +137,7 @@ export class supervisorFeedback implements OnInit {
 
 
 
-  ngOnInit() {
+   ngOnInit() {
     this.serviceID = this._saved_data.current_service.serviceID;
     let requestData = {};
     requestData['serviceID'] = this.serviceID;
@@ -143,11 +147,17 @@ export class supervisorFeedback implements OnInit {
     this._feedbackservice.getEmailStatuses().subscribe(resProviderData => this.emailStatuses = resProviderData);
 
     this._feedbackservice.getFeedback(requestData)
-      .subscribe(resProviderData => this.providers(resProviderData));
+    .subscribe(resProviderData => this.providers(resProviderData));
     this.maxDate = new Date();
     this.feedBackDiv = true;
 
+
+    this.providerServiceMapID=this._saved_data.current_service.serviceID;
+    this.current_agent= this._saved_data.uname;
+    this.userId=this._saved_data.uid;
   }
+
+
   onSubmit() {
 
 
@@ -169,14 +179,29 @@ export class supervisorFeedback implements OnInit {
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
     if (this.action == 'update') {
+
+      let kmFileManager = undefined;
+      if(this.file!=undefined)
+      {
+        kmFileManager={
+          "fileName": (this.file != undefined) ? this.file.name : '',
+          "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+          "providerServiceMapID": this.providerServiceMapID,
+          "userID": this.userId,
+          "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+          "createdBy": this.current_agent
+        }
+
+      }
+      bodyString['kmFileManager']=kmFileManager;
       bodyString['feedbackResponseID'] = undefined;
       this._feedbackservice.updateResponce(bodyString)
-        .subscribe((resfeedbackData) => {
-          this.alertMessage.alert('Successfully Updated.');
-          this.showUsers(resfeedbackData)
-        }, (err) => {
-          this.alertMessage.alert(err.status);
-        })
+      .subscribe((resfeedbackData) => {
+        this.alertMessage.alert('Successfully Updated.');
+        this.showUsers(resfeedbackData)
+      }, (err) => {
+        this.alertMessage.alert(err.status);
+      })
     }
 
   }
@@ -207,27 +232,27 @@ export class supervisorFeedback implements OnInit {
 
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-      feedback.feedbackRequests ?
-        (
-          feedback.feedbackRequests[0] ?
-            (
-              feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
-            )
-            : feedback.feedback
-        )
-        : feedback.feedback
-    );
+                                                           feedback.feedbackRequests ?
+                                                           (
+                                                            feedback.feedbackRequests[0] ?
+                                                            (
+                                                             feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
+                                                             )
+                                                            : feedback.feedback
+                                                            )
+                                                           : feedback.feedback
+                                                           );
     this.feedbackForm.controls.comments.setValue(
-      feedback.feedbackRequests ?
-        (
-          feedback.feedbackRequests[0] ?
-            (
-              feedback.feedbackRequests[0].comments ? feedback.feedbackRequests[0].comments : ""
-            )
-            : ""
-        )
-        : ""
-    );
+                                                 feedback.feedbackRequests ?
+                                                 (
+                                                  feedback.feedbackRequests[0] ?
+                                                  (
+                                                   feedback.feedbackRequests[0].comments ? feedback.feedbackRequests[0].comments : ""
+                                                   )
+                                                  : ""
+                                                  )
+                                                 : ""
+                                                 );
     this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiaryName);
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
@@ -239,17 +264,22 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
     // this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);instituteType
     this.feedbackForm.controls.institutionName.setValue(
-      feedback.instituteType ? (
-        feedback.instituteType.institutionType ? feedback.instituteType.institutionType : undefined
-      ) : undefined
-    );
+                                                        feedback.instituteType ? (
+                                                                                  feedback.instituteType.institutionType ? feedback.instituteType.institutionType : undefined
+                                                                                  ) : undefined
+                                                        );
     this.feedbackForm.controls.designationName.setValue(feedback.designationName);
     this.feedbackForm.controls.severityTypeName.setValue(feedback.severityTypeName);
     this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     this.feedbackForm.controls.userName.setValue(feedback.userName);
     this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
     this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
-    this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
+    if(feedback.serviceAvailDate)
+    {
+      this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
+
+    }
+    // this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
@@ -258,7 +288,7 @@ export class supervisorFeedback implements OnInit {
     /*
      editor:Diamond Khanna
      date:16 Aug,2017
-   */
+     */
 
     // this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryID, this.serviceID)
     //   .subscribe((response) => {
@@ -273,52 +303,52 @@ export class supervisorFeedback implements OnInit {
     let responsesLength = feedback.feedbackResponses.length();
     /*
      end
-   */
+     */
 
-    this.isCollapsedResponse = true;
+     this.isCollapsedResponse = true;
 
 
-  }
+   }
 
-  updateResponse(feedback) {
+   updateResponse(feedback) {
 
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = 'update';
 
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-      feedback.feedbackRequests ?
-        (
-          feedback.feedbackRequests[0] ?
-            (
-              feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
-            )
-            : feedback.feedback
-        )
-        : feedback.feedback
-    );
+                                                           feedback.feedbackRequests ?
+                                                           (
+                                                            feedback.feedbackRequests[0] ?
+                                                            (
+                                                             feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
+                                                             )
+                                                            : feedback.feedback
+                                                            )
+                                                           : feedback.feedback
+                                                           );
     this.feedbackForm.controls.feedbackRequestID.setValue(
-      feedback.feedbackRequests ?
-        (
-          feedback.feedbackRequests[0] ?
-            (
-              feedback.feedbackRequests[0].feedbackRequestID ? feedback.feedbackRequests[0].feedbackRequestID : undefined
-            )
-            : undefined
-        )
-        : undefined
-    );
+                                                          feedback.feedbackRequests ?
+                                                          (
+                                                           feedback.feedbackRequests[0] ?
+                                                           (
+                                                            feedback.feedbackRequests[0].feedbackRequestID ? feedback.feedbackRequests[0].feedbackRequestID : undefined
+                                                            )
+                                                           : undefined
+                                                           )
+                                                          : undefined
+                                                          );
     this.feedbackForm.controls.comments.setValue(
-      feedback.feedbackResponses ?
-        (
-          feedback.feedbackResponses[0] ?
-            (
-              feedback.feedbackResponses[0].comments ? feedback.feedbackResponses[0].comments : ""
-            )
-            : ""
-        )
-        : ""
-    );
+                                                 feedback.feedbackResponses ?
+                                                 (
+                                                  feedback.feedbackResponses[0] ?
+                                                  (
+                                                   feedback.feedbackResponses[0].comments ? feedback.feedbackResponses[0].comments : ""
+                                                   )
+                                                  : ""
+                                                  )
+                                                 : ""
+                                                 );
     this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiaryName);
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
@@ -330,50 +360,55 @@ export class supervisorFeedback implements OnInit {
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
     // this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);
     this.feedbackForm.controls.institutionName.setValue(
-      feedback.instituteType ? (
-        feedback.instituteType.institutionType ? feedback.instituteType.institutionType : undefined
-      ) : undefined
-    );
+                                                        feedback.instituteType ? (
+                                                                                  feedback.instituteType.institutionType ? feedback.instituteType.institutionType : undefined
+                                                                                  ) : undefined
+                                                        );
     this.feedbackForm.controls.designationName.setValue(feedback.designationName);
     this.feedbackForm.controls.severityTypeName.setValue(feedback.severityTypeName);
     this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     this.feedbackForm.controls.userName.setValue(feedback.userName);
     this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
     this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
-    this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
+    if(feedback.serviceAvailDate)
+    {
+      this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
+
+    }
+    // this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
     /*
      editor:Diamond Khanna
      date:16 Aug,2017
-   */
-    this.feedBackRequestsResponse = feedback.feedbackRequests;
-    this.feedBackResponses = feedback.feedbackResponses;
-    this.consolidatedRequests = feedback.consolidatedRequests;
+     */
+     this.feedBackRequestsResponse = feedback.feedbackRequests;
+     this.feedBackResponses = feedback.feedbackResponses;
+     this.consolidatedRequests = feedback.consolidatedRequests;
 
     /*
       end
-    */
+      */
 
-  }
+    }
 
 
-  onSend(feedback) {
-    console.log(feedback);
-    console.log('SPData' + JSON.stringify(feedback));
-    let dataforUpdate = feedback;
-    dataforUpdate['serviceID'] = this.serviceID;
+    onSend(feedback) {
+      console.log(feedback);
+      console.log('SPData' + JSON.stringify(feedback));
+      let dataforUpdate = feedback;
+      dataforUpdate['serviceID'] = this.serviceID;
 
-    this.feedbackForm1.controls.feedbackID.setValue(feedback.feedbackID);
-    this.feedbackForm1.controls.feedbackSupSummary.setValue(feedback.feedback);
-    this.feedbackForm1.controls.beneficiaryName.setValue(feedback.beneficiaryName);
-    this.feedbackForm1.controls.createdBy.setValue(feedback.createdBy);
-    this.feedbackForm1.controls.createdDate.setValue(feedback.createdDate);
+      this.feedbackForm1.controls.feedbackID.setValue(feedback.feedbackID);
+      this.feedbackForm1.controls.feedbackSupSummary.setValue(feedback.feedback);
+      this.feedbackForm1.controls.beneficiaryName.setValue(feedback.beneficiaryName);
+      this.feedbackForm1.controls.createdBy.setValue(feedback.createdBy);
+      this.feedbackForm1.controls.createdDate.setValue(feedback.createdDate);
 
-    console.log('raj' + dataforUpdate)
-    let bodyString = this.feedbackForm1.value;
-    this._feedbackservice.requestFeedback(bodyString)
+      console.log('raj' + dataforUpdate)
+      let bodyString = this.feedbackForm1.value;
+      this._feedbackservice.requestFeedback(bodyString)
       .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
     // this._feedbackservice.updateStatus( bodyString )
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
@@ -387,7 +422,7 @@ export class supervisorFeedback implements OnInit {
 
   toUTCDate(date) {
     const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
-      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+                          date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     return _utc;
   };
 
@@ -423,12 +458,12 @@ export class supervisorFeedback implements OnInit {
     // this._feedbackservice.searchFeedback( bodyString )
     //   .subscribe( resProviderData => this.providers( resProviderData ) );
     this._feedbackservice.getFeedback(bodyString)
-      .subscribe((resProviderData) => {
-        this.providers(resProviderData)
-      },
-      (err) => {
-        this.alertMessage.alert(err.status);
-      });
+    .subscribe((resProviderData) => {
+      this.providers(resProviderData)
+    },
+    (err) => {
+      this.alertMessage.alert(err.status);
+    });
   }
 
   onClick(feedback) {
@@ -438,7 +473,7 @@ export class supervisorFeedback implements OnInit {
     // this._feedbackservice.responce( bodyString )
     //   .subscribe( resProviderData => this.showResponce( resProviderData ) );
     this._feedbackservice.updateResponce(bodyString)
-      .subscribe(resProviderData => this.showResponce(resProviderData));
+    .subscribe(resProviderData => this.showResponce(resProviderData));
 
   }
   showResponce(data1) {
@@ -490,14 +525,63 @@ export class supervisorFeedback implements OnInit {
     });
     dialogReff.afterClosed().subscribe(result => {
       this._feedbackservice.requestFeedback(bodyString)
-        .subscribe(resfeedbackData =>
-          this.showUsers(resfeedbackData), err => {
-            this.alertMessage.alert(err.status);
-          })
+      .subscribe(resfeedbackData =>
+                 this.showUsers(resfeedbackData), err => {
+                  this.alertMessage.alert(err.status);
+                })
     });
 
   }
   back() {
     this.action = "view";
   }
+
+
+  maxFileSize = 5;
+  fileList: FileList;
+  error1: boolean = false;
+  error2: boolean = false;
+  error3: boolean = false;
+
+  file: any;
+  fileContent: any;
+
+  onFileUpload(event) {
+    this.fileList = event.target.files;
+    this.file = event.target.files[0];
+    console.log(this.file);
+    if (this.file) {
+      const myReader: FileReader = new FileReader();
+      myReader.onloadend = this.onLoadFileCallback.bind(this)
+      myReader.readAsDataURL(this.file);
+    }
+    if (this.fileList.length == 0) {
+      this.error1 = true;
+      this.error2 = false;
+      this.error3 = false;
+    }
+    else if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
+      console.log(this.fileList[0].size / 1000 / 1000);
+      this.error1 = false;
+      this.error2 = false;
+      this.error3 = false;
+    }
+    else if (this.fileList[0].size / 1000 / 1000 == 0) {
+      console.log(this.fileList[0].size / 1000 / 1000);
+      this.error2 = false;
+      this.error1 = false;
+      this.error3 = true
+    }
+    else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
+      console.log(this.fileList[0].size / 1000 / 1000);
+      this.error2 = true;
+      this.error1 = false;
+      this.error3 = false;
+    }
+
+  }
+  onLoadFileCallback = (event) => {
+    this.fileContent = event.currentTarget.result;
+  }
+
 }

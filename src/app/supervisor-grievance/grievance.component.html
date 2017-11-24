@@ -201,6 +201,10 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="action==='update'">
+      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right">
+          <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
+          <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file">
+        </div>
       <button md-raised-button color="primary" class="pull-right" type="submit" name="save">Save</button>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
