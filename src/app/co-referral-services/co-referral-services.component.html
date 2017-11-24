@@ -177,6 +177,7 @@
               <span *ngIf="detail.institutionDetails?.contactPerson3Email">, {{detail.institutionDetails?.contactPerson3Email}}</span>
               <br/>
             </span>
+            <span *ngIf="detailsList?.length==0">No Records Found</span>
           </div>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" *ngIf="showSendSMS">
