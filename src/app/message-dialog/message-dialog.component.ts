@@ -11,6 +11,22 @@ export class MessageDialogComponent implements OnInit {
   constructor(@Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<MessageDialogComponent>) { }
 
   ngOnInit() {
+  	console.log(this.data,"DATA IN MESSAGE DIALOG WINDOW");
+  	this.checkForURL(this.data.message);
+  }
+
+
+urls=[];
+
+  checkForURL(string)
+  {
+  	var matches=[];
+  	matches=string.match(/\bhttp[s,]?:\/\/\S+/gi);
+  	console.log("matches",matches);
+  	if(matches.length>0)
+  	{
+  		this.urls=matches;
+  	}
   }
 
 }
