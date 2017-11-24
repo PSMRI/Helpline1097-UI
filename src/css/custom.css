@@ -1547,7 +1547,13 @@ em {
 .btn>* {
   position: relative;
 }
-
+.icon {
+  position: relative;
+  top: 5px;
+}
+.f-l {
+  float: left;
+}
 .activeBtn {
   background: #14508c !important;
 }
