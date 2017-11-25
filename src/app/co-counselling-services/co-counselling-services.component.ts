@@ -8,7 +8,6 @@ import { CommunicationService } from './../services/common/communication.service
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 declare var jQuery: any;
 
->>>>>>> 667cd8d39ff97d3b67bf9eae70bb5c298e17c273
 @Component({
   selector: 'app-co-counselling-services',
   templateUrl: './co-counselling-services.component.html',
