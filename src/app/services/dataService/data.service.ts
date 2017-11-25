@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { Subject } from 'rxjs/Subject';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -22,7 +22,7 @@ export class dataService {
 	current_campaign: any;
 
 	benRegId: any;
-
+	roleSelected = new Subject();
 	current_role: any;
 	current_service: any;
 	parentBeneficiaryData: any = {};

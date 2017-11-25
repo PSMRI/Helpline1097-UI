@@ -99,15 +99,15 @@
                 <li>
                   <span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span>
                 </li>
-                <li>{{selectedBenData.name}}</li>
-                <li>{{selectedBenData.mob}}</li>
-                <li>{{selectedBenData.age}}</li>
-                <li>{{selectedBenData.state}}</li>
-                <li>{{selectedBenData.district}}</li>
-                <li>{{selectedBenData.block}}</li>
-                <li>{{selectedBenData.village}}</li>
-                <li>{{selectedBenData.language}}</li>
-                <li>{{selectedBenData.relation}}</li>
+                <li *ngIf="selectedBenData.name">{{selectedBenData.name}}</li>
+                <li *ngIf="selectedBenData.mob">{{selectedBenData.mob}}</li>
+                <li *ngIf="selectedBenData.age">{{selectedBenData.age}}</li>
+                <li *ngIf="selectedBenData.state">{{selectedBenData.state}}</li>
+                <li *ngIf="selectedBenData.district">{{selectedBenData.district}}</li>
+                <li *ngIf="selectedBenData.block">{{selectedBenData.block}}</li>
+                <li *ngIf="selectedBenData.village">{{selectedBenData.village}}</li>
+                <li *ngIf="selectedBenData.language">{{selectedBenData.language}}</li>
+                <li *ngIf="selectedBenData.relation">{{selectedBenData.relation}}</li>
               </ul>
               <ul class="list-unstyled list-inline pull-right m-b-0 ">
                 <!--               <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
