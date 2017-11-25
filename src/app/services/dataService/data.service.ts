@@ -35,6 +35,18 @@ export class dataService {
 
 	serviceProviderID: any;
 	isOutbound: boolean = false;
+
+
+
+
+	 // myBool$: Observable<boolean>;
+
+  //   reset_flag:boolean;
+
+  //   constructor() {
+  //       this.reset_flag = false;
+  //       this.myBool$ = this.reset_flag.asObservable();
+  //   }
 };
 
 

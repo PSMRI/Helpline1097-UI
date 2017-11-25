@@ -39,6 +39,8 @@ export class CoInformationServicesComponent implements OnInit {
     private pass_data: CommunicationService
   ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
+
+    // saved_data.myBool$.subscribe((newBool: boolean) => { alert("new val in co info",newBool) });
   }
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;

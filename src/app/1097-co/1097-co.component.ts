@@ -93,6 +93,16 @@ export class helpline1097CoComponent implements OnInit {
     });
   }
 
+
+/*experiment*/
+  // f:boolean=true;
+  // toggleVAL()
+  // {
+  //   this.getCommonData.reset_flag=!(this.f);
+  // }
+
+  /*experiment*/
+
   ngOnChanges() {
     this.setLanguage(this.current_language);
   }
