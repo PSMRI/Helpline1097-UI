@@ -5,7 +5,8 @@
         <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.information_service?.page_heading}}</h4>
       </label>
     </div>
-    <div *ngIf="showFormCondition">
+    <div [hidden]="!showFormCondition">
+    <form id="informationForm">
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
         <md-input-container class="hide_underline width100">
           <input mdInput style="display:none">
@@ -45,7 +46,7 @@
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
-          <ul class="m-t-10">
+          <ul class="m-t-10" [hidden]="!showresult">
             <li *ngFor="let detail of detailsList">
               <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank">
                 <md-icon class="f-s-22 icon" color="">file_download</md-icon><span class="m-l-10">{{detail?.subCategoryName}}:{{detail?.subCategoryDesc}}</span>
@@ -56,6 +57,7 @@
           </ul>
         </div>
       </div>
+      </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
       <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">

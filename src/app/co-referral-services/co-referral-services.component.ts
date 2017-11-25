@@ -8,6 +8,8 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { CoAlternateNumberComponent } from './co-alternate-number/co-alternate-number.component';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 // Common service to pass Data
+declare var jQuery: any;
+
 import { CommunicationService } from './../services/common/communication.service'
 @Component({
   selector: 'app-co-referral-services',
@@ -17,6 +19,7 @@ import { CommunicationService } from './../services/common/communication.service
 export class CoReferralServicesComponent implements OnInit {
   @Input() current_language: any;
   currentlanguage: any;
+    @Input() resetProvideServices: any;
 
   @Output() referralServiceProvided: EventEmitter<any> = new EventEmitter<any>();
 
@@ -75,6 +78,11 @@ export class CoReferralServicesComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
+      if(this.resetProvideServices) {
+      jQuery('#referralForm').trigger("reset");
+      this.showTableCondition = true;
+      this.showFormCondition = false;
+    }
 
   }
 

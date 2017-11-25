@@ -3,6 +3,8 @@ import { CoCategoryService } from '../services/coService/co_category_subcategory
 import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
 import { Subscription } from 'rxjs/Subscription';
+declare var jQuery: any;
+
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
 @Component({
@@ -16,6 +18,7 @@ export class CoInformationServicesComponent implements OnInit {
   currentlanguage: any;
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
+      @Input() resetProvideServices: any;
 
   @Output() informationServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
@@ -24,6 +27,7 @@ export class CoInformationServicesComponent implements OnInit {
   symptomSubCategory: any;
   detailsList: any;
   subServiceID: number;
+  showresult: boolean;
   providerServiceMapID: number;
   public data: any;
   public totalRecord: any;
@@ -52,6 +56,13 @@ export class CoInformationServicesComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
+    if(this.resetProvideServices) {
+      jQuery('#informationForm').trigger("reset");
+      this.showTableCondition = true;
+      this.showFormCondition = false;
+      this.detailsList = [];
+      this.showresult = false;
+    }
   }
 
   setLanguage(language) {
@@ -111,6 +122,7 @@ export class CoInformationServicesComponent implements OnInit {
     this.getDetailsFlag = false;
   }
   GetSubCategoryDetails(id: any) {
+    this.showresult = true;
     this._coCategoryService.getDetails(
       id, this.saved_data.uname, this.beneficiaryID,
       this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID

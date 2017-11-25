@@ -6,8 +6,8 @@
       </label>
     </div>
   </div>
-  <div *ngIf="showFormCondition" class="row">
-
+  <div [hidden]="!showFormCondition" class="row">
+  <form id="counsellingForm">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none">
@@ -56,7 +56,7 @@
           <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">No Document Available</span>
         </span>
         <span *ngIf="detailsList?.length==0">No Records Found</span>-->
-        <ul class="m-t-10">
+        <ul class="m-t-10" [hidden]="!showresult">
           <li *ngFor="let detail of detailsList">
             <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank">
               <md-icon class="f-s-22 icon" color="">file_download</md-icon><span class="m-l-10">{{detail?.subCategoryName}}:{{detail?.subCategoryDesc}}</span>
@@ -67,6 +67,7 @@
         </ul>
       </div>
     </div>
+    </form>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
     <div class="row">

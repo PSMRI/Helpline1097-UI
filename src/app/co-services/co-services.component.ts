@@ -11,9 +11,11 @@ export class CoServicesComponent implements OnInit {
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @Input() current_language: any;
   @Input() benData: any;
+  @Input() resetProvideServices: any;
   currentlanguage: any;
   selectedBenData: any;
   loadComp = false;
+  show: boolean = true;
   constructor() { }
 
   selectedService: any;
@@ -25,6 +27,11 @@ export class CoServicesComponent implements OnInit {
 
   ngOnChanges() {
     this.setLanguage(this.current_language);
+       if(this.resetProvideServices) {
+      jQuery('#feedbackForm').trigger("reset");
+      this.show = true;
+    }
+
   }
 
   setLanguage(language) {
