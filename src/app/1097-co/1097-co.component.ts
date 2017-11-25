@@ -294,6 +294,7 @@ export class helpline1097CoComponent implements OnInit {
   prevVisual() {
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);
+    this.isClosureDisable = false;
 
     if (idx === 2) {
       jQuery('#two').parent().find('a').removeClass('active-tab');
