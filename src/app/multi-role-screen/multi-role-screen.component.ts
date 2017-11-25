@@ -12,6 +12,9 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
   styleUrls: ['./multi-role-screen.component.css']
 })
 export class MultiRoleScreenComponent implements OnInit {
+  data:any;
+  current_service:any;
+current_role:any;
   userName: any = '';
   loginUrl = this._config.getCommonLoginUrl();
   constructor(public dataSettingService: dataService, private _config: ConfigService,
@@ -19,7 +22,8 @@ export class MultiRoleScreenComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService) {
   }
   ngOnInit() {
-
+this.data = this.dataSettingService.Userdata;
+ 
     this.userName = this.dataSettingService.Userdata.userName;
     // this.router.navigate(['/MultiRoleScreenComponent/roleSelection']);
     // const userObj = JSON.parse(Cookie.get('userID'));
