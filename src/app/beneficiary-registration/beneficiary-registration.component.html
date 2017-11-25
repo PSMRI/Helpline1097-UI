@@ -238,7 +238,7 @@
           <input mdInput style="display:none">
 
           <md-select placeholder="{{currentlanguage.beneficiary_registration?.title}}" [style.width]="'100%'" [(ngModel)]="TitleId"
-            name="TitleId">
+            name="TitleId" (change)="titleSelected(TitleId)">
             <md-option *ngFor="let title of titles" [value]="title.titleID">
               {{title.titleName}}
             </md-option>

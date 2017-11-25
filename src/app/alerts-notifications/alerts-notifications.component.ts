@@ -192,7 +192,8 @@ export class AlertsNotificationComponent implements OnInit {
     event.preventDefault();
     let dialog = this.dialog.open(MessageDialogComponent, {
      width: '400px',
-     height: '250px',
+     disableClose : true,
+    //  height: '250px',
      data: {
       message: alert.notificationDesc,
       type: "Alert",
@@ -205,7 +206,8 @@ export class AlertsNotificationComponent implements OnInit {
     event.preventDefault();
     let dialog = this.dialog.open(MessageDialogComponent, {
       width: '400px',
-      height: '250px',
+      disableClose : true,
+      // height: '250px',
       data: {
         message: notification.notificationDesc,
         type: "Notification",
