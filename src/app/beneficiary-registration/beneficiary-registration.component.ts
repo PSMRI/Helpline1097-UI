@@ -825,7 +825,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this._util.retrieveRegHistory(parentBenID).subscribe((response) => {
       if (response) {
         this.beneficiaryRelationID = undefined;
-        this.relationshipWith = 'Relationship with ' + response[0].firstName + ' ' + response[0].lastName;
+        this.relationshipWith = 'Relationship With ' + response[0].firstName + ' ' + response[0].lastName;
       }
     }, (err) => {
       console.log('Something Went Wrong in fetching Parent Data');
