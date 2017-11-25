@@ -19,7 +19,7 @@ import { CommunicationService } from './../services/common/communication.service
 export class CoReferralServicesComponent implements OnInit {
   @Input() current_language: any;
   currentlanguage: any;
-    @Input() resetProvideServices: any;
+  @Input() resetProvideServices: any;
 
   @Output() referralServiceProvided: EventEmitter<any> = new EventEmitter<any>();
 
@@ -53,14 +53,14 @@ export class CoReferralServicesComponent implements OnInit {
   p = 1;
   enableSms: boolean = true;
   constructor(
-    private _userBeneficiaryData: UserBeneficiaryData,
-    private _locationService: LocationService,
-    private _coReferralService: CoReferralService,
-    private saved_data: dataService,
-    private pass_data: CommunicationService,
-    private dialog: MdDialog,
-    private message: ConfirmationDialogsService
-  ) { this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) }); }
+              private _userBeneficiaryData: UserBeneficiaryData,
+              private _locationService: LocationService,
+              private _coReferralService: CoReferralService,
+              private saved_data: dataService,
+              private pass_data: CommunicationService,
+              private dialog: MdDialog,
+              private message: ConfirmationDialogsService
+              ) { this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) }); }
 
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -71,14 +71,14 @@ export class CoReferralServicesComponent implements OnInit {
     // // call the api to get all the states
     // this.states = [];  //substitute it with the response
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
-      .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
+    .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
     this.GetInformationDirectory();
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
-      if(this.resetProvideServices) {
+    if(this.resetProvideServices) {
       jQuery('#referralForm').trigger("reset");
       this.showTableCondition = true;
       this.showFormCondition = false;
@@ -93,7 +93,7 @@ export class CoReferralServicesComponent implements OnInit {
 
   GetServiceTypes() {
     this._coReferralService.getTypes(this.providerServiceMapID)
-      .subscribe(response => this.setServiceTypes(response));
+    .subscribe(response => this.setServiceTypes(response));
   }
   setServiceTypes(response: any) {
     for (let i: any = 0; i < response.length; i++) {
@@ -106,13 +106,21 @@ export class CoReferralServicesComponent implements OnInit {
 
   setBeneficiaryData() {
     this._coReferralService.getReferralHistoryByID(this.beneficiaryRegID)
-      .subscribe(response => this.getReferralHistory(response));
+    .subscribe(response => this.getReferralHistory(response));
   }
 
   getReferralHistory(response: any) {
     console.log('referral history is :', response);
     // this.tableArray = response;
-    this.data = response;
+    if(response)
+    {
+      this.data = response;  
+    }
+    else
+    {
+      this.message.alert("No Data Found. Please Contact Your Provider Admin")
+    }
+    
   }
 
   showForm() {
@@ -147,7 +155,7 @@ export class CoReferralServicesComponent implements OnInit {
     this.taluks = [];
     this.blocks = [];
     this._locationService.getDistricts(state)
-      .subscribe(response => this.SetDistricts(response));
+    .subscribe(response => this.SetDistricts(response));
   }
   SetDistricts(response: any) {
     this.districts = response;
@@ -156,7 +164,7 @@ export class CoReferralServicesComponent implements OnInit {
     this.taluks = [];
     this.blocks = [];
     this._locationService.getTaluks(district)
-      .subscribe(response => this.SetTaluks(response));
+    .subscribe(response => this.SetTaluks(response));
   }
   SetTaluks(response: any) {
     this.taluks = response;
@@ -164,7 +172,7 @@ export class CoReferralServicesComponent implements OnInit {
   GetSDTB(taluk: number) {
     this.blocks = [];
     this._locationService.getBranches(taluk)
-      .subscribe(response => this.SetSDTB(response));
+    .subscribe(response => this.SetSDTB(response));
   }
   SetSDTB(response: any) {
     this.blocks = response;
@@ -172,7 +180,7 @@ export class CoReferralServicesComponent implements OnInit {
 
   GetSubDirectory(directoryID: number) {
     this._locationService.getSubDirectory(directoryID)
-      .subscribe(response => this.SetSubDirectory(response));
+    .subscribe(response => this.SetSubDirectory(response));
   }
   SetSubDirectory(response: any) {
     this.sub_directory = response.subDirectory;
@@ -180,19 +188,23 @@ export class CoReferralServicesComponent implements OnInit {
 
   GetReferralDetails() {
     this._coReferralService.getDetails(
-      this.selected_directory, this.selected_sub_directory, this.selected_state, this.selected_district, this.selected_taluk,
-      this.saved_data.uname, this.beneficiaryRegID, this.subServiceID, this.saved_data.callData.benCallID
-    ).subscribe(response => this.SetReferralDetails(response));
+                                       this.selected_directory, this.selected_sub_directory, this.selected_state, this.selected_district, this.selected_taluk,
+                                       this.saved_data.uname, this.beneficiaryRegID, this.subServiceID, this.saved_data.callData.benCallID
+                                       ).subscribe(response => this.SetReferralDetails(response));
   }
 
   SetReferralDetails(response: any) {
     console.log('success referral', response);
-    this.detailsList = response;
-    if (this.detailsList.length > 0) {
-      this.showSendSMS = true;
+    if(response)
+    {
+      this.detailsList = response;
+      if (this.detailsList.length > 0) {
+        this.showSendSMS = true;
+      }
+      this.referralServiceProvided.emit();
+      this.provideReferralDescription();
     }
-    this.referralServiceProvided.emit();
-    this.provideReferralDescription();
+    
   }
 
   provideReferralDescription() {
@@ -216,7 +228,7 @@ export class CoReferralServicesComponent implements OnInit {
   }
   toUTCDate(date) {
     const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
-      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+                          date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     return _utc;
   };
 

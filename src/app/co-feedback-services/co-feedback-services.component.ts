@@ -143,8 +143,13 @@ export class CoFeedbackServicesComponent implements OnInit {
   showBeneficiaryFeedbackList() {
     this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryRegID, this.serviceID)
       .subscribe((response) => {
-        this.setFeedbackHistoryByID(response)
-        this.showTable();
+        if(response){
+          this.setFeedbackHistoryByID(response)
+          this.showTable();
+        }
+        else {
+          this.alertMessage.alert("No data Found. Please contact your administrator");
+        }
       }, (err) => {
         this.alertMessage.alert('Error In Fetching Previous Feedback. Please Try Again.');
         console.log('Error in fetching Data of FeedBack' + err);

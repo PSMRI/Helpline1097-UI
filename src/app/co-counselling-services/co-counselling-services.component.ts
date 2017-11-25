@@ -5,6 +5,7 @@ import { CoReferralService } from './../services/coService/co_referral.service'
 import { Subscription } from 'rxjs/Subscription';
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 declare var jQuery: any;
 
 @Component({
@@ -42,7 +43,8 @@ export class CoCounsellingServicesComponent implements OnInit {
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
     private _coService: CoReferralService,
-    private pass_data: CommunicationService
+    private pass_data: CommunicationService,
+    private alertService: ConfirmationDialogsService
   ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
   }
@@ -123,11 +125,13 @@ export class CoCounsellingServicesComponent implements OnInit {
     this.getDetailsFlag = false;
   }
   SetSubCategoryDetails(response: any) {
-    console.log('success', response);
-    this.detailsList = response;
-    this.getDetailsFlag = true;
-    this.counsellingServiceProvided.emit();
-
+    if(response){
+      console.log('success', response);
+      this.detailsList = response;
+      this.getDetailsFlag = true;
+      this.counsellingServiceProvided.emit();
+      this.GetCounsellingHistory();
+    }
   }
   showForm() {
     this.showFormCondition = true;
@@ -141,9 +145,14 @@ export class CoCounsellingServicesComponent implements OnInit {
   }
   GetCounsellingHistory() {
     this._coService.getCounsellingsHistoryByID(this.beneficiaryID).subscribe((res) => {
-      this.data = res;
-      this.totalRecord = res.length;
-      console.log('Information History Successfully reterive', res);
+      if(res){
+        this.data = res;
+        this.totalRecord = res.length;
+        console.log('Information History Successfully reterive', res);
+      }
+      else {
+        this.alertService.alert("No Data Found Contact your administrator");
+      }
     }, (err) => {
       console.log('Some error reteriving Information History ', err);
     })
