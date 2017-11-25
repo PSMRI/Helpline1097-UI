@@ -16,6 +16,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { OutboundService } from './../services/common/outbound.services';
 import { ReloadService } from './../services/common/reload.service';
 import { Subscription } from 'rxjs/Subscription';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-beneficiary-registration',
@@ -161,6 +162,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // if (this.onStartNewCall) {
     //   this.startNewCall();
     // }
+     jQuery("#BeneficaryForm").trigger("reset");
 
   }
 
@@ -266,6 +268,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.notCalledEarlierLowerPart = false;
     this.calledRadio = true;
     this.onBenRegDataSelect.emit(null);
+
   }
 
   startNewCall() {
@@ -273,6 +276,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.startCall();
   }
   startCall() {
+        jQuery("#benForm").trigger("reset");
 
     const data: any = {};
     data.callID = this.saved_data.callID;
@@ -356,6 +360,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
     if (!flag) {
+
       this.searchValue = 'Advance Search';
       this.advanceBtnHide = false;
       // this.isParentBeneficiary = false;
@@ -376,20 +381,22 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.MaritalStatusID = undefined;
       this.DOB = undefined;
       this.aadharNo = undefined;
-      this.caste = undefined;
-      this.BeneficiaryTypeID = undefined;
-      // this.educationQualification = undefined;
-      this.state = undefined;
-      this.district = undefined;
-      this.districts = [];
-      this.taluk = undefined;
-      this.taluks = [];
-      this.village = undefined;
-      this.blocks = [];
+       this.caste = undefined;
+       this.BeneficiaryTypeID = undefined;
+                  // this.educationQualification = undefined;
+       this.state = undefined;
+       this.district = undefined;
+       this.districts = [];
+       this.taluk = undefined;
+       this.taluks = [];
+       this.village = undefined;
+       this.blocks = [];
       this.pincode = undefined;
       this.preferredLanguage = undefined;
       this.identityType = undefined;
       this.wentAwayMainScreen.emit();
+             
+
       // if (this.isParentBeneficiary || this.regHistoryList.length > 0) {
       //   this.isParentBeneficiary = true;
       //   this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {

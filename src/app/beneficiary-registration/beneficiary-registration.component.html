@@ -25,10 +25,10 @@
    </div>
 
    <div class="col-xs-8 col-sm-7 col-md-7 col-lg-7">
-<button type="button" md-raised-button color="primary" class="pull-right " id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue}}</button>
-      <button type="button" md-raised-button color="primary" class="pull-right m-r-10" id="retrieve" (click)="retrieveRegHistory(registrationNo)">{{currentlanguage.beneficiary_registration?.retrieve}}</button>
+    <button type="button" md-raised-button color="primary" class="pull-right " id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue}}</button>
+    <button type="button" md-raised-button color="primary" class="pull-right m-r-10" id="retrieve" (click)="retrieveRegHistory(registrationNo)">{{currentlanguage.beneficiary_registration?.retrieve}}</button>
     
-   </div>
+  </div>
 
 </div>
 
@@ -482,7 +482,7 @@
             </md-option>
           </md-select>
           <md-hint *ngIf=" cityErrFlag">
-            <span class="error_text">Please select city </span>
+            <span class="error_text">Please Select District </span>
           </md-hint>
         </md-input-container>
 
@@ -574,7 +574,7 @@
       <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="!updationProcess">
         <button md-raised-button color="primary" class="p-l-r-38 font-regular f-s-18"  (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
         
-        <button md-raised-button color="primary" [disabled]="!stateSelected.valid || !citySelected.valid || pin.errors?.minlength" class="pull-right p-l-r-38 font-regular
+        <button md-raised-button color="primary" [disabled]="BeneficaryForm.invalid || !stateSelected.valid || !citySelected.valid || pin.errors?.minlength" class="pull-right p-l-r-38 font-regular
                 f-s-18" (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
                 <button md-raised-button class="pull-right p-l-r-38 m-l-10 m-r-10 font-regular
                 f-s-18" (click)="BeneficaryForm.reset()">{{currentlanguage.beneficiary_registration?.clear}}</button>
