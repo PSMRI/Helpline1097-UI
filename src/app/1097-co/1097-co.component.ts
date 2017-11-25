@@ -310,5 +310,8 @@ export class helpline1097CoComponent implements OnInit {
 
     }
   }
+  CancelDisable() {
+    this.isCancelDisable = false;
+  }
 
 }

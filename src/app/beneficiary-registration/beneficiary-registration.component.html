@@ -5,10 +5,11 @@
   </div> -->
   <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
   <div class="row p-t-20" *ngIf="current_campaign == 'INBOUND'">
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="calledRadio;">
+<!--     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="calledRadio;">
+ -->    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="calledEarlier">
 
       <h5> {{currentlanguage.beneficiary_registration?.call_confirmation_question}}</h5>
-      <md-radio-group name="called_earlier" (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">
+      <md-radio-group  name="called_earlier" (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">
         <md-radio-button ngDefaultControl color="primary" [value]=true>Yes</md-radio-button>
         <md-radio-button ngDefaultControl color="primary" [value]=false>No</md-radio-button>
       </md-radio-group>
@@ -159,7 +160,7 @@
         <table class="table table-responsive table-striped" [md2Data]="regHistoryList" #md2="md2DataTable" [rowsPerPage]="3">
           <thead>
             <tr>
-              <th md2SortBy="beneficiaryID" width=2%>{{currentlanguage.beneficiary_registration?.table_labels?.sno}}</th>
+              <th width=2%>{{currentlanguage.beneficiary_registration?.table_labels?.sno}}</th>
               <th md2SortBy="beneficiaryID" width=5%>{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_id}}</th>
               <th md2SortBy="firstName" width=12%>{{currentlanguage.beneficiary_registration?.table_labels?.fullname}}</th>
               <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.dob}}</th> -->
@@ -186,7 +187,9 @@
             </tr>
           </tbody>
           <tbody *ngIf="md2.data?.length>0">
-            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of md2.data;let i=index ">
+
+            <tr  (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of md2.data;let i=index " style="cursor: pointer">
+
               <td>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</td>
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
