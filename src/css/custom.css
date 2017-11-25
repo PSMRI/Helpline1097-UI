@@ -1998,6 +1998,8 @@ input:-webkit-autofill:hover {
 
 .md2-datepicker-input {
   font-weight: 700;
+  height: 32px !important;
+  border-bottom: 2px solid rgba(0,0,0,.12);
 }
 
 .hide_underline .mat-input-underline {
@@ -2018,14 +2020,16 @@ margin-bottom: 5px !important;
 .white-space-nowrap{
 white-space: nowrap!important;
 }
-.mat-select-placeholder, .mat-select-value-text{
+.mat-select-placeholder, .mat-select-value-text, .mat-input-element, .mat-input-placeholder-wrapper{
    font-family: SF-UI-Display-Regular !important;
    font-size: 15px !important;
    font-weight: 800 !important;
 }
+
 .mat-input-wrapper {
     padding-bottom: 1.5em !important;
 }
+
 @media (max-width: 317px) {}
 
 @media (min-width: 480px) {
@@ -2054,6 +2058,12 @@ margin-top: 10px;
   }
   .width-lg-97 {
     width: 100% !important;
+  }
+   .p-t-lg-20 {
+    padding-top: 0px;
+  }
+  .p-t-lg-15 {
+    padding-top: 0px;
   }
 }
 
@@ -2094,6 +2104,12 @@ margin-top: 10px;
   }
   .p-t-lg-2 {
     padding-top: 2px !important;
+  }
+  .p-t-lg-20 {
+    padding-top: 0px;
+  }
+  .p-t-lg-15 {
+    padding-top: 0px;
   }
   .p-r-lg-1 {
     padding-right: 0px !important;
@@ -2165,6 +2181,12 @@ margin-top:0px;
   }
   .p-l-lg-2 {
     padding-left: 2px !important;
+  }
+  .p-t-lg-20 {
+    padding-top: 20px;
+  }
+  .p-t-lg-15 {
+    padding-top: 15px;
   }
   .f-s-lg-18 {
     font-size: 18px;
