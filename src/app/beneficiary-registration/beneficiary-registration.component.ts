@@ -163,6 +163,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
+
   setLanguage(language) {
     this.currentlanguage = language;
     console.log(language, 'language ben reg tk');
@@ -537,7 +538,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   showAlert() {
     this.BeneficaryForm.resetForm();
-    this.alertMaessage.alert('Registration Successful. Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
+    this.alertMaessage.alert('Beneficiary Registered With ID :' + this.benRegistrationResponse.beneficiaryRegID);
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
