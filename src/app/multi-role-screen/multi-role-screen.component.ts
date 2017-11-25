@@ -14,7 +14,8 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 export class MultiRoleScreenComponent implements OnInit {
   data:any;
   current_service:any;
-current_role:any;
+  current_role:any;
+  id: any;
   userName: any = '';
   loginUrl = this._config.getCommonLoginUrl();
   constructor(public dataSettingService: dataService, private _config: ConfigService,
@@ -22,7 +23,15 @@ current_role:any;
     private alertMessage: ConfirmationDialogsService) {
   }
   ngOnInit() {
-this.data = this.dataSettingService.Userdata;
+    this.data = this.dataSettingService.Userdata;
+    this.current_role = (this.dataSettingService.current_role)?this.dataSettingService.current_role.RoleName:"";
+    this.current_service = (this.dataSettingService.current_service)?this.dataSettingService.current_service.serviceName:"";
+    this.id = this.dataSettingService.Userdata.agentID;
+    this.dataSettingService.roleSelected.subscribe((obj)=>{
+      this.id = obj['id'];
+      this.current_role = obj['role'];
+      this.current_service = obj['service'];
+    })
  
     this.userName = this.dataSettingService.Userdata.userName;
     // this.router.navigate(['/MultiRoleScreenComponent/roleSelection']);
