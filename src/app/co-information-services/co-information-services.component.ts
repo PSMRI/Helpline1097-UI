@@ -33,11 +33,11 @@ export class CoInformationServicesComponent implements OnInit {
   benCallID: any;
   getDetailsFlag: boolean = false;
   constructor(
-    private _coCategoryService: CoCategoryService,
-    private saved_data: dataService,
-    private _coService: CoReferralService,
-    private pass_data: CommunicationService
-  ) {
+              private _coCategoryService: CoCategoryService,
+              private saved_data: dataService,
+              private _coService: CoReferralService,
+              private pass_data: CommunicationService
+              ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
 
     // saved_data.myBool$.subscribe((newBool: boolean) => { alert("new val in co info",newBool) });
@@ -59,7 +59,7 @@ export class CoInformationServicesComponent implements OnInit {
   }
   GetServiceTypes() {
     this._coCategoryService.getTypes(this.providerServiceMapID)
-      .subscribe(response => this.setServiceTypes(response));
+    .subscribe(response => this.setServiceTypes(response));
 
   }
   setServiceTypes(response: any) {
@@ -75,21 +75,21 @@ export class CoInformationServicesComponent implements OnInit {
   GetCategories() {
 
     this._coCategoryService.getCategories()
-      .subscribe((response) => {
-        this.SetCategories(response)
-      },
-      (err) => {
+    .subscribe((response) => {
+      this.SetCategories(response)
+    },
+    (err) => {
 
-      });
+    });
   }
   GetCategoriesByID(subServiceId) {
     this._coCategoryService.getCategoriesByID(subServiceId)
-      .subscribe((response) => {
-        this.SetCategories(response)
-      },
-      (err) => {
+    .subscribe((response) => {
+      this.SetCategories(response)
+    },
+    (err) => {
 
-      });
+    });
   }
 
   SetCategories(response: any) {
@@ -100,7 +100,7 @@ export class CoInformationServicesComponent implements OnInit {
   GetSubCategories(id: any) {
     // console.log('symcatid',this.symptomCategory);
     this._coCategoryService.getSubCategories(id)
-      .subscribe(response => this.SetSubCategories(response));
+    .subscribe(response => this.SetSubCategories(response));
   }
 
   SetSubCategories(response: any) {
@@ -112,15 +112,20 @@ export class CoInformationServicesComponent implements OnInit {
   }
   GetSubCategoryDetails(id: any) {
     this._coCategoryService.getDetails(
-      id, this.saved_data.uname, this.beneficiaryID,
-      this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
-    ).subscribe(response => this.SetSubCategoryDetails(response));
+                                       id, this.saved_data.uname, this.beneficiaryID,
+                                       this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
+                                       ).subscribe(response => this.SetSubCategoryDetails(response));
   }
   SetSubCategoryDetails(response: any) {
     console.log('success', response);
-    this.detailsList = response;
-    this.getDetailsFlag = true;
-    this.informationServiceProvided.emit();
+    if(response)
+    {
+      this.GetInformationHistory();
+      this.detailsList = response;
+      this.getDetailsFlag = true;
+      this.informationServiceProvided.emit();
+    }
+    
   }
   showForm() {
     this.showFormCondition = true;
@@ -134,9 +139,14 @@ export class CoInformationServicesComponent implements OnInit {
   }
   GetInformationHistory() {
     this._coService.getInformationsHistoryByID(this.beneficiaryID).subscribe((res) => {
-      this.data = res;
-      this.totalRecord = res.length;
-      console.log('Information History Successfully reterive', res);
+      if(res)
+      {
+        this.data = res;
+        this.totalRecord = res.length;
+        console.log('Information History Successfully reterive', res);
+      }
+      
+      
     }, (err) => {
       console.log('Some error reteriving Information History ', err);
     })
@@ -153,7 +163,7 @@ export class CoInformationServicesComponent implements OnInit {
   }
   toUTCDate(date) {
     const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
-      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+                          date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     return _utc;
   };
 
