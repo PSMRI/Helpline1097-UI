@@ -36,20 +36,20 @@
         </div>
     </div>
 </div> -->
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="show">
   <div class="row">
     <md-tab-group [selectedIndex]="0">
       <md-tab label="{{currentlanguage.co_services?.information_services}}" [isActive]="true" isActive="true">
-        <app-co-information-services (informationServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-information-services>
+        <app-co-information-services [resetProvideServices]="resetProvideServices"  (informationServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-information-services>
       </md-tab>
       <md-tab label="{{currentlanguage.co_services?.counselling_service}}">
-        <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-counselling-services>
+        <app-co-counselling-services [resetProvideServices]="resetProvideServices"  (counsellingServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-counselling-services>
       </md-tab>
       <md-tab label="{{currentlanguage.co_services?.referral_service}}">
-        <app-co-referral-services (referralServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-referral-services>
+        <app-co-referral-services [resetProvideServices]="resetProvideServices"  (referralServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-referral-services>
       </md-tab>
       <md-tab label="{{currentlanguage.co_services?.feedback_service}}">
-        <app-co-feedback-services (feedbackServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-feedback-services>
+        <app-co-feedback-services [resetProvideServices]="resetProvideServices" (feedbackServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-feedback-services>
       </md-tab>
     </md-tab-group>
   </div>

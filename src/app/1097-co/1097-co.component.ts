@@ -30,6 +30,8 @@ export class helpline1097CoComponent implements OnInit {
   isNext: boolean = false
   @Input() current_language: any;
   currentlanguage: any;
+    resetProvideServices: any;
+
   private current_campaign: any;
 
   data: any = this.getCommonData.Userdata;
@@ -197,6 +199,7 @@ export class helpline1097CoComponent implements OnInit {
     this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }
   openDialog() {
+    this.resetProvideServices = "2";
     this.dialogService.confirm('Cancel Call ', 'Cancel Call?').subscribe((response) => {
       if (response) {
         // this.reloadCall();
@@ -217,8 +220,10 @@ export class helpline1097CoComponent implements OnInit {
         this.ReloadBenOutbound('reloadcall');
       }
     });
+   
   }
   openDialogClosure() {
+    this.resetProvideServices = "3";
     this.dialogService.confirm('Closure ', 'Close Call ?').subscribe((response) => {
       if (response) {
         jQuery('#myCarousel').carousel(3);
@@ -230,6 +235,7 @@ export class helpline1097CoComponent implements OnInit {
         this.isPrevious = true;
       }
     });
+
   }
   getServiceHistory() {
     this.getHistory.emit(null);
@@ -274,6 +280,7 @@ export class helpline1097CoComponent implements OnInit {
     this.reloadCall.sendReloadCall(callType);
   }
   nxtVisual() {
+     this.resetProvideServices = "4";
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);
 
@@ -289,9 +296,10 @@ export class helpline1097CoComponent implements OnInit {
       this.isNext = false;
       this.isPrevious = true;
     }
-
+   
   }
   prevVisual() {
+    this.resetProvideServices = "1";
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);
     this.isClosureDisable = false;
@@ -310,6 +318,7 @@ export class helpline1097CoComponent implements OnInit {
       this.isPrevious = true;
 
     }
+    
   }
   CancelDisable() {
     this.isCancelDisable = false;
