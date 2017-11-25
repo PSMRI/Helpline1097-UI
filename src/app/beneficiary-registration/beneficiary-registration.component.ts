@@ -879,13 +879,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.DOB = new Date('' + (currentYear - parseInt(age, 10)));
     // }
 
-    this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', 'readonly');
+//this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', 'readonly');
 
   }
   // to remove the readonly on double click
-  enableAge(data) {
-    this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', null);
-  }
+  // enableAge(data) {
+  //   this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', null);
+  // }
   blockey(e: any) {
     if (e.keyCode === 9) {
       return true;
