@@ -168,7 +168,7 @@
               <th md2SortBy="m_gender.genderName" width=5%>{{currentlanguage.beneficiary_registration?.table_labels?.gender}}</th>
               <th md2SortBy="i_bendemographics.m_state.stateName" width=20%>{{currentlanguage.beneficiary_registration?.table_labels?.state}}</th>
               <th md2SortBy="i_bendemographics.m_district.districtName" width=20%>{{currentlanguage.beneficiary_registration?.table_labels?.district}}</th>
-              <th md2SortBy="i_bendemographics.m_districtblock.blockName" width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
+              <th width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
               <th width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.village}}</th>
               <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.preferred_language}}</th> -->
               <th width=15%>{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_tagging}}</th>
@@ -191,10 +191,10 @@
             <tr  (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of md2.data;let i=index " style="cursor: pointer">
 
               <td>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</td>
-              <td>{{regHistory.beneficiaryID}}</td>
+              <td >{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
               <!-- <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td> -->
-              <td>{{regHistory.age}}</td>
+              <td >{{regHistory.age}}</td>
               <td>{{regHistory.m_gender?.genderName}}</td>
               <td>{{regHistory.i_bendemographics?.m_state?.stateName}}</td>
               <td>{{regHistory.i_bendemographics?.m_district?.districtName}}</td>
@@ -420,14 +420,14 @@
         </md-input-container>
 
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="educationQualification" i18n>Select Education Qualification</label>
         <select class="form-control drop-arrow" name="educationQualification" [(ngModel)]="educationQualification">
                         <option *ngFor="let education of benEdus" value={{education.educationID}}>
                             {{education.educationType}}</option>
                     </select>
-                  </div> -->
+                  </div> -->            
+      <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container class="hide_underline" [style.width]=" '100%'">
           <input mdInput style="display:none">
 
@@ -439,7 +439,7 @@
           </md-select>
         </md-input-container>
 
-      </div>
+      </div>-->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="state" i18n>Select State</label>
@@ -533,10 +533,14 @@
         <input type="text" class="form-control" placeholder="Enter Pincode" name="pincode" [(ngModel)]="pincode">
       </div> -->
         <md-input-container myMobileNumber [style.width]=" '100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.pincode}}" maxlength="6" name="pincode
-        " [(ngModel)]="pincode">
+          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.pincode}}" minlength="6" maxlength="6" name="pincode
+        " [(ngModel)]="pincode" #pin="ngModel">
+        <md-hint>
+          <span class="error_text" *ngIf="pin.errors?.minlength">Enter Valid Pincode</span>
+        </md-hint>
         </md-input-container>
       </div>
+      <div class="clearfix visible-md visible-sm"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <!--       <div class="form-group">
         <label class="control-label" for="PhoneNo">Alternate Number</label>
@@ -547,7 +551,6 @@
             [(ngModel)]="PhoneNo">
         </md-input-container>
       </div>
-      <div class="clearfix visible-lg"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-left">
         <!--       <div class="form-group">
         <label class="control-label" for="preferredLanguage" i18n>Select Preferred Language</label>
@@ -571,14 +574,14 @@
       <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="!updationProcess">
         <button md-raised-button color="primary" class="p-l-r-38 font-regular f-s-18"  (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
         
-        <button md-raised-button color="primary" [disabled]="!stateSelected.valid || !citySelected.valid" class="pull-right p-l-r-38 font-regular
+        <button md-raised-button color="primary" [disabled]="!stateSelected.valid || !citySelected.valid || pin.errors?.minlength" class="pull-right p-l-r-38 font-regular
                 f-s-18" (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
                 <button md-raised-button class="pull-right p-l-r-38 m-l-10 m-r-10 font-regular
                 f-s-18" (click)="BeneficaryForm.reset()">{{currentlanguage.beneficiary_registration?.clear}}</button>
       </div>
       <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="updationProcess">
-        <button md-raised-button color="accent" class="p-l-r-38 font-regular f-s-18" (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>
-        <button md-raised-button color="primary" class="pull-right p-l-r-38 font-regular f-s-18" (click)="updateBeneficiary()">{{currentlanguage.beneficiary_registration?.update}}</button>
+        <button md-raised-button color="accent" class="p-l-r-38 font-regular f-s-18"  (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>
+        <button md-raised-button [disabled]="BeneficaryForm.invalid || pin.errors?.minlength" color="primary" class="pull-right p-l-r-38 font-regular f-s-18" (click)="updateBeneficiary()">{{currentlanguage.beneficiary_registration?.update}}</button>
       </div>
     </div>
   </form>
