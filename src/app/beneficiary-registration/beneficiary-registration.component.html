@@ -168,7 +168,7 @@
               <th md2SortBy="m_gender.genderName" width=5%>{{currentlanguage.beneficiary_registration?.table_labels?.gender}}</th>
               <th md2SortBy="i_bendemographics.m_state.stateName" width=20%>{{currentlanguage.beneficiary_registration?.table_labels?.state}}</th>
               <th md2SortBy="i_bendemographics.m_district.districtName" width=20%>{{currentlanguage.beneficiary_registration?.table_labels?.district}}</th>
-              <th md2SortBy="i_bendemographics.m_districtblock.blockName" width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
+              <th width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
               <th width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.village}}</th>
               <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.preferred_language}}</th> -->
               <th width=15%>{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_tagging}}</th>
@@ -420,14 +420,14 @@
         </md-input-container>
 
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="educationQualification" i18n>Select Education Qualification</label>
         <select class="form-control drop-arrow" name="educationQualification" [(ngModel)]="educationQualification">
                         <option *ngFor="let education of benEdus" value={{education.educationID}}>
                             {{education.educationType}}</option>
                     </select>
-                  </div> -->
+                  </div> -->            
+      <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container class="hide_underline" [style.width]=" '100%'">
           <input mdInput style="display:none">
 
@@ -439,7 +439,7 @@
           </md-select>
         </md-input-container>
 
-      </div>
+      </div>-->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="state" i18n>Select State</label>
@@ -540,6 +540,7 @@
         </md-hint>
         </md-input-container>
       </div>
+      <div class="clearfix visible-md visible-sm"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <!--       <div class="form-group">
         <label class="control-label" for="PhoneNo">Alternate Number</label>
@@ -550,7 +551,6 @@
             [(ngModel)]="PhoneNo">
         </md-input-container>
       </div>
-      <div class="clearfix visible-lg"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-left">
         <!--       <div class="form-group">
         <label class="control-label" for="preferredLanguage" i18n>Select Preferred Language</label>
