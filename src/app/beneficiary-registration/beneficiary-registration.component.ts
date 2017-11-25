@@ -56,7 +56,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   aadharNo: any = '';
   caste: any = '';
   BeneficiaryTypeID: number;
-  educationQualification: any = '';
+  // educationQualification: any = '';
   state: number;
   district: number;
   taluk: number;
@@ -376,7 +376,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.aadharNo = undefined;
       this.caste = undefined;
       this.BeneficiaryTypeID = undefined;
-      this.educationQualification = undefined;
+      // this.educationQualification = undefined;
       this.state = undefined;
       this.district = undefined;
       this.districts = [];
@@ -515,7 +515,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updatedObj.statusID = 1;
     this.updatedObj.i_bendemographics = {};
     this.updatedObj.i_bendemographics.communityID = this.caste;
-    this.updatedObj.i_bendemographics.educationID = this.educationQualification;
+    // this.updatedObj.i_bendemographics.educationID = this.educationQualification;
     this.updatedObj.i_bendemographics.stateID = this.state;
     this.updatedObj.i_bendemographics.districtID = this.district;
     this.updatedObj.i_bendemographics.blockID = this.taluk;
@@ -565,6 +565,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   handleRegHistorySuccess(response: any) {
     if (response) {
       this.regHistoryList = response;
+      console.log(this.regHistoryList);
       this.showSearchResult = true;
     }
     if (this.regHistoryList.length > 0) {
@@ -644,7 +645,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.aadharNo = registeredBenData.govtIdentityNo;
     this.identityType = registeredBenData.govtIdentityTypeID;
     this.caste = registeredBenData.i_bendemographics.communityID;
-    this.educationQualification = registeredBenData.i_bendemographics.educationID;
+    // this.educationQualification = registeredBenData.i_bendemographics.educationID;
     this.state = registeredBenData.i_bendemographics.stateID;
     this.district = registeredBenData.i_bendemographics.districtID;
     this.districts = registeredBenData.i_bendemographics.m_district;
@@ -738,7 +739,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.updatedObj.i_bendemographics.beneficiaryRegID = this.updatedObj.beneficiaryRegID;
     }
     this.updatedObj.i_bendemographics.communityID = this.caste;
-    this.updatedObj.i_bendemographics.educationID = this.educationQualification;
+    // this.updatedObj.i_bendemographics.educationID = this.educationQualification;
     this.updatedObj.i_bendemographics.stateID = this.state;
     this.updatedObj.i_bendemographics.districtID = this.district;
     this.updatedObj.i_bendemographics.blockID = this.taluk;
