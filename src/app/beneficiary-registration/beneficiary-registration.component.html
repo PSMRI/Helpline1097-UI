@@ -5,10 +5,11 @@
   </div> -->
   <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
   <div class="row p-t-20" *ngIf="current_campaign == 'INBOUND'">
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="calledRadio;">
+<!--     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="calledRadio;">
+ -->    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="calledEarlier">
 
       <h5> {{currentlanguage.beneficiary_registration?.call_confirmation_question}}</h5>
-      <md-radio-group name="called_earlier" (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">
+      <md-radio-group  name="called_earlier" (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">
         <md-radio-button ngDefaultControl color="primary" [value]=true>Yes</md-radio-button>
         <md-radio-button ngDefaultControl color="primary" [value]=false>No</md-radio-button>
       </md-radio-group>
@@ -159,7 +160,7 @@
         <table class="table table-responsive table-striped" [md2Data]="regHistoryList" #md2="md2DataTable" [rowsPerPage]="3">
           <thead>
             <tr>
-              <th md2SortBy="beneficiaryID" width=2%>{{currentlanguage.beneficiary_registration?.table_labels?.sno}}</th>
+              <th width=2%>{{currentlanguage.beneficiary_registration?.table_labels?.sno}}</th>
               <th md2SortBy="beneficiaryID" width=5%>{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_id}}</th>
               <th md2SortBy="firstName" width=12%>{{currentlanguage.beneficiary_registration?.table_labels?.fullname}}</th>
               <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.dob}}</th> -->
@@ -186,7 +187,9 @@
             </tr>
           </tbody>
           <tbody *ngIf="md2.data?.length>0">
-            <tr style="cursor: pointer" (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of md2.data;let i=index">
+
+            <tr  (click)="selectBeneficiary(regHistory)" *ngFor="let regHistory of md2.data;let i=index " style="cursor: pointer">
+
               <td>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</td>
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
@@ -220,7 +223,7 @@
   <!--End  Code Modified by Neeraj( 298657 ); 22-jun-2017 -->
   <!-- <form #Form="ngForm" (submit)="registerBeneficiary(Form.value); Form.reset()" *ngIf="notCalledEarlier"> -->
   <form #BeneficaryForm="ngForm" autocomplete="off">
-    <div class="row" *ngIf="notCalledEarlier">
+    <div class="row" [hidden]="!notCalledEarlier">
       <div class=" col-xs-12 col-sm-12">
         <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
       </div>
@@ -565,10 +568,13 @@
 
       </div>
 
-      <div class="col-xs-12 col-sm-12 m-b-10">
-        <button md-raised-button color="primary" class="p-l-r-38 font-regular f-s-18" *ngIf="!updationProcess" (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
+      <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="!updationProcess">
+        <button md-raised-button color="primary" class="p-l-r-38 font-regular f-s-18"  (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
+        
         <button md-raised-button color="primary" [disabled]="!stateSelected.valid || !citySelected.valid" class="pull-right p-l-r-38 font-regular
-                f-s-18" *ngIf="!updationProcess" (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
+                f-s-18" (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
+                <button md-raised-button class="pull-right p-l-r-38 m-l-10 m-r-10 font-regular
+                f-s-18" (click)="BeneficaryForm.reset()">{{currentlanguage.beneficiary_registration?.clear}}</button>
       </div>
       <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="updationProcess">
         <button md-raised-button color="accent" class="p-l-r-38 font-regular f-s-18" (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>

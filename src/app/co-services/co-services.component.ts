@@ -21,6 +21,8 @@ export class CoServicesComponent implements OnInit {
   ngOnInit() {
   }
 
+  selectedIndex:any=0;
+
   ngOnChanges() {
     this.setLanguage(this.current_language);
   }

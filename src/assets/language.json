@@ -68,6 +68,7 @@
       "pincode": "Pincode",
       "preferred_language": "Select Preferred Language",
       "back": "Back",
+      "clear":"Clear",
       "generate": "Generate",
       "update": "Update"
     },

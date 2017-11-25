@@ -236,9 +236,10 @@ export class CoFeedbackServicesComponent implements OnInit {
     this._coFeedbackService.createFeedback(feedbackObj)
       .subscribe((response) => {
         this.alertMessage.alert('Successfully Created');
+        jQuery('#feedbackForm').trigger("reset");
         this.showBeneficiaryFeedbackList();
         this.feedbackServiceProvided.emit();
-        jQuery('#feedbackForm').trigger("reset");
+        
       }, (err) => {
         this.selected_doi = undefined;
         console.log('Error in Feedback', err);
@@ -315,7 +316,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   millisToUTCDate(millis) {
     return this.toUTCDate(new Date(millis));
   };
-  blockey(e: any) {
+  keyblock(e: any) {
     if (e.keyCode === 9) {
       return true;
     } else {

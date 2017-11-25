@@ -33,6 +33,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
+  @Output() wentAwayMainScreen : EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('ageRef') input: ElementRef;
   @ViewChild('BeneficaryForm') BeneficaryForm;
   fname: any = '';
@@ -162,6 +163,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // }
 
   }
+
 
   setLanguage(language) {
     this.currentlanguage = language;
@@ -387,6 +389,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.pincode = undefined;
       this.preferredLanguage = undefined;
       this.identityType = undefined;
+      this.wentAwayMainScreen.emit();
       // if (this.isParentBeneficiary || this.regHistoryList.length > 0) {
       //   this.isParentBeneficiary = true;
       //   this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
@@ -537,7 +540,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   showAlert() {
     this.BeneficaryForm.resetForm();
-    this.alertMaessage.alert('Registration Successful. Beneficiary ID is :' + this.benRegistrationResponse.beneficiaryRegID);
+    this.alertMaessage.alert('Beneficiary Registered With ID :' + this.benRegistrationResponse.beneficiaryRegID);
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -550,6 +553,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   retrieveRegHistory(reg_no: any) {
+    this.registrationNo = "";
     if (!reg_no || reg_no === '') {
       this.reloadCall();
     } else {
@@ -627,6 +631,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   populateRegistrationFormForUpdate(registeredBenData) {
+    this.wentAwayMainScreen.emit();
     console.log('registered ben data is :', registeredBenData)
     this.FirstName = registeredBenData.firstName;
     this.LastName = registeredBenData.lastName;

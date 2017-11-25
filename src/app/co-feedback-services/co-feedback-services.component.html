@@ -209,7 +209,7 @@
               " id="" (click)="submitFeedback(feedbackForm.value)">Register</button>-->
         <button type="button" md-raised-button color="accent" class="pull-left font-regular f-s-18 m-t-15 m-r-10" (click)="showTable()">
           {{currentlanguage.feedback_service?.back}}</button>
-        <button type="button" md-raised-button color="primary" class="pull-left font-regular f-s-18 m-t-15" (click)="submitFeedback();form.reset()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">
+        <button type="button" md-raised-button color="primary" class="pull-left font-regular f-s-18 m-t-15" (click)="submitFeedback()" [disabled]="state.invalid || district.invalid ||  desgVar.invalid || feedVar.invalid || severityVar.invalid || descVar.invalid">
           {{currentlanguage.feedback_service?.register}}</button>
       </div>
       <!-- </div> -->
