@@ -403,12 +403,27 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
   }
 
+  titleSelected(value) {
+		if (value == 3 || value == 8) {
+			this.GenderID = 1;
+		}
+		else if (value == 4 || value == 5) {
+			this.GenderID = 2;
+		}
+		else {
+			this.GenderID = "";
+		}
+	}
+
   GetDistricts(state: number) {
     this.districts = [];
 
     this.taluks = [];
 
     this.blocks = [];
+    this.district = undefined;
+    this.taluk = undefined;
+    this.village = undefined;
     this.spinner = true;
     this.spinnerState = false;
     if (state == undefined) {
@@ -432,6 +447,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     this.taluks = [];
     this.blocks = [];
+    this.taluk = undefined;
+    this.village = undefined;
     if (district == undefined) {
       this.cityErrFlag = true;
     }
@@ -449,6 +466,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   GetBlocks(taluk: number) {
     this.blocks = [];
+    this.village = undefined;
     this._locationService.getBranches(taluk)
       .subscribe((response) => { this.SetBlocks(response) }, (err) => { });
   }
