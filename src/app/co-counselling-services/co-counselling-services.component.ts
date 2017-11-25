@@ -4,7 +4,9 @@ import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
 import { Subscription } from 'rxjs/Subscription';
 // Common service to pass Data
-import { CommunicationService } from './../services/common/communication.service'
+import { CommunicationService } from './../services/common/communication.service';
+declare var jQuery: any;
+
 @Component({
   selector: 'app-co-counselling-services',
   templateUrl: './co-counselling-services.component.html',
@@ -19,6 +21,7 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
+    @Input() resetProvideServices: any;
 
   @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
@@ -33,6 +36,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   subscription: Subscription;
   beneficiaryID: any;
   getDetailsFlag: boolean = false;
+  showresult: boolean;
   p = 1;
   constructor(
     private _coCategoryService: CoCategoryService,
@@ -52,7 +56,15 @@ export class CoCounsellingServicesComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
-
+    if(this.resetProvideServices) {
+      this.detailsList = ["anything"];
+      alert(this.detailsList.length);
+      jQuery("#counsellingForm").trigger("reset");
+      this.showTableCondition = true;
+      this.showFormCondition = false;
+      this.detailsList = [];
+      this.showresult = false;
+    }
   }
 
   setLanguage(language) {
@@ -101,6 +113,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   }
 
   GetSubCategoryDetails(id: any) {
+    this.showresult = true;
     this._coCategoryService.getCODetails(
       id, this.saved_data.uname, this.beneficiaryID,
       this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID

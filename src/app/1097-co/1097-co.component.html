@@ -56,7 +56,7 @@
               </div>
               <div class="item">
                 <!--<app-co-services (beneficiarySelected)="startCOService()" (serviceGiven)="updateServiceProvided(); closure.onView();" #coservice></app-co-services>-->
-                <app-co-services (serviceGiven)="updateServiceProvided(); closure.onView()" [benHistory]="selectedBenData" #coservice [current_language]="currentlanguage"></app-co-services>
+                <app-co-services [resetProvideServices]="resetProvideServices" (serviceGiven)="updateServiceProvided(); closure.onView()" [benHistory]="selectedBenData" #coservice [current_language]="currentlanguage"></app-co-services>
 
               </div>
               <div class="item">
