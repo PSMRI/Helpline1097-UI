@@ -26,8 +26,8 @@
       </div>
       <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
         <md-input-container [style.width]="'100%'">
-          <input #allocateRef type="number" min="1" max={{initialCount}} mdInput placeholder="Allocate No of Records" id="allocateNo"
-            formControlName="allocateNo" name="allocateNo">
+          <input #allocateRef type="number" min="1" mdInput placeholder="Allocate No of Records" id="allocateNo"
+            formControlName="allocateNo" name="allocateNo" (ngModelChange)="validate('allocateNo',$event)" (keydown)="blockKey($event)">
           <input type="hidden" class="form-control" placeholder="Enter Total New Records" id="outboundCallRequests" formControlName="outboundCallRequests"
             name="outboundCallRequests">
         </md-input-container>
