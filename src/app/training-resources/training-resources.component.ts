@@ -96,6 +96,8 @@ export class TrainingResourcesComponent implements OnInit {
     kmClicked(km, event) {
         event.preventDefault();
         let dialog = this.dialog.open(MessageDialogComponent, {
+            width: '400px',
+			disableClose: true,
             data: {
                 message: km.notificationDesc,
                 type: "KM",

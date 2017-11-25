@@ -238,7 +238,7 @@
           <input mdInput style="display:none">
 
           <md-select placeholder="{{currentlanguage.beneficiary_registration?.title}}" [style.width]="'100%'" [(ngModel)]="TitleId"
-            name="TitleId">
+            name="TitleId" (change)="titleSelected(TitleId)">
             <md-option *ngFor="let title of titles" [value]="title.titleID">
               {{title.titleName}}
             </md-option>
@@ -299,8 +299,8 @@
           [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
         </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" required #ageRef min="0" max="120" name="age"
-            [(ngModel)]="age" (change)="calculateDOB(ageRef.value)" #ageEvent="ngModel" (dblclick)="enableAge($event)">
+          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" required #ageRef min="0" max="120" name="age" maxlength="3" 
+            [(ngModel)]="age" (keyup)="calculateDOB(ageRef.value)" #ageEvent="ngModel" >
           <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
             <span class="error_text">Enter valid age (max:120) </span>
           </md-hint>

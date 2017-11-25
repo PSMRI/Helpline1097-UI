@@ -123,7 +123,8 @@ export class RatingComponent implements OnInit {
 		event.preventDefault();
 		let dialog = this.dialog.open(MessageDialogComponent, {
 			width: '400px',
-			height: '300px',
+			disableClose: true,
+			// height: '300px',
 			data: {
 				message: alert.notificationDesc,
 				type: "Message",

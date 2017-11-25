@@ -174,6 +174,27 @@ export class OutboundAllocateRecordsComponent implements OnInit {
       });
   }
 
+  blockKey(e: any){
+		if((e.keyCode>47 && e.keyCode<58) || e.keyCode==8 || e.keyCode==9 ){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+  validate(key,value){
+		var tempObj={};
+		if(value < 1) {
+			tempObj[key] = undefined;
+			this.allocateForm.patchValue(tempObj);
+		}
+		else if(value>this.initialCount) {
+			tempObj[key] = this.initialCount;
+			this.allocateForm.patchValue(tempObj)
+		}
+	}
+
   OnSelectChange() {
     let outboundlistCount = this.allocateForm.get('outboundCallRequests').value;
     let tempValue = Math.floor(outboundlistCount.length / this.allocateForm.value.userID.length);
