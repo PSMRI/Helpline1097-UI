@@ -23,10 +23,16 @@ urls=[];
   	var matches=[];
   	matches=string.match(/\bhttp[s,]?:\/\/\S+/gi);
   	console.log("matches",matches);
-  	if(matches.length>0)
-  	{
-  		this.urls=matches;
-  	}
+    if(matches) {
+      if(matches.length>0)
+      {
+        this.urls=matches;
+      }
+    }
+    else {
+      matches = [];
+    }
+
   }
 
 }

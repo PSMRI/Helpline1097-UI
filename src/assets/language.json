@@ -22,6 +22,7 @@
       "cancel": "Cancel"
     },
     "beneficiary_registration": {
+      "create_search": "Search/Create Beneficiary",
       "call_confirmation_question": "Have You Called Earlier?",
       "registration_number": "Beneficiary ID",
       "retrieve": "Retrieve",
