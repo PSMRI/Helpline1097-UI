@@ -34,7 +34,7 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <md-input-container style="width: 100%">
-            <input mdInput id="remarks" placeholder="{{currentlanguage.closure?.remarks}}" name="remarks" [(ngModel)]="remarks">
+            <input mdInput id="remarks" placeholder="{{currentlanguage.closure?.remarks}}" maxlength="100" name="remarks" [(ngModel)]="remarks">
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pull-left" *ngIf="showSlider">
@@ -50,7 +50,7 @@
         <div class="visible-xs" style="height: 10px;clear: both;"></div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="isFollowUp">
           <md-input-container style="width: 100%">
-            <input mdInput placeholder="{{currentlanguage.closure?.follow_up_reason}}" name="requestedFor" required [(ngModel)]="requestedFor">
+            <input mdInput placeholder="{{currentlanguage.closure?.follow_up_reason}}" maxlength="200" name="requestedFor" required [(ngModel)]="requestedFor">
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="isFollowUp">
