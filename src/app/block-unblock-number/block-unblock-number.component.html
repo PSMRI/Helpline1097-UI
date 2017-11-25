@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-30">Blacklist a Number</h4>
+      <h4 class="f-s-b m-b-30">Blacklist A Number</h4>
     </label>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-15">
-    <md-checkbox color="primary" [(ngModel)]="searchByPhone" (change)="getBlackList($event)">Search by Phone Number </md-checkbox>
+    <md-checkbox color="primary" [(ngModel)]="searchByPhone" (change)="getBlackList($event)">Search By Phone Number </md-checkbox>
   </div>
 
   <div *ngIf="searchByPhone">
@@ -16,7 +16,7 @@
       <md-input-container [style.width]="'100%'" myMobileNumber>
         <input required minlength="5" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
         <md-hint *ngIf="!number.valid">
-          <span class="error_text" *ngIf=" number.dirty || number.touched ">Please enter phone number</span>
+          <span class="error_text" *ngIf=" number.dirty || number.touched ">Please Enter Phone Number</span>
         </md-hint>
       </md-input-container>
     </div>
