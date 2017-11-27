@@ -22,25 +22,25 @@ export class ReportsService {
   ) { }
 
   getAllBySexualOrientation(data){
-      return this._http.post(this.getAllBySexualOrientationURL, data, this.options)
+      return this.httpInterceptor.post(this.getAllBySexualOrientationURL, data, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getAllByGender(data){
-      return this._http.post(this.getAllByGenderURL, data, this.options)
+      return this.httpInterceptor.post(this.getAllByGenderURL, data, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getAllByAgeGroup(data){
-      return this._http.post(this.getAllByAgeGroupURL, data, this.options)
+      return this.httpInterceptor.post(this.getAllByAgeGroupURL, data, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getAllReportsByDate(data){
-      return this._http.post(this.getAllReportsByDateURL, data, this.options)
+      return this.httpInterceptor.post(this.getAllReportsByDateURL, data, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
