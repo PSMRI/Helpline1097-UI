@@ -59,8 +59,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   ngOnChanges() {
     this.setLanguage(this.current_language);
     if(this.resetProvideServices) {
-      this.detailsList = ["anything"];
-      alert(this.detailsList.length);
+
       jQuery("#counsellingForm").trigger("reset");
       this.showTableCondition = true;
       this.showFormCondition = false;

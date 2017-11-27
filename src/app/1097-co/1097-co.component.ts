@@ -189,6 +189,7 @@ export class helpline1097CoComponent implements OnInit {
       jQuery('#two').find('a').addClass('active-tab');
       this.isNext = true;
       this.isCancelDisable = false;
+      this.resetProvideServices = "5";
     }
 
   }
@@ -199,9 +200,10 @@ export class helpline1097CoComponent implements OnInit {
     this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }
   openDialog() {
-    this.resetProvideServices = "2";
+    
     this.dialogService.confirm('Cancel Call ', 'Cancel Call?').subscribe((response) => {
       if (response) {
+        this.resetProvideServices = "2";
         // this.reloadCall();
         //   this.beneficiarySelected.emit(null);
         const id = jQuery('.carousel-inner div.active').index();
@@ -223,9 +225,10 @@ export class helpline1097CoComponent implements OnInit {
    
   }
   openDialogClosure() {
-    this.resetProvideServices = "3";
+    
     this.dialogService.confirm('Closure ', 'Close Call ?').subscribe((response) => {
       if (response) {
+        this.resetProvideServices = "3";
         jQuery('#myCarousel').carousel(3);
         jQuery('#four').parent().find('a').removeClass('active-tab');
         jQuery('#four').find('a').addClass('active-tab');
