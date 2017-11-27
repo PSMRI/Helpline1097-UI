@@ -241,11 +241,16 @@ export class InnerpageComponent implements OnInit {
   ipSuccessLogoutHandler(response) {
     this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
       if (res.response.status.toUpperCase() !== 'FAIL') {
+        sessionStorage.removeItem("authen");
+        sessionStorage.removeItem("isOnCall");
         this.basicrouter.navigate(['']);
       } else {
         if (this.current_role.toLowerCase() !== 'supervisor') {
+
           this.remarksMessage.alert('Cannot Logout During Active Call.');
         } else {
+          sessionStorage.removeItem("authen");
+          sessionStorage.removeItem("isOnCall");
           this.basicrouter.navigate(['']);
         }
       }

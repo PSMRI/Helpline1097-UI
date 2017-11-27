@@ -232,6 +232,7 @@ export class ClosureComponent implements OnInit
   }
 
   showAlert() {
+    sessionStorage.removeItem("isOnCall");
     this.message.alert('Call Closed Successfully.');
     // alert('Call closed Successful!!!!');
   }

@@ -164,6 +164,9 @@ import { SexualOrientationReportComponent } from './sexual-orientation-report/se
 import { LanguageDistributionReportComponent } from './language-distribution-report/language-distribution-report.component';
 import { GenderDistributionReportComponent } from './gender-distribution-report/gender-distribution-report.component';
 // import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
+import { AuthGuard } from './services/authGuardService/auth-guard.services';
+
+import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
 
 
 @NgModule({
@@ -235,23 +238,29 @@ import { GenderDistributionReportComponent } from './gender-distribution-report/
       {
         path: 'MultiRoleScreenComponent',
         component: MultiRoleScreenComponent,
-        children: [
-          {
-            path: '',
-            component: ServiceRoleSelectionComponent
-            // outlet: 'postLogin_router'
-          },
-          {
-            path: 'dashboard',
-            component: dashboardContentClass
-            // outlet: 'postLogin_router'
-          },
-          {
-            path: 'superAdmin',
-            component: SuperAdminComponent
-            // outlet: 'postLogin_router'
-          }
-        ]
+        canActivate: [AuthGuard],
+
+            children: [
+              {
+                path: '',
+                component: ServiceRoleSelectionComponent,
+                canActivate: [AuthGuard],
+
+                // outlet: 'postLogin_router'
+              },
+              {
+                path: 'dashboard',
+                component: dashboardContentClass,
+                canActivate: [AuthGuard],
+
+                // outlet: 'postLogin_router'
+              },
+              {
+                path: 'superAdmin',
+                component: SuperAdminComponent
+                // outlet: 'postLogin_router'
+              }
+          ]
       },
       {
         path: 'setPassword',
@@ -267,7 +276,8 @@ import { GenderDistributionReportComponent } from './gender-distribution-report/
       },
       {
         path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
-        component: InnerpageComponent
+        component: InnerpageComponent,
+        canActivate: [AuthGuard2],
       }
     ]),
     Md2Module],
@@ -278,7 +288,7 @@ import { GenderDistributionReportComponent } from './gender-distribution-report/
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,AuthGuard, AuthGuard2,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
     CommunicationService, OutboundService, ListnerService, OutboundReAllocationService, ReloadService, ReportsService, {
