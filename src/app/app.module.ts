@@ -130,6 +130,7 @@ import { ListnerService } from './services/common/listner.service';
 import { ReloadService } from './services/common/reload.service';
 import { ClearFormService } from './services/common/clearform.service';
 import { OutboundReAllocationService } from './services/outboundServices/outbound-call-reallocation.service';
+import { ReportsService } from './services/reports-service/reports-service';
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
 
@@ -280,7 +281,7 @@ import { GenderDistributionReportComponent } from './gender-distribution-report/
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
-    CommunicationService, OutboundService, ListnerService, OutboundReAllocationService, ReloadService, {
+    CommunicationService, OutboundService, ListnerService, OutboundReAllocationService, ReloadService, ReportsService, {
       provide: InterceptedHttp,
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, LoaderService]

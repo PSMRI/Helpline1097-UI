@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { dataService } from '../services/dataService/data.service';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
+import { ReportsService } from '../services/reports-service/reports-service';
 
 @Component({
   selector: 'app-sexual-orientation-report',
@@ -17,8 +19,10 @@ export class SexualOrientationReportComponent implements OnInit {
   data = [];
   sexualOrientations = [];
   providerServiceMapID: any;
+  @ViewChild('sexualOrientationSearchForm') sexualOrientationSearchForm: NgForm;
+  postData: any;
 
-  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData) { }
+  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData, private reportsService: ReportsService) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.dataService.current_service.serviceID;
@@ -54,7 +58,9 @@ export class SexualOrientationReportComponent implements OnInit {
   }
 
   getReports(){
+    console.log("values:", this.sexualOrientationSearchForm.value);
     //call api and initialize data
+    // this.reportsService.getAllBySexualOrientation()
     this.tableFlag = true;
   }
 
