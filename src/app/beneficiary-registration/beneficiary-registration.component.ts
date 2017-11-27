@@ -128,6 +128,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   current_campaign: any;
   cityErrFlag: any = false;
   unMaskedNumber: any;
+  showTagging: boolean;
   // agentID: any;
 
   constructor(private _util: RegisterService, private _router: Router,
