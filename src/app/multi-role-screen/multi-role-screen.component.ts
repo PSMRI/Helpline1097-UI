@@ -6,6 +6,8 @@ import { loginService } from '../services/loginService/login.service';
 import { ConfigService } from '../services/config/config.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { PlatformLocation } from '@angular/common';
+
 @Component({
   selector: 'app-multi-role-screen',
   templateUrl: './multi-role-screen.component.html',
@@ -18,9 +20,14 @@ export class MultiRoleScreenComponent implements OnInit {
   id: any;
   userName: any = '';
   loginUrl = this._config.getCommonLoginUrl();
-  constructor(public dataSettingService: dataService, private _config: ConfigService,
+  constructor(public dataSettingService: dataService, private _config: ConfigService,location: PlatformLocation,
     public router: Router, private _loginService: loginService, private Czentrix: CzentrixServices,
     private alertMessage: ConfirmationDialogsService) {
+          location.onPopState((e: any) => {
+            console.log(e);
+        window.history.forward();
+
+    })
   }
   ngOnInit() {
     this.data = this.dataSettingService.Userdata;
@@ -76,8 +83,12 @@ export class MultiRoleScreenComponent implements OnInit {
     this.Czentrix.agentLogout(this.dataSettingService.cZentrixAgentID, response).subscribe((res) => {
 
       if (res.response.status.toUpperCase() !== 'FAIL') {
+        sessionStorage.removeItem("authen");
+        sessionStorage.removeItem("isOnCall");
         this.router.navigate(['']);
       } else {
+        sessionStorage.removeItem("authen");
+        sessionStorage.removeItem("isOnCall");
         this.router.navigate(['']);
         // this.alertMessage.alert('Czentrix Agent Not Logged In');
       }

@@ -44,9 +44,13 @@ export class loginContentClass {
     console.log('array' + response.previlegeObj);
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
+      sessionStorage.setItem("authen", "pass1097");
+      sessionStorage.removeItem("isOnCall");
       this.router.navigate(['/MultiRoleScreenComponent']);
     }
     if (response.isAuthenticated === true && response.Status === 'New') {
+      sessionStorage.setItem("authen", "pass1097");
+      sessionStorage.removeItem("isOnCall");
       this.router.navigate(['/setQuestions']);
     }
   };

@@ -26,6 +26,7 @@
     "@types/d3": "4.10.1",
     "@types/jquery": "3.2.13",
     "@types/tether": "1.4.3",
+    "angular2-csv": "0.2.5",
     "bootstrap": "3.3.7",
     "chokidar": "^1.7.0",
     "core-js": "^2.5.1",
