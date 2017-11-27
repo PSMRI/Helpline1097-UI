@@ -197,6 +197,8 @@ export class helpline1097CoComponent implements OnInit {
   closeCall(compain_type: any) {
     this.getCommonData.current_campaign = compain_type;
     this.getCommonData.isCallDisconnected = false;
+    sessionStorage.removeItem("isOnCall");
+
     this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }
   openDialog() {
