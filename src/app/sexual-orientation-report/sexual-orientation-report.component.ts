@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { dataService } from '../services/dataService/data.service';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { ReportsService } from '../services/reports-service/reports-service';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 @Component({
   selector: 'app-sexual-orientation-report',
@@ -20,9 +21,9 @@ export class SexualOrientationReportComponent implements OnInit {
   sexualOrientations = [];
   providerServiceMapID: any;
   @ViewChild('sexualOrientationSearchForm') sexualOrientationSearchForm: NgForm;
-  postData: any;
+  postData: any = [];
 
-  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData, private reportsService: ReportsService) { }
+  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData, private reportsService: ReportsService, private alertService: ConfirmationDialogsService) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.dataService.current_service.serviceID;
@@ -59,9 +60,29 @@ export class SexualOrientationReportComponent implements OnInit {
 
   getReports(){
     console.log("values:", this.sexualOrientationSearchForm.value);
-    //call api and initialize data
-    // this.reportsService.getAllBySexualOrientation()
-    this.tableFlag = true;
+    this.postData = [];
+    for(var i=0; i< this.sexualOrientationSearchForm.value.sexuality.length;i++){
+      var obj = {
+        "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
+        "endTimestamp": new Date((this.sexualOrientationSearchForm.value.endDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
+        "beneficiarySexualOrientation": this.sexualOrientationSearchForm.value.sexuality[i]
+      }
+      this.postData.push(obj);
+    }
+    console.log(this.postData);
+    this.reportsService.getAllBySexualOrientation(this.postData)
+    .subscribe((response)=>{
+      console.log(response);
+      if(response.statusCode==200){
+        this.tableFlag = true;
+      }
+      else {
+        this.alertService.alert(response.status);
+      }
+    },
+    (error)=>{
+      console.log(error);
+    })
   }
 
 }
