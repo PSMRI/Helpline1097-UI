@@ -52,6 +52,7 @@ export class CoReferralServicesComponent implements OnInit {
   beneficiaryRegID: any;
   p = 1;
   enableSms: boolean = true;
+  showresult: boolean;
   constructor(
               private _userBeneficiaryData: UserBeneficiaryData,
               private _locationService: LocationService,
@@ -82,6 +83,9 @@ export class CoReferralServicesComponent implements OnInit {
       jQuery('#referralForm').trigger("reset");
       this.showTableCondition = true;
       this.showFormCondition = false;
+      this.detailsList = [];
+      this.showresult = false;
+
     }
 
   }
@@ -197,6 +201,8 @@ export class CoReferralServicesComponent implements OnInit {
     console.log('success referral', response);
     if(response)
     {
+      this.showresult = true;
+
       this.detailsList = response;
       if (this.detailsList.length > 0) {
         this.showSendSMS = true;
