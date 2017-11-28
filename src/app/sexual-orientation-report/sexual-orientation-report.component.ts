@@ -5,6 +5,7 @@ import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.serv
 import { ReportsService } from '../services/reports-service/reports-service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { LocationService } from '../services/common/location.service';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv'; 
 
 @Component({
   selector: 'app-sexual-orientation-report',
@@ -127,5 +128,11 @@ export class SexualOrientationReportComponent implements OnInit {
       console.log(error);
     })
   }
+
+  download_report()
+{
+  var head=Object.keys(this.orientations[0]);
+  new Angular2Csv(this.orientations, 'Sexual Orientation Report', {headers: (head)});
+}
 
 }
