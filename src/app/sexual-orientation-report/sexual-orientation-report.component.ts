@@ -41,9 +41,9 @@ export class SexualOrientationReportComponent implements OnInit {
       console.log(error);
     })
     this.today = new Date();
+    this.today.setDate(this.today.getDate()-1);
     console.log(this.today);
-    this.end_date = this.today;
-    this.end_date.setDate(this.today.getDate()-1);
+    this.end_date = new Date(this.today);
     this.start_date = new Date();
     this.start_date.setDate(this.today.getDate()-7);
     this.minStartDate = new Date();

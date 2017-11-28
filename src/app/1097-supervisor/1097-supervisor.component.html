@@ -1,128 +1,127 @@
 <div class="clearfix"></div>
-<div class="col-xs-12 col-sm-12 b-t-2-w">
+  <div class="col-xs-12 col-sm-12 m-t-5">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 ">
+        <nav class="navbar navbar-default m-b-5">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activities
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li style="cursor: pointer" (click)='show("2")'>
+                      <a>Agent Status</a>
+                    </li>
+                    <li style="cursor: pointer" (click)='show("3")'>
+                      <a>Blacklist a Number</a>
+                    </li>
+                    <!-- <li style="cursor: pointer" (click)='show("4")'><a>Dial a Beneficiary</a></li> -->
+                    <li style="cursor: pointer" (click)='show("6")'>
+                      <a>Notifications</a>
+                    </li>
+                    <li style="cursor: pointer" (click)='show("12")'>
+                      <a>Outbound Call List</a>
+                    </li>
+                    <li style="cursor: pointer" (click)='show("13")'>
+                      <a>Outbound Call Re-Allocation</a>
+                    </li>
+                    <li style="cursor: pointer" (click)='show("5")'>
+                      <a>Call Auditing</a>
+                    </li>
+                    <li style="cursor: pointer" (click)='show("1")'>
+                      <a>Feedback Tracking</a>
+                    </li>
+                    <li style="cursor: pointer" (click)='show("14")'>
+                      <a>Campaign Status</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li style="cursor: pointer" (click)='show("7")'>
+                      <a>Telephony Reports</a>
+                    </li>
+                    <li class="dropdown-submenu">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Call Reports</a>
+                      <ul class="dropdown-menu">
+                          <li style="cursor: pointer" (click)='show("9")'>
+                            <a>Call Type Report</a>
+                          </li>
+                          <li style="cursor: pointer" (click)='show("15")'>
+                            <a>Caller Age Report</a>
+                          </li>
+                          <li style="cursor: pointer" (click)='show("16")'>
+                            <a>Sexual Orientation Report</a>
+                          </li>
+                          <li style="cursor: pointer" (click)='show("17")'>
+                            <a>Language Distribution Report</a>
+                          </li>
+                          <li style="cursor: pointer" (click)='show("18")'>
+                            <a>Gender Distribution Report</a>
+                          </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configurations
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li style="cursor: pointer" (click)='show("10")'>
+                      <a>Knowledge Management</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <button class="pull-right m-a-5" md-raised-button color="accent" routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">Back To Dashboard</button>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+<div class="col-xs-12 col-sm-12">
+
   <div class="panel-body card p-a-0 bg-white ">
     <div class="container-fluid p-a-0 overflow-y" style="min-height:570px">
-      <div class=" b-t-2-w">
-        <div class="col-xs-12 col-sm-12">
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 ">
-              <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                      aria-controls="navbar">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                      <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activities
-                          <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li style="cursor: pointer" (click)='show("2")'>
-                            <a>Agent Status</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("3")'>
-                            <a>Blacklist a Number</a>
-                          </li>
-                          <!-- <li style="cursor: pointer" (click)='show("4")'><a>Dial a Beneficiary</a></li> -->
-                          <li style="cursor: pointer" (click)='show("6")'>
-                            <a>Notifications</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("12")'>
-                            <a>Outbound Call List</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("13")'>
-                            <a>Outbound Call Re-Allocation</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("5")'>
-                            <a>Call Auditing</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("1")'>
-                            <a>Feedback Tracking</a>
-                          </li>
-                          <li style="cursor: pointer" (click)='show("14")'>
-                            <a>Campaign Status</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports
-                          <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li style="cursor: pointer" (click)='show("7")'>
-                            <a>Telephony Reports</a>
-                          </li>
-                          <li class="dropdown-submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Call Reports</a>
-                            <ul class="dropdown-menu">
-                                <li style="cursor: pointer" (click)='show("9")'>
-                                  <a>Call Type Report</a>
-                                </li>
-                                <li style="cursor: pointer" (click)='show("15")'>
-                                  <a>Caller Age Report</a>
-                                </li>
-                                <li style="cursor: pointer" (click)='show("16")'>
-                                  <a>Sexual Orientation Report</a>
-                                </li>
-                                <li style="cursor: pointer" (click)='show("17")'>
-                                  <a>Language Distribution Report</a>
-                                </li>
-                                <li style="cursor: pointer" (click)='show("18")'>
-                                  <a>Gender Distribution Report</a>
-                                </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configurations
-                          <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li style="cursor: pointer" (click)='show("10")'>
-                            <a>Knowledge Management</a>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                    <button class="pull-right m-a-5" md-raised-button color="accent" routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">Back To Dashboard</button>
-                  </div>
-                </div>
-              </nav>
+      <!--<div class="row">-->
+          <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
+            <div>
+              <supervisor-grievance *ngSwitchCase="1"></supervisor-grievance>
+              <app-agent-status *ngSwitchCase="2"></app-agent-status>
+              <app-block-unblock-number *ngSwitchCase="3"></app-block-unblock-number>
+              <app-dial-beneficiary *ngSwitchCase="4"></app-dial-beneficiary>
+              <app-quality-audit *ngSwitchCase="5"></app-quality-audit>
+              <app-supervisor-notifications *ngSwitchCase="6"></app-supervisor-notifications>
+              <app-supervisor-reports *ngSwitchCase="7"></app-supervisor-reports>
+              <app-supervisor-configurations *ngSwitchCase="8"></app-supervisor-configurations>
+              <app-supervisor-calltype-reports *ngSwitchCase="9"></app-supervisor-calltype-reports>
+              <app-knowledge-management *ngSwitchCase="10"></app-knowledge-management>
+              <app-outbound-search-records *ngSwitchCase="12"></app-outbound-search-records>
+              <app-reallocate-calls *ngSwitchCase="13"></app-reallocate-calls>
+              <app-supervisor-campaign-status *ngSwitchCase="14"></app-supervisor-campaign-status>
+              <app-caller-age-report *ngSwitchCase="15"></app-caller-age-report>
+              <app-sexual-orientation-report *ngSwitchCase="16"></app-sexual-orientation-report>
+              <app-language-distribution-report *ngSwitchCase="17"></app-language-distribution-report>
+              <app-gender-distribution-report *ngSwitchCase="18"></app-gender-distribution-report>
             </div>
           </div>
-          <div class="row">
-            <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
-              <div>
-                <supervisor-grievance *ngSwitchCase="1"></supervisor-grievance>
-                <app-agent-status *ngSwitchCase="2"></app-agent-status>
-                <app-block-unblock-number *ngSwitchCase="3"></app-block-unblock-number>
-                <app-dial-beneficiary *ngSwitchCase="4"></app-dial-beneficiary>
-                <app-quality-audit *ngSwitchCase="5"></app-quality-audit>
-                <app-supervisor-notifications *ngSwitchCase="6"></app-supervisor-notifications>
-                <app-supervisor-reports *ngSwitchCase="7"></app-supervisor-reports>
-                <app-supervisor-configurations *ngSwitchCase="8"></app-supervisor-configurations>
-                <app-supervisor-calltype-reports *ngSwitchCase="9"></app-supervisor-calltype-reports>
-                <app-knowledge-management *ngSwitchCase="10"></app-knowledge-management>
-                <app-outbound-search-records *ngSwitchCase="12"></app-outbound-search-records>
-                <app-reallocate-calls *ngSwitchCase="13"></app-reallocate-calls>
-                <app-supervisor-campaign-status *ngSwitchCase="14"></app-supervisor-campaign-status>
-                <app-caller-age-report *ngSwitchCase="15"></app-caller-age-report>
-                <app-sexual-orientation-report *ngSwitchCase="16"></app-sexual-orientation-report>
-                <app-language-distribution-report *ngSwitchCase="17"></app-language-distribution-report>
-                <app-gender-distribution-report *ngSwitchCase="18"></app-gender-distribution-report>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <!--</div>-->
     </div>
   </div>
 </div>
