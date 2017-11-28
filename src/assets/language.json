@@ -180,7 +180,7 @@
       "hiv_question": "Is beneficiary suffering from HIV/AIDS?",
       "hiv_question_condition": "(Captured only if, caller voluntarily informs)",
       "feedback_question": "How did you come to know about our services?",
-      "save": "Save"
+      "save": "Update"
     },
     "closure": {
       "page_heading": "Closure",

@@ -47,7 +47,8 @@
       </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20" *ngIf="tableFlag">
-      <table class="table table-bordered table-striped width60">
+      <div class="col-md-12 col-lg-12 table-responsive">
+      <table class="table table-striped " [md2Data]="gender_distribution_resultset" #md2="md2DataTable" [rowsPerPage]="5">
         <thead>
           <tr>
             <th>S.No</th>
@@ -56,10 +57,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="gender_distribution_resultset.length<1">
+          <tr *ngIf="md2.data.length<1">
             <td align="center">No Record Found</td>
           </tr>
-          <tr *ngFor="let item of gender_distribution_resultset; let i = index ">
+          <tr *ngFor="let item of md2.data; let i = index ">
             <td>{{i+1}}</td>
             <td>{{item.gender=='all'? 'Total':item.gender}}</td>
             <td>{{item.count}}</td>
@@ -68,11 +69,12 @@
         <tfoot>
             <tr>
               <td colspan="3">
-                <button md-raised-button (click)="download_report()"></button>
+                <button class="pull-right" color="primary" md-raised-button (click)="download_report()">Download</button>
               </td>
             </tr>
           </tfoot>
       </table> 
+    </div>
     </div>
   </div>
 </md-card>

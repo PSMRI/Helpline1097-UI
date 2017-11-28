@@ -21,7 +21,7 @@ export class GenderDistributionReportComponent implements OnInit {
   end_date: Date;
   minStartDate: Date;
   tableFlag: boolean = false;
-  data = [];
+  
   genders = [];
   providerServiceMapID: any;
 
@@ -33,7 +33,7 @@ export class GenderDistributionReportComponent implements OnInit {
   state:any;
   district:any;
   gender_distribution_resultset:any=[];
-  head:any=[];
+ 
 
   constructor(private dataService: dataService,
               private userbeneficiarydata: UserBeneficiaryData,
@@ -184,7 +184,8 @@ getReportSuccessHandeler(response)
 
 download_report()
 {
-  new Angular2Csv(this.gender_distribution_resultset, 'Gender_Distribution_Report', {headers: (this.head)});
+  var head=Object.keys(this.gender_distribution_resultset[0]);
+  new Angular2Csv(this.gender_distribution_resultset, 'Gender Distribution Report', {headers: (head)});
 }
 
 
