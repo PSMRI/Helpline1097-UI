@@ -5,6 +5,7 @@ import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.serv
 import { ReportsService } from '../services/reports-service/reports-service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { LocationService } from '../services/common/location.service';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
   selector: 'app-language-distribution-report',
@@ -123,5 +124,17 @@ export class LanguageDistributionReportComponent implements OnInit {
     (error)=>{
       console.log(error);
     })
+  }
+  download() {
+      var options = { 
+   
+    showLabels: true, 
+    showTitle: true
+
+  };
+  
+   let head = Object.keys(this.languageDistributions[0]);
+   // console.log(head);
+        new Angular2Csv(this.languageDistributions, 'LanguageDistributions Report',{headers: (head)});
   }
 }

@@ -362,6 +362,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
     if (!flag) {
+           jQuery("#BeneficaryForm").trigger("reset");
 
       this.searchValue = 'Advance Search';
       this.advanceBtnHide = false;

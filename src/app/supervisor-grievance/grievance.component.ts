@@ -524,11 +524,16 @@ export class supervisorFeedback implements OnInit {
       data: feedback
     });
     dialogReff.afterClosed().subscribe(result => {
-      this._feedbackservice.requestFeedback(bodyString)
-      .subscribe(resfeedbackData =>
-                 this.showUsers(resfeedbackData), err => {
-                  this.alertMessage.alert(err.status);
-                })
+
+      if(result!="close")
+      {
+        this._feedbackservice.requestFeedback(bodyString)
+        .subscribe(resfeedbackData =>
+                   this.showUsers(resfeedbackData), err => {
+                    this.alertMessage.alert(err.status);
+                  })
+      }
+      
     });
 
   }
