@@ -41,15 +41,18 @@
   </div>
   <div class="row" [collapse]="isAdvancedSearch">
     <form id="benForm" #searchForm="ngForm" autocomplete="off">
+          <div class=" col-xs-12 col-sm-12">
+        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.beneficiary_registration?.search_form}}</h4>
+      </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md-input-container myName [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="firstName" [(ngModel)]="FirstName"
-            #first="ngModel">
-          <!--           <md-hint [hidden]=first.valid>
+          <input required mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="firstName" [(ngModel)]="FirstName"
+          #firstN="ngModel">
+          <md-hint class="error_text" *ngIf="firstN.invalid && firstN.touched">
 
+            {{currentlanguage.beneficiary_registration?.name_validation}}
 
-            <span class="error_text" *ngIf="!first.required  && ( first.dirty || first.touched)">Enter atleast 3 characters</span>
-          </md-hint> -->
+          </md-hint>
         </md-input-container>
       </div>
 
@@ -64,34 +67,19 @@
         </md-input-container>
       </div>
 
-      <!--       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <div class="form-group">
-          <label class="control-label" for="fatherNameHusbandNameSearch">Father Name / Husband Name</label>
-          <input type="text" class="form-control" id="fatherNameHusbandNameSearch" placeholder="Enter Father Name / Husband Name" name="fatherNameHusbandNameSearch"
-            [(ngModel)]="fatherNameHusbandNameSearch">
-        </div>
-      </div> -->
+
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <!--         <div class="form-group">
-          <label class="control-label" for="gender">Select Gender <em>*</em></label>
-          <select class="form-control" name="gender" [(ngModel)]="gender" #genderSelected>
-                            <option value="">Select Gender</option>
-                            <option *ngFor="let gen of genders" value="{{gen.genderID}}" >{{gen.genderName}} </option>
-                        </select>
-          <div *ngIf="genderErrFlag" class="errorText">
-            Select Gender
-          </div>
-        </div> -->
+
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select required placeholder="{{currentlanguage.beneficiary_registration?.gender}}" [style.width]="'100%'" [(ngModel)]="gender"
-            name="gender" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
+            name="gender" #genderSelected1="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
             <md-option *ngFor="let gen of genders" [value]="gen.genderID">
               {{gen.genderName}}
             </md-option>
           </md-select>
 
-          <md-hint *ngIf="genderErrFlag">
+          <md-hint *ngIf="genderSelected1.invalid && genderSelected1.touched">
             <span class="error_text">{{currentlanguage.beneficiary_registration?.gender_validation}}</span>
           </md-hint>
         </md-input-container>
@@ -114,7 +102,7 @@
             </md-option>
           </md-select>
 
-          <md-hint *ngIf="stateErrFlag">
+          <md-hint *ngIf="stateSelectedd.invalid && stateSelectedd.touched">
             <span class="error_text">{{currentlanguage.beneficiary_registration?.state_validation}}</span>
           </md-hint>
         </md-input-container>
@@ -129,7 +117,7 @@
               {{district.districtName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf="cityErrFlag">
+          <md-hint *ngIf="citySelectedd.invalid && citySelectedd.touched">
             <span class="error_text">{{currentlanguage.beneficiary_registration?.district_validation}}</span>
           </md-hint>
         </md-input-container>
@@ -147,9 +135,9 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
-        <button [disabled]="!(stateSelectedd?.valid) || !(citySelectedd?.valid)" type="button" md-raised-button color="primary" class="f-s-18 m-r-10"
+        <button [disabled]="searchForm.invalid" type="button" md-raised-button color="accent" class="f-s-18 m-r-10 pull-right"
           value="search" (click)="searchBeneficiary(searchForm.value)">{{currentlanguage.beneficiary_registration?.search}}</button>
-        <button type="button" md-raised-button color="accent" class="f-s-18" value="search" (click)="back()">{{currentlanguage.beneficiary_registration?.back}}</button>
+       <!--  <button type="button" md-raised-button color="accent" class="f-s-18" value="search" (click)="back1()">{{currentlanguage.beneficiary_registration?.back}}</button> -->
       </div>
     </form>
   </div>
@@ -277,7 +265,7 @@
               {{gender.genderName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf="genderErrFlag">
+          <md-hint *ngIf="genderSelected.invalid && genderSelected.touched">
             <span class="error_text">{{currentlanguage.beneficiary_registration?.gender_validation}}</span>
           </md-hint>
         </md-input-container>
@@ -403,13 +391,7 @@
       <!-- </md-input-container>
     </div> -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <!--       <div class="form-group">
-        <label class="control-label" for="caste">Select Caste</label>
-        <select class="form-control drop-arrow" name="caste" [(ngModel)]="caste">
-                        <option *ngFor="let caste of communities" value={{caste.communityID}}>
-                            {{caste.communityType}}</option>
-                    </select>
-                  </div> -->
+
         <md-input-container class="hide_underline" [style.width]=" '100%'">
           <input mdInput style="display:none">
 
@@ -459,7 +441,7 @@
               {{benState.stateName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf=" stateErrFlag">
+          <md-hint *ngIf="stateSelected.invalid && stateSelected.touched">
             <span class="error_text">Please select state </span>
           </md-hint>
         </md-input-container>
@@ -483,7 +465,7 @@
               {{benDistrict.districtName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf=" cityErrFlag">
+          <md-hint *ngIf="citySelected.invalid && citySelected.touched">
             <span class="error_text">Please Select District </span>
           </md-hint>
         </md-input-container>

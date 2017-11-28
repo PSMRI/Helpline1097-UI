@@ -269,6 +269,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.notCalledEarlierLowerPart = false;
     this.calledRadio = true;
     this.onBenRegDataSelect.emit(null);
+    this.back1();
 
   }
 
@@ -579,6 +580,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   retrieveRegHistory(reg_no: any) {
+    this.back1();
     this.registrationNo = "";
     if (!reg_no || reg_no === '') {
       this.reloadCall();
@@ -916,7 +918,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // for advanced Search
   toggleSearch(data: any) {
-    this.isAdvancedSearch = !this.isAdvancedSearch;
+          this.wentAwayMainScreen.emit();
+
+    this.isAdvancedSearch = false;
     if (data === 'Search by Id') {
       this.searchValue = 'Advanced Search';
       this.calledEarlier = true;
@@ -927,8 +931,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
   }
-  back() {
-    this.isAdvancedSearch = !this.isAdvancedSearch;
+  back1() {
+    this.isAdvancedSearch = true;
     this.searchValue = 'Advanced Search';
     this.calledEarlier = true;
     this.showSearchResult = true;

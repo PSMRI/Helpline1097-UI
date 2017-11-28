@@ -73,12 +73,7 @@ export class SexualOrientationReportComponent implements OnInit {
     this.reportsService.getAllBySexualOrientation(this.postData)
     .subscribe((response)=>{
       console.log(response);
-      if(response.statusCode==200){
-        this.tableFlag = true;
-      }
-      else {
-        this.alertService.alert(response.status);
-      }
+      this.tableFlag = true;
     },
     (error)=>{
       console.log(error);
