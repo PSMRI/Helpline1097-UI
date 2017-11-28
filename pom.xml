@@ -87,7 +87,7 @@
                             </tasks>
                             <!-- incase working dir is different use below -->
                             <!--<workingDirectory>${basedir}/${ui-base-dir}</workingDirectory>  -->    
-                            <executable>ng.cmd</executable>
+                            <executable>ng</executable>
                             <arguments>
                                 <argument>build</argument>
                                 <argument>--prod</argument>
