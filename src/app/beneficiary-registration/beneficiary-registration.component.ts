@@ -680,13 +680,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.caste = registeredBenData.i_bendemographics.communityID;
     // this.educationQualification = registeredBenData.i_bendemographics.educationID;
     this.state = registeredBenData.i_bendemographics.stateID;
+    
+    
+    this.GetDistricts(this.state);
     this.district = registeredBenData.i_bendemographics.districtID;
-    this.districts = registeredBenData.i_bendemographics.m_district;
+    console.log(registeredBenData.i_bendemographics.districtID,"experiment 1",this.districts);
+    
+    this.GetTaluks(this.district);
     this.taluk = registeredBenData.i_bendemographics.blockID;
-
-    this.taluks = registeredBenData.i_bendemographics.m_districtblock;
+    console.log("experiment 2",this.taluks);
+    
+    this.GetBlocks(this.taluk);
     this.village = registeredBenData.i_bendemographics.districtBranchID;
-    this.blocks = registeredBenData.i_bendemographics.m_districtbranchmapping;
+    console.log("experiment 3",this.blocks);
     this.age = registeredBenData.age;
     // Checking whether it has parent or not
     // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) { 
@@ -699,15 +705,22 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       });
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
     }
-    if (this.state) {
-      this.GetDistricts(this.state);
-    }
-    if (this.district) {
-      this.GetTaluks(this.district);
-    }
-    if (this.taluk) {
-      this.GetBlocks(this.taluk);
-    }
+
+    /* do not delete, commented because the district,taluk and village were not populting
+    while editing the details*/
+
+
+    // if (this.state) {
+    //   this.GetDistricts(this.state);
+    // }
+    // if (this.district) {
+    //   this.GetTaluks(this.district);
+    // }
+    // if (this.taluk) {
+    //   this.GetBlocks(this.taluk);
+    // }
+
+    
     this.pincode = registeredBenData.i_bendemographics.pinCode;
     this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
 
