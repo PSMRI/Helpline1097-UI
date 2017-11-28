@@ -5,6 +5,9 @@ import { ReportsService } from '../services/reports-service/reports-service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { LocationService } from '../services/common/location.service';
 
+import { Angular2Csv } from 'angular2-csv/Angular2-csv'; 
+
+
 
 @Component({
   selector: 'app-gender-distribution-report',
@@ -162,6 +165,7 @@ export class GenderDistributionReportComponent implements OnInit {
 
 }
 
+
 getReportSuccessHandeler(response)
 {
 
@@ -176,4 +180,11 @@ getReportSuccessHandeler(response)
     this.alertService.alert(response.status);
   }
 }
+
+download_report()
+{
+  new Angular2Csv(this.gender_distribution_resultset, 'Gender_Distribution_Report', {headers: (this.head)});
+}
+
+
 }

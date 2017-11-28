@@ -65,6 +65,13 @@
             <td>{{item.count}}</td>
           </tr>
         </tbody>
+        <tfoot>
+            <tr>
+              <td colspan="3">
+                <button md-raised-button (click)="download_report()"></button>
+              </td>
+            </tr>
+          </tfoot>
       </table> 
     </div>
   </div>
