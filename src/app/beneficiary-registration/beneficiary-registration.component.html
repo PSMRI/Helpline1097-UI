@@ -11,7 +11,7 @@
       <h5> {{currentlanguage.beneficiary_registration?.call_confirmation_question}}</h5>
       <md-radio-group  name="called_earlier" (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">
         <md-radio-button ngDefaultControl color="primary" [value]=true>Yes</md-radio-button>
-        <md-radio-button ngDefaultControl color="primary" [value]=false>No</md-radio-button>
+        <md-radio-button ngDefaultControl color="primary" [value]=false (click)="BeneficaryForm.reset()">No</md-radio-button>
       </md-radio-group>
       <!-- <md-slide-toggle ngDefaultControl [(ngModel)]="calledEarlier" color="primary" (change)="calledEarlierCheck($event)">{{currentlanguage.beneficiary_registration?.call_confirmation_question}}</md-slide-toggle> -->
 
@@ -205,11 +205,11 @@
   <!--End  Code Modified by Neeraj( 298657 ); 22-jun-2017 -->
   <!-- <form #Form="ngForm" (submit)="registerBeneficiary(Form.value); Form.reset()" *ngIf="notCalledEarlier"> -->
   <form #BeneficaryForm="ngForm" autocomplete="off">
-        <div class=" col-xs-12 col-sm-12">
-        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
-      </div>
-    <div class="row" [hidden]="!notCalledEarlier">
 
+    <div class="row" [hidden]="!notCalledEarlier">
+        <div class=" col-xs-12 col-sm-12">
+        <h4 class="f-s-b ">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
+      </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="TitleId">TitleId</label>
@@ -336,6 +336,9 @@
     </div>
     <div class="row bg-white m-t-10" *ngIf="notCalledEarlierLowerPart">
       <!-- <form autocomplete="off"> -->
+              <div class=" col-xs-12 col-sm-12">
+        <h4 class="f-s-b ">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
+      </div>
       <div class="row" style="display:none;">
         <div class="form-group">
           <label class="control-label" for="ParentBenRegID">Parent Reg ID</label>
