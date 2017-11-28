@@ -7,41 +7,64 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-lg-1">
       <form #languageDistributionSearchForm="ngForm">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-          <md-select class="m-t-15 p-t-4" placeholder="Language" [style.width]="'100%'" ngModel name="language" #language="ngModel" required>
-            <md-option value="all">ALL</md-option>
-            <md-option *ngFor="let item of languages" [value]="item.languageID">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+          <md-select class="m-t-15 p-t-4" placeholder="Language" [style.width]="'100%'" [multiple]="true" ngModel name="language" #language="ngModel">
+            <!--<md-option value="all">ALL</md-option>-->
+            <md-option *ngFor="let item of languages" [value]="item.languageName">
               {{item.languageName}}
             </md-option>
           </md-select>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
           <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
             #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
           <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
           <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
           <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
             #endDate [max]="today" required></md2-datepicker>
           <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
           <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 m-t-10">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+          <md-select class="m-t-15 p-t-4" placeholder="State" [style.width]="'100%'" ngModel name="state" #state="ngModel" (change)="getDistricts()">
+            <md-option *ngFor="let item of states" [value]="item">
+              {{item.stateName}}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+          <md-select class="m-t-15 p-t-4" placeholder="District" [style.width]="'100%'" ngModel name="district" #district="ngModel">
+            <md-option *ngFor="let item of districts" [value]="item.districtName">
+              {{item.districtName}}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 m-t-10">
           <button md-raised-button [disabled]="languageDistributionSearchForm.invalid || ((endDate.value < startDate.value))" color="primary" (click)="getReports()">SEARCH</button>
         </div>
       </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20" *ngIf="tableFlag">
-      <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
+      <table class="table table-striped table-bordered width60">
         <thead>
           <tr>
-            <th>Column1</th>
-            <th>Column2</th>
-            <th>Column3</th> 
+            <th>S.No</th>
+            <th>Language</th>
+            <th>Service Provided Ratio</th>
+            <th>Count</th> 
           </tr>
         </thead>
-      </table> 
+        <tbody>
+          <tr *ngFor="let item of languageDistributions; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.preferredLanguage=='all'? 'Total': item.preferredLanguage}}</td>
+            <td>{{item.serviceProvidedRatio}}</td>
+            <td>{{item.count}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </md-card>

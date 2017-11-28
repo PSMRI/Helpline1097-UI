@@ -14,6 +14,7 @@ export class ReportsService {
   private getAllByGenderURL = this._config.getCommonBaseURL() + "crmReports/getAllByGender";
   private getAllByAgeGroupURL = this._config.getCommonBaseURL() + "crmReports/getAllByAgeGroup";
   private getAllReportsByDateURL = this._config.getCommonBaseURL() + "crmReports/getAllReportsByDate";
+  private getCountsByPreferredLanguageURL = this._config.getCommonBaseURL() + "crmReports/getCountsByPreferredLanguage";
 
   constructor(
     private _http: Http,
@@ -41,6 +42,12 @@ export class ReportsService {
 
   getAllReportsByDate(data){
       return this.httpInterceptor.post(this.getAllReportsByDateURL, data)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getCountsByPreferredLanguage(data){
+      return this.httpInterceptor.post(this.getCountsByPreferredLanguageURL, data)
       .map(this.extractData)
       .catch(this.handleError);
   }
