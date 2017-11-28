@@ -428,7 +428,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.districts = [];
 
     this.taluks = [];
-
+    
     this.blocks = [];
     this.district = undefined;
     this.taluk = undefined;
