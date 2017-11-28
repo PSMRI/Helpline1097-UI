@@ -85,18 +85,12 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <!--         <div class="form-group">
-          <label class="control-label" for="stateSearch">State</label>
-          <select class="form-control" name="stateSearch" [(ngModel)]="state" (change)="GetDistricts(state)">
-                            <option value="">Select State</option>
-                            <option *ngFor="let state of states" value="{{state.stateID}}">{{state.stateName}}</option>
-                        </select>
-                      </div> -->
+
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
 
           <md-select required placeholder="{{currentlanguage.beneficiary_registration?.state}}" [style.width]="'100%'" [(ngModel)]="state"
-            name="stateSearch" (change)="GetDistricts(state)" #stateSelectedd="ngModel" (blur)="GetDistricts(state)">
+            name="stateSearch" (change)="GetDistricts(state)" #stateSelectedd="ngModel" >
             <md-option *ngFor="let state of states" [value]="state.stateID">
               {{state.stateName}}
             </md-option>
@@ -211,10 +205,11 @@
   <!--End  Code Modified by Neeraj( 298657 ); 22-jun-2017 -->
   <!-- <form #Form="ngForm" (submit)="registerBeneficiary(Form.value); Form.reset()" *ngIf="notCalledEarlier"> -->
   <form #BeneficaryForm="ngForm" autocomplete="off">
-    <div class="row" [hidden]="!notCalledEarlier">
-      <div class=" col-xs-12 col-sm-12">
+        <div class=" col-xs-12 col-sm-12">
         <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
       </div>
+    <div class="row" [hidden]="!notCalledEarlier">
+
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--       <div class="form-group">
         <label class="control-label" for="TitleId">TitleId</label>
@@ -436,7 +431,7 @@
           <input mdInput style="display:none">
 
           <md-select required placeholder="{{currentlanguage.beneficiary_registration?.state}}" [style.width]=" '100%'
-                    " [(ngModel)]="state" name="state" (change)="GetDistricts(state)" #stateSelected="ngModel" (blur)="GetDistricts(state)">
+                    " [(ngModel)]="state" name="state" (change)="GetDistricts(state)" #stateSelected="ngModel" >
             <md-option *ngFor="let benState of states" [value]="benState.stateID">
               {{benState.stateName}}
             </md-option>
