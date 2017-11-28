@@ -303,7 +303,7 @@
           <td>{{millisToUTCDate(feedBackRequest.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
           <td>{{feedBackRequest.responseUpdatedBy}}</td>
           <td>{{feedBackRequest.responseDate?(millisToUTCDate(feedBackRequest.responseDate) | date:'dd/MM/yyyy HH:mm'):""}}</td>
-          <td><a href="{{feedBackRequest.attachmentPath}}" target="_blank"><i class="material-icons">file_download</i></a></td>
+          <td><a *ngIf="feedBackRequest.attachmentPath" href="{{feedBackRequest.attachmentPath}}" target="_blank"><i class="material-icons">file_download</i></a></td>
         </tr>
       </tbody>
       <tfoot>
