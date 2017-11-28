@@ -282,10 +282,10 @@
           [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
         </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" required #ageRef min="0" max="120" name="age" maxlength="3" 
+          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" required #ageRef min="0" max="150" name="age" maxlength="3" 
             [(ngModel)]="age" (keyup)="calculateDOB(ageRef.value)" #ageEvent="ngModel" >
           <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
-            <span class="error_text">Enter valid age (max:120) </span>
+            <span class="error_text">Enter valid age (max:150) </span>
           </md-hint>
         </md-input-container>
       </div>

@@ -1,38 +1,34 @@
-<md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true"
-  (click)="dialogReff.close()">clear</md-icon>
-<div class="col-xs-12 col-sm-12">
-  <md-card>
-    <md-card-content>
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <label>
-            <b>Feedback: </b>{{this.data}}</label>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <md-checkbox style="margin: 0 10px" name="altEmail" color="primary" [(ngModel)]="altEmail">
-            Alternate Email
-          </md-checkbox>
-          <div>
-            <div *ngIf="altEmail">
-              <label>Email :
-                <em>*</em>
-              </label>
-              <input class="form-control" type="text" required minlength="10" placeholder="Enter email address" [pattern]="emailPattern"
-                name="email" [(ngModel)]="email" #emailAdd="ngModel">
-
-              <div [hidden]="emailAdd.valid">
-                <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
-                <span class=" error_text" [hidden]="!emailAdd.hasError('pattern')">Please enter valid email</span>
-              </div>
-
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <button [disabled]="emailAdd.invalid" md-raised-button color="primary" class="font-regular m-t-8" (click)="dialogReff.close(altEmail)">Send Email
-                </button>
-              </div>
-            </div>
+<md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close()">clear</md-icon>
+<!-- <div class="col-xs-12 col-sm-12"> -->
+  <!-- <md-card> -->
+  <!-- <md-card-content> -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <label>
+        <b>Feedback: </b>{{this.data}}</label>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <md-checkbox style="margin: 0 10px" name="altEmail" color="primary" [(ngModel)]="altEmail">
+        Alternate Email
+      </md-checkbox>
+      <div>
+        <div *ngIf="altEmail">
+          <label>Email :
+            <em>*</em>
+          </label>
+          <input class="form-control" type="text" required minlength="10" placeholder="Enter email address" [pattern]="emailPattern" name="email" [(ngModel)]="email" #emailAdd="ngModel">
+          <div [hidden]="emailAdd.valid">
+            <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
+            <span class=" error_text" [hidden]="!emailAdd.hasError('pattern')">Please enter valid email</span>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button [disabled]="emailAdd.invalid" md-raised-button color="primary" class="font-regular m-t-8" (click)="dialogReff.close(altEmail)">Send Email
+            </button>
           </div>
         </div>
       </div>
-    </md-card-content>
-  </md-card>
-</div>
+    </div>
+  </div>
+  <!-- </md-card-content> -->
+  <!-- </md-card> -->
+<!-- </div> -->
