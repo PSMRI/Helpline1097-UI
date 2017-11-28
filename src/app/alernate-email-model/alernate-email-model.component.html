@@ -1,4 +1,4 @@
-<md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close()">clear</md-icon>
+<md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close('close')">clear</md-icon>
 <!-- <div class="col-xs-12 col-sm-12"> -->
   <!-- <md-card> -->
   <!-- <md-card-content> -->
@@ -12,6 +12,7 @@
         Alternate Email
       </md-checkbox>
       <div>
+        <form #emailForm="ngForm">
         <div *ngIf="altEmail">
           <label>Email :
             <em>*</em>
@@ -21,11 +22,13 @@
             <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
             <span class=" error_text" [hidden]="!emailAdd.hasError('pattern')">Please enter valid email</span>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <button [disabled]="emailAdd.invalid" md-raised-button color="primary" class="font-regular m-t-8" (click)="dialogReff.close(altEmail)">Send Email
+          
+        </div>
+        </form>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+            <button [disabled]="emailForm.invalid" md-raised-button color="primary" class="font-regular m-t-8" (click)="dialogReff.close(altEmail)">Send Email
             </button>
           </div>
-        </div>
       </div>
     </div>
   </div>
