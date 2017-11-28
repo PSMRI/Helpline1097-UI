@@ -33,6 +33,7 @@ export class GenderDistributionReportComponent implements OnInit {
   state:any;
   district:any;
   gender_distribution_resultset:any=[];
+  head:any=[];
 
   constructor(private dataService: dataService,
               private userbeneficiarydata: UserBeneficiaryData,
