@@ -362,6 +362,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
     if (!flag) {
+           jQuery("#BeneficaryForm").trigger("reset");
 
       this.searchValue = 'Advance Search';
       this.advanceBtnHide = false;
@@ -428,7 +429,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.districts = [];
 
     this.taluks = [];
-
+    
     this.blocks = [];
     this.district = undefined;
     this.taluk = undefined;
