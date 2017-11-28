@@ -22,6 +22,7 @@
       "cancel": "Cancel"
     },
     "beneficiary_registration": {
+      "search_form": "Search Beneficiary",
       "create_search": "Search/Create Beneficiary",
       "call_confirmation_question": "Have You Called Earlier?",
       "registration_number": "Beneficiary ID",
@@ -32,6 +33,7 @@
       "last_name": "Last Name/Surname",
       "gender": "Select Gender",
       "gender_validation": "Please Select Gender ",
+      "name_validation": "Please enter atleast 3 characters",
       "state": "Select State",
       "state_validation": "Please Select State ",
       "district": "Select District",
