@@ -1,71 +1,73 @@
-<md-card>
+<!--<md-card>-->
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b">Caller Age Report</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">Caller Age Report</h4>
       </label>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-lg-1">
-      <form #callerAgeSearchForm="ngForm">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row">
+        <form #callerAgeSearchForm="ngForm">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <md-input-container class="hide_underline" [style.width]="'100%'">
+                  <input mdInput style="display:none">
 
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none">
+                  <md-select placeholder="Select State" [style.width]="'100%'" [(ngModel)]="state"
+                  name="state" (change)="GetDistricts(state)" >
+                  <md-option *ngFor="let stat of states" [value]="stat">
+                    {{stat.stateName}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+              <md-input-container class="hide_underline" [style.width]="'100%'">
+                <input mdInput style="display:none">
 
-            <md-select placeholder="Select State" [style.width]="'100%'" [(ngModel)]="state"
-            name="state" (change)="GetDistricts(state)" >
-            <md-option *ngFor="let stat of states" [value]="stat">
-              {{stat.stateName}}
-            </md-option>
-          </md-select>
-        </md-input-container>
+                <md-select  placeholder="Select District" [style.width]="'100%'" [(ngModel)]="district"
+                name="district"  >
+                <md-option *ngFor="let district of districts" [value]="district.districtName">
+                  {{district.districtName}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+
+          </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+              <md-input-container class="hide_underline" [style.width]="'100%'">
+                <input mdInput style="display:none">
+
+                <md-select multiple="true" placeholder="Select Age Group" [style.width]="'100%'" [(ngModel)]="ageGroup"
+                name="ageGroup"  >
+                <md-option *ngFor="let age of ageGroups" [value]="age.ageGroupValue">
+                  {{age.ageGroupDisplay}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+
+          </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
+                  #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
+                <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+                <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
+              </div>
+              <div class="clearfix visible-lg visible-sm"></div>
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
+                  #endDate [max]="today" required></md2-datepicker>
+                <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
+                <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+                <button md-raised-button [disabled]="callerAgeSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(callerAgeSearchForm.value)">SEARCH</button>
+              </div>
+            </form>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
-
-          <md-select  placeholder="Select District" [style.width]="'100%'" [(ngModel)]="district"
-          name="district"  >
-          <md-option *ngFor="let district of districts" [value]="district.districtName">
-            {{district.districtName}}
-          </md-option>
-        </md-select>
-      </md-input-container>
-
-    </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
-
-          <md-select multiple="true" placeholder="Select Age Group" [style.width]="'100%'" [(ngModel)]="ageGroup"
-          name="ageGroup"  >
-          <md-option *ngFor="let age of ageGroups" [value]="age.ageGroupValue">
-            {{age.ageGroupDisplay}}
-          </md-option>
-        </md-select>
-      </md-input-container>
-
-    </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-          <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
-            #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-          <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
-            #endDate [max]="today" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10">
-          <button md-raised-button [disabled]="callerAgeSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(callerAgeSearchForm.value)">SEARCH</button>
-        </div>
-      </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20" *ngIf="tableFlag">
       <div class="table-responsive">
-        <table class="table table-striped" [md2Data]="count" #md2="md2DataTable">
+        <table class="table table-striped width60" [md2Data]="count" #md2="md2DataTable">
           <thead>
             <tr>
               <th>S.No.</th>
@@ -76,7 +78,7 @@
           <tbody>
             <tr *ngFor="let report of md2.data;let i=index " >
               <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
-              <td>{{report.groupName}}</td>
+              <td>{{report.groupName=='all'?'Total': report.groupName}}</td>
               <td>{{report.count}}</td>
             </tr>
           </tbody>
@@ -91,4 +93,4 @@
       </div>
     </div>
   </div>
-</md-card>
+<!--</md-card>-->

@@ -1,9 +1,11 @@
 <form [formGroup]="allocateForm" novalidate *ngIf="afterAllocate">
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-12 p-b-40">
     <h4 class="f-s-b m-b-10 m-t-20">Allocate Records</h4>
-    <span class="m-b-30 width100" *ngIf="reallocationFlag">Preferred Language:
-      <strong>{{selectedLanguage}}</strong>
-    </span>
+    <div class="m-t-10 m-b-10">
+      <span class="width100" *ngIf="reallocationFlag">Preferred Language:
+        <strong>{{selectedLanguage}}</strong>
+      </span>
+    </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
@@ -13,7 +15,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select multiple [style.width]="'100%'" formControlName="userID" name="userID" (change)="OnSelectChange()" placeholder="Allocate To">
