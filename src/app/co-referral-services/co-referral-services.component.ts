@@ -85,9 +85,10 @@ export class CoReferralServicesComponent implements OnInit {
       this.showFormCondition = false;
       this.detailsList = [];
       this.showresult = false;
+      // this.selected_state = undefined;
 
     }
-
+    alert("123");
   }
 
   setLanguage(language) {
