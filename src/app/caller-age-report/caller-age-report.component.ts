@@ -115,8 +115,8 @@ export class CallerAgeReportComponent implements OnInit {
         "minAge" : value.ageGroup[i].minAge,
         "startTimestamp": start_date,
         "endTimestamp": end_date,
-        "beneficiaryState": this.state.stateName,
-        "beneficiaryDistrict": value.district
+        "beneficiaryState": this.state.stateName ? this.state.stateName : "",
+        "beneficiaryDistrict": value.district ? value.district : ""
       }
       array.push(obj);
     }
@@ -154,8 +154,8 @@ export class CallerAgeReportComponent implements OnInit {
 
   };
   
-   let head = Object.keys(this.count[0]);
-   // console.log(head);
-        new Angular2Csv(this.count, 'AgeGroup Report',options);
+    let head = Object.keys(this.count[0]);
+    console.log(head);
+        new Angular2Csv(this.count, 'AgeGroup Report', {headers: (head)});
   }
 }
