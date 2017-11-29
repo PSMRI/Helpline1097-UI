@@ -46,27 +46,76 @@ export class MessageDialogComponent implements OnInit {
     console.log("second array split",req_array);
     for(let z=0;z<req_array.length;z++)
     {
-      if(req_array[z].startsWith("www") && (req_array[z].endsWith(".com")||req_array[z].endsWith(".co")||req_array[z].endsWith(".in")))
+      if(req_array[z].startsWith("www") && (req_array[z].endsWith(".com")||
+                                            req_array[z].endsWith(".co")||
+                                            req_array[z].endsWith(".in")||
+                                            req_array[z].endsWith(".org")||
+                                            req_array[z].endsWith(".net")||
+                                            req_array[z].endsWith(".int")||
+                                            req_array[z].endsWith(".edu")
+
+                                            )
+        )
       {
         this.result.push(req_array[z]);
       }
-      else if(req_array[z].startsWith("WWW")&& (req_array[z].endsWith(".com")||req_array[z].endsWith(".co")||req_array[z].endsWith(".in")))
+      else if(req_array[z].startsWith("WWW")&& (req_array[z].endsWith(".com")||
+                                                req_array[z].endsWith(".co")||
+                                                req_array[z].endsWith(".in")||
+                                                req_array[z].endsWith(".org")||
+                                                req_array[z].endsWith(".net")||
+                                                req_array[z].endsWith(".int")||
+                                                req_array[z].endsWith(".edu")
+                                                )
+        )
       {
         this.result.push(req_array[z]);
       }
-      else if(req_array[z].startsWith("https")&& (req_array[z].endsWith(".com")||req_array[z].endsWith(".co")||req_array[z].endsWith(".in")))
+      else if(req_array[z].startsWith("https")&& (req_array[z].endsWith(".com")||
+                                                  req_array[z].endsWith(".co")||
+                                                  req_array[z].endsWith(".in")||
+                                                  req_array[z].endsWith(".org")||
+                                                  req_array[z].endsWith(".net")||
+                                                  req_array[z].endsWith(".int")||
+                                                  req_array[z].endsWith(".edu")
+                                                  )
+        )
       {
         this.result.push(req_array[z]);
       }
-      else if(req_array[z].startsWith("HTTPS")&& (req_array[z].endsWith(".com")||req_array[z].endsWith(".co")||req_array[z].endsWith(".in")))
+      else if(req_array[z].startsWith("HTTPS")&& (req_array[z].endsWith(".com")||
+                                                  req_array[z].endsWith(".co")||
+                                                  req_array[z].endsWith(".in")||
+                                                  req_array[z].endsWith(".org")||
+                                                  req_array[z].endsWith(".net")||
+                                                  req_array[z].endsWith(".int")||
+                                                  req_array[z].endsWith(".edu")
+                                                  )
+        )
       {
         this.result.push(req_array[z]);
       }
-      else if(req_array[z].startsWith("http")&& (req_array[z].endsWith(".com")||req_array[z].endsWith(".co")||req_array[z].endsWith(".in")))
+      else if(req_array[z].startsWith("http")&& (req_array[z].endsWith(".com")||
+                                                 req_array[z].endsWith(".co")||
+                                                 req_array[z].endsWith(".in")||
+                                                 req_array[z].endsWith(".org")||
+                                                 req_array[z].endsWith(".net")||
+                                                 req_array[z].endsWith(".int")||
+                                                 req_array[z].endsWith(".edu")
+                                                 )
+        )
       {
         this.result.push(req_array[z]);
       }
-      else if(req_array[z].startsWith("http")&& (req_array[z].endsWith(".com")||req_array[z].endsWith(".co")||req_array[z].endsWith(".in")))
+      else if(req_array[z].startsWith("http")&& (req_array[z].endsWith(".com")||
+                                                 req_array[z].endsWith(".co")||
+                                                 req_array[z].endsWith(".in")||
+                                                 req_array[z].endsWith(".org")||
+                                                 req_array[z].endsWith(".net")||
+                                                 req_array[z].endsWith(".int")||
+                                                 req_array[z].endsWith(".edu")
+                                                 )
+        )
       {
         this.result.push(req_array[z]);
       }
