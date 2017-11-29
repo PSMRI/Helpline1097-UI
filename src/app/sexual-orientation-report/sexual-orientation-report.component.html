@@ -54,12 +54,13 @@
             </md-input-container>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-            <button  md-raised-button [disabled]="sexualOrientationSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports()">SEARCH</button>
+            <button class="hidden-xs" md-raised-button [disabled]="sexualOrientationSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports()">SEARCH</button>
+            <button class="visible-xs pull-right" md-raised-button [disabled]="sexualOrientationSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports()">SEARCH</button>
           </div>
         </form>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20" *ngIf="tableFlag">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
       <table class="table table-striped" [md2Data]="orientations" #md2="md2DataTable">
         <thead>
           <tr>
@@ -78,7 +79,7 @@
         </tbody>
         <tfoot>
             <tr>
-              <td colspan="3"><button class="pull-right" color="primary" md-raised-button (click)="download_report()">Download Data</button></td>
+              <td class="p-r-0" colspan="3"><button class="pull-right" color="primary" md-raised-button (click)="download_report()">Download Data</button></td>
             </tr>
           </tfoot>
       </table> 
