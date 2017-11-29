@@ -145,6 +145,7 @@ sDate:Date=new Date();
     else
     {
       this.show=0;
+      this.visibility_Flag=true;
     }
   }
 
