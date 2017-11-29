@@ -98,7 +98,7 @@ export class ClosureComponent implements OnInit
     this.currentlanguage = language;
   }
 
-  sliderVisibility(val,val2,fitToF) {
+  sliderVisibility(val:any) {
     console.log(this.callTypeID.split(',')[2]);
     if (this.callTypeID.split(',')[2] == "true") {
       this.showSlider = true;
