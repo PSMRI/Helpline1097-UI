@@ -44,10 +44,10 @@
             </md-option>
           </md-select>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
           <md2-datepicker name="startDate" [disabled]="!visibility_Flag" (keydown)="blockey($event)" placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
           <md2-datepicker name="endDate" [disabled]="!visibility_Flag" (keydown)="blockey($event)" placeholder="Valid Till" [min]="startDate?.value" #endDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
           <br>
           <span class="help-block m-l-15" *ngIf="(endDate?.value < startDate?.value) && endDate.dirty">End Date cannot be before Start Date!</span>
