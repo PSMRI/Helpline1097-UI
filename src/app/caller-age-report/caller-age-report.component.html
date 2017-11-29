@@ -61,7 +61,8 @@
           </div>
 
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-                <button md-raised-button [disabled]="callerAgeSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(callerAgeSearchForm.value)">SEARCH</button>
+                <button class="hidden-xs" md-raised-button [disabled]="callerAgeSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(callerAgeSearchForm.value)">SEARCH</button>
+                <button class="visible-xs pull-right" md-raised-button [disabled]="callerAgeSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(callerAgeSearchForm.value)">SEARCH</button>
               </div>
             </form>
       </div>
@@ -85,7 +86,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3">
+              <td class="p-r-0" colspan="3">
                 <button class="pull-right" md-raised-button color="primary" (click)="download()">Download Data</button>
               </td>
             </tr>
