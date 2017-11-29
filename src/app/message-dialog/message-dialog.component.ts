@@ -12,8 +12,8 @@ export class MessageDialogComponent implements OnInit {
 
   ngOnInit() {
   	console.log(this.data,"DATA IN MESSAGE DIALOG WINDOW");
-  	// this.checkForURL(this.data.message);
-    this.checkForURL("Hi bro, kindly visit my new sites www.yahala.java.en www.piramal.gov.in, www.piramal.gov.in  www.yahoo.com,www.google.com,https://www.google.com");
+  	this.checkForURL(this.data.message);
+    // this.checkForURL("Hi bro, kindly visit my new sites www.yahala.java.en www.piramal.gov.in, www.piramal.gov.in  www.yahoo.com,www.google.com,https://www.google.com");
 
   }
 
