@@ -45,6 +45,7 @@ export class InnerpageComponent implements OnInit {
   wrapupTime: boolean = false;
   TotalCalls: any;
   TotalTime: any;
+  id: any;
 
   // eventSpiltData: any;
 
@@ -101,6 +102,7 @@ export class InnerpageComponent implements OnInit {
 
   ngOnInit() {
     this.data = this.getCommonData.Userdata;
+    this.id = this.getCommonData.cZentrixAgentID;
 
     this.providerServiceMapId = this.getCommonData.current_service.serviceID;
 

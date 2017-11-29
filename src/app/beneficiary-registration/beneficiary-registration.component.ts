@@ -424,7 +424,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   titleSelected(value) {
     if (value == 3 || value == 8) {
       this.GenderID = 1;
-    } else if (value == 4 || value == 5) {
+    } else if (value == 4 || value == 5 || value == 13) {
       this.GenderID = 2;
     } else {
       this.GenderID = "";
@@ -843,7 +843,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
         height: '68%',
+
         width: '80%',
+        disableClose: true,
         data: regHistory.beneficiaryRegID,
       });
       dialogRef.afterClosed().subscribe(result => {

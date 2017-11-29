@@ -520,7 +520,7 @@ export class supervisorFeedback implements OnInit {
     let dialogReff = this.dialog.open(AlernateEmailModelComponent, {
       height: '350px',
       width: '620px',
-      disableClose: false,
+      disableClose: true,
       data: feedback
     });
     dialogReff.afterClosed().subscribe(result => {

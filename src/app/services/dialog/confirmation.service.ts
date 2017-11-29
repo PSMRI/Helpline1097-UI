@@ -17,7 +17,7 @@ export class ConfirmationDialogsService {
         dialogRef = this.dialog.open(CommonDialogComponent, {
             // height: '30%',
             // width: '30%',
-            disableClose: false
+            disableClose: true
         });
         dialogRef.componentInstance.title = title;
         dialogRef.componentInstance.message = message;
@@ -36,7 +36,9 @@ export class ConfirmationDialogsService {
         const config = new MdDialogConfig();
         // config.viewContainerRef = viewContainerRef;
 
-        dialogRef = this.dialog.open(CommonDialogComponent, config);
+        dialogRef = this.dialog.open(CommonDialogComponent, {
+            disableClose: true
+        });
 
         dialogRef.componentInstance.title = title;
         dialogRef.componentInstance.message = message;
@@ -54,7 +56,9 @@ export class ConfirmationDialogsService {
         let dialogRef: MdDialogRef<CommonDialogComponent>;
         const config = new MdDialogConfig();
         // config.viewContainerRef = viewContainerRef;
-        dialogRef = this.dialog.open(CommonDialogComponent, config);
+        dialogRef = this.dialog.open(CommonDialogComponent, {
+            disableClose: true    
+        });
         dialogRef.componentInstance.message = message;
         dialogRef.componentInstance.btnOkText = btnOkText;
         dialogRef.componentInstance.confirmAlert = false;
@@ -66,7 +70,9 @@ export class ConfirmationDialogsService {
         let dialogRef: MdDialogRef<CommonDialogComponent>;
         const config = new MdDialogConfig();
         // config.viewContainerRef = viewContainerRef;
-        dialogRef = this.dialog.open(CommonDialogComponent, config);
+        dialogRef = this.dialog.open(CommonDialogComponent, {
+            disableClose: true
+        });
         dialogRef.componentInstance.message = message;
         dialogRef.componentInstance.btnOkText = btnOkText;
         dialogRef.componentInstance.confirmAlert = false;

@@ -92,6 +92,7 @@ export class NewsInformationsComponent implements OnInit {
 		let dialog = this.dialog.open(MessageDialogComponent, {
 			width: '400px',
 			height: '300px',
+			disableClose: true,
 			data: {
 				message: alert.notificationDesc,
 				type: "Message",
