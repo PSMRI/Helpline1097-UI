@@ -24,6 +24,7 @@ export class CallerAgeReportComponent implements OnInit {
   district: any;
   ageGroup: any;
   ageGroups = [];
+  providerServiceMapID: any;
   constructor(private _userBeneficiaryData: UserBeneficiaryData, private saved_data: dataService,
      private _locationService: LocationService, private reportService: ReportsService) { }
 
@@ -44,6 +45,7 @@ export class CallerAgeReportComponent implements OnInit {
     (err) => {
 
     });
+    this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.ageGroups = [
       {
         "ageGroupDisplay": "Below 15",
@@ -108,14 +110,21 @@ export class CallerAgeReportComponent implements OnInit {
 
     let start_date = new Date((value.startDate) - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
     let end_date = new Date((value.startDate) - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
-
+    let state;
+    if(this.state){
+      state = this.state.stateName;
+    }
+    else {
+      state = "";
+    }
     for(let i=0; i<noOfGroups; i++) {
       obj = {
+        "providerServiceMapID": this.providerServiceMapID,
         "maxAge": value.ageGroup[i].maxAge,
         "minAge" : value.ageGroup[i].minAge,
         "startTimestamp": start_date,
         "endTimestamp": end_date,
-        "beneficiaryState": this.state.stateName ? this.state.stateName : "",
+        "beneficiaryState": state,
         "beneficiaryDistrict": value.district ? value.district : ""
       }
       array.push(obj);

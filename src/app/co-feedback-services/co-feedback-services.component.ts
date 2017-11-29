@@ -300,6 +300,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     const dialogRef = this.dialog.open(FeedbackStatusComponent, {
       height: '90%',
       width: '80%',
+      disableClose: true,
       data: this.modalArray,
     });
     dialogRef.afterClosed().subscribe(result => {

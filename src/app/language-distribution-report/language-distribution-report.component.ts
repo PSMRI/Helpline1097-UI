@@ -46,6 +46,8 @@ export class LanguageDistributionReportComponent implements OnInit {
     this.start_date.setDate(this.today.getDate()-7);
     this.minStartDate = new Date();
     this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
+        this.providerServiceMapID = this.dataService.current_service.serviceID;
+
   }
 
   blockKey(e: any){
@@ -85,6 +87,8 @@ export class LanguageDistributionReportComponent implements OnInit {
     if(this.languageDistributionSearchForm.value.language!=''){
       for(var i=0; i< this.languageDistributionSearchForm.value.language.length;i++){
         var obj = {
+          "providerServiceMapID": this.providerServiceMapID,
+
           "startTimestamp": new Date((this.languageDistributionSearchForm.value.startDate.getTime() - 1 * (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
           "endTimestamp": new Date((this.languageDistributionSearchForm.value.endDate.getTime() - 1 * (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
           "beneficiaryPreferredLanguage": this.languageDistributionSearchForm.value.language[i]
@@ -101,6 +105,8 @@ export class LanguageDistributionReportComponent implements OnInit {
     else {
       for(var i=0;i<this.languages.length;i++){
         var obj = {
+        "providerServiceMapID": this.providerServiceMapID,
+
           "startTimestamp": new Date((this.languageDistributionSearchForm.value.startDate.getTime() - 1 * (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
           "endTimestamp": new Date((this.languageDistributionSearchForm.value.endDate.getTime() - 1 * (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
           "beneficiaryPreferredLanguage": this.languages[i].languageName

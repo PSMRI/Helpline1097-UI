@@ -1,4 +1,3 @@
-<md-card>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
@@ -7,48 +6,59 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-lg-1">
       <form #genderDistributionSearchForm="ngForm">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-          <md-select class="m-t-15 p-t-4" placeholder="Gender" [style.width]="'100%'" ngModel name="gender" #gender="ngModel" multiple="true">
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
+            #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
+        </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
+            #endDate [max]="today" required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
+        </div>
+
+
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                 <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none">
+          <md-select class="" placeholder="State" [style.width]="'100%'" ngModel [(ngModel)]="state" name="state" #State="ngModel" (change)="GetDistricts(state)">
+            <md-option *ngFor="let item of states" [value]="item">
+              {{item.stateName}}
+            </md-option>
+          </md-select>
+          </md-input-container>
+        </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                 <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none">
+          <md-select class="" placeholder="District" [style.width]="'100%'" ngModel name="district" #District="ngModel">
+            <md-option *ngFor="let item of districts" [value]="item.districtName">
+              {{item.districtName}}
+            </md-option>
+          </md-select>
+          </md-input-container>
+        </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                         <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none">
+          <md-select class="" placeholder="Gender" [style.width]="'100%'" ngModel name="gender" #gender="ngModel" multiple="true">
             <!-- <md-option value="all">ALL</md-option> -->
             <md-option *ngFor="let item of genders" [value]="item.genderName">
               {{item.genderName}}
             </md-option>
           </md-select>
+          </md-input-container>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-          <md2-datepicker  name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
-            #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-          <md2-datepicker  name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
-            #endDate [max]="today" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 m-l-20">
-          <md-select class="m-t-15 p-t-4" placeholder="State" [style.width]="'100%'" ngModel [(ngModel)]="state" name="state" #State="ngModel" (change)="GetDistricts(state)">
-            <md-option *ngFor="let item of states" [value]="item">
-              {{item.stateName}}
-            </md-option>
-          </md-select>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-          <md-select class="m-t-15 p-t-4" placeholder="District" [style.width]="'100%'" ngModel name="district" #District="ngModel">
-            <md-option *ngFor="let item of districts" [value]="item.districtName">
-              {{item.districtName}}
-            </md-option>
-          </md-select>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-1 m-t-10">
-          <button md-raised-button [disabled]="genderDistributionSearchForm.invalid || ((endDate.value < startDate.value))" color="primary" (click)="getReports(genderDistributionSearchForm.value)">SEARCH</button>
+              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+          <button md-raised-button [disabled]="genderDistributionSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(genderDistributionSearchForm.value)">SEARCH</button>
         </div>
       </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20" *ngIf="tableFlag">
       <div class="col-md-12 col-lg-12 table-responsive">
-      <table class="table table-striped " [md2Data]="gender_distribution_resultset" #md2="md2DataTable" [rowsPerPage]="5">
+      <table class="table table-striped " [md2Data]="gender_distribution_resultset" #md2="md2DataTable">
         <thead>
           <tr>
             <th>S.No</th>
@@ -77,4 +87,3 @@
     </div>
     </div>
   </div>
-</md-card>

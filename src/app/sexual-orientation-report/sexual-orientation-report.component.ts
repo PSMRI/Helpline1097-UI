@@ -41,6 +41,8 @@ export class SexualOrientationReportComponent implements OnInit {
     (error)=>{
       console.log(error);
     })
+    this.providerServiceMapID = this.dataService.current_service.serviceID;
+
     this.today = new Date();
     this.today.setDate(this.today.getDate()-1);
     console.log(this.today);
@@ -88,6 +90,7 @@ export class SexualOrientationReportComponent implements OnInit {
     if(this.sexualOrientationSearchForm.value.sexuality!=''){
       for(var i=0; i< this.sexualOrientationSearchForm.value.sexuality.length;i++){
         var obj = {
+          "providerServiceMapID": this.providerServiceMapID,
           "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
           "endTimestamp": new Date((this.sexualOrientationSearchForm.value.endDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
           "beneficiarySexualOrientation": this.sexualOrientationSearchForm.value.sexuality[i]
@@ -104,6 +107,7 @@ export class SexualOrientationReportComponent implements OnInit {
     else {
       for(var i=0;i<this.sexualOrientations.length;i++){
         var obj = {
+          "providerServiceMapID": this.providerServiceMapID,
           "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
           "endTimestamp": new Date((this.sexualOrientationSearchForm.value.endDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
           "beneficiarySexualOrientation": this.sexualOrientations[i].sexualOrientation
