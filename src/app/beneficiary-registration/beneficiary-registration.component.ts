@@ -16,8 +16,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { OutboundService } from './../services/common/outbound.services';
 import { ReloadService } from './../services/common/reload.service';
 import { Subscription } from 'rxjs/Subscription';
-declare
-var jQuery: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-beneficiary-registration',
