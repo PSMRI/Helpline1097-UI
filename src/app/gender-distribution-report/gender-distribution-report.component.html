@@ -1,7 +1,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-30">Gender Distribution Report</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">Gender Distribution Report</h4>
       </label>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-lg-1">
@@ -52,38 +52,41 @@
           </md-input-container>
         </div>
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-          <button md-raised-button [disabled]="genderDistributionSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(genderDistributionSearchForm.value)">SEARCH</button>
+          <button class="hidden-xs" md-raised-button [disabled]="genderDistributionSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(genderDistributionSearchForm.value)">SEARCH</button>
+          <button class="visible-xs pull-right" md-raised-button [disabled]="genderDistributionSearchForm.invalid || ((endDate.value < startDate.value))" color="accent" (click)="getReports(genderDistributionSearchForm.value)">SEARCH</button>
         </div>
       </form>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20" *ngIf="tableFlag">
-      <div class="col-md-12 col-lg-12 table-responsive">
-      <table class="table table-striped " [md2Data]="gender_distribution_resultset" #md2="md2DataTable">
-        <thead>
-          <tr>
-            <th>S.No</th>
-            <th>Gender Distribution</th>
-            <th>Count</th> 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="md2.data.length<1">
-            <td align="center">No Record Found</td>
-          </tr>
-          <tr *ngFor="let item of md2.data; let i = index ">
-            <td>{{i+1}}</td>
-            <td>{{item.gender=='all'? 'Total':item.gender}}</td>
-            <td>{{item.count}}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-              <td colspan="3">
-                <button class="pull-right" color="primary" md-raised-button (click)="download_report()">Download</button>
-              </td>
-            </tr>
-          </tfoot>
-      </table> 
-    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
+      <!--<div class="col-md-12 col-lg-12">-->
+        <div class="table-responsive">
+          <table class="table table-striped " [md2Data]="gender_distribution_resultset" #md2="md2DataTable">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Gender Distribution</th>
+                <th>Count</th> 
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="md2.data.length<1">
+                <td align="center">No Record Found</td>
+              </tr>
+              <tr *ngFor="let item of md2.data; let i = index ">
+                <td>{{i+1}}</td>
+                <td>{{item.gender=='all'? 'Total':item.gender}}</td>
+                <td>{{item.count}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                  <td class="p-r-0" colspan="3">
+                    <button class="pull-right" color="primary" md-raised-button (click)="download_report()">Download</button>
+                  </td>
+                </tr>
+              </tfoot>
+          </table> 
+        </div>
+    <!--</div>-->
     </div>
   </div>

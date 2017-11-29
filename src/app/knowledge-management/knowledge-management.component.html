@@ -3,20 +3,19 @@
   ** Component Used Bootstrap and Angular Material for design 
   ** Form used Reactive Form Angular 2 
   -->
-<md-card>
+<!--<md-card>-->
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-30"> Knowledge Management </h4>
+        <h4 class="f-s-b m-b-10 m-t-20"> Knowledge Management </h4>
       </label>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
+    <div class="row m-t-20">
       <!--Form Start  -->
       <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate>
         <div>
-          <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
             <md-select placeholder="Select Service" [style.width]="'100%'" name="service" formControlName="service" (change)="getCategory($event.value)">
               <md-option *ngFor="let service of services" [value]="service.subServiceID">
                 {{service.subServiceName}}
@@ -27,7 +26,7 @@
               Service is required
             </div>
           </div>
-          <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
             <md-select placeholder="Select Category" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)">
               <md-option *ngFor="let category of categories" [value]="category.categoryID">
                 {{category.categoryName}}
@@ -38,7 +37,7 @@
               Category is required
             </div>
           </div>
-          <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
             <md-select placeholder="Select Sub Category" [style.width]="'100%'" formControlName="subCategory">
               <md-option *ngFor="let subCategory of subCategories" [value]="subCategory.subCategoryID">
                 {{subCategory.subCategoryName}}
@@ -49,7 +48,7 @@
               Subcategory is required
             </div>
           </div>
-          <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 form-group">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
             <input type="file" class="form-control" #myInput name="file" (change)="changeListener($event)" />
             <input type="hidden" name="fileHidden" formControlName="fileInput" />
             <!-- Validation Field -->
@@ -76,15 +75,12 @@
             </div>
           </div>
         </div> -->
-        <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group pull-right">
+        <!--<div class="">-->
+          <div class="col-xs-12 col-sm-12 form-group pull-right">
             <button type="submit" class="pull-right" md-raised-button color="primary" [disabled]="knowledgeForm.invalid">Save</button>
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
-            </div>
           </div>
-        </div>
+        <!--</div>-->
       </form>
       <!--Form End  -->
     </div>
-  </div>
-</md-card>
+

@@ -136,8 +136,7 @@
   </div>
   <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
 </div>
-<footer class="footer" style="left: 0px">
-  <div class="row">
+<footer class="footer">
     <div class="col-sm-4 col-xs-4">
       <span class="footer-text footer-text-height">Powered by: WIPRO</span>
     </div>
@@ -148,5 +147,4 @@
     <div class="col-sm-4 col-xs-4" *ngIf="checkRole">
       <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">CZentrix</button>
     </div>
-  </div>
 </footer>
