@@ -196,7 +196,8 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   GetInstitutes() {
     this.institutes = [];
-    let object = { 'providerServiceMapID': this.providerServiceMapID };
+    let object ={};
+    // let object = { 'providerServiceMapID': this.providerServiceMapID };
     this._locationService.getInstituteList(object)
       .subscribe(response => this.SetInstitutes(response));
   }

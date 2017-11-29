@@ -98,8 +98,9 @@ export class ClosureComponent implements OnInit
     this.currentlanguage = language;
   }
 
-  sliderVisibility(val) {
-    if (val) {
+  sliderVisibility(val,val2,fitToF) {
+    console.log(this.callTypeID.split(',')[2]);
+    if (this.callTypeID.split(',')[2] == "true") {
       this.showSlider = true;
     } else {
       this.showSlider = false;
@@ -117,6 +118,7 @@ export class ClosureComponent implements OnInit
     })
   }
   getCallSubType(callType: any) {
+    this.callTypeID = undefined;
     // Below variable is used to disable save and continue when call is already disconnected.
     this.isCallDisconnected = this.saved_data.isCallDisconnected;
     this.callSubTypes = this.callTypeObj.filter(function (item) {
@@ -174,6 +176,7 @@ export class ClosureComponent implements OnInit
     values.createdBy = this.saved_data.uname;
     values.fitToBlock = values.callTypeID.split(',')[1];
     values.callTypeID = values.callTypeID.split(',')[0];
+    debugger;
     values.agentID = this.saved_data.cZentrixAgentID;
     values.agentIPAddress = this.ipAddress;
     if (btnType === 'submitClose') {
