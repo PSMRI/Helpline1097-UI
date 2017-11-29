@@ -844,6 +844,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
         height: '68%',
         width: '75%',
+        disableClose: true,
         data: regHistory.beneficiaryRegID,
       });
       dialogRef.afterClosed().subscribe(result => {

@@ -178,6 +178,7 @@ export class SupervisorNotificationsComponent implements OnInit {
           console.log(response);
           if (response.data.length > 0) {
             let dialog = this.dialog.open(MessageDialogComponent, {
+              disableClose: true,
               data: {
                 message: "Successfully created notification",
                 type: "Message"
@@ -196,6 +197,7 @@ export class SupervisorNotificationsComponent implements OnInit {
             (error) => {
               console.log(error);
               let dialog = this.dialog.open(MessageDialogComponent, {
+                disableClose: true,
                 data: {
                   message: "Error in creating notification",
                   type: "Message"
@@ -305,6 +307,7 @@ export class SupervisorNotificationsComponent implements OnInit {
           console.log(response);
           if (response.data != {}) {
             let dialog = this.dialog.open(MessageDialogComponent, {
+              disableClose: true,
               data: {
                 message: "Successfully edited notification",
                 type: "Message"
@@ -322,6 +325,7 @@ export class SupervisorNotificationsComponent implements OnInit {
         (error) => {
           console.log(error);
           let dialog = this.dialog.open(MessageDialogComponent, {
+            disableClose: true,
             data: {
               message: "Error in editing notification",
               type: "Message"
