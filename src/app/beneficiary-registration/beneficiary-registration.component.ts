@@ -96,7 +96,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   isParentBeneficiary = false;
-  beneficiaryRelationID;
+  beneficiaryRelationID =1 ;
   color;
   calledRadio = true;
   age: any = '';
@@ -338,7 +338,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.language = regData.m_language;
     }
     if (regData.benRelationshipTypes) {
-
       this.beneficiaryRelations = regData.benRelationshipTypes;
       this.relationshipWith = 'Beneficiary Tagging';
       this.beneficiaryRelationID = this.getRelationShipType(this.beneficiaryRelations);
@@ -1039,6 +1038,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   countSerial(event: any) {
 
+  }
+  reset() {
+    this.notCalledEarlierLowerPart = false;
+    this.notCalledEarlier = true;
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

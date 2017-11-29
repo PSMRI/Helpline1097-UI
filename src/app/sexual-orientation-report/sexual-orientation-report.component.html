@@ -1,53 +1,55 @@
-<md-card>
+<!--<md-card>-->
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-30">Sexual Orientation Report</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">Sexual Orientation Report</h4>
       </label>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-lg-1">
-      <form #sexualOrientationSearchForm="ngForm">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-          <md-select class="m-t-15 p-t-4" placeholder="Sexuality" [style.width]="'100%'" [multiple]="true" ngModel name="sexuality" #sexuality="ngModel">
-            <!--<md-option value="all">ALL</md-option>-->
-            <md-option *ngFor="let item of sexualOrientations" [value]="item.sexualOrientation">
-              {{item.sexualOrientation}}
-            </md-option>
-          </md-select>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-          <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
-            #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-          <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
-            #endDate [max]="today" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-          <md-select class="m-t-15 p-t-4" placeholder="State" [style.width]="'100%'" ngModel name="state" #state="ngModel" (change)="getDistricts()">
-            <md-option *ngFor="let item of states" [value]="item">
-              {{item.stateName}}
-            </md-option>
-          </md-select>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-          <md-select class="m-t-15 p-t-4" placeholder="District" [style.width]="'100%'" ngModel name="district" #district="ngModel">
-            <md-option *ngFor="let item of districts" [value]="item.districtName">
-              {{item.districtName}}
-            </md-option>
-          </md-select>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 m-t-10">
-          <button md-raised-button [disabled]="sexualOrientationSearchForm.invalid || ((endDate.value < startDate.value))" color="primary" (click)="getReports()">SEARCH</button>
-        </div>
-      </form>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row">
+        <form #sexualOrientationSearchForm="ngForm">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <md-select class="m-t-15 p-t-4" placeholder="Sexuality" [style.width]="'100%'" [multiple]="true" ngModel name="sexuality" #sexuality="ngModel">
+              <!--<md-option value="all">ALL</md-option>-->
+              <md-option *ngFor="let item of sexualOrientations" [value]="item.sexualOrientation">
+                {{item.sexualOrientation}}
+              </md-option>
+            </md-select>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
+              #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
+            <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+            <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
+              #endDate [max]="today" required></md2-datepicker>
+            <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
+            <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <md-select class="m-t-15 p-t-4" placeholder="State" [style.width]="'100%'" ngModel name="state" #state="ngModel" (change)="getDistricts()">
+              <md-option *ngFor="let item of states" [value]="item">
+                {{item.stateName}}
+              </md-option>
+            </md-select>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <md-select class="m-t-15 p-t-4" placeholder="District" [style.width]="'100%'" ngModel name="district" #district="ngModel">
+              <md-option *ngFor="let item of districts" [value]="item.districtName">
+                {{item.districtName}}
+              </md-option>
+            </md-select>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+            <button md-raised-button [disabled]="sexualOrientationSearchForm.invalid || ((endDate.value < startDate.value))" color="primary" (click)="getReports()">SEARCH</button>
+          </div>
+        </form>
+      </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20" *ngIf="tableFlag">
-      <table class="table table-bordered table-striped width60">
+      <table class="table table-striped width60" [md2Data]="orientations" #md2="md2DataTable">
         <thead>
           <tr>
             <th>S.No</th>
@@ -56,7 +58,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of orientations; let i = index ">
+          <tr *ngFor="let item of md2.data; let i = index ">
             <td>{{i+1}}</td>
             <td>{{item.sexualOrientation=='all'? 'Total':item.sexualOrientation}}</td>
             <td>{{item.count}}</td>
@@ -71,4 +73,4 @@
       </table> 
     </div>
   </div>
-</md-card>
+<!--</md-card>-->
