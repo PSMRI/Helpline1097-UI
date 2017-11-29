@@ -1,33 +1,36 @@
 <div class="row" *ngIf="action === 'view'">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-30">Feedback Tracking</h4>
+      <h4 class="f-s-b m-b-10 m-t-20">Feedback Tracking</h4>
     </label>
   </div>
   <!-- </div>
 <div class="row"> -->
   <form [formGroup]="feedbackForm2" (ngSubmit)="onSearch()">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker (keydown)="blockey($event)" [max]="maxDate" #startDate [style.width]="'100%'" formControlName="startDate" placeholder="Start Date (dd/MM/yyyy)"></md2-datepicker>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <md2-datepicker (keydown)="blockey($event)" [style.width]="'100%'" [min]="startDate.value" [max]="maxDate" formControlName="endDate" placeholder="End Date(dd/MM/yyyy)"></md2-datepicker>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <md-input-container style="width: 100%">
-          <input mdInput id="ComplaintId" placeholder="Enter Feedback ID" formControlName="feedbackID" maxlength="30">
-        </md-input-container>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <button md-raised-button color="primary" class="m-t-lg-20" type="submit" name="search">Search</button>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <md2-datepicker (keydown)="blockey($event)" [max]="maxDate" #startDate [style.width]="'100%'" formControlName="startDate" placeholder="Start Date (dd/MM/yyyy)"></md2-datepicker>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <md2-datepicker (keydown)="blockey($event)" [style.width]="'100%'" [min]="startDate.value" [max]="maxDate" formControlName="endDate" placeholder="End Date(dd/MM/yyyy)"></md2-datepicker>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <md-input-container style="width: 100%">
+            <input mdInput id="ComplaintId" placeholder="Enter Feedback ID" formControlName="feedbackID" maxlength="30">
+          </md-input-container>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <button md-raised-button color="primary" class="m-t-10 hidden-md hidden-xs" type="submit" name="search">Search</button>
+          <button md-raised-button color="primary" class="m-t-10 visible-md visible-xs pull-right" type="submit" name="search">Search</button>
+        </div>
       </div>
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="action === 'view'">
-    <h4 class="pull-left f-s-b m-b-30">FeedBack Details</h4>
+    <h4 class="pull-left f-s-b m-b-10 m-t-20">FeedBack Details</h4>
   </div>
-  <div class="col-xs-12 col-sm-12" *ngIf="action === 'view'">
+  <div class="col-xs-12 col-sm-12 p-b-40" *ngIf="action === 'view'">
     <div class="table-responsive m-t-10">
       <table class="table table-striped" [md2Data]="feedbackList" #md2="md2DataTable" [rowsPerPage]="3">
         <thead>
@@ -60,10 +63,16 @@
                 <input type="checkbox" value="" />
               </td> -->
             <td>
-              <button md-raised-button color="accent" type="button" (click)="requestFeedback(feedback)">Edit</button>
+              <!--<button md-raised-button color="accent" type="button" (click)="requestFeedback(feedback)">Edit</button>-->
+              <a class="pull-left" (click)="requestFeedback(feedback)" title="Edit">
+                <md-icon class="f-s-22" color="">mode_edit</md-icon>
+              </a>
             </td>
             <td>
-              <button md-raised-button color="primary" type="submit" (click)="updateResponse(feedback)" *ngIf="feedback?.feedbackRequests?.length > 0">Update</button>
+              <a class="pull-left" *ngIf="feedback?.feedbackRequests?.length > 0" (click)="updateResponse(feedback)" title="Update">
+                <md-icon class="f-s-22" color="">update</md-icon>
+              </a>
+              <!--<button md-raised-button color="primary" type="submit" (click)="updateResponse(feedback)" *ngIf="feedback?.feedbackRequests?.length > 0">Update</button>-->
             </td>
           </tr>
         </tbody>
@@ -79,73 +88,73 @@
   </div>
 </div>
 <div class="row m-b-40" *ngIf="(action === 'edit') || (action === 'update')">
-  <div class="col-md-12 col-lg-12">
-    <button type="button" class="pull-right" md-raised-button color="primary" (click)="back()">back</button>
+  <div class="col-md-12 col-lg-12 m-t-20 m-b-10">
+    <a type="button" class="pull-right f-s-b f-s-18" (click)="back()">Back</a>
   </div>
   <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
     <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Feedback ID" maxlength="10" id="feedbackID" formControlName="feedbackID" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Beneficiary Name" id="beneficiaryName" formControlName="beneficiaryName" maxlength="20" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Feedback Date" id="Feedback Date" formControlName="feedbackDate" maxlength="10" readonly>
       </md-input-container>
     </div>
     <!-- </div> -->
     <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Feedback Type" id="BeneficiaryRegID" formControlName="feedbackTypeName" maxlength="20" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Feedback Status" id="FeedbackStatus" formControlName="feedbackStatusName" maxlength="20" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Email Status" id="EmailStatus" formControlName="emailStatusName" maxlength="10" readonly>
       </md-input-container>
     </div>
     <!-- </div> -->
     <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Institution Name" id="InstitutionName" formControlName="institutionName" maxlength="20" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Designation Name" id="DesignationName" formControlName="designationName" maxlength="20" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Severity Type" id="SeverityTypeName" formControlName="severityTypeName" maxlength="20" readonly>
       </md-input-container>
     </div>
     <!-- </div> -->
     <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Service" id="ServiceName" formControlName="serviceName" maxlength="20" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="UserName" id="UserName" formControlName="userName" maxlength="50" readonly>
       </md-input-container>
     </div>
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <md2-datepicker [max]="maxDate" [style.width]="'100%'" placeholder="Incident Date"
             name="dateIncident" [(ngModel)]="dateIncident"></md2-datepicker>
          <md-input-container style="width: 100%">
@@ -154,46 +163,47 @@
         </div> -->
     <!-- </div> -->
     <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Created By" id="CreatedBy" formControlName="createdBy" maxlength="10" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Modified By" id="ModifiedBy" formControlName="modifiedBy" maxlength="10" readonly>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Incident Date" id="incidentDate" formControlName="incidentDate" readonly>
       </md-input-container>
     </div>
+    <div class="clearfix"></div>
     <!-- </div> -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="action==='edit'">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >-->
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="action==='edit'">
+        <md-input-container style="width: 100%">
+          <textarea mdInput rows="2"  id="Feedback" placeholder="Feedback"  formControlName="feedbackSupSummary"></textarea>
+        </md-input-container>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="action==='edit'">
+        <md-input-container style="width: 100%">
+          <textarea mdInput rows="2"  id="comments" placeholder="Supervisor Comment"  formControlName="comments"></textarea>
+        </md-input-container>
+      </div>
+    <!--</div>-->
+    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="action==='update'">
         <md-input-container style="width: 100%">
           <textarea mdInput rows="3"  id="Feedback" placeholder="Feedback"  formControlName="feedbackSupSummary"></textarea>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-        <md-input-container style="width: 100%">
-          <textarea mdInput rows="3"  id="comments" placeholder="Supervisor Comment"  formControlName="comments"></textarea>
-        </md-input-container>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="action==='update'">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-        <md-input-container style="width: 100%">
-          <textarea mdInput rows="3"  id="Feedback" placeholder="Feedback"  formControlName="feedbackSupSummary"></textarea>
-        </md-input-container>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="action==='update'">
         <md-input-container style="width: 100%">
           <textarea mdInput  rows="3"  id="response" placeholder="Response Received"  formControlName="comments"></textarea>
         </md-input-container>
       </div>
-    </div>
+    <!--</div>-->
     <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" *ngIf="action==='edit'">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <md-input-container style="width: 100%">
@@ -208,8 +218,9 @@
         </md-input-container>
       </div>
     </div> -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+    <div class="clearfix"></div>
+    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select placeholder="Feedback Status" [style.width]="'100%'" formControlName="feedbackStatusID">
@@ -222,7 +233,7 @@
             </md-hint> -->
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select placeholder="Email Status" [style.width]="'100%'" formControlName="emailStatusID">
@@ -235,85 +246,90 @@
             </md-hint> -->
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4" *ngIf="action==='edit'">
-        <button md-raised-button color="primary" class="pull-right" type="submit" name="save"> Save/Email</button>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf="action==='edit'">
+        <button md-raised-button color="primary" class="pull-left m-t-10" type="submit" name="save"> Save/Email</button>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4" *ngIf="action==='update'">
-        <button md-raised-button color="primary" class="pull-right" type="submit" name="save">Save</button>
-        <div class="form-group col-lg-8 col-md-6 col-sm-6 col-xs-6 pull-left">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6" *ngIf="action==='update'">
+        <button md-raised-button color="primary" class="pull-right hidden-lg m-t-10" type="submit" name="save">Save</button>
+        <div class="width60 pull-left">
           <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
           <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file">
         </div>
+        <button md-raised-button color="primary" class="pull-left visible-lg m-t-10" type="submit" name="save">Save</button>
       </div>
-    </div>
+    <!--</div>-->
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="feedBackRequestsResponse?.length>0">
-    <h4>FeedBack Request/Response</h4>
+    <h4 class="f-s-b m-b-10 m-t-20">FeedBack Request/Response</h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="feedBackRequestsResponse?.length>0 && false">
-    <table class="table table-responsive table-striped">
-      <thead>
-        <tr>
-          <th>FeedBack Request ID</th>
-          <th>Comments</th>
-          <th>Email Status</th>
-          <th>Email Status Description</th>
-          <th> Updated Date</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let feedBackRequest of feedBackRequestsResponse | paginate: { itemsPerPage: 5, currentPage: pa } ">
-        <tr style="cursor:pointer" (click)="showResponse($event)">
-          <td>{{feedBackRequest.feedbackRequestID}}</td>
-          <td>{{feedBackRequest.comments}}</td>
-          <td>{{feedBackRequest.emailStatus?.emailStatus}}</td>
-          <td>{{feedBackRequest.emailStatus?.emailStatusDesc}}</td>
-          <td>{{millisToUTCDate(feedBackRequest.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
-        </tr>
-        <tr *ngFor="let feedBackResponse of feedBackResponses" [collapse]="isCollapsedResponse">
-          <td>{{feedBackResponse.feedbackRequestID}}</td>
-          <td>{{feedBackResponse.comments}}</td>
-          <td></td>
-          <td></td>
-          <td>{{millisToUTCDate(feedBackResponse.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-b-40" *ngIf="feedBackRequestsResponse?.length>0 && false">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="white-space-nowrap">FeedBack Request ID</th>
+            <th class="white-space-nowrap">Comments</th>
+            <th class="white-space-nowrap">Email Status</th>
+            <th class="white-space-nowrap">Email Status Description</th>
+            <th class="white-space-nowrap"> Updated Date</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let feedBackRequest of feedBackRequestsResponse | paginate: { itemsPerPage: 5, currentPage: pa } ">
+          <tr style="cursor:pointer" (click)="showResponse($event)">
+            <td>{{feedBackRequest.feedbackRequestID}}</td>
+            <td>{{feedBackRequest.comments}}</td>
+            <td>{{feedBackRequest.emailStatus?.emailStatus}}</td>
+            <td>{{feedBackRequest.emailStatus?.emailStatusDesc}}</td>
+            <td>{{millisToUTCDate(feedBackRequest.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
+          </tr>
+          <tr *ngFor="let feedBackResponse of feedBackResponses" [collapse]="isCollapsedResponse">
+            <td>{{feedBackResponse.feedbackRequestID}}</td>
+            <td>{{feedBackResponse.comments}}</td>
+            <td></td>
+            <td></td>
+            <td>{{millisToUTCDate(feedBackResponse.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <pagination-controls (pageChange)="pa = $event"></pagination-controls>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="consolidatedRequests?.length>0">
-    <table class="table table-responsive table-striped">
-      <thead>
-        <tr>
-          <th>FeedBack Request ID</th>
-          <th>Feedback Description</th>
-          <th>Supervisor Comments</th>
-          <th>Response Received</th>
-          <th>Last Feedback Status</th>
-          <th>Email Status</th>
-          <th>Forwarded By</th>
-          <th>Forwarded Date</th>
-          <th>Updated By</th>
-          <th>Updated Date</th>
-          <th>Attachment</th>
-        </tr>
-      </thead>
-      <tbody *ngFor=" let feedBackRequest of consolidatedRequests ">
-        <tr>
-          <td>{{feedBackRequest.feedbackRequestID}}</td>
-          <td>{{feedBackRequest.feedbackSupSummary}}</td>
-          <td>{{feedBackRequest.comments}}</td>
-          <td>{{feedBackRequest.responseComments}}</td>
-          <td>{{feedbackStatusName}}</td>
-          <td>{{feedBackRequest.emailStatus?.emailStatus}}</td>
-          <td>{{feedBackRequest.createdBy}}</td>
-          <td>{{millisToUTCDate(feedBackRequest.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
-          <td>{{feedBackRequest.responseUpdatedBy}}</td>
-          <td>{{feedBackRequest.responseDate?(millisToUTCDate(feedBackRequest.responseDate) | date:'dd/MM/yyyy HH:mm'):""}}</td>
-          <td><a *ngIf="feedBackRequest.attachmentPath" href="{{feedBackRequest.attachmentPath}}" target="_blank"><i class="material-icons">file_download</i></a></td>
-        </tr>
-      </tbody>
-      <tfoot>
-      </tfoot>
-    </table>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-b-40" *ngIf="consolidatedRequests?.length>0">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="white-space-nowrap">FeedBack Request ID</th>
+            <th class="white-space-nowrap">Feedback Description</th>
+            <th class="white-space-nowrap">Supervisor Comments</th>
+            <th class="white-space-nowrap">Response Received</th>
+            <th class="white-space-nowrap">Last Feedback Status</th>
+            <th class="white-space-nowrap">Email Status</th>
+            <th class="white-space-nowrap">Forwarded By</th>
+            <th class="white-space-nowrap">Forwarded Date</th>
+            <th class="white-space-nowrap">Updated By</th>
+            <th class="white-space-nowrap">Updated Date</th>
+            <th class="white-space-nowrap">Attachment</th>
+          </tr>
+        </thead>
+        <tbody *ngFor=" let feedBackRequest of consolidatedRequests ">
+          <tr>
+            <td>{{feedBackRequest.feedbackRequestID}}</td>
+            <td>{{feedBackRequest.feedbackSupSummary}}</td>
+            <td>{{feedBackRequest.comments}}</td>
+            <td>{{feedBackRequest.responseComments}}</td>
+            <td>{{feedbackStatusName}}</td>
+            <td>{{feedBackRequest.emailStatus?.emailStatus}}</td>
+            <td>{{feedBackRequest.createdBy}}</td>
+            <td>{{millisToUTCDate(feedBackRequest.createdDate) | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{feedBackRequest.responseUpdatedBy}}</td>
+            <td>{{feedBackRequest.responseDate?(millisToUTCDate(feedBackRequest.responseDate) | date:'dd/MM/yyyy HH:mm'):""}}</td>
+            <td><a *ngIf="feedBackRequest.attachmentPath" href="{{feedBackRequest.attachmentPath}}" target="_blank"><i class="material-icons">file_download</i></a></td>
+          </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
   </div>
 </div>

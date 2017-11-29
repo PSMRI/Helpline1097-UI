@@ -31,10 +31,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   currentlanguage: any;
   p = 1;
 
-  @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
-  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
-  @Output() wentAwayMainScreen : EventEmitter<any> = new EventEmitter<any>();
+  @Output() onBenRegDataSelect: EventEmitter < any > = new EventEmitter < any > ();
+  @Output() onBenSelect: EventEmitter < any > = new EventEmitter < any > ();
+  @Output() serviceGiven: EventEmitter < any > = new EventEmitter < any > ();
+  @Output() wentAwayMainScreen: EventEmitter < any > = new EventEmitter < any > ();
   @ViewChild('ageRef') input: ElementRef;
   @ViewChild('BeneficaryForm') BeneficaryForm;
   fname: any = '';
@@ -135,8 +135,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
     private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
-    private pass_data: CommunicationService, private outboundService: OutboundService, private czentrixService: CzentrixServices
-    , private reload_call: ReloadService) {
+    private pass_data: CommunicationService, private outboundService: OutboundService, private czentrixService: CzentrixServices, private reload_call: ReloadService) {
     this.subcriptionOutbound = this.outboundService.getOutboundData()
       .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
     this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {
@@ -163,7 +162,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // if (this.onStartNewCall) {
     //   this.startNewCall();
     // }
-     jQuery("#BeneficaryForm").trigger("reset");
+    jQuery("#BeneficaryForm").trigger("reset");
 
   }
 
@@ -180,11 +179,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.DOB = new Date();
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe((response) => {
-        this.SetUserBeneficiaryRegistrationData(response)
-      },
-      (err) => {
+          this.SetUserBeneficiaryRegistrationData(response)
+        },
+        (err) => {
 
-      });
+        });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -202,6 +201,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.calledServiceID = this.saved_data.current_service.serviceID;
     data.phoneNo = outboundData.outboundData.beneficiary.benPhoneMaps[0].phoneNo;
     data.agentID = this.saved_data.cZentrixAgentID;
+
+    /*added by diamond on asked by Vinay*/
+    data.callReceivedUserID = this.saved_data.uid;
+    data.receivedRoleName = this.saved_data.current_role.RoleName;
+    /**/
     data.isOutbound = this.saved_data.isOutbound;
     this._util.startCall(data).subscribe((response) => {
       this.setBenCall(response);
@@ -278,7 +282,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.startCall();
   }
   startCall() {
-        jQuery("#benForm").trigger("reset");
+    jQuery("#benForm").trigger("reset");
 
     const data: any = {};
     data.callID = this.saved_data.callID;
@@ -287,6 +291,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.calledServiceID = this.saved_data.current_service.serviceID;
     data.phoneNo = this.saved_data.callerNumber;
     data.agentID = this.saved_data.cZentrixAgentID;
+
+    /*added by diamond on asked by Vinay*/
+    data.callReceivedUserID = this.saved_data.uid;
+    data.receivedRoleName = this.saved_data.current_role.RoleName;
+    /**/
     data.isOutbound = this.saved_data.isOutbound;
     this._util.startCall(data).subscribe((response) => { this.setBenCall(response) }, (err) => {
 
@@ -361,7 +370,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
     if (!flag) {
-           jQuery("#BeneficaryForm").trigger("reset");
+      jQuery("#BeneficaryForm").trigger("reset");
 
       this.searchValue = 'Advance Search';
       this.advanceBtnHide = false;
@@ -383,21 +392,21 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.MaritalStatusID = undefined;
       this.DOB = undefined;
       this.aadharNo = undefined;
-       this.caste = undefined;
-       this.BeneficiaryTypeID = undefined;
-                  // this.educationQualification = undefined;
-       this.state = undefined;
-       this.district = undefined;
-       this.districts = [];
-       this.taluk = undefined;
-       this.taluks = [];
-       this.village = undefined;
-       this.blocks = [];
+      this.caste = undefined;
+      this.BeneficiaryTypeID = undefined;
+      // this.educationQualification = undefined;
+      this.state = undefined;
+      this.district = undefined;
+      this.districts = [];
+      this.taluk = undefined;
+      this.taluks = [];
+      this.village = undefined;
+      this.blocks = [];
       this.pincode = undefined;
       this.preferredLanguage = undefined;
       this.identityType = undefined;
       this.wentAwayMainScreen.emit();
-             
+
 
       // if (this.isParentBeneficiary || this.regHistoryList.length > 0) {
       //   this.isParentBeneficiary = true;
@@ -413,22 +422,20 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   titleSelected(value) {
-		if (value == 3 || value == 8) {
-			this.GenderID = 1;
-		}
-		else if (value == 4 || value == 5) {
-			this.GenderID = 2;
-		}
-		else {
-			this.GenderID = "";
-		}
-	}
+    if (value == 3 || value == 8) {
+      this.GenderID = 1;
+    } else if (value == 4 || value == 5) {
+      this.GenderID = 2;
+    } else {
+      this.GenderID = "";
+    }
+  }
 
   GetDistricts(state: number) {
     this.districts = [];
 
     this.taluks = [];
-    
+
     this.blocks = [];
     this.district = undefined;
     this.taluk = undefined;
@@ -440,7 +447,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       this.stateErrFlag = false;
       this._locationService.getDistricts(state)
-        .subscribe((response) => this.SetDistricts(response), (err) => { });
+        .subscribe((response) => this.SetDistricts(response), (err) => {});
     }
   }
   SetDistricts(response: any) {
@@ -460,35 +467,34 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.village = undefined;
     if (district == undefined) {
       this.cityErrFlag = true;
-    }
-    else {
+    } else {
       this.cityErrFlag = false;
       this._locationService.getTaluks(district)
-        .subscribe((response) => this.SetTaluks(response), (err) => { });
+        .subscribe((response) => this.SetTaluks(response), (err) => {});
     }
   }
   SetTaluks(response: any) {
     this.taluks = response;
     // this.taluks.push( { "blockID": undefined, "blockName": "" } );
     // for ( let i = 0; i < response.length; i++ )
-    // 	this.taluks.push( response[ i ] );
+    //  this.taluks.push( response[ i ] );
   }
   GetBlocks(taluk: number) {
     this.blocks = [];
     this.village = undefined;
     this._locationService.getBranches(taluk)
-      .subscribe((response) => { this.SetBlocks(response) }, (err) => { });
+      .subscribe((response) => { this.SetBlocks(response) }, (err) => {});
   }
   SetBlocks(response: any) {
     this.blocks = response;
     // this.blocks.push( { "districtBranchID": undefined, "villageName": "" } );
     // for ( let i = 0; i < response.length; i++ )
-    // 	this.blocks.push( response[ i ] );
+    //  this.blocks.push( response[ i ] );
   }
 
   /**
-    * Neeraj Code; 22-jun-2017
-    */
+   * Neeraj Code; 22-jun-2017
+   */
   capturePrimaryInfo() {
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
@@ -606,7 +612,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.notCalledEarlierLowerPart = false;
       this.calledRadio = true;
       this.saved_data.parentBeneficiaryData = this.regHistoryList[0];
-      this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
+      this.beneficiaryRelations = this.beneficiaryRelations.filter(function(item) {
         return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
       this.beneficiaryRelationID = undefined;
@@ -680,19 +686,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.caste = registeredBenData.i_bendemographics.communityID;
     // this.educationQualification = registeredBenData.i_bendemographics.educationID;
     this.state = registeredBenData.i_bendemographics.stateID;
-    
-    
+
+
     this.GetDistricts(this.state);
     this.district = registeredBenData.i_bendemographics.districtID;
-    console.log(registeredBenData.i_bendemographics.districtID,"experiment 1",this.districts);
-    
+    console.log(registeredBenData.i_bendemographics.districtID, "experiment 1", this.districts);
+
     this.GetTaluks(this.district);
     this.taluk = registeredBenData.i_bendemographics.blockID;
-    console.log("experiment 2",this.taluks);
-    
+    console.log("experiment 2", this.taluks);
+
     this.GetBlocks(this.taluk);
     this.village = registeredBenData.i_bendemographics.districtBranchID;
-    console.log("experiment 3",this.blocks);
+    console.log("experiment 3", this.blocks);
     this.age = registeredBenData.age;
     // Checking whether it has parent or not
     // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) { 
@@ -700,7 +706,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
     } else {
-      this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
+      this.beneficiaryRelations = this.beneficiaryRelations.filter(function(item) {
         return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
@@ -720,7 +726,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     //   this.GetBlocks(this.taluk);
     // }
 
-    
+
     this.pincode = registeredBenData.i_bendemographics.pinCode;
     this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
 
@@ -825,7 +831,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   /**
    * NEERAJ; Select beneficiary for service provided; 27-JUN-2017
    */
-  selectBeneficiary(regHistory: any, Type?: any) {
+  selectBeneficiary(regHistory: any, Type ? : any) {
 
     this.saved_data.benRegId = regHistory.beneficiaryRegID;
 
@@ -852,7 +858,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   getRelationShipType(relationShips) {
     let benificiaryRelationType = [];
-    benificiaryRelationType = relationShips.filter(function (item) {
+    benificiaryRelationType = relationShips.filter(function(item) {
       return item.benRelationshipType.toUpperCase() === 'SELF'; // This value has to go in constant
     });
     let beneficiaryRelationID;
@@ -902,7 +908,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.DOB = new Date('' + (currentYear - parseInt(age, 10)));
     // }
 
-//this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', 'readonly');
+    //this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', 'readonly');
 
   }
   // to remove the readonly on double click
@@ -918,7 +924,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // for advanced Search
   toggleSearch(data: any) {
-          this.wentAwayMainScreen.emit();
+    this.wentAwayMainScreen.emit();
 
     this.isAdvancedSearch = false;
     if (data === 'Search by Id') {
@@ -1020,8 +1026,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     if (value == '' || value == null) {
       this.genderErrFlag = true;
       // this.genderFlag = true;
-    }
-    else {
+    } else {
       this.genderErrFlag = false;
       // this.genderFlag = false;
     }
