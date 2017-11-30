@@ -26,25 +26,25 @@ export class CallerAgeReportComponent implements OnInit {
   ageGroups = [];
   providerServiceMapID: any;
   constructor(private _userBeneficiaryData: UserBeneficiaryData, private saved_data: dataService,
-     private _locationService: LocationService, private reportService: ReportsService) { }
+    private _locationService: LocationService, private reportService: ReportsService) { }
 
   ngOnInit() {
     this.today = new Date();
     console.log(this.today);
     this.end_date = new Date();
-    this.end_date.setDate(this.today.getDate()-1);
+    this.end_date.setDate(this.today.getDate() - 1);
     this.start_date = new Date();
-    this.start_date.setDate(this.today.getDate()-7);
+    this.start_date.setDate(this.today.getDate() - 7);
     this.minStartDate = new Date();
-    this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
+    this.minStartDate.setMonth(this.minStartDate.getMonth() - 1);
     //call api and initialize data
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
-    .subscribe((response) => {
-      this.SetUserBeneficiaryRegistrationData(response)
-    },
-    (err) => {
+      .subscribe((response) => {
+        this.SetUserBeneficiaryRegistrationData(response)
+      },
+      (err) => {
 
-    });
+      });
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.ageGroups = [
       {
@@ -85,21 +85,21 @@ export class CallerAgeReportComponent implements OnInit {
     ]
   }
 
-  blockKey(e: any){
-      if(e.keyCode===9){
-          return true;
-      }
-      else {
-          return false;
-      }
+  blockKey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
-  endDateChange(){
+  endDateChange() {
     console.log(this.end_date);
     this.minStartDate = new Date(this.end_date);
-    this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
+    this.minStartDate.setMonth(this.minStartDate.getMonth() - 1);
     this.start_date = new Date(this.end_date);
-    this.start_date.setMonth(this.start_date.getMonth()-1);
+    this.start_date.setMonth(this.start_date.getMonth() - 1);
   }
 
   getReports(value) {
@@ -108,29 +108,36 @@ export class CallerAgeReportComponent implements OnInit {
     let array = [];
     let obj = {};
 
+
     let start_date = new Date((value.startDate) - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
-    let end_date = new Date((value.startDate) - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
+    let end_date = new Date((value.endDate) - 1 * (value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
     let state;
     if(this.state){
+
       state = this.state.stateName;
     }
-    else {
-      state = "";
+    // else {
+    //   state = "";
+    // }
+    let district = undefined
+    if (this.district) {
+      district = this.district;
     }
-    for(let i=0; i<noOfGroups; i++) {
+    for (let i = 0; i < noOfGroups; i++) {
       obj = {
         "providerServiceMapID": this.providerServiceMapID,
         "maxAge": value.ageGroup[i].maxAge,
-        "minAge" : value.ageGroup[i].minAge,
+        "minAge": value.ageGroup[i].minAge,
         "startTimestamp": start_date,
         "endTimestamp": end_date,
         "beneficiaryState": state,
-        "beneficiaryDistrict": value.district ? value.district : ""
+        //"beneficiaryDistrict": value.district ? value.district : ""
+        "beneficiaryDistrict": district
       }
       array.push(obj);
     }
     console.log(array);
-    this.reportService.getAllByAgeGroup(array).subscribe((response)=>{ this.reportSuccessHandle(response)}, (err) => { });
+    this.reportService.getAllByAgeGroup(array).subscribe((response) => { this.reportSuccessHandle(response) }, (err) => { });
   }
   count = [];
   reportSuccessHandle(res) {
@@ -149,22 +156,22 @@ export class CallerAgeReportComponent implements OnInit {
     this.district = undefined;
     if (state) {
       this._locationService.getDistricts(state.stateID)
-      .subscribe((response) => this.SetDistricts(response), (err) => { });
+        .subscribe((response) => this.SetDistricts(response), (err) => { });
     }
   }
   SetDistricts(response: any) {
     this.districts = response;
   }
   download() {
-      var options = { 
-   
-    showLabels: true, 
-    showTitle: true
+    var options = {
 
-  };
-  
+      showLabels: true,
+      showTitle: true
+
+    };
+
     let head = Object.keys(this.count[0]);
     console.log(head);
-        new Angular2Csv(this.count, 'AgeGroup Report', {headers: (head)});
+    new Angular2Csv(this.count, 'AgeGroup Report', { headers: (head) });
   }
 }

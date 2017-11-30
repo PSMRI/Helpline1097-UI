@@ -39,6 +39,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   getDetailsFlag: boolean = false;
   showresult: boolean;
   p = 1;
+  tempFlag: any;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -58,9 +59,9 @@ export class CoCounsellingServicesComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
-    if (this.resetProvideServices) {
+    if(this.resetProvideServices) {
+      this.tempFlag = true;
 
-      jQuery("#counsellingForm").trigger("reset");
       this.showTableCondition = true;
       this.showFormCondition = false;
       this.detailsList = [];
@@ -133,6 +134,10 @@ export class CoCounsellingServicesComponent implements OnInit {
     }
   }
   showForm() {
+    if(this.tempFlag){
+      jQuery("#counsellingForm").trigger("reset");
+      this.tempFlag = false;
+    }
     this.showFormCondition = true;
     this.showTableCondition = false;
   }

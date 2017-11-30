@@ -270,7 +270,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <div class="form-group">
           <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-          <md2-datepicker (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
+          <md2-datepicker  (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
             name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB"></md2-datepicker>
         </div>
       </div>
@@ -282,7 +282,7 @@
           [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
         </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" required #ageRef min="0" max="150" name="age" maxlength="3" 
+          <input mdInput  placeholder="{{currentlanguage.beneficiary_registration?.age}}" id="datee" required #ageRef min="0" max="150" name="age" maxlength="3" 
             [(ngModel)]="age" (keyup)="calculateDOB(ageRef.value)" #ageEvent="ngModel" >
           <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
             <span class="error_text">Enter valid age (max:150) </span>

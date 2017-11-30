@@ -151,6 +151,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.current_campaign = this.saved_data.current_campaign;
     // this.agentID = this.saved_data.cZentrixAgentID;
     // this.reloadOutBoundCall(this.current_campaign);
+
   }
 
 
@@ -191,6 +192,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.advanceBtnHide = true;
     this.spinner = false;
     this.spinnerState = true;
+            this.age = "0";
+      this.calculateDOB("0");
   }
 
   startOutBoundCall(outboundData: any) {
@@ -370,6 +373,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
     if (!flag) {
+          this.age = "0";
+    this.calculateDOB("0");
       jQuery("#BeneficaryForm").trigger("reset");
 
       this.searchValue = 'Advance Search';
@@ -883,6 +888,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // to Calculate the age on the basis of date of birth
   calculateAge(date) {
+    debugger;
     if (date) {
       const newDate = new Date(date);
       const today = new Date();
@@ -1044,10 +1050,16 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   reset() {
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
+    let a = null;
+    this.age = "0";
+    this.calculateDOB("0");
+
+
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subcriptionOutbound.unsubscribe();
+
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];
