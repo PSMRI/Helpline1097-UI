@@ -13,7 +13,7 @@
           <form #form1="ngForm">
             <div class="col-xs-12 col-sm-12">
               <md-select placeholder="Question 1" [(ngModel)]="question1" name="question1" [style.width]="'100%'" required (change)="filterArrayOne(question1)" (blur)="updateQuestions(question1,0)">
-                <md-option *ngFor="let question of questions" [value]="question.QuestionID" >
+                <md-option *ngFor="let question of questions" [value]="question.QuestionID">
                   {{question.Question}}
                 </md-option>
               </md-select>
@@ -27,7 +27,7 @@
           <form #form2="ngForm">
             <div class="col-xs-12 col-sm-12 m-t-25">
               <md-select placeholder="Question 2" [disabled]="!form1.valid" [(ngModel)]="question2" name="question2" [style.width]="'100%'" required (change)="filterArrayTwo(question2)" (blur)="updateQuestions(question2,1)">
-                <md-option *ngFor="let question of Q_array_one" [value]="question.QuestionID" >
+                <md-option *ngFor="let question of Q_array_one" [value]="question.QuestionID">
                   {{question.Question}}
                 </md-option>
               </md-select>
@@ -41,7 +41,7 @@
           <form #form3="ngForm">
             <div class="col-xs-12 col-sm-12 m-t-25">
               <md-select placeholder="Question 3" [disabled]="!form2.valid" [(ngModel)]="question3" name="question3" [style.width]="'100%'" required (blur)="updateQuestions(question3,2)" (change)="filterArrayThree(question3)">
-                <md-option *ngFor="let question of Q_array_two" [value]="question.QuestionID" >
+                <md-option *ngFor="let question of Q_array_two" [value]="question.QuestionID">
                   {{question.Question}}
                 </md-option>
               </md-select>
@@ -54,7 +54,6 @@
           </form>
           <div class="col-xs-12 col-sm-12">
             <div class="row">
-              
               <button md-raised-button color="primary" class="full-width largeBtn" [disabled]="!form3.valid" (click)="setSecurityQuestions()">Next</button>
             </div>
           </div>
@@ -64,8 +63,11 @@
             <div class="col-xs-12 col-sm-12">
               <md-input-container style="width: 100%">
                 <md-icon mdPrefix class="mat-icon material-icons" role="img" aria-hidden="true" style="color: gray">lock</md-icon>
-                <input mdInput type="{{dynamictype}}" placeholder="New Password" [(ngModel)]="newpwd" name="newpwd" required>
+                <input mdInput type="{{dynamictype}}" placeholder="New Password" [pattern]="passwordPattern" [(ngModel)]="newpwd" name="newpwd" required #pass="ngModel" maxlength="12">
                 <md-icon mdSuffix class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" mdTooltip="Show Password" (mousedown)='showPWD()' style="color:gray">visibility</md-icon>
+                <md-hint class="errorText">
+                  <span *ngIf="pass.hasError('pattern')">Enter valid(min:8,max:12,alphanumeric,1 special character,1 UpperCase)</span>
+                </md-hint>
               </md-input-container>
             </div>
             <div class="col-xs-12 col-sm-12">
@@ -77,7 +79,7 @@
             </div>
             <div class="col-xs-12 col-sm-12">
               <div class="row">
-                <button md-raised-button color="primary" [disabled]="!passwordForm.valid" class="full-width largeBtn" (click)="updatePassword(newpwd)">Update Password</button>
+                <button md-raised-button color="primary" [disabled]="!passwordForm.valid || pass.hasError('passwordPattern')" class="full-width largeBtn" (click)="updatePassword(newpwd)">Update Password</button>
               </div>
             </div>
           </div>

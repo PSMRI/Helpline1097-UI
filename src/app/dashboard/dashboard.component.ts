@@ -33,6 +33,10 @@ export class dashboardContentClass implements OnInit {
   listenCall: any;
   loginUrl = this.configService.getCommonLoginUrl();
   compainType: any;
+
+
+  agentID:any;
+  agentIDExitsFlag:boolean=false;
   constructor(
     public dataSettingService: dataService,
     public router: Router,
@@ -88,10 +92,26 @@ export class dashboardContentClass implements OnInit {
     //   location.assign(this.loginUrl);
     //   Cookie.deleteAll();
     // }
-
+    this.agentID=this.dataSettingService.Userdata.agentID;
+    this.agentIDexists(this.agentID);
 
 
   }
+
+  agentIDexists(agentID)
+  {
+    console.log(agentID,"AGENT ID IN DASHBOARD");
+    if(agentID!=undefined)
+    {
+      this.agentIDExitsFlag=true;
+    }
+    else
+    {
+      this.agentIDExitsFlag=false;
+    }
+
+  }
+
   showDashboard() {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
