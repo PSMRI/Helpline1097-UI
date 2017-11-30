@@ -13,7 +13,7 @@ export class MessageDialogComponent implements OnInit {
   ngOnInit() {
   	console.log(this.data,"DATA IN MESSAGE DIALOG WINDOW");
   	this.checkForURL(this.data.message);
-    // this.checkForURL("Hi bro, kindly visit my new sites www.yahala.java.en www.piramal.gov.in, www.piramal.gov.in  www.yahoo.com,www.google.com,https://www.google.com");
+    // this.checkForURL("https://www.google.com www.gov.gov www.google.co.in http://uber.com");
 
   }
 
@@ -37,7 +37,7 @@ export class MessageDialogComponent implements OnInit {
    //    matches = [];
    //  }
 
-   var request_array=string.split(" ");
+   var request_array=string.split(' ');
    console.log("first array split",request_array);
 
    for(let i=0;i<request_array.length;i++)
@@ -95,7 +95,7 @@ export class MessageDialogComponent implements OnInit {
       {
         this.result.push(req_array[z]);
       }
-      else if(req_array[z].startsWith("http")&& (req_array[z].endsWith(".com")||
+      else if(req_array[z].startsWith("HTTP")&& (req_array[z].endsWith(".com")||
                                                  req_array[z].endsWith(".co")||
                                                  req_array[z].endsWith(".in")||
                                                  req_array[z].endsWith(".org")||
@@ -125,6 +125,14 @@ export class MessageDialogComponent implements OnInit {
 
 
   console.log(this.result,"RESULT SET OF URLS");
+  for(let a=0;a<this.result.length;a++)
+  {
+    if(!this.result[a].toUpperCase().startsWith("HTTPS") && !this.result[a].toUpperCase().startsWith("HTTP"))
+    {
+      this.result[a]="https://"+this.result[a];
+    }
+  }
+
   if(this.result.length>0)
   {
     this.urls=this.result;
