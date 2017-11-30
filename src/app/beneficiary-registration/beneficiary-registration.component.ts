@@ -1044,6 +1044,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   reset() {
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
+        jQuery("#datee").val('0');
+
+
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

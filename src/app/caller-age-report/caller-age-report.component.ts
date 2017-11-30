@@ -109,7 +109,7 @@ export class CallerAgeReportComponent implements OnInit {
     let obj = {};
 
     let start_date = new Date((value.startDate) - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
-    let end_date = new Date((value.startDate) - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
+    let end_date = new Date((value.end_date) - 1 * (value.end_date.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
     let state;
     if(this.state){
       state = this.state.stateName;

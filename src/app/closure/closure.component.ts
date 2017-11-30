@@ -176,7 +176,6 @@ export class ClosureComponent implements OnInit
     values.createdBy = this.saved_data.uname;
     values.fitToBlock = values.callTypeID.split(',')[1];
     values.callTypeID = values.callTypeID.split(',')[0];
-    debugger;
     values.agentID = this.saved_data.cZentrixAgentID;
     values.agentIPAddress = this.ipAddress;
     if (btnType === 'submitClose') {
