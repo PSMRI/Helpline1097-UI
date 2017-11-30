@@ -33,9 +33,7 @@ export class CoServicesComponent implements OnInit {
     }
 
   }
-  yo(){
-    debugger;
-  }
+
   setLanguage(language) {
     this.currentlanguage = language;
     console.log(language, 'language co services tk');

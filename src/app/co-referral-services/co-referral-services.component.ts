@@ -75,12 +75,12 @@ export class CoReferralServicesComponent implements OnInit {
     .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
     this.GetInformationDirectory();
   }
-
+  tempFlag: boolean;
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
     if(this.resetProvideServices) {
-      jQuery('#referralForm').trigger("reset");
+      this.tempFlag = true;
       this.showTableCondition = true;
       this.showFormCondition = false;
       this.detailsList = [];
@@ -88,7 +88,7 @@ export class CoReferralServicesComponent implements OnInit {
       // this.selected_state = undefined;
 
     }
-    alert("123");
+    
   }
 
   setLanguage(language) {
@@ -131,6 +131,10 @@ export class CoReferralServicesComponent implements OnInit {
   showForm() {
     this.showFormCondition = true;
     this.showTableCondition = false;
+    if(this.tempFlag){
+            jQuery('#referralForm').trigger("reset");
+            this.tempFlag = false;
+    }
 
   }
 

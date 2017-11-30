@@ -39,6 +39,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   getDetailsFlag: boolean = false;
   showresult: boolean;
   p = 1;
+  tempFlag: any;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -59,8 +60,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   ngOnChanges() {
     this.setLanguage(this.current_language);
     if(this.resetProvideServices) {
-
-      jQuery("#counsellingForm").trigger("reset");
+      this.tempFlag = true;
       this.showTableCondition = true;
       this.showFormCondition = false;
       this.detailsList = [];
@@ -133,6 +133,10 @@ export class CoCounsellingServicesComponent implements OnInit {
     }
   }
   showForm() {
+    if(this.tempFlag){
+      jQuery("#counsellingForm").trigger("reset");
+      this.tempFlag = false;
+    }
     this.showFormCondition = true;
     this.showTableCondition = false;
   }

@@ -77,29 +77,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     private pass_data: CommunicationService
   ) { this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) }); }
 
-  showForm() {
-    this.showFormCondition = true;
-    this.showTableCondition = false;
-  }
 
-  showTable() {
-    this.showFormCondition = false;
-    this.showTableCondition = true;
-    // this.showBeneficiaryFeedbackList();
-  }
-
-  GetServiceTypes() {
-    this._feedbackTypes.getTypes(this.providerServiceMapID)
-      .subscribe(response => this.setServiceTypes(response));
-  }
-  setServiceTypes(response: any) {
-    for (let i: any = 0; i < response.length; i++) {
-      if (response[i].subServiceName.toUpperCase().search('FEED') >= 0) {
-        this.subServiceID = response[i].subServiceID;
-        break;
-      }
-    }
-  }
 
   ngOnInit() {
     this.beneficiaryRegID = this._savedData.beneficiaryData.beneficiaryRegID;
@@ -122,19 +100,45 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.maxDate = this.today;
     this.GetInstitutes();
   }
-
+  tempFlag: any;
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
    
     this.setLanguage(this.current_language);
     if(this.resetProvideServices) {
-      jQuery('#feedbackForm').trigger("reset");
+      this.tempFlag = true;
       this.showTableCondition = true;
       this.showFormCondition = false;
     }
   }
+  showForm() {
+    if(this.tempFlag){
+      jQuery('#feedbackForm').trigger("reset");
+      this.tempFlag = false;
+    }
+    this.showFormCondition = true;
+    this.showTableCondition = false;
+  }
 
+  showTable() {
+    this.showFormCondition = false;
+    this.showTableCondition = true;
+    // this.showBeneficiaryFeedbackList();
+  }
+
+  GetServiceTypes() {
+    this._feedbackTypes.getTypes(this.providerServiceMapID)
+      .subscribe(response => this.setServiceTypes(response));
+  }
+  setServiceTypes(response: any) {
+    for (let i: any = 0; i < response.length; i++) {
+      if (response[i].subServiceName.toUpperCase().search('FEED') >= 0) {
+        this.subServiceID = response[i].subServiceID;
+        break;
+      }
+    }
+  }
   setLanguage(language) {
     this.currentlanguage = language;
     console.log(language, 'language feedback services mein');

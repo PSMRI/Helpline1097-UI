@@ -52,12 +52,12 @@ export class CoInformationServicesComponent implements OnInit {
     this.GetServiceTypes();
 
   }
-
+  tempFlag: any;
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
     if(this.resetProvideServices) {
-      jQuery('#informationForm').trigger("reset");
+      this.tempFlag = true;
       this.showTableCondition = true;
       this.showFormCondition = false;
       this.detailsList = [];
@@ -140,6 +140,10 @@ export class CoInformationServicesComponent implements OnInit {
     
   }
   showForm() {
+    if(this.tempFlag){
+      jQuery('#informationForm').trigger("reset");
+      this.tempFlag = false;
+    }
     this.showFormCondition = true;
     this.showTableCondition = false;
   }
