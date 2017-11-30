@@ -22,7 +22,7 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
-    @Input() resetProvideServices: any;
+  @Input() resetProvideServices: any;
 
   @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
@@ -39,6 +39,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   getDetailsFlag: boolean = false;
   showresult: boolean;
   p = 1;
+  tempFlag: any;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -59,8 +60,8 @@ export class CoCounsellingServicesComponent implements OnInit {
   ngOnChanges() {
     this.setLanguage(this.current_language);
     if(this.resetProvideServices) {
+      this.tempFlag = true;
 
-      jQuery("#counsellingForm").trigger("reset");
       this.showTableCondition = true;
       this.showFormCondition = false;
       this.detailsList = [];
@@ -124,7 +125,7 @@ export class CoCounsellingServicesComponent implements OnInit {
     this.getDetailsFlag = false;
   }
   SetSubCategoryDetails(response: any) {
-    if(response){
+    if (response) {
       console.log('success', response);
       this.detailsList = response;
       this.getDetailsFlag = true;
@@ -133,6 +134,10 @@ export class CoCounsellingServicesComponent implements OnInit {
     }
   }
   showForm() {
+    if(this.tempFlag){
+      jQuery("#counsellingForm").trigger("reset");
+      this.tempFlag = false;
+    }
     this.showFormCondition = true;
     this.showTableCondition = false;
   }
@@ -143,8 +148,8 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   }
   GetCounsellingHistory() {
-    this._coService.getCounsellingsHistoryByID(this.beneficiaryID).subscribe((res) => {
-      if(res){
+    this._coService.getCounsellingsHistoryByID(this.beneficiaryID, this.saved_data.current_service.providerServiceMapID).subscribe((res) => {
+      if (res) {
         this.data = res;
         this.totalRecord = res.length;
         console.log('Information History Successfully reterive', res);

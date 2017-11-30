@@ -20,17 +20,9 @@
       <button class="pull-right btn" (click)="showTable()">All Referrals</button>
     </div> -->
       <!-- <form novalidate #form="ngForm"> -->
-      <form id="referralForm">
+      <form id="referralForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <!--             <div class="form-group">
-                <label class="control-label" for="state">State</label>
-                <select class="form-control drop-arrow ng-pristine ng-valid ng-empty ng-touched" name="state" [(ngModel)]="selected_state"
-                    (change)="GetDistricts(selected_state)">
-                    <option *ngFor="let state of states" value={{state.stateID}}>
-                        {{state.stateName}}
-                    </option>
-                </select> 
-            </div> -->
+
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
           <md-select required placeholder="{{currentlanguage.referral_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state"
@@ -45,15 +37,7 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <!--             <div class="form-group">
-                <label class="control-label" for="district">District</label>
-                <select class="form-control drop-arrow ng-pristine ng-valid ng-empty ng-touched" name="district" [(ngModel)]="selected_district"
-                    (change)="GetTaluks(selected_district)">
-                    <option *ngFor="let district of districts" value={{district.districtID}}>
-                        {{district.districtName}}
-                    </option>
-                </select>
-            </div> -->
+
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
           <md-select required #district="ngModel" placeholder="{{currentlanguage.referral_service?.district}}" [style.width]="'100%'"
@@ -68,18 +52,7 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <!--             <div class="form-group">
-                <label class="control-label" for="taluk">Taluk</label>
-                <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="taluk" [(ngModel)]="selected_taluk"
-                    (change)="GetSDTB(selected_taluk)"> -->
-        <!--<option *ngFor="let taluk of taluks" value="{{taluk.talukID}}">
-                        {{taluk.talukName}}
-                    </option>-->
-        <!--                     <option *ngFor="let taluk of taluks" value={{taluk.blockID}}>
-                        {{taluk.blockName}}
-                    </option>
-                </select>
-            </div> -->
+
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
           <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"

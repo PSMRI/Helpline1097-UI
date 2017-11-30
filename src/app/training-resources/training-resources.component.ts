@@ -27,7 +27,7 @@ export class TrainingResourcesComponent implements OnInit {
         console.log("providerServiceMapID" + this.service.serviceID);
         this.notificationService.getNotificationTypes(this.service.serviceID)
             .subscribe((response) => {
-                console.log(response);
+                console.log(response,"RELATED TO KM");
                 let currentDate = this.getOffsetTime();
                 this.kmConfig = response.data.filter((notification) => {
                     return notification.notificationType == "KM";
@@ -73,7 +73,8 @@ export class TrainingResourcesComponent implements OnInit {
             // if (this.role.RoleName != "Supervisor") {
             this.notificationService.getKMs(this.kmPostData)
                 .subscribe((response) => {
-                    console.log(response);
+                    console.log(response,"KM files response");
+
                     this.kmfiles = response.data;
                 },
                 (err) => {
