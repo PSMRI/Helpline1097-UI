@@ -92,7 +92,7 @@ export class dashboardContentClass implements OnInit {
     //   location.assign(this.loginUrl);
     //   Cookie.deleteAll();
     // }
-    this.agentID=this.dataSettingService.Userdata.agentID;
+    this.agentID=this.dataSettingService.cZentrixAgentID;
     this.agentIDexists(this.agentID);
 
 

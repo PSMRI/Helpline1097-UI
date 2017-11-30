@@ -28,7 +28,8 @@ export class TrainingResourcesComponent implements OnInit {
         this.notificationService.getNotificationTypes(this.service.serviceID)
             .subscribe((response) => {
                 console.log(response,"RELATED TO KM");
-                let currentDate = this.getOffsetTime();
+                // let currentDate = this.getOffsetTime();
+                let currentDate=new Date();
                 this.kmConfig = response.data.filter((notification) => {
                     return notification.notificationType == "KM";
                 });
@@ -107,8 +108,8 @@ export class TrainingResourcesComponent implements OnInit {
         });
     }
 
-    getOffsetTime() {
-        let date = new Date();
-        return new Date((date.getTime() - 1 * (date.getTimezoneOffset() * 60 * 1000)));
-    }
+    // getOffsetTime() {
+    //     let date = new Date();
+    //     return new Date((date.getTime() - 1 * (date.getTimezoneOffset() * 60 * 1000)));
+    // }
 }

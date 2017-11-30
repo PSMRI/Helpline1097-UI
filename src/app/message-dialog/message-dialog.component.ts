@@ -37,7 +37,7 @@ export class MessageDialogComponent implements OnInit {
    //    matches = [];
    //  }
 
-   var request_array=string.split(' ');
+   var request_array=string.split('[ \n]');
    console.log("first array split",request_array);
 
    for(let i=0;i<request_array.length;i++)
