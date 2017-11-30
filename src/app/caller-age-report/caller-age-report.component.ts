@@ -119,7 +119,7 @@ export class CallerAgeReportComponent implements OnInit {
     // }
     let district = undefined
     if (this.district) {
-      district = this.district.districtName;
+      district = this.district;
     }
     for (let i = 0; i < noOfGroups; i++) {
       obj = {
@@ -130,7 +130,7 @@ export class CallerAgeReportComponent implements OnInit {
         "endTimestamp": end_date,
         "beneficiaryState": state,
         //"beneficiaryDistrict": value.district ? value.district : ""
-        "beneficiaryDistrict": value.district
+        "beneficiaryDistrict": district
       }
       array.push(obj);
     }
