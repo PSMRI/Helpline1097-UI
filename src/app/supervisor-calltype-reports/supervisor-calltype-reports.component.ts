@@ -4,6 +4,8 @@ import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
 import { LocationService } from '../services/common/location.service';
+import { ReportsService } from '../services/reports-service/reports-service';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
   selector: 'app-supervisor-calltype-reports',
@@ -43,7 +45,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
   language: any;
   languages=[];
   callTypeName:any;
-  constructor(public _SupervisorCallTypeReportService: SupervisorCallTypeReportService,
+  constructor(public _SupervisorCallTypeReportService: SupervisorCallTypeReportService, private reportService: ReportsService,
     public commonDataService: dataService, private alertMessage: ConfirmationDialogsService,
     private _userBeneficiaryData: UserBeneficiaryData,private _locationService: LocationService) {
 
@@ -103,15 +105,15 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     if(this.state){
       state = this.state.stateName;
     }
-    else {
-      state = "";
-    }
+    // else {
+    //   state = "";
+    // }
     let requestObj = {
       "providerServiceMapID": this.commonDataService.current_service.serviceID,
       "beneficiaryCallType": this.callTypeName,
       "beneficiaryCallSubType": this.callsubTypeID,
-      "filterStartDate": start_date,
-      "filterEndDate": end_date,
+      "startTimestamp": start_date,
+      "endTimestamp": end_date,
       "beneficiaryState": state,
       "beneficiaryDistrict": this.district,
       "gender": this.gender,
@@ -119,17 +121,11 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       "beneficiarySexualOrientation": this.sexuality
     }
 
-    // if (this.start_date && this.end_date) {
-    //   requestObj.filterStartDate = new Date((this.start_date) - 1 * (this.start_date.getTimezoneOffset() * 60 * 1000)).toJSON();
-    //   requestObj.filterEndDate = new Date((this.end_date) - 1 * (this.end_date.getTimezoneOffset() * 60 * 1000)).toJSON();
 
-    // } else {
-    //   requestObj.filterStartDate = undefined;
-    //   requestObj.filterEndDate = undefined;
-    // }
+
     console.log(requestObj);
     // write the api here to get filtercall list
-    this._SupervisorCallTypeReportService.filterCallList(JSON.stringify(requestObj)).subscribe(
+    this.reportService.getAllReportsByDate(requestObj).subscribe(
       (response: Response) => this.data = this.successhandeler(response));
   }
   toUTCDate(date) {
@@ -142,10 +138,19 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     return this.toUTCDate(new Date(millis));
   };
   successhandeler(response) {
+    debugger;
     console.log(response, 'respinse call wala');
     if (response.length > 5) {
       this.showPaginationControls = true;
     }
+    let array = response.filter(function(obj){
+           delete obj.benReport;
+           return obj;
+    });
+    console.log(array);
+        let head = Object.keys(array[0]);
+    console.log(head);
+    new Angular2Csv(array, 'AgeGroup Report', { headers: (head) });
     return response;
   }
   populateCallTypes(response: any) {

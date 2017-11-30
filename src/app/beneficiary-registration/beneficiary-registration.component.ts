@@ -370,6 +370,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
     if (!flag) {
+          this.age = "0";
+    this.calculateDOB("0");
       jQuery("#BeneficaryForm").trigger("reset");
 
       this.searchValue = 'Advance Search';
@@ -883,6 +885,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // to Calculate the age on the basis of date of birth
   calculateAge(date) {
+    debugger;
     if (date) {
       const newDate = new Date(date);
       const today = new Date();
@@ -1044,13 +1047,16 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   reset() {
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
-        jQuery("#datee").val('0');
+    let a = null;
+    this.age = "0";
+    this.calculateDOB("0");
 
 
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subcriptionOutbound.unsubscribe();
+
   }
   // getLocationPerPincode(pincodeObj: any) {
   //   this.areaList = [];
