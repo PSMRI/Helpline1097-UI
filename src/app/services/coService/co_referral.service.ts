@@ -56,15 +56,15 @@ export class CoReferralService {
             .catch(this.handleError);
     }
 
-    getReferralHistoryByID(id: any) {
-        return this._http.post(this._getReferralHistoryURL, { 'beneficiaryRegID': id }).map(this.extractData).catch(this.handleError);
+    getReferralHistoryByID(id: any, calledServiceID: any) {
+        return this._http.post(this._getReferralHistoryURL, { 'beneficiaryRegID': id, 'calledServiceID': calledServiceID }).map(this.extractData).catch(this.handleError);
     }
 
-    getInformationsHistoryByID(id: any) {
-        return this._http.post(this._getInformationHistoryURL, { 'beneficiaryRegID': id }).map(this.extractData).catch(this.handleError);
+    getInformationsHistoryByID(id: any, calledServiceID: any) {
+        return this._http.post(this._getInformationHistoryURL, { 'beneficiaryRegID': id, 'calledServiceID': calledServiceID }).map(this.extractData).catch(this.handleError);
     }
-    getCounsellingsHistoryByID(id: any) {
-        return this._http.post(this._getCounsellingHistoryURL, { 'beneficiaryRegID': id }).map(this.extractData).catch(this.handleError);
+    getCounsellingsHistoryByID(id: any, calledServiceID: any) {
+        return this._http.post(this._getCounsellingHistoryURL, { 'beneficiaryRegID': id, 'calledServiceID': calledServiceID }).map(this.extractData).catch(this.handleError);
     }
     getTypes(providerServiceMapID: number) {
         let data = {};

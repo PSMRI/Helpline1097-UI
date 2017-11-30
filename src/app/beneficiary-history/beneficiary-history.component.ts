@@ -25,7 +25,7 @@ export class BeneficiaryHistoryComponent implements OnInit {
   ngOnInit() {
     // benficiary Id
     const benificiaryRegID = this.benificiaryHistoryData;
-    const calledServiceID = this.saved_data.serviceProviderID;
+    const calledServiceID = this.saved_data.current_service.providerServiceMapID;
     const currCallID = this.saved_data.callData.benCallID;
     this.currentCallID = this.saved_data.callData.benCallID;// call id of current ongoing call fetched from common data service
     console.log("current callid", this.currentCallID);
