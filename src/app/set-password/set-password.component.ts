@@ -19,6 +19,9 @@ export class SetPasswordComponent implements OnInit {
   uname: any = this.getUserData.uname;
   dynamictype: any = 'password';
 
+  passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
+
+
   constructor(
     public http_calls: HttpServices,
     public getUserData: dataService,

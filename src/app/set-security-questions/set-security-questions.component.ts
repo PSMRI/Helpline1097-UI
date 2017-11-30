@@ -25,7 +25,8 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
   }
 
-  
+passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
+
   ngOnInit() {
 
     this.http_calls.getData(this.configService.getCommonBaseURL() + "user/getsecurityquetions")

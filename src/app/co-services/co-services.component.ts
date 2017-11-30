@@ -21,6 +21,8 @@ export class CoServicesComponent implements OnInit {
   selectedService: any;
   tab_value: number = 1;
   ngOnInit() {
+
+    jQuery("#md-tab-label-0-0").addClass("mat-tab-label-active");
   }
 
   selectedIndex:any=0;

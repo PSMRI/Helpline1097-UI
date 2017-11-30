@@ -86,18 +86,20 @@
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
           <md-input-container class="width100">
-            <input mdInput placeholder="Notification Subject" name="notificationSubject" ngModel #notificationSubject="ngModel" minlength="5" required>
-            <md-hint *ngIf="notificationSubject.errors && notificationSubject.touched">
+            <input mdInput placeholder="Notification Subject" name="notificationSubject" ngModel #notificationSubject="ngModel" minlength="5" maxlength="300" required>
+            <md-hint align="start" *ngIf="notificationSubject.errors && notificationSubject.touched">
               <span class="error_text">Notification Subject is required(min 5 characters)</span>
             </md-hint>
+            <md-hint align="end">{{notificationSubject.value?.length}}/300</md-hint>
           </md-input-container>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <md-input-container class="width100">
-            <textarea mdInput rows="2" placeholder="Notification Message" name="notificationMessage" ngModel #notificationMessage="ngModel" minlength="5" required></textarea>
-            <md-hint *ngIf="notificationMessage.errors && notificationMessage.touched">
+            <textarea mdInput rows="2" placeholder="Notification Message" name="notificationMessage" ngModel #notificationMessage="ngModel" minlength="5" maxlength="300" required></textarea>
+            <md-hint align="start" *ngIf="notificationMessage.errors && notificationMessage.touched">
               <span class="error_text">Notification Message is required(min 5 characters)</span>
             </md-hint>
+            <md-hint align="end">{{notificationMessage.value?.length}}/300</md-hint>
           </md-input-container>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
