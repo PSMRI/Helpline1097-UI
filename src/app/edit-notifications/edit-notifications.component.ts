@@ -87,7 +87,7 @@ export class EditNotificationsComponent implements OnInit {
         "notificationDesc": this.editNotificationForm.value.notificationDesc,
         "validFrom": startDate,
         "validTill": endDate,
-        "deleted": this.data.notificationType.deleted,
+        // "deleted": this.data.notificationType.deleted,
         "modifiedBy": this.createdBy,
         "kmFileManager": {
           "fileName": this.file.name,
