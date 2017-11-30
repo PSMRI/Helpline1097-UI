@@ -4,6 +4,7 @@ import { dataService } from '../services/dataService/data.service';
 import { LocationService } from '../services/common/location.service';
 import { ReportsService } from '../services/reports-service/reports-service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 @Component({
   selector: 'app-caller-age-report',
@@ -26,7 +27,8 @@ export class CallerAgeReportComponent implements OnInit {
   ageGroups = [];
   providerServiceMapID: any;
   constructor(private _userBeneficiaryData: UserBeneficiaryData, private saved_data: dataService,
-    private _locationService: LocationService, private reportService: ReportsService) { }
+    private _locationService: LocationService, private reportService: ReportsService,
+    private alertMessage: ConfirmationDialogsService) { }
 
   ngOnInit() {
     this.today = new Date();
@@ -173,5 +175,7 @@ export class CallerAgeReportComponent implements OnInit {
     let head = Object.keys(this.count[0]);
     console.log(head);
     new Angular2Csv(this.count, 'AgeGroup Report', { headers: (head) });
+      this.alertMessage.alert('AgeGroup report downloaded');
+
   }
 }

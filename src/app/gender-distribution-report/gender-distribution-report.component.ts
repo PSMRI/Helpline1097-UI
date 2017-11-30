@@ -188,6 +188,8 @@ download_report()
 {
   var head=Object.keys(this.gender_distribution_resultset[0]);
   new Angular2Csv(this.gender_distribution_resultset, 'Gender Distribution Report', {headers: (head)});
+              this.alertService.alert('Gender Distribution report downloaded');
+
 }
 
 

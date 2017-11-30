@@ -177,7 +177,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   IntializeSessionValues() {
     this.today = new Date();
     this.maxDate = this.today;
-    // this.DOB = new Date();
+     this.DOB = new Date();
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe((response) => {
           this.SetUserBeneficiaryRegistrationData(response)
@@ -373,8 +373,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
 
     if (!flag) {
-          this.age = "0";
-    this.calculateDOB("0");
+
       jQuery("#BeneficaryForm").trigger("reset");
 
       this.searchValue = 'Advance Search';
@@ -411,7 +410,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.preferredLanguage = undefined;
       this.identityType = undefined;
       this.wentAwayMainScreen.emit();
-
+                this.age = "0";
+    this.calculateDOB("0");
 
       // if (this.isParentBeneficiary || this.regHistoryList.length > 0) {
       //   this.isParentBeneficiary = true;

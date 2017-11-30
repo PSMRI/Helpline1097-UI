@@ -28,7 +28,9 @@ export class SexualOrientationReportComponent implements OnInit {
   states = [];
   districts = [];
 
-  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData, private reportsService: ReportsService, private alertService: ConfirmationDialogsService, private locationService: LocationService) { }
+  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData, 
+    private reportsService: ReportsService, private alertService: ConfirmationDialogsService, 
+    private locationService: LocationService) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.dataService.current_service.serviceID;
@@ -137,6 +139,9 @@ export class SexualOrientationReportComponent implements OnInit {
 {
   var head=Object.keys(this.orientations[0]);
   new Angular2Csv(this.orientations, 'Sexual Orientation Report', {headers: (head)});
+  
+        this.alertService.alert('Sexual Orientation report downloaded');
+
 }
 
 }

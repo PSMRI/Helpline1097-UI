@@ -28,7 +28,9 @@ export class LanguageDistributionReportComponent implements OnInit {
   districts = [];
   @ViewChild('languageDistributionSearchForm') languageDistributionSearchForm: NgForm;
 
-  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData, private locationService: LocationService, private alertService: ConfirmationDialogsService, private reportsService: ReportsService) { }
+  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData,
+   private locationService: LocationService, private alertService: ConfirmationDialogsService,
+    private reportsService: ReportsService) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.dataService.current_service.serviceID;
@@ -142,5 +144,7 @@ export class LanguageDistributionReportComponent implements OnInit {
    let head = Object.keys(this.languageDistributions[0]);
    // console.log(head);
         new Angular2Csv(this.languageDistributions, 'LanguageDistributions Report',{headers: (head)});
+            this.alertService.alert('Language Distribution report downloaded');
+
   }
 }

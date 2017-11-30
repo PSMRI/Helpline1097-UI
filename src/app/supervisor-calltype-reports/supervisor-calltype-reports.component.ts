@@ -143,22 +143,30 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     if (response.length > 5) {
       this.showPaginationControls = true;
     }
-    let array = response.filter(function(obj){
-      delete obj.benReport;
-      for (var key in obj) {
-        console.log(key, obj[key]);
-        if(obj[key] == null) {
-          obj[key] = "";
+    if(response.length > 0) {
+      let array = response.filter(function(obj){
+        delete obj.benReport;
+        for (var key in obj) {
+          //  console.log(key, obj[key]);
+          if(obj[key] == null) {
+            obj[key] = "";
+          }
         }
-      }
-      return obj;
-    });
-    console.log(array);
-        let head = Object.keys(array[0]);
-    console.log(head);
-    new Angular2Csv(array, 'Consolidate Report', { headers: (head) });
+        return obj;
+      });
+      console.log(array);
+      let head = Object.keys(array[0]);
+      console.log(head);
+      new Angular2Csv(array, 'Consolidate Report', { headers: (head) });
+      this.alertMessage.alert('Consolidated report downloaded');
+
+    }
+    else {
+      this.alertMessage.alert('No call type report for searched criteria');
+    }
     return response;
   }
+
   populateCallTypes(response: any) {
     this.calltypes = response.map(function (item) {
       return { 'callTypeDesc': item.callGroupType };
