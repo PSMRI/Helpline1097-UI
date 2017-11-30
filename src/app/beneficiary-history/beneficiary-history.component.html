@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-md-12 col-lg-12">
           <div class="table-responsive">
-            <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="9">
+            <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
               <thead>
 
                 <tr>
@@ -47,7 +47,7 @@
                   <td>{{service.feedbackServices}}</td>
                   <td>{{service.callTypeObj?.callGroupType}}</td>
                   <td>{{service.callTypeObj?.callType}}</td>
-                  <td>{{service.remarks}}</td>
+                  <td class="white-space-nowrap">{{service.remarks}}</td>
                 </tr>
               </tbody>
               <tfoot>

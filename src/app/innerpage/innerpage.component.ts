@@ -444,6 +444,7 @@ export class InnerpageComponent implements OnInit {
 
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe((res) => {
+      console.log("CALL DETAILS RESPONSE", res);
       this.TotalCalls = 'Total Calls : ' + res.data.total_calls;
       this.TotalTime = 'Total Calls Durations : ' + res.data.total_call_duration;
       // if (this.callStatus.toLowerCase().trim() === 'closure') {
