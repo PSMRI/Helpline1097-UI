@@ -11,29 +11,29 @@ import { dataService } from '../services/dataService/data.service';
 })
 export class BeneficiaryHistoryComponent implements OnInit {
 
-  public data: any=[];
+  public data: any = [];
   public totalRecord: any;
 
-  currentCallID:any;
+  currentCallID: any;
 
   constructor(
-              public dialogRef: MdDialogRef<BeneficiaryHistoryComponent>,
-              @Inject(MD_DIALOG_DATA) public benificiaryHistoryData: any,
-              private callService: CoReferralService,
-              private saved_data:dataService) { }
+    public dialogRef: MdDialogRef<BeneficiaryHistoryComponent>,
+    @Inject(MD_DIALOG_DATA) public benificiaryHistoryData: any,
+    private callService: CoReferralService,
+    private saved_data: dataService) { }
 
   ngOnInit() {
     // benficiary Id
     const benificiaryRegID = this.benificiaryHistoryData;
+    const calledServiceID = this.saved_data.serviceProviderID;
     const currCallID = this.saved_data.callData.benCallID;
-    this.currentCallID=this.saved_data.callData.benCallID;// call id of current ongoing call fetched from common data service
-    console.log("current callid",this.currentCallID);
-    this.callService.getBenificiaryCallHistory(benificiaryRegID).subscribe(response => this.getFilteredCallHistory(response));
+    this.currentCallID = this.saved_data.callData.benCallID;// call id of current ongoing call fetched from common data service
+    console.log("current callid", this.currentCallID);
+    this.callService.getBenificiaryCallHistory(benificiaryRegID, calledServiceID).subscribe(response => this.getFilteredCallHistory(response));
   }
 
-  getFilteredCallHistory(response)
-  {
-    this.data=[];
+  getFilteredCallHistory(response) {
+    this.data = [];
     // this.data = response.filter(function(item, currentCallID:any=this.currentCallID)
     // {
     //   if(item.benCallID!=currentCallID)
@@ -41,10 +41,8 @@ export class BeneficiaryHistoryComponent implements OnInit {
     //     return item;
     //   }
     // });
-    for(let i=0;i<response.length;i++)
-    {
-      if(response[i].benCallID!=this.currentCallID)
-      {
+    for (let i = 0; i < response.length; i++) {
+      if (response[i].benCallID != this.currentCallID) {
         this.data.push(response[i]);
       }
     }
@@ -53,14 +51,14 @@ export class BeneficiaryHistoryComponent implements OnInit {
 
   }
 
-toUTCDate(date) {
-  const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
-                        date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-  return _utc;
-};
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
 
-millisToUTCDate(millis) {
-  return this.toUTCDate(new Date(millis));
-};
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
 
 }

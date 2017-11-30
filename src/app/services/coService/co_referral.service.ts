@@ -75,10 +75,10 @@ export class CoReferralService {
     }
 
     // get the call history of Beneficiary on the basis of ID
-    getBenificiaryCallHistory(id: any) {
+    getBenificiaryCallHistory(id: any, calledServiceID: any) {
         return this._http.post(
             this._getbenficiaryHistoryUrl
-            , { 'beneficiaryRegID': id })
+            , { 'beneficiaryRegID': id, 'calledServiceID': calledServiceID })
             .map(this.extractData).catch(this.handleError);
     }
 
