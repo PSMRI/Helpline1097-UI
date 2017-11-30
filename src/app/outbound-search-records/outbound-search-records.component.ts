@@ -46,6 +46,8 @@ export class OutboundSearchRecordsComponent implements OnInit {
     this.startOutboundDate = new Date();
     this.endOutboundDate = new Date();
     this.endOutboundDate.setDate(this.endOutboundDate.getDate() + 7);
+    this.startOutboundDate.setHours(0,0,0,0);
+    this.endOutboundDate.setHours(0,0,0,0);
     //  this.endOutboundDate.setDate(this.startOutboundDate.getDate() + 7);
     this.getOutboundCallCount(this.serviceProviderMapID, this.startOutboundDate, this.endOutboundDate);
     this.getLanguages();
