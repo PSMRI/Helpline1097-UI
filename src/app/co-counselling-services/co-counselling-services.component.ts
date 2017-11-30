@@ -22,7 +22,7 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
-    @Input() resetProvideServices: any;
+  @Input() resetProvideServices: any;
 
   @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   categoryList: any;
@@ -61,6 +61,7 @@ export class CoCounsellingServicesComponent implements OnInit {
     this.setLanguage(this.current_language);
     if(this.resetProvideServices) {
       this.tempFlag = true;
+
       this.showTableCondition = true;
       this.showFormCondition = false;
       this.detailsList = [];
@@ -124,7 +125,7 @@ export class CoCounsellingServicesComponent implements OnInit {
     this.getDetailsFlag = false;
   }
   SetSubCategoryDetails(response: any) {
-    if(response){
+    if (response) {
       console.log('success', response);
       this.detailsList = response;
       this.getDetailsFlag = true;
@@ -147,8 +148,8 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   }
   GetCounsellingHistory() {
-    this._coService.getCounsellingsHistoryByID(this.beneficiaryID).subscribe((res) => {
-      if(res){
+    this._coService.getCounsellingsHistoryByID(this.beneficiaryID, this.saved_data.current_service.providerServiceMapID).subscribe((res) => {
+      if (res) {
         this.data = res;
         this.totalRecord = res.length;
         console.log('Information History Successfully reterive', res);
