@@ -144,13 +144,19 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       this.showPaginationControls = true;
     }
     let array = response.filter(function(obj){
-           delete obj.benReport;
-           return obj;
+      delete obj.benReport;
+      for (var key in obj) {
+        console.log(key, obj[key]);
+        if(obj[key] == null) {
+          obj[key] = "";
+        }
+      }
+      return obj;
     });
     console.log(array);
         let head = Object.keys(array[0]);
     console.log(head);
-    new Angular2Csv(array, 'AgeGroup Report', { headers: (head) });
+    new Angular2Csv(array, 'Consolidate Report', { headers: (head) });
     return response;
   }
   populateCallTypes(response: any) {

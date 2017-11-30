@@ -151,6 +151,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.current_campaign = this.saved_data.current_campaign;
     // this.agentID = this.saved_data.cZentrixAgentID;
     // this.reloadOutBoundCall(this.current_campaign);
+
   }
 
 
@@ -191,6 +192,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.advanceBtnHide = true;
     this.spinner = false;
     this.spinnerState = true;
+            this.age = "0";
+      this.calculateDOB("0");
   }
 
   startOutBoundCall(outboundData: any) {
