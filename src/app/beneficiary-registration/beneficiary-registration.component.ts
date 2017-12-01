@@ -905,7 +905,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   ageFlag: boolean = false;
   // calculate date of birth on the basis of age
   calculateDOB(age) {
-    debugger;
     if(age >150) {
       this.ageFlag = true
     }
