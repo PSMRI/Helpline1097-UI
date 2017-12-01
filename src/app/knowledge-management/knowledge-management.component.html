@@ -52,6 +52,9 @@
             <input type="file" class="form-control" #myInput name="file" (change)="changeListener($event)" />
             <input type="hidden" name="fileHidden" formControlName="fileInput" />
             <!-- Validation Field -->
+            <span class="error">
+              Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)
+            </span>
             <div class="error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
               File is required
             </div>
@@ -77,7 +80,7 @@
         </div> -->
         <!--<div class="">-->
           <div class="col-xs-12 col-sm-12 form-group pull-right">
-            <button type="submit" class="pull-right" md-raised-button color="primary" [disabled]="knowledgeForm.invalid">Save</button>
+            <button type="submit" class="pull-right" md-raised-button color="primary" [disabled]="knowledgeForm.invalid||invalid_file_flag">Save</button>
           </div>
         <!--</div>-->
       </form>
