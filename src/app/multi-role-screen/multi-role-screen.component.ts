@@ -33,7 +33,7 @@ export class MultiRoleScreenComponent implements OnInit {
     this.data = this.dataSettingService.Userdata;
     this.current_role = (this.dataSettingService.current_role)?this.dataSettingService.current_role.RoleName:"";
     this.current_service = (this.dataSettingService.current_service)?this.dataSettingService.current_service.serviceName:"";
-    this.id = this.dataSettingService.Userdata.agentID;
+    this.id = this.dataSettingService.cZentrixAgentID? this.dataSettingService.cZentrixAgentID: (this.dataSettingService.Userdata.agentID ? this.dataSettingService.Userdata.agentID : undefined);
     this.dataSettingService.roleSelected.subscribe((obj)=>{
       this.id = obj['id'];
       this.current_role = obj['role'];
