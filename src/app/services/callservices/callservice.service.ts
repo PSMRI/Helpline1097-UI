@@ -21,7 +21,9 @@ export class CallServices {
   _blockPhoneNo = this._commonURL + 'call/blockPhoneNumber/';
   _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber';
   _outbouncClose_url = this._commonURL + '/call/completeOutboundCall';
-  _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList'
+  _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList';
+
+  _getRecording_url=this._commonURL+"call/nueisanceCallHistory";
   
   constructor(
     private _http: Http,
@@ -60,13 +62,7 @@ export class CallServices {
   getBlackListCalls(objSearch: any) {
     return this._httpInterceptor.post(this._blacklistCalls, objSearch).map(this.extractData).catch(this.handleCustomError);
   }
-  extractData(response: Response) {
-    if (response.json().data) {
-      return response.json().data;
-    } else {
-      return response.json();
-    }
-  }
+ 
   getLanguages() {
     return this._http.get(this._getLanguage_url, this.options).map(this.extractData).catch(this.handleError);
   }
@@ -76,6 +72,19 @@ export class CallServices {
   UnBlockPhoneNumber(phoneBlockID: any) {
     return this._httpInterceptor.post(this._unblockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
 
+  }
+
+  getRecording(obj)
+  {
+    return this._httpInterceptor.post(this._getRecording_url,obj).map(this.extractData).catch(this.handleCustomError);
+  }
+
+   extractData(response: Response) {
+    if (response.json().data) {
+      return response.json().data;
+    } else {
+      return response.json();
+    }
   }
 
   handleError(error: Response) {

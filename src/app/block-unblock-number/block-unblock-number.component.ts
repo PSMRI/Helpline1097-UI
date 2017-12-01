@@ -4,6 +4,7 @@ import { dataService } from './../services/dataService/data.service';
 import { CallServices } from './../services/callservices/callservice.service'
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 
+declare var jQuery:any;
 
 @Component({
   selector: 'app-block-unblock-number',
@@ -27,15 +28,28 @@ export class BlockUnblockNumberComponent implements OnInit {
   blackList: any = [];
   searchByPhone: boolean = false;
   data: any = [];
+  recording_data:any=[];
+  showRecordings:boolean=false;
+  audio_path:any;
   constructor(private commonData: dataService, private callService: CallServices,
-    private message: ConfirmationDialogsService) { }
+              private message: ConfirmationDialogsService) {
+
+
+   
+
+
+               }
 
   ngOnInit() {
     // this.isBlockedType = undefined;
     this.serviceId = this.commonData.current_service.serviceID;
     this.maxDate = new Date();
     this.addToBlockList();
+
   }
+
+
+
 
   getBlockedTillDate(date) {
     this.blockedTill = date.setDate(date.getDate() + 7);
@@ -60,7 +74,7 @@ export class BlockUnblockNumberComponent implements OnInit {
   }
   toUTCDate(date) {
     const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
-      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+                          date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     return _utc;
   };
 
@@ -93,5 +107,35 @@ export class BlockUnblockNumberComponent implements OnInit {
       this.addToBlockList();
     }
 
+  }
+
+  getRecording(obj)
+  {
+    if(obj)
+    {
+      let requestObj={
+        "calledServiceID":this.serviceId,
+        "phoneNo":obj.phoneNo,
+        "count":obj.noOfNuisanceCall
+      }
+
+      this.callService.getRecording(requestObj).subscribe(response=>this.getRecordingsSuccessHandeler(response,obj.phoneNo));
+    }
+    
+  }
+
+ph_no="";
+  getRecordingsSuccessHandeler(response,ph_no)
+  {
+    console.log(response,"get RECORDINGS SUCCESS");
+    if(response)
+    {
+      this.recording_data=response;  
+      this.showRecordings=true;
+      this.audio_path=response[0].recordingPath;
+    }
+
+    this.ph_no=ph_no;
+    
   }
 }

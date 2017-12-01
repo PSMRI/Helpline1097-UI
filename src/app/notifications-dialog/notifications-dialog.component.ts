@@ -36,6 +36,9 @@ export class NotificationsDialogComponent implements OnInit {
 sDate:Date=new Date();
   eDate:Date=new Date();
 
+  valid_file_extensions = ['msg', 'pdf', 'png', 'jpeg','jpg', 'doc', 'docx', 'xlsx', 'xls', 'csv', 'txt'];
+  invalid_file_flag: boolean = false;
+
   minDate: Date;
   @ViewChild('notificationForm') notificationForm: NgForm;
 
@@ -153,6 +156,15 @@ sDate:Date=new Date();
     this.fileList = event.target.files;
     this.file = event.target.files[0];
     console.log(this.file);
+
+     var validFormat = this.checkExtension(this.file);
+    if (validFormat) {
+      this.invalid_file_flag = false;
+    } else {
+      this.invalid_file_flag = true;
+    }
+
+
     if (this.file) {
       const myReader: FileReader = new FileReader();
       myReader.onloadend = this.onLoadFileCallback.bind(this)
@@ -183,8 +195,32 @@ sDate:Date=new Date();
     }
 
   }
+
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;
+  }
+
+  checkExtension(file) {
+    var count = 0;
+    console.log("FILE DETAILS", file);
+    if (file) {
+      var file_extension = file.name.split(".")[1];
+      for (let i = 0; i < this.valid_file_extensions.length; i++) {
+        if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
+          count = count + 1;
+        }
+      }
+
+      if (count > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else
+    {
+      return true;
+    }
   }
 
   onSubmit() {

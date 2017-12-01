@@ -24,6 +24,9 @@ export class supervisorFeedback implements OnInit {
   userId:any;
   current_agent:any;
 
+  valid_file_extensions = ['msg', 'pdf', 'png', 'jpeg','jpg', 'doc', 'docx', 'xlsx', 'xls', 'csv', 'txt'];
+  invalid_file_flag: boolean = false;
+
   public showupdateFeedback = true;
   public showupdateFeedback1 = true;
   public action = "view";
@@ -555,6 +558,12 @@ export class supervisorFeedback implements OnInit {
     this.fileList = event.target.files;
     this.file = event.target.files[0];
     console.log(this.file);
+     var validFormat = this.checkExtension(this.file);
+    if (validFormat) {
+      this.invalid_file_flag = false;
+    } else {
+      this.invalid_file_flag = true;
+    }
     if (this.file) {
       const myReader: FileReader = new FileReader();
       myReader.onloadend = this.onLoadFileCallback.bind(this)
@@ -585,6 +594,30 @@ export class supervisorFeedback implements OnInit {
     }
 
   }
+
+checkExtension(file) {
+    var count = 0;
+    console.log("FILE DETAILS", file);
+    if (file) {
+      var file_extension = file.name.split(".")[1];
+      for (let i = 0; i < this.valid_file_extensions.length; i++) {
+        if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
+          count = count + 1;
+        }
+      }
+
+      if (count > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else
+    {
+      return true;
+    }
+  }
+
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;
   }

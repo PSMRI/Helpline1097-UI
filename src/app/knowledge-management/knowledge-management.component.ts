@@ -4,7 +4,7 @@
  * File/Document Content in Base 64 Format
  ** Created by :Pankush Manchanda 31 ,July 2017 **
  ** Copy Write Wipro technologies **
-*/
+ */
 
 // modules or custom components
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -33,6 +33,9 @@ export class KnowledgeManagementComponent implements OnInit {
   public file: File;
   knowledgeForm: FormGroup;
 
+  valid_file_extensions=['msg','pdf','png','jpeg','jpg','doc','docx','xlsx','xls','csv','txt'];
+  invalid_file_flag:boolean=true;
+
   // declaring variables
   public categoryID;
   public subCategoryID;
@@ -44,8 +47,8 @@ export class KnowledgeManagementComponent implements OnInit {
   public createdBy;
   public fileControl
   constructor(private fb: FormBuilder, private _coCategoryService: CoCategoryService,
-    private _dataService: dataService, private _uploadService: UploadServiceService,
-    private message: ConfirmationDialogsService) {
+              private _dataService: dataService, private _uploadService: UploadServiceService,
+              private message: ConfirmationDialogsService) {
     this.createForm();
   }
 
@@ -69,33 +72,33 @@ export class KnowledgeManagementComponent implements OnInit {
   getService() {
     // let serviceId= this.providerServiceMapID
     this._coCategoryService.getTypes(this.providerServiceMapID)
-      .subscribe((response) => {
-        this.services = response.filter(function (item) {
-          return item.subServiceName.trim().toLowerCase() === 'information service'
-            || item.subServiceName.trim().toLowerCase() === 'counselling service'
-        });
-      }, (err) => {
-        console.log('Error in Knowledge Managemant Catyegory');
+    .subscribe((response) => {
+      this.services = response.filter(function (item) {
+        return item.subServiceName.trim().toLowerCase() === 'information service'
+        || item.subServiceName.trim().toLowerCase() === 'counselling service'
+      });
+    }, (err) => {
+      console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
   }
   // getting list of category
   getCategory(subServiceId: any) {
     this._coCategoryService.getCategoriesByID(subServiceId)
-      .subscribe((response) => {
-        this.categories = response;
-      }, (err) => {
-        console.log('Error in Knowledge Managemant Catyegory');
+    .subscribe((response) => {
+      this.categories = response;
+    }, (err) => {
+      console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
   }
   // getting list of subcategory by categoryId
   getSubCategory(categoryID: any) {
     this._coCategoryService.getSubCategories(categoryID)
-      .subscribe((response) => {
-        this.subCategories = response;
-      }, (err) => {
-        console.log('Error in Knowledge Managemant Catyegory');
+    .subscribe((response) => {
+      this.subCategories = response;
+    }, (err) => {
+      console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
   }
@@ -124,18 +127,53 @@ export class KnowledgeManagementComponent implements OnInit {
   readThis(inputValue: any): any {
     this.file = inputValue.files[0];
     if (this.file) {
-      this.knowledgeForm.controls['fileInput'].setValue(this.file.name);
-      const myReader: FileReader = new FileReader();
-      // binding event to access the local variable
-      myReader.onloadend = this.onLoadFileCallback.bind(this)
-      myReader.readAsDataURL(this.file);
+      var isvalid=this.checkExtension(this.file);
+      console.log(isvalid,"VALID OR NOT");
+      if(isvalid)
+      {
+        this.knowledgeForm.controls['fileInput'].setValue(this.file.name);
+        const myReader: FileReader = new FileReader();
+        // binding event to access the local variable
+        myReader.onloadend = this.onLoadFileCallback.bind(this)
+        myReader.readAsDataURL(this.file);
+
+        this.invalid_file_flag=false;
+      }
+      else
+      {
+        this.invalid_file_flag=true;
+      }
     } else {
       this.knowledgeForm.controls['fileInput'].setValue('');
     }
-
   }
+
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;
+
+  }
+
+  checkExtension(file)
+  {
+    var count=0;
+    console.log("FILE DETAILS",file);
+    var file_extension=file.name.split(".")[1];
+    for(let i=0;i<this.valid_file_extensions.length;i++)
+    {
+      if(file_extension.toUpperCase()===this.valid_file_extensions[i].toUpperCase())
+      {
+        count=count+1;
+      }
+    }
+
+    if(count>0)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
 
   }
 
