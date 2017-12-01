@@ -250,12 +250,14 @@
         <button md-raised-button color="primary" class="pull-left m-t-10" type="submit" name="save"> Save/Email</button>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6" *ngIf="action==='update'">
-        <button md-raised-button color="primary" class="pull-right hidden-lg m-t-10" type="submit" name="save">Save</button>
+        <button md-raised-button color="primary" class="pull-right hidden-lg m-t-10" type="submit" name="save" [disabled]="invalid_file_flag">Save</button>
         <div class="width60 pull-left">
           <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
           <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file">
+          <div class="clearfix"></div>
+          <span class="help-block m-l-15" *ngIf="invalid_file_flag">Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)</span>
         </div>
-        <button md-raised-button color="primary" class="pull-left visible-lg m-t-10" type="submit" name="save">Save</button>
+        <button md-raised-button color="primary" class="pull-left visible-lg m-t-10" type="submit" name="save" [disabled]="invalid_file_flag">Save</button>
       </div>
     <!--</div>-->
   </form>

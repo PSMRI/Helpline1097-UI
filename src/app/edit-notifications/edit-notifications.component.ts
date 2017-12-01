@@ -21,8 +21,12 @@ export class EditNotificationsComponent implements OnInit {
   validTill: Date;
   validFrom: Date;
   postData: any;
+
+  valid_file_extensions = ['msg', 'pdf', 'png', 'jpeg','jpg', 'doc', 'docx', 'xlsx', 'xls', 'csv', 'txt'];
+  invalid_file_flag: boolean = false;
+
   @ViewChild('editNotificationForm') editNotificationForm: NgForm;
-  constructor( @Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<EditNotificationsComponent>, private commonDataService: dataService) { }
+  constructor(@Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef < EditNotificationsComponent > , private commonDataService: dataService) {}
 
   ngOnInit() {
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
@@ -34,8 +38,17 @@ export class EditNotificationsComponent implements OnInit {
   }
 
   onFileUpload(event) {
+
     this.fileList = event.target.files;
     this.file = event.target.files[0];
+
+    var validFormat = this.checkExtension(this.file);
+    if (validFormat) {
+      this.invalid_file_flag = false;
+    } else {
+      this.invalid_file_flag = true;
+    }
+
     if (this.file) {
       const myReader: FileReader = new FileReader();
       myReader.onloadend = this.onLoadFileCallback.bind(this)
@@ -44,13 +57,12 @@ export class EditNotificationsComponent implements OnInit {
     if (this.fileList.length == 0) {
       this.error1 = true;
       this.error2 = false;
-    }
-    else if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
+      this.invalid_file_flag = false;
+    } else if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
       console.log(this.fileList[0].size / 1000 / 1000);
       this.error1 = false;
       this.error2 = false;
-    }
-    else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
+    } else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
       console.log(this.fileList[0].size / 1000 / 1000);
       this.error2 = true;
       this.error1 = false;
@@ -58,6 +70,31 @@ export class EditNotificationsComponent implements OnInit {
   }
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;
+  }
+
+  checkExtension(file) {
+    var count = 0;
+    console.log("FILE DETAILS", file);
+    if (file) {
+      var file_extension = file.name.split(".")[1];
+      for (let i = 0; i < this.valid_file_extensions.length; i++) {
+        if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
+          count = count + 1;
+        }
+      }
+
+      if (count > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else
+    {
+      return true;
+    }
+
+
   }
 
   onSubmit() {
@@ -100,8 +137,7 @@ export class EditNotificationsComponent implements OnInit {
           "createdBy": this.createdBy
         }
       };
-    }
-    else {
+    } else {
       this.postData = {
         "providerServiceMapID": this.providerServiceMapID,
         "notificationTypeID": this.data.notificationTypeID,

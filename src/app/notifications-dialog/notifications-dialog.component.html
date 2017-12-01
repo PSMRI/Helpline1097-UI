@@ -106,14 +106,15 @@
           <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
           <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file" ngModel #uploadfile="ngModel">
         </div>
-        <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span>
+        <!-- <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span> -->
+        <span class="help-block m-l-15" *ngIf="invalid_file_flag">Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)</span>
         <span class="help-block m-l-15" *ngIf="error2">File Size should not exceed {{maxFileSize}} MB</span>
         <span class="help-block m-l-15" *ngIf="error3">File Size should be greator than 0</span>
         <!--<span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>-->
       </form>
     </md-dialog-content>
     <div class="m-b-5">
-      <button md-raised-button class="m-l-5 m-r-15 pull-right" color="primary" [disabled]="!(notificationForm.valid) || error1 || error2" type="button" (click)="onSubmit()">Submit</button>
+      <button md-raised-button class="m-l-5 m-r-15 pull-right" color="primary" [disabled]="!(notificationForm.valid)|| error2|| invalid_file_flag" type="button" (click)="onSubmit()">Submit</button>
       <button md-raised-button class="m-l-15 m-r-5 pull-right" md-dialog-close>Close</button>
     </div>
 </div>

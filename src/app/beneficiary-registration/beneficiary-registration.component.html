@@ -39,6 +39,11 @@
       
     </div> -->
   </div>
+  <div class="row p-t-20" *ngIf="current_campaign == 'OUTBOUND'">
+    <div class="col-xs-12 col-sm-12">
+      <h4>Beneficiary Details</h4>
+    </div>
+  </div>
   <div class="row" [collapse]="isAdvancedSearch">
     <form id="benForm" #searchForm="ngForm" autocomplete="off">
           <div class=" col-xs-12 col-sm-12">
