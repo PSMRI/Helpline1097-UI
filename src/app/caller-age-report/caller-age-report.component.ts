@@ -143,7 +143,7 @@ export class CallerAgeReportComponent implements OnInit {
 
     var timeDiff = this.end_date.getTime() - this.start_date.getTime() ;
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    if(diffDays > 30) {
+    if(diffDays > 90) {
       var tempDate = new Date(this.start_date);
       tempDate.setMonth(this.start_date.getMonth()+1);
       tempDate.setHours(23,59,59,0);
@@ -161,7 +161,6 @@ export class CallerAgeReportComponent implements OnInit {
   }// 1Dec by Gursimran
 
   getReports(value) {
-debugger;
     let noOfGroups = value.ageGroup.length;
     let array = [];
     let obj = {};
