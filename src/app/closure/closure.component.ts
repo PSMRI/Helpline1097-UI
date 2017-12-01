@@ -76,6 +76,7 @@ export class ClosureComponent implements OnInit
 
     this.today = new Date();
     this.minDate = this.today;
+    this.minDate.setHours(0,0,0,0);
     this.showSlider = false;
     this.current_campaign = this.saved_data.current_campaign;
     if (!this.saved_data.loginIP) {
