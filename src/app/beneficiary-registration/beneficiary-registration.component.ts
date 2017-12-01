@@ -177,6 +177,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   IntializeSessionValues() {
     this.today = new Date();
     this.maxDate = this.today;
+    this.maxDate.setHours(23,59,59,0);
      this.DOB = new Date();
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe((response) => {
@@ -192,8 +193,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.advanceBtnHide = true;
     this.spinner = false;
     this.spinnerState = true;
-            this.age = "0";
-      this.calculateDOB("0");
+      //       this.age = "0";
+      // this.calculateDOB("0");
   }
 
   startOutBoundCall(outboundData: any) {
@@ -410,8 +411,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.preferredLanguage = undefined;
       this.identityType = undefined;
       this.wentAwayMainScreen.emit();
-                this.age = "0";
-    this.calculateDOB("0");
+    //             this.age = "0";
+    // this.calculateDOB("0"); //for default age to be zero
 
       // if (this.isParentBeneficiary || this.regHistoryList.length > 0) {
       //   this.isParentBeneficiary = true;
@@ -888,7 +889,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // to Calculate the age on the basis of date of birth
   calculateAge(date) {
-    debugger;
     if (date) {
       const newDate = new Date(date);
       const today = new Date();
@@ -902,12 +902,27 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.age = undefined;
     }
   }
+  ageFlag: boolean = false;
   // calculate date of birth on the basis of age
   calculateDOB(age) {
+    debugger;
+    if(age >150) {
+      this.ageFlag = true
+    }
+    else {
+      this.ageFlag = false;
+    }
     const today = new Date();
     const currentYear = today.getFullYear();
-    if (age) {
+    if (age == "") {
+      this.DOB = undefined;
+    }
+    else if(age == 0) {
+      this.DOB = new Date();
+    }
+    else {
       this.DOB = new Date(today.setFullYear(currentYear - age));
+
     }
     // int parsing in decimal format
     // if (this.DOB) {
@@ -1050,9 +1065,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   reset() {
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
-    let a = null;
-    this.age = "0";
-    this.calculateDOB("0");
+    // let a = null;
+    // this.age = "0";
+    // this.calculateDOB("0");
 
 
   }
