@@ -254,8 +254,17 @@ export class SupervisorNotificationsComponent implements OnInit {
       userIDs=[(this.showNotificationForm.value.Users == "") ? userIDs : this.showNotificationForm.value.Users];
     }
 
+    let startDate: Date = new Date(this.showNotificationForm.value.startDate);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0)
 
-
+    let endDate: Date = new Date(this.showNotificationForm.value.endDate);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    endDate.setMilliseconds(0);
 
     this.notificationPostData = {
       "providerServiceMapID": this.providerServiceMapID,
@@ -264,8 +273,8 @@ export class SupervisorNotificationsComponent implements OnInit {
       "userIDs":userIDs,
       "workingLocationIDs":workingLocationIDs,
       "languageIDs":languageIDs,
-      "validStartDate": new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z",
-      "validEndDate": new Date((this.showNotificationForm.value.endDate) - 1 * (this.showNotificationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z"
+      "validStartDate": startDate,
+      "validEndDate": endDate
     };
 
     // if(this.show==-1)

@@ -16,13 +16,13 @@
             placeholder="End Date" [(ngModel)]="end_date" [min]=startDate.value></md2-datepicker>
         </div> -->
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <md2-datepicker class="width100" name="start_date" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date" (change)="endDateChange()"
+            <md2-datepicker class="width100" name="start_date" placeholder="Start Date" (keydown)="blockey($event)" [(ngModel)]="start_date" (change)="endDateChange()"
               #startDate [max]="maxStartDate" required></md2-datepicker>
             <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
             <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <md2-datepicker class="width100" name="end_date" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" 
+            <md2-datepicker class="width100" name="end_date" placeholder="End Date" (keydown)="blockey($event)" [(ngModel)]="end_date" 
               #endDate [min]="startDate.value" [max]="maxEndDate" required></md2-datepicker>
 <!--             <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span> -->
             <span class="error_text f-s-10 p-l-10" *ngIf="endDate.errors?.required">End date should be greator than start(max 30 days)</span>

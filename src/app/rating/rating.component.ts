@@ -37,7 +37,7 @@ export class RatingComponent implements OnInit {
 
 		this.current_userID=this.dataService.uid;
 
-		this.currentDate=this.getOffsetTime();
+		this.currentDate=new Date();
 
 		/*set the reusable request object, without notificationTypeID.... set that key
 		with its value before hitting the api  */
