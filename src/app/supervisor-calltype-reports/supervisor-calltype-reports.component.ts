@@ -193,7 +193,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       return { 'callTypeDesc': item.callGroupType };
     });
   }
-  blockey(e: any) {
+  blockKey(e: any) {
     if (e.keyCode === 9) {
       return true;
     } else {
