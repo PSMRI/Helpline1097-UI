@@ -29,7 +29,7 @@ export class NewsInformationsComponent implements OnInit {
 	ngOnInit() {
 		this.providerServiceMapID=this.dataService.current_service.serviceID;
 
-		this.currentDate=this.getOffsetTime();
+		this.currentDate=new Date();
 
 		this.request_object={
 			"providerServiceMapID": this.providerServiceMapID,
