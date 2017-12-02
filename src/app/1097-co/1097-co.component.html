@@ -4,7 +4,8 @@
       <div class=" bs-wizard animate-box" style=" position:relative; z-index:1">
         <!-- 'complete' css is added at bottom line to show green to next line -->
         <div id="one" class="col-xs-2 bs-wizard-step disabled" style="padding:0px; margin:0px;">
-          <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguage.co?.create_find_beneficiary}}</div>
+          <div *ngIf="!OUT" class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguage.co?.create_find_beneficiary}}</div>
+          <div *ngIf="OUT" class="text-center hidden-xs hidden-sm font-Light f-s-14">Beneficiary Details</div>
           <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguage.co?.create_find_beneficiary_mobile}}</div>
           <!-- progress-bar-disabled   css is added extra in this line to make it grey, remove for green -->
           <div class="progress progress-bar-disabled progress-margin">
