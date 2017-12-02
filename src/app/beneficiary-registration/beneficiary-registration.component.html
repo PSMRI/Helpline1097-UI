@@ -39,6 +39,11 @@
       
     </div> -->
   </div>
+  <div class="row p-t-20" *ngIf="current_campaign == 'OUTBOUND'">
+    <div class="col-xs-12 col-sm-12">
+      <h4>Beneficiary Details</h4>
+    </div>
+  </div>
   <div class="row" [collapse]="isAdvancedSearch">
     <form id="benForm" #searchForm="ngForm" autocomplete="off">
           <div class=" col-xs-12 col-sm-12">
@@ -270,8 +275,8 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <div class="form-group">
           <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-          <md2-datepicker  (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
-            name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB"></md2-datepicker>
+          <md2-datepicker required (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
+            name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB" #ageEvent2="ngModel"></md2-datepicker>
         </div>
       </div>
 
@@ -282,9 +287,10 @@
           [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
         </div> -->
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput  placeholder="{{currentlanguage.beneficiary_registration?.age}}" id="datee" required #ageRef min="0" max="150" name="age" maxlength="3" 
+          <input mdInput  placeholder="{{currentlanguage.beneficiary_registration?.age}}" id="datee"  #ageRef min="0" max="150" name="age" maxlength="3" 
             [(ngModel)]="age" (keyup)="calculateDOB(ageRef.value)" #ageEvent="ngModel" >
-          <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)">
+          <!-- <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)"> -->
+          <md-hint *ngIf=" ageFlag && ( ageEvent.dirty || ageEvent.touched)">
             <span class="error_text">Enter valid age (max:150) </span>
           </md-hint>
         </md-input-container>
@@ -320,9 +326,9 @@
 
       <!-- </form> -->
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10">
-        <button *ngIf="isParentBeneficiary" [disabled]="!genderSelected.valid || !ageEvent.valid" md-raised-button color="primary" class="pull-right font-regular"
+        <button *ngIf="isParentBeneficiary" [disabled]="!genderSelected.valid || !ageEvent2.valid" md-raised-button color="primary" class="pull-right font-regular"
           (click)="captureOtherInfo()">{{currentlanguage.beneficiary_registration?.next}}</button>
-          <button *ngIf="!isParentBeneficiary" [disabled]="!genderSelected.valid || !ageEvent.valid" md-raised-button color="primary" class="pull-right font-regular"
+          <button *ngIf="!isParentBeneficiary" [disabled]="!genderSelected.valid || !ageEvent2.valid" md-raised-button color="primary" class="pull-right font-regular"
           (click)="captureOtherInfo()">{{currentlanguage.beneficiary_registration?.next}}</button>
       </div>
     </div>

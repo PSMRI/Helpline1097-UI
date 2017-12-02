@@ -17,7 +17,8 @@ export class SexualOrientationReportComponent implements OnInit {
   today: Date;
   start_date: Date;
   end_date: Date;
-  minStartDate: Date;
+  maxStartDate: Date;
+  maxEndDate: Date;
   tableFlag: boolean = false;
   data = [];
   sexualOrientations = [];
@@ -38,21 +39,37 @@ export class SexualOrientationReportComponent implements OnInit {
     .subscribe((response)=>{
       console.log(response);
       this.sexualOrientations = response['sexualOrientations'];
+      let all = {
+        "sexualOrientation": "All"
+      }
+      this.sexualOrientations.push(all);
       this.states = response['states'];
     },
     (error)=>{
       console.log(error);
     })
+
     this.providerServiceMapID = this.dataService.current_service.serviceID;
 
     this.today = new Date();
-    this.today.setDate(this.today.getDate()-1);
-    console.log(this.today);
-    this.end_date = new Date(this.today);
+    this.end_date = new Date();
+    this.end_date.setDate(this.today.getDate() - 1);
+    this.end_date.setHours(23,59,59,0);
+
     this.start_date = new Date();
-    this.start_date.setDate(this.today.getDate()-7);
-    this.minStartDate = new Date();
-    this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
+   this.start_date.setDate(this.today.getDate()-7);
+   this.start_date.setHours(0,0,0,0);
+
+    this.maxStartDate = new Date();
+    this.maxStartDate.setDate(this.today.getDate() - 1);
+    this.maxStartDate.setHours(0,0,0,0);
+
+    this.maxEndDate = new Date();
+        this.maxEndDate.setDate(this.today.getDate() - 1);
+    this.maxEndDate.setHours(23,59,59,0);
+
+    //console.log("sd,ed,msd,med", this.start_date, this.end_date, this.maxStartDate, this.maxEndDate);
+    //this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
   }
 
   blockKey(e: any){
@@ -76,38 +93,59 @@ export class SexualOrientationReportComponent implements OnInit {
     (error)=>{
       console.log(error);
     })
+    console.log(this.sexualOrientations);
   }
 
-  endDateChange(){
-    console.log(this.end_date);
-    this.minStartDate = new Date(this.end_date);
-    this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
-    this.start_date = new Date(this.end_date);
-    this.start_date.setMonth(this.start_date.getMonth()-1);
+  // endDateChange(){
+  //   console.log(this.end_date);
+  //   // this.minStartDate = new Date(this.end_date);
+  //   // this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
+  //   // this.start_date = new Date(this.end_date);
+  //   // this.start_date.setMonth(this.start_date.getMonth()-1);
+  // }
+
+  endDateChange() {
+
+    //console.log("sd,med", this.start_date, this.maxEndDate);
+    if(this.today.getTime() < this.maxEndDate.getTime()) {
+      let i = new Date();
+      i.setDate(this.today.getDate() - 1);
+      this.maxEndDate = i;
+      this.maxEndDate.setHours(23,59,59,0);
+      //console.log("sd,med", this.start_date, this.maxEndDate);
+    }
+    else {
+      this.maxEndDate = new Date(this.start_date);
+      this.maxEndDate.setMonth(this.maxEndDate.getMonth()+1);
+      this.maxEndDate.setHours(23,59,59,0);
+    }
+
+    var timeDiff = this.end_date.getTime() - this.start_date.getTime() ;
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    if(diffDays > 90) {
+      var tempDate = new Date(this.start_date);
+      tempDate.setMonth(this.start_date.getMonth()+1);
+      tempDate.setHours(23,59,59,0);
+      this.sexualOrientationSearchForm.form.patchValue({
+        'endDate': tempDate
+      });
+    }
+    if(diffDays < 0) {
+      var tempDate = new Date(this.start_date);
+      tempDate.setHours(23,59,59,0);
+      this.sexualOrientationSearchForm.form.patchValue({
+        'endDate': tempDate
+      });
+    }
   }
 
+
+  
   getReports(){
     console.log("values:", this.sexualOrientationSearchForm.value);
     this.postData = [];
-    if(this.sexualOrientationSearchForm.value.sexuality!=''){
-      for(var i=0; i< this.sexualOrientationSearchForm.value.sexuality.length;i++){
-        var obj = {
-          "providerServiceMapID": this.providerServiceMapID,
-          "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
-          "endTimestamp": new Date((this.sexualOrientationSearchForm.value.endDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
-          "beneficiarySexualOrientation": this.sexualOrientationSearchForm.value.sexuality[i]
-        }
-        if(this.sexualOrientationSearchForm.value.state!=''){
-          obj['beneficiaryState'] = this.sexualOrientationSearchForm.value.state.stateName;
-        }
-        if(this.sexualOrientationSearchForm.value.district!=''){
-          obj['beneficiaryDistrict'] = this.sexualOrientationSearchForm.value.district;
-        }
-        this.postData.push(obj);
-      }
-    }
-    else {
-      for(var i=0;i<this.sexualOrientations.length;i++){
+    if(this.sexualOrientationSearchForm.value.sexuality == "All"){
+      for(var i=0;i<this.sexualOrientations.length-1;i++){
         var obj = {
           "providerServiceMapID": this.providerServiceMapID,
           "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
@@ -122,18 +160,39 @@ export class SexualOrientationReportComponent implements OnInit {
         }
         this.postData.push(obj);
       }
+
     }
-    console.log(this.postData);
-    this.reportsService.getAllBySexualOrientation(this.postData)
-    .subscribe((response)=>{
-      console.log(response);
-      this.tableFlag = true;
-      this.orientations = response;
-    },
-    (error)=>{
-      console.log(error);
-    })
-  }
+    else {
+      //  for(var i=0; i< this.sexualOrientationSearchForm.value.sexuality.length;i++){
+
+        var obj = {
+          "providerServiceMapID": this.providerServiceMapID,
+          "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
+          "endTimestamp": new Date((this.sexualOrientationSearchForm.value.endDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
+          "beneficiarySexualOrientation": this.sexualOrientationSearchForm.value.sexuality
+        }
+        if(this.sexualOrientationSearchForm.value.state!=''){
+          obj['beneficiaryState'] = this.sexualOrientationSearchForm.value.state.stateName;
+        }
+        if(this.sexualOrientationSearchForm.value.district!=''){
+          obj['beneficiaryDistrict'] = this.sexualOrientationSearchForm.value.district;
+        }
+        this.postData.push(obj);
+        //  }
+
+      }
+      console.log(this.postData);
+      this.reportsService.getAllBySexualOrientation(this.postData)
+      .subscribe((response)=>{
+        console.log(response);
+        this.tableFlag = true;
+        this.orientations = response;
+
+      },
+      (error)=>{
+        console.log(error);
+      })
+    }
 
   download_report()
 {
