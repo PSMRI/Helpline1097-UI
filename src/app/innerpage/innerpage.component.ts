@@ -31,6 +31,7 @@ export class InnerpageComponent implements OnInit {
   counter: number = 0;
   current_campaign: any;
   eventSpiltData: any;
+  wrapUpTimeInMillis=20;
   // language change stuff
   languageFilePath: any = 'assets/language.json';
   selectedlanguage: any = '';
@@ -38,7 +39,7 @@ export class InnerpageComponent implements OnInit {
   language_change: any;
   beneficiaryRegID: any;
   providerServiceMapId: any;
-  timeRemaining: number = 3;
+  timeRemaining: number = 20;
   ticks: any;
   callStatus: any;
   callTime: boolean = true;
@@ -344,10 +345,10 @@ export class InnerpageComponent implements OnInit {
       this.getAgentStatus();
       this.showRemarksNew(eventData);
       this.transferInProgress = true;
-      // this.showRemarks(eventData);
     } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress) {
       this.getAgentStatus();
       this.disconnectCall();
+      this.startCallWraupup(eventData);
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
@@ -404,14 +405,16 @@ export class InnerpageComponent implements OnInit {
     this.closeCall(eventData, remarksGiven);
   }
 
-  startCallWraupup (eventData) {
+  startCallWraupup(eventData) {
+    this.wrapupTime = true;
+    this.callTime = false;
     const timer = Observable.timer(2000, 1000);
     timer.subscribe(t => {
       this.ticks = (this.timeRemaining - t);
       this.ticks = this.ticks + 's';
-      const remarks = 'call tranfered';
+      const remarks = 'Call Completed';
       if (t == this.timeRemaining) {
-        this.remarksMessage.close();
+       // this.remarksMessage.close();
         this.closeCall(eventData, remarks);
       }
     });
