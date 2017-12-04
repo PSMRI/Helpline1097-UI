@@ -104,9 +104,15 @@ export class helpline1097CoComponent implements OnInit {
   // }
 
   /*experiment*/
-
+  OUT: boolean;
   ngOnChanges() {
     this.setLanguage(this.current_language);
+    if(this.getCommonData.current_campaign == 'OUTBOUND') {
+      this.OUT = true;
+    }
+    else {
+      this.OUT = false;
+    }
   }
 
   setLanguage(language) {
@@ -182,11 +188,13 @@ export class helpline1097CoComponent implements OnInit {
     }
   }
   benService(data) {
+
     // alert(this.getCommonData.benRegId);
     if (data === 'benService') {
       jQuery('#myCarousel').carousel(1);
       jQuery('#two').parent().find('a').removeClass('active-tab');
       jQuery('#two').find('a').addClass('active-tab');
+      //jQuery('#second').addClass('item active');
       this.isNext = true;
       this.isCancelDisable = false;
       this.resetProvideServices = "5";

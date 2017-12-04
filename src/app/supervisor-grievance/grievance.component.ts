@@ -599,7 +599,8 @@ checkExtension(file) {
     var count = 0;
     console.log("FILE DETAILS", file);
     if (file) {
-      var file_extension = file.name.split(".")[1];
+      var array_after_split=file.name.split(".");
+    var file_extension=array_after_split[array_after_split.length-1];
       for (let i = 0; i < this.valid_file_extensions.length; i++) {
         if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
           count = count + 1;

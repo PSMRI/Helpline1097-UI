@@ -56,7 +56,7 @@ export class AlertsNotificationComponent implements OnInit {
     
     this.notificationService.getNotificationTypes(this.service.serviceID)
     .subscribe((response) => {
-      let currentDate = this.getOffsetTime();
+      let currentDate =new Date();
       console.log(response.data,"notification Types in dashboard Alert component");
       // "Language Message"
       // "Location Message"
@@ -127,16 +127,7 @@ export class AlertsNotificationComponent implements OnInit {
     });
   }
 
-  loadAlertsAndNotifications(actor: string) {
-    var url;
-    if (actor === 'CO') {
-      url = "http://localhost:8080/DashboardWebServiceNew/RestAPI/dbrdService/data/query=CC&mainPage";
-      this.dashboardHttpServices.getData(url
-                                         ).subscribe(data => this.profile = data);
-      console.log(this.profile);
-    } else
-    alert("Not CO...");
-  }
+  
 
   getAlertsandNotifications() {
     if (this.alertPostData) {

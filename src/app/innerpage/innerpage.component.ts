@@ -375,6 +375,8 @@ export class InnerpageComponent implements OnInit {
         //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         //   this.basicrouter.navigate(['/InnerpageComponent']);
         // } else {
+          sessionStorage.removeItem("isOnCall");
+
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         // }
       }

@@ -7,14 +7,26 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="row">
       <form #CallTypeReport="ngForm" autocomplete="off">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<!--                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <md2-datepicker class="width100" name="start_date" (keydown)="blockey($event)" #startDate [md2DatepickerToggle]="startDate" placeholder="Start Date" [(ngModel)]="start_date"
             #startDate [max]="maxDate" [min]="minStartDate"></md2-datepicker>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <md2-datepicker class="width100" (keydown)="blockey($event)" #endDate [md2DatepickerToggle]="endDate" name="end_date" [min]="startDate.value" [max]="maxDate"
             placeholder="End Date" [(ngModel)]="end_date" [min]=startDate.value></md2-datepicker>
-        </div>
+        </div> -->
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <md2-datepicker class="width100" name="start_date" placeholder="Start Date" (keydown)="blockey($event)" [(ngModel)]="start_date" (change)="endDateChange()"
+              #startDate [max]="maxStartDate" required></md2-datepicker>
+            <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+            <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <md2-datepicker class="width100" name="end_date" placeholder="End Date" (keydown)="blockey($event)" [(ngModel)]="end_date" 
+              #endDate [min]="startDate.value" [max]="maxEndDate" required></md2-datepicker>
+<!--             <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span> -->
+            <span class="error_text f-s-10 p-l-10" *ngIf="endDate.errors?.required">End date should be greator than start(max 30 days)</span>
+          </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <md-input-container class="hide_underline" [style.width]="'100%'">
                   <input mdInput style="display:none">
@@ -100,7 +112,7 @@
         </md-input-container>
       </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-          <button class="pull-right" [disabled]="CallTypeReport.invalid" md-raised-button color="accent" (click)="setTableFlag(true)">SEARCH</button>
+          <button class="pull-right" [disabled]="CallTypeReport.invalid" md-raised-button color="accent" (click)="setTableFlag(true,CallTypeReport.value)">Generate Report</button>
         </div>
       </form>
       </div>
