@@ -13,18 +13,19 @@ export class CallServices {
 
   _baseUrl = this._config.get1097BaseURL();
   _commonURL = this._config.getCommonBaseURL();
-  _closecallurl = this._commonURL + 'call/closeCall/';
+  _closecallurl = this._commonURL + 'call/closeCallV1/';
   _callsummaryurl = this._baseUrl + 'services/getCallSummary/';
   _calltypesurl = this._commonURL + 'call/getCallTypesV1/';
   _outboundCalls = this._commonURL + 'call/outboundCallList/';
   _blacklistCalls = this._commonURL + 'call/getBlacklistNumbers/';
   _blockPhoneNo = this._commonURL + 'call/blockPhoneNumber/';
-  _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber';
-  _outbouncClose_url = this._commonURL + '/call/completeOutboundCall';
-  _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList';
+  _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber/';
+  _outbouncClose_url = this._commonURL + '/call/completeOutboundCall/';
+  _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList/';
+  _disconnectCall_url = this._commonURL + '/cti/disconnectCall/';
 
-  _getRecording_url=this._commonURL+"call/nueisanceCallHistory";
-  
+  _getRecording_url = this._commonURL + "call/nueisanceCallHistory/";
+
   constructor(
     private _http: Http,
     private _config: ConfigService,
@@ -34,6 +35,12 @@ export class CallServices {
   closeCall(values: any) {
     console.log('data to be updated in service is', values);
     return this._httpInterceptor.post(this._closecallurl, values).map(this.extractData).catch(this.handleCustomError);
+  }
+  disconnectCall(agentID: any) {
+    // debugger;
+    let disconnectObj = { "agent_id": agentID };
+    return this._httpInterceptor.post(this._disconnectCall_url, disconnectObj).map(this.extractData).catch(this.handleCustomError);
+
   }
   closeOutBoundCall(callID: any, isCompleted: boolean) {
     let outboundObj = {};
@@ -62,7 +69,7 @@ export class CallServices {
   getBlackListCalls(objSearch: any) {
     return this._httpInterceptor.post(this._blacklistCalls, objSearch).map(this.extractData).catch(this.handleCustomError);
   }
- 
+
   getLanguages() {
     return this._http.get(this._getLanguage_url, this.options).map(this.extractData).catch(this.handleError);
   }
@@ -74,12 +81,11 @@ export class CallServices {
 
   }
 
-  getRecording(obj)
-  {
-    return this._httpInterceptor.post(this._getRecording_url,obj).map(this.extractData).catch(this.handleCustomError);
+  getRecording(obj) {
+    return this._httpInterceptor.post(this._getRecording_url, obj).map(this.extractData).catch(this.handleCustomError);
   }
 
-   extractData(response: Response) {
+  extractData(response: Response) {
     if (response.json().data) {
       return response.json().data;
     } else {

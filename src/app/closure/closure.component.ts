@@ -76,7 +76,7 @@ export class ClosureComponent implements OnInit
 
     this.today = new Date();
     this.minDate = this.today;
-    this.minDate.setHours(0,0,0,0);
+    this.minDate.setHours(0, 0, 0, 0);
     this.showSlider = false;
     this.current_campaign = this.saved_data.current_campaign;
     if (!this.saved_data.loginIP) {
@@ -99,7 +99,7 @@ export class ClosureComponent implements OnInit
     this.currentlanguage = language;
   }
 
-  sliderVisibility(val:any) {
+  sliderVisibility(val: any) {
     console.log(this.callTypeID.split(',')[2]);
     if (this.callTypeID.split(',')[2] == "true") {
       this.showSlider = true;
@@ -202,6 +202,13 @@ export class ClosureComponent implements OnInit
             //   this.closedContinue.emit();
             // }
             // this.pass_data.sendData(this.current_campaign);
+
+            this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
+              console.log('disconnect response', res);
+
+            }, (err) => {
+
+            });
           }
         }, (err) => {
           this.message.alert(err.status);
@@ -220,6 +227,12 @@ export class ClosureComponent implements OnInit
                 // this.callClosed.emit(this.current_campaign);
                 // } else {
                 this.closedContinue.emit();
+                this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
+                  console.log('disconnect response', res);
+
+                }, (err) => {
+
+                });
                 // }
                 // this.pass_data.sendData(this.current_campaign);
               }
@@ -283,6 +296,12 @@ export class ClosureComponent implements OnInit
         this.message.alert('Outbound Call Successfully Closed.');
         if (btnType === 'submitClose') {
           this.callClosed.emit(this.current_campaign);
+          this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
+            console.log('disconnect response', res);
+
+          }, (err) => {
+
+          });
         } else {
           this.closedContinue.emit();
         }
