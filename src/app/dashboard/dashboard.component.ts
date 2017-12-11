@@ -35,8 +35,8 @@ export class dashboardContentClass implements OnInit {
   compainType: any;
 
 
-  agentID:any;
-  agentIDExitsFlag:boolean=false;
+  agentID: any;
+  agentIDExitsFlag: boolean = false;
   constructor(
     public dataSettingService: dataService,
     public router: Router,
@@ -92,22 +92,19 @@ export class dashboardContentClass implements OnInit {
     //   location.assign(this.loginUrl);
     //   Cookie.deleteAll();
     // }
-    this.agentID=this.dataSettingService.cZentrixAgentID;
+    this.agentID = this.dataSettingService.cZentrixAgentID;
     this.agentIDexists(this.agentID);
 
 
   }
 
-  agentIDexists(agentID)
-  {
-    console.log(agentID,"AGENT ID IN DASHBOARD");
-    if(agentID!=undefined)
-    {
-      this.agentIDExitsFlag=true;
+  agentIDexists(agentID) {
+    console.log(agentID, "AGENT ID IN DASHBOARD");
+    if (agentID != undefined) {
+      this.agentIDExitsFlag = true;
     }
-    else
-    {
-      this.agentIDExitsFlag=false;
+    else {
+      this.agentIDExitsFlag = false;
     }
 
   }

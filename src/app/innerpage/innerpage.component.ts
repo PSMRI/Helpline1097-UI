@@ -49,6 +49,7 @@ export class InnerpageComponent implements OnInit {
   TotalTime: any;
   id: any;
   disconectCallId: any;
+  backToDashboard: boolean = true;
   // eventSpiltData: any;
 
 
@@ -344,6 +345,10 @@ export class InnerpageComponent implements OnInit {
       this.getAgentStatus();
       this.disconnectCall();
       this.startCallWraupup(eventData);
+    } else if (eventData[0] === 'Accept' && eventData.length > 3) {
+      this.backToDashboard = true;
+      sessionStorage.setItem("isOnCall", "yes");
+      this.basicrouter.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2], this.eventSpiltData[3]]);
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
@@ -393,29 +398,19 @@ export class InnerpageComponent implements OnInit {
 
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
-        this.remarksMessage.alert(message);
-        sessionStorage.removeItem("isOnCall");
-        this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
-        this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
-          console.log('disconnect response', res);
+        if (this.backToDashboard) {
+          this.remarksMessage.alert(message);
+          sessionStorage.removeItem("isOnCall");
+          this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+          this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
+            console.log('disconnect response', res);
+          }, (err) => {
 
-        }, (err) => {
-
-        });
-
-        // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
-        //   this.current_campaign = 'OUTBOUND';
-        //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
-        //   this.basicrouter.navigate(['/InnerpageComponent']);
-        // } else {
-
-
-
-        // }
+          });
+        }
       }
     }, (err) => {
       this.remarksMessage.alert(err.status);
-      // this.message.alert(err.status);
     });
   }
   showRemarks(eventData) {
