@@ -23,7 +23,7 @@ export class CallServices {
   _outbouncClose_url = this._commonURL + '/call/completeOutboundCall';
   _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList';
 
-  _getRecording_url=this._commonURL+"call/nueisanceCallHistory";
+  _getRecording_url=this._commonURL+'call/nueisanceCallHistory';
   
   constructor(
     private _http: Http,

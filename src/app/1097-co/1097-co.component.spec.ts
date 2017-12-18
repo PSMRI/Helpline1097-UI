@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { 1097CoComponent } from './1097-co.component';
+import { helpline1097CoComponent } from './1097-co.component';
 
 describe('1097CoComponent', () => {
-  let component: 1097CoComponent;
-  let fixture: ComponentFixture<1097CoComponent>;
+  let component: helpline1097CoComponent;
+  let fixture: ComponentFixture<helpline1097CoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 1097CoComponent ]
+      declarations: [helpline1097CoComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(1097CoComponent);
+    fixture = TestBed.createComponent(helpline1097CoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
