@@ -10,6 +10,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CallServices } from '../services/callservices/callservice.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
+import { ClosureComponent } from '../closure/closure.component';
 import { Observable } from "rxjs/Rx";
 declare const jQuery: any;
 
@@ -31,6 +32,7 @@ export class InnerpageComponent implements OnInit {
   counter: number = 0;
   current_campaign: any;
   eventSpiltData: any;
+  wrapUpTimeInSeconds = 30;
   // language change stuff
   languageFilePath: any = 'assets/language.json';
   selectedlanguage: any = '';
@@ -38,7 +40,7 @@ export class InnerpageComponent implements OnInit {
   language_change: any;
   beneficiaryRegID: any;
   providerServiceMapId: any;
-  timeRemaining: number = 3;
+  timeRemaining: number = 30;
   ticks: any;
   callStatus: any;
   callTime: boolean = true;
@@ -46,7 +48,7 @@ export class InnerpageComponent implements OnInit {
   TotalCalls: any;
   TotalTime: any;
   id: any;
-
+  disconectCallId: any;
   // eventSpiltData: any;
 
 
@@ -60,7 +62,7 @@ export class InnerpageComponent implements OnInit {
   loginUrl = this._config.getCommonLoginUrl();
   data: any = {};
   ctiHandlerURL: any;
-  validCallID: any;
+  transferCallID: any;
   listenCallEvent: any;
   transferInProgress: Boolean = false;
   constructor(
@@ -74,7 +76,8 @@ export class InnerpageComponent implements OnInit {
     private _config: ConfigService,
     private remarksMessage: ConfirmationDialogsService,
     private renderer: Renderer,
-    private Czentrix: CzentrixServices
+    private Czentrix: CzentrixServices,
+    // private closureComponent: ClosureComponent
 
   ) {
     this.currentlanguageSet = [];
@@ -273,39 +276,32 @@ export class InnerpageComponent implements OnInit {
           return previousData.callTypeDesc.toLowerCase() === 'transfer'
         });
         if (transferObj) {
-          this.validCallID = transferObj[0].callTypeID;
-        } else {
-          let validObj = response.filter(function (item) {
-            console.log(item.callGroupType);
-            return item.callGroupType.toLowerCase() === 'valid'
-          });
-          if (validObj) {
-            validObj = validObj[0].callTypes.filter(function (previousData) {
-              console.log(previousData.callTypeDesc);
-              return previousData.callTypeDesc.toLowerCase() === 'valid'
-            });
-            if (validObj) {
-              this.validCallID = validObj[0].callTypeID;
-            }
-          } else {
-            this.remarksMessage.alert('Failed To Get Call Types. Please Try Again.');
-          }
+          this.transferCallID = transferObj[0].callTypeID;
         }
       } else {
         this.remarksMessage.alert('Failed To Get Call Types. Please Try Again.');
       }
 
-      // this.validCallID = response.filter(function (item) {
-      //   console.log(item.callGroupType);
-      //   return item.callGroupType.toLowerCase() === 'valid'
-      // })[0].callTypes.filter(function (previousData) {
-      //   console.log(previousData.callTypeDesc);
-      //   return previousData.callTypeDesc.toLowerCase() === 'valid'
-      // })[0].callTypeID;
 
-
-
-      console.log('valid call id', this.validCallID);
+      let validObj = response.filter(function (item) {
+        console.log(item.callGroupType);
+        return item.callGroupType.toLowerCase() === 'valid'
+      });
+      if (validObj) {
+        validObj = validObj[0].callTypes.filter(function (previousData) {
+          console.log(previousData.callTypeDesc);
+          return previousData.callTypeDesc.toLowerCase() === 'valid'
+        });
+        if (validObj) {
+          this.disconectCallId = validObj[0].callTypeID;
+        }
+      } else {
+        this.remarksMessage.alert('Failed To Get Call Types. Please Try Again.');
+      }
+      if (!this.transferCallID) {
+        this.transferCallID = this.disconectCallId;
+      }
+      console.log('valid call id', this.transferCallID);
     }, (err) => {
 
     });
@@ -344,39 +340,77 @@ export class InnerpageComponent implements OnInit {
       this.getAgentStatus();
       this.showRemarksNew(eventData);
       this.transferInProgress = true;
-      // this.showRemarks(eventData);
     } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress) {
       this.getAgentStatus();
       this.disconnectCall();
+      this.startCallWraupup(eventData);
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
   }
-  closeCall(eventData, remarks) {
+  closeCall(eventData, remarks, message?: any) {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
-    requestObj['callTypeID'] = this.validCallID.toString();
-    requestObj['fitToBlock'] = 'false';
-    requestObj['isFollowupRequired'] = false;
-    requestObj['prefferedDateTime'] = undefined
+    if (!this.transferInProgress) {
+      // if (this.closureComponent.callTypeID) {
+      //   requestObj['fitToBlock'] = this.closureComponent.callTypeID.split(',')[1];
+      //   requestObj['callTypeID'] = this.closureComponent.callTypeID.split(',')[0];
+      // } else {
+      requestObj['callTypeID'] = this.disconectCallId.toString();
+      requestObj['fitToBlock'] = 'false';
+      // }
+
+      // if (this.closureComponent.isFollowupRequired) {
+      //   requestObj['isFollowupRequired'] = this.closureComponent.isFollowupRequired;
+      //   if (this.closureComponent.prefferedDateTime) {
+      //     requestObj['prefferedDateTime'] = new Date(this.closureComponent.prefferedDateTime);
+      //     requestObj['prefferedDateTime']
+      //       = new Date((requestObj['prefferedDateTime']) - 1 * (requestObj['prefferedDateTime'].getTimezoneOffset() * 60 * 1000)).toJSON();
+      //   } else {
+      //     requestObj['prefferedDateTime'] = undefined;
+      //   }
+      // } else {
+      requestObj['isFollowupRequired'] = false;
+      requestObj['prefferedDateTime'] = undefined;
+      // }
+      // if (this.closureComponent.remarks) {
+      // remarks = this.closureComponent.remarks;
+      // }
+      requestObj['endCall'] = true;
+    } else {
+      requestObj['callTypeID'] = this.transferCallID.toString();
+      requestObj['fitToBlock'] = 'false';
+      requestObj['isFollowupRequired'] = false;
+      requestObj['prefferedDateTime'] = undefined;
+      requestObj['endCall'] = false;
+    }
+
     requestObj['callType'] = 'valid';
     requestObj['beneficiaryRegID'] = this.beneficiaryRegID
     requestObj['remarks'] = remarks;
     requestObj['providerServiceMapID'] = this.getCommonData.current_service.serviceID;
     requestObj['createdBy'] = this.getCommonData.uname;
-    requestObj['endCall'] = false;
 
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
-        this.remarksMessage.alert('Successfully Transffered Call.');
+        this.remarksMessage.alert(message);
+        sessionStorage.removeItem("isOnCall");
+        this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+        this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
+          console.log('disconnect response', res);
+
+        }, (err) => {
+
+        });
+
         // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
         //   this.current_campaign = 'OUTBOUND';
         //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         //   this.basicrouter.navigate(['/InnerpageComponent']);
         // } else {
-          sessionStorage.removeItem("isOnCall");
 
-        this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+
+
         // }
       }
     }, (err) => {
@@ -403,18 +437,20 @@ export class InnerpageComponent implements OnInit {
   showRemarksNew(eventData) {
     let remarksGiven;
     remarksGiven = eventData[0] + ' to ' + eventData[2];
-    this.closeCall(eventData, remarksGiven);
+    this.closeCall(eventData, remarksGiven, 'Call Transfered Successfully.');
   }
 
-  startCallWraupup (eventData) {
+  startCallWraupup(eventData) {
+    this.wrapupTime = true;
+    this.callTime = false;
     const timer = Observable.timer(2000, 1000);
     timer.subscribe(t => {
       this.ticks = (this.timeRemaining - t);
       this.ticks = this.ticks + 's';
-      const remarks = 'call tranfered';
+      const remarks = 'Call disconnect from customer.';
       if (t == this.timeRemaining) {
-        this.remarksMessage.close();
-        this.closeCall(eventData, remarks);
+        // this.remarksMessage.close();
+        this.closeCall(eventData, remarks, 'Call Completed Successfully.');
       }
     });
   }
