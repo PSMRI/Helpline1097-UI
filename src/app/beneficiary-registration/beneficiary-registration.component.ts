@@ -179,7 +179,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.maxDate = this.today;
     this.maxDate.setHours(23, 59, 59, 0);
     this.DOB = new Date();
-    debugger;
+    // debugger;
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
@@ -312,7 +312,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   SetUserBeneficiaryRegistrationData(response: any) {
-    debugger;
+    // debugger;
     const regData = response;
     if (regData.states) {
       this.states = regData.states;

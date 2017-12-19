@@ -13,7 +13,7 @@ export class CallServices {
 
   _baseUrl = this._config.get1097BaseURL();
   _commonURL = this._config.getCommonBaseURL();
-  _closecallurl = this._commonURL + 'call/closeCallV1/';
+  _closecallurl = this._commonURL + 'call/closeCall/';
   _callsummaryurl = this._baseUrl + 'services/getCallSummary/';
   _calltypesurl = this._commonURL + 'call/getCallTypesV1/';
   _outboundCalls = this._commonURL + 'call/outboundCallList/';
