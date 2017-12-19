@@ -341,15 +341,15 @@ export class InnerpageComponent implements OnInit {
       this.getAgentStatus();
       this.showRemarksNew(eventData);
       this.transferInProgress = true;
-    } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress) {
+    } else if ((eventData[0] === 'CallDisconnect1' || eventData[0] === 'CustDisconnect') && !this.transferInProgress) {
       this.getAgentStatus();
       this.disconnectCall();
       this.startCallWraupup(eventData);
-    } else if (eventData[0] === 'Accept' && eventData.length > 3) {
+    }/* else if (eventData[0] === 'Accept' && eventData.length > 3) {
       this.backToDashboard = true;
       sessionStorage.setItem("isOnCall", "yes");
       this.basicrouter.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2], this.eventSpiltData[3]]);
-    } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
+    }*/ else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'dashboard-user-id',
@@ -12,6 +13,7 @@ export class DashboardUserIdComponent implements OnInit {
     status: any;
     constructor(
         public dataSettingService: dataService,
+        public router: Router,
         private Czentrix: CzentrixServices
     ) {
         this.current_service = this.dataSettingService.current_service.serviceName;
@@ -24,8 +26,15 @@ export class DashboardUserIdComponent implements OnInit {
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
             this.status = res.data.stateObj.stateName;
-            if (res.data.stateObj.stateType) {
-                this.status += ' (' + res.data.stateObj.stateType + ')';
+            if (this.status.toUpperCase() === "INCALL") {
+                let CLI = res.data.CLI;
+                let session_id = res.data.session_id;
+                sessionStorage.setItem("isOnCall", "yes");
+                this.router.navigate(['/InnerpageComponent', CLI, session_id, "INBOUND"]);
+            } else {
+                if (res.data.stateObj.stateType) {
+                    this.status += ' (' + res.data.stateObj.stateType + ')';
+                }
             }
         }, (err) => {
 
