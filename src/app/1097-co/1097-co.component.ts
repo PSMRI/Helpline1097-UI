@@ -30,7 +30,7 @@ export class helpline1097CoComponent implements OnInit {
   isNext: boolean = false
   @Input() current_language: any;
   currentlanguage: any;
-    resetProvideServices: any;
+  resetProvideServices: any;
 
   private current_campaign: any;
 
@@ -96,7 +96,7 @@ export class helpline1097CoComponent implements OnInit {
   }
 
 
-/*experiment*/
+  /*experiment*/
   // f:boolean=true;
   // toggleVAL()
   // {
@@ -107,7 +107,7 @@ export class helpline1097CoComponent implements OnInit {
   OUT: boolean;
   ngOnChanges() {
     this.setLanguage(this.current_language);
-    if(this.getCommonData.current_campaign == 'OUTBOUND') {
+    if (this.getCommonData.current_campaign == 'OUTBOUND') {
       this.OUT = true;
     }
     else {
@@ -194,10 +194,10 @@ export class helpline1097CoComponent implements OnInit {
       jQuery('#myCarousel').carousel(1);
       jQuery('#two').parent().find('a').removeClass('active-tab');
       jQuery('#two').find('a').addClass('active-tab');
-      //jQuery('#second').addClass('item active');
+      // jQuery('#second').addClass('item active');
       this.isNext = true;
       this.isCancelDisable = false;
-      this.resetProvideServices = "5";
+      this.resetProvideServices = '5';
     }
 
   }
@@ -205,15 +205,15 @@ export class helpline1097CoComponent implements OnInit {
   closeCall(compain_type: any) {
     this.getCommonData.current_campaign = compain_type;
     this.getCommonData.isCallDisconnected = false;
-    sessionStorage.removeItem("isOnCall");
+    sessionStorage.removeItem('isOnCall');
 
     this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }
   openDialog() {
-    
+
     this.dialogService.confirm('Cancel Call ', 'Cancel Call?').subscribe((response) => {
       if (response) {
-        this.resetProvideServices = "2";
+        this.resetProvideServices = '2';
         // this.reloadCall();
         //   this.beneficiarySelected.emit(null);
         const id = jQuery('.carousel-inner div.active').index();
@@ -224,7 +224,7 @@ export class helpline1097CoComponent implements OnInit {
         // jQuery('#benForm').trigger('reset');
         // jQuery('#closeForm').trigger('reset');
         this.ClearForm.clearFormSender('closure');
-        //jQuery('#otherDetailsForm').trigger('reset');
+        // jQuery('#otherDetailsForm').trigger('reset');
         this.isCancelDisable = true;
         this.isClosureDisable = false;
         this.isNext = false;
@@ -232,13 +232,13 @@ export class helpline1097CoComponent implements OnInit {
         this.ReloadBenOutbound('reloadcall');
       }
     });
-   
+
   }
   openDialogClosure() {
-    
+
     this.dialogService.confirm('Closure ', 'Close Call ?').subscribe((response) => {
       if (response) {
-        this.resetProvideServices = "3";
+        this.resetProvideServices = '3';
         jQuery('#myCarousel').carousel(3);
         jQuery('#four').parent().find('a').removeClass('active-tab');
         jQuery('#four').find('a').addClass('active-tab');
@@ -293,7 +293,7 @@ export class helpline1097CoComponent implements OnInit {
     this.reloadCall.sendReloadCall(callType);
   }
   nxtVisual() {
-     this.resetProvideServices = "4";
+    this.resetProvideServices = '4';
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);
 
@@ -309,10 +309,10 @@ export class helpline1097CoComponent implements OnInit {
       this.isNext = false;
       this.isPrevious = true;
     }
-   
+
   }
   prevVisual() {
-    this.resetProvideServices = "1";
+    this.resetProvideServices = '1';
     var idx = jQuery('.carousel-inner div.active').index();
     console.log('chala with', idx);
     this.isClosureDisable = false;
@@ -331,7 +331,7 @@ export class helpline1097CoComponent implements OnInit {
       this.isPrevious = true;
 
     }
-    
+
   }
   CancelDisable() {
     this.isCancelDisable = false;

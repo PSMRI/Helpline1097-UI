@@ -31,10 +31,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   currentlanguage: any;
   p = 1;
 
-  @Output() onBenRegDataSelect: EventEmitter < any > = new EventEmitter < any > ();
-  @Output() onBenSelect: EventEmitter < any > = new EventEmitter < any > ();
-  @Output() serviceGiven: EventEmitter < any > = new EventEmitter < any > ();
-  @Output() wentAwayMainScreen: EventEmitter < any > = new EventEmitter < any > ();
+  @Output() onBenRegDataSelect: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onBenSelect: EventEmitter<any> = new EventEmitter<any>();
+  @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
+  @Output() wentAwayMainScreen: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('ageRef') input: ElementRef;
   @ViewChild('BeneficaryForm') BeneficaryForm;
   fname: any = '';
@@ -96,7 +96,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   isParentBeneficiary = false;
-  beneficiaryRelationID =1 ;
+  beneficiaryRelationID = 1;
   color;
   calledRadio = true;
   age: any = '';
@@ -177,15 +177,16 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   IntializeSessionValues() {
     this.today = new Date();
     this.maxDate = this.today;
-    this.maxDate.setHours(23,59,59,0);
-     this.DOB = new Date();
+    this.maxDate.setHours(23, 59, 59, 0);
+    this.DOB = new Date();
+    debugger;
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe((response) => {
-          this.SetUserBeneficiaryRegistrationData(response)
-        },
-        (err) => {
+        this.SetUserBeneficiaryRegistrationData(response)
+      },
+      (err) => {
 
-        });
+      });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -193,8 +194,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.advanceBtnHide = true;
     this.spinner = false;
     this.spinnerState = true;
-      //       this.age = "0";
-      // this.calculateDOB("0");
+    //       this.age = "0";
+    // this.calculateDOB("0");
   }
 
   startOutBoundCall(outboundData: any) {
@@ -311,7 +312,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   SetUserBeneficiaryRegistrationData(response: any) {
-
+    debugger;
     const regData = response;
     if (regData.states) {
       this.states = regData.states;
@@ -411,8 +412,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.preferredLanguage = undefined;
       this.identityType = undefined;
       this.wentAwayMainScreen.emit();
-    //             this.age = "0";
-    // this.calculateDOB("0"); //for default age to be zero
+      //             this.age = "0";
+      // this.calculateDOB("0"); //for default age to be zero
 
       // if (this.isParentBeneficiary || this.regHistoryList.length > 0) {
       //   this.isParentBeneficiary = true;
@@ -453,7 +454,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       this.stateErrFlag = false;
       this._locationService.getDistricts(state)
-        .subscribe((response) => this.SetDistricts(response), (err) => {});
+        .subscribe((response) => this.SetDistricts(response), (err) => { });
     }
   }
   SetDistricts(response: any) {
@@ -466,7 +467,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   GetTaluks(district: number) {
-
     this.taluks = [];
     this.blocks = [];
     this.taluk = undefined;
@@ -476,7 +476,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       this.cityErrFlag = false;
       this._locationService.getTaluks(district)
-        .subscribe((response) => this.SetTaluks(response), (err) => {});
+        .subscribe((response) => this.SetTaluks(response), (err) => { });
     }
   }
   SetTaluks(response: any) {
@@ -489,7 +489,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.blocks = [];
     this.village = undefined;
     this._locationService.getBranches(taluk)
-      .subscribe((response) => { this.SetBlocks(response) }, (err) => {});
+      .subscribe((response) => { this.SetBlocks(response) }, (err) => { });
   }
   SetBlocks(response: any) {
     this.blocks = response;
@@ -618,7 +618,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.notCalledEarlierLowerPart = false;
       this.calledRadio = true;
       this.saved_data.parentBeneficiaryData = this.regHistoryList[0];
-      this.beneficiaryRelations = this.beneficiaryRelations.filter(function(item) {
+      this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
         return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
       this.beneficiaryRelationID = undefined;
@@ -712,7 +712,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
     } else {
-      this.beneficiaryRelations = this.beneficiaryRelations.filter(function(item) {
+      this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
         return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
@@ -837,7 +837,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   /**
    * NEERAJ; Select beneficiary for service provided; 27-JUN-2017
    */
-  selectBeneficiary(regHistory: any, Type ? : any) {
+  selectBeneficiary(regHistory: any, Type?: any) {
 
     this.saved_data.benRegId = regHistory.beneficiaryRegID;
 
@@ -866,7 +866,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   getRelationShipType(relationShips) {
     let benificiaryRelationType = [];
-    benificiaryRelationType = relationShips.filter(function(item) {
+    benificiaryRelationType = relationShips.filter(function (item) {
       return item.benRelationshipType.toUpperCase() === 'SELF'; // This value has to go in constant
     });
     let beneficiaryRelationID;
@@ -905,7 +905,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   ageFlag: boolean = false;
   // calculate date of birth on the basis of age
   calculateDOB(age) {
-    if(age >150) {
+    if (age > 150) {
       this.ageFlag = true
     }
     else {
@@ -916,7 +916,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     if (age == "") {
       this.DOB = undefined;
     }
-    else if(age == 0) {
+    else if (age == 0) {
       this.DOB = new Date();
     }
     else {

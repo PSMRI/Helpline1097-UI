@@ -162,7 +162,7 @@ export class dashboardContentClass implements OnInit {
 
   handleEvent() {
     if (this.eventSpiltData.length > 2) {
-      sessionStorage.setItem("isOnCall", "yes");
+      sessionStorage.setItem('isOnCall', 'yes');
       this.router.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2], this.eventSpiltData[3]]);
     }
   }
@@ -174,7 +174,7 @@ export class dashboardContentClass implements OnInit {
       addEventListener('message', this.listener.bind(this), false);
     } else {
       console.log('adding onmessage listener');
-      //document.attachEvent("onmessage", this.listener);
+      // document.attachEvent("onmessage", this.listener);
     }
   }
   setCompain(compain: any) {
@@ -208,53 +208,50 @@ export class dashboardContentClass implements OnInit {
       })
     }
   }
-  // ngOnDestroy() {
-  //   Cookie.deleteAll();
-  // }
   addWidget(widget_name) {
     if (widget_name === '1') {
       this.activity_component = true;
     }
-    if (widget_name === "2") {
+    if (widget_name === '2') {
       this.ratings_component = true;
     }
-    if (widget_name === "3") {
+    if (widget_name === '3') {
       this.alerts_component = true;
     }
     // if (widget_name === "4") {
     //   this.daily_tasks_component = true;
     // }
-    if (widget_name === "5") {
+    if (widget_name === '5') {
       this.news_component = true;
     }
-    if (widget_name === "6") {
+    if (widget_name === '6') {
       this.call_statistics = true;
     }
-    if (widget_name === "7") {
+    if (widget_name === '7') {
       this.training_resources = true;
     }
   }
   hideComponentHandeler(event) {
     console.log('event is', event);
-    if (event === "1") {
+    if (event === '1') {
       this.activity_component = false;
     }
-    if (event === "2") {
+    if (event === '2') {
       this.ratings_component = false;
     }
-    if (event === "3") {
+    if (event === '3') {
       this.alerts_component = false;
     }
     // if (event === "4") {
     //   this.daily_tasks_component = false;
     // }
-    if (event === "5") {
+    if (event === '5') {
       this.news_component = false;
     }
-    if (event === "6") {
+    if (event === '6') {
       this.call_statistics = false;
     }
-    if (event === "7") {
+    if (event === '7') {
       this.training_resources = false;
     }
   }

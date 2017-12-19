@@ -17,49 +17,46 @@ export class helpline1097SupervisorComponent implements OnInit {
   // barMinimized: boolean = false;
 
   ssoURL: any;
-  isLoggedIn:any;
+  isLoggedIn: any;
 
   constructor(private configService: ConfigService,
-              public sanitizer: DomSanitizer, private saved_data: dataService,
-              private http: Http) { }
+    public sanitizer: DomSanitizer, private saved_data: dataService,
+    private http: Http) {
+  }
 
   ngOnInit() {
     this.Activity_Number = 3;
 
     this.ssoURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='
-    + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
+      + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
 
-    this.http.get(this.ssoURL).map( this.handleGetSuccess )
-    .catch( this.handleGetError );
+    this.http.get(this.ssoURL).map(this.handleGetSuccess)
+      .catch(this.handleGetError);
     this.ssoURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.ssoURL);
     console.log('reportsURL: ' + this.ssoURL);
   }
 
-  handleGetSuccess(response)
-  {
+  handleGetSuccess(response) {
     try {
       response.json();
-      this.isLoggedIn= false;
+      this.isLoggedIn = false;
     } catch (e) {
-      this.isLoggedIn= true;
+      this.isLoggedIn = true;
     }
   }
 
 
-  handleGetError ( error: Response | any )
-  {
+  handleGetError(error: Response | any) {
     let errMsg: string;
-    if ( error instanceof Response )
-    {
+    if (error instanceof Response) {
       const body = error.json() || '';
-      const err = body.error || JSON.stringify( body );
-      errMsg = `${ error.status } - ${ error.statusText || '' } ${ err }`;
-    } else
-    {
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error( errMsg );
-    return Observable.throw( errMsg );
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 
 

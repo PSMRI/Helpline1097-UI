@@ -79,6 +79,7 @@ export class CoFeedbackServicesComponent implements OnInit {
 
 
 
+
   ngOnInit() {
     this.beneficiaryRegID = this._savedData.beneficiaryData.beneficiaryRegID;
     this.userName = this._savedData.uname;

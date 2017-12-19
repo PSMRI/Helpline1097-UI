@@ -61,6 +61,7 @@ export class CzentrixServices {
   }
 
   getAgentStatus() {
+
     this.agent_id = this._data.cZentrixAgentID;
     let obj = { 'agent_id': this.agent_id };
 

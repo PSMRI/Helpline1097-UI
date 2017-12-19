@@ -240,27 +240,27 @@ import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
         component: MultiRoleScreenComponent,
         canActivate: [AuthGuard],
 
-            children: [
-              {
-                path: '',
-                component: ServiceRoleSelectionComponent,
-                canActivate: [AuthGuard],
+        children: [
+          {
+            path: '',
+            component: ServiceRoleSelectionComponent,
+            canActivate: [AuthGuard],
 
-                // outlet: 'postLogin_router'
-              },
-              {
-                path: 'dashboard',
-                component: dashboardContentClass,
-                canActivate: [AuthGuard],
+            // outlet: 'postLogin_router'
+          },
+          {
+            path: 'dashboard',
+            component: dashboardContentClass,
+            canActivate: [AuthGuard],
 
-                // outlet: 'postLogin_router'
-              },
-              {
-                path: 'superAdmin',
-                component: SuperAdminComponent
-                // outlet: 'postLogin_router'
-              }
-          ]
+            // outlet: 'postLogin_router'
+          },
+          {
+            path: 'superAdmin',
+            component: SuperAdminComponent
+            // outlet: 'postLogin_router'
+          }
+        ]
       },
       {
         path: 'setPassword',
@@ -279,7 +279,7 @@ import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
         component: InnerpageComponent,
         canActivate: [AuthGuard2],
       }
-    ]),
+    ], { useHash: true }),
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,
     AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
@@ -288,7 +288,7 @@ import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService,AuthGuard, AuthGuard2,
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
     CommunicationService, OutboundService, ListnerService, OutboundReAllocationService, ReloadService, ReportsService, {

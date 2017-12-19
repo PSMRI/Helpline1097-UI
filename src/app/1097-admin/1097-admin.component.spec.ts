@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { 1097AdminComponent } from './1097-admin.component';
+import { helpline1097AdminComponent } from './1097-admin.component';
 
 describe('1097AdminComponent', () => {
-  let component: 1097AdminComponent;
-  let fixture: ComponentFixture<1097AdminComponent>;
+  let component: helpline1097AdminComponent;
+  let fixture: ComponentFixture<helpline1097AdminComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 1097AdminComponent ]
+      declarations: [ helpline1097AdminComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(1097AdminComponent);
+    fixture = TestBed.createComponent(helpline1097AdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

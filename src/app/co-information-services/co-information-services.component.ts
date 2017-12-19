@@ -36,6 +36,7 @@ export class CoInformationServicesComponent implements OnInit {
   beneficiaryID: any;
   benCallID: any;
   getDetailsFlag: boolean = false;
+  tempFlag: any;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -52,11 +53,10 @@ export class CoInformationServicesComponent implements OnInit {
     this.GetServiceTypes();
 
   }
-  tempFlag: any;
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
-    if(this.resetProvideServices) {
+    if (this.resetProvideServices) {
       this.tempFlag = true;
       this.showTableCondition = true;
       this.showFormCondition = false;
@@ -139,7 +139,7 @@ export class CoInformationServicesComponent implements OnInit {
 
   }
   showForm() {
-    if(this.tempFlag){
+    if (this.tempFlag) {
       jQuery('#informationForm').trigger("reset");
       this.tempFlag = false;
     }
@@ -153,17 +153,18 @@ export class CoInformationServicesComponent implements OnInit {
 
   }
   GetInformationHistory() {
-    this._coService.getInformationsHistoryByID(this.beneficiaryID, this.saved_data.current_service.providerServiceMapID).subscribe((res) => {
-      if (res) {
-        this.data = res;
-        this.totalRecord = res.length;
-        console.log('Information History Successfully reterive', res);
-      }
+    this._coService.
+      getInformationsHistoryByID(this.beneficiaryID, this.saved_data.current_service.providerServiceMapID).subscribe((res) => {
+        if (res) {
+          this.data = res;
+          this.totalRecord = res.length;
+          console.log('Information History Successfully reterive', res);
+        }
 
 
-    }, (err) => {
-      console.log('Some error reteriving Information History ', err);
-    })
+      }, (err) => {
+        console.log('Some error reteriving Information History ', err);
+      })
   }
   // get the data from diffrent commponent
   public getData(data: any) {
