@@ -7,7 +7,7 @@ import { ConfirmationDialogsService } from '../services/dialog/confirmation.serv
 // import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { loginService } from '../services/loginService/login.service';
 import { ListnerService } from './../services/common/listner.service';
-
+import { CallServices } from './../services/callservices/callservice.service';
 @Component({
   selector: 'dashboard-component',
   templateUrl: './dashboard.html'
@@ -45,7 +45,8 @@ export class dashboardContentClass implements OnInit {
     public sanitizer: DomSanitizer,
     private message: ConfirmationDialogsService,
     private _loginService: loginService,
-    private renderer: Renderer
+    private renderer: Renderer,
+    private callService: CallServices
   ) { };
   ngOnInit() {
     this.activeRoute
@@ -151,19 +152,42 @@ export class dashboardContentClass implements OnInit {
     // spliting test event
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
-    if (event.data) {
-      this.eventSpiltData = event.data.split('|');
-    } else {
-      this.eventSpiltData = event.detail.data.split('|');
+    if (event.origin === 'http://10.201.13.17') {
+      if (event.data) {
+        this.eventSpiltData = event.data.split('|');
+      } else {
+        this.eventSpiltData = event.detail.data.split('|');
+      }
+      if (this.eventSpiltData[0].toLowerCase() === 'accept') {
+        this.handleEvent(this.eventSpiltData);
+      }
     }
-    this.handleEvent();
 
   }
 
-  handleEvent() {
+  handleEvent(eventData) {
+    // console.log("received event " + eventData);
+    // if (eventData[0] === 'Disconnect') {
+
+    // } else if (eventData[0] === 'AgentXfer' || eventData[0] === 'CampaignXfer') {
+    //   alert('call transfer event');
+    // } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect')) {
+    //   this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
+    // } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
+    // }
     if (this.eventSpiltData.length > 2) {
       sessionStorage.setItem('isOnCall', 'yes');
-      this.router.navigate(['/InnerpageComponent', this.eventSpiltData[1], this.eventSpiltData[2], this.eventSpiltData[3]]);
+      const mobileNumber = this.eventSpiltData[1].replace(/\D/g, '');
+      const checkNumber = /^\d+$/;
+      const sessionVar = /^\d{10}\.\d{10}$/;
+      const checkCallType = /^(INBOUND)|(OUTBOUND)$/i;
+
+      if (checkNumber.test(mobileNumber) && sessionVar.test(this.eventSpiltData[2]) && checkCallType.test(this.eventSpiltData[3])) {
+        this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent',
+          this.eventSpiltData[1], this.eventSpiltData[2], this.eventSpiltData[3]]);
+      } else {
+        this.message.alert('Invalid Call Please Check!!');
+      }
     }
   }
 
@@ -191,7 +215,12 @@ export class dashboardContentClass implements OnInit {
     if (value === '1') {
       this.message.confirm('', 'Switch to Inbound?').subscribe((response) => {
         if (response) {
-          this.dataSettingService.current_campaign = 'INBOUND';
+          this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
+            this.dataSettingService.current_campaign = 'INBOUND';
+          }, (err) => {
+            this.message.alert('Something went wrong in switching to inbound');
+            this.inOutBound = 0;
+          })
         } else {
           this.inOutBound = 0;
         }
@@ -201,7 +230,12 @@ export class dashboardContentClass implements OnInit {
     if (value === '0') {
       this.message.confirm('', 'Switch to Outbound?').subscribe((response) => {
         if (response) {
-          this.dataSettingService.current_campaign = 'OUTBOUND';
+          this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
+            this.dataSettingService.current_campaign = 'OUTBOUND';
+          }, (err) => {
+            this.message.alert('Something went wrong in switching to outbound');
+            this.inOutBound = 0;
+          })
         } else {
           this.inOutBound = 1;
         }

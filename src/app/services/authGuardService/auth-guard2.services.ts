@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, Router, ActivatedRoute, RouterStateSnapshot, CanDeactivate  } from '@angular/router';
+import { CanActivate, CanActivateChild, Router, ActivatedRoute, RouterStateSnapshot, CanDeactivate } from '@angular/router';
 import { dataService } from '../dataService/data.service';
 
 @Injectable()
@@ -14,13 +14,13 @@ export class AuthGuard2 implements CanActivate {
 
     console.log(state);
     var key = sessionStorage.getItem("isOnCall");
-    var key2  = sessionStorage.getItem("authen");
-    if(key == "yes") {
+    var key2 = sessionStorage.getItem("authen");
+    if (key == "yes") {
       return true;;
     }
 
     else {
-    	      alert("Plese wait for call to come or Logout");
+      alert("Plese wait for call to come or Logout");
 
       return false;
     }

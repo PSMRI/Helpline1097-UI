@@ -3,9 +3,9 @@
     <div class="panel-heading">
       <span class="pull-left f-s-18">Activity for this week </span>
       <span class="pull-right">
-                <i class="fa fa-times f-c-82 cursorPointer" aria-hidden="true" (click)="close()">
-                </i>
-            </span>
+        <i class="fa fa-times f-c-82 cursorPointer" aria-hidden="true" (click)="close()">
+        </i>
+      </span>
     </div>
     <div class="panel-body">
       <div class="col-xs-12 bg-white height-160 m-t-5">
@@ -14,7 +14,7 @@
           <div  *ngIf="(role==='CO') && (this.getCommonData.current_campaign == 'OUTBOUND' )">
             <!--     <div  *ngIf="(role==='MO'|| role==='CO' || role==='SIO') && (this.getCommonData.current_campaign == 'OUTBOUND' )"> -->
             <li>
-              <a routerLink="/InnerpageComponent"  routerLinkActive="active">Outbond Worklist</a>
+              <a routerLink="/MultiRoleScreenComponent/InnerpageComponent"  routerLinkActive="active">Outbond Worklist</a>
             </li>
       </div>
       </ul>

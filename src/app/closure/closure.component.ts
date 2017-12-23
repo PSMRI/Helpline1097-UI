@@ -114,9 +114,10 @@ export class ClosureComponent implements OnInit
     let calls = response.map(function (item) {
       return { 'callTypeDesc': item.callGroupType };
     });
-    this.calltypes = calls.filter((item) => {
-      return item.callTypeDesc.toLowerCase().trim() !== 'transfer';
-    })
+    this.calltypes = calls;
+    // this.calltypes = calls.filter((item) => {
+    //   return item.callTypeDesc.toLowerCase().trim() !== 'transfer';
+    // })
   }
   getCallSubType(callType: any) {
     this.callTypeID = undefined;

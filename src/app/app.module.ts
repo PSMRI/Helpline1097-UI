@@ -167,6 +167,7 @@ import { GenderDistributionReportComponent } from './gender-distribution-report/
 import { AuthGuard } from './services/authGuardService/auth-guard.services';
 
 import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
+import { COComponent } from './co/co.component';
 
 
 @NgModule({
@@ -199,7 +200,8 @@ import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
     CallerAgeReportComponent,
     SexualOrientationReportComponent,
     LanguageDistributionReportComponent,
-    GenderDistributionReportComponent
+    GenderDistributionReportComponent,
+    COComponent
 
   ],
   imports: [
@@ -228,37 +230,34 @@ import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
         component: loginContentClass
       },
       {
-        path: 'InnerpageComponent',
-        component: InnerpageComponent
-      },
-      {
         path: 'setQuestions',
         component: SetSecurityQuestionsComponent
       },
       {
         path: 'MultiRoleScreenComponent',
         component: MultiRoleScreenComponent,
-        canActivate: [AuthGuard],
-
         children: [
           {
             path: '',
             component: ServiceRoleSelectionComponent,
             canActivate: [AuthGuard],
-
-            // outlet: 'postLogin_router'
           },
           {
             path: 'dashboard',
-            component: dashboardContentClass,
-            canActivate: [AuthGuard],
-
-            // outlet: 'postLogin_router'
+            component: dashboardContentClass
           },
           {
             path: 'superAdmin',
             component: SuperAdminComponent
-            // outlet: 'postLogin_router'
+          },
+          {
+            path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
+            component: InnerpageComponent,
+            canActivate: [AuthGuard2],
+          },
+          {
+            path: 'InnerpageComponent',
+            component: InnerpageComponent,
           }
         ]
       },
@@ -274,12 +273,12 @@ import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
         path: 'co',
         component: helpline1097CoComponent
       },
-      {
-        path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
-        component: InnerpageComponent,
-        canActivate: [AuthGuard2],
-      }
-    ], { useHash: true }),
+      // {
+      //   path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
+      //   component: InnerpageComponent,
+      //   canActivate: [AuthGuard2],
+      // }
+    ]),
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,
     AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent

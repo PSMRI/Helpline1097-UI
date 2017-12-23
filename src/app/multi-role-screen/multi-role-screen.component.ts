@@ -7,6 +7,7 @@ import { ConfigService } from '../services/config/config.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { PlatformLocation } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-multi-role-screen',
@@ -14,32 +15,40 @@ import { PlatformLocation } from '@angular/common';
   styleUrls: ['./multi-role-screen.component.css']
 })
 export class MultiRoleScreenComponent implements OnInit {
-  data:any;
-  current_service:any;
-  current_role:any;
+  data: any;
+  current_service: any;
+  current_role: any;
   id: any;
   userName: any = '';
+  ctiHandlerURL: any;
   loginUrl = this._config.getCommonLoginUrl();
-  constructor(public dataSettingService: dataService, private _config: ConfigService,location: PlatformLocation,
+  barMinimized: boolean = true;
+  checkRole = true;
+  constructor(public dataSettingService: dataService, private _config: ConfigService, location: PlatformLocation,
     public router: Router, private _loginService: loginService, private Czentrix: CzentrixServices,
-    private alertMessage: ConfirmationDialogsService) {
-          location.onPopState((e: any) => {
-            console.log(e);
-        window.history.forward();
+    private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer) {
+    location.onPopState((e: any) => {
+      console.log(e);
+      window.history.forward();
 
     })
   }
   ngOnInit() {
     this.data = this.dataSettingService.Userdata;
-    this.current_role = (this.dataSettingService.current_role)?this.dataSettingService.current_role.RoleName:"";
-    this.current_service = (this.dataSettingService.current_service)?this.dataSettingService.current_service.serviceName:"";
-    this.id = this.dataSettingService.cZentrixAgentID? this.dataSettingService.cZentrixAgentID: (this.dataSettingService.Userdata.agentID ? this.dataSettingService.Userdata.agentID : undefined);
-    this.dataSettingService.roleSelected.subscribe((obj)=>{
+    this.current_role = (this.dataSettingService.current_role) ? this.dataSettingService.current_role.RoleName : '';
+    this.current_service = (this.dataSettingService.current_service) ? this.dataSettingService.current_service.serviceName : '';
+    this.id = this.dataSettingService.cZentrixAgentID ?
+      this.dataSettingService.cZentrixAgentID : (this.dataSettingService.Userdata.agentID ?
+        this.dataSettingService.Userdata.agentID : undefined);
+    this.dataSettingService.roleSelected.subscribe((obj) => {
       this.id = obj['id'];
       this.current_role = obj['role'];
       this.current_service = obj['service'];
     })
- 
+    const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
+    console.log('url = ' + url);
+    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    console.log('url = ' + url);
     this.userName = this.dataSettingService.Userdata.userName;
     // this.router.navigate(['/MultiRoleScreenComponent/roleSelection']);
     // const userObj = JSON.parse(Cookie.get('userID'));
@@ -79,16 +88,23 @@ export class MultiRoleScreenComponent implements OnInit {
     }
 
   }
+  minimizeBar() {
+    this.barMinimized = true;
+  }
+  toggleBar() {
+    this.barMinimized = !this.barMinimized;
+
+  }
   ipSuccessLogoutHandler(response) {
     this.Czentrix.agentLogout(this.dataSettingService.cZentrixAgentID, response).subscribe((res) => {
 
       if (res.response.status.toUpperCase() !== 'FAIL') {
-        sessionStorage.removeItem("authen");
-        sessionStorage.removeItem("isOnCall");
+        sessionStorage.removeItem('authen');
+        sessionStorage.removeItem('isOnCall');
         this.router.navigate(['']);
       } else {
-        sessionStorage.removeItem("authen");
-        sessionStorage.removeItem("isOnCall");
+        sessionStorage.removeItem('authen');
+        sessionStorage.removeItem('isOnCall');
         this.router.navigate(['']);
         // this.alertMessage.alert('Czentrix Agent Not Logged In');
       }

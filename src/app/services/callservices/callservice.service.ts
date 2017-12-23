@@ -23,9 +23,9 @@ export class CallServices {
   _outbouncClose_url = this._commonURL + '/call/completeOutboundCall/';
   _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList/';
   _disconnectCall_url = this._commonURL + '/cti/disconnectCall/';
-
-  _getRecording_url = this._commonURL + "call/nueisanceCallHistory/";
-
+  _switchToInbound_url = this._commonURL + 'cti/switchToInbound/'
+  _getRecording_url = this._commonURL + 'call/nueisanceCallHistory/';
+  _switchToOutbound_url = this._commonURL + 'cti/switchToOutbound/';
   constructor(
     private _http: Http,
     private _config: ConfigService,
@@ -38,7 +38,7 @@ export class CallServices {
   }
   disconnectCall(agentID: any) {
     // debugger;
-    let disconnectObj = { "agent_id": agentID };
+    let disconnectObj = { 'agent_id': agentID };
     return this._httpInterceptor.post(this._disconnectCall_url, disconnectObj).map(this.extractData).catch(this.handleCustomError);
 
   }
@@ -85,6 +85,14 @@ export class CallServices {
     return this._httpInterceptor.post(this._getRecording_url, obj).map(this.extractData).catch(this.handleCustomError);
   }
 
+  switchToInbound(agentID) {
+    const agentObj = { 'agent_id': agentID };
+    return this._httpInterceptor.post(this._switchToInbound_url, agentObj).map(this.extractData).catch(this.handleCustomError);
+  }
+  switchToOutbound(agentID) {
+    const agentObj = { 'agent_id': agentID };
+    return this._httpInterceptor.post(this._switchToOutbound_url, agentObj).map(this.extractData).catch(this.handleCustomError);
+  }
   extractData(response: Response) {
     if (response.json().data) {
       return response.json().data;

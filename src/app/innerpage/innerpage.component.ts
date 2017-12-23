@@ -179,10 +179,10 @@ export class InnerpageComponent implements OnInit {
       this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
       this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
       this.selectedBenData.district = 'District: ' + (data.i_bendemographics ? (data.i_bendemographics.m_district ? (data.i_bendemographics.m_district.districtName ? data.i_bendemographics.m_district.districtName : "") : '') : '');
-      this.selectedBenData.block = 'Taluk: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtblock ? (data.i_bendemographics.m_districtblock.blockName ? data.i_bendemographics.m_districtblock.blockName : "") : "") : "");
-      this.selectedBenData.village = 'Village: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtbranchmapping ? (data.i_bendemographics.m_districtbranchmapping.villageName ? data.i_bendemographics.m_districtbranchmapping.villageName : "") : "") : "");
-      this.selectedBenData.language = 'Preferred Lang: ' + (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : "") : "") : "");
-      this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : "") : "");
+      this.selectedBenData.block = 'Taluk: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtblock ? (data.i_bendemographics.m_districtblock.blockName ? data.i_bendemographics.m_districtblock.blockName : '') : '') : '');
+      this.selectedBenData.village = 'Village: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtbranchmapping ? (data.i_bendemographics.m_districtbranchmapping.villageName ? data.i_bendemographics.m_districtbranchmapping.villageName : '') : '') : '');
+      this.selectedBenData.language = 'Preferred Lang: ' + (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : '') : '') : '');
+      this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : '') : '');
     } else {
       this.selectedBenData.name = '';
       this.selectedBenData.id = '';
@@ -246,16 +246,16 @@ export class InnerpageComponent implements OnInit {
   ipSuccessLogoutHandler(response) {
     this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
       if (res.response.status.toUpperCase() !== 'FAIL') {
-        sessionStorage.removeItem("authen");
-        sessionStorage.removeItem("isOnCall");
+        sessionStorage.removeItem('authen');
+        sessionStorage.removeItem('isOnCall');
         this.basicrouter.navigate(['']);
       } else {
         if (this.current_role.toLowerCase() !== 'supervisor') {
 
           this.remarksMessage.alert('Cannot Logout During Active Call.');
         } else {
-          sessionStorage.removeItem("authen");
-          sessionStorage.removeItem("isOnCall");
+          sessionStorage.removeItem('authen');
+          sessionStorage.removeItem('isOnCall');
           this.basicrouter.navigate(['']);
         }
       }
@@ -333,17 +333,19 @@ export class InnerpageComponent implements OnInit {
   }
 
   handleEvent(eventData) {
-    console.log("received event " + eventData);
+    console.log('received event ' + eventData);
+    const sessionVar = /^\d{10}\.\d{10}$/;
     if (eventData[0] === 'Disconnect') {
 
     } else if (eventData[0] === 'AgentXfer' || eventData[0] === 'CampaignXfer') {
-      this.getAgentStatus();
-      this.showRemarksNew(eventData);
-      this.transferInProgress = true;
-    } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress) {
+      // this.getAgentStatus();
+      // this.showRemarksNew(eventData);
+      // this.transferInProgress = true;
+    } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress
+      && (sessionVar.test(eventData[1]) || eventData[1] === '')) {
       this.getAgentStatus();
       this.disconnectCall();
-      this.startCallWraupup(eventData);
+      //  this.startCallWraupup(eventData);
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
@@ -352,30 +354,10 @@ export class InnerpageComponent implements OnInit {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
     if (!this.transferInProgress) {
-      // if (this.closureComponent.callTypeID) {
-      //   requestObj['fitToBlock'] = this.closureComponent.callTypeID.split(',')[1];
-      //   requestObj['callTypeID'] = this.closureComponent.callTypeID.split(',')[0];
-      // } else {
       requestObj['callTypeID'] = this.disconectCallId.toString();
       requestObj['fitToBlock'] = 'false';
-      // }
-
-      // if (this.closureComponent.isFollowupRequired) {
-      //   requestObj['isFollowupRequired'] = this.closureComponent.isFollowupRequired;
-      //   if (this.closureComponent.prefferedDateTime) {
-      //     requestObj['prefferedDateTime'] = new Date(this.closureComponent.prefferedDateTime);
-      //     requestObj['prefferedDateTime']
-      //       = new Date((requestObj['prefferedDateTime']) - 1 * (requestObj['prefferedDateTime'].getTimezoneOffset() * 60 * 1000)).toJSON();
-      //   } else {
-      //     requestObj['prefferedDateTime'] = undefined;
-      //   }
-      // } else {
       requestObj['isFollowupRequired'] = false;
       requestObj['prefferedDateTime'] = undefined;
-      // }
-      // if (this.closureComponent.remarks) {
-      // remarks = this.closureComponent.remarks;
-      // }
       requestObj['endCall'] = true;
     } else {
       requestObj['callTypeID'] = this.transferCallID.toString();
@@ -394,7 +376,7 @@ export class InnerpageComponent implements OnInit {
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
         this.remarksMessage.alert(message);
-        sessionStorage.removeItem("isOnCall");
+        sessionStorage.removeItem('isOnCall');
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
           console.log('disconnect response', res);
@@ -402,16 +384,6 @@ export class InnerpageComponent implements OnInit {
         }, (err) => {
 
         });
-
-        // if (this.getCommonData.current_campaign.toUpperCase() === 'OUTBOUND') {
-        //   this.current_campaign = 'OUTBOUND';
-        //   this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
-        //   this.basicrouter.navigate(['/InnerpageComponent']);
-        // } else {
-
-
-
-        // }
       }
     }, (err) => {
       this.remarksMessage.alert(err.status);
@@ -482,7 +454,7 @@ export class InnerpageComponent implements OnInit {
 
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe((res) => {
-      console.log("CALL DETAILS RESPONSE", res);
+      console.log('CALL DETAILS RESPONSE', res);
       this.TotalCalls = 'Total Calls : ' + res.data.total_calls;
       this.TotalTime = 'Total Calls Durations : ' + res.data.total_call_duration;
       // if (this.callStatus.toLowerCase().trim() === 'closure') {
@@ -498,6 +470,5 @@ export class InnerpageComponent implements OnInit {
   }
   ngOnDestroy() {
     this.listenCallEvent();
-    //this.removeEventListener();
   }
 }

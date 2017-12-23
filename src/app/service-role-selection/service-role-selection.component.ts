@@ -29,6 +29,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
             this.getCommonData.current_role = role;
             this.getCommonData.current_service = service;
             this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
+            debugger;
             this.getCommonData.cZentrixAgentID = (role.agentID ? role.agentID : (this.getCommonData.Userdata.agentID ? this.getCommonData.Userdata.agentID : undefined));
             this.getCommonData.roleSelected.next({
                 'id': this.getCommonData.cZentrixAgentID,

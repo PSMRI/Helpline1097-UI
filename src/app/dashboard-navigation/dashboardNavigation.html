@@ -1,11 +1,14 @@
 <div id="leftNavSidebar" *ngIf="leftNavigation">
   <div style="position:absolute; z-index:1; left:190px;">
     <!-- <a class="sidebar-toggle"
-      > </a> --></div>
+      > </a> -->
+  </div>
   <ul class="nav sidebar-nav cu-nav" style="position:absolute;">
     <li title="Activities">
       <a>
-        <div class="iconDiv m-r-10"><i class="fa fa-tachometer f-s-25 m-r-10" aria-hidden="true"></i></div>
+        <div class="iconDiv m-r-10">
+          <i class="fa fa-tachometer f-s-25 m-r-10" aria-hidden="true"></i>
+        </div>
         <!-- <div class="line-height-50 "> Dashboard</div> -->
       </a>
     </li>
@@ -15,19 +18,25 @@
           </a> </li> -->
     <li title="Configuration">
       <a>
-        <div class="iconDiv m-r-10"><i class="fa fa-wrench f-s-25  m-r-10" aria-hidden="true"></i></div>
+        <div class="iconDiv m-r-10">
+          <i class="fa fa-wrench f-s-25  m-r-10" aria-hidden="true"></i>
+        </div>
         <!-- <div class="line-height-50 ">Configuration</div> -->
       </a>
     </li>
     <li title="Reports">
       <a>
-        <div class="iconDiv m-r-10"><i class="fa fa-book f-s-25 m-r-10" aria-hidden="true"></i></div>
+        <div class="iconDiv m-r-10">
+          <i class="fa fa-book f-s-25 m-r-10" aria-hidden="true"></i>
+        </div>
         <!-- <div class="line-height-50 "> InnerPage</div> -->
       </a>
     </li>
     <li (click)="changeRole()" title="Switch Role">
       <a>
-        <div class="iconDiv m-r-10"><i class="fa fa-cogs f-s-25 m-r-10" aria-hidden="true"></i></div>
+        <div class="iconDiv m-r-10">
+          <i class="fa fa-cogs f-s-25 m-r-10" aria-hidden="true"></i>
+        </div>
         <!-- <div class="line-height-50 "> Settings</div> -->
       </a>
     </li>
@@ -36,11 +45,14 @@
 <div id="leftNavSidebar" *ngIf="!leftNavigation">
   <div style="position:absolute; z-index:1; left:190px;">
     <!-- <a class="sidebar-toggle"
-        > </a> --></div>
+        > </a> -->
+  </div>
   <ul class="nav sidebar-nav cu-nav" style="position:absolute;">
-    <li title="Activities" routerLink="/InnerpageComponent">
+    <li title="Activities" routerLink="/MultiRoleScreenComponent/InnerpageComponent">
       <a>
-        <div class="iconDiv m-r-10"><i class="fa fa-tachometer f-s-25 m-r-10" aria-hidden="true"></i></div>
+        <div class="iconDiv m-r-10">
+          <i class="fa fa-tachometer f-s-25 m-r-10" aria-hidden="true"></i>
+        </div>
         <!-- <div class="line-height-50 "> Dashboard</div> -->
       </a>
     </li>
@@ -49,21 +61,27 @@
             <div class="line-height-50 "> Reports</div> 
             </a> </li> -->
 
-    <li title="Reports" routerLink="/InnerpageComponent">
+    <li title="Reports" routerLink="/MultiRoleScreenComponent/InnerpageComponent">
       <a>
-        <div class="iconDiv m-r-10"><i class="fa fa-book f-s-25 m-r-10" aria-hidden="true"></i></div>
+        <div class="iconDiv m-r-10">
+          <i class="fa fa-book f-s-25 m-r-10" aria-hidden="true"></i>
+        </div>
         <!-- <div class="line-height-50 "> InnerPage</div> -->
       </a>
     </li>
-    <li title="Configuration" routerLink="/InnerpageComponent">
+    <li title="Configuration" routerLink="/MultiRoleScreenComponent/InnerpageComponent">
       <a>
-        <div class="iconDiv m-r-10"><i class="fa fa-wrench f-s-25  m-r-10" aria-hidden="true"></i></div>
+        <div class="iconDiv m-r-10">
+          <i class="fa fa-wrench f-s-25  m-r-10" aria-hidden="true"></i>
+        </div>
         <!-- <div class="line-height-50 ">Configuration</div> -->
       </a>
     </li>
     <li (click)="changeRole()" title="Switch Role">
       <a>
-        <div class="iconDiv m-r-10"><i class="fa fa-cogs f-s-25 m-r-10" aria-hidden="true"></i></div>
+        <div class="iconDiv m-r-10">
+          <i class="fa fa-cogs f-s-25 m-r-10" aria-hidden="true"></i>
+        </div>
         <!-- <div class="line-height-50 "> Settings</div> -->
       </a>
     </li>
