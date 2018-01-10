@@ -8,6 +8,7 @@ import { ConfirmationDialogsService } from '../services/dialog/confirmation.serv
 import { loginService } from '../services/loginService/login.service';
 import { ListnerService } from './../services/common/listner.service';
 import { CallServices } from './../services/callservices/callservice.service';
+
 @Component({
   selector: 'dashboard-component',
   templateUrl: './dashboard.html'
@@ -46,7 +47,8 @@ export class dashboardContentClass implements OnInit {
     private message: ConfirmationDialogsService,
     private _loginService: loginService,
     private renderer: Renderer,
-    private callService: CallServices
+    private callService: CallServices,
+    private listnerService: ListnerService
   ) { };
   ngOnInit() {
     this.activeRoute
@@ -60,6 +62,12 @@ export class dashboardContentClass implements OnInit {
         }
         this.setCompain(this.compainType);
       });
+    const obj = { 'innerPage': false };
+    this.listnerService.cZentrixSendData(obj);
+    this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
+    }, (err) => {
+      // this.message.alert(err.errorMessage);
+    })
     // const userObj = JSON.parse(Cookie.get('userID'));
     // if (userObj) {
     //   const roleObj = {};
@@ -100,7 +108,7 @@ export class dashboardContentClass implements OnInit {
   }
 
   agentIDexists(agentID) {
-    console.log(agentID, 'AGENT ID IN DASHBOARD');
+    console.log(agentID, "AGENT ID IN DASHBOARD");
     if (agentID != undefined) {
       this.agentIDExitsFlag = true;
     }
@@ -142,7 +150,7 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-    // document.dispatchEvent(event); 
+    document.dispatchEvent(event);
 
   }
 
@@ -218,7 +226,7 @@ export class dashboardContentClass implements OnInit {
           this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'INBOUND';
           }, (err) => {
-            this.message.alert('Something went wrong in switching to inbound');
+            this.message.alert(err.errorMessage);
             this.inOutBound = 0;
           })
         } else {
@@ -233,8 +241,8 @@ export class dashboardContentClass implements OnInit {
           this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'OUTBOUND';
           }, (err) => {
-            this.message.alert('Something went wrong in switching to outbound');
-            this.inOutBound = 0;
+            this.message.alert(err.errorMessage);
+            this.inOutBound = 1;
           })
         } else {
           this.inOutBound = 1;

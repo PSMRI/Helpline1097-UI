@@ -179,7 +179,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.maxDate = this.today;
     this.maxDate.setHours(23, 59, 59, 0);
     this.DOB = new Date();
-
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)

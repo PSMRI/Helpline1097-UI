@@ -8,6 +8,8 @@ import { CzentrixServices } from './../services/czentrix/czentrix.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { PlatformLocation } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ListnerService } from './../services/common/listner.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-multi-role-screen',
@@ -24,14 +26,20 @@ export class MultiRoleScreenComponent implements OnInit {
   loginUrl = this._config.getCommonLoginUrl();
   barMinimized: boolean = true;
   checkRole = true;
+  hideBar: boolean = false;
+  subscription: Subscription;
+  hideHeader: boolean = true;
   constructor(public dataSettingService: dataService, private _config: ConfigService, location: PlatformLocation,
     public router: Router, private _loginService: loginService, private Czentrix: CzentrixServices,
-    private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer) {
+    private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer, private listnerService: ListnerService) {
     location.onPopState((e: any) => {
       console.log(e);
       window.history.forward();
 
     })
+    this.subscription = this.listnerService.cZentrixGetData().subscribe(flag => { this.hideCZentix(flag) }, (err) => {
+      this.alertMessage.alert('Error in passing Data');
+    });
   }
   ngOnInit() {
     this.data = this.dataSettingService.Userdata;
@@ -45,6 +53,7 @@ export class MultiRoleScreenComponent implements OnInit {
       this.current_role = obj['role'];
       this.current_service = obj['service'];
     })
+    this.hideHeader = true;
     const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -110,6 +119,17 @@ export class MultiRoleScreenComponent implements OnInit {
       }
     }, (err) => {
     });
+  }
+  hideCZentix(flag: any) {
+    if (flag.eventCzentrix.hideBar === true) {
+      this.hideBar = false;
+    } else if (flag.eventCzentrix.innerPage === true) {
+      this.hideHeader = false;
+    } else if (flag.eventCzentrix.innerPage === false) {
+      this.hideHeader = true;
+    } else if (flag.eventCzentrix.hideBar === false) {
+      this.hideBar = true;
+    }
   }
 
 }

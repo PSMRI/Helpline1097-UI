@@ -13,8 +13,8 @@ export class DashboardUserIdComponent implements OnInit {
     status: any;
     constructor(
         public dataSettingService: dataService,
-        private Czentrix: CzentrixServices,
-        public router: Router
+        public router: Router,
+        private Czentrix: CzentrixServices
     ) {
         this.current_service = this.dataSettingService.current_service.serviceName;
         this.current_role = this.dataSettingService.current_role.RoleName;
@@ -25,7 +25,6 @@ export class DashboardUserIdComponent implements OnInit {
     }
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
-            debugger;
             this.status = res.data.stateObj.stateName;
             // if (this.status.toUpperCase() === 'INCALL' || this.status.toUpperCase() === 'CLOSURE') {
             //     let CLI = res.data.CLI;

@@ -11,7 +11,8 @@ import { CallServices } from '../services/callservices/callservice.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
 import { ClosureComponent } from '../closure/closure.component';
-import { Observable } from "rxjs/Rx";
+import { Observable } from 'rxjs/Rx';
+import { ListnerService } from './../services/common/listner.service';
 declare const jQuery: any;
 
 
@@ -49,6 +50,7 @@ export class InnerpageComponent implements OnInit {
   TotalTime: any;
   id: any;
   disconectCallId: any;
+  backToDashboard: boolean = true;
   // eventSpiltData: any;
 
 
@@ -77,6 +79,7 @@ export class InnerpageComponent implements OnInit {
     private remarksMessage: ConfirmationDialogsService,
     private renderer: Renderer,
     private Czentrix: CzentrixServices,
+    private listnerService: ListnerService
     // private closureComponent: ClosureComponent
 
   ) {
@@ -104,6 +107,8 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
+    const obj = { 'innerPage': true };
+    this.listnerService.cZentrixSendData(obj);
     this.data = this.getCommonData.Userdata;
     this.id = this.getCommonData.cZentrixAgentID;
 
@@ -268,14 +273,14 @@ export class InnerpageComponent implements OnInit {
       console.log(response);
       let transferObj = response.filter(function (item) {
         console.log(item.callGroupType);
-        return item.callGroupType.toLowerCase().toLowerCase() === 'transfer'
+        return item.callGroupType.toLowerCase().startsWith('transfer');
       });
-      if (transferObj) {
+      if (transferObj && transferObj[0].callTypes) {
         transferObj = transferObj[0].callTypes.filter(function (previousData) {
-          console.log(previousData.callTypeDesc);
-          return previousData.callTypeDesc.toLowerCase() === 'transfer'
+          console.log("transfer call types " + previousData.callTypeDesc);
+          return previousData.callTypeDesc.toLowerCase().startsWith('transfer')
         });
-        if (transferObj) {
+        if (transferObj && transferObj[0].callTypeID) {
           this.transferCallID = transferObj[0].callTypeID;
         }
       } else {
@@ -285,14 +290,14 @@ export class InnerpageComponent implements OnInit {
 
       let validObj = response.filter(function (item) {
         console.log(item.callGroupType);
-        return item.callGroupType.toLowerCase() === 'valid'
+        return item.callGroupType.toLowerCase().startsWith('valid')
       });
-      if (validObj) {
+      if (validObj && validObj[0].callTypes) {
         validObj = validObj[0].callTypes.filter(function (previousData) {
-          console.log(previousData.callTypeDesc);
-          return previousData.callTypeDesc.toLowerCase() === 'valid'
+          console.log("Valid call types " + previousData.callTypeDesc);
+          return previousData.callTypeDesc.toLowerCase().startsWith('valid')
         });
-        if (validObj) {
+        if (validObj && validObj[0].callTypeID) {
           this.disconectCallId = validObj[0].callTypeID;
         }
       } else {
@@ -341,7 +346,7 @@ export class InnerpageComponent implements OnInit {
       // this.getAgentStatus();
       // this.showRemarksNew(eventData);
       // this.transferInProgress = true;
-    } else if ((eventData[0] === 'CallDisconnect' || eventData[0] === 'CustDisconnect') && !this.transferInProgress
+    } else if (eventData[0] === 'CustDisconnect' && !this.transferInProgress
       && (sessionVar.test(eventData[1]) || eventData[1] === '')) {
       this.getAgentStatus();
       this.disconnectCall();
@@ -387,7 +392,6 @@ export class InnerpageComponent implements OnInit {
       }
     }, (err) => {
       this.remarksMessage.alert(err.status);
-      // this.message.alert(err.status);
     });
   }
   showRemarks(eventData) {
@@ -427,7 +431,7 @@ export class InnerpageComponent implements OnInit {
     });
   }
   disconnectCall() {
-    this.remarksMessage.alert('Call Disconnected From Caller. Please Proceed To Call Closure.');
+    // this.remarksMessage.alert('Call Disconnected From Caller. Please Proceed To Call Closure.');
     this.getCommonData.isCallDisconnected = true;
     jQuery('#myCarousel').carousel(3);
     jQuery('#four').parent().find('a').removeClass('active-tab');

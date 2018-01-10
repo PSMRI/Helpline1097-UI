@@ -1,5 +1,5 @@
 <div class="col-xs-12 col-sm-12">
-  <div class="container-fluid p-a-0">
+  <div class="container-fluid p-a-0" *ngIf="hideHeader">
     <div class="row header">
       <div class="col-xs-12 col-sm-12">
         <div class="pull-left">
@@ -41,7 +41,7 @@
     </div>
   </div>
   <router-outlet></router-outlet>
-  <div (click)="minimizeBar()">
+  <div (click)="minimizeBar()" *ngIf="hideBar">
     <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
     <!-- <iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar"></iframe> -->
     <!-- <iframe *ngIf="current_role.toLowerCase().trim()!=='supervisor'" [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar"
@@ -55,7 +55,7 @@
       <p class="footer-text t-a-c footer-text-height">2017
         <md-icon color="" class="copyright_icon">copyright</md-icon> PSMRI</p>
     </div>
-    <div class="col-sm-4 col-xs-4">
+    <div class="col-sm-4 col-xs-4" *ngIf="hideBar">
       <button md-raised-button type="button" color="primary" class="footer-height pull-right" (click)="toggleBar()">CZentrix</button>
     </div>
   </footer>

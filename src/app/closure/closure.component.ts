@@ -204,12 +204,13 @@ export class ClosureComponent implements OnInit
             // }
             // this.pass_data.sendData(this.current_campaign);
 
-            this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
-              console.log('disconnect response', res);
+            /* below lines are commented to use old close call API */
+            // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
+            //   console.log('disconnect response', res);
 
-            }, (err) => {
+            // }, (err) => {
 
-            });
+            // });
           }
         }, (err) => {
           this.message.alert(err.status);
@@ -228,12 +229,13 @@ export class ClosureComponent implements OnInit
                 // this.callClosed.emit(this.current_campaign);
                 // } else {
                 this.closedContinue.emit();
-                this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
-                  console.log('disconnect response', res);
+                /* below lines are commented to use old close call API */
+                // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
+                //   console.log('disconnect response', res);
 
-                }, (err) => {
+                // }, (err) => {
 
-                });
+                // });
                 // }
                 // this.pass_data.sendData(this.current_campaign);
               }
@@ -297,12 +299,13 @@ export class ClosureComponent implements OnInit
         this.message.alert('Outbound Call Successfully Closed.');
         if (btnType === 'submitClose') {
           this.callClosed.emit(this.current_campaign);
-          this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
-            console.log('disconnect response', res);
+          /* below lines are commented to use old close call API */
+          // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
+          //   console.log('disconnect response', res);
 
-          }, (err) => {
+          // }, (err) => {
 
-          });
+          // });
         } else {
           this.closedContinue.emit();
         }
