@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { InterceptedHttp } from './http.interceptor'
 import { MaterialModule, MdMenuModule, MdCardModule } from '@angular/material';
 import { Router } from '@angular/router';
@@ -131,6 +132,10 @@ import { ReloadService } from './services/common/reload.service';
 import { ClearFormService } from './services/common/clearform.service';
 import { OutboundReAllocationService } from './services/outboundServices/outbound-call-reallocation.service';
 import { ReportsService } from './services/reports-service/reports-service';
+import { AuthService } from './services/authentication/auth.service';
+import { TokenInterceptor } from './services/authentication/token.interceptor';
+import { AuthorizationWrapper } from './authorization.wrapper';
+import { AuthorizationFactory } from './authorization.factory';
 // pipes
 import { FilterTable } from './pipes/filter-table.pipe'
 
@@ -165,7 +170,7 @@ import { LanguageDistributionReportComponent } from './language-distribution-rep
 import { GenderDistributionReportComponent } from './gender-distribution-report/gender-distribution-report.component';
 // import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
 import { AuthGuard } from './services/authGuardService/auth-guard.services';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
 import { COComponent } from './co/co.component';
 
@@ -208,6 +213,7 @@ import { COComponent } from './co/co.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     MaterialModule,
     MdMenuModule,
     MdDatepickerModule,
@@ -285,15 +291,25 @@ import { COComponent } from './co/co.component';
     , CoAlternateNumberComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
-    UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices,
+    UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
     UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
-    CommunicationService, OutboundService, ListnerService, OutboundReAllocationService, ReloadService, ReportsService, {
+    CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService, {
       provide: InterceptedHttp,
       useFactory: httpFactory,
-      deps: [XHRBackend, RequestOptions, LoaderService]
+      deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
+    },
+    {
+      provide: AuthorizationWrapper,
+      useFactory: AuthorizationFactory,
+      deps: [XHRBackend, RequestOptions, Router, AuthService, ConfirmationDialogsService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
     }, CzentrixServices],
 
   bootstrap: [AppComponent]

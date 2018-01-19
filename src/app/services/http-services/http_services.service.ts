@@ -13,51 +13,43 @@ import 'rxjs/add/operator/map';
  */
 
 @Injectable()
-export class HttpServices
-{
+export class HttpServices {
 
-	constructor( private http: Http ) { };
+  constructor(private http: Http) { };
 
-	getData ( url: string )
-	{
-		return this.http.get( url )
-			.map( this.handleGetSuccess )
-			.catch( this.handleGetError );
-	}
+  // tslint:disable-next-line:indent
+  getData(url: string) {
+    return this.http.get(url)
+      .map(this.handleGetSuccess)
+      .catch(this.handleGetError);
+  }
 
-	handleGetSuccess ( response: Response )
-	{
-		if ( response.json().data )
-		{
-			return response.json().data;
-		} else
-		{
-			return response.json();
-		}
-	}
+  handleGetSuccess(response: Response) {
+    if (response.json().data) {
+      return response.json().data;
+    } else {
+      return response.json();
+    }
+  }
 
-	handleGetError ( error: Response | any )
-	{
-		let errMsg: string;
-		if ( error instanceof Response )
-		{
-			const body = error.json() || '';
-			const err = body.error || JSON.stringify( body );
-			errMsg = `${ error.status } - ${ error.statusText || '' } ${ err }`;
-		} else
-		{
-			errMsg = error.message ? error.message : error.toString();
-		}
-		console.error( errMsg );
-		return Observable.throw( errMsg );
-	}
+  handleGetError(error: Response | any) {
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
 
-	postData ( url: string, data: any )
-	{
-		return this.http.post( url, data )
-			.map( this.handleGetSuccess )
-			.catch( this.handleGetError );
-	}
+  postData(url: string, data: any) {
+    return this.http.post(url, data)
+      .map(this.handleGetSuccess)
+      .catch(this.handleGetError);
+  }
 
 
 };

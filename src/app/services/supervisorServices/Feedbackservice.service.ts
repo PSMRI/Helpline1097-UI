@@ -4,19 +4,13 @@ import 'rxjs/add/operator/map';
 import { ConfigService } from '../config/config.service';
 import { InterceptedHttp } from './../../http.interceptor';
 import { Observable } from 'rxjs/Observable';
+import { AuthorizationWrapper } from './../../authorization.wrapper';
 import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class FeedbackService {
     test = [];
-    headers = new Headers(
-        { 'Content-Type': 'application/json' }
-        //  ,{'Access-Control-Allow-Headers': 'X-Requested-With, content-type'}
-        //   ,{'Access-Control-Allow-Origin': 'localhost:4200'}
-        //  ,{'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS'}
-        //  ,{'Access-Control-Allow-Methods': '*'}
-    );
-    options = new RequestOptions({ headers: this.headers });
     private _commonBaseURL = this._config.getCommonBaseURL();
     private _helpline1097BaseURL = this._config.get1097BaseURL();
 
@@ -28,7 +22,7 @@ export class FeedbackService {
     private _getEmailStatus: string = this._config.getCommonBaseURL() + 'feedback/getEmailStatus'
 
     constructor(
-        private _http: Http,
+        private _http: AuthorizationWrapper,
         private _config: ConfigService,
         private httpIterceptor: InterceptedHttp
     ) { }
@@ -39,13 +33,13 @@ export class FeedbackService {
 
     getFeedbackStatuses() {
         const data = {};
-        return this._http.post(this._getFeedbackStatus, data, this.options).map(this.handleSuccess).catch(this.handleError);
+        return this._http.post(this._getFeedbackStatus, data).map(this.handleSuccess).catch(this.handleError);
         // .map(( response: Response ) => response.json() );
     }
 
     getEmailStatuses() {
         let data = {};
-        return this._http.post(this._getEmailStatus, data, this.options).map(this.handleSuccess).catch(this.handleError);
+        return this._http.post(this._getEmailStatus, data).map(this.handleSuccess).catch(this.handleError);
     }
 
     requestFeedback(data: any) {
@@ -62,15 +56,14 @@ export class FeedbackService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            console.log('Status', response.json().status);
-            return response.json().status;
+            return Observable.throw(response.json());
 
         }
     }
     handleCustomError(error: Response | any) {
         return Observable.throw(error.json());
     }
-    handleError(response: Response) {
-        return response.json();
+    handleError(error: Response) {
+        return Observable.throw(error.json());
     }
 }

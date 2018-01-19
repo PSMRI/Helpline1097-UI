@@ -10,17 +10,14 @@ export class AuthGuard implements CanActivate {
     private route: ActivatedRoute, public dataSettingService: dataService) { }
 
   canActivate(route, state) {
-    //console.log(route);
-    console.log(route);
-    console.log(state);
-    var key = sessionStorage.getItem("isOnCall");
-    var key2 = sessionStorage.getItem("authen");
-    if (key == "yes" && key2 == "pass1097") {
-      alert("Not allowed to go back, Please complete & close the call");
+    const key = sessionStorage.getItem('isOnCall');
+    const key2 = sessionStorage.getItem('authen');
+    if (key == 'yes' && key2 == 'pass1097') {
+      alert('Not allowed to go back, Please complete & close the call');
       return false;
     }
-    else if (key2 != "pass1097") {
-      alert("Please Login Again");
+    else if (key2 != 'pass1097') {
+      alert('Please Login Again');
       return false;
     }
     else {

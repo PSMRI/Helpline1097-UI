@@ -10,9 +10,6 @@ export class AuthGuard2 implements CanActivate {
     private route: ActivatedRoute, public dataSettingService: dataService) { }
 
   canActivate(route, state) {
-    console.log(route);
-
-    console.log(state);
     var key = sessionStorage.getItem("isOnCall");
     var key2 = sessionStorage.getItem("authen");
     if (key == "yes") {

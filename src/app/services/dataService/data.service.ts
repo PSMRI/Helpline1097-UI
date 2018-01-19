@@ -39,14 +39,14 @@ export class dataService {
 
 
 
-	 // myBool$: Observable<boolean>;
+	// myBool$: Observable<boolean>;
 
-  //   reset_flag:boolean;
+	//   reset_flag:boolean;
 
-  //   constructor() {
-  //       this.reset_flag = false;
-  //       this.myBool$ = this.reset_flag.asObservable();
-  //   }
+	//   constructor() {
+	//       this.reset_flag = false;
+	//       this.myBool$ = this.reset_flag.asObservable();
+	//   }
 };
 
 

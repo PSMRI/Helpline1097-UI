@@ -44,13 +44,13 @@ export class loginContentClass {
     console.log('array' + response.previlegeObj);
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
-      sessionStorage.setItem("authen", "pass1097");
-      sessionStorage.removeItem("isOnCall");
+      sessionStorage.removeItem('isOnCall');
+      localStorage.setItem('authToken', response.key);
       this.router.navigate(['/MultiRoleScreenComponent']);
     }
     if (response.isAuthenticated === true && response.Status === 'New') {
-      sessionStorage.setItem("authen", "pass1097");
-      sessionStorage.removeItem("isOnCall");
+      localStorage.setItem('authToken', response.key);
+      sessionStorage.removeItem('isOnCall');
       this.router.navigate(['/setQuestions']);
     }
   };
@@ -74,13 +74,12 @@ export class loginContentClass {
 
 
   }
-	showPWD() {
-		this.dynamictype = 'text';
-	}
+  showPWD() {
+    this.dynamictype = 'text';
+  }
 
-	hidePWD()
-	{
-		this.dynamictype = 'password';
-	} 
+  hidePWD() {
+    this.dynamictype = 'password';
+  }
 
 }

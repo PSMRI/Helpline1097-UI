@@ -74,21 +74,15 @@ export class helpline1097CoComponent implements OnInit {
   ngOnInit() {
     this.current_campaign = this.getCommonData.current_campaign;
     var idx = jQuery('.carousel-inner div.active').index();
-    console.log('index', idx);
     let url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
-    console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-
-
     this.router.params.subscribe((params: Params) => {
       if (params['mobileNumber'] != undefined) {
         this.callerNumber = parseInt(params['mobileNumber']);
-        console.log(' this.callerNumber:' + this.callerNumber);
         this.getCommonData.callerNumber = this.callerNumber;
       }
       if (params['callID'] != undefined) {
         this.callID = params['callID'];
-        console.log(' this.callID:' + this.callID);
         this.getCommonData.callID = this.callID;
       }
 
@@ -117,7 +111,6 @@ export class helpline1097CoComponent implements OnInit {
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, 'language in 1097 co me');
   }
   closedContinue() {
     // this.startNewCall();
@@ -275,7 +268,6 @@ export class helpline1097CoComponent implements OnInit {
       '&resFormat=3';
     this.czentrixService.callAPI(params)
       .subscribe((res) => {
-        console.log(res);
         if (res.response.status == 'SUCCESS') {
           this.getCommonData.current_campaign = 'INBOUND';
           this.current_campaign = this.getCommonData.current_campaign;
@@ -295,8 +287,6 @@ export class helpline1097CoComponent implements OnInit {
   nxtVisual() {
     this.resetProvideServices = '4';
     var idx = jQuery('.carousel-inner div.active').index();
-    console.log('chala with', idx);
-
     if (idx === 1) {
       jQuery('#three').parent().find('a').removeClass('active-tab');
       jQuery('#three').find('a').addClass('active-tab');
@@ -314,7 +304,6 @@ export class helpline1097CoComponent implements OnInit {
   prevVisual() {
     this.resetProvideServices = '1';
     var idx = jQuery('.carousel-inner div.active').index();
-    console.log('chala with', idx);
     this.isClosureDisable = false;
 
     if (idx === 2) {

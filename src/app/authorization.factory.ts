@@ -5,14 +5,12 @@
 */
 
 import { XHRBackend, Http, RequestOptions } from '@angular/http';
-import { InterceptedHttp } from './http.interceptor';
-import { LoaderService } from './services/common/loader.service';
+import { AuthorizationWrapper } from './authorization.wrapper';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AuthService } from './services/authentication/auth.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service';
 
-export function httpFactory(xhrBackend: XHRBackend,
-    requestOptions: RequestOptions, loaderService: LoaderService,
-    router: Router, authService: AuthService, message: ConfirmationDialogsService): Http {
-    return new InterceptedHttp(xhrBackend, requestOptions, loaderService, router, authService, message);
+export function AuthorizationFactory(xhrBackend: XHRBackend,
+    requestOptions: RequestOptions, router: Router, authService: AuthService, message: ConfirmationDialogsService): Http {
+    return new AuthorizationWrapper(xhrBackend, requestOptions, router, authService, message);
 }

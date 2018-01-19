@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { InterceptedHttp } from './../../http.interceptor'
+import { InterceptedHttp } from './../../http.interceptor';
+import { AuthorizationWrapper } from './../../authorization.wrapper';
 
 
 @Injectable()
@@ -13,16 +14,14 @@ export class UserBeneficiaryData {
     _commonBaseURL = this._config.getCommonBaseURL();
     _getUserBeneficaryDataURL = this._commonBaseURL + 'beneficiary/getRegistrationDataV1/';
     _searchBeneficiary = this._commonBaseURL + '/beneficiary/searchBeneficiary';
-    headers = new Headers({ 'Content-Type': 'application/json' });
-    options = new RequestOptions({ headers: this.headers });
     constructor(
-        private _http: Http,
+        private _http: AuthorizationWrapper,
         private _config: ConfigService,
         private _httpInterceptor: InterceptedHttp
     ) { }
     getUserBeneficaryData(serviceID: any) {
         let data = { 'providerServiceMapID': serviceID };
-        return this._http.post(this._getUserBeneficaryDataURL, data, this.options)
+        return this._http.post(this._getUserBeneficaryDataURL, data)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -82,11 +81,11 @@ export class UserBeneficiaryData {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return response.json();
+            return Observable.throw(response.json());
         }
     }
 
-    handleError(response: Response) {
-        return response.json()
+    handleError(error: Response) {
+        return Observable.throw(error.json());
     }
 };

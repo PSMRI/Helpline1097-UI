@@ -135,7 +135,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
     private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
-    private pass_data: CommunicationService, private outboundService: OutboundService, private czentrixService: CzentrixServices, private reload_call: ReloadService) {
+    private pass_data: CommunicationService,
+    private outboundService: OutboundService, private czentrixService: CzentrixServices, private reload_call: ReloadService) {
     this.subcriptionOutbound = this.outboundService.getOutboundData()
       .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
     this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {

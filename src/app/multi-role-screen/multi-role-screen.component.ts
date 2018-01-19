@@ -108,11 +108,9 @@ export class MultiRoleScreenComponent implements OnInit {
     this.Czentrix.agentLogout(this.dataSettingService.cZentrixAgentID, response).subscribe((res) => {
 
       if (res.response.status.toUpperCase() !== 'FAIL') {
-        sessionStorage.removeItem('authen');
         sessionStorage.removeItem('isOnCall');
         this.router.navigate(['']);
       } else {
-        sessionStorage.removeItem('authen');
         sessionStorage.removeItem('isOnCall');
         this.router.navigate(['']);
         // this.alertMessage.alert('Czentrix Agent Not Logged In');

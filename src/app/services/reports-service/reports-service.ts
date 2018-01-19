@@ -8,8 +8,6 @@ import { InterceptedHttp } from './../../http.interceptor';
 
 @Injectable()
 export class ReportsService {
-  headers = new Headers({ 'Content-Type': 'application/json' });
-  options = new RequestOptions({ headers: this.headers });
   private getAllBySexualOrientationURL = this._config.getCommonBaseURL() + "crmReports/getAllBySexualOrientation";
   private getAllByGenderURL = this._config.getCommonBaseURL() + "crmReports/getAllByGender";
   private getAllByAgeGroupURL = this._config.getCommonBaseURL() + "crmReports/getAllByAgeGroup";
@@ -22,50 +20,50 @@ export class ReportsService {
     private httpInterceptor: InterceptedHttp
   ) { }
 
-  getAllBySexualOrientation(data){
-      return this.httpInterceptor.post(this.getAllBySexualOrientationURL, data)
+  getAllBySexualOrientation(data) {
+    return this.httpInterceptor.post(this.getAllBySexualOrientationURL, data)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getAllByGender(data){
-      return this.httpInterceptor.post(this.getAllByGenderURL, data)
+  getAllByGender(data) {
+    return this.httpInterceptor.post(this.getAllByGenderURL, data)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getAllByAgeGroup(data){
-      return this.httpInterceptor.post(this.getAllByAgeGroupURL, data)
+  getAllByAgeGroup(data) {
+    return this.httpInterceptor.post(this.getAllByAgeGroupURL, data)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getAllReportsByDate(data){
-      return this.httpInterceptor.post(this.getAllReportsByDateURL, data)
+  getAllReportsByDate(data) {
+    return this.httpInterceptor.post(this.getAllReportsByDateURL, data)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getCountsByPreferredLanguage(data){
-      return this.httpInterceptor.post(this.getCountsByPreferredLanguageURL, data)
+  getCountsByPreferredLanguage(data) {
+    return this.httpInterceptor.post(this.getCountsByPreferredLanguageURL, data)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-   private extractData(res: Response) {
-      if (res.json().data) {
-        return res.json().data;
-      } else {
-        return res.json();
-      }
-    };
+  private extractData(res: Response) {
+    if (res.json().data) {
+      return res.json().data;
+    } else {
+      return Observable.throw(res.json());
+    }
+  };
 
-    private customhandleError(error: Response | any) {
-      return Observable.throw(error.json());
+  private customhandleError(error: Response | any) {
+    return Observable.throw(error.json());
 
-    };
-    private handleError(res: Response) {
-      return res.json();
-    };
+  };
+  private handleError(error: Response) {
+    return Observable.throw(error.json());
+  };
 
 }

@@ -4,13 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { InterceptedHttp } from './../../http.interceptor'
+import { InterceptedHttp } from './../../http.interceptor';
+import { AuthorizationWrapper } from './../../authorization.wrapper';
 
 @Injectable()
 export class CallServices {
-  headers = new Headers({ 'Content-Type': 'application/json' });
-  options = new RequestOptions({ headers: this.headers });
-
   _baseUrl = this._config.get1097BaseURL();
   _commonURL = this._config.getCommonBaseURL();
   _closecallurl = this._commonURL + 'call/closeCall/';
@@ -27,7 +25,7 @@ export class CallServices {
   _getRecording_url = this._commonURL + 'call/nueisanceCallHistory/';
   _switchToOutbound_url = this._commonURL + 'cti/switchToOutbound/';
   constructor(
-    private _http: Http,
+    private _http: AuthorizationWrapper,
     private _config: ConfigService,
     private _httpInterceptor: InterceptedHttp
   ) { }
@@ -50,11 +48,11 @@ export class CallServices {
   }
   getCallSummary(values: any) {
     console.log('Call summary to be retreived for ', values)
-    return this._http.post(this._callsummaryurl, values, this.options).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._callsummaryurl, values).map(this.extractData).catch(this.handleError);
   }
   getCallTypes(values: any) {
     console.log('call types to be retreived for ', values)
-    return this._http.post(this._calltypesurl, values, this.options).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._calltypesurl, values).map(this.extractData).catch(this.handleError);
   }
   getOutboundCallList(serviceID: any, userID?: any) {
     const obj = {};
@@ -71,7 +69,7 @@ export class CallServices {
   }
 
   getLanguages() {
-    return this._http.get(this._getLanguage_url, this.options).map(this.extractData).catch(this.handleError);
+    return this._http.get(this._getLanguage_url).map(this.extractData).catch(this.handleError);
   }
   blockPhoneNumber(phoneBlockID: any) {
     return this._httpInterceptor.post(this._blockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
@@ -97,12 +95,12 @@ export class CallServices {
     if (response.json().data) {
       return response.json().data;
     } else {
-      return response.json();
+      return Observable.throw(response.json());
     }
   }
 
   handleError(error: Response) {
-    return error.json();
+    return Observable.throw(error.json());
   }
   handleCustomError(error: Response) {
     return Observable.throw(error.json());

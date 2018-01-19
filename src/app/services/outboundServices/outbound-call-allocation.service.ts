@@ -3,39 +3,31 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { InterceptedHttp } from './../../http.interceptor'
+import { InterceptedHttp } from './../../http.interceptor';
 import { Observable } from 'rxjs/Observable';
+import { AuthorizationWrapper } from './../../authorization.wrapper';
 
 @Injectable()
 export class OutboundCallAllocationService {
 
     test = [];
     _baseurl: String = this._config.getCommonBaseURL();
-    headers = new Headers(
-        { 'Content-Type': 'application/json' }
-        //  ,{'Access-Control-Allow-Headers': 'X-Requested-With, content-type'}
-        //   ,{'Access-Control-Allow-Origin': 'localhost:4200'}
-        //  ,{'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS'}
-        //  ,{'Access-Control-Allow-Methods': '*'}
-    );
-
-    options = new RequestOptions({ headers: this.headers });
     private _geturl: string = this._baseurl + 'user/getUsersByProviderID';
     private _getRole_url: string = this._baseurl + 'user/getRolesByProviderID';
     private _allocateurl: string = this._baseurl + 'call/outboundAllocation';
 
-    constructor(private _http: Http, private _config: ConfigService, private httpIntercept: InterceptedHttp) { }
+    constructor(private _http: AuthorizationWrapper, private _config: ConfigService, private httpIntercept: InterceptedHttp) { }
     getRoles(providerServiceMapID: number) {
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
-        return this._http.post(this._geturl, body, this.options)
+        return this._http.post(this._geturl, body)
             .map(this.extractData)
             .catch(this.handleError);
     }
     getRolesbyProviderID(providerServiceMapID: number) {
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
-        return this._http.post(this._getRole_url, body, this.options)
+        return this._http.post(this._getRole_url, body)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -58,7 +50,7 @@ export class OutboundCallAllocationService {
             body['languageName'] = languageName;
         }
         userArray.push(body);
-        return this._http.post(this._geturl, body, this.options)
+        return this._http.post(this._geturl, body)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -74,7 +66,7 @@ export class OutboundCallAllocationService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return response.json();
+            return Observable.throw(response.json());
         }
     };
 

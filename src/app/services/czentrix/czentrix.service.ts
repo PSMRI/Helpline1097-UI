@@ -5,12 +5,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { ConfigService } from '../config/config.service';
 import { dataService } from '../dataService/data.service';
+import { AuthorizationWrapper } from './../../authorization.wrapper';
 
 
 @Injectable()
 export class CzentrixServices {
-  headers = new Headers({ 'Content-Type': 'application/json' });
-  options = new RequestOptions({ headers: this.headers });
   common_url = this._config.getCommonBaseURL();
   address = this._config.getTelephonyServerURL();
   _getAgentStatus_url = this.common_url + '/cti/getAgentState';
@@ -22,7 +21,7 @@ export class CzentrixServices {
   ip: any;
 
   phone_num: number;
-  constructor(private http: Http, private _config: ConfigService, private _data: dataService) {
+  constructor(private http: AuthorizationWrapper, private _config: ConfigService, private _data: dataService) {
     this.agent_id = this._data.cZentrixAgentID;
   }
 
@@ -65,14 +64,14 @@ export class CzentrixServices {
     this.agent_id = this._data.cZentrixAgentID;
     let obj = { 'agent_id': this.agent_id };
 
-    return this.http.post(this._getAgentStatus_url, obj, this.options).map(this.extractData).catch(this.handleError);
+    return this.http.post(this._getAgentStatus_url, obj).map(this.extractData).catch(this.handleError);
   }
 
   getCallDetails() {
     this.agent_id = this._data.cZentrixAgentID;
 
     let obj = { 'agent_id': this.agent_id };
-    return this.http.post(this._getCallDetails, obj, this.options).map(this.extractData).catch(this.handleError);
+    return this.http.post(this._getCallDetails, obj).map(this.extractData).catch(this.handleError);
   }
   manualDialaNumber(agentId, ipAddress, phoneNum) {
     this.transaction_id = 'CTI_DIAL';

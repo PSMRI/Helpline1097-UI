@@ -4,8 +4,7 @@ import { HttpServices } from "../../http-services/http_services.service";
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class LanguageService
-{
+export class LanguageService {
 
     test = [];
     headers = new Headers(
@@ -15,41 +14,35 @@ export class LanguageService
         //  ,{'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS'}
         //  ,{'Access-Control-Allow-Methods': '*'}
     );
-    options = new RequestOptions( { headers: this.headers } );
+    options = new RequestOptions({ headers: this.headers });
     private _geturl: string = "http://localhost:8080/Language/iEMR/userLanguage/getData"
     private _saveurl: string = "http://localhost:8080//iEMR/userLanguage/saveUserLanguage"
 
-    constructor( private _http: Http ) { }
-    getLanguage ()
-    {
+    constructor(private _http: Http) { }
+    getLanguage() {
 
-        return this._http.post( this._geturl, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post(this._geturl, this.options).map(this.extractData).catch(this.handleError);
         //.map(( response: Response ) => response.json() );
 
     }
-    saveLanguage ( data: any )
-    {
+    saveLanguage(data: any) {
 
         //console.log(data);
-        return this._http.post( this._saveurl, data, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post(this._saveurl, data, this.options).map(this.extractData).catch(this.handleError);
 
         // .map(( response: Response ) => response.json() );
 
     }
 
-    extractData ( response: Response )
-    {
-        if ( response.json().data )
-        {
+    extractData(response: Response) {
+        if (response.json().data) {
             return response.json().data;
-        } else
-        {
+        } else {
             return response.json();
         }
     }
 
-    handleError ( response: Response )
-    {
+    handleError(response: Response) {
         return response.json()
     }
 }

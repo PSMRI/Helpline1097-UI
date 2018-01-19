@@ -4,13 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { InterceptedHttp } from './../../http.interceptor'
+import { AuthorizationWrapper } from './../../authorization.wrapper';
+import { InterceptedHttp } from './../../http.interceptor';
 
 @Injectable()
 export class RegisterService {
-  headers = new Headers({ 'Content-Type': 'application/json' });
-  options = new RequestOptions({ headers: this.headers });
-
   _baseUrl = this._config.getCommonBaseURL();
   _helplineURL = this._config.get1097BaseURL();
   _createbeneficiaryurl = this._baseUrl + 'beneficiary/create/';
@@ -20,16 +18,16 @@ export class RegisterService {
   _startCall = this._baseUrl + 'call/startCall/';
   _updatebeneficiaryincall = this._baseUrl + 'call/updatebeneficiaryincall';
   _getregistrationdata = this._baseUrl + 'beneficiary/getRegistrationDataV1';
-  _searchBeneficiaryURL = this._baseUrl + "/beneficiary/searchBeneficiary";
+  _searchBeneficiaryURL = this._baseUrl + '/beneficiary/searchBeneficiary';
   constructor(
-    private _http: Http,
+    private _http: AuthorizationWrapper,
     private _config: ConfigService,
     private httpInterceptor: InterceptedHttp
   ) { }
 
   generateReg(values: any) {
     console.log('Beneficiary data to insert ' + values);
-    return this._http.post(this._createbeneficiaryurl, JSON.stringify(values), this.options)
+    return this._http.post(this._createbeneficiaryurl, JSON.stringify(values))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -61,16 +59,13 @@ export class RegisterService {
 
   retrieveRegHistoryByPhoneNo(phoneNo: any) {
 
-    let data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000 };
+    const data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000 };
     return this.httpInterceptor.post(this._getuserdatabyno, data)
       .map(this.extractData)
       .catch(this.customhandleError);
   }
 
   searchBenficiary(values: any) {
-    var headers = new Headers();
-    headers.append('Accept', 'application/json');
-    headers.append('Content-Type', 'application/json');
     let lastName = "";
     let firstName = "";
     let fatherNameHusbandNameSearch = "";
@@ -78,46 +73,44 @@ export class RegisterService {
     let beneficiaryID = "";
     let district = "";
     let talukSearch = "";
-    if (values.firstName != undefined) {
+    if (values.firstName !== undefined) {
       firstName = values.firstName;
     }
-    if (values.lastName != undefined) {
+    if (values.lastName !== undefined) {
       lastName = values.lastName;
     }
-    if (values.fatherNameHusbandNameSearch != undefined) {
+    if (values.fatherNameHusbandNameSearch !== undefined) {
       fatherNameHusbandNameSearch = values.fatherNameHusbandNameSearch;
     }
-    if (values.gender != undefined) {
+    if (values.gender !== undefined) {
       gender = values.gender;
     }
-    if (values.beneficiaryID != undefined) {
+    if (values.beneficiaryID !== undefined) {
       beneficiaryID = values.beneficiaryID;
     }
-    if (values.districtSearch != undefined) {
+    if (values.districtSearch !== undefined) {
       district = values.districtSearch;
     }
-    if (values.talukSearch != undefined) {
+    if (values.talukSearch !== undefined) {
       talukSearch = values.talukSearch;
     }
 
-    let createData = '{"firstName":"' + firstName + '","lastName":"' + lastName + '","fatherName":"' + fatherNameHusbandNameSearch + '",'
+    const createData = '{"firstName":"' + firstName + '","lastName":"' + lastName + '","fatherName":"' + fatherNameHusbandNameSearch + '",'
       + '"genderID":"' + gender + '","beneficiaryID": "' + beneficiaryID + '","i_bendemographics":[{'
       + '"stateID":"' + district + '",'
       + '"cityID":"' + talukSearch + '"'
       + '}]}';
     console.log(createData);
     console.log(district);
-    return this._http.post(this._searchBeneficiaryURL, createData, { headers: headers })
+    return this._http.post(this._searchBeneficiaryURL, createData)
       .map(this.extractData).catch(this.handleError);
   }
-
-
 
   private extractData(res: Response) {
     if (res.json().data) {
       return res.json().data;
     } else {
-      return res.json();
+      return Observable.throw(res.json());
     }
   };
 
@@ -126,7 +119,7 @@ export class RegisterService {
 
   };
   private handleError(res: Response) {
-    return res.json();
+    return Observable.throw(res.json());
   };
 
 }

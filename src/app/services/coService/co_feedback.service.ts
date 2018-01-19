@@ -5,32 +5,31 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { InterceptedHttp } from './../../http.interceptor'
+import { InterceptedHttp } from './../../http.interceptor';
+import { AuthorizationWrapper } from './../../authorization.wrapper';
 
 @Injectable()
 export class CoFeedbackService {
 
     test = [];
-    headers = new Headers({ 'Content-Type': 'application/json' });
-    options = new RequestOptions({ headers: this.headers });
     _baseurl = this._config.get1097BaseURL();
     _commonUrl = this._config.getCommonBaseURL();
-    _servicetypesurl = this._commonUrl + "service/servicetypes";
+    _servicetypesurl = this._commonUrl + 'service/servicetypes';
     // _servicetypesurl = this._baseurl + 'api/helpline1097/co/get/servicetypes'
     _createFeedbackURL = this._baseurl + 'co/saveBenFeedback/'
     _getDesignationsURL = this._baseurl + 'designation/get/'
     // _getFeedbackHistoryByID = this._baseurl + 'services/getFeedbacksHistory'
     _getFeedbackHistory = this._commonUrl + 'feedback/getFeedbacksList';
     constructor(
-        private _http: Http,
+        private _http: AuthorizationWrapper,
         private _config: ConfigService,
         private _httpInterceptor: InterceptedHttp
     ) { }
 
     getTypes(providerServiceMapID: number) {
         let data = {};
-        data["providerServiceMapID"] = providerServiceMapID;
-        return this._http.post(this._servicetypesurl, data, this.options)
+        data['providerServiceMapID'] = providerServiceMapID;
+        return this._http.post(this._servicetypesurl, data)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -42,7 +41,7 @@ export class CoFeedbackService {
 
     getDesignations() {
         let data = {};
-        return this._http.post(this._getDesignationsURL, data, this.options)
+        return this._http.post(this._getDesignationsURL, data)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -56,14 +55,14 @@ export class CoFeedbackService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return response.json();
+            return Observable.throw(response.json());
         }
     }
 
     handleError(response: Response) {
-        return response.json()
+        return Observable.throw(response.json());
     }
-};
+}
 
 
 

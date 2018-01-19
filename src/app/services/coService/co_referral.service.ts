@@ -6,14 +6,12 @@ import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { InterceptedHttp } from './../../http.interceptor'
-
+import { AuthorizationWrapper } from './../../authorization.wrapper';
 
 @Injectable()
 export class CoReferralService {
 
     test = [];
-    headers = new Headers({ 'Content-Type': 'application/json' });
-    options = new RequestOptions({ headers: this.headers });
     _baseurl = this._config.get1097BaseURL();
     _commonURL = this._config.getCommonBaseURL();
     _categoryurl = this._commonURL + 'category/categories';
@@ -26,20 +24,20 @@ export class CoReferralService {
     _servicetypesurl = this._commonURL + "service/servicetypes";
     _getbenficiaryHistoryUrl = this._baseurl + 'services/getBeneficiaryCallsHistory';
     constructor(
-        private _http: Http,
+        private _http: AuthorizationWrapper,
         private _config: ConfigService,
         private _httpInterceptor: InterceptedHttp
     ) { }
     // getCategories ()
     // {
-    //     return this._http.post( this._categoryurl, this.options )
+    //     return this._http.post( this._categoryurl )
     //         .map( this.extractData )
     //         .catch( this.handleError );
     // }
     // getSubCategories ( id: any )
     // {
     //     let data = { "categoryID": id };
-    //     return this._http.post( this._subcategoryurl, data, this.options )
+    //     return this._http.post( this._subcategoryurl, data )
     //         .map( this.extractData )
     //         .catch( this.handleError );
     // }
@@ -69,7 +67,7 @@ export class CoReferralService {
     getTypes(providerServiceMapID: number) {
         let data = {};
         data["providerServiceMapID"] = providerServiceMapID;
-        return this._http.post(this._servicetypesurl, data, this.options)
+        return this._http.post(this._servicetypesurl, data)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -86,12 +84,12 @@ export class CoReferralService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return response.json();
+            return Observable.throw(response.json());
         }
     }
 
     handleError(response: Response) {
-        return response.json()
+        return Observable.throw(response.json());
     }
 };
 

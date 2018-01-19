@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 @Component({
     selector: 'dashboard-user-id',
@@ -14,7 +15,8 @@ export class DashboardUserIdComponent implements OnInit {
     constructor(
         public dataSettingService: dataService,
         public router: Router,
-        private Czentrix: CzentrixServices
+        private Czentrix: CzentrixServices,
+        private message: ConfirmationDialogsService
     ) {
         this.current_service = this.dataSettingService.current_service.serviceName;
         this.current_role = this.dataSettingService.current_role.RoleName;
@@ -39,7 +41,7 @@ export class DashboardUserIdComponent implements OnInit {
             // }
 
         }, (err) => {
-
+            this.message.alert(err.errorMessage);
         })
     }
     // tslint:disable-next-line:eofline
