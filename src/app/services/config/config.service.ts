@@ -8,24 +8,24 @@ import * as config from 'assets/config.json';
 
 @Injectable()
 export class ConfigService {
-    // private _commonBaseURL: String = 'http://14.142.214.242:8080/commonapi-v1.0/';
-    // private _helpline1097BaseURL: String = 'http://14.142.214.242:8080/1097api-v1.0/';
-    // private _telephonyServerURL: String = 'http://14.142.214.245/';
+    // private _commonBaseURL: String = 'http://deviemr.piramalswasthya.org:8080/commonapi-v1.0/';
+    // private _helpline1097BaseURL: String = 'http://deviemr.piramalswasthya.org:8080/1097api-v1.0/';
+    // private _telephonyServerURL: String = 'http://helplines.piramalswasthya.org/';
     // private _localeString = 'en-in';
-    // private _loginUrl = 'http://14.142.214.242:8080/commonui-v1.0';
+    // private _loginUrl = 'http://deviemr.piramalswasthya.org:8080/commonui-v1.0';
+    // private _commonBaseURL: String = 'http://deviemr.piramalswasthya.org:8080/commonapi-v1.0/';
+    // private _helpline1097BaseURL: String = 'http://deviemr.piramalswasthya.org:8080/1097api-v1.0/';
+    // private _telephonyServerURL: String = 'http://helplines.piramalswasthya.org/';
+    // private _localeString = 'en-in';
+    // private _loginUrl = 'http://deviemr.piramalswasthya.org:8080/commonui-v1.0';
+    // private adminBaseUrl = 'http://deviemr.piramalswasthya.org:8080/adminapi-v1.0/';
+
     private _commonBaseURL: String = 'http://10.152.3.99:8080/commonapi-v1.0/';
     private _helpline1097BaseURL: String = 'http://10.152.3.99:8080/1097api-v1.0/';
     private _telephonyServerURL: String = 'http://10.201.13.17/';
     private _localeString = 'en-in';
     private _loginUrl = 'http://10.152.3.99:8080/commonui-v1.0';
     private adminBaseUrl = 'http://10.152.3.99:8080/adminapi-v1.0/';
-
-    // private _commonBaseURL: String = 'http://L-156100778.wipro.com:8080/commonapi-v1.0/';
-    // private _helpline1097BaseURL: String = 'http://L-156100778.wipro.com:8080/1097api-v1.0/';
-    // private _telephonyServerURL: String = 'http://10.201.13.17/';
-    // private _localeString = 'en-in';
-    // private _loginUrl = 'http://L-156100778.wipro.com:8080/commonui-v1.0';
-    // private adminBaseUrl = 'http://L-156100778.wipro.com:8080/adminapi-v1.0/';
 
     // private _commonBaseURL: String = 'http://l-185000861.wipro.com:8080/commonapi-v1.0/';
     // private _helpline1097BaseURL: String = 'http://l-185000861.wipro.com:8080/1097api-v1.0/';
