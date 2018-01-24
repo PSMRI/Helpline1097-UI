@@ -13,4 +13,4 @@ import { ConfirmationDialogsService } from './services/dialog/confirmation.servi
 export function AuthorizationFactory(xhrBackend: XHRBackend,
     requestOptions: RequestOptions, router: Router, authService: AuthService, message: ConfirmationDialogsService): Http {
     return new AuthorizationWrapper(xhrBackend, requestOptions, router, authService, message);
-}
+} 

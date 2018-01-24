@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { InterceptedHttp } from './../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
-
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Injectable()
 export class loginService {
@@ -14,11 +14,18 @@ export class loginService {
   _userAuthURL = this._baseURL + 'user/userAuthenticate/';
   _forgotPasswordURL = this._baseURL + 'user/forgetPassword/';
   _getDetailsByID = this._baseURL + 'user/getUserDetails/';
+  _authorisedUser = this._baseURL + '/user/getLoginResponse';
   constructor(
     private _http: InterceptedHttp,
     private _config: ConfigService
   ) { }
 
+
+  public checkAuthorisedUser() {
+    return this._http.post(this._authorisedUser, {})
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
   public authenticateUser(uname: any, pwd: any): Observable<any> {
     return this._http.post(this._userAuthURL, { 'userName': uname, 'password': pwd })
       .map(this.extractData)

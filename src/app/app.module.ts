@@ -250,7 +250,8 @@ import { COComponent } from './co/co.component';
           },
           {
             path: 'dashboard',
-            component: dashboardContentClass
+            component: dashboardContentClass,
+            canActivate: [AuthGuard],
           },
           {
             path: 'superAdmin',

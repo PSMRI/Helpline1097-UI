@@ -85,16 +85,8 @@ export class MultiRoleScreenComponent implements OnInit {
   //   // location.assign(this.loginUrl);
   // }
   logOut() {
+    this.ipSuccessLogoutHandler(this.dataSettingService.loginIP);
 
-    if (this.dataSettingService.loginIP === undefined || this.dataSettingService.loginIP === '') {
-      this.Czentrix.getIpAddress(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
-        if (res) {
-          this.ipSuccessLogoutHandler(res.response.agent_ip);
-        }
-      });
-    } else {
-      this.ipSuccessLogoutHandler(this.dataSettingService.loginIP);
-    }
 
   }
   minimizeBar() {
@@ -116,6 +108,7 @@ export class MultiRoleScreenComponent implements OnInit {
         // this.alertMessage.alert('Czentrix Agent Not Logged In');
       }
     }, (err) => {
+      this.alertMessage.alert(err.errorMessage);
     });
   }
   hideCZentix(flag: any) {

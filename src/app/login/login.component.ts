@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { loginService } from '../services/loginService/login.service';
 import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 
-export class loginContentClass {
+export class loginContentClass implements OnInit {
   model: any = {};
   userID: any;
   password: any;
@@ -20,7 +20,50 @@ export class loginContentClass {
   dynamictype: any = 'password';
 
   constructor(public loginservice: loginService, public router: Router,
-    public dataSettingService: dataService, private czentrixServices: CzentrixServices) { };
+    public dataSettingService: dataService, private czentrixServices: CzentrixServices) {
+    if (localStorage.getItem('authToken')) {
+      this.loginservice.checkAuthorisedUser().subscribe((response) => {
+        this.dataSettingService.Userdata = response;
+        // this.dataSettingService.userPriveliges = response.Previlege;
+        this.dataSettingService.userPriveliges = response.previlegeObj;
+        this.dataSettingService.uid = response.userID;
+        this.dataSettingService.uname = this.userID;
+        this.dataSettingService.Userdata.agentID = response.agentID;
+        this.dataSettingService.loginIP = response.loginIPAddress;
+        console.log('array' + response.previlegeObj);
+        if (response.isAuthenticated === true && response.Status === 'Active') {
+          this.router.navigate(['/MultiRoleScreenComponent']);
+        }
+        if (response.isAuthenticated === true && response.Status === 'New') {
+          this.router.navigate(['/setQuestions']);
+        }
+      }, (err) => { });
+    }
+
+  };
+
+  ngOnInit() {
+    debugger;
+    if (localStorage.getItem('authToken')) {
+      this.loginservice.checkAuthorisedUser().subscribe((response) => {
+        this.dataSettingService.Userdata = response;
+        // this.dataSettingService.userPriveliges = response.Previlege;
+        this.dataSettingService.userPriveliges = response.previlegeObj;
+        this.dataSettingService.uid = response.userID;
+        this.dataSettingService.uname = this.userID;
+        this.dataSettingService.Userdata.agentID = response.agentID;
+        this.dataSettingService.loginIP = response.loginIPAddress;
+        console.log('array' + response.previlegeObj);
+        if (response.isAuthenticated === true && response.Status === 'Active') {
+          this.router.navigate(['/MultiRoleScreenComponent']);
+        }
+        if (response.isAuthenticated === true && response.Status === 'New') {
+          this.router.navigate(['/setQuestions']);
+        }
+      }, (err) => { });
+    }
+
+  }
   login(userId: any, password: any) {
     // this.loading = true;
     console.log(userId, password);
