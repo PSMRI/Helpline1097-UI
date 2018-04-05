@@ -10,6 +10,7 @@ import { PlatformLocation } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ListnerService } from './../services/common/listner.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../services/authentication/auth.service';
 
 @Component({
   selector: 'app-multi-role-screen',
@@ -30,7 +31,7 @@ export class MultiRoleScreenComponent implements OnInit {
   subscription: Subscription;
   hideHeader: boolean = true;
   constructor(public dataSettingService: dataService, private _config: ConfigService, location: PlatformLocation,
-    public router: Router, private _loginService: loginService, private Czentrix: CzentrixServices,
+    public router: Router, private authService: AuthService, private _loginService: loginService, private Czentrix: CzentrixServices,
     private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer, private listnerService: ListnerService) {
     location.onPopState((e: any) => {
       console.log(e);
@@ -97,17 +98,27 @@ export class MultiRoleScreenComponent implements OnInit {
 
   }
   ipSuccessLogoutHandler(response) {
+    this.router.navigate(['']);
+    this.authService.removeToken();
     this.Czentrix.agentLogout(this.dataSettingService.cZentrixAgentID, response).subscribe((res) => {
 
       if (res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
         this.router.navigate(['']);
+        this.authService.removeToken();
+
       } else {
         sessionStorage.removeItem('isOnCall');
         this.router.navigate(['']);
+        this.authService.removeToken();
+
         // this.alertMessage.alert('Czentrix Agent Not Logged In');
       }
     }, (err) => {
+      sessionStorage.removeItem('isOnCall');
+      this.router.navigate(['']);
+      this.authService.removeToken();
+
       this.alertMessage.alert(err.errorMessage);
     });
   }

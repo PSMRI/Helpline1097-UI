@@ -19,9 +19,9 @@ export class CzentrixServices {
   resFormat = 3;
   transaction_id: any;
   ip: any;
-
+  _agentLogOut = this.common_url + 'cti/doAgentLogout';
   phone_num: number;
-  constructor(private http: AuthorizationWrapper, private _config: ConfigService, private _data: dataService) {
+  constructor(private http: AuthorizationWrapper, private _config: ConfigService, private _data: dataService, private normalHTTP :Http) {
     this.agent_id = this._data.cZentrixAgentID;
   }
 
@@ -46,8 +46,11 @@ export class CzentrixServices {
     this.transaction_id = 'CTI_LOGOUT';
     // this.agent_id = agentId;
     // this.ip = ipAddress;
-    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + agentId + '&ip=' + ipAddress + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
+    // let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + agentId + '&ip=' + ipAddress + '&resFormat=' + this.resFormat;
+    // return this.callAPI(params);
+    const loginObj = { 'agent_id': agentId };
+    return this.normalHTTP.post(this._agentLogOut, loginObj).map(this.extractData).catch(this.handleError);
+
   }
 
   getOnlineAgents(agentId, ipAddress) {

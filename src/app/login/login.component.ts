@@ -55,7 +55,7 @@ export class loginContentClass implements OnInit {
         this.dataSettingService.loginIP = response.loginIPAddress;
         console.log('array' + response.previlegeObj);
         if (response.isAuthenticated === true && response.Status === 'Active') {
-          this.router.navigate(['/MultiRoleScreenComponent']);
+          this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
         if (response.isAuthenticated === true && response.Status === 'New') {
           this.router.navigate(['/setQuestions']);
@@ -89,7 +89,7 @@ export class loginContentClass implements OnInit {
     if (response.isAuthenticated === true && response.Status === 'Active') {
       sessionStorage.removeItem('isOnCall');
       localStorage.setItem('authToken', response.key);
-      this.router.navigate(['/MultiRoleScreenComponent']);
+      this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
     }
     if (response.isAuthenticated === true && response.Status === 'New') {
       localStorage.setItem('authToken', response.key);
