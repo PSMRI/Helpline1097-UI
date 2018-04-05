@@ -29,9 +29,11 @@ export class ConfigService {
 
     // private _commonBaseURL: String = 'http://l-185000861.wipro.com:8080/commonapi-v1.0/';
     // private _helpline1097BaseURL: String = 'http://l-185000861.wipro.com:8080/1097api-v1.0/';
-    // private _telephonyServerURL: String = 'http://10.201.13.17/';
+    // private _telephonyServerURL: String = 'http://10.208.122.99/';
     // private _localeString = 'en-in';
-    // private _loginUrl = 'http://14.142.214.242:8080/commonui-v1.0';
+    // private _loginUrl = 'http://l-185000861.wipro.com:8080/commonui-v1.0';
+    // private adminBaseUrl = 'http://l-185000861.wipro.com:8080/adminapi-v1.0/';
+
     constructor() {
         // this.successHandeler(config);
     }

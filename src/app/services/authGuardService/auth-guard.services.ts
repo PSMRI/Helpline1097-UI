@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
         .toPromise()
         .then(response => {
           if (response) {
-            debugger;
+            // debugger;
             this.dataSettingService.Userdata = response.json().data;
             // this.dataSettingService.userPriveliges = response.Previlege;
             this.dataSettingService.userPriveliges = response.json().data.previlegeObj;
