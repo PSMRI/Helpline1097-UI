@@ -22,7 +22,7 @@ export class ConfigService {
 
     private _commonBaseURL: String = 'http://10.152.3.99:8080/commonapi-v1.0/';
     private _helpline1097BaseURL: String = 'http://10.152.3.99:8080/1097api-v1.0/';
-    private _telephonyServerURL: String = 'http://10.201.13.17/';
+    private _telephonyServerURL: String = 'http://10.208.122.99/';
     private _localeString = 'en-in';
     private _loginUrl = 'http://10.152.3.99:8080/commonui-v1.0';
     private adminBaseUrl = 'http://10.152.3.99:8080/adminapi-v1.0/';
