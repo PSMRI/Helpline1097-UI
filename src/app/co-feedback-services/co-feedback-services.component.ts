@@ -88,13 +88,26 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.userID = this._savedData.uid;
     this.GetServiceTypes();
     this._userBeneficiaryData.getUserBeneficaryData(this._savedData.current_service.serviceID)
-      .subscribe(response => this.SetUserBeneficiaryFeedbackData(response));
+      .subscribe(response => this.SetUserBeneficiaryFeedbackData(response),
+    (err) => {
+      this.alertMessage.alert(err.errorMessage,'error');
+
+    });
     this._coFeedbackService.getDesignations()
-      .subscribe(response => this.setDesignation(response));
+      .subscribe(response => this.setDesignation(response),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
     this._feedbackTypes.getFeedbackTypesData(this.providerServiceMapID)
-      .subscribe(response => this.setFeedbackTypes(response));
+      .subscribe(response => this.setFeedbackTypes(response),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
     this._feedbackTypes.getFeedbackSeverityData(this.providerServiceMapID)
-      .subscribe(response => this.setFeedbackSeverity(response));
+      .subscribe(response => this.setFeedbackSeverity(response),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
     this.count = '0/300';
 
     this.today = new Date();
@@ -130,7 +143,10 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   GetServiceTypes() {
     this._feedbackTypes.getTypes(this.providerServiceMapID)
-      .subscribe(response => this.setServiceTypes(response));
+      .subscribe(response => this.setServiceTypes(response),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
   }
   setServiceTypes(response: any) {
     for (let i: any = 0; i < response.length; i++) {
@@ -153,10 +169,10 @@ export class CoFeedbackServicesComponent implements OnInit {
           this.showTable();
         }
         else {
-          this.alertMessage.alert("No data Found. Please contact your administrator");
+          this.alertMessage.alert("No data found, contact your administrator");
         }
       }, (err) => {
-        this.alertMessage.alert('Error In Fetching Previous Feedback. Please Try Again.');
+        this.alertMessage.alert('Error in fetching previous feedback, Please try again','error');
         console.log('Error in fetching Data of FeedBack' + err);
       });
 
@@ -174,7 +190,10 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.blocks = [];
     // this.institutes = [];
     this._locationService.getDistricts(state)
-      .subscribe(response => this.SetDistricts(response));
+      .subscribe(response => this.SetDistricts(response),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
   }
   SetDistricts(response: any) {
     this.districts = response;
@@ -184,7 +203,10 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.blocks = [];
     // this.institutes = [];
     this._locationService.getTaluks(district)
-      .subscribe(response => this.SetTaluks(response));
+      .subscribe(response => this.SetTaluks(response),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
   }
   SetTaluks(response: any) {
     this.taluks = response;
@@ -193,7 +215,10 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.blocks = [];
     // this.institutes = [];
     this._locationService.getBranches(taluk)
-      .subscribe(response => this.SetBlocks(response));
+      .subscribe(response => this.SetBlocks(response),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
   }
   SetBlocks(response: any) {
     this.blocks = response;
@@ -204,7 +229,10 @@ export class CoFeedbackServicesComponent implements OnInit {
     let object ={};
     // let object = { 'providerServiceMapID': this.providerServiceMapID };
     this._locationService.getInstituteList(object)
-      .subscribe(response => this.SetInstitutes(response));
+      .subscribe(response => this.SetInstitutes(response),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
   }
   SetInstitutes(response: any) {
     this.institutes = response;
@@ -252,7 +280,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     }];
     this._coFeedbackService.createFeedback(feedbackObj)
       .subscribe((response) => {
-        this.alertMessage.alert('Successfully Created');
+        this.alertMessage.alert('Feedback created successfully','success');
         jQuery('#feedbackForm').trigger("reset");
         this.showBeneficiaryFeedbackList();
         this.feedbackServiceProvided.emit();
@@ -260,7 +288,7 @@ export class CoFeedbackServicesComponent implements OnInit {
       }, (err) => {
         this.selected_doi = undefined;
         console.log('Error in Feedback', err);
-        this.alertMessage.alert('Error In Saving Feedback. Please Try Again.');
+        this.alertMessage.alert(err.status,'error');
       });
   }
   // showtable(response, obj) {

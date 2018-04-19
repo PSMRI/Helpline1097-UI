@@ -204,7 +204,7 @@ export class helpline1097CoComponent implements OnInit {
   }
   openDialog() {
 
-    this.dialogService.confirm('Cancel Call ', 'Cancel Call?').subscribe((response) => {
+    this.dialogService.confirm('Cancel Call ', 'Do you want to cancel?').subscribe((response) => {
       if (response) {
         this.resetProvideServices = '2';
         // this.reloadCall();
@@ -229,7 +229,7 @@ export class helpline1097CoComponent implements OnInit {
   }
   openDialogClosure() {
 
-    this.dialogService.confirm('Closure ', 'Close Call ?').subscribe((response) => {
+    this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
       if (response) {
         this.resetProvideServices = '3';
         jQuery('#myCarousel').carousel(3);
@@ -258,7 +258,7 @@ export class helpline1097CoComponent implements OnInit {
         this.outboundEvent(event, cZentrixIp)
       },
       (error) => {
-        this.dialogService.alert('Some Error while calling Czentrix.');
+        this.dialogService.alert('Some error while calling Czentrix','error');
       });
   }
 
@@ -274,11 +274,11 @@ export class helpline1097CoComponent implements OnInit {
           this.basicrouter.navigate(['/InnerpageComponent']);
           this.outBoundService.sendOutboundData(event);
         } else {
-          this.dialogService.alert('Czentrix user not logged In.');
+          this.dialogService.alert('Czentrix user not logged-in');
         }
       },
       (error) => {
-        this.dialogService.alert('Call Not Intiating Please try again.');
+        this.dialogService.alert('Call not intiating, Please try again.');
       });
   }
   public ReloadBenOutbound(callType) {

@@ -54,7 +54,10 @@ export class ReallocateCallsComponent implements OnInit {
         return obj.RoleName.trim().toUpperCase() != "PROVIDERADMIN" && obj.RoleName.trim().toUpperCase() != "SUPERVISOR";
       });
       console.log("roles:", JSON.stringify(this.roles));
-    })
+    }),(err) => {
+      this.alertService.alert(err.errorMessage,'error');
+
+    }
 
 
     // this.startMinDate=new Date();
@@ -83,7 +86,9 @@ export class ReallocateCallsComponent implements OnInit {
       .subscribe((response) => {
         this.users = response;
         console.log("users: " + JSON.stringify(this.users));
-      })
+      }),(err) => {
+        this.alertService.alert(err.errorMessage,'error');
+      }
     this.reallocationForm.form.patchValue({
       userID: []
     });
@@ -93,6 +98,7 @@ export class ReallocateCallsComponent implements OnInit {
     this._callServices.getLanguages().subscribe(response => {
       this.languages = response;
     }, (err) => {
+      this.alertService.alert(err.errorMessage,'error');
 
     });
   }
@@ -121,13 +127,15 @@ export class ReallocateCallsComponent implements OnInit {
         console.log(resProviderData, "in component reallocate-calls, post successful response");
         this.totalAgentRecords = resProviderData;
         if (this.totalAgentRecords.length == 0) {
-          this.alertService.alert("No Records Available.");
+          this.alertService.alert("No records available.");
         }
         else {
           this.onAgentSelected = true;
         }
       },
       (error) => {
+        this.alertService.alert(error.errorMessage,'error');
+
         console.log(error);
       });
   }
@@ -142,6 +150,8 @@ export class ReallocateCallsComponent implements OnInit {
         this.totalAgentRecords = resProviderData;
       },
       (error) => {
+        this.alertService.alert(error.errorMessage,'error');
+
         console.log(error);
       });
   }
@@ -177,14 +187,17 @@ export class ReallocateCallsComponent implements OnInit {
         "outboundCallReqIDs": tempArray
       }).subscribe((response) => {
         console.log(response);
-        this.alertService.alert("Moved To Bin Successfully.");
+        this.alertService.alert("Moved to bin successfully",'success');
         // refreshing after moving to bin
         this.reallocationDone();
       },
         (error) => {
+          this.alertService.alert(error.errorMessage,'error');
           console.log(error);
         })
-    });
+    }),(err) => {
+      this.alertService.alert(err.errorMessage,'error');
+    }
 
 
   }
@@ -211,7 +224,10 @@ export class ReallocateCallsComponent implements OnInit {
       reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
     }
 
-    this.OCRService.getOutboundCallList(reqObj).subscribe(response => this.success(response));
+    this.OCRService.getOutboundCallList(reqObj).subscribe(response => this.success(response),
+  (err)=> {
+    this.alertService.alert(err.errorMessage,'error');
+  });
     this.records = {
       'outboundList': this.a
     }

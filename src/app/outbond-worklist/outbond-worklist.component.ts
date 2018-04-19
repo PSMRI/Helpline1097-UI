@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { CallServices } from './../services/callservices/callservice.service';
 import { dataService } from './../services/dataService/data.service';
 import { Router } from '@angular/router';
+import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 
 @Component({
   selector: 'app-outbond-worklist',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class OutbondWorklistComponent implements OnInit {
   @Output() onOutboundCall: EventEmitter<any> = new EventEmitter<any>();
   data: any = [];
-  constructor(private _outBoundService: CallServices, private _common: dataService, public router: Router) {
+  constructor(private _outBoundService: CallServices, public alertService: ConfirmationDialogsService,private _common: dataService, public router: Router) {
   }
 
   ngOnInit() {
@@ -22,6 +23,7 @@ export class OutbondWorklistComponent implements OnInit {
       this.AssignData(response);
       console.log('Call History Data is', response);
     }, (err) => {
+      this.alertService.alert(err.errorMessage,'error');
       console.log('error in call history ');
     })
   };

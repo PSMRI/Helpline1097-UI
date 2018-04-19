@@ -57,7 +57,9 @@ export class GenderDistributionReportComponent implements OnInit {
       if (response.states) {
         this.states = response.states;
       }
-    });
+    }),(err) => {
+      this.alertService.alert(err.errorMessage);
+    }
 
     // this.today = new Date();
     // this.today.setDate(this.today.getDate()-1);
@@ -100,7 +102,10 @@ export class GenderDistributionReportComponent implements OnInit {
       this.district = undefined;
       if (state) {
         this._locationService.getDistricts(state.stateID)
-        .subscribe((response) => this.SetDistricts(response), (err) => { });
+        .subscribe((response) => this.SetDistricts(response), (err) => {
+          this.alertService.alert(err.errorMessage);
+
+         });
       }
     }
 
@@ -215,7 +220,11 @@ export class GenderDistributionReportComponent implements OnInit {
 
 
   this.reportsService.getAllByGender(this.request_array)
-  .subscribe(response=>this.getReportSuccessHandeler(response));
+  .subscribe(response=>this.getReportSuccessHandeler(response),
+(err) => {
+  this.alertService.alert(err.errorMessage);
+
+});
 
 }
 
@@ -231,7 +240,7 @@ getReportSuccessHandeler(response)
   }
   else
   {
-    this.alertService.alert(response.status);
+    this.alertService.alert(response.status,'error');
   }
 }
 
@@ -239,7 +248,7 @@ download_report()
 {
   var head=Object.keys(this.gender_distribution_resultset[0]);
   new Angular2Csv(this.gender_distribution_resultset, 'Gender Distribution Report', {headers: (head)});
-              this.alertService.alert('Gender Distribution report downloaded');
+              this.alertService.alert('Gender distribution report downloaded','success');
 
 }
 

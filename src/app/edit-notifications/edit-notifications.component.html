@@ -8,7 +8,7 @@
 </div>
 <div class="row">
     <md-dialog-content class="m-b-10">
-      <form #editNotificationForm="ngForm">
+      <form #editNotificationForm="ngForm" autocomplete="off">
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 c-b p-l-lg-1">
           <md2-datepicker class="width100" (keydown)="blockey($event)" name="startDate" placeholder="Start Date" #startDate="ngModel" [ngModel]="validFrom" required></md2-datepicker>
           <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>

@@ -3,6 +3,7 @@ import { loginService } from '../services/loginService/login.service';
 import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { Router } from '@angular/router';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class loginContentClass implements OnInit {
   public loginResult: string;
   dynamictype: any = 'password';
 
-  constructor(public loginservice: loginService, public router: Router,
+  constructor(public loginservice: loginService, public router: Router,public alertService: ConfirmationDialogsService,
     public dataSettingService: dataService, private czentrixServices: CzentrixServices) {
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
@@ -32,18 +33,22 @@ export class loginContentClass implements OnInit {
         this.dataSettingService.loginIP = response.loginIPAddress;
         console.log('array' + response.previlegeObj);
         if (response.isAuthenticated === true && response.Status === 'Active') {
-          this.router.navigate(['/MultiRoleScreenComponent']);
+          sessionStorage.removeItem('isOnCall');
+          this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
-        if (response.isAuthenticated === true && response.Status === 'New') {
-          this.router.navigate(['/setQuestions']);
-        }
-      }, (err) => { });
+        // if (response.isAuthenticated === true && response.Status === 'New') {
+        //   this.router.navigate(['/setQuestions']);
+        // }
+      }, (err) => {
+        this.alertService.alert(err.errorMessage,'error');
+       });
     }
 
   };
 
   ngOnInit() {
-    debugger;
+
+   
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         this.dataSettingService.Userdata = response;
@@ -55,12 +60,15 @@ export class loginContentClass implements OnInit {
         this.dataSettingService.loginIP = response.loginIPAddress;
         console.log('array' + response.previlegeObj);
         if (response.isAuthenticated === true && response.Status === 'Active') {
+          sessionStorage.removeItem('isOnCall');
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
-        if (response.isAuthenticated === true && response.Status === 'New') {
-          this.router.navigate(['/setQuestions']);
-        }
-      }, (err) => { });
+        // if (response.isAuthenticated === true && response.Status === 'New') {
+        //   this.router.navigate(['/setQuestions']);
+        // }
+      }, (err) => {
+        this.alertService.alert(err.errorMessage,'error');
+      });
     }
 
   }
@@ -112,6 +120,7 @@ export class loginContentClass implements OnInit {
       this.dataSettingService.loginKey = response.response.login_key;
       console.log('Login key:' + this.dataSettingService.loginKey);
     }, (err) => {
+      this.alertService.alert(err.errorMessage,'error');
       console.log('Error in getLoginKey', err);
     })
 

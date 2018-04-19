@@ -118,7 +118,7 @@ passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,
     else {
       if(this.selectedQuestions.indexOf(selectedques) != position)
       {
-        this.alertService.alert("This Question is already selected. Choose Unique Question");
+        this.alertService.alert("This question is already selected. Choose unique question");
       }
       else
       {
@@ -215,7 +215,7 @@ setSecurityQuestions() {
   } 
   else 
   {
-    this.alertService.alert("All 3 questions should be different. Please check your selected Questions");
+    this.alertService.alert("All 3 questions should be different");
   }
 }
 
@@ -253,7 +253,7 @@ handleQuestionSaveError(response) {
 successCallback(response) {
 
   console.log(response);
-  this.alertService.alert("Password changed Successfully");
+  this.alertService.alert("Password changed successfully",'success');
   this.router.navigate(['']);
 }
 errorCallback(response) {

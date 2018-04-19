@@ -46,7 +46,8 @@ export class LanguageDistributionReportComponent implements OnInit {
       }
       this.languages.push(all);
       this.states = response['states']
-    })
+    }),(err) =>       this.alertService.alert(err.errorMessage);
+
     // this.today = new Date();
     // this.today.setDate(this.today.getDate()-1);
     // console.log(this.today);
@@ -94,6 +95,7 @@ export class LanguageDistributionReportComponent implements OnInit {
       this.districts = response;
     },
     (error)=>{
+      this.alertService.alert(error.errorMessage);
       console.log(error);
     })
   }
@@ -183,6 +185,7 @@ export class LanguageDistributionReportComponent implements OnInit {
       this.languageDistributions = response;
     },
     (error)=>{
+      this.alertService.alert(error.errorMessage);
       console.log(error);
     })
   }
@@ -197,7 +200,7 @@ export class LanguageDistributionReportComponent implements OnInit {
    let head = Object.keys(this.languageDistributions[0]);
    // console.log(head);
         new Angular2Csv(this.languageDistributions, 'LanguageDistributions Report',{headers: (head)});
-            this.alertService.alert('Language Distribution report downloaded');
+            this.alertService.alert('Language distribution report downloaded','success');
 
   }
 }

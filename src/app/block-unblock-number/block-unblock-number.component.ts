@@ -67,6 +67,8 @@ export class BlockUnblockNumberComponent implements OnInit {
       this.showTable = true;
       this.setBlackLists(response);
     }, (err) => {
+      this.message.alert(err.errorMessage,'error');
+
       this.showTable = false;
     });
   }
@@ -86,20 +88,20 @@ export class BlockUnblockNumberComponent implements OnInit {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
     this.callService.UnBlockPhoneNumber(blockObj).subscribe((response) => {
-      this.message.alert('Successfully Unblocked.');
+      this.message.alert('Successfully unblocked','success');
       this.addToBlockList();
     }, (err) => {
-      this.message.alert(err.status);
+      this.message.alert(err.status,'error');
     })
   }
   block(phoneBlockID: any) {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
     this.callService.blockPhoneNumber(blockObj).subscribe((response) => {
-      this.message.alert('Successfully blocked.');
+      this.message.alert('Successfully blocked','success');
       this.addToBlockList();
     }, (err) => {
-      this.message.alert(err.status);
+      this.message.alert(err.status,'error');
     })
   }
   getBlackList(e: any) {
@@ -118,7 +120,8 @@ export class BlockUnblockNumberComponent implements OnInit {
         'count': obj.noOfNuisanceCall
       }
 
-      this.callService.getRecording(requestObj).subscribe(response => this.getRecordingsSuccessHandeler(response, obj.phoneNo));
+      this.callService.getRecording(requestObj).subscribe(response => this.getRecordingsSuccessHandeler(response, obj.phoneNo),
+    (err) =>       this.message.alert(err.errorMessage,'error'));
     }
 
   }

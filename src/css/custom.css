@@ -406,9 +406,9 @@ color:#545454;
   font-size: 18px;
 }
 
-.f-s-20 {
+/* .f-s-20 {
   font-size: 20px;
-}
+} */
 
 .f-s-25 {
   font-size: 25px;
@@ -580,6 +580,9 @@ color:#545454;
 .p-l-10 {
   padding-left: 10px !important;
 }
+.p-l-15 {
+  padding-left: 15px !important;
+}
 
 .p-l-20 {
   padding-left: 20px !important;
@@ -665,7 +668,7 @@ color:#545454;
 }
 
 .m-t-5 {
-  margin-top: 5px;
+  margin-top: 5px !important;
 }
 
 .m-t-6 {
@@ -1393,7 +1396,13 @@ em {
 .starrr {
   color: #999;
 }
-
+.record-not-found
+{
+  padding: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
 .animate-show {
   -webkit-transition: all linear 0.5s;
   transition: all linear 0.5s;
@@ -1413,9 +1422,9 @@ em {
   opacity: 0;
 }
 
-.mat-dialog-container {
+/* .mat-dialog-container {
   padding: 15px!important;
-}
+} */
 .mat-dialog-container{
   overflow:hidden !important;
 }
@@ -1854,7 +1863,26 @@ ul.topIcon li.help a:hover {
   line-height: 30px;
   height: 20px;
 }
+.popupHeader {
+  margin: 0;
+  padding: 10px ;
+  margin-bottom: 30px ;
+  color: white;
+}
+.headerDiv {
+  margin: -24px ;
+  background-color: #0277bd;
+}
 
+.successHeaderDiv {
+margin: -24px ;
+background-color: #43A047;
+}
+
+.errorHeaderDiv {
+margin: -24px ;
+background-color: #F44336;
+}
 .circle-btn:before {
   content: "";
   position: absolute;
@@ -2018,10 +2046,10 @@ input:-webkit-autofill:hover {
 .display_none {
   display: none;
 }
-.mat-dialog-title{
+/* .mat-dialog-title{
 
 margin-bottom: 5px !important; 
-}
+} */
 .white-space-nowrap{
 white-space: nowrap!important;
 }

@@ -3,6 +3,7 @@ import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/
 import { CoReferralService } from './../services/coService/co_referral.service';
 import { dataService } from '../services/dataService/data.service';
 
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 @Component({
   selector: 'app-beneficiary-history',
@@ -18,7 +19,7 @@ export class BeneficiaryHistoryComponent implements OnInit {
 
   constructor(
     public dialogRef: MdDialogRef<BeneficiaryHistoryComponent>,
-    @Inject(MD_DIALOG_DATA) public benificiaryHistoryData: any,
+    @Inject(MD_DIALOG_DATA) public benificiaryHistoryData: any,public alertService: ConfirmationDialogsService,
     private callService: CoReferralService,
     private saved_data: dataService) { }
 
@@ -29,8 +30,9 @@ export class BeneficiaryHistoryComponent implements OnInit {
     const currCallID = this.saved_data.callData.benCallID;
     this.currentCallID = this.saved_data.callData.benCallID;// call id of current ongoing call fetched from common data service
     console.log("current callid", this.currentCallID);
-    this.callService.getBenificiaryCallHistory(benificiaryRegID, calledServiceID).subscribe(response => this.getFilteredCallHistory(response));
-  }
+    this.callService.getBenificiaryCallHistory(benificiaryRegID, calledServiceID).subscribe(response => this.getFilteredCallHistory(response),
+  (err) =>       this.alertService.alert(err.errorMessage,'error')
+    )}
 
   getFilteredCallHistory(response) {
     this.data = [];

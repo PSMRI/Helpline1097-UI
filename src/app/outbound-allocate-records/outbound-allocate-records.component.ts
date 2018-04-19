@@ -68,7 +68,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         this.initialCount = resProviderData.data.length;
         this.allocateForm.controls['outboundCallRequests'].setValue(resProviderData.data);
       }, err => {
-        this.alertMessage.alert(err.errorMessage);
+        this.alertMessage.alert(err.errorMessage,'error');
       });
   }
 
@@ -87,7 +87,10 @@ export class OutboundAllocateRecordsComponent implements OnInit {
           return item.RoleName.toLowerCase() !== 'supervisor' && item.RoleName.toLowerCase() !== 'provideradmin';
         })
       }
-      );
+      ),(err) =>{
+        this.alertMessage.alert(err.errorMessage,'error');
+
+      };
   }
   getAgents(roleID: any) {
     let languageName;
@@ -109,8 +112,9 @@ export class OutboundAllocateRecordsComponent implements OnInit {
             return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
           })
         }
+      }),(err) => {
+       this.alertMessage.alert(err.errorMessage,'error');
       }
-      );
 
   }
 
@@ -123,8 +127,9 @@ export class OutboundAllocateRecordsComponent implements OnInit {
             return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
           })
         }
+      }), (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
       }
-      );
   }
 
   ngOnChanges() {
@@ -153,7 +158,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this._OCAService.allocateCallsToAgenta(this.allocateForm.value)
       .subscribe(
       (response) => {
-        this.alertMessage.alert('Successfully Allocated Call/s.');
+        this.alertMessage.alert('Call allocated successfully','success');
         this.afterAllocate = false;
         let obj = {};
         if (this.outboundCallRequests.startDate) {
@@ -170,7 +175,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         // this.getUnallocateCall(this.providerServiceMapID);
       },
       (error) => {
-        this.alertMessage.alert(error.errorMessage);
+        this.alertMessage.alert(error.errorMessage,'error');
       });
   }
 

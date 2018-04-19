@@ -16,6 +16,8 @@ export class CommonDialogComponent implements OnInit {
   public alert: boolean;
   public confirmAlert: boolean;
   public remarks: boolean;
+  public status: string;
+
   constructor(public dialogRef: MdDialogRef<CommonDialogComponent>) { }
 
   ngOnInit() {

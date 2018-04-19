@@ -10,7 +10,7 @@
       </md-card-title>
       <md-card-content>
         <div class="row" *ngIf="questionsection">
-          <form #form1="ngForm">
+          <form #form1="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12">
               <md-select placeholder="Question 1" [(ngModel)]="question1" name="question1" [style.width]="'100%'" required (change)="filterArrayOne(question1)" (blur)="updateQuestions(question1,0)">
                 <md-option *ngFor="let question of questions" [value]="question.QuestionID">
@@ -24,7 +24,7 @@
               </md-input-container>
             </div>
           </form>
-          <form #form2="ngForm">
+          <form #form2="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 m-t-25">
               <md-select placeholder="Question 2" [disabled]="!form1.valid" [(ngModel)]="question2" name="question2" [style.width]="'100%'" required (change)="filterArrayTwo(question2)" (blur)="updateQuestions(question2,1)">
                 <md-option *ngFor="let question of Q_array_one" [value]="question.QuestionID">
@@ -38,7 +38,7 @@
               </md-input-container>
             </div>
           </form>
-          <form #form3="ngForm">
+          <form #form3="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 m-t-25">
               <md-select placeholder="Question 3" [disabled]="!form2.valid" [(ngModel)]="question3" name="question3" [style.width]="'100%'" required (blur)="updateQuestions(question3,2)" (change)="filterArrayThree(question3)">
                 <md-option *ngFor="let question of Q_array_two" [value]="question.QuestionID">
@@ -58,7 +58,7 @@
             </div>
           </div>
         </div>
-        <form #passwordForm="ngForm">
+        <form #passwordForm="ngForm" autocomplete="off">
           <div class="row " *ngIf="passwordSection">
             <div class="col-xs-12 col-sm-12">
               <md-input-container style="width: 100%">

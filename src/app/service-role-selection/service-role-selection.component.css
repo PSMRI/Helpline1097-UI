@@ -1,0 +1,107 @@
+
+.circleOuterDiv {
+    width: 180px;
+    height: 160px;
+    float: left;
+    /*  border:1px solid #dcdcdb;*/
+    margin: 10px;
+}
+.circle {
+    position: relative;
+    padding: 0;
+    width: 260px;
+    height: 80px;
+    z-index: 1;
+    border-radius: 24px;
+    background: #3175c0;
+    line-height: 20px !important;
+}
+.circle-admin {
+    line-height: 30px !important;
+}
+.subRolecircle {
+    display: none;
+    
+}
+.circleOuterDiv:hover .subRolecircle {
+    display: block;
+    
+}
+.subRolecircle li {
+    background: #fff;
+    border: 1px solid #b7b7b7;
+    padding: 10px 10px;
+    width: auto;
+    height: 40px;
+    z-index: 1;
+    text-align: left !important;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px !important;
+    margin-left: 0px !important;
+    line-height: 20px !important;
+}
+.subRolecircle li a {
+    color: #333 !important;
+    padding-left: 15px;
+}
+.width300px {
+    width: 300px;
+}
+.line-height-72 {
+    line-height: 67px !important;
+}
+.f-s-40 {
+    font-size: 40px !important;
+}
+.f-w-b {
+
+}
+
+.imageClass{
+    width: 57%;
+    height: 57%;
+}
+
+
+
+
+@media (min-width: 317px ) {
+    .dashboard-m-t-45{
+        margin-top: 75px;
+    }
+
+}
+@media (max-width: 317px ) {
+    .dashboard-m-t-45{
+        margin-top: 75px;
+    }
+
+}
+
+@media (min-width: 480px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+
+}
+
+@media (min-width: 767px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+}
+
+@media (min-width: 992px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+
+}

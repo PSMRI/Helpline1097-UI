@@ -75,7 +75,11 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   GetServiceTypes() {
     this._coCategoryService.getTypes(this.providerServiceMapID)
-      .subscribe(response => this.setServiceTypes(response));
+      .subscribe(response => this.setServiceTypes(response),
+    (err) => {
+      this.alertService.alert(err.errorMessage,'error');
+
+    });
   }
 
   setServiceTypes(response: any) {
@@ -90,11 +94,19 @@ export class CoCounsellingServicesComponent implements OnInit {
 
   GetCategories() {
     this._coCategoryService.getCategories()
-      .subscribe(response => this.SetCategories(response));
+      .subscribe(response => this.SetCategories(response),
+    (err) => {
+      this.alertService.alert(err.errorMessage,'error');
+
+    });
   }
   GetCategoriesByID() {
     this._coCategoryService.getCategoriesByID(this.serviceID)
-      .subscribe(response => this.SetCategories(response));
+      .subscribe(response => this.SetCategories(response),
+      (err) => {
+        this.alertService.alert(err.errorMessage,'error');
+  
+      });
   }
 
   SetCategories(response: any) {
@@ -105,7 +117,11 @@ export class CoCounsellingServicesComponent implements OnInit {
   GetSubCategories(id: any) {
     // console.log('symcatid',this.symptomCategory);
     this._coCategoryService.getSubCategories(id)
-      .subscribe(response => this.SetSubCategories(response));
+      .subscribe(response => this.SetSubCategories(response),
+      (err) => {
+        this.alertService.alert(err.errorMessage,'error');
+  
+      });
   }
 
   SetSubCategories(response: any) {
@@ -119,7 +135,11 @@ export class CoCounsellingServicesComponent implements OnInit {
     this._coCategoryService.getCODetails(
       id, this.saved_data.uname, this.beneficiaryID,
       this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID
-    ).subscribe(response => this.SetSubCategoryDetails(response));
+    ).subscribe(response => this.SetSubCategoryDetails(response),
+    (err) => {
+      this.alertService.alert(err.errorMessage,'error');
+
+    });
   }
   EnabledGetDetails() {
     this.getDetailsFlag = false;
@@ -155,9 +175,11 @@ export class CoCounsellingServicesComponent implements OnInit {
         console.log('Information History Successfully reterive', res);
       }
       else {
-        this.alertService.alert("No Data Found Contact your administrator");
+        this.alertService.alert("No data found contact your administrator");
       }
     }, (err) => {
+      this.alertService.alert(err.errorMessage,'error');
+
       console.log('Some error reteriving Information History ', err);
     })
   }

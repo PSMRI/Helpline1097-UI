@@ -4,6 +4,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { InterceptedHttp } from './../../http.interceptor';
 
 
 /**
@@ -15,15 +16,20 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HttpServices {
 
-  constructor(private http: Http) { };
+  constructor(private http: Http,private interceptor: InterceptedHttp) { };
 
   // tslint:disable-next-line:indent
   getData(url: string) {
-    return this.http.get(url)
+    return this.interceptor.get(url)
       .map(this.handleGetSuccess)
       .catch(this.handleGetError);
   }
-
+	getLanguage(url:string)
+	{
+		return this.http.get(url)
+				.map(this.handleGetSuccess)
+				.catch(this.handleGetError);
+	}
   handleGetSuccess(response: Response) {
     if (response.json().data) {
       return response.json().data;

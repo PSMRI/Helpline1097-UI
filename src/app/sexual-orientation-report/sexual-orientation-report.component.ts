@@ -46,6 +46,8 @@ export class SexualOrientationReportComponent implements OnInit {
       this.states = response['states'];
     },
     (error)=>{
+      this.alertService.alert(error.errorMessage,'error');
+
       console.log(error);
     })
 
@@ -91,6 +93,8 @@ export class SexualOrientationReportComponent implements OnInit {
       this.districts = response;
     },
     (error)=>{
+      this.alertService.alert(error.errorMessage,'error');
+
       console.log(error);
     })
     console.log(this.sexualOrientations);
@@ -190,6 +194,8 @@ export class SexualOrientationReportComponent implements OnInit {
 
       },
       (error)=>{
+        this.alertService.alert(error.errorMessage,'error');
+
         console.log(error);
       })
     }
@@ -199,7 +205,7 @@ export class SexualOrientationReportComponent implements OnInit {
   var head=Object.keys(this.orientations[0]);
   new Angular2Csv(this.orientations, 'Sexual Orientation Report', {headers: (head)});
   
-        this.alertService.alert('Sexual Orientation report downloaded');
+        this.alertService.alert('Sexual orientation report downloaded','success');
 
 }
 

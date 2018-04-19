@@ -4,6 +4,7 @@ import { NotificationService } from '../services/notificationService/notificatio
 import { dataService } from '../services/dataService/data.service';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MdDialog, MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 @Component({
   selector: 'app-notifications-dialog',
@@ -42,7 +43,7 @@ sDate:Date=new Date();
   minDate: Date;
   @ViewChild('notificationForm') notificationForm: NgForm;
 
-  constructor(private notificationService: NotificationService, public commonDataService: dataService, public dialog: MdDialog, @Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<NotificationsDialogComponent>) { }
+  constructor(private notificationService: NotificationService, public alertService:ConfirmationDialogsService, public commonDataService: dataService, public dialog: MdDialog, @Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<NotificationsDialogComponent>) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
@@ -53,7 +54,10 @@ sDate:Date=new Date();
     // this.mindate.toJSON();
     // // this.mindate.toISOString();
 
-    this.notificationService.getServiceProviderID(this.providerServiceMapID).subscribe(response=>this.getProviderIDSuccess(response));
+    this.notificationService.getServiceProviderID(this.providerServiceMapID).subscribe(response=>this.getProviderIDSuccess(response),
+  (err) => {
+    this.alertService.alert(err.errorMessage);
+  });
 
 
   }
@@ -72,7 +76,10 @@ sDate:Date=new Date();
 
   getAllLanguages()
   {
-    this.notificationService.getLanguages().subscribe(response=>this.getLanguageSuccessHandeler(response));
+    this.notificationService.getLanguages().subscribe(response=>this.getLanguageSuccessHandeler(response),
+    (err) => {
+      this.alertService.alert(err.errorMessage);
+    });
   }
 
   languages:any=[];
@@ -87,7 +94,10 @@ sDate:Date=new Date();
 
   getOffices(providerID,stateID,serviceID)
   {
-    this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response));
+    this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response),
+    (err) => {
+      this.alertService.alert(err.errorMessage);
+    });
   }
 
   getOfficesSuccessHandeler(response)
@@ -98,7 +108,10 @@ sDate:Date=new Date();
 
   getUsers(psmID)
   {
-    this.notificationService.getUsersByProviderID(psmID).subscribe(response=>this.getUsersSuccessHandeler(response));
+    this.notificationService.getUsersByProviderID(psmID).subscribe(response=>this.getUsersSuccessHandeler(response),
+    (err) => {
+      this.alertService.alert(err.errorMessage);
+    });
   }
 
   getUsersSuccessHandeler(response)

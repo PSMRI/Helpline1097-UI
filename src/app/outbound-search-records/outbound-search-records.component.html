@@ -12,7 +12,7 @@
     <div class="clearfix"></div>
  
      <div class="row">
-      <form #getOutboundForm="ngForm">
+      <form #getOutboundForm="ngForm" autocomplete="off">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" required #startDate="ngModel" ngModel
             [style.width]="'100%'" name="filterStartDate" [(ngModel)]="startOutboundDate"></md2-datepicker>

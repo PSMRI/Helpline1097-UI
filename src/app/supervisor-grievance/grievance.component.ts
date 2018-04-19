@@ -145,12 +145,21 @@ export class supervisorFeedback implements OnInit {
     let requestData = {};
     requestData['serviceID'] = this.serviceID;
 
-    this._feedbackservice.getFeedbackStatuses().subscribe(resProviderData => this.feedbackStatuses = resProviderData);
+    this._feedbackservice.getFeedbackStatuses().subscribe((resProviderData => this.feedbackStatuses = resProviderData),
+    (err) => {
+      this.alertMessage.alert(err.errorMessage,'error');
+    });
 
-    this._feedbackservice.getEmailStatuses().subscribe(resProviderData => this.emailStatuses = resProviderData);
+    this._feedbackservice.getEmailStatuses().subscribe((resProviderData => this.emailStatuses = resProviderData),
+  (err) => {
+    this.alertMessage.alert(err.errorMessage,'error');
+  });
 
     this._feedbackservice.getFeedback(requestData)
-    .subscribe(resProviderData => this.providers(resProviderData));
+    .subscribe(resProviderData => this.providers(resProviderData),
+    (err) => {
+      this.alertMessage.alert(err.errorMessage,'error');
+    });
     this.maxDate = new Date();
     this.feedBackDiv = true;
 
@@ -200,10 +209,10 @@ export class supervisorFeedback implements OnInit {
       bodyString['feedbackResponseID'] = undefined;
       this._feedbackservice.updateResponce(bodyString)
       .subscribe((resfeedbackData) => {
-        this.alertMessage.alert('Successfully Updated.');
+        this.alertMessage.alert('Updated successfully','success');
         this.showUsers(resfeedbackData)
       }, (err) => {
-        this.alertMessage.alert(err.status);
+        this.alertMessage.alert(err.status,'error');
       })
     }
 
@@ -412,7 +421,10 @@ export class supervisorFeedback implements OnInit {
       console.log('raj' + dataforUpdate)
       let bodyString = this.feedbackForm1.value;
       this._feedbackservice.requestFeedback(bodyString)
-      .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
+      .subscribe(resfeedbackData => this.showUsers(resfeedbackData),
+      (err) => {
+        this.alertMessage.alert(err.errorMessage,'error');
+      });
     // this._feedbackservice.updateStatus( bodyString )
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
@@ -465,7 +477,7 @@ export class supervisorFeedback implements OnInit {
       this.providers(resProviderData)
     },
     (err) => {
-      this.alertMessage.alert(err.status);
+      this.alertMessage.alert(err.status,'error');
     });
   }
 
@@ -476,7 +488,10 @@ export class supervisorFeedback implements OnInit {
     // this._feedbackservice.responce( bodyString )
     //   .subscribe( resProviderData => this.showResponce( resProviderData ) );
     this._feedbackservice.updateResponce(bodyString)
-    .subscribe(resProviderData => this.showResponce(resProviderData));
+    .subscribe(resProviderData => this.showResponce(resProviderData),
+    (err) => {
+      this.alertMessage.alert(err.errorMessage,'error');
+    });
 
   }
   showResponce(data1) {
@@ -533,7 +548,7 @@ export class supervisorFeedback implements OnInit {
         this._feedbackservice.requestFeedback(bodyString)
         .subscribe(resfeedbackData =>
                    this.showUsers(resfeedbackData), err => {
-                    this.alertMessage.alert(err.status);
+                    this.alertMessage.alert(err.status,'error');
                   })
       }
       

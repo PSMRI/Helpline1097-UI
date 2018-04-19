@@ -4,6 +4,7 @@ import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MdDialog } from '@angular/material';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 
 @Component({
     selector: 'app-training-resources',
@@ -18,7 +19,7 @@ export class TrainingResourcesComponent implements OnInit {
     kmConfig: any;
     kmfiles: any;
     kmPostData: any;
-    constructor(private dashboardHttpServices: DashboardHttpServices, private dataService: dataService, private notificationService: NotificationService, public dialog: MdDialog) { }
+    constructor(private dashboardHttpServices: DashboardHttpServices,public alertService:ConfirmationDialogsService, private dataService: dataService, private notificationService: NotificationService, public dialog: MdDialog) { }
 
 
     ngOnInit() {
@@ -60,6 +61,8 @@ export class TrainingResourcesComponent implements OnInit {
                 this.getKmFiles();
             },
             (err) => {
+                this.alertService.alert(err.errorMessage,'error');
+
                 console.log(err);
             });
 
@@ -79,6 +82,8 @@ export class TrainingResourcesComponent implements OnInit {
                     this.kmfiles = response.data;
                 },
                 (err) => {
+                    this.alertService.alert(err.errorMessage,'error');
+
                     console.log(err);
                 });
             // }

@@ -22,35 +22,45 @@ export class AuthGuard implements CanActivate {
     const key = sessionStorage.getItem('isOnCall');
     const authkey = localStorage.getItem('authToken');
 
-    if (authkey) {
-      this._http.post(this._authorisedUser, {})
-        .toPromise()
-        .then(response => {
-          if (response) {
-            // debugger;
-            this.dataSettingService.Userdata = response.json().data;
-            // this.dataSettingService.userPriveliges = response.Previlege;
-            this.dataSettingService.userPriveliges = response.json().data.previlegeObj;
-            this.dataSettingService.uid = response.json().data.userID;
-            this.dataSettingService.uname = response.json().data.userID;
-            this.dataSettingService.Userdata.agentID = response.json().data.agentID;
-            this.dataSettingService.loginIP = response.json().data.loginIPAddress;
-          }
-          return true;
-        }).catch(response => {
-          this._http.post(this._deleteToken, {})
-            .toPromise()
-            .then(res => {
-              this.authService.removeToken();
-              this.router.navigate(['']);
-            });
-          return false;
-        });
+    // if (authkey) {
+    //   this._http.post(this._authorisedUser, {})
+    //     .toPromise()
+    //     .then(response => {
+    //       if (response) {
+    //         // debugger;
+    //         this.dataSettingService.Userdata = response.json().data;
+    //         // this.dataSettingService.userPriveliges = response.Previlege;
+    //         this.dataSettingService.userPriveliges = response.json().data.previlegeObj;
+    //         this.dataSettingService.uid = response.json().data.userID;
+    //         this.dataSettingService.uname = response.json().data.userID;
+    //         this.dataSettingService.Userdata.agentID = response.json().data.agentID;
+    //         this.dataSettingService.loginIP = response.json().data.loginIPAddress;
+    //       }
+    //       return true;
+    //     }).catch(response => {
+    //       this._http.post(this._deleteToken, {})
+    //         .toPromise()
+    //         .then(res => {
+    //           this.authService.removeToken();
+    //           this.router.navigate(['']);
+    //         });
+    //       return false;
+    //     });
+    // }
+    if(authkey) {
+
+      if (key === 'yes') {
+        alert('Not allowed to go back, Please complete & close the call');
+        return false;
+      }
+      else {
+        return true;
+      }
     }
-    if (key === 'yes') {
-      alert('Not allowed to go back, Please complete & close the call');
+    else {
       return false;
     }
+
   }
 
 }

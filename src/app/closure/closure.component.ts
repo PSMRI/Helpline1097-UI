@@ -71,6 +71,7 @@ export class ClosureComponent implements OnInit
       this.callTypeObj = response;
       this.populateCallTypes(response)
     }, (err) => {
+      this.message.alert(err.errorMessage,'error');
 
     });
 
@@ -132,7 +133,8 @@ export class ClosureComponent implements OnInit
   // @Input()
   onView() {
     const requestObject = { 'benCallID': this.saved_data.callData.benCallID };
-    this._callServices.getCallSummary(requestObject).subscribe(response => this.populateCallSummary(response));
+    this._callServices.getCallSummary(requestObject).subscribe(response => this.populateCallSummary(response),
+  (err) => console.log("error in getting call summary in closure component"));
   }
   populateCallSummary(response: any) {
     this.summaryList = [];
@@ -155,6 +157,7 @@ export class ClosureComponent implements OnInit
         this.preferredLanguageName = preferredlanguageList[0].languageName;
       }
     }, (err) => {
+      this.message.alert(err.errorMessage,'error');
 
     });
   }
@@ -189,7 +192,7 @@ export class ClosureComponent implements OnInit
       this._callServices.closeOutBoundCall(this.saved_data.outBoundCallID, true).subscribe((response) => {
         this.closeOutboundCall(btnType, values);
       }, (err) => {
-        this.message.alert(err.status);
+        this.message.alert(err.status,'error');
       })
 
     } else {
@@ -213,10 +216,10 @@ export class ClosureComponent implements OnInit
             // });
           }
         }, (err) => {
-          this.message.alert(err.status);
+          this.message.alert(err.status,'error');
         });
       } else {
-        this.message.confirm('Continue', 'Providing New Service to Beneficiary ?').subscribe((res) => {
+        this.message.confirm('Continue', 'Providing new service to beneficiary?').subscribe((res) => {
           if (res) {
             this._callServices.closeCall(values).subscribe((response) => {
               if (response) {
@@ -240,7 +243,7 @@ export class ClosureComponent implements OnInit
                 // this.pass_data.sendData(this.current_campaign);
               }
             }, (err) => {
-              this.message.alert(err.status);
+              this.message.alert(err.status,'error');
             });
           }
 
@@ -252,7 +255,7 @@ export class ClosureComponent implements OnInit
 
   showAlert() {
     sessionStorage.removeItem("isOnCall");
-    this.message.alert('Call Closed Successfully.');
+    this.message.alert('Call closed successfully','success');
     // alert('Call closed Successful!!!!');
   }
   isFollow(e) {
@@ -287,7 +290,11 @@ export class ClosureComponent implements OnInit
   }
   getIpAddress() {
     this.czentrixServices.getIpAddress(this.saved_data.Userdata.agentID)
-      .subscribe(response => this.ipSuccessHandler(response));
+      .subscribe(response => this.ipSuccessHandler(response),
+    (err) => {
+      this.message.alert(err.errorMessage,'error');
+
+    });
   }
   ipSuccessHandler(response) {
     console.log('fetch ip response: ' + JSON.stringify(response));
@@ -296,7 +303,7 @@ export class ClosureComponent implements OnInit
   closeOutboundCall(btnType: any, values: any) {
     this._callServices.closeCall(values).subscribe((response) => {
       if (response) {
-        this.message.alert('Outbound Call Successfully Closed.');
+        this.message.alert('Call closed successfully','success');
         if (btnType === 'submitClose') {
           this.callClosed.emit(this.current_campaign);
           /* below lines are commented to use old close call API */
@@ -312,7 +319,7 @@ export class ClosureComponent implements OnInit
         // this.pass_data.sendData(this.current_campaign);
       }
     }, (err) => {
-      this.message.alert(err.status);
+      this.message.alert(err.status,'error');
     });
   }
   clearForm(item) {

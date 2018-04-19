@@ -66,7 +66,7 @@ export class dashboardContentClass implements OnInit {
     this.listnerService.cZentrixSendData(obj);
     this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
     }, (err) => {
-      // this.message.alert(err.errorMessage);
+      this.message.alert(err.errorMessage);
     })
     // const userObj = JSON.parse(Cookie.get('userID'));
     // if (userObj) {
@@ -160,7 +160,7 @@ export class dashboardContentClass implements OnInit {
     // spliting test event
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
-    if (event.origin === 'http://10.201.13.17') {
+    // if (event.origin === 'http://10.201.13.17') {
       if (event.data) {
         this.eventSpiltData = event.data.split('|');
       } else {
@@ -169,7 +169,7 @@ export class dashboardContentClass implements OnInit {
       if (this.eventSpiltData[0].toLowerCase() === 'accept') {
         this.handleEvent(this.eventSpiltData);
       }
-    }
+    //}
 
   }
 
@@ -194,7 +194,7 @@ export class dashboardContentClass implements OnInit {
         this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent',
           this.eventSpiltData[1], this.eventSpiltData[2], this.eventSpiltData[3]]);
       } else {
-        this.message.alert('Invalid Call Please Check!!');
+        this.message.alert('Invalid call please check');
       }
     }
   }
@@ -226,7 +226,7 @@ export class dashboardContentClass implements OnInit {
           this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'INBOUND';
           }, (err) => {
-            this.message.alert(err.errorMessage);
+            this.message.alert(err.errorMessage,'error');
             this.inOutBound = 0;
           })
         } else {
@@ -241,7 +241,7 @@ export class dashboardContentClass implements OnInit {
           this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'OUTBOUND';
           }, (err) => {
-            this.message.alert(err.errorMessage);
+            this.message.alert(err.errorMessage,'error');
             this.inOutBound = 1;
           })
         } else {

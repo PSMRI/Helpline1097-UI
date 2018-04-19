@@ -72,7 +72,10 @@ export class CoReferralServicesComponent implements OnInit {
     // // call the api to get all the states
     // this.states = [];  //substitute it with the response
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
-      .subscribe(response => this.SetUserBeneficiaryRegistrationData(response));
+      .subscribe(response => this.SetUserBeneficiaryRegistrationData(response),
+      (err) => {
+        this.message.alert(err.errorMessage,'error');
+      });
     this.GetInformationDirectory();
   }
   tempFlag: boolean;
@@ -99,7 +102,10 @@ export class CoReferralServicesComponent implements OnInit {
 
   GetServiceTypes() {
     this._coReferralService.getTypes(this.providerServiceMapID)
-      .subscribe(response => this.setServiceTypes(response));
+      .subscribe(response => this.setServiceTypes(response),
+      (err) => {
+        this.message.alert(err.errorMessage,'error');
+      });
   }
   setServiceTypes(response: any) {
     for (let i: any = 0; i < response.length; i++) {
@@ -112,7 +118,10 @@ export class CoReferralServicesComponent implements OnInit {
 
   setBeneficiaryData() {
     this._coReferralService.getReferralHistoryByID(this.beneficiaryRegID, this.saved_data.current_service.providerServiceMapID)
-      .subscribe(response => this.getReferralHistory(response));
+      .subscribe(response => this.getReferralHistory(response),
+      (err) => {
+        this.message.alert(err.errorMessage,'error');
+      });
   }
 
   getReferralHistory(response: any) {
@@ -122,7 +131,7 @@ export class CoReferralServicesComponent implements OnInit {
       this.data = response;
     }
     else {
-      this.message.alert("No Data Found. Please Contact Your Provider Admin")
+      this.message.alert("No data found")
     }
 
   }
@@ -155,6 +164,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._locationService.getDirectory(this.providerServiceMapID).subscribe((response) => {
       this.directory = response.directory;
     }, (err) => {
+      this.message.alert(err.errorMessage,'error');
 
     });
   }
@@ -163,7 +173,10 @@ export class CoReferralServicesComponent implements OnInit {
     this.taluks = [];
     this.blocks = [];
     this._locationService.getDistricts(state)
-      .subscribe(response => this.SetDistricts(response));
+      .subscribe(response => this.SetDistricts(response),
+      (err) => {
+        this.message.alert(err.errorMessage,'error');
+      });
   }
   SetDistricts(response: any) {
     this.districts = response;
@@ -172,7 +185,10 @@ export class CoReferralServicesComponent implements OnInit {
     this.taluks = [];
     this.blocks = [];
     this._locationService.getTaluks(district)
-      .subscribe(response => this.SetTaluks(response));
+      .subscribe(response => this.SetTaluks(response),
+      (err) => {
+        this.message.alert(err.errorMessage,'error');
+      });
   }
   SetTaluks(response: any) {
     this.taluks = response;
@@ -180,7 +196,10 @@ export class CoReferralServicesComponent implements OnInit {
   GetSDTB(taluk: number) {
     this.blocks = [];
     this._locationService.getBranches(taluk)
-      .subscribe(response => this.SetSDTB(response));
+      .subscribe(response => this.SetSDTB(response),
+      (err) => {
+        this.message.alert(err.errorMessage,'error');
+      });
   }
   SetSDTB(response: any) {
     this.blocks = response;
@@ -188,7 +207,10 @@ export class CoReferralServicesComponent implements OnInit {
 
   GetSubDirectory(directoryID: number) {
     this._locationService.getSubDirectory(directoryID)
-      .subscribe(response => this.SetSubDirectory(response));
+      .subscribe(response => this.SetSubDirectory(response),
+      (err) => {
+        this.message.alert(err.errorMessage,'error');
+      });
   }
   SetSubDirectory(response: any) {
     this.sub_directory = response.subDirectory;
@@ -198,7 +220,10 @@ export class CoReferralServicesComponent implements OnInit {
     this._coReferralService.getDetails(
       this.selected_directory, this.selected_sub_directory, this.selected_state, this.selected_district, this.selected_taluk,
       this.saved_data.uname, this.beneficiaryRegID, this.subServiceID, this.saved_data.callData.benCallID
-    ).subscribe(response => this.SetReferralDetails(response));
+    ).subscribe(response => this.SetReferralDetails(response),
+    (err) => {
+      this.message.alert(err.errorMessage,'error');
+    });
   }
 
   SetReferralDetails(response: any) {
@@ -257,11 +282,11 @@ export class CoReferralServicesComponent implements OnInit {
 
     dialogReff.afterClosed().subscribe(result => {
       if (result) {
-        this.message.alert('Message Sent to Alternate Number.');
+        this.message.alert('Message sent to alternate number','success');
       }
       else {
         let primaryNumber = this.saved_data.callerNumber;
-        this.message.alert('Message Sent to Primary Number.');
+        this.message.alert('Message sent to primary number','success');
       }
     });
   }

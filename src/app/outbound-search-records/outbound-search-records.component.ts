@@ -7,6 +7,7 @@ import { OutboundSearchRecordService } from '../services/outboundServices/outbou
 import { dataService } from '../services/dataService/data.service';
 import { CallServices } from '../services/callservices/callservice.service'
 declare var jQuery: any;
+import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 
 @Component({
   selector: 'app-outbound-search-records',
@@ -36,7 +37,7 @@ export class OutboundSearchRecordsComponent implements OnInit {
   constructor(
     private _OSRService: OutboundSearchRecordService,
     private saved_data: dataService,
-    private _callServices: CallServices
+    private _callServices: CallServices, public alertService: ConfirmationDialogsService
   ) {
 
   }
@@ -64,7 +65,9 @@ export class OutboundSearchRecordsComponent implements OnInit {
         // this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
         this.showCount = true;
         this.selectedlang = language;
-      });
+      }),(err) => {
+        this.alertService.alert(err.errorMessage,'error');
+      }
   }
   allocateCalls(startDate: Date, endDate: Date, language: any, event) {
     // console.log('valuse: ' + values);
@@ -85,6 +88,7 @@ export class OutboundSearchRecordsComponent implements OnInit {
       this.languages = response;
       // this.languages.push({ languageID:, languageName: undefined });
     }, (err) => {
+      this.alertService.alert(err.errorMessage,'error');
 
     });
   }

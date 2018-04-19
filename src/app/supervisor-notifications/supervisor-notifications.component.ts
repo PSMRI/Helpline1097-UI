@@ -49,6 +49,8 @@ export class SupervisorNotificationsComponent implements OnInit {
       this.notificationTypes = response.data;
     },
     (error) => {
+      this.alertMessage.alert(error.errorMessage,'error');
+
       console.log(error);
     });
     this.notificationService.getRoles(this.providerServiceMapID)
@@ -60,11 +62,17 @@ export class SupervisorNotificationsComponent implements OnInit {
       }
     },
     (error) => {
+      this.alertMessage.alert(error.errorMessage,'error');
+
       console.log(error);
     });
 
 
-    this.notificationService.getServiceProviderID(this.providerServiceMapID).subscribe(response=>this.getProviderIDSuccess(response));
+    this.notificationService.getServiceProviderID(this.providerServiceMapID).subscribe(response=>this.getProviderIDSuccess(response),
+  (err) => {
+    this.alertMessage.alert(err.errorMessage,'error');
+
+  });
 
   }
 
@@ -127,7 +135,11 @@ export class SupervisorNotificationsComponent implements OnInit {
 
   getAllLanguages()
   {
-    this.notificationService.getLanguages().subscribe(response=>this.getLanguageSuccessHandeler(response));
+    this.notificationService.getLanguages().subscribe(response=>this.getLanguageSuccessHandeler(response),
+  (err) =>{
+    this.alertMessage.alert(err.errorMessage,'error');
+
+  });
   }
 
   languages:any=[];
@@ -142,7 +154,10 @@ export class SupervisorNotificationsComponent implements OnInit {
 
   getOffices(providerID,stateID,serviceID)
   {
-    this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response));
+    this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response),
+  (error) => {
+    this.alertMessage.alert(error.errorMessage,'error');
+  });
   }
 
   getOfficesSuccessHandeler(response)
@@ -153,7 +168,10 @@ export class SupervisorNotificationsComponent implements OnInit {
 
   getUsers(psmID)
   {
-    this.notificationService.getUsersByProviderID(psmID).subscribe(response=>this.getUsersSuccessHandeler(response));
+    this.notificationService.getUsersByProviderID(psmID).subscribe(response=>this.getUsersSuccessHandeler(response),
+  (error) => {
+    this.alertMessage.alert(error.errorMessage,'error');
+  });
   }
 
   getUsersSuccessHandeler(response)
@@ -195,14 +213,15 @@ export class SupervisorNotificationsComponent implements OnInit {
               }
             },
             (error) => {
+              this.alertMessage.alert(error.errorMessage,'error');
               console.log(error);
-              let dialog = this.dialog.open(MessageDialogComponent, {
-                disableClose: true,
-                data: {
-                  message: "Error in creating notification",
-                  type: "Message"
-                }
-              });
+              // let dialog = this.dialog.open(MessageDialogComponent, {
+              //   disableClose: true,
+              //   data: {
+              //     message: "Error in creating notification",
+              //     type: "Message"
+              //   }
+              // });
             });
       }
     });
@@ -298,6 +317,8 @@ export class SupervisorNotificationsComponent implements OnInit {
       console.log(this.notifications);
     },
     (error) => {
+      this.alertMessage.alert(error.errorMessage,'error');
+
       console.log(error);
     });
   }
@@ -315,31 +336,33 @@ export class SupervisorNotificationsComponent implements OnInit {
         .subscribe((response) => {
           console.log(response);
           if (response.data != {}) {
-            let dialog = this.dialog.open(MessageDialogComponent, {
-              disableClose: true,
-              data: {
-                message: "Successfully edited notification",
-                type: "Message"
-              }
-            });
+            this.alertMessage.alert("Notification edited successfully",'success');
+            // let dialog = this.dialog.open(MessageDialogComponent, {
+            //   disableClose: true,
+            //   data: {
+            //     message: "Successfully edited notification",
+            //     type: "Message"
+            //   }
+            // });
             this.notificationService.getSupervisorNotifications(this.notificationPostData)
             .subscribe((response) => {
               this.notifications = response.data;
             },
             (error) => {
-              this.alertMessage.alert(error.status);
+              this.alertMessage.alert(error.status,'error');
             });
           }
         },
         (error) => {
+          this.alertMessage.alert(error.errorMessage,'error');
           console.log(error);
-          let dialog = this.dialog.open(MessageDialogComponent, {
-            disableClose: true,
-            data: {
-              message: "Error in editing notification",
-              type: "Message"
-            }
-          });
+          // let dialog = this.dialog.open(MessageDialogComponent, {
+          //   disableClose: true,
+          //   data: {
+          //     message: "Error in editing notification",
+          //     type: "Message"
+          //   }
+          // });
         })
       }
     })

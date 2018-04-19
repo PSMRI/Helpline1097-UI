@@ -4,6 +4,7 @@ import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MdDialog } from '@angular/material';
+import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 
 @Component({
 	selector: 'rating',
@@ -27,7 +28,7 @@ export class RatingComponent implements OnInit {
 	userRatings=[];
 
 
-	constructor( private dataService: dataService,
+	constructor( private dataService: dataService, public alertService: ConfirmationDialogsService,
 	            private notificationService: NotificationService,
 	            public dialog: MdDialog) { };
 
@@ -51,7 +52,10 @@ export class RatingComponent implements OnInit {
 
 		/*callthe function to get the call type for User related alerts here*/
 		this.notificationService.getNotificationTypes(this.providerServiceMapID)
-		.subscribe(response=>this.getNotificationTypesSuccessHandeler(response));
+		.subscribe(response=>this.getNotificationTypesSuccessHandeler(response),
+	(err) => {
+		this.alertService.alert(err.errorMessage,'error');
+	});
 	};
 
 	getNotificationTypesSuccessHandeler(response)
@@ -85,7 +89,10 @@ export class RatingComponent implements OnInit {
 		obj['notificationTypeID']=notificationID;
 		
 		console.log("the request obj is",obj);
-		this.notificationService.getAlerts(obj).subscribe(response=>this.getUserMessageAlertsSuccessHandeler(response))
+		this.notificationService.getAlerts(obj).subscribe(response=>this.getUserMessageAlertsSuccessHandeler(response),
+	(err) => {
+		this.alertService.alert(err.errorMessage,'error');
+	})
 	}
 
 	getUserRatingAlerts(notificationID)
@@ -94,7 +101,11 @@ export class RatingComponent implements OnInit {
 		obj['notificationTypeID']=notificationID;
 		
 		console.log("the request obj is",obj);
-		this.notificationService.getAlerts(obj).subscribe(response=>this.getUserRatingAlertsSuccessHandeler(response))
+		this.notificationService.getAlerts(obj).subscribe(response=>this.getUserRatingAlertsSuccessHandeler(response),
+	(err) => {
+		this.alertService.alert(err.errorMessage,'error');
+
+	})
 	}
 
 	getUserMessageAlertsSuccessHandeler(response)

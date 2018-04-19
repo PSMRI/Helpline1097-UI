@@ -69,6 +69,7 @@ export class CallerAgeReportComponent implements OnInit {
       this.SetUserBeneficiaryRegistrationData(response)
     },
     (err) => {
+      this.alertMessage.alert(err.errorMessage,'error');
 
     });
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -212,7 +213,10 @@ export class CallerAgeReportComponent implements OnInit {
 
 
       console.log(array);
-      this.reportService.getAllByAgeGroup(array).subscribe((response) => { this.reportSuccessHandle(response) }, (err) => { });
+      this.reportService.getAllByAgeGroup(array).subscribe((response) => { this.reportSuccessHandle(response) }, (err) => { 
+        this.alertMessage.alert(err.errorMessage,'error');
+
+      });
     }
     count = [];
     reportSuccessHandle(res) {
@@ -231,7 +235,10 @@ export class CallerAgeReportComponent implements OnInit {
       this.district = undefined;
       if (state) {
         this._locationService.getDistricts(state.stateID)
-        .subscribe((response) => this.SetDistricts(response), (err) => { });
+        .subscribe((response) => this.SetDistricts(response), (err) => { 
+          this.alertMessage.alert(err.errorMessage,'error');
+
+        });
       }
     }
     SetDistricts(response: any) {
@@ -248,7 +255,7 @@ export class CallerAgeReportComponent implements OnInit {
       let head = Object.keys(this.count[0]);
       console.log(head);
       new Angular2Csv(this.count, 'AgeGroup Report', { headers: (head) });
-      this.alertMessage.alert('AgeGroup report downloaded');
+      this.alertMessage.alert('AgeGroup report downloaded','success');
 
     }
   }

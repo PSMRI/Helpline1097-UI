@@ -10,8 +10,8 @@ export class ConfirmationDialogsService {
     constructor(private dialog: MdDialog, @Inject(DOCUMENT) doc: any) {
     }
 
-    public confirm(title: string, message: string,
-        btnOkText: string = 'Ok', btnCancelText: string = 'Cancel'): Observable<boolean> {
+    public confirm(title: string, message: string, status: string = 'info',
+    btnOkText: string = 'Ok', btnCancelText: string = 'Cancel'): Observable<boolean> {
         let dialogRef: MdDialogRef<CommonDialogComponent>;
         const config = new MdDialogConfig();
         dialogRef = this.dialog.open(CommonDialogComponent, {
@@ -26,6 +26,8 @@ export class ConfirmationDialogsService {
         dialogRef.componentInstance.confirmAlert = true;
         dialogRef.componentInstance.alert = false;
         dialogRef.componentInstance.remarks = false;
+        dialogRef.componentInstance.status = status;
+
         return dialogRef.afterClosed();
     }
 
@@ -50,8 +52,8 @@ export class ConfirmationDialogsService {
         return dialogRef.afterClosed();
     }
 
-    public alert(message: string, titleAlign: string = 'center',
-        messageAlign: string = 'center', btnOkText: string = 'Ok'): void {
+    public alert(message: string, status: string = 'info', titleAlign: string = 'center',
+    messageAlign: string = 'center', btnOkText: string = 'Ok'): void {
 
         let dialogRef: MdDialogRef<CommonDialogComponent>;
         const config = new MdDialogConfig();
@@ -64,6 +66,8 @@ export class ConfirmationDialogsService {
         dialogRef.componentInstance.confirmAlert = false;
         dialogRef.componentInstance.alert = true;
         dialogRef.componentInstance.remarks = false;
+        dialogRef.componentInstance.status = status;
+
     }
     public remarks(message: string, titleAlign: string = 'center',
         messageAlign: string = 'center', btnOkText: string = 'Submit'): Observable<any> {

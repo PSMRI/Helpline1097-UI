@@ -245,13 +245,13 @@ import { COComponent } from './co/co.component';
         children: [
           {
             path: '',
-            component: ServiceRoleSelectionComponent
-           // canActivate: [AuthGuard],
+            component: ServiceRoleSelectionComponent,
+           canActivate: [AuthGuard]
           },
           {
             path: 'dashboard',
-            component: dashboardContentClass
-          //  canActivate: [AuthGuard],
+            component: dashboardContentClass,
+           canActivate: [AuthGuard]
           },
           {
             path: 'superAdmin',

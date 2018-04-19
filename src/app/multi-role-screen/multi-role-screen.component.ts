@@ -119,7 +119,7 @@ export class MultiRoleScreenComponent implements OnInit {
       this.router.navigate(['']);
       this.authService.removeToken();
 
-      this.alertMessage.alert(err.errorMessage);
+      this.alertMessage.alert(err.errorMessage,'error');
     });
   }
   hideCZentix(flag: any) {

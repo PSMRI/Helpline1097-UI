@@ -1,3 +1,8 @@
+<div [ngClass]="{'headerDiv': status=='info', 'successHeaderDiv': status=='success', 'errorHeaderDiv': status=='error'}">
+  <h4 class="popupHeader" *ngIf="status=='info'"><b>Info</b></h4>
+  <h4 class="popupHeader" *ngIf="status=='success'"><b>Success</b></h4>
+  <h4 class="popupHeader" *ngIf="status=='error'"><b>Error</b></h4>
+</div>
 <div class="container-fluid" *ngIf="confirmAlert">
   <h3 md-dialog-title>
     <div class="row">
@@ -12,15 +17,15 @@
   <md-dialog-content>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="center-btn" md-dialog-content>
+        <div  md-dialog-content>
           <!-- <div>
             <h3>{{message}}</h3>
           </div> -->
-          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 center-btn">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 center-btn m-t-5 m-b-5">
             <button md-raised-button color="primary" (click)="dialogRef.close(true)">{{btnOkText}}</button>
           </div>
-          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 center-btn">
-            <button md-raised-button color="warn" (click)="dialogRef.close(false)">{{btnCancelText}}</button>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 center-btn m-t-5 m-b-5">
+            <button md-raised-button  (click)="dialogRef.close(false)">{{btnCancelText}}</button>
           </div>
         </div>
       </div>
@@ -41,8 +46,8 @@
   </h3>
   <md-dialog-content>
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-btn ">
-        <button md-raised-button color="primary" (click)="dialogRef.close(true) ">{{btnOkText}}</button>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-btn m-t-5 m-b-5">
+        <button md-raised-button [color]="(status=='info')? 'primary': ''"  [ngClass]="{'borderClass': status!='info'}" (click)="dialogRef.close(true) ">{{btnOkText}}</button>
       </div>
     </div>
   </md-dialog-content>

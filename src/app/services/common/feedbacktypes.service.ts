@@ -5,18 +5,19 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigService } from "../config/config.service";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-
+import { InterceptedHttp } from './../../http.interceptor';
+import { AuthorizationWrapper } from './../../authorization.wrapper';
 
 @Injectable()
 export class FeedbackTypes {
     _helpline1097BaseURL = this._config.get1097BaseURL();
     _commonURL = this._config.getCommonBaseURL();
     _servicetypesurl = this._commonURL + "service/servicetypes";
-    _getFeedbackTypesURL = this._commonURL + "/feedback/getFeedbackType";
-    _getFeedbackSeverityURL = this._commonURL + "/feedback/getSeverity";
+    _getFeedbackTypesURL = this._commonURL + "feedback/getFeedbackType";
+    _getFeedbackSeverityURL = this._commonURL + "feedback/getSeverity";
     constructor(
-        private _http: Http,
-        private _config: ConfigService
+        // private _http: Http,
+        private _config: ConfigService, public intercepted: InterceptedHttp, public _http: AuthorizationWrapper
     ) { }
 
     getTypes(providerServiceMapID: number) {

@@ -8,7 +8,7 @@
 <div class="row">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <form (ngSubmit)="onSubmitShowForm()" #showNotificationForm="ngForm">
+      <form (ngSubmit)="onSubmitShowForm()" #showNotificationForm="ngForm" autocomplete="off">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
           <md-select placeholder="Notification Type" name="notificationType" ngModel required [style.width]="'100%'">
             <md-option *ngFor="let notification of notificationTypes" [value]="notification.notificationTypeID" (click)="checkNotificationType(notification.notificationType)">

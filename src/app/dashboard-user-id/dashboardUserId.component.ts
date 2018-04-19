@@ -41,7 +41,7 @@ export class DashboardUserIdComponent implements OnInit {
             // }
 
         }, (err) => {
-            this.message.alert(err.errorMessage);
+            this.message.alert(err.errorMessage,'error');
         })
     }
     // tslint:disable-next-line:eofline

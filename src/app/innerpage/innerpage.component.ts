@@ -35,7 +35,7 @@ export class InnerpageComponent implements OnInit {
   eventSpiltData: any;
   wrapUpTimeInSeconds = 30;
   // language change stuff
-  languageFilePath: any = 'assets/language.json';
+  languageFilePath: any = 'assets/language.js';
   selectedlanguage: any = '';
   currentlanguageSet: any = {};
   language_change: any;
@@ -222,7 +222,12 @@ export class InnerpageComponent implements OnInit {
   getLanguageObject(language) {
     this.selectedlanguage = language;
     console.log('language asked for is:', language);
-    this.HttpServices.getData(this.languageFilePath).subscribe(response => this.successhandeler(response, language));
+    this.HttpServices.getLanguage(this.languageFilePath).subscribe(response => this.successhandeler(response, language),
+  (err) => {
+    this.remarksMessage.alert(err.errorMessage);
+
+    console.log("error in fetching language");
+  });
 
   }
 
@@ -242,7 +247,10 @@ export class InnerpageComponent implements OnInit {
         if (res) {
           this.ipSuccessLogoutHandler(res.response.agent_ip);
         }
-      });
+      },
+    (err) => {
+      this.remarksMessage.alert(err.errorMessage);
+    });
     } else {
       this.ipSuccessLogoutHandler(this.getCommonData.loginIP);
     }
@@ -256,13 +264,15 @@ export class InnerpageComponent implements OnInit {
       } else {
         if (this.current_role.toLowerCase() !== 'supervisor') {
 
-          this.remarksMessage.alert('Cannot Logout During Active Call.');
+          this.remarksMessage.alert('Cannot logout during active call');
         } else {
           sessionStorage.removeItem('isOnCall');
           this.basicrouter.navigate(['']);
         }
       }
     }, (err) => {
+      this.remarksMessage.alert(err.errorMessage);
+
     });
   }
   getCallTypes(providerServiceMapID) {
@@ -282,7 +292,7 @@ export class InnerpageComponent implements OnInit {
           this.transferCallID = transferObj[0].callTypeID;
         }
       } else {
-        this.remarksMessage.alert('Failed To Get Call Types. Please Try Again.');
+        this.remarksMessage.alert('Failed to get call types');
       }
 
 
@@ -299,13 +309,14 @@ export class InnerpageComponent implements OnInit {
           this.disconectCallId = validObj[0].callTypeID;
         }
       } else {
-        this.remarksMessage.alert('Failed To Get Call Types. Please Try Again.');
+        this.remarksMessage.alert('Failed to get call types');
       }
       if (!this.transferCallID) {
         this.transferCallID = this.disconectCallId;
       }
       console.log('valid call id', this.transferCallID);
     }, (err) => {
+      this.remarksMessage.alert(err.errorMessage);
 
     });
 
@@ -378,18 +389,19 @@ export class InnerpageComponent implements OnInit {
 
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
-        this.remarksMessage.alert(message);
+        this.remarksMessage.alert(message,'success');
         sessionStorage.removeItem('isOnCall');
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
           console.log('disconnect response', res);
 
         }, (err) => {
+          this.remarksMessage.alert(err.errorMessage);
 
         });
       }
     }, (err) => {
-      this.remarksMessage.alert(err.status);
+      this.remarksMessage.alert(err.status,'error');
     });
   }
   showRemarks(eventData) {
@@ -402,7 +414,8 @@ export class InnerpageComponent implements OnInit {
         remarksGiven = 'call tranfered';
       }
       this.closeCall(eventData, remarksGiven);
-    }, (err) => { });
+    }, (err) => {     this.remarksMessage.alert(err.errorMessage);
+    });
     // this.startCallWraupup(eventData);
 
   }
@@ -450,6 +463,7 @@ export class InnerpageComponent implements OnInit {
         this.callStatus += ' (' + res.data.stateObj.stateType + ')';
       }
     }, (err) => {
+      this.remarksMessage.alert(err.errorMessage);
 
     })
   }
@@ -467,6 +481,7 @@ export class InnerpageComponent implements OnInit {
       //   this.callStatus += ' (' + res.data.stateObj.stateType + ')';
       // }
     }, (err) => {
+      this.remarksMessage.alert(err.errorMessage);
 
     })
   }

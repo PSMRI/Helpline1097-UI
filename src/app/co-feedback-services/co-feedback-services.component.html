@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="row">
-    <form id="feedbackForm" form="ngForm" [hidden]="!showFormCondition">
+    <form id="feedbackForm" form="ngForm" [hidden]="!showFormCondition" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
@@ -240,7 +240,7 @@
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length<1">
-              <td class="t-a-c" colspan="8">
+              <td class="t-a-c record-not-found" colspan="8">
                 {{currentlanguage.feedback_service?.table_labels?.no_records_found}}
               </td>
             </tr>

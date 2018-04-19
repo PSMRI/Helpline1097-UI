@@ -59,7 +59,11 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe(response => {
         this.SetUserBeneficiaryRegistrationData(response);
-      });
+      }),
+      (err) => {
+        this.message.alert(err.errorMessage,'error');
+
+      }
     // this.PopulateUpdateData();
 
     this.count = '0/300';
@@ -130,12 +134,12 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       this.showAlert();
       this.PopulateOutBoundData(response);
     }, (err) => {
-      this.message.alert(err.status);
+      this.message.alert(err.status,'error');
     });
   }
 
   showAlert() {
-    this.message.alert('Updated Successfully.');
+    this.message.alert('Updated Successfully','success');
 
     //this.form.reset();
   }

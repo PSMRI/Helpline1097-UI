@@ -52,12 +52,12 @@ export class ResetComponent {
 			}
 			else {
 				this.router.navigate(["/"]);
-				this.alertService.alert("Questions Not Set.");
+				this.alertService.alert("Questions not set");
 			}
 		}
 		else {
 			this.router.navigate(["/"]);
-			this.alertService.alert("User Not Found.");
+			this.alertService.alert("User not found.");
 		}
 	}
 

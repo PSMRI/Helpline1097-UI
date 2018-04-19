@@ -93,7 +93,9 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     this._SupervisorCallTypeReportService.getCallTypes(requestObject).subscribe((response: Response) => {
       this.callTypeObj = response;
       this.populateCallTypes(response)
-    });
+    }),(err) => {
+      this.alertMessage.alert(err.errorMessage,'error');
+    }
 
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this._userBeneficiaryData.getUserBeneficaryData(this.providerServiceMapID)
@@ -106,6 +108,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
       },
       (error) => {
+        this.alertMessage.alert(error.errorMessage,'error');
         console.log(error);
       })
     this.showPaginationControls = false;
@@ -116,7 +119,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     this.get_filterCallList(values);
   }
   audioEvent() {
-    this.alertMessage.alert('No Audio File Uploded.');
+    this.alertMessage.alert('No audio file uploded');
   }
   get_filterCallList(value) {
 
@@ -147,7 +150,10 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     console.log(requestObj);
     // write the api here to get filtercall list
     this.reportService.getAllReportsByDate(requestObj).subscribe(
-      (response: Response) => this.data = this.successhandeler(response));
+      (response: Response) => this.data = this.successhandeler(response),
+    (err) => {
+      this.alertMessage.alert(err.errorMessage,'error');
+    });
   }
   toUTCDate(date) {
     const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
@@ -179,7 +185,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       let head = Object.keys(array[0]);
       console.log(head);
       new Angular2Csv(array, 'Consolidate Report', { headers: (head) });
-      this.alertMessage.alert('Consolidated report generated');
+      this.alertMessage.alert('Consolidated report generated','success');
 
     }
     else {
@@ -220,7 +226,9 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     this.district = undefined;
     if (state) {
       this._locationService.getDistricts(state.stateID)
-        .subscribe((response) => this.SetDistricts(response), (err) => { });
+        .subscribe((response) => this.SetDistricts(response), (err) => {
+          this.alertMessage.alert(err.errorMessage,'error');
+        });
     }
   }
   SetDistricts(response: any) {

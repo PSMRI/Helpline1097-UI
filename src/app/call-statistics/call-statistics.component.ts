@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { dataService } from './../services/dataService/data.service';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 @Component({
   selector: 'app-call-statistics',
@@ -18,7 +19,7 @@ export class CallStatisticsComponent implements OnInit {
     this.todayCallLists();
   };
 
-  constructor(private callService: CzentrixServices, private commonData: dataService) { };
+  constructor(private callService: CzentrixServices, private commonData: dataService, public alertService: ConfirmationDialogsService) { };
 
   todayCallLists() {
     // this.totalCalls = 'Total Calls : 122';
@@ -34,6 +35,8 @@ export class CallStatisticsComponent implements OnInit {
         this.totalBreakTime = 'Total Break Time :' + response.response.total_break_time;
         this.totalFreeTime = 'Total Free Time :' + response.response.total_free_time;
       }, (err) => {
+        this.alertService.alert(err.errorMessage,'error');
+
         console.log('Error in Total Call Report', err);
       })
     } else {

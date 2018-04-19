@@ -4,6 +4,7 @@ import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
 import { Subscription } from 'rxjs/Subscription';
 declare var jQuery: any;
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
@@ -41,7 +42,7 @@ export class CoInformationServicesComponent implements OnInit {
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
     private _coService: CoReferralService,
-    private pass_data: CommunicationService
+    private pass_data: CommunicationService, public alertService: ConfirmationDialogsService
   ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
 
@@ -70,7 +71,10 @@ export class CoInformationServicesComponent implements OnInit {
   }
   GetServiceTypes() {
     this._coCategoryService.getTypes(this.providerServiceMapID)
-      .subscribe(response => this.setServiceTypes(response));
+      .subscribe(response => this.setServiceTypes(response),
+      (err) => {
+        this.alertService.alert(err.errorMessage,'error');
+      });
 
   }
   setServiceTypes(response: any) {
@@ -90,6 +94,7 @@ export class CoInformationServicesComponent implements OnInit {
         this.SetCategories(response)
       },
       (err) => {
+        this.alertService.alert(err.errorMessage,'error');
 
       });
   }
@@ -99,6 +104,7 @@ export class CoInformationServicesComponent implements OnInit {
         this.SetCategories(response)
       },
       (err) => {
+        this.alertService.alert(err.errorMessage,'error');
 
       });
   }
@@ -111,7 +117,11 @@ export class CoInformationServicesComponent implements OnInit {
   GetSubCategories(id: any) {
     // console.log('symcatid',this.symptomCategory);
     this._coCategoryService.getSubCategories(id)
-      .subscribe(response => this.SetSubCategories(response));
+      .subscribe(response => this.SetSubCategories(response),
+      (err) => {
+        this.alertService.alert(err.errorMessage,'error');
+
+      });
   }
 
   SetSubCategories(response: any) {
@@ -126,7 +136,11 @@ export class CoInformationServicesComponent implements OnInit {
     this._coCategoryService.getDetails(
       id, this.saved_data.uname, this.beneficiaryID,
       this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
-    ).subscribe(response => this.SetSubCategoryDetails(response));
+    ).subscribe(response => this.SetSubCategoryDetails(response),
+    (err) => {
+      this.alertService.alert(err.errorMessage,'error');
+
+    });
   }
   SetSubCategoryDetails(response: any) {
     console.log('success', response);
@@ -162,8 +176,10 @@ export class CoInformationServicesComponent implements OnInit {
         }
 
 
-      }, (err) => {
-        console.log('Some error reteriving Information History ', err);
+      },
+      (err) => {
+        this.alertService.alert(err.errorMessage,'error');
+
       })
   }
   // get the data from diffrent commponent
