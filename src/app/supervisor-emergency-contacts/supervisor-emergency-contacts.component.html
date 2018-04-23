@@ -1,0 +1,173 @@
+<div class="row" *ngIf="showTable">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">Emergency Contact List</h4>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+    <table class="table table-striped table-hover" [md2Data]="emergencyList" #md2="md2DataTable" [rowsPerPage]="5">
+      <thead>
+        <tr>
+          <th width="5%">S.No</th>
+          <th width="25%">Contact Name </th>
+          <th width="30%">Designation</th>
+          <th width="20%">Location</th>
+          <th width="10%">Contact Number</th>
+          <th width="10%">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="md2.data?.length==0">
+          <td colspan="6" class="record-not-found">
+            No Record Found
+          </td>
+
+        </tr>
+        <tr *ngFor="let item of md2.data; let i = index ">
+          <td>
+            <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+          </td>
+          <td>{{item.emergContactName}}</td>
+          <td>{{item?.designation?.designationName}}</td>
+          <td>{{item.location}}</td>
+          <td>{{item.emergContactNo}}</td>
+          <td>
+            <md-icon mdTooltip="edit" *ngIf="!(item?.deleted)" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer"
+              (click)="edit(item)">edit</md-icon>
+            <a style="cursor:pointer" *ngIf="item?.deleted" (click)="activate(item,false)">Activate</a>
+            <a style="cursor:pointer" *ngIf="!(item?.deleted)" (click)="deactivate(item,true)">Deactivate</a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <td colspan="3">
+          <md2-pagination></md2-pagination>
+        </td>
+        <td colspan="3">
+          <button md-raised-button color="primary" class="pull-right" type="button" (click)="formMode()">Create Emergency Contact</button>
+        </td>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="showForm">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">Create Emergency Contact</h4>
+  </div>
+  <form #emergencyContact="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" myName_space>
+      <md-input-container [style.width]="'100%'">
+        <input mdInput class="" placeholder="Name" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="15"
+          minlength="3">
+        <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">Enter atleast 3 characters</md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'" class="hide_underline">
+        <input mdInput class="display_none">
+        <md-select placeholder="Designation" [style.width]="'100%'" required [(ngModel)]="designation" name="designation">
+          <md-option *ngFor="let item of designations" [value]="item">
+            {{item.designationName}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'" myAddress>
+        <input mdInput placeholder="Location" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
+          minlength="3">
+        <md-hint class="error_text" *ngIf="Location.invalid && Location.touched">Enter atleast 3 characters</md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" myMobileNumber>
+      <md-input-container [style.width]="'100%'">
+        <input mdInput [(ngModel)]="contactNumber" placeholder="Mobile Number" required minlength="10" name="contactNumber" maxlength="10"
+          #mobileNum="ngModel">
+        <md-hint class="error_text" *ngIf="mobileNum.invalid && mobileNum.touched">Enter 10 digits mobile number</md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">Back</button>
+      <button md-raised-button color="primary" [disabled]="emergencyContact.invalid" class="pull-right" (click)="push2buffer(emergencyContact.value)">Add</button>
+    </div>
+  </form>
+  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+    
+    <button *ngIf="bufferArray.length>0" [disabled]="emergencyContact.invalid" md-raised-button color="accent" class="pull-right" (click)="createEmergencyContact(emergencyContact.value)">Submit</button>
+  </div> -->
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 table-responsive" *ngIf="bufferArray.length>0">
+    <table class="table table-hover table-striped" [md2Data]="bufferArray" #md2="md2DataTable" [rowsPerPage]="3">
+      <thead>
+        <tr>
+          <th width="5%">S.No</th>
+          <th width="20%">Contact Name </th>
+          <th width="15%">Designation</th>
+          <th width="30%">Location</th>
+          <th md2SortBy="emergContactNo" width="15%">Contact Number</th>
+          <th width="15%">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of md2.data; let i = index ">
+          <td>
+            <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+          </td>
+          <td>{{item.emergContactName}}</td>
+          <td>{{item.designationName}}</td>
+          <td>{{item.location}}</td>
+          <td>{{item.emergContactNo}}</td>
+          <td>
+            <md-icon mdTooltip="remove" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" (click)="remove(i)">clear</md-icon>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <td colspan="3">
+          <md2-pagination></md2-pagination>
+        </td>
+        <td colspan="3">
+          <button md-raised-button color="accent" class="pull-right" type="button" (click)="createEmergencyContact(bufferArray)">Create Emergency Contact</button>
+        </td>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="showEditForm">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">Edit Emergency Contact</h4>
+  </div>
+  <form #editEmergencyContact="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput placeholder="Name" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="15" minlength="3">
+        <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">Enter atleast 3 characters</md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'" class="hide_underline">
+        <input mdInput class="display_none">
+        <md-select placeholder="Designation" [style.width]="'100%'" required [(ngModel)]="designation" name="designation">
+          <md-option *ngFor="let item of designations" [value]="item.designationID">
+            {{item.designationName}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'" myAddress>
+        <input mdInput placeholder="Location" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
+          minlength="3">
+        <md-hint class="error_text" *ngIf="Location.invalid && Location.touched">Enter atleast 3 characters</md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput [(ngModel)]="contactNumber" placeholder="Mobile Number" required minlength="10" name="contactNumber" maxlength="10"
+          #mobileNum="ngModel">
+        <md-hint class="error_text" *ngIf="mobileNum.invalid && mobileNum.touched">Enter 10 digits mobile number</md-hint>
+      </md-input-container>
+    </div>
+  </form>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">Back</button>
+    <button [disabled]="editEmergencyContact.invalid" md-raised-button color="accent" class="pull-right" (click)="update(editEmergencyContact.value)">Update</button>
+  </div>
+</div>

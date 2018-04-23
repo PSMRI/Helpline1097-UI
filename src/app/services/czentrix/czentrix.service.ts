@@ -71,7 +71,7 @@ export class CzentrixServices {
   }
 
   getCallDetails() {
-    this.agent_id = this._data.cZentrixAgentID;
+    this.agent_id = '2014';
 
     let obj = { 'agent_id': this.agent_id };
     return this.http.post(this._getCallDetails, obj).map(this.extractData).catch(this.handleError);

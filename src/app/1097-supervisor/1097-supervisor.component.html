@@ -27,9 +27,9 @@
                     <a>Blacklist a Number</a>
                   </li>
                   <!-- <li style="cursor: pointer" (click)='show("4")'><a>Dial a Beneficiary</a></li> -->
-                  <li style="cursor: pointer" (click)='show("6")'>
+                  <!-- <li style="cursor: pointer" (click)='show("6")'>
                     <a>Notifications</a>
-                  </li>
+                  </li> -->
                   <li style="cursor: pointer" (click)='show("12")'>
                     <a>Outbound Call List</a>
                   </li>
@@ -44,6 +44,26 @@
                   </li>
                   <li style="cursor: pointer" (click)='show("14")'>
                     <a>Campaign Status</a>
+                  </li>
+                  <li class="dropdown-submenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Communication *</a>
+                    <ul class="dropdown-menu">
+                      <li style="cursor: pointer" (click)='show("19")'>
+                        <a>Alerts & Notifications</a>
+                      </li>
+                      <li style="cursor: pointer" (click)='show("20")'>
+                        <a>Location Messages</a>
+                      </li>
+                      <li style="cursor: pointer" (click)='show("21")'>
+                        <a>Training Resource</a>
+                      </li>
+                      <li style="cursor: pointer" (click)='show("22")'>
+                        <a>Emergency Contacts</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li style="cursor: pointer" (click)='show("23")'>
+                    <a>Force Logout</a>
                   </li>
                 </ul>
               </li>
@@ -123,6 +143,13 @@
           <app-sexual-orientation-report *ngSwitchCase="16"></app-sexual-orientation-report>
           <app-language-distribution-report *ngSwitchCase="17"></app-language-distribution-report>
           <app-gender-distribution-report *ngSwitchCase="18"></app-gender-distribution-report>
+
+          <app-supervisor-alerts-notifications *ngSwitchCase="19"></app-supervisor-alerts-notifications>
+          <app-supervisor-location-communication *ngSwitchCase="20"></app-supervisor-location-communication>
+          <app-supervisor-training-resources *ngSwitchCase="21"></app-supervisor-training-resources>
+          <app-supervisor-emergency-contacts *ngSwitchCase="22"></app-supervisor-emergency-contacts>
+          <app-force-logout  *ngSwitchCase="23"></app-force-logout>
+    
         </div>
       </div>
       <!--</div>-->

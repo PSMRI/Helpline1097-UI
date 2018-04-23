@@ -41,7 +41,8 @@ export class DashboardUserIdComponent implements OnInit {
             // }
 
         }, (err) => {
-            this.message.alert(err.errorMessage,'error');
+            // this.message.alert(err.errorMessage,'error');
+            console.log("CZ AGENT NOT LOGGED IN")
         })
     }
     // tslint:disable-next-line:eofline

@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { InterceptedHttp } from './../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
+import { SocketService } from '../socketService/socket.service';
 
 
 @Injectable()
@@ -18,13 +19,23 @@ export class NotificationService {
     getNotificationsURL = this.configService.getCommonBaseURL() + 'notification/getNotification';
     getSupervisorNotificationsURL = this.configService.getCommonBaseURL() + 'notification/getSupervisorNotification';
     updateNotificationURL = this.configService.getCommonBaseURL() + 'notification/updateNotification';
+    getOfficesFromRole_URL = this.configService.getCommonBaseURL() + "user/getLocationsByProviderID";
 
     getLanguagesURL = this.configService.getCommonBaseURL() + 'beneficiary/getRegistrationData';
     getOfficesURL = this.configService.getAdminBaseUrl() + 'm/location/getAlllocation';
     getUsersByProviderID_URL = this.configService.getCommonBaseURL() + 'user/getUsersByProviderID';
     getServiceProviderID_url = this.configService.getAdminBaseUrl() + 'getServiceProviderid';
+    sendSocketNotification_url = this.socketService.getSocketURL() + 'notification/notificationToRoom';
+    getDesignationsUrl = this.configService.getAdminBaseUrl() + '/m/getDesignation';
+    getSupervisorEmergencyContacts_url = this.configService.getCommonBaseURL() + 'notification/getSupervisorEmergencyContacts';
+    createEmergencyContacts_url = this.configService.getCommonBaseURL() + 'notification/createEmergencyContacts';
+    updateEmergencyContacts_url = this.configService.getCommonBaseURL() + 'notification/updateEmergencyContacts';
+    getCount_url = this.configService.getCommonBaseURL() + 'notification/getAlertsAndNotificationCount';
+    getNotificationDetails_url = this.configService.getCommonBaseURL() + 'notification/getAlertsAndNotificationDetail';
+    changeNotificationStatus_url = this.configService.getCommonBaseURL() + 'notification/changeNotificationStatus';
+    deleteNotification_url = this.configService.getCommonBaseURL() + 'notification/markDelete';
 
-    constructor(private http: AuthorizationWrapper, private configService: ConfigService, private httpIntercepto: InterceptedHttp) { };
+    constructor(public socketService: SocketService, private http: AuthorizationWrapper, private configService: ConfigService, private httpIntercepto: InterceptedHttp) { };
 
     getUsersByProviderID(psmID) {
         return this.http.post(this.getUsersByProviderID_URL, { 'providerServiceMapID': psmID })
@@ -50,7 +61,10 @@ export class NotificationService {
         return this.http.post(this.getServiceProviderID_url, { 'providerServiceMapID': providerServiceMapID })
             .map((response: Response) => response.json().data);
     }
-
+    getAllDesignations() {
+        return this.http.post(this.getDesignationsUrl, {})
+            .map((response: Response) => response.json().data);
+    }
     getNotificationTypes(providerServiceMapID) {
         let data = { 'providerServiceMapID': providerServiceMapID };
         return this.http.post(this.getNotificationTypesURL, data)
@@ -69,6 +83,13 @@ export class NotificationService {
         return this.http.post(this.getNotificationsURL, data)
             .map((response: Response) => response.json());
     }
+    getOfficeByRole(providerServiceMapID, roleID) {
+        return this.http.post(this.getOfficesFromRole_URL, {
+            "providerServiceMapID": providerServiceMapID,
+            "roleID": roleID
+        })
+            .map((response: Response) => response.json().data);
+    }
     getNotifications(data) {
         return this.http.post(this.getNotificationsURL, data)
             .map((response: Response) => response.json());
@@ -83,6 +104,38 @@ export class NotificationService {
     }
     updateNotification(data) {
         return this.httpIntercepto.post(this.updateNotificationURL, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    getSupervisorEmergencyContacts(data) {
+        return this.httpIntercepto.post(this.getSupervisorEmergencyContacts_url, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    getCount(data){
+        return this.httpIntercepto.post(this.getCount_url, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }    
+    getNotificationDetails(data){
+        return this.httpIntercepto.post(this.getNotificationDetails_url, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    changeNotificationStatus(data){
+        return this.httpIntercepto.post(this.changeNotificationStatus_url, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    deleteNotification(data){
+        return this.httpIntercepto.post(this.deleteNotification_url, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    createEmergencyContacts(data) {
+        return this.httpIntercepto.post(this.createEmergencyContacts_url, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    sendSocketNotification(data) {
+        return this.http.post(this.sendSocketNotification_url, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    updateEmergencyContacts(data) {
+        return this.httpIntercepto.post(this.updateEmergencyContacts_url, data)
             .map((response: Response) => response.json()).catch(this.handleCustomError);
     }
     handleError(error: Response) {

@@ -209,7 +209,26 @@ aF {
   border-radius: 50%;
 }
 
+.td-m-t-b-5{
 
+	border-collapse: separate;
+    border-spacing: 0px 10px ;
+	
+}
+.td-m-t-b-5 th{
+	border-top:none !important; 	
+}
+
+
+.td-m-t-b-5 td{
+
+	border-top:1px solid #e9e8e8;
+	border-bottom:1px solid #e9e8e8;
+  background:#f7f7f7;
+  vertical-align: middle !important;
+	
+	
+}
 /*.bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {
   content: ' ';
   width: 12px;
@@ -417,6 +436,9 @@ color:#545454;
 .f-s-30 {
   font-size: 30px;
 }
+.f-s-36 {
+  font-size: 36px;
+}
 
 .f-s-35 {
   font-size: 35px;
@@ -437,7 +459,9 @@ color:#545454;
 .f-s-n-b {
   font-weight: normal !important;
 }
-
+.callStatisticsFontColor{
+  color:#428bca;
+  }
 .p-a-0 {
   padding: 0px !important;
 }
@@ -762,7 +786,9 @@ color:#545454;
 .m-t--5 {
   margin-top: -5px;
 }
-
+.m-t--8 {
+  margin-top: -8px!important;
+}
 .m-t--10 {
   margin-top: -10px;
 }
@@ -830,7 +856,11 @@ color:#545454;
 .m-t-80 {
   margin-top: 80px;
 }
-
+.w-h-20x20{
+	width:20px;
+	height:20px;
+	background:#F00;
+}
 .m-l-8 {
   margin-left: 8px;
 }
@@ -874,7 +904,12 @@ color:#545454;
 .m-l--5 {
   margin-left: -5px !important;
 }
-
+.b-l-1 {
+  border-left: 1px solid #e9e8e8 !important;
+ }
+ .b-r-1 {
+  border-right: 1px solid #e9e8e8 !important;
+ }
 .m-b-0 {
   margin-bottom: 0px !important;
 }
@@ -1046,7 +1081,13 @@ em {
 .x-ng-cloak {
   display: none !important;
 }
-
+.p-l-m-t-22 {
+  padding-left: 22px !important;
+  margin-top: 22px !important;
+}
+.p-t-15 {
+  padding-top: 15px !important;
+}
 .multiSelect {
   background-color: #red;
   position: absolute;
@@ -2062,6 +2103,11 @@ white-space: nowrap!important;
 .mat-input-wrapper {
     padding-bottom: 1.5em !important;
 }
+.closeIcon {
+  position: relative;
+  top: 5px;
+  right: 5px;
+}
 
 @media (max-width: 317px) {}
 
@@ -2107,6 +2153,10 @@ margin-top: 10px;
   .m-t-sm-10{
 margin-top: 10px;
   
+  }
+  .p-b-sm-30
+  {
+    padding-bottom: 30px;
   }
   .cu-nav-top li {
     background: none;
@@ -2185,6 +2235,10 @@ margin-top:0px;
   .m-t-lg-20 {
     margin-top: 20px;
   }
+  .p-b-lg-30
+  {
+    padding-bottom: 30px;
+  }
   .m-t-lg-30 {
     margin-top: 30px;
   }
@@ -2232,6 +2286,10 @@ margin-top:0px;
 @media (min-width: 1200px) {
   .p-l-lg-0 {
     padding-left: 0px;
+  }
+  .p-b-lg-30
+  {
+    padding-bottom: 30px;
   }
   .m-t-lg-10 {
     margin-top: 10px;

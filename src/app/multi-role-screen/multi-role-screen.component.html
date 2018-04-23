@@ -1,6 +1,6 @@
-<div class="col-xs-12 col-sm-12">
+
   <div class="container-fluid p-a-0" *ngIf="hideHeader">
-    <div class="row header">
+    <div class="row header navbar-fixed-top">
       <div class="col-xs-12 col-sm-12">
         <div class="pull-left">
           <img src="assets/images/smLogo.png" alt="Logo" title="Logo">
@@ -29,9 +29,9 @@
                 <md-list-item class="b-t-1-w">ID: {{id}}-{{current_role}}-{{current_service}}</md-list-item>
               </md-list>
               </md-menu>
-              <li class="help" alt="Help Icon" title="Help">
+              <!-- <li class="help" alt="Help Icon" title="Help">
                 <a class="">&nbsp;</a>
-              </li>
+              </li> -->
               <li class="logout" (click)="logOut()" alt="Logout Icon" title="Logout">
                 <a class="">&nbsp;</a>
               </li>
@@ -60,4 +60,4 @@
     </div>
   </footer>
   <!-- <router-outlet name="postLogin_router"></router-outlet> -->
-</div>
+

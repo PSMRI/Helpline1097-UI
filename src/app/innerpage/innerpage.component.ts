@@ -463,8 +463,8 @@ export class InnerpageComponent implements OnInit {
         this.callStatus += ' (' + res.data.stateObj.stateType + ')';
       }
     }, (err) => {
-      this.remarksMessage.alert(err.errorMessage);
-
+      // this.remarksMessage.alert(err.errorMessage);
+      console.log("CZ AGENT NOT LOGGED IN");
     })
   }
 

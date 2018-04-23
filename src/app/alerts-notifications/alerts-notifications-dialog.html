@@ -1,0 +1,35 @@
+<div class="headerDiv">
+  <md-icon class="mat-icon material-icons pull-right cursorPointer p-t-2 f-c-w closeIcon" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogRef.close()">
+    clear
+  </md-icon>
+	<h4 class="popupHeader">{{heading}} Messages</h4>
+  
+</div>
+	<md-dialog-content style="min-height:400px">
+		<div class="table-responsive ">
+			<table class="table td-m-t-b-5 m-b-0" [md2Data]="messages" #md2="md2DataTable" [rowsPerPage]="3">
+				<tbody>
+					<tr *ngFor="let row of md2.data">
+						<td class="b-l-1 col-xs-11 col-sm-11">
+							<h4 class="media-heading" [ngClass]="(row.notificationState=='unread')?'f-s-b':''">{{row.notification.notification}}</h4>
+							<p class="f-c-585857" [ngClass]="(row.notificationState=='unread')?'f-s-b':''">{{row.notification.notificationDesc}}</p>
+						</td>
+						<td valign="middle" class="b-r-1 col-xs-1 col-sm-1"><i class="material-icons cursorPointer" mdTooltip="Delete" (click)="deleteNotification(row.userNotificationMapID)">delete</i></td>
+						<td *ngIf="row.notificationState=='unread'" valign="middle" class="b-r-1 col-xs-1 col-sm-1"><i class="material-icons cursorPointer" mdTooltip="Read" (click)="readSingle(row.userNotificationMapID)">check</i></td>
+						<td *ngIf="row.notificationState=='read'" valign="middle" class="b-r-1 col-xs-1 col-sm-1"><i class="material-icons cursorPointer" mdTooltip="Unread" (click)="unreadSingle(row.userNotificationMapID)">refresh</i></td>
+					</tr>
+					<tr *ngIf="md2.data.length==0">
+						<td class="text-center" colspan="2"> No {{heading}} messages found </td>
+					</tr>
+        </tbody>
+        <tfoot>
+         <md2-pagination></md2-pagination>  
+        </tfoot>
+			</table>
+		</div>
+  </md-dialog-content>
+  <md-dialog-actions >
+      <button md-raised-button color="primary" type="button" class="pull-right" (click)="dialogRef.close()">Close</button>
+			<button md-raised-button color="primary" type="button" class="pull-right m-r-5" (click)="unreadAll()">Unread All</button>
+			<button md-raised-button color="accent" type="button" class="pull-right m-r-5" (click)="readAll()">Read All</button>
+  </md-dialog-actions>

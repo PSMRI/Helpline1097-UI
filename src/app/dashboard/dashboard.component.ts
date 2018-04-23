@@ -8,10 +8,14 @@ import { ConfirmationDialogsService } from '../services/dialog/confirmation.serv
 import { loginService } from '../services/loginService/login.service';
 import { ListnerService } from './../services/common/listner.service';
 import { CallServices } from './../services/callservices/callservice.service';
+declare var jQuery: any;
+import { SocketService } from '../services/socketService/socket.service';
+//import {ToasterService, ToasterConfig} from 'angular2-toaster';
 
 @Component({
   selector: 'dashboard-component',
-  templateUrl: './dashboard.html'
+  templateUrl: './dashboard.html',
+  styleUrls : ['./dashboard.component.css']
 })
 
 export class dashboardContentClass implements OnInit {
@@ -34,7 +38,7 @@ export class dashboardContentClass implements OnInit {
   listenCall: any;
   loginUrl = this.configService.getCommonLoginUrl();
   compainType: any;
-
+  alertRefresh: number = 1;
 
   agentID: any;
   agentIDExitsFlag: boolean = false;
@@ -48,8 +52,46 @@ export class dashboardContentClass implements OnInit {
     private _loginService: loginService,
     private renderer: Renderer,
     private callService: CallServices,
-    private listnerService: ListnerService
-  ) { };
+    //private toasterService: ToasterService,
+    private listnerService: ListnerService, public socketService: SocketService
+  ) { 
+
+    this.socketService.getMessages().subscribe((data)=>{
+      console.log(data);
+      this.alertRefresh++;
+      if(data.type=='Alert'){
+        // this.toasterService.popAsync('error',data.type, data.subject+": "+data.message).subscribe((res)=>{
+        //   console.log(res);
+        // });
+      }
+
+      if(data.type=='Notification'){
+        // this.toasterService.popAsync('success',data.type, data.subject+": "+data.message).subscribe((res)=>{
+        //   console.log(res);
+        // });
+      }
+
+      if(data.type=='Emergency_Contact'){
+        // this.toasterService.popAsync('warning',data.type, data.subject+" "+data.message).subscribe((res)=>{
+        //   console.log(res);
+        // });
+      }
+
+      if(data.type=='Training_Resource'){
+        // this.toasterService.popAsync('wait',data.type, data.subject+": "+data.message).subscribe((res)=>{
+        //   console.log(res);
+        // });
+      }
+
+      if(data.type=='Location_Message'){
+        // this.toasterService.popAsync('info',data.type, data.subject+": "+data.message).subscribe((res)=>{
+        //   console.log(res);
+        // });
+      }
+  })
+
+  };
+
   ngOnInit() {
     this.activeRoute
       .queryParams
@@ -66,7 +108,7 @@ export class dashboardContentClass implements OnInit {
     this.listnerService.cZentrixSendData(obj);
     this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
     }, (err) => {
-      this.message.alert(err.errorMessage);
+    //  this.message.alert(err.errorMessage);
     })
     // const userObj = JSON.parse(Cookie.get('userID'));
     // if (userObj) {
@@ -76,7 +118,7 @@ export class dashboardContentClass implements OnInit {
 
     //   this.dataSettingService.current_role = roleObj;
     //   this.dataSettingService.current_service = userObj.serviceObj;
-    //   this.current_role = this.dataSettingService.current_role.RoleName;
+       this.current_role = this.dataSettingService.current_role.RoleName;
     //   this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
     //     if (response.isAuthenticated === true && response.Status === 'Active') {
     //       this.dataSettingService.Userdata = response;
@@ -104,7 +146,9 @@ export class dashboardContentClass implements OnInit {
     this.agentID = this.dataSettingService.cZentrixAgentID;
     this.agentIDexists(this.agentID);
 
-
+    jQuery(document).ready(function(){
+      jQuery('[data-toggle="tooltip"]').tooltip(); 
+  }); 
   }
 
   agentIDexists(agentID) {
@@ -301,5 +345,48 @@ export class dashboardContentClass implements OnInit {
   ngOnDestroy() {
     this.listenCall();
   }
+    // CODE FOR SIDE NAV
+    clicked: boolean = false;
+    hamburgerHoverOut() {
+      console.log(this.clicked);
+      if (this.clicked === true) {
+        const element = document.querySelector('.leftMenu');
+        element.classList.toggle('openMenu');
+  
+        // const hamburger = document.querySelector('.hamburger');
+        // hamburger.classList.toggle('open');
+  
+        const closeAccordion = document.getElementsByClassName('dropdown');
+        let i = 0;
+        for (i = 0; i < closeAccordion.length; i++) {
+          closeAccordion[i].classList.remove('active');
+        }
+  
+      }
+      this.clicked = false;
+    }
+  
+    hamburgerClick() {
+      if (this.clicked === false) {
+        this.clicked = true;
+        const element = document.querySelector('.leftMenu');
+        element.classList.toggle('openMenu');
+  
+        // const hamburger = document.querySelector('.hamburger');
+        // hamburger.classList.toggle('open');
+  
+        const closeAccordion = document.getElementsByClassName('dropdown');
+        let i = 0;
+        for (i = 0; i < closeAccordion.length; i++) {
+          closeAccordion[i].classList.remove('active');
+        }
+      }
+  
+    }
+    routeToRoleSelection(){
+     this.socketService.logOut();
+      this.router.navigate(['/MultiRoleScreenComponent']);
+     this.socketService.reInstantiate();
+    }
 }
 

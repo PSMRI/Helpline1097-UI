@@ -18,6 +18,7 @@ export class ActivityThisWeekComponent implements OnInit {
     };
     constructor(public getCommonData: dataService) {
         this.role = this.getCommonData.current_role.RoleName;
+        this.campaign = this.getCommonData.current_campaign;
         // this.campaign = this.getCommonData.current_campaign;
         // console.log('Current campaign ' + this.getCommonData.current_campaign);
 

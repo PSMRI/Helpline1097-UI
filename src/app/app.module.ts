@@ -173,7 +173,16 @@ import { AuthGuard } from './services/authGuardService/auth-guard.services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
 import { COComponent } from './co/co.component';
-
+import { DashboardReportsComponent } from './dashboard-reports/dashboard-reports.component';
+import { SocketService } from './services/socketService/socket.service';
+import { SupervisorLocationCommunicationComponent } from './supervisor-location-communication/supervisor-location-communication.component';
+import { SupervisorAlertsNotificationsComponent } from './supervisor-alerts-notifications/supervisor-alerts-notifications.component';
+import { SupervisorTrainingResourcesComponent } from './supervisor-training-resources/supervisor-training-resources.component';
+import { SupervisorEmergencyContactsComponent } from './supervisor-emergency-contacts/supervisor-emergency-contacts.component';
+import { ForceLogoutComponent } from './force-logout/force-logout.component';
+import { ForceLogoutService } from './services/supervisorServices/forceLogoutService.service';
+import { AlertsNotificationsDialogComponent } from './alerts-notifications/alerts-notifications.component';
+//import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
   declarations: [
@@ -198,13 +207,13 @@ import { COComponent } from './co/co.component';
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
     FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent,
     NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent,
-    CallStatisticsComponent,
-    CoAlternateNumberComponent,
-    ReallocateCallsComponent,
-    SupervisorCampaignStatusComponent,
-    CallerAgeReportComponent,
-    SexualOrientationReportComponent,
-    LanguageDistributionReportComponent,
+    CallStatisticsComponent, DashboardReportsComponent,
+    CoAlternateNumberComponent, SupervisorLocationCommunicationComponent, 
+    ReallocateCallsComponent, SupervisorAlertsNotificationsComponent, 
+    SupervisorCampaignStatusComponent, SupervisorTrainingResourcesComponent, 
+    CallerAgeReportComponent, SupervisorEmergencyContactsComponent, 
+    SexualOrientationReportComponent, ForceLogoutComponent, 
+    LanguageDistributionReportComponent, AlertsNotificationsDialogComponent, 
     GenderDistributionReportComponent,
     COComponent
 
@@ -225,6 +234,7 @@ import { COComponent } from './co/co.component';
     ValidationMessagesModule,
     BrowserAnimationsModule,
     MdCardModule,
+    //ToasterModule,
     MdTabsModule,
     RouterModule.forRoot([
       {
@@ -246,12 +256,12 @@ import { COComponent } from './co/co.component';
           {
             path: '',
             component: ServiceRoleSelectionComponent,
-           canActivate: [AuthGuard]
+            canActivate: [AuthGuard]
           },
           {
             path: 'dashboard',
             component: dashboardContentClass,
-           canActivate: [AuthGuard]
+            canActivate: [AuthGuard]
           },
           {
             path: 'superAdmin',
@@ -287,20 +297,19 @@ import { COComponent } from './co/co.component';
       // }
     ]),
     Md2Module],
-  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent,
+  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent, 
     AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
     , CoAlternateNumberComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2,
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2,SocketService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,
+    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,ForceLogoutService,
     CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService, {
-      provide: InterceptedHttp,
-      useFactory: httpFactory,
-      deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
+      provide: InterceptedHttp,useFactory: httpFactory,
+     deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
     },
     {
       provide: AuthorizationWrapper,

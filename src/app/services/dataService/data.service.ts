@@ -35,7 +35,8 @@ export class dataService {
 
 	serviceProviderID: any;
 	isOutbound: boolean = false;
-
+	current_workingLocationID: any;
+	
 
 
 

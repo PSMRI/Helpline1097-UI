@@ -1,0 +1,39 @@
+@media (min-width: 317px ) {
+    .dashboard-m-t-45{
+        margin-top: 75px;
+    }
+
+}
+@media (max-width: 317px ) {
+    .dashboard-m-t-45{
+        margin-top: 75px;
+    }
+
+}
+
+@media (min-width: 480px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+
+}
+
+@media (min-width: 767px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+}
+
+@media (min-width: 992px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+
+}

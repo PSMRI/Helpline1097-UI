@@ -1,0 +1,200 @@
+<div class="row" *ngIf="searchMode">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">
+      <strong>Alerts & Notifications</strong>
+    </h4>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
+    <form #searchNotificationForm="ngForm" autocomplete="off">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-20">
+        <md-select placeholder="Communication Type" [(ngModel)]="searchNotificationType" name="notificationType" ngModel required
+          [style.width]="'100%'">
+          <md-option *ngFor="let obj of types" [value]="obj.notificationTypeID">
+            {{ obj.notificationType }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <md2-datepicker name="startDate" (keydown)="blockey($event)" [(ngModel)]="searchStartDate" (change)="sdChange(searchStartDate)"
+          placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
+        <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <md2-datepicker name="endDate" [min]="startDate.value" (keydown)="blockey($event)" [(ngModel)]="searchEndDate" (change)="edChange(searchEndDate)"
+          placeholder="Valid Till" #endDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
+        <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date</span>
+      </div>
+    </form>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-10">
+      <button md-raised-button color="accent" id="searchNotification" class="pull-right" type="button" [disabled]="searchNotificationForm.invalid"
+        (click)="getNotifications(searchNotificationForm.value)">Search</button>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15  table-responsive">
+      <table class="table table-hover table-striped" [md2Data]="alerts_notifications" #md2="md2DataTable" [rowsPerPage]="3">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Type</th>
+            <th md2SortBy="RoleName">Role</th>
+            <th>Office</th>
+            <th>Subject</th>
+            <th>Description</th>
+            <th>Valid From</th>
+            <th>Valid Till</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="alerts_notifications?.length < 1">
+            <td class="record-not-found" colspan="9">
+              No Record Found
+            </td>
+          </tr>
+          <tr *ngFor="let row of md2.data;let i = index ">
+            <td>{{(md2.activePage-1)*3+i+1}}</td>
+            <td>{{row.notificationType.notificationType}} </td>
+            <td>{{row?.role?.RoleName?row?.role?.RoleName:'All'}}</td>
+            <td>{{row?.workingLocation?.locationName?row?.workingLocation?.locationName:'All'}}</td>
+            <td>{{row.notification}}</td>
+            <td>{{row.notificationDesc}}</td>
+            <td>{{row.validFrom|utcDate|date:'dd/MM/yyyy'}}</td>
+            <td>{{row.validTill|utcDate|date:'dd/MM/yyyy'}}</td>
+            <td>
+              <md-icon class="cursorPointer" mdTooltip="Edit" (click)="edit(row)">mode_edit</md-icon>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <md2-pagination></md2-pagination>
+            </td>
+            <td colspan="4" class="p-r-0">
+              <button md-raised-button color="primary" type="button" class="pull-right" (click)="showForm()">Create New</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="createMode">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">
+      <strong>Alerts & Notifications</strong>
+    </h4>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
+    <form #notificationCreationForm="ngForm" autocomplete="off">
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 m-t-20">
+        <md-select placeholder="Communication Type" name="notificationType" ngModel required [style.width]="'100%'">
+          <md-option *ngFor="let obj of types" [value]="obj.notificationTypeID">
+            {{ obj.notificationType }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 m-t-20">
+        <md-select class="width100" placeholder="Select Role" name="role" ngModel #role="ngModel" (change)="getOffices(role.value)">
+          <md-option value="All">All</md-option>
+          <md-option *ngFor="let item of roles" [value]="item.roleID">
+            {{ item.roleName }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 m-t-20">
+        <md-select class="width100" [disabled]="role.value=='All'" placeholder="Select Offices" [multiple]="true" name="offices" ngModel #office="ngModel">
+          <md-option *ngFor="let item of offices" [value]="item.pSAddMapID">
+            {{ item.locationName }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+        <md2-datepicker name="startDate" (keydown)="blockey($event)" [min]="minDate" placeholder="Valid From" #startDate="ngModel"
+          ngModel required [style.width]="'100%'"></md2-datepicker>
+        <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+        <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="startDate.value" placeholder="Valid Till" #endDate="ngModel"
+          ngModel required [style.width]="'100%'"></md2-datepicker>
+        <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-10">
+        <md-input-container class="width100">
+          <input mdInput placeholder="Subject" name="subject" ngModel #subject="ngModel" minlength="5" maxlength="100" required>
+          <md-hint align="start" *ngIf="subject.errors && subject.touched">
+            <span class="error_text">Subject is required(min 5 characters)</span>
+          </md-hint>
+          <md-hint align="end">{{subject.value?.length}}/100</md-hint>
+        </md-input-container>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 m-t-10">
+        <md-input-container class="width100">
+          <textarea mdInput rows="2" placeholder="Message" name="message" ngModel #message="ngModel" minlength="5" maxlength="300"
+            required></textarea>
+          <md-hint align="start" *ngIf="message.errors && message.touched">
+            <span class="error_text">Message is required(min 5 characters)</span>
+          </md-hint>
+          <md-hint align="end">{{message.value?.length}}/300</md-hint>
+        </md-input-container>
+      </div>
+    </form>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+      <button md-raised-button color="primary" class="pull-left" type="button" (click)="showTable()">Back</button>
+      <button md-raised-button color="accent" [disabled]="notificationCreationForm.invalid" class="pull-right" type="button" (click)="createAlertNotification(notificationCreationForm.value)">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="editMode">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">
+      <strong>Edit {{editType}}</strong>
+    </h4>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
+    <form #notificationEditingForm="ngForm" autocomplete="off">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <md2-datepicker name="startDate" (keydown)="blockey($event)" [(ngModel)]="sdate" (change)="resetEndDate()" [min]="minDate"
+          placeholder="Valid From" #eStartDate="ngModel" required [style.width]="'100%'"></md2-datepicker>
+        <span class="error_text f-s-10 p-l-10" *ngIf="eStartDate.touched && eStartDate.errors?.required">Date is required</span>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <md2-datepicker name="endDate" (keydown)="blockey($event)" [(ngModel)]="edate" [min]="eStartDate.value" placeholder="Valid Till"
+          #eEndDate="ngModel" required [style.width]="'100%'"></md2-datepicker>
+        <span class="error_text f-s-10 p-l-10" *ngIf="eEndDate.touched && eEndDate.errors?.required">Date is required</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(eEndDate.value < eStartDate.value) && eEndDate.dirty">End Date cannot be before Start Date!</span>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-10">
+        <md-input-container class="width100">
+          <input mdInput placeholder="Subject" name="subject" [(ngModel)]="notification_subject" ngModel #subject="ngModel" minlength="5"
+            maxlength="100" required>
+          <md-hint align="start" *ngIf="subject.errors && subject.touched">
+            <span class="error_text">Subject is required(min 5 characters)</span>
+          </md-hint>
+          <md-hint align="end">{{subject.value?.length}}/100</md-hint>
+        </md-input-container>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 m-t-10">
+        <md-input-container class="width100">
+          <textarea mdInput rows="2" placeholder="Message" [(ngModel)]="description" name="message" ngModel #message="ngModel" minlength="5"
+            maxlength="300" required></textarea>
+          <md-hint align="start" *ngIf="message.errors && message.touched">
+            <span class="error_text">Message is required(min 5 characters)</span>
+          </md-hint>
+          <md-hint align="end">{{message.value?.length}}/300</md-hint>
+        </md-input-container>
+      </div>
+    </form>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+      <button md-raised-button color="primary" class="pull-left" type="button" (click)="showTable()">Back</button>
+      <button md-raised-button color="accent" [disabled]="notificationEditingForm.invalid" class="pull-right" type="button" (click)="editAlertNotification(notificationEditingForm.value)">Update</button>
+    </div>
+  </div>
+</div>

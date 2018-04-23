@@ -14,9 +14,13 @@ import { AuthService } from './services/authentication/auth.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw'
+import { observeOn } from 'rxjs/operator/observeOn';
 
 @Injectable()
 export class InterceptedHttp extends Http {
+
+    onlineFlag: boolean = true;
+    count = 0;
 
     constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private loaderService: LoaderService
         , private router: Router, private authService: AuthService, private message: ConfirmationDialogsService) {
@@ -25,29 +29,39 @@ export class InterceptedHttp extends Http {
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         // url = this.updateUrl(url);
-        this.showLoader();
-        return super.get(url, this.getRequestOptionArgs(options)).catch(this.onCatch)
-            .do((res: Response) => {
-                this.onSuccess(res);
-            }, (error: any) => {
-                this.onError(error);
-            })
-            .finally(() => {
-                this.onEnd();
-            });
+        if (this.networkCheck()) {
+            this.showLoader();
+            return super.get(url, this.getRequestOptionArgs(options)).catch(this.onCatch)
+                .do((res: Response) => {
+                    this.onSuccess(res);
+                }, (error: any) => {
+                    this.onError(error);
+                })
+                .finally(() => {
+                    this.onEnd();
+                });
+        }
+        else {
+            return Observable.empty();
+        }
     }
 
     post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         // url = this.updateUrl(url);
-        this.showLoader();
-        return super.post(url, body, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
-            this.onSuccess(res);
-        }, (error: any) => {
-            this.onError(error);
-        })
-            .finally(() => {
-                this.onEnd();
-            });
+        if (this.networkCheck()) {
+            this.showLoader();
+            return super.post(url, body, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
+                this.onSuccess(res);
+            }, (error: any) => {
+                this.onError(error);
+            })
+                .finally(() => {
+                    this.onEnd();
+                });
+        }
+        else {
+            return Observable.empty();
+        }
     }
 
     put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
@@ -98,7 +112,7 @@ export class InterceptedHttp extends Http {
             return response;
         } else if (response.json().statusCode === 5002) {
             this.router.navigate(['']);
-            this.message.alert(response.json().errorMessage,'error');
+            this.message.alert(response.json().errorMessage, 'error');
             this.authService.removeToken();
             return Observable.empty();
         } else {
@@ -119,5 +133,18 @@ export class InterceptedHttp extends Http {
     }
     private onCatch(error: any, caught?: Observable<Response>): Observable<Response> {
         return Observable.throw(error);
+    }
+    private networkCheck(): boolean {
+        if (!this.onlineFlag) {
+            if (this.count === 0) {
+                this.message.alert("You are offline. Please check");
+                this.count++;
+            }
+            return false;
+        }
+        else {
+            this.count = 0;
+            return true;
+        }
     }
 }
