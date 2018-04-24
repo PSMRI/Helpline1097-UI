@@ -183,6 +183,8 @@ import { ForceLogoutComponent } from './force-logout/force-logout.component';
 import { ForceLogoutService } from './services/supervisorServices/forceLogoutService.service';
 import { AlertsNotificationsDialogComponent } from './alerts-notifications/alerts-notifications.component';
 //import { ToasterModule } from 'angular2-toaster';
+import { UtcDatePipe } from './utc-date.pipe';
+
 
 @NgModule({
   declarations: [
@@ -208,14 +210,15 @@ import { AlertsNotificationsDialogComponent } from './alerts-notifications/alert
     FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent,
     NotificationsDialogComponent, EditNotificationsComponent, TrainingResourcesComponent,
     CallStatisticsComponent, DashboardReportsComponent,
-    CoAlternateNumberComponent, SupervisorLocationCommunicationComponent, 
-    ReallocateCallsComponent, SupervisorAlertsNotificationsComponent, 
-    SupervisorCampaignStatusComponent, SupervisorTrainingResourcesComponent, 
-    CallerAgeReportComponent, SupervisorEmergencyContactsComponent, 
-    SexualOrientationReportComponent, ForceLogoutComponent, 
-    LanguageDistributionReportComponent, AlertsNotificationsDialogComponent, 
+    CoAlternateNumberComponent, SupervisorLocationCommunicationComponent,
+    ReallocateCallsComponent, SupervisorAlertsNotificationsComponent,
+    SupervisorCampaignStatusComponent, SupervisorTrainingResourcesComponent,
+    CallerAgeReportComponent, SupervisorEmergencyContactsComponent,
+    SexualOrientationReportComponent, ForceLogoutComponent,
+    LanguageDistributionReportComponent, AlertsNotificationsDialogComponent,
     GenderDistributionReportComponent,
-    COComponent
+    COComponent,
+    UtcDatePipe
 
   ],
   imports: [
@@ -297,19 +300,19 @@ import { AlertsNotificationsDialogComponent } from './alerts-notifications/alert
       // }
     ]),
     Md2Module],
-  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent, 
+  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent,
     AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
     , CoAlternateNumberComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2,SocketService,
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2, SocketService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService,ForceLogoutService,
+    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, ForceLogoutService,
     CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService, {
-      provide: InterceptedHttp,useFactory: httpFactory,
-     deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
+      provide: InterceptedHttp, useFactory: httpFactory,
+      deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
     },
     {
       provide: AuthorizationWrapper,
