@@ -53,7 +53,7 @@ import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.
 import { InnerpageComponent } from './innerpage/innerpage.component';
 
 //Supervisor components
-import { supervisorFeedback } from './supervisor-grievance/grievance.component';
+import { grievanceComponent } from './supervisor-grievance/grievance.component';
 import { SupervisorReportsComponent } from './supervisor-reports/supervisor-reports.component';
 import { SupervisorConfigurationsComponent } from './supervisor-configurations/supervisor-configurations.component';
 import { AgentStatusComponent } from './agent-status/agent-status.component';
@@ -204,7 +204,7 @@ import { UtcDatePipe } from './utc-date.pipe';
     helpline1097CoComponent, helpline1097AdminComponent, helpline1097SupervisorComponent,
     SupervisorReportsComponent, SupervisorConfigurationsComponent, AgentStatusComponent,
     BlockUnblockNumberComponent, DialBeneficiaryComponent, QualityAuditComponent,
-    SupervisorNotificationsComponent, supervisorFeedback, BeneficiaryHistoryComponent, FilterTable,
+    SupervisorNotificationsComponent, grievanceComponent, BeneficiaryHistoryComponent, FilterTable,
     SupervisorCalltypeReportsComponent, CollapseDirective,
     KnowledgeManagementComponent, OutboundSearchRecordsComponent, OutbondWorklistComponent, OutboundAllocateRecordsComponent,
     FeedbackStatusComponent, MessageDialogComponent, CommonDialogComponent, AlernateEmailModelComponent, LoaderComponent,

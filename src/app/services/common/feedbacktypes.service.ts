@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ConfigService } from "../config/config.service";
+import { ConfigService } from '../config/config.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { InterceptedHttp } from './../../http.interceptor';
@@ -12,12 +12,17 @@ import { AuthorizationWrapper } from './../../authorization.wrapper';
 export class FeedbackTypes {
     _helpline1097BaseURL = this._config.get1097BaseURL();
     _commonURL = this._config.getCommonBaseURL();
-    _servicetypesurl = this._commonURL + "service/servicetypes";
-    _getFeedbackTypesURL = this._commonURL + "feedback/getFeedbackType";
-    _getFeedbackSeverityURL = this._commonURL + "feedback/getSeverity";
+    _servicetypesurl = this._commonURL + 'service/servicetypes';
+    _getFeedbackTypesURL = this._commonURL + 'feedback/getFeedbackType';
+    // _getFeedbackSeverityURL = this._commonURL + "feedback/getSeverity";
+    // _getFeedbackTypesURL = this._helpline104BaseURL + "beneficiary/get/natureOfComplaintTypes";
+    _getFeedbackSeverityURL = this._commonURL + 'feedback/getSeverity/';
+
+    getFeedbackIDTypes_url = this._commonURL + 'feedback/getFeedbackType';
     constructor(
-        // private _http: Http,
-        private _config: ConfigService, public intercepted: InterceptedHttp, public _http: AuthorizationWrapper
+        private _config: ConfigService,
+        public intercepted: InterceptedHttp,
+        public _http: AuthorizationWrapper
     ) { }
 
     getTypes(providerServiceMapID: number) {
@@ -36,14 +41,32 @@ export class FeedbackTypes {
             .catch(this.handleError);
     }
 
-    getFeedbackSeverityData(serviceID: any) {
-        let data = { 'providerServiceMapID': serviceID };
-        return this._http.post(this._getFeedbackSeverityURL, data)
+    // getFeedbackSeverityData(serviceID: any) {
+    //     let data = { 'providerServiceMapID': serviceID };
+    //     return this._http.post(this._getFeedbackSeverityURL, data)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
+
+// ****//
+    // getFeedbackTypesData(data: any) {
+    //     return this._http.post(this._getFeedbackTypesURL, data)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
+
+    getFeedbackSeverityData(providerServiceMapID) {
+        // let data = {};
+        return this._http.post(this._getFeedbackSeverityURL, { 'providerServiceMapID': providerServiceMapID })
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-
+    getFeedbackTypeID(providerServiceMapID) {
+        return this._http.post(this.getFeedbackIDTypes_url, { 'providerServiceMapID': providerServiceMapID })
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     extractData(response: Response) {
         if (response.json().data) {

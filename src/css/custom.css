@@ -2222,6 +2222,11 @@ margin-top: 10px;
 }
 
 @media (min-width: 992px) {
+
+   .p-r-lg-0 {
+        padding-right: 0px !important;
+    }
+
   .m-t-sm-10{
 margin-top:0px;
   
@@ -2284,6 +2289,9 @@ margin-top:0px;
 }
 
 @media (min-width: 1200px) {
+   .p-r-lg-0 {
+        padding-right: 0px !important;
+    }
   .p-l-lg-0 {
     padding-left: 0px;
   }

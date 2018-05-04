@@ -1,37 +1,70 @@
-<md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close('close')">clear</md-icon>
-<!-- <div class="col-xs-12 col-sm-12"> -->
-  <!-- <md-card> -->
-  <!-- <md-card-content> -->
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label>
-        <b>Feedback: </b>{{this.data}}</label>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <md-checkbox style="margin: 0 10px" name="altEmail" color="primary" [(ngModel)]="altEmail">
-        Alternate Email
-      </md-checkbox>
-      <div>
-        <form #emailForm="ngForm" autocomplete="off">
-        <div *ngIf="altEmail">
-          <label>Email :
-            <em>*</em>
-          </label>
-          <input class="form-control" type="text" required minlength="10" placeholder="Enter email address" [pattern]="emailPattern" name="email" [(ngModel)]="email" #emailAdd="ngModel">
-          <div [hidden]="emailAdd.valid">
-            <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
-            <span class=" error_text" [hidden]="!emailAdd.hasError('pattern')">Please enter valid email</span>
+  <!-- <md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close('close')">clear</md-icon>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <label>
+          <b>Feedback: </b>{{this.data}}</label>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <md-checkbox style="margin: 0 10px" name="altEmail" color="primary" [(ngModel)]="altEmail">
+          Alternate Email
+        </md-checkbox>
+        <div>
+          <form #emailForm="ngForm" autocomplete="off">
+          <div *ngIf="altEmail">
+            <label>Email :
+              <em>*</em>
+            </label>
+            <input class="form-control" type="text" required minlength="10" placeholder="Enter email address" [pattern]="emailPattern" name="email" [(ngModel)]="email" #emailAdd="ngModel">
+            <div [hidden]="emailAdd.valid">
+              <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
+              <span class=" error_text" [hidden]="!emailAdd.hasError('pattern')">Please enter valid email</span>
+            </div>
+            
           </div>
-          
+          </form>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+              <button [disabled]="emailForm.invalid" md-raised-button color="primary" class="font-regular m-t-8" (click)="dialogReff.close(altEmail)">Send Email
+              </button>
+            </div>
         </div>
-        </form>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-            <button [disabled]="emailForm.invalid" md-raised-button color="primary" class="font-regular m-t-8" (click)="dialogReff.close(altEmail)">Send Email
-            </button>
-          </div>
       </div>
     </div>
+    -->
+
+
+    <div class="successHeaderDiv">
+    <h4 class="popupHeader">Success</h4>
   </div>
-  <!-- </md-card-content> -->
-  <!-- </md-card> -->
-<!-- </div> -->
+  <div class="col-xs-12 col-sm-12">
+        <div class="row">
+          
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <h4>{{this.data}}</h4>
+          </div>
+        
+
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <md-checkbox color="primary" name="altEmail" [(ngModel)]="altEmail">
+              Alternate Email
+            </md-checkbox>
+            <div [hidden]="!altEmail">
+              <md-input-container>
+                <input mdInput type="email" required
+                  placeholder="Enter email address" name="email" ngModel [pattern]="emailPattern" #emailAdd="ngModel">
+                  <md-hint *ngIf=" !emailAdd.valid && (  emailAdd.touched)" class="errorText">
+                    Email is required  
+                  </md-hint>
+              </md-input-container>
+            </div>
+          </div>
+          
+          <div class="col-xs-12 col-sm-12">
+              <button md-raised-button color="primary" class="pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close()">Close</button>
+              <button md-raised-button color="accent" [disabled]="(altEmail && emailAdd.invalid) || invalid_file_flag" class="pull-right font-regular f-s-18  m-t-8 m-r-5"
+                  (click)="dialogReff.close(altEmail)">Send Email
+              </button>
+          </div>
+        </div>
+    
+  </div>

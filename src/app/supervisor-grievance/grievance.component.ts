@@ -10,7 +10,8 @@ import { MessageBag, ValidationMessagesService } from 'ng2-custom-validation';
 import { CoFeedbackService } from '../services/coService/co_feedback.service';
 import { AlernateEmailModelComponent } from './../alernate-email-model/alernate-email-model.component'
 import { MdDialog } from '@angular/material';
-import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { FeedbackTypes } from '../services/common/feedbacktypes.service';
 
 @Component({
   selector: 'supervisor-grievance',
@@ -18,20 +19,19 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
   styleUrls: ['./grievance.component.css'],
   providers: [FeedbackService]
 })
-export class supervisorFeedback implements OnInit {
+export class grievanceComponent implements OnInit {
 
-  providerServiceMapID:any;
-  userId:any;
-  current_agent:any;
+  file: any;
+  fileContent: any;
 
-  valid_file_extensions = ['msg', 'pdf', 'png', 'jpeg','jpg', 'doc', 'docx', 'xlsx', 'xls', 'csv', 'txt'];
-  invalid_file_flag: boolean = false;
+  valid_file_extensions = ['msg', 'pdf', 'doc', 'docx', 'txt'];
+  invalid_file_flag = false;
 
   public showupdateFeedback = true;
   public showupdateFeedback1 = true;
   public action = "view";
   public showUser = true;
-  feedbackList: any = [];
+  feedbackList: any;
   feedbackresponceList: any;
   data: any;// it is am using for edit purpose;
   data1: any;
@@ -45,41 +45,39 @@ export class supervisorFeedback implements OnInit {
   public feedBackResponses: any;
   public isCollapsedResponse = false;
   public beneficiaryID = undefined;
-  consolidatedRequests: any;
-  feedbackStatusName: any;
   totalRecord;
-  maxDate: Date;
-  editFeedBack: boolean = false;
-  feedBackDiv: boolean = true;
   public feedbackStatusData: any;
-  dateIncident: any = undefined;
   error: any = { isError: false, errorMessage: '' };
+  today: any;
+  maxStartDate: any;
+  maxEndDate: any;
 
   constructor(
-              private _feedbackservice: FeedbackService,
-              private _saved_data: dataService,
-              private _coFeedbackService: CoFeedbackService,
-              private dialog: MdDialog,
-              private alertMessage: ConfirmationDialogsService
-              ) {
+    private _feedbackservice: FeedbackService,
+    private _saved_data: dataService,
+    private _coFeedbackService: CoFeedbackService,
+    private dialog: MdDialog,
+    private alertMessage: ConfirmationDialogsService,
+    private feedbackService: FeedbackTypes
+  ) {
     this.feedbackList;
     this.feedbackresponceList;
 
     /*
       editor:Diamond Khanna
       date:16 Aug,2017
-      */
-      this.feedBackRequestsResponse = [];
-      this.feedBackResponses = [];
+    */
+    this.feedBackRequestsResponse = [];
+    this.feedBackResponses = [];
 
     /*
      end
-     */
-   }
+   */
+  }
 
 
 
-   feedbackForm = new FormGroup({
+  feedbackForm = new FormGroup({
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
     beneficiaryName: new FormControl(),
@@ -89,23 +87,24 @@ export class supervisorFeedback implements OnInit {
     supUserID: new FormControl(),
     feedbackDate: new FormControl(),
     feedbackTypeName: new FormControl(),
-    feedbackStatusName: new FormControl(),
-    emailStatusName: new FormControl(),
+    feedbackStatus: new FormControl(),
+    emailStatus: new FormControl(),
     institutionName: new FormControl(),
     designationName: new FormControl(),
     severityTypeName: new FormControl(),
-    serviceName: new FormControl(),
-    userName: new FormControl(),
-    smsPhoneNo: new FormControl(),
+    feedbackAgainst: new FormControl(),
+    natureOfComplaint: new FormControl(),
+    // serviceName: new FormControl(),
+    // userName: new FormControl(),
+    // smsPhoneNo: new FormControl(),
     modifiedBy: new FormControl(),
-    incidentDate: new FormControl(),
     updateResponse: new FormControl(),
     emailStatusID: new FormControl(),
     feedbackStatusID: new FormControl(),
     feedbackRequestID: new FormControl()
   });
 
-   feedbackForm1 = new FormGroup({
+  feedbackForm1 = new FormGroup({
 
     feedbackID: new FormControl(),
     feedbackSupSummary: new FormControl(),
@@ -117,118 +116,122 @@ export class supervisorFeedback implements OnInit {
     startDate: new FormControl(),
     complaintId: new FormControl(),
     endDate: new FormControl()
-
+    
 
   });
 
 
-   feedbackForm3 = new FormGroup({
+  feedbackForm3 = new FormGroup({
     feedbackID: new FormControl()
 
   })
 
 
-   feedbackForm2 = new FormGroup({
+  feedbackForm2 = new FormGroup({
 
     feedbackID: new FormControl('', CustomValidators.number),
 
     startDate: new FormControl('', CustomValidators.date),
-    endDate: new FormControl('', CustomValidators.minDate('2016-09-09'))
+    endDate: new FormControl('', CustomValidators.minDate('2016-09-09')),
+    feedbackTypeID: new FormControl('')
   });
 
+  feedbackTypes: any = [];
 
-
-
-
-   ngOnInit() {
+  ngOnInit() {
     this.serviceID = this._saved_data.current_service.serviceID;
     let requestData = {};
     requestData['serviceID'] = this.serviceID;
 
-    this._feedbackservice.getFeedbackStatuses().subscribe((resProviderData => this.feedbackStatuses = resProviderData),
-    (err) => {
-      this.alertMessage.alert(err.errorMessage,'error');
-    });
+    this.feedbackService.getFeedbackTypeID(this.serviceID)
+      .subscribe((response) => {
+        console.log(response, "FeedBack Types response");
+        this.feedbackTypes = response;
+      },
+      (error) => {
+        console.log(error);
+      });
 
-    this._feedbackservice.getEmailStatuses().subscribe((resProviderData => this.emailStatuses = resProviderData),
-  (err) => {
-    this.alertMessage.alert(err.errorMessage,'error');
-  });
+    this._feedbackservice.getFeedbackStatuses().subscribe(resProviderData => this.feedbackStatuses = resProviderData);
+
+    this._feedbackservice.getEmailStatuses().subscribe(resProviderData => this.emailStatuses = resProviderData);
 
     this._feedbackservice.getFeedback(requestData)
-    .subscribe(resProviderData => this.providers(resProviderData),
-    (err) => {
-      this.alertMessage.alert(err.errorMessage,'error');
-    });
-    this.maxDate = new Date();
-    this.feedBackDiv = true;
+      .subscribe(resProviderData => this.providers(resProviderData));
 
+    this.today = new Date();
 
-    this.providerServiceMapID=this._saved_data.current_service.serviceID;
-    this.current_agent= this._saved_data.uname;
-    this.userId=this._saved_data.uid;
+    this.maxStartDate = new Date();
+    this.maxStartDate.setDate(this.today.getDate());
+    this.maxStartDate.setHours(0, 0, 0, 0);
+
+    this.maxEndDate = new Date();
+    this.maxEndDate.setDate(this.today.getDate());
+    this.maxEndDate.setHours(23, 59, 59, 0);
+
   }
-
-
   onSubmit() {
-
-
+    // this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary)
     // this.action = "view";
+
     let bodyString = this.feedbackForm.value;
     bodyString['serviceID'] = this.serviceID;
-    // bodyString['feedbackStatus'] = undefined;
-    // bodyString['emailStatus'] = undefined;
+    bodyString['feedbackStatus'] = undefined;
+    bodyString['emailStatus'] = undefined;
+    bodyString['feedbackID'] = this.feedbackID_whilesaving;
     // bodyString[ "" ] = undefined;
     console.log('SPData' + JSON.stringify(bodyString));
     // bodyString.feedbackStatus = undefined;
     // bodyString.emailStatus = undefined;
+
     if (this.action == 'edit') {
-      bodyString['feedbackRequestID'] = undefined;
-      this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary, bodyString);
+      this._feedbackservice.requestFeedback(bodyString)
+        .subscribe(resfeedbackData => {
+          // this.alertMessage.alert('Successfully edited', 'success');
+          let dialog = this.dialog.open(AlernateEmailModelComponent, {
+            disableClose: true,
+            width: '500px',
+            data: 'Successfully edited'
+          })
+          dialog.afterClosed()
+            .subscribe((response) => {
+              this.showUsers(resfeedbackData);
+            });
+        },
+        (error) => {
+          this.alertMessage.alert(error.errorMessage, 'error');
+        });
     }
     // if(this.action == 'edit')
     // this._feedbackservice.updateFeedback( bodyString )
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
     if (this.action == 'update') {
-
-      let kmFileManager = undefined;
-      if(this.file!=undefined)
-      {
-        kmFileManager={
-          "fileName": (this.file != undefined) ? this.file.name : '',
-          "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
-          "providerServiceMapID": this.providerServiceMapID,
-          "userID": this.userId,
-          "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
-          "createdBy": this.current_agent
-        }
-
-      }
-      bodyString['kmFileManager']=kmFileManager;
-      bodyString['feedbackResponseID'] = undefined;
       this._feedbackservice.updateResponce(bodyString)
-      .subscribe((resfeedbackData) => {
-        this.alertMessage.alert('Updated successfully','success');
-        this.showUsers(resfeedbackData)
-      }, (err) => {
-        this.alertMessage.alert(err.status,'error');
-      })
+        .subscribe((resfeedbackData) => {
+          this.alertMessage.alert('Successfully updated', 'success');
+          this.showUsers(resfeedbackData)
+        }, (err) => {
+          this.alertMessage.alert(err.errorMessage, 'error');
+        })
     }
 
   }
 
   showUsers(data) {
-    this.onSearch()
+    this.action = 'view';
+    this.onSearch();
+  }
+
+  back() {
+    this.action = "view";
   }
 
   providers(data) {
-
-    this.action = "view";
     this.feedbackList = data;
     this.showUser = true;
-    // this.showupdateFeedback = true;
-    // this.showupdateFeedback1 = true;
+    this.showupdateFeedback = true;
+    this.showupdateFeedback1 = true;
     console.log(data);
   }
 
@@ -239,59 +242,39 @@ export class supervisorFeedback implements OnInit {
 
 
   requestFeedback(feedback) {
+    console.log(feedback, "****edit_FEEDBACK****");
+    this.feedbackForm.reset();
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = 'edit';
 
-    this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
+
+    this.feedbackID_whilesaving = feedback.feedbackID;
+    // use request ID in place of feedbackID while displaying, but while saving/updating use feedbackID
+    this.feedbackForm.controls.feedbackID.setValue(feedback.requestID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-                                                           feedback.feedbackRequests ?
-                                                           (
-                                                            feedback.feedbackRequests[0] ?
-                                                            (
-                                                             feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
-                                                             )
-                                                            : feedback.feedback
-                                                            )
-                                                           : feedback.feedback
-                                                           );
-    this.feedbackForm.controls.comments.setValue(
-                                                 feedback.feedbackRequests ?
-                                                 (
-                                                  feedback.feedbackRequests[0] ?
-                                                  (
-                                                   feedback.feedbackRequests[0].comments ? feedback.feedbackRequests[0].comments : ""
-                                                   )
-                                                  : ""
-                                                  )
-                                                 : ""
-                                                 );
-    this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiaryName);
+      (feedback.feedbackRequests.length > 0 && feedback.feedbackRequests && feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary) ?
+        feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary : feedback.feedback
+    );
+    // this.feedbackForm.controls.feedbackSupSummary.setValue(feedback.feedback);
+    this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiary.firstName + " " + (feedback.beneficiary.lastName ? feedback.beneficiary.lastName : ""));
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
-    this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackTypeName);
-    this.feedbackForm.controls.feedbackStatusName.setValue(feedback.feedbackStatusName);
-    this.feedbackStatusName = feedback.feedbackStatusName;
-    this.feedbackForm.controls.emailStatusName.setValue(feedback.emailStatusName);
+    this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackType.feedbackTypeName);
+    this.feedbackForm.controls.feedbackStatus.setValue(feedback.feedbackStatus ? feedback.feedbackStatus.feedbackStatus : "");
+    this.feedbackForm.controls.emailStatus.setValue(feedback.emailStatus.emailStatus);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
-    // this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);instituteType
-    this.feedbackForm.controls.institutionName.setValue(
-                                                        feedback.instituteType ? (
-                                                                                  feedback.instituteType.institutionType ? feedback.instituteType.institutionType : undefined
-                                                                                  ) : undefined
-                                                        );
-    this.feedbackForm.controls.designationName.setValue(feedback.designationName);
-    this.feedbackForm.controls.severityTypeName.setValue(feedback.severityTypeName);
-    this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
-    this.feedbackForm.controls.userName.setValue(feedback.userName);
-    this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-    this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
-    if(feedback.serviceAvailDate)
-    {
-      this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
-
+    if (feedback.instituteType) {
+      this.feedbackForm.controls.institutionName.setValue(feedback.instituteType.institutionType);
     }
-    // this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
+    this.feedbackForm.controls.designationName.setValue(feedback.designation ? feedback.designation.designationName : "");
+    this.feedbackForm.controls.severityTypeName.setValue(feedback.severity ? feedback.severity.severityTypeName : "");
+    this.feedbackForm.controls.feedbackAgainst.setValue(feedback.feedbackAgainst ? feedback.feedbackAgainst : "");
+    this.feedbackForm.controls.natureOfComplaint.setValue(feedback.feedbackNatureDetail ? feedback.feedbackNatureDetail.feedbackNature : "");
+    // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
+    // this.feedbackForm.controls.userName.setValue(feedback.userName);
+    // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
+    this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
@@ -300,7 +283,7 @@ export class supervisorFeedback implements OnInit {
     /*
      editor:Diamond Khanna
      date:16 Aug,2017
-     */
+   */
 
     // this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryID, this.serviceID)
     //   .subscribe((response) => {
@@ -308,123 +291,93 @@ export class supervisorFeedback implements OnInit {
     //   }, (err) => {
     //     console.log('Error in fetching Data of FeedBack');
     //   });
+
     this.feedBackRequestsResponse = feedback.feedbackRequests;
     this.feedBackResponses = feedback.feedbackResponses;
-    this.consolidatedRequests = feedback.consolidatedRequests;
-    let requestsLength = feedback.feedbackRequests.length();
-    let responsesLength = feedback.feedbackResponses.length();
+
     /*
      end
-     */
+   */
 
-     this.isCollapsedResponse = true;
+    this.isCollapsedResponse = true;
 
 
-   }
+  }
 
-   updateResponse(feedback) {
+  feedbackID_whilesaving: any;
+  updateResponse(feedback) {
+    console.log(feedback, "****update_FEEDBACK****");
 
+    this.feedbackForm.reset();
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = 'update';
 
-    this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
+    console.log(JSON.stringify(feedback));
+    this.feedbackID_whilesaving = feedback.feedbackID;
+    // use request ID in place of feedbackID while displaying, but while saving/updating use feedbackID
+    this.feedbackForm.controls.feedbackID.setValue(feedback.requestID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-                                                           feedback.feedbackRequests ?
-                                                           (
-                                                            feedback.feedbackRequests[0] ?
-                                                            (
-                                                             feedback.feedbackRequests[0].feedbackSupSummary ? feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
-                                                             )
-                                                            : feedback.feedback
-                                                            )
-                                                           : feedback.feedback
-                                                           );
+      (feedback.feedbackRequests.length > 0 && feedback.feedbackRequests && feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary) ?
+        feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary : feedback.feedback
+    );
     this.feedbackForm.controls.feedbackRequestID.setValue(
-                                                          feedback.feedbackRequests ?
-                                                          (
-                                                           feedback.feedbackRequests[0] ?
-                                                           (
-                                                            feedback.feedbackRequests[0].feedbackRequestID ? feedback.feedbackRequests[0].feedbackRequestID : undefined
-                                                            )
-                                                           : undefined
-                                                           )
-                                                          : undefined
-                                                          );
-    this.feedbackForm.controls.comments.setValue(
-                                                 feedback.feedbackResponses ?
-                                                 (
-                                                  feedback.feedbackResponses[0] ?
-                                                  (
-                                                   feedback.feedbackResponses[0].comments ? feedback.feedbackResponses[0].comments : ""
-                                                   )
-                                                  : ""
-                                                  )
-                                                 : ""
-                                                 );
-    this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiaryName);
+      (feedback.feedbackRequests && feedback.feedbackRequests.length > 0 && feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackRequestID) ?
+        feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackRequestID : undefined
+    );
+    this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiary.firstName + " " + (feedback.beneficiary.lastName ? feedback.beneficiary.lastName : ""));
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
-    this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackTypeName);
-    this.feedbackForm.controls.feedbackStatusName.setValue(feedback.feedbackStatusName);
-    this.feedbackStatusName = feedback.feedbackStatusName;
-    this.feedbackForm.controls.emailStatusName.setValue(feedback.emailStatusName);
+    this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackType.feedbackTypeName);
+    this.feedbackForm.controls.feedbackStatus.setValue(feedback.feedbackStatus ? feedback.feedbackStatus.feedbackStatus : "");
+    this.feedbackForm.controls.emailStatus.setValue(feedback.emailStatus.emailStatus);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
-    // this.feedbackForm.controls.institutionName.setValue(feedback.institutionName);
-    this.feedbackForm.controls.institutionName.setValue(
-                                                        feedback.instituteType ? (
-                                                                                  feedback.instituteType.institutionType ? feedback.instituteType.institutionType : undefined
-                                                                                  ) : undefined
-                                                        );
-    this.feedbackForm.controls.designationName.setValue(feedback.designationName);
-    this.feedbackForm.controls.severityTypeName.setValue(feedback.severityTypeName);
-    this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
-    this.feedbackForm.controls.userName.setValue(feedback.userName);
-    this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-    this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
-    if(feedback.serviceAvailDate)
-    {
-      this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
-
+    if (feedback.instituteType) {
+      this.feedbackForm.controls.institutionName.setValue(feedback.instituteType.institutionType);
     }
-    // this.feedbackForm.controls.incidentDate.setValue(new Date(feedback.serviceAvailDate).toLocaleDateString('en-in'));
+    this.feedbackForm.controls.designationName.setValue(feedback.designation ? feedback.designation.designationName : "");
+    this.feedbackForm.controls.severityTypeName.setValue(feedback.severity ? feedback.severity.severityTypeName : "");
+    this.feedbackForm.controls.feedbackAgainst.setValue(feedback.feedbackAgainst ? feedback.feedbackAgainst : "");
+    this.feedbackForm.controls.natureOfComplaint.setValue(feedback.feedbackNatureDetail ? feedback.feedbackNatureDetail.feedbackNature : "");
+
+    // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
+    // this.feedbackForm.controls.userName.setValue(feedback.userName);
+    // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
+    this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
     /*
      editor:Diamond Khanna
      date:16 Aug,2017
-     */
-     this.feedBackRequestsResponse = feedback.feedbackRequests;
-     this.feedBackResponses = feedback.feedbackResponses;
-     this.consolidatedRequests = feedback.consolidatedRequests;
+   */
+
+    this.feedBackRequestsResponse = feedback.feedbackRequests;
+    this.feedBackResponses = feedback.feedbackResponses;
 
     /*
       end
-      */
+    */
 
-    }
+  }
 
 
-    onSend(feedback) {
-      console.log(feedback);
-      console.log('SPData' + JSON.stringify(feedback));
-      let dataforUpdate = feedback;
-      dataforUpdate['serviceID'] = this.serviceID;
+  onSend(feedback) {
+    console.log(feedback);
+    console.log('SPData' + JSON.stringify(feedback));
+    let dataforUpdate = feedback;
+    dataforUpdate['serviceID'] = this.serviceID;
 
-      this.feedbackForm1.controls.feedbackID.setValue(feedback.feedbackID);
-      this.feedbackForm1.controls.feedbackSupSummary.setValue(feedback.feedback);
-      this.feedbackForm1.controls.beneficiaryName.setValue(feedback.beneficiaryName);
-      this.feedbackForm1.controls.createdBy.setValue(feedback.createdBy);
-      this.feedbackForm1.controls.createdDate.setValue(feedback.createdDate);
+    this.feedbackForm1.controls.feedbackID.setValue(feedback.feedbackID);
+    this.feedbackForm1.controls.feedbackSupSummary.setValue(feedback.feedback);
+    this.feedbackForm1.controls.beneficiaryName.setValue(feedback.beneficiary.firstName + " " + (feedback.beneficiary.lastName ? feedback.beneficiary.lastName : ""));
+    this.feedbackForm1.controls.createdBy.setValue(feedback.createdBy);
+    this.feedbackForm1.controls.createdDate.setValue(feedback.createdDate);
 
-      console.log('raj' + dataforUpdate)
-      let bodyString = this.feedbackForm1.value;
-      this._feedbackservice.requestFeedback(bodyString)
-      .subscribe(resfeedbackData => this.showUsers(resfeedbackData),
-      (err) => {
-        this.alertMessage.alert(err.errorMessage,'error');
-      });
+    console.log('raj' + dataforUpdate)
+    let bodyString = this.feedbackForm1.value;
+    this._feedbackservice.requestFeedback(bodyString)
+      .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
     // this._feedbackservice.updateStatus( bodyString )
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
@@ -434,51 +387,46 @@ export class supervisorFeedback implements OnInit {
     this.showUser = !this.showUser;
 
   }
-
-  toUTCDate(date) {
-    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
-                          date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-    return _utc;
-  };
-
-  millisToUTCDate(millis) {
-    return this.toUTCDate(new Date(millis));
-  };
-
-  updateTimeOffset(date: Date) {
+  updateTimeOffset(date: any) {
     //(this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)
     date = new Date(date.valueOf() - 1 * date.getTimezoneOffset() * 60 * 1000);
     return date;
   }
   onSearch() {
     let bodyString = this.feedbackForm2.value;
-    // bodyString.endDate = new Date(this.feedbackForm2.value.endDate);
     if (bodyString.endDate === '') {
       bodyString.endDate = undefined;
-    } else {
-      bodyString.endDate.setHours(23, 59, 59);
+    }
+    else {
+      bodyString.endDate.setHours(23, 59, 59, 0);
       bodyString.endDate = this.updateTimeOffset(bodyString.endDate);
     }
+
     if (bodyString.startDate === '') {
       bodyString.startDate = undefined;
-    } else {
-      bodyString.startDate.setHours(0, 0, 0);
+    }
+    else {
+      bodyString.startDate.setHours(0, 0, 0, 0);
+
       bodyString.startDate = this.updateTimeOffset(bodyString.startDate);
     }
+
     if (bodyString.feedbackID === '') {
       bodyString.feedbackID = undefined;
     }
-
+    if (bodyString.feedbackTypeID === '') {
+      bodyString.feedbackTypeID = undefined;
+    }
     bodyString['serviceID'] = this.serviceID;
     // this._feedbackservice.searchFeedback( bodyString )
     //   .subscribe( resProviderData => this.providers( resProviderData ) );
     this._feedbackservice.getFeedback(bodyString)
-    .subscribe((resProviderData) => {
-      this.providers(resProviderData)
-    },
-    (err) => {
-      this.alertMessage.alert(err.status,'error');
-    });
+      .subscribe((resProviderData) => {
+        this.providers(resProviderData)
+      },
+      (err) => {
+        this.alertMessage.alert(err.status, 'error');
+      });
   }
 
   onClick(feedback) {
@@ -488,10 +436,7 @@ export class supervisorFeedback implements OnInit {
     // this._feedbackservice.responce( bodyString )
     //   .subscribe( resProviderData => this.showResponce( resProviderData ) );
     this._feedbackservice.updateResponce(bodyString)
-    .subscribe(resProviderData => this.showResponce(resProviderData),
-    (err) => {
-      this.alertMessage.alert(err.errorMessage,'error');
-    });
+      .subscribe(resProviderData => this.showResponce(resProviderData));
 
   }
   showResponce(data1) {
@@ -527,115 +472,65 @@ export class supervisorFeedback implements OnInit {
       console.log('No data Available')
     }
   }
-  blockey(e: any) {
-    if (e.keyCode === 9) {
+
+  saveNSendEmail(feedback) {
+    let dialogReff = this.dialog.open(AlernateEmailModelComponent, {
+      // height: '350px',
+      width: '620px',
+      disableClose: false,
+      data: feedback
+    });
+  }
+
+   // file change event
+  onFileUpload($event): void {
+    this.readThis($event.target);
+  }
+
+  readThis(inputValue: any): any {
+    console.log('mcnmxcn', inputValue);
+    this.file = inputValue.files[0];
+    if (this.file) {
+      var isvalid = this.checkExtension(this.file);
+      console.log(isvalid, 'VALID OR NOT');
+      if (isvalid) {
+        // this.knowledgeForm.controls['fileInput'].setValue(this.file.name);  //commented as no form here; WIP for Future email integration
+        const myReader: FileReader = new FileReader();
+        // binding event to access the local variable
+        myReader.onloadend = this.onLoadFileCallback.bind(this)
+        myReader.readAsDataURL(this.file);
+        this.invalid_file_flag = false;
+      }
+      else {
+        this.invalid_file_flag = true;
+      }
+
+    } else {
+      // this.knowledgeForm.controls['fileInput'].setValue('');  //commented as no form here; WIP for Future email integration
+      this.invalid_file_flag = false;
+    }
+
+  }
+  onLoadFileCallback = (event) => {
+    this.fileContent = event.currentTarget.result;
+
+  }
+  checkExtension(file) {
+    var count = 0;
+    console.log('FILE DETAILS', file);
+    var array_after_split = file.name.split('.');
+    var file_extension = array_after_split[array_after_split.length - 1];
+    for (let i = 0; i < this.valid_file_extensions.length; i++) {
+      if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
+        count = count + 1;
+      }
+    }
+
+    if (count > 0) {
       return true;
     } else {
       return false;
     }
-  }
-  saveNSendEmail(feedback: any, bodyString: any) {
-    let dialogReff = this.dialog.open(AlernateEmailModelComponent, {
-      height: '350px',
-      width: '620px',
-      disableClose: true,
-      data: feedback
-    });
-    dialogReff.afterClosed().subscribe(result => {
-
-      if(result!="close")
-      {
-        this._feedbackservice.requestFeedback(bodyString)
-        .subscribe(resfeedbackData =>
-                   this.showUsers(resfeedbackData), err => {
-                    this.alertMessage.alert(err.status,'error');
-                  })
-      }
-      
-    });
 
   }
-  back() {
-    this.action = "view";
-  }
-
-
-  maxFileSize = 5;
-  fileList: FileList;
-  error1: boolean = false;
-  error2: boolean = false;
-  error3: boolean = false;
-
-  file: any;
-  fileContent: any;
-
-  onFileUpload(event) {
-    this.fileList = event.target.files;
-    this.file = event.target.files[0];
-    console.log(this.file);
-     var validFormat = this.checkExtension(this.file);
-    if (validFormat) {
-      this.invalid_file_flag = false;
-    } else {
-      this.invalid_file_flag = true;
-    }
-    if (this.file) {
-      const myReader: FileReader = new FileReader();
-      myReader.onloadend = this.onLoadFileCallback.bind(this)
-      myReader.readAsDataURL(this.file);
-    }
-    if (this.fileList.length == 0) {
-      this.error1 = true;
-      this.error2 = false;
-      this.error3 = false;
-    }
-    else if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
-      console.log(this.fileList[0].size / 1000 / 1000);
-      this.error1 = false;
-      this.error2 = false;
-      this.error3 = false;
-    }
-    else if (this.fileList[0].size / 1000 / 1000 == 0) {
-      console.log(this.fileList[0].size / 1000 / 1000);
-      this.error2 = false;
-      this.error1 = false;
-      this.error3 = true
-    }
-    else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
-      console.log(this.fileList[0].size / 1000 / 1000);
-      this.error2 = true;
-      this.error1 = false;
-      this.error3 = false;
-    }
-
-  }
-
-checkExtension(file) {
-    var count = 0;
-    console.log("FILE DETAILS", file);
-    if (file) {
-      var array_after_split=file.name.split(".");
-    var file_extension=array_after_split[array_after_split.length-1];
-      for (let i = 0; i < this.valid_file_extensions.length; i++) {
-        if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
-          count = count + 1;
-        }
-      }
-
-      if (count > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    else
-    {
-      return true;
-    }
-  }
-
-  onLoadFileCallback = (event) => {
-    this.fileContent = event.currentTarget.result;
-  }
-
 }

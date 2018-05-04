@@ -19,6 +19,8 @@ export class AuthorizationWrapper extends Http {
     token: any;
     onlineFlag: boolean = true;
     count = 0;
+    _count = 0;
+
 
     constructor(backend: ConnectionBackend, defaultOptions: RequestOptions
         , private router: Router, private authService: AuthService, private message: ConfirmationDialogsService) {
@@ -109,10 +111,14 @@ export class AuthorizationWrapper extends Http {
     }
     private onSuccess(response: any) {
         if (response.json().data) {
+            this._count = 0;
             return response;
         } else if (response.json().statusCode === 5002) {
             this.router.navigate(['']);
-            this.message.alert(response.json().errorMessage, 'error');
+             if (this._count == 0) {
+                this.message.alert(response.json().errorMessage, 'error');
+                this._count = this._count + 1;
+            }
             this.authService.removeToken();
             return Observable.empty();
         } else {

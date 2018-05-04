@@ -21,39 +21,24 @@ export class CallStatisticsComponent implements OnInit {
     this.todayCallLists();
   };
 
-  constructor(private callService: CzentrixServices, private commonData: dataService, public alertService: ConfirmationDialogsService) { };
+  constructor(private callService: CzentrixServices,
+    private commonData: dataService,
+    public alertService: ConfirmationDialogsService) { };
 
   todayCallLists() {
-    // this.totalCalls = 'Total Calls : 122';
-    // this.totalInvalidCalls = 'Total Invalid Calls : 34';
-    // this.totalCallDuration = 'Total Call Duration : 00:00:22';
-    // this.totalBreakTime = 'Total Break Time : 00:00:12';
-    // this.totalFreeTime = 'Total Free Time : 00:00:10';
-    if (this.commonData.current_role.RoleName.toUpperCase() === 'CO') {
-      this.callService.getCallDetails().subscribe((response) => {
-        //   this.totalCalls = 'Total Calls : ' + response.response.total_calls;
-        //   this.totalInvalidCalls = 'Total Invalid Calls : ' + (response.response.total_invalid_calls ? 'unavailable' : '0');
-        //   this.totalCallDuration = 'Total Call Duration :' + response.response.total_call_duration;
-        //   this.totalBreakTime = 'Total Break Time :' + response.response.total_break_time;
-        //   this.totalFreeTime = 'Total Free Time :' + response.response.total_free_time;
-        // }, (err) => {
-        //   this.alertService.alert(err.errorMessage,'error');
 
-        //   console.log('Error in Total Call Report', err);
-        // })
-        this.totalCalls = response.total_calls;
-        this.totalInvalidCalls = response.total_invalid_calls;
-        this.totalCallDuration = response.total_call_duration;
-        this.totalBreakTime = response.total_break_time;
-        this.totalFreeTime = response.total_free_time;
-      }, (err) => {
-        console.log('Error in Total Call Report', err);
-      })
-    } else {
-      // this.totalCalls = 'Total No. of Calls in Progress: 0';
-      // this.totalInvalidCalls = 'Total No. of LoggedIn Users  : 23';
-      // this.totalBreakTime = 'Total No. Users on Break Time : 2';
-    }
+    this.callService.getCallDetails().subscribe(response => {
+      console.log('RESPONSE OF CALL DETAILS', response);
+      this.totalCalls = response.data.total_calls;
+      this.totalInvalidCalls = response.data.total_invalid_calls;
+      this.totalCallDuration = response.data.total_call_duration;
+      this.totalBreakTime = response.data.total_break_time;
+      this.totalFreeTime = response.data.total_free_time;
+      console.log(this.totalCalls, this.totalInvalidCalls, this.totalCallDuration, this.totalBreakTime, this.totalFreeTime);
+    }, (err) => {
+      console.log('Error in Total Call Report', err);
+    });
+
   }
   close() {
     this.hide_component.emit("6");

@@ -21,7 +21,9 @@ export class CzentrixServices {
   ip: any;
   _agentLogOut = this.common_url + 'cti/doAgentLogout';
   phone_num: number;
-  constructor(private http: AuthorizationWrapper, private _config: ConfigService, private _data: dataService, private normalHTTP :Http) {
+  constructor(private http: AuthorizationWrapper,
+    private _http: Http,
+     private _config: ConfigService, private _data: dataService, private normalHTTP :Http) {
     this.agent_id = this._data.cZentrixAgentID;
   }
 
@@ -35,7 +37,7 @@ export class CzentrixServices {
   }
 
   getLoginKey(uname, password) {
-    return this.http
+    return this._http
       // tslint:disable-next-line:max-line-length
       .get(this.address + 'apps/cust_appsHandler.php?transaction_id=CTI_LOGIN_KEY&username=' + uname + '&password=' + password + '&resFormat=3')
       .map(this.extractData).catch(this.handleError);
@@ -49,7 +51,7 @@ export class CzentrixServices {
     // let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + agentId + '&ip=' + ipAddress + '&resFormat=' + this.resFormat;
     // return this.callAPI(params);
     const loginObj = { 'agent_id': agentId };
-    return this.normalHTTP.post(this._agentLogOut, loginObj).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._agentLogOut, loginObj).map(this.extractData).catch(this.handleError);
 
   }
 
@@ -71,7 +73,7 @@ export class CzentrixServices {
   }
 
   getCallDetails() {
-    this.agent_id = '2014';
+    this.agent_id = this._data.cZentrixAgentID;
 
     let obj = { 'agent_id': this.agent_id };
     return this.http.post(this._getCallDetails, obj).map(this.extractData).catch(this.handleError);
@@ -164,7 +166,7 @@ export class CzentrixServices {
     // tslint:disable-next-line:max-line-length
     const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
 
-    return this.http.get(this.address + params).map((res: Response) => this.extractData(res));
+    return this._http.get(this.address + params).map((res: Response) => this.extractData(res));
   }
 
   callAPI(params) {
@@ -176,7 +178,7 @@ export class CzentrixServices {
     this.agent_id = this._data.cZentrixAgentID;
     // tslint:disable-next-line:max-line-length
     const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
-    return this.http.get(this.address + params).map(this.extractData).catch(this.handleError);
+    return this._http.get(this.address + params).map(this.extractData).catch(this.handleError);
   }
 
   private extractData(res: Response) {

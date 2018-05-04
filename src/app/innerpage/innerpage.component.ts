@@ -13,6 +13,8 @@ import { CzentrixServices } from './../services/czentrix/czentrix.service';
 import { ClosureComponent } from '../closure/closure.component';
 import { Observable } from 'rxjs/Rx';
 import { ListnerService } from './../services/common/listner.service';
+import { AuthService } from '../services/authentication/auth.service';
+
 declare const jQuery: any;
 
 
@@ -79,7 +81,8 @@ export class InnerpageComponent implements OnInit {
     private remarksMessage: ConfirmationDialogsService,
     private renderer: Renderer,
     private Czentrix: CzentrixServices,
-    private listnerService: ListnerService
+    private listnerService: ListnerService,
+    private authService: AuthService
     // private closureComponent: ClosureComponent
 
   ) {
@@ -167,6 +170,21 @@ export class InnerpageComponent implements OnInit {
     jQuery('#' + val).find('a').addClass('active-tab');
   }
 
+
+  calculateAge(date) {
+    if (date) {
+      const newDate = new Date(date);
+      const today = new Date();
+      let age = today.getFullYear() - newDate.getFullYear();
+      const month = today.getMonth() - newDate.getMonth();
+      if (month < 0 || (month === 0 && today.getDate() < newDate.getDate())) {
+        age--;
+      }
+      return age;
+    } else {
+      return undefined;
+    }
+  }
   getSelectedBenDetails(data: any) {
     if (data != null) {
       this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryRegID;
@@ -179,7 +197,8 @@ export class InnerpageComponent implements OnInit {
       //  let currDate = new Date();
       //  let dob = new Date( data.dOB );
       //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
-      this.selectedBenData.age = 'Age: ' + data.age;
+
+      this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
       // }
       this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
       this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
@@ -223,11 +242,11 @@ export class InnerpageComponent implements OnInit {
     this.selectedlanguage = language;
     console.log('language asked for is:', language);
     this.HttpServices.getLanguage(this.languageFilePath).subscribe(response => this.successhandeler(response, language),
-  (err) => {
-    this.remarksMessage.alert(err.errorMessage);
+      (err) => {
+        this.remarksMessage.alert(err.errorMessage);
 
-    console.log("error in fetching language");
-  });
+        console.log("error in fetching language");
+      });
 
   }
 
@@ -240,6 +259,16 @@ export class InnerpageComponent implements OnInit {
   //   this.basicrouter.navigate(['']);
   //   // location.assign(this.loginUrl);
   // }
+  log_out() {
+    if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
+      this.remarksMessage.alert('Cannot logout during active call');
+    } else {
+      sessionStorage.removeItem('isOnCall');
+      this.basicrouter.navigate(['']);
+      this.authService.removeToken();
+    }
+
+  }
 
   logOut() {
     if (this.getCommonData.loginIP === undefined || this.getCommonData.loginIP === '') {
@@ -248,9 +277,11 @@ export class InnerpageComponent implements OnInit {
           this.ipSuccessLogoutHandler(res.response.agent_ip);
         }
       },
-    (err) => {
-      this.remarksMessage.alert(err.errorMessage);
-    });
+        (err) => {
+          console.log(err.errorMessage, "LOGOUT ERROR");
+          this.remarksMessage.alert(err.errorMessage);
+
+        });
     } else {
       this.ipSuccessLogoutHandler(this.getCommonData.loginIP);
     }
@@ -271,9 +302,29 @@ export class InnerpageComponent implements OnInit {
         }
       }
     }, (err) => {
+      console.log(err.errorMessage, "LOGOUT ERROR");
       this.remarksMessage.alert(err.errorMessage);
 
     });
+
+
+    if (this.current_role.toLowerCase() !== 'supervisor') {
+      this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
+        if (res.response.status.toUpperCase() !== 'FAIL') {
+          sessionStorage.removeItem('isOnCall');
+          this.basicrouter.navigate(['']);
+        } else {
+          // if (this.current_role.toLowerCase() !== 'supervisor') {
+          this.remarksMessage.alert('Cannot logout during active call');
+          // }
+        }
+      }, (err) => {
+        this.remarksMessage.alert(err.errorMessage);
+      });
+    } else {
+      sessionStorage.removeItem('isOnCall');
+      this.basicrouter.navigate(['']);
+    }
   }
   getCallTypes(providerServiceMapID) {
     const requestObject = { 'providerServiceMapID': providerServiceMapID };
@@ -389,7 +440,7 @@ export class InnerpageComponent implements OnInit {
 
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
-        this.remarksMessage.alert(message,'success');
+        this.remarksMessage.alert(message, 'success');
         sessionStorage.removeItem('isOnCall');
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
@@ -401,7 +452,7 @@ export class InnerpageComponent implements OnInit {
         });
       }
     }, (err) => {
-      this.remarksMessage.alert(err.status,'error');
+      this.remarksMessage.alert(err.status, 'error');
     });
   }
   showRemarks(eventData) {
@@ -414,7 +465,8 @@ export class InnerpageComponent implements OnInit {
         remarksGiven = 'call tranfered';
       }
       this.closeCall(eventData, remarksGiven);
-    }, (err) => {     this.remarksMessage.alert(err.errorMessage);
+    }, (err) => {
+      this.remarksMessage.alert(err.errorMessage);
     });
     // this.startCallWraupup(eventData);
 
@@ -481,7 +533,9 @@ export class InnerpageComponent implements OnInit {
       //   this.callStatus += ' (' + res.data.stateObj.stateType + ')';
       // }
     }, (err) => {
-      this.remarksMessage.alert(err.errorMessage);
+      if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
+        this.remarksMessage.alert(err.errorMessage);
+      }
 
     })
   }
