@@ -22,7 +22,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   stateID: any;
   createdBy: any;
 
-    minDate: Date = new Date();
+  minDate: Date = new Date();
 
 
   location_communication_typeID: any;
@@ -68,18 +68,17 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     }
   }
 
-  sdChange(sd){
-    sd.setHours(0,0,0,0);
+  sdChange(sd) {
+    sd.setHours(0, 0, 0, 0);
   }
 
-  edChange(ed){
-    ed.setHours(23,59,59,0);
+  edChange(ed) {
+    ed.setHours(23, 59, 59, 0);
   }
 
-  end_date_min_val:Date;
-  calculateEndDateMinValue(start_Date)
-  {
-    this.end_date_min_val=start_Date;
+  end_date_min_val: Date;
+  calculateEndDateMinValue(start_Date) {
+    this.end_date_min_val = start_Date;
     this.end_date_min_val.setHours(0);
     this.end_date_min_val.setMinutes(0);
     this.end_date_min_val.setSeconds(0);
@@ -96,7 +95,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     this.serviceProviderID = response.serviceProviderID;
     this.serviceID = response.serviceID;
     this.stateID = response.stateID;
-    this.getOffices(this.serviceProviderID, this.stateID, this.serviceID);
+    this.getOffices(this.providerServiceMapID);
   }
 
   handleError(error) {
@@ -111,21 +110,21 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
   getAllNotificationTypesSuccessHandeler(response) {
     console.log("notification types", response);
-    if (response.length == 0) {
+    if (response.data.length == 0) {
       this.dialogService.alert("No Notification Types Found. Contact Admin");
     }
     else {
-      for (var k = 0; k < response.length; k++) {
-        if (response[k].notificationType.toUpperCase() === "Location Message".toUpperCase()) {
-          this.location_communication_typeID = response[k].notificationTypeID;
+      for (var k = 0; k < response.data.length; k++) {
+        if (response.data[k].notificationType.toUpperCase() === "Location Message".toUpperCase()) {
+          this.location_communication_typeID = response.data[k].notificationTypeID;
           break;
         }
       }
     }
   }
 
-  getOffices(providerID, stateID, serviceID) {
-    this.notification_service.getOffices(providerID, stateID, serviceID).subscribe(response => this.getOfficesSuccessHandeler(response));
+  getOffices(psmID) {
+    this.notification_service.getOffices(psmID).subscribe(response => this.getOfficesSuccessHandeler(response));
   }
 
   getOfficesSuccessHandeler(response) {
@@ -212,7 +211,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
         defaultObj['workingLocationID'] = workingLocationIDs[i];
 
-        roomArray.push(this.providerServiceMapID+"-"+workingLocationIDs[i].toString());
+        roomArray.push(this.providerServiceMapID + "-" + workingLocationIDs[i].toString());
 
         request_array.push(defaultObj);
       }
@@ -224,16 +223,16 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
         if (response.data.length > 0) {
           this.dialogService.alert("Location message created successfully", 'success');
           this.notificationCreationForm.reset();
-          if(startDate.getTime()<=this.currentDate.getTime()){
+          if (startDate.getTime() <= this.currentDate.getTime()) {
             this.notification_service.sendSocketNotification({
-              "room":roomArray, type:"Location_Message", "message":form_values.message, "subject": form_values.subject
+              "room": roomArray, type: "Location_Message", "message": form_values.message, "subject": form_values.subject
             })
-            .subscribe((response)=>{
-              console.log(response.data);
-            },
-            (error)=>{
-              console.log(error);
-            });
+              .subscribe((response) => {
+                console.log(response.data);
+              },
+              (error) => {
+                console.log(error);
+              });
           }
         }
       },
@@ -298,7 +297,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
       this.notification_service.updateNotification(obj).subscribe(response => this.updateSuccess(response), err => this.notificationError(err));
     }
-    else{
+    else {
       this.dialogService.alert("Valid Till should be a future date than Valid From");
       this.edate = undefined;
     }

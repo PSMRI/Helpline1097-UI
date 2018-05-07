@@ -22,7 +22,7 @@ export class NotificationService {
     getOfficesFromRole_URL = this.configService.getCommonBaseURL() + "user/getLocationsByProviderID";
 
     getLanguagesURL = this.configService.getCommonBaseURL() + 'beneficiary/getRegistrationData';
-    getOfficesURL = this.configService.getAdminBaseUrl() + 'm/location/getAlllocation';
+    getOfficesURL = this.configService.getAdminBaseUrl() + 'm/location/getAlllocationNew';
     getUsersByProviderID_URL = this.configService.getCommonBaseURL() + 'user/getUsersByProviderID';
     getServiceProviderID_url = this.configService.getAdminBaseUrl() + 'getServiceProviderid';
     sendSocketNotification_url = this.socketService.getSocketURL() + 'notification/notificationToRoom';
@@ -47,12 +47,10 @@ export class NotificationService {
             .map((response: Response) => response.json().data.m_language);
     }
 
-    getOffices(serviceProviderID, stateID, serviceID) {
-        console.log(serviceProviderID, stateID, serviceID);
+    getOffices(psmID) {
+        console.log(psmID);
         return this.http.post(this.getOfficesURL, {
-            'serviceProviderID': serviceProviderID,
-            'stateID': stateID,
-            'serviceID': serviceID
+           'providerServiceMapID': psmID
         })
             .map((response: Response) => response.json().data);
     }

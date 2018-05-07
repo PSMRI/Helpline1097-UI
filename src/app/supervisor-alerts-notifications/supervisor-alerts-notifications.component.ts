@@ -128,11 +128,11 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
   getAllNotificationTypesSuccessHandeler(response) {
     console.log('notification types', response);
-    if (response.length === 0) {
+    if (response.data.length === 0) {
       this.dialogService.alert('No Notification Types Found. Contact Admin')
     }
     else {
-      this.types = response.filter(item => {
+      this.types = response.data.filter(item => {
         return (item.notificationType.toUpperCase() === "Alert".toUpperCase()) ||
           (item.notificationType.toUpperCase() === "Notification".toUpperCase());
       });

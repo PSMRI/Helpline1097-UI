@@ -154,10 +154,10 @@ export class SupervisorNotificationsComponent implements OnInit {
 
   getOffices(providerID,stateID,serviceID)
   {
-    this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response),
-  (error) => {
-    this.alertMessage.alert(error.errorMessage,'error');
-  });
+  //   this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response),
+  // (error) => {
+  //   this.alertMessage.alert(error.errorMessage,'error');
+  // });
   }
 
   getOfficesSuccessHandeler(response)
