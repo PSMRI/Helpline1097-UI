@@ -70,7 +70,7 @@ sDate:Date=new Date();
     this.stateID=response.stateID;
     // invoke these all
     this.getAllLanguages();
-    this.getOffices(this.serviceProviderID,this.stateID,this.serviceID);
+    this.getOffices(this.providerServiceMapID);
     this.getUsers(this.providerServiceMapID);
   }
 
@@ -92,9 +92,9 @@ sDate:Date=new Date();
 
   }
 
-  getOffices(providerID,stateID,serviceID)
+  getOffices(psmID)
   {
-    this.notificationService.getOffices(providerID,stateID,serviceID).subscribe(response=>this.getOfficesSuccessHandeler(response),
+    this.notificationService.getOffices(psmID).subscribe(response=>this.getOfficesSuccessHandeler(response),
     (err) => {
       this.alertService.alert(err.errorMessage);
     });

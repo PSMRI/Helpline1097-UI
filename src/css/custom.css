@@ -861,6 +861,9 @@ color:#545454;
 	height:20px;
 	background:#F00;
 }
+.border-radius-50{
+border-radius:50px !important;  
+}
 .m-l-8 {
   margin-left: 8px;
 }
@@ -903,6 +906,9 @@ color:#545454;
 
 .m-l--5 {
   margin-left: -5px !important;
+}
+.m-l--18 {
+  margin-left: -18px !important;
 }
 .b-l-1 {
   border-left: 1px solid #e9e8e8 !important;

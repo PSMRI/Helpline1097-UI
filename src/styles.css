@@ -3,3 +3,4 @@
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import 'css/custom.css';
 @import 'css/dashboard.css';
+@import '../node_modules/angular2-toaster/toaster.css';
