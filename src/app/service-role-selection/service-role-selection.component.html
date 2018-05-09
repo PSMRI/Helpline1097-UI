@@ -23,26 +23,33 @@
 
   </ul>
 </div> -->
-<div class="dashboard-m-t-45">
+<div class="dashboard-m-t-45" *ngIf="privleges.length > 0">
   <ul class="list-unstyled list-inline text-center">
-      <li class="width300px" *ngFor="let priv of privleges">
-        <div class="panel-body circleOuterDiv">
-          <div class="circle">
-            <ul class="list-unstyled text-center p-t-8">
-              <li>
-                <div class="pull-left f-s-40 f-s-b f-c-w p-l-15 line-height-72">1097</div>
-              </li>
-              <li class="f-s-20">
-                <div class="pull-right p-r-15 line-height-72"><img class="imageClass" src="assets/images/104-Icon.png"></div>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-            <ul class="list-unstyled subRolecircle text-center m-t-3">
-              <li class="circle-btn" *ngFor="let role of priv.roles" (click)="route2dashboard(role, priv)"><a class="f-s-16 cursorPointer" >{{role.RoleName}}</a></li>
+    <li class="width300px" *ngFor="let priv of privleges">
+      <div class="panel-body circleOuterDiv">
+        <div class="circle">
+          <ul class="list-unstyled text-center p-t-8">
+            <li>
+              <div class="pull-left f-s-40 f-s-b f-c-w p-l-15 line-height-72">1097</div>
+            </li>
+            <li class="f-s-20">
+              <div class="pull-right p-r-15 line-height-72">
+                <img class="imageClass" src="assets/images/104-Icon.png">
+              </div>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+          <ul class="list-unstyled subRolecircle text-center m-t-3">
+            <li class="circle-btn" *ngFor="let role of priv.roles" (click)="route2dashboard(role, priv)">
+              <a class="f-s-16 cursorPointer">{{role.RoleName}}</a>
+            </li>
 
-            </ul>
-          </div>
+          </ul>
         </div>
-      </li>
-    </ul>
-  </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="dashboard-m-t-45" *ngIf="privleges.length == 0">
+  You do not have sufficient previlage to access application roles
+</div>

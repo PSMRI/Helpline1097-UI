@@ -29,20 +29,20 @@ export class loginContentClass implements OnInit {
         this.dataSettingService.Userdata = response;
         // this.dataSettingService.userPriveliges = response.Previlege;
         this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
-        if (this.previlageObj.length > 0) {
-          this.dataSettingService.userPriveliges = this.previlageObj;
-          this.dataSettingService.uid = response.userID;
-          this.dataSettingService.uname = response.userName;
-          this.dataSettingService.Userdata.agentID = response.agentID;
-          this.dataSettingService.loginIP = response.loginIPAddress;
-          console.log('array' + this.previlageObj);
-          if (response.isAuthenticated === true && response.Status === 'Active') {
-            sessionStorage.removeItem('isOnCall');
-            this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
-          }
-        } else {
-          this.loginResult = 'You do not have previlage to login to application';
+        // if (this.previlageObj.length > 0) {
+        this.dataSettingService.userPriveliges = this.previlageObj;
+        this.dataSettingService.uid = response.userID;
+        this.dataSettingService.uname = response.userName;
+        this.dataSettingService.Userdata.agentID = response.agentID;
+        this.dataSettingService.loginIP = response.loginIPAddress;
+        console.log('array' + this.previlageObj);
+        if (response.isAuthenticated === true && response.Status === 'Active') {
+          sessionStorage.removeItem('isOnCall');
+          this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
+        // } else {
+        //   this.loginResult = 'You do not have previlage to login to application';
+        // }
         // if (response.isAuthenticated === true && response.Status === 'New') {
         //   this.router.navigate(['/setQuestions']);
         // }
@@ -59,22 +59,22 @@ export class loginContentClass implements OnInit {
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
-        if (this.previlageObj.length > 0) {
-          this.dataSettingService.Userdata = response;
-          // this.dataSettingService.userPriveliges = response.Previlege;
-          this.dataSettingService.userPriveliges = this.previlageObj;
-          this.dataSettingService.uid = response.userID;
-          this.dataSettingService.uname = response.userName;
-          this.dataSettingService.Userdata.agentID = response.agentID;
-          this.dataSettingService.loginIP = response.loginIPAddress;
-          console.log('array' + this.previlageObj);
-          if (response.isAuthenticated === true && response.Status === 'Active') {
-            sessionStorage.removeItem('isOnCall');
-            this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
-          }
-        } else {
-          this.loginResult = 'You do not have previlage to login to application';
+        // if (this.previlageObj.length > 0) {
+        this.dataSettingService.Userdata = response;
+        // this.dataSettingService.userPriveliges = response.Previlege;
+        this.dataSettingService.userPriveliges = this.previlageObj;
+        this.dataSettingService.uid = response.userID;
+        this.dataSettingService.uname = response.userName;
+        this.dataSettingService.Userdata.agentID = response.agentID;
+        this.dataSettingService.loginIP = response.loginIPAddress;
+        console.log('array' + this.previlageObj);
+        if (response.isAuthenticated === true && response.Status === 'Active') {
+          sessionStorage.removeItem('isOnCall');
+          this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
+        // } else {
+        //   this.loginResult = 'You do not have previlage to login to application';
+        // }
         // if (response.isAuthenticated === true && response.Status === 'New') {
         //   this.router.navigate(['/setQuestions']);
         // }
@@ -97,31 +97,31 @@ export class loginContentClass implements OnInit {
     this.loading = false;
     console.log(response);
     this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
-    if (this.previlageObj.length > 0) {
-      this.dataSettingService.Userdata = response;
-      // this.dataSettingService.userPriveliges = response.Previlege;
-      this.dataSettingService.userPriveliges = this.previlageObj;
-      this.dataSettingService.uid = response.userID;
-      this.dataSettingService.uname = response.userName;
-      this.dataSettingService.Userdata.agentID = response.agentID;
-      this.dataSettingService.loginIP = response.loginIPAddress;
-      this.getLoginKey(userID, password);
-      // console.log( "array" + response.Previlege );
-      console.log('array' + this.previlageObj);
+    // if (this.previlageObj.length > 0) {
+    this.dataSettingService.Userdata = response;
+    // this.dataSettingService.userPriveliges = response.Previlege;
+    this.dataSettingService.userPriveliges = this.previlageObj;
+    this.dataSettingService.uid = response.userID;
+    this.dataSettingService.uname = response.userName;
+    this.dataSettingService.Userdata.agentID = response.agentID;
+    this.dataSettingService.loginIP = response.loginIPAddress;
+    this.getLoginKey(userID, password);
+    // console.log( "array" + response.Previlege );
+    console.log('array' + this.previlageObj);
 
-      if (response.isAuthenticated === true && response.Status === 'Active') {
-        sessionStorage.removeItem('isOnCall');
-        localStorage.setItem('authToken', response.key);
-        this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
-      }
-      if (response.isAuthenticated === true && response.Status === 'New') {
-        localStorage.setItem('authToken', response.key);
-        sessionStorage.removeItem('isOnCall');
-        this.router.navigate(['/setQuestions']);
-      }
-    } else {
-      this.loginResult = 'You do not have previlage to login to application';
+    if (response.isAuthenticated === true && response.Status === 'Active') {
+      sessionStorage.removeItem('isOnCall');
+      localStorage.setItem('authToken', response.key);
+      this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
     }
+    if (response.isAuthenticated === true && response.Status === 'New') {
+      localStorage.setItem('authToken', response.key);
+      sessionStorage.removeItem('isOnCall');
+      this.router.navigate(['/setQuestions']);
+    }
+    // } else {
+    //   this.loginResult = 'You do not have previlage to login to application';
+    // }
   };
   errorCallback(error: any) {
     if (error.status) {
