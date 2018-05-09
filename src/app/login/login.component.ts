@@ -35,7 +35,7 @@ export class loginContentClass implements OnInit {
           this.dataSettingService.uname = response.userName;
           this.dataSettingService.Userdata.agentID = response.agentID;
           this.dataSettingService.loginIP = response.loginIPAddress;
-          console.log('array' + response.previlegeObj);
+          console.log('array' + this.previlageObj);
           if (response.isAuthenticated === true && response.Status === 'Active') {
             sessionStorage.removeItem('isOnCall');
             this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
@@ -62,12 +62,12 @@ export class loginContentClass implements OnInit {
         if (this.previlageObj.length > 0) {
           this.dataSettingService.Userdata = response;
           // this.dataSettingService.userPriveliges = response.Previlege;
-          this.dataSettingService.userPriveliges = response.previlegeObj;
+          this.dataSettingService.userPriveliges = this.previlageObj;
           this.dataSettingService.uid = response.userID;
           this.dataSettingService.uname = response.userName;
           this.dataSettingService.Userdata.agentID = response.agentID;
           this.dataSettingService.loginIP = response.loginIPAddress;
-          console.log('array' + response.previlegeObj);
+          console.log('array' + this.previlageObj);
           if (response.isAuthenticated === true && response.Status === 'Active') {
             sessionStorage.removeItem('isOnCall');
             this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
@@ -100,14 +100,14 @@ export class loginContentClass implements OnInit {
     if (this.previlageObj.length > 0) {
       this.dataSettingService.Userdata = response;
       // this.dataSettingService.userPriveliges = response.Previlege;
-      this.dataSettingService.userPriveliges = response.previlegeObj;
+      this.dataSettingService.userPriveliges = this.previlageObj;
       this.dataSettingService.uid = response.userID;
       this.dataSettingService.uname = response.userName;
       this.dataSettingService.Userdata.agentID = response.agentID;
       this.dataSettingService.loginIP = response.loginIPAddress;
       this.getLoginKey(userID, password);
       // console.log( "array" + response.Previlege );
-      console.log('array' + response.previlegeObj);
+      console.log('array' + this.previlageObj);
 
       if (response.isAuthenticated === true && response.Status === 'Active') {
         sessionStorage.removeItem('isOnCall');
