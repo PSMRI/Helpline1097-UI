@@ -20,54 +20,66 @@ export class loginContentClass implements OnInit {
   public loginResult: string;
   dynamictype: any = 'password';
 
-  constructor(public loginservice: loginService, public router: Router,public alertService: ConfirmationDialogsService,
+  previlageObj: any = [];
+
+  constructor(public loginservice: loginService, public router: Router, public alertService: ConfirmationDialogsService,
     public dataSettingService: dataService, private czentrixServices: CzentrixServices) {
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         this.dataSettingService.Userdata = response;
         // this.dataSettingService.userPriveliges = response.Previlege;
-        this.dataSettingService.userPriveliges = response.previlegeObj;
-        this.dataSettingService.uid = response.userID;
-        this.dataSettingService.uname = this.userID;
-        this.dataSettingService.Userdata.agentID = response.agentID;
-        this.dataSettingService.loginIP = response.loginIPAddress;
-        console.log('array' + response.previlegeObj);
-        if (response.isAuthenticated === true && response.Status === 'Active') {
-          sessionStorage.removeItem('isOnCall');
-          this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        if (this.previlageObj.length > 0) {
+          this.dataSettingService.userPriveliges = this.previlageObj;
+          this.dataSettingService.uid = response.userID;
+          this.dataSettingService.uname = response.userName;
+          this.dataSettingService.Userdata.agentID = response.agentID;
+          this.dataSettingService.loginIP = response.loginIPAddress;
+          console.log('array' + response.previlegeObj);
+          if (response.isAuthenticated === true && response.Status === 'Active') {
+            sessionStorage.removeItem('isOnCall');
+            this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+          }
+        } else {
+          this.loginResult = 'You do not have previlage to login to application';
         }
         // if (response.isAuthenticated === true && response.Status === 'New') {
         //   this.router.navigate(['/setQuestions']);
         // }
       }, (err) => {
-        this.alertService.alert(err.errorMessage,'error');
-       });
+        this.alertService.alert(err.errorMessage, 'error');
+      });
     }
 
   };
 
   ngOnInit() {
 
-   
+
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
-        this.dataSettingService.Userdata = response;
-        // this.dataSettingService.userPriveliges = response.Previlege;
-        this.dataSettingService.userPriveliges = response.previlegeObj;
-        this.dataSettingService.uid = response.userID;
-        this.dataSettingService.uname = this.userID;
-        this.dataSettingService.Userdata.agentID = response.agentID;
-        this.dataSettingService.loginIP = response.loginIPAddress;
-        console.log('array' + response.previlegeObj);
-        if (response.isAuthenticated === true && response.Status === 'Active') {
-          sessionStorage.removeItem('isOnCall');
-          this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        if (this.previlageObj.length > 0) {
+          this.dataSettingService.Userdata = response;
+          // this.dataSettingService.userPriveliges = response.Previlege;
+          this.dataSettingService.userPriveliges = response.previlegeObj;
+          this.dataSettingService.uid = response.userID;
+          this.dataSettingService.uname = response.userName;
+          this.dataSettingService.Userdata.agentID = response.agentID;
+          this.dataSettingService.loginIP = response.loginIPAddress;
+          console.log('array' + response.previlegeObj);
+          if (response.isAuthenticated === true && response.Status === 'Active') {
+            sessionStorage.removeItem('isOnCall');
+            this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+          }
+        } else {
+          this.loginResult = 'You do not have previlage to login to application';
         }
         // if (response.isAuthenticated === true && response.Status === 'New') {
         //   this.router.navigate(['/setQuestions']);
         // }
       }, (err) => {
-        this.alertService.alert(err.errorMessage,'error');
+        this.alertService.alert(err.errorMessage, 'error');
       });
     }
 
@@ -75,6 +87,7 @@ export class loginContentClass implements OnInit {
   login(userId: any, password: any) {
     // this.loading = true;
     console.log(userId, password);
+    this.loginResult = undefined;
     this.loginservice.authenticateUser(userId, password).subscribe(
       (response: any) => this.successCallback(response, userId, password),
       (error: any) => this.errorCallback(error));
@@ -83,26 +96,31 @@ export class loginContentClass implements OnInit {
   successCallback(response: any, userID: any, password: any) {
     this.loading = false;
     console.log(response);
-    this.dataSettingService.Userdata = response;
-    // this.dataSettingService.userPriveliges = response.Previlege;
-    this.dataSettingService.userPriveliges = response.previlegeObj;
-    this.dataSettingService.uid = response.userID;
-    this.dataSettingService.uname = this.userID;
-    this.dataSettingService.Userdata.agentID = response.agentID;
-    this.dataSettingService.loginIP = response.loginIPAddress;
-    this.getLoginKey(userID, password);
-    // console.log( "array" + response.Previlege );
-    console.log('array' + response.previlegeObj);
+    this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+    if (this.previlageObj.length > 0) {
+      this.dataSettingService.Userdata = response;
+      // this.dataSettingService.userPriveliges = response.Previlege;
+      this.dataSettingService.userPriveliges = response.previlegeObj;
+      this.dataSettingService.uid = response.userID;
+      this.dataSettingService.uname = response.userName;
+      this.dataSettingService.Userdata.agentID = response.agentID;
+      this.dataSettingService.loginIP = response.loginIPAddress;
+      this.getLoginKey(userID, password);
+      // console.log( "array" + response.Previlege );
+      console.log('array' + response.previlegeObj);
 
-    if (response.isAuthenticated === true && response.Status === 'Active') {
-      sessionStorage.removeItem('isOnCall');
-      localStorage.setItem('authToken', response.key);
-      this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
-    }
-    if (response.isAuthenticated === true && response.Status === 'New') {
-      localStorage.setItem('authToken', response.key);
-      sessionStorage.removeItem('isOnCall');
-      this.router.navigate(['/setQuestions']);
+      if (response.isAuthenticated === true && response.Status === 'Active') {
+        sessionStorage.removeItem('isOnCall');
+        localStorage.setItem('authToken', response.key);
+        this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+      }
+      if (response.isAuthenticated === true && response.Status === 'New') {
+        localStorage.setItem('authToken', response.key);
+        sessionStorage.removeItem('isOnCall');
+        this.router.navigate(['/setQuestions']);
+      }
+    } else {
+      this.loginResult = 'You do not have previlage to login to application';
     }
   };
   errorCallback(error: any) {
@@ -120,7 +138,7 @@ export class loginContentClass implements OnInit {
       this.dataSettingService.loginKey = response.response.login_key;
       console.log('Login key:' + this.dataSettingService.loginKey);
     }, (err) => {
-      this.alertService.alert(err.errorMessage,'error');
+      this.alertService.alert(err.errorMessage, 'error');
       console.log('Error in getLoginKey', err);
     })
 

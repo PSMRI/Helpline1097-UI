@@ -110,7 +110,7 @@ export class InterceptedHttp extends Http {
         this.hideLoader();
     }
     private onSuccess(response: any) {
-        if (response.json().data) {
+        if (response.json().statusCode === 200) {
             this._count = 0;
             return response;
         } else if (response.json().statusCode === 5002) {
