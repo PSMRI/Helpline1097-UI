@@ -141,6 +141,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
     this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
+      console.log('ERROR', err);
     });
   }
 
@@ -186,6 +187,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       },
       (err) => {
         this.alertMaessage.alert(err.errorMessage, 'error');
+        console.log('ERROR', err);
       });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
@@ -305,6 +307,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.isOutbound = this.saved_data.isOutbound;
     this._util.startCall(data).subscribe((response) => { this.setBenCall(response) }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
+      console.log('ERROR', err);
 
     });
   }
@@ -457,7 +460,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this._locationService.getDistricts(state)
         .subscribe((response) => this.SetDistricts(response), (err) => {
           this.alertMaessage.alert(err.errorMessage, 'error');
-
+console.log('ERROR', err);
         });
     }
   }
@@ -482,7 +485,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this._locationService.getTaluks(district)
         .subscribe((response) => this.SetTaluks(response), (err) => {
           this.alertMaessage.alert(err.errorMessage, 'error');
-
+console.log('ERROR', err);
         });
     }
   }
@@ -498,7 +501,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this._locationService.getBranches(taluk)
       .subscribe((response) => { this.SetBlocks(response) }, (err) => {
         this.alertMaessage.alert(err.errorMessage, 'error');
-
+console.log('ERROR', err);
       });
   }
   SetBlocks(response: any) {
@@ -584,6 +587,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
     }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
+      console.log('ERROR', err);
     });
   }
 
@@ -597,6 +601,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     const res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
       .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
         this.alertMaessage.alert(err.status, 'error');
+        console.log('ERROR', err);
       });
   }
 
@@ -610,6 +615,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       const res = this._util.retrieveRegHistory(reg_no)
         .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
           this.alertMaessage.alert(err.status, 'error');
+          console.log('ERROR', err);
         });
     }
 
@@ -685,7 +691,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         }
       }, err => {
         this.alertMaessage.alert(err.errorMessage, 'error');
-
+console.log('ERROR', err);
       });
 
     this.benRegData = benRegData;
@@ -723,7 +729,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.taluk = registeredBenData.i_bendemographics.blockID;
     console.log("experiment 2", this.taluks);
 
+    if ( this.taluk) {
     this.GetBlocks(this.taluk);
+    }
+    
     this.village = registeredBenData.i_bendemographics.districtBranchID;
     console.log("experiment 3", this.blocks);
     if (this.DOB) {
@@ -837,6 +846,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.updateSuccessHandeler(response)
     }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
+      console.log('ERROR', err);
     });
   }
 
@@ -903,12 +913,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   getParentData(parentBenID) {
     this._util.retrieveRegHistory(parentBenID).subscribe((response) => {
       if (response) {
-        this.beneficiaryRelationID = undefined;
-        this.relationshipWith = 'Relationship With ' + response[0].firstName + ' ' + response[0].lastName;
+        if (response.length > 0) {
+          this.beneficiaryRelationID = undefined;
+          this.relationshipWith = 'Relationship With ' + response[0].firstName + ' ' + response[0].lastName;
+        }
+
       }
     }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
-
+console.log('ERROR', err);
       console.log('Something Went Wrong in fetching Parent Data');
     })
 
