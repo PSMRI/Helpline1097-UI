@@ -52,7 +52,7 @@ export class AuthorizationWrapper extends Http {
                 options
             )).catch(
                 this.onCatch
-                ).do(
+            ).do(
                 (res: Response) => {
                     this.onSuccess(res);
                 }, (error: any) => {
@@ -111,14 +111,14 @@ export class AuthorizationWrapper extends Http {
     }
     private onSuccess(response: any) {
         if (response.json().data) {
-            this._count = 0;
+            // this._count = 0;
             return response;
         } else if (response.json().statusCode === 5002) {
             this.router.navigate(['']);
-             if (this._count == 0) {
-                this.message.alert(response.json().errorMessage, 'error');
-                this._count = this._count + 1;
-            }
+            //  if (this._count == 0) {
+            this.message.alert(response.json().errorMessage, 'error');
+            // this._count = this._count + 1;
+            // }
             this.authService.removeToken();
             return Observable.empty();
         } else {
@@ -135,14 +135,14 @@ export class AuthorizationWrapper extends Http {
     }
     private networkCheck(): boolean {
         if (!this.onlineFlag) {
-            if (this.count === 0) {
-                this.message.alert("You are offline. Please check");
-                this.count++;
-            }
+            // if (this.count === 0) {
+            this.message.alert("You are offline. Please check");
+            // this.count++;
+            // }
             return false;
         }
         else {
-            this.count = 0;
+            // this.count = 0;
             return true;
         }
     }
