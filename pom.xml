@@ -44,7 +44,7 @@
 				<old-cti-url>10.208.122.99</old-cti-url>
 				<new-api-url>localhost</new-api-url>
 				<new-cti-url>localhost</new-cti-url>
-                <environment>dev</environment>
+                <environment>local</environment>
 			</properties>
 		</profile>
 	</profiles>
@@ -58,6 +58,8 @@
 		<final-name>1097ui-v1.0</final-name>
 		<hostname-dev>10.152.3.99</hostname-dev>
 		<port-dev>9990</port-dev>
+        <hostname-local>localhost</hostname-local>
+		<port-local>9990</port-local>
 		<hostname-uat>deviemr.piramalswasthya.org</hostname-uat>
 		<port-uat>9990</port-uat>
 		<server-id>wildfly-${environment}</server-id>
