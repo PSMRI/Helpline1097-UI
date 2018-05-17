@@ -21,6 +21,7 @@
 				<old-cti-url>10.208.122.99</old-cti-url>
 				<new-api-url>10.152.3.99</new-api-url>
 				<new-cti-url>10.208.122.99</new-cti-url>
+                <environment>dev</environment>
 			</properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -33,6 +34,7 @@
 				<old-cti-url>10.208.122.99</old-cti-url>
 				<new-api-url>deviemr.piramalswasthya.org</new-api-url>
 				<new-cti-url>helplines.piramalswasthya.org</new-cti-url>    
+                <environment>uat</environment>
 			</properties>
 		</profile>
         <profile>
@@ -41,17 +43,26 @@
 				<old-api-url>10.152.3.99</old-api-url>
 				<old-cti-url>10.208.122.99</old-cti-url>
 				<new-api-url>localhost</new-api-url>
-				<new-cti-url>localhost</new-cti-url>    
+				<new-cti-url>localhost</new-cti-url>
+                <environment>dev</environment>
 			</properties>
 		</profile>
 	</profiles>
 
-    <!-- we could create individual properties similar to variables -->
+	<!-- we could create individual properties similar to variables -->
     <!-- <properties>
         <ui-base-dir>iemrdash</ui-base-dir>
     </properties> -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<final-name>1097ui-v1.0</final-name>
+		<hostname-dev>10.152.3.99</hostname-dev>
+		<port-dev>9990</port-dev>
+		<hostname-uat>deviemr.piramalswasthya.org</hostname-uat>
+		<port-uat>9990</port-uat>
+		<server-id>wildfly-${environment}</server-id>
+		<server-hostname>{hostname-${environment}}</server-hostname>
+		<server-port>{port-${environment}}</server-port>
     </properties>
 
     <!-- install the necessary node_modules & compile in prod mode -->
@@ -160,9 +171,9 @@
 				<executions>
 					<execution>
 						<id>properties-updated 1</id>
-						<phase>process-resources</phase>
+						<!-- <phase>process-resources</phase> -->
                         <!-- <phase>process-classes</phase> -->
-                        <!-- <phase>prepare-package</phase> -->
+                        <phase>prepare-package</phase>
 						<goals>
 							<goal>run</goal>
 						</goals>
@@ -221,6 +232,24 @@
                     </webResources>
                 </configuration>
             </plugin>
+            <plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.2.1.Final</version>
+				<configuration>
+					<id>${server-id}</id>
+					<hostname>$${server-hostname}</hostname>
+					<port>$${server-port}</port>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
     </build>
 </project>
