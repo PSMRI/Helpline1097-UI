@@ -13,6 +13,39 @@
     <name>1097-ui</name>
     <packaging>war</packaging>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<old-api-url>10.152.3.99</old-api-url>
+				<old-cti-url>10.208.122.99</old-cti-url>
+				<new-api-url>10.152.3.99</new-api-url>
+				<new-cti-url>10.208.122.99</new-cti-url>
+			</properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+		</profile>
+        <profile>
+			<id>uat</id>
+			<properties>            
+				<old-api-url>10.152.3.99</old-api-url>
+				<old-cti-url>10.208.122.99</old-cti-url>
+				<new-api-url>deviemr.piramalswasthya.org</new-api-url>
+				<new-cti-url>helplines.piramalswasthya.org</new-cti-url>    
+			</properties>
+		</profile>
+        <profile>
+			<id>local</id>
+			<properties>            
+				<old-api-url>10.152.3.99</old-api-url>
+				<old-cti-url>10.208.122.99</old-cti-url>
+				<new-api-url>localhost</new-api-url>
+				<new-cti-url>localhost</new-cti-url>    
+			</properties>
+		</profile>
+	</profiles>
+
     <!-- we could create individual properties similar to variables -->
     <!-- <properties>
         <ui-base-dir>iemrdash</ui-base-dir>
@@ -87,7 +120,8 @@
                             </tasks>
                             <!-- incase working dir is different use below -->
                             <!--<workingDirectory>${basedir}/${ui-base-dir}</workingDirectory>  -->    
-                            <executable>C:\Users\kmuser\AppData\Roaming\npm\ng.cmd</executable>
+                            <!-- <executable>C:\Users\kmuser\AppData\Roaming\npm\ng.cmd</executable> -->
+                            <executable>ng.cmd</executable>
                             <arguments>
                                 <argument>build</argument>
                                 <argument>--prod</argument>
@@ -119,6 +153,40 @@
                     </execution>
                 </executions>
             </plugin> -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+				<executions>
+					<execution>
+						<id>properties-updated 1</id>
+						<phase>process-resources</phase>
+                        <!-- <phase>process-classes</phase> -->
+                        <!-- <phase>prepare-package</phase> -->
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+                            <target>
+								<!-- <echo message = "replacing/updating urls ${project.basedir} 1" /> -->
+								<echo>replacing/updating urls ${project.basedir} 2</echo>
+								<!-- <replaceregexp file="${project.basedir}/dist/main.*.bundle.js" match="${old-api-url}=(.*)" 
+                                    replace="${new-api-url}=\1" flags="ig">
+                                </replaceregexp>
+                                <replaceregexp file="${project.basedir}/dist/main.*.bundle.js" match="${old-cti-url}" 
+                                    replace="${new-cti-url}" flags="ig">
+                                </replaceregexp> -->
+                                <replaceregexp match="${old-api-url}" replace="${new-api-url}" flags="ig">
+                                    <fileset dir="${project.basedir}/dist" includes="main.*.bundle.js"/>
+                                </replaceregexp>
+                                <replaceregexp match="${old-cti-url}" replace="${new-cti-url}" flags="ig">
+                                    <fileset dir="${project.basedir}/dist" includes="main.*.bundle.js"/>
+                                </replaceregexp>
+                            </target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
