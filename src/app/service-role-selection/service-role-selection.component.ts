@@ -19,6 +19,8 @@ export class ServiceRoleSelectionComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        		this.getCommonData.sendHeaderStatus.next("Role Selection");
+
         this.privleges = this.getCommonData.userPriveliges;
         // this.privleges[3].roles[1].RoleName = 'Supervisor';
 

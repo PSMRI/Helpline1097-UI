@@ -184,6 +184,7 @@ import { ForceLogoutService } from './services/supervisorServices/forceLogoutSer
 import { AlertsNotificationsDialogComponent } from './alerts-notifications/alerts-notifications.component';
 //import { ToasterModule } from 'angular2-toaster';
 import { UtcDatePipe } from './utc-date.pipe';
+import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-modal/emergency-contacts-view-modal.component';
 
 
 @NgModule({
@@ -218,7 +219,8 @@ import { UtcDatePipe } from './utc-date.pipe';
     LanguageDistributionReportComponent, AlertsNotificationsDialogComponent,
     GenderDistributionReportComponent,
     COComponent,
-    UtcDatePipe
+    UtcDatePipe,
+    EmergencyContactsViewModalComponent
 
   ],
   imports: [
@@ -302,7 +304,7 @@ import { UtcDatePipe } from './utc-date.pipe';
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent,
     AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
-    , CoAlternateNumberComponent],
+    , CoAlternateNumberComponent, EmergencyContactsViewModalComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,

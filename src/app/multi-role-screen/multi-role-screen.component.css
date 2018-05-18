@@ -1,0 +1,9 @@
+@media (min-width: 650px) {
+
+    .m-l-150 {
+        margin-left: 150px !important;
+    }
+}
+.w85 {
+    width : 85%;
+}
