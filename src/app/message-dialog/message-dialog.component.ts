@@ -9,12 +9,15 @@ import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 export class MessageDialogComponent implements OnInit {
 
   constructor( @Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<MessageDialogComponent>) { }
-
+  docs: any = [];
   ngOnInit() {
-    console.log(this.data, "DATA IN MESSAGE DIALOG WINDOW");
-    this.checkForURL(this.data.message);
-    // this.checkForURL("https://www.google.com www.gov.gov www.google.co.in http://uber.com");
-
+    console.log(this.data, "DATA ARRAY IN MESSAGE DIALOG WINDOW");
+    // this.checkForURL(this.data.message);
+    this.docs = this.data.kmdocs;
+    for (let i = 0; i < this.docs.length; i++) {
+      this.docs[i]['urls'] = this.checkForURL(this.docs[i].notificationDesc)
+    }
+    console.log('after urls filtering', this.docs);
   }
 
   result = [];
@@ -23,6 +26,7 @@ export class MessageDialogComponent implements OnInit {
   urls = [];
 
   checkForURL(string) {
+    this.result = [];
     // var matches=[];
     // matches=string.match(/\bhttp[s,]?:\/\/\S+/gi);
     // console.log("matches",matches);
@@ -116,9 +120,11 @@ export class MessageDialogComponent implements OnInit {
       }
     }
 
-    if (this.result.length > 0) {
-      this.urls = this.result;
-    }
+    // if (this.result.length > 0) {
+    //   this.urls.push(this.result);
+    // }
+
+    return this.result;
 
   }
 

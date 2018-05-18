@@ -244,9 +244,8 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
 
 
   notificationTypeSuccess(res) {
-    console.log(res);
-    if (res.length > 0) {
-      this.km_related_data = res.filter(function (obj) {
+    if (res.data.length > 0) {
+      this.km_related_data = res.data.filter(function (obj) {
         if (obj.notificationType.toUpperCase() === 'KM') {
           return obj.notificationTypeID;
         }
