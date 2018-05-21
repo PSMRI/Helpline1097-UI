@@ -61,7 +61,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
         this.SetUserBeneficiaryRegistrationData(response);
       }),
       (err) => {
-        this.message.alert(err.errorMessage,'error');
+        this.message.alert(err.errorMessage, 'error');
 
       }
     // this.PopulateUpdateData();
@@ -127,6 +127,16 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
     this.saved_data.beneficiaryData.remarks = values.remarks;
     this.saved_data.beneficiaryData.sourceOfInformation = values.cameToKnowFrom ? values.cameToKnowFrom.toString() : undefined;
+    this.saved_data.beneficiaryData.is1097 = true;
+    this.saved_data.beneficiaryData.changeInSelfDetails = true;
+    this.saved_data.beneficiaryData.changeInAddress = true;
+    this.saved_data.beneficiaryData.changeInContacts = true;
+    this.saved_data.beneficiaryData.changeInIdentities = true;
+    this.saved_data.beneficiaryData.changeInOtherDetails = true;
+    this.saved_data.beneficiaryData.changeInFamilyDetails = true;
+    this.saved_data.beneficiaryData.changeInAssociations = true;
+    this.saved_data.beneficiaryData.changeInBankDetails = false;
+    this.saved_data.beneficiaryData.changeInBenImage = false;
 
     // alert( values );
     // console.log("Update Data is", JSON.stringify(this.saved_data.beneficiaryData));
@@ -134,12 +144,12 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       this.showAlert();
       this.PopulateOutBoundData(response);
     }, (err) => {
-      this.message.alert(err.status,'error');
+      this.message.alert(err.status, 'error');
     });
   }
 
   showAlert() {
-    this.message.alert('Updated Successfully','success');
+    this.message.alert('Updated Successfully', 'success');
 
     //this.form.reset();
   }
