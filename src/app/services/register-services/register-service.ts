@@ -26,6 +26,7 @@ export class RegisterService {
   ) { }
 
   generateReg(values: any) {
+    values.is1097 = true;
     console.log('Beneficiary data to insert ' + values);
     return this._http.post(this._createbeneficiaryurl, JSON.stringify(values))
       .map(this.extractData)
@@ -33,12 +34,14 @@ export class RegisterService {
   }
 
   updatebeneficiaryincall(callData: any) {
+    callData.is1097 = true;
     console.log('Data for call update: ' + callData);
     return this._http.post(this._updatebeneficiaryincall, callData)
       .map(this.extractData)
       .catch(this.handleError);
   }
   startCall(data) {
+    data.is1097 = true;
     return this._http.post(this._startCall, data)
       .map(this.extractData)
       .catch(this.handleError);
@@ -51,7 +54,7 @@ export class RegisterService {
   }
 
   retrieveRegHistory(registrationNo: any) {
-    const obj = { 'beneficiaryID': registrationNo };
+    const obj = { 'beneficiaryID': registrationNo, 'is1097': true };
     return this.httpInterceptor.post(this._getuserdata, obj)
       .map(this.extractData)
       .catch(this.customhandleError);
@@ -59,7 +62,7 @@ export class RegisterService {
 
   retrieveRegHistoryByPhoneNo(phoneNo: any) {
 
-    const data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000 };
+    const data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000, 'is1097': true };
     return this.httpInterceptor.post(this._getuserdatabyno, data)
       .map(this.extractData)
       .catch(this.customhandleError);
@@ -99,7 +102,7 @@ export class RegisterService {
       + '"genderID":"' + gender + '","beneficiaryID": "' + beneficiaryID + '","i_bendemographics":[{'
       + '"stateID":"' + district + '",'
       + '"cityID":"' + talukSearch + '"'
-      + '}]}';
+      + '}], "is1097": true }';
     console.log(createData);
     console.log(district);
     return this._http.post(this._searchBeneficiaryURL, createData)
