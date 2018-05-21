@@ -144,6 +144,11 @@ input {
   border-right: 1px solid #c2c2c3;
 }
 
+.dialog-width .mat-dialog-container{
+  margin: auto!important;
+}
+
+
 .stand-by {
   background: #fff;
   color: #000 !important;
