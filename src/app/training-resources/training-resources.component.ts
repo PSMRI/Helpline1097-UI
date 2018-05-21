@@ -19,7 +19,7 @@ export class TrainingResourcesComponent implements OnInit {
     kmConfig: any;
     kmfiles: any;
     kmPostData: any;
-    constructor(private dashboardHttpServices: DashboardHttpServices,public alertService:ConfirmationDialogsService, private dataService: dataService, private notificationService: NotificationService, public dialog: MdDialog) { }
+    constructor(private dashboardHttpServices: DashboardHttpServices, public alertService: ConfirmationDialogsService, private dataService: dataService, private notificationService: NotificationService, public dialog: MdDialog) { }
 
 
     ngOnInit() {
@@ -28,9 +28,9 @@ export class TrainingResourcesComponent implements OnInit {
         console.log("providerServiceMapID" + this.service.serviceID);
         this.notificationService.getNotificationTypes(this.service.serviceID)
             .subscribe((response) => {
-                console.log(response,"RELATED TO KM");
+                console.log(response, "RELATED TO KM");
                 // let currentDate = this.getOffsetTime();
-                let currentDate=new Date();
+                let currentDate = new Date();
                 this.kmConfig = response.data.filter((notification) => {
                     return notification.notificationType == "KM";
                 });
@@ -61,7 +61,7 @@ export class TrainingResourcesComponent implements OnInit {
                 this.getKmFiles();
             },
             (err) => {
-                this.alertService.alert(err.errorMessage,'error');
+                this.alertService.alert(err.errorMessage, 'error');
 
                 console.log(err);
             });
@@ -77,12 +77,12 @@ export class TrainingResourcesComponent implements OnInit {
             // if (this.role.RoleName != "Supervisor") {
             this.notificationService.getKMs(this.kmPostData)
                 .subscribe((response) => {
-                    console.log(response,"KM files response");
+                    console.log(response, "KM files response");
 
                     this.kmfiles = response.data;
                 },
                 (err) => {
-                    this.alertService.alert(err.errorMessage,'error');
+                    this.alertService.alert(err.errorMessage, 'error');
 
                     console.log(err);
                 });
@@ -103,8 +103,9 @@ export class TrainingResourcesComponent implements OnInit {
     kmClicked(km, event) {
         event.preventDefault();
         let dialog = this.dialog.open(MessageDialogComponent, {
-            width: '400px',
-			disableClose: true,
+            width: 0.8 * window.innerWidth + "px",
+            panelClass: 'dialog-width',
+            disableClose: true,
             data: {
                 message: km.notificationDesc,
                 type: "KM",

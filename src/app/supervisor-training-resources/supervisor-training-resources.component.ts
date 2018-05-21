@@ -89,7 +89,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
       (error) => {
         console.log(error);
       });
-    
+
     this.currentDate.setHours(0);
     this.currentDate.setMinutes(0);
     this.currentDate.setSeconds(0);
@@ -113,7 +113,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
       .subscribe((response) => {
         if (response.data.length !== 0) {
           this.roles = response.data.filter(item => {
-            return item.featureName.length!=0;
+            return item.featureName.length != 0;
           });
           for (var i = 0; i < this.roles.length; i++) {
             this.allRoleIDs.push(this.roles[i].roleID);
@@ -200,9 +200,9 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     let roomArray = [];
 
     if (roleIDs.length > 0) {
-      for(var i = 0 ; i < roleIDs.length; i++){
-        let filteredRoleObj = this.roles.filter((item)=>{
-          return item.roleID==roleIDs[i];
+      for (var i = 0; i < roleIDs.length; i++) {
+        let filteredRoleObj = this.roles.filter((item) => {
+          return item.roleID == roleIDs[i];
         })
         roomArray.push(filteredRoleObj[0].roleName);
       }
@@ -223,16 +223,16 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
       this.count = '0/300';
 
       this.getTrainingResources(); // refreshing the table
-      if(startDate.getTime()<=this.currentDate.getTime()){
+      if (startDate.getTime() <= this.currentDate.getTime()) {
         this.notificationService.sendSocketNotification({
-          "room":roomArray, type:"Training_Resource", "message":values.message, "subject": values.subject
+          "room": roomArray, type: "Training_Resource", "message": values.message, "subject": values.subject
         })
-        .subscribe((response)=>{
-          console.log(response.data);
-        },
-        (error)=>{
-          console.log(error);
-        });
+          .subscribe((response) => {
+            console.log(response.data);
+          },
+          (error) => {
+            console.log(error);
+          });
       }
     }
   }
@@ -391,10 +391,10 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           this.getTrainingResources();
         }
       },
-      (error) => { 
+      (error) => {
         console.log(error);
         this.dialogService.alert("Failed to activate", 'error')
-       });
+      });
   }
 
   deactivate(obj, val) {
@@ -419,8 +419,8 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           this.getTrainingResources();
         }
       },
-      (error) => { 
-        console.log(error); 
+      (error) => {
+        console.log(error);
         this.dialogService.alert('Failed to deactivate', 'error')
       });
   }
@@ -464,7 +464,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
         'notificationDesc': form_values.message,
         'validFrom': this.toBeEditedObject.validFrom,
         'validTill': this.toBeEditedObject.validTill,
-        // "deleted": this.data.notificationType.deleted,
+        'deleted': false,
         'modifiedBy': this.createdBy,
         'kmFileManager': {
           'fileName': this.file.name,
@@ -487,7 +487,9 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
         'notificationDesc': form_values.message,
         'validFrom': this.toBeEditedObject.validFrom,
         'validTill': this.toBeEditedObject.validTill,
+        'deleted': false,
         'modifiedBy': this.createdBy
+
       }
     }
 
