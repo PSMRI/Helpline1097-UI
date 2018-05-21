@@ -93,6 +93,7 @@ export class dashboardContentClass implements OnInit {
   };
 
   ngOnInit() {
+
     this.activeRoute
       .queryParams
       .subscribe(params => {
@@ -148,7 +149,10 @@ export class dashboardContentClass implements OnInit {
 
     jQuery(document).ready(function(){
       jQuery('[data-toggle="tooltip"]').tooltip(); 
+
   }); 
+      this.dataSettingService.sendHeaderStatus.next(this.current_role+" Dashboard");
+
   }
 
   agentIDexists(agentID) {

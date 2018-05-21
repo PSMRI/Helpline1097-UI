@@ -34,6 +34,7 @@ export class NotificationService {
     getNotificationDetails_url = this.configService.getCommonBaseURL() + 'notification/getAlertsAndNotificationDetail';
     changeNotificationStatus_url = this.configService.getCommonBaseURL() + 'notification/changeNotificationStatus';
     deleteNotification_url = this.configService.getCommonBaseURL() + 'notification/markDelete';
+    getEmergencyContacts_Url = this.configService.getCommonBaseURL() +'notification/getEmergencyContacts';
 
     constructor(public socketService: SocketService, private http: AuthorizationWrapper, private configService: ConfigService, private httpIntercepto: InterceptedHttp) { };
 
@@ -135,6 +136,10 @@ export class NotificationService {
     updateEmergencyContacts(data) {
         return this.httpIntercepto.post(this.updateEmergencyContacts_url, data)
             .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    getEmergencyContacts(data) {
+        return this.httpIntercepto.post(this.getEmergencyContacts_Url,data)
+        .map((response : Response )=> response.json().data).catch(this.handleCustomError);
     }
     handleError(error: Response) {
         return Observable.throw(error.json());

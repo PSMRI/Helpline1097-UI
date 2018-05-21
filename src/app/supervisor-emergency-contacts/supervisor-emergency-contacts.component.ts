@@ -96,19 +96,17 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
   }
 
   notificationTypeSuccess(res) {
-    if (res.length > 0) {
-      this.emergency_contact_related_data = res.filter(function (obj) {
-        if (obj.notificationType.toUpperCase() === 'Emergency Contact'.toUpperCase()) {
-          return obj.notificationTypeID;
-        }
+   
+      this.emergency_contact_related_data = res.data.filter((notification) => {
+        return notification.notificationType == "Emergency Contact";
       });
-    }
+   
     console.log(this.emergency_contact_related_data, 'notificationTypeID');
     this.notificationTypeID = this.emergency_contact_related_data[0].notificationTypeID;
 
     // get emergency contacts history
 
-    this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
+    this.getEmergencyList(this.providerServiceMapID, this.emergency_contact_related_data[0].notificationTypeID);
 
   }
 
