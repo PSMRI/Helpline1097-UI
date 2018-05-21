@@ -11,6 +11,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ListnerService } from './../services/common/listner.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../services/authentication/auth.service';
+import { EmergencyContactsViewModalComponent } from '../emergency-contacts-view-modal/emergency-contacts-view-modal.component';
+import { MdDialog } from '@angular/material';
 
 @Component({
   selector: 'app-multi-role-screen',
@@ -30,9 +32,12 @@ export class MultiRoleScreenComponent implements OnInit {
   hideBar: boolean = false;
   subscription: Subscription;
   hideHeader: boolean = true;
+  label :any;
+  showContacts: boolean;
+
   constructor(public dataSettingService: dataService, private _config: ConfigService, location: PlatformLocation,
     public router: Router, private authService: AuthService, private _loginService: loginService, private Czentrix: CzentrixServices,
-    private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer, private listnerService: ListnerService) {
+    private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer, private listnerService: ListnerService, private dialog: MdDialog) {
     location.onPopState((e: any) => {
       console.log(e);
       window.history.forward();
@@ -43,6 +48,8 @@ export class MultiRoleScreenComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.dataSettingService.sendHeaderStatus.subscribe((data)=>{this.setHeaderName(data)});
+
     this.data = this.dataSettingService.Userdata;
     this.current_role = (this.dataSettingService.current_role) ? this.dataSettingService.current_role.RoleName : '';
     this.current_service = (this.dataSettingService.current_service) ? this.dataSettingService.current_service.serviceName : '';
@@ -60,6 +67,8 @@ export class MultiRoleScreenComponent implements OnInit {
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     console.log('url = ' + url);
     this.userName = this.dataSettingService.Userdata.userName;
+
+
     // this.router.navigate(['/MultiRoleScreenComponent/roleSelection']);
     // const userObj = JSON.parse(Cookie.get('userID'));
     // if (userObj) {
@@ -85,6 +94,15 @@ export class MultiRoleScreenComponent implements OnInit {
   //   // Cookie.deleteAll();
   //   // location.assign(this.loginUrl);
   // }
+  setHeaderName(data) {
+    this.label = data;
+    if(this.label.includes('Dashboard')) {
+      this.showContacts = true;
+    }
+    else {
+      this.showContacts = false;
+    }
+  }
   logOut() {
     this.ipSuccessLogoutHandler(this.dataSettingService.loginIP);
 
@@ -133,5 +151,11 @@ export class MultiRoleScreenComponent implements OnInit {
       this.hideBar = true;
     }
   }
-
+  showEmergencyContacts() {
+    this.dialog.open(EmergencyContactsViewModalComponent, {
+      width: '700px',
+      //height: '550px'
+      disableClose: true
+    });
+  }
 }

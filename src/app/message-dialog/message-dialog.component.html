@@ -11,15 +11,15 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px">
     <h3 class="pull-left">{{data.type}}</h3>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" align="center">
-    <p class="f-s-17">{{data.message}}</p>
-    <p *ngIf="data.kmFilePath"><a href="{{data?.kmFilePath}}" target="_blank">Click here for more info</a></p>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" *ngFor="let doc of docs;let i=index " >
+    <p class="f-s-17">{{i}}. {{doc.notificationDesc}}</p>
+    <p *ngIf="doc.kmFilePath"><a href="{{doc?.kmFilePath}}" target="_blank">Click here for more info</a></p>
     
      
-      <ul *ngIf="urls.length>0" class="list-unstyled">
-        <li *ngIf="urls.length>1">Refer the links below</li>
-        <li *ngIf="urls.length===1">Refer the link below</li>
-        <li *ngFor="let url of urls"><a target="_blank" href="{{url}}">{{url}}</a></li>
+      <ul *ngIf="doc.urls.length>0" class="list-unstyled">
+        <li *ngIf="doc.urls.length>1">Refer the links below</li>
+        <li *ngIf="doc.urls.length===1">Refer the link below</li>
+        <li *ngFor="let url of doc.urls"><a target="_blank" href="{{url}}">{{url}}</a></li>
       </ul>
     
   </div>
