@@ -135,7 +135,7 @@ export class helpline1097CoComponent implements OnInit {
 
     if (data != null) {
 
-      this.selectedBenData.id = data.beneficiaryRegID;
+      this.selectedBenData.id = data.beneficiaryID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;
     } else {
@@ -257,9 +257,9 @@ export class helpline1097CoComponent implements OnInit {
         }
         this.outboundEvent(event, cZentrixIp)
       },
-      (error) => {
-        this.dialogService.alert('Some error while calling Czentrix','error');
-      });
+        (error) => {
+          this.dialogService.alert('Some error while calling Czentrix', 'error');
+        });
   }
 
   public outboundEvent(event: any, IpAddress: any) {
@@ -277,9 +277,9 @@ export class helpline1097CoComponent implements OnInit {
           this.dialogService.alert('Czentrix user not logged-in');
         }
       },
-      (error) => {
-        this.dialogService.alert('Call not intiating, Please try again.');
-      });
+        (error) => {
+          this.dialogService.alert('Call not intiating, Please try again.');
+        });
   }
   public ReloadBenOutbound(callType) {
     this.reloadCall.sendReloadCall(callType);
