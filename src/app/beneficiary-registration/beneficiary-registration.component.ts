@@ -185,10 +185,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-      (err) => {
-        this.alertMaessage.alert(err.errorMessage, 'error');
-        console.log('ERROR', err);
-      });
+        (err) => {
+          this.alertMaessage.alert(err.errorMessage, 'error');
+          console.log('ERROR', err);
+        });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -460,7 +460,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this._locationService.getDistricts(state)
         .subscribe((response) => this.SetDistricts(response), (err) => {
           this.alertMaessage.alert(err.errorMessage, 'error');
-console.log('ERROR', err);
+          console.log('ERROR', err);
         });
     }
   }
@@ -485,7 +485,7 @@ console.log('ERROR', err);
       this._locationService.getTaluks(district)
         .subscribe((response) => this.SetTaluks(response), (err) => {
           this.alertMaessage.alert(err.errorMessage, 'error');
-console.log('ERROR', err);
+          console.log('ERROR', err);
         });
     }
   }
@@ -501,7 +501,7 @@ console.log('ERROR', err);
     this._locationService.getBranches(taluk)
       .subscribe((response) => { this.SetBlocks(response) }, (err) => {
         this.alertMaessage.alert(err.errorMessage, 'error');
-console.log('ERROR', err);
+        console.log('ERROR', err);
       });
   }
   SetBlocks(response: any) {
@@ -593,7 +593,7 @@ console.log('ERROR', err);
 
   showAlert() {
     this.BeneficaryForm.resetForm();
-    this.alertMaessage.alert('Beneficiary registered with ID :' + this.benRegistrationResponse.beneficiaryRegID, 'success');
+    this.alertMaessage.alert('Beneficiary registered with ID :' + this.benRegistrationResponse.beneficiaryID, 'success');
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -691,7 +691,7 @@ console.log('ERROR', err);
         }
       }, err => {
         this.alertMaessage.alert(err.errorMessage, 'error');
-console.log('ERROR', err);
+        console.log('ERROR', err);
       });
 
     this.benRegData = benRegData;
@@ -729,10 +729,10 @@ console.log('ERROR', err);
     this.taluk = registeredBenData.i_bendemographics.blockID;
     console.log("experiment 2", this.taluks);
 
-    if ( this.taluk) {
-    this.GetBlocks(this.taluk);
+    if (this.taluk) {
+      this.GetBlocks(this.taluk);
     }
-    
+
     this.village = registeredBenData.i_bendemographics.districtBranchID;
     console.log("experiment 3", this.blocks);
     if (this.DOB) {
@@ -838,6 +838,7 @@ console.log('ERROR', err);
     this.updatedObj.i_bendemographics.pinCode = this.pincode;
     this.updatedObj.i_bendemographics.preferredLangID = this.preferredLanguage;
 
+    this.updatedObj.is1097 = true;
     // saving the updated ben data in the in_app_saved data service file
     this.saved_data.beneficiaryData = this.updatedObj;
     // return;
@@ -921,7 +922,7 @@ console.log('ERROR', err);
       }
     }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
-console.log('ERROR', err);
+      console.log('ERROR', err);
       console.log('Something Went Wrong in fetching Parent Data');
     })
 

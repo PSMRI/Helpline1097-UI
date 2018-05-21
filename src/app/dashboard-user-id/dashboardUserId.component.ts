@@ -28,12 +28,13 @@ export class DashboardUserIdComponent implements OnInit {
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
             this.status = res.data.stateObj.stateName;
-            // if (this.status.toUpperCase() === 'INCALL' || this.status.toUpperCase() === 'CLOSURE') {
-            //     let CLI = res.data.CLI;
-            //     let session_id = res.data.session_id;
-            //     sessionStorage.setItem('isOnCall', 'yes');
-            //     this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent', CLI, session_id, 'INBOUND']);
-            // } else {
+            if (this.status.toUpperCase() === 'INCALL' || this.status.toUpperCase() === 'CLOSURE') {
+                let CLI = res.data.cust_ph_no;
+                let session_id = res.data.session_id;
+                sessionStorage.setItem('isOnCall', 'yes');
+                this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent', CLI, session_id, 'INBOUND']);
+            } 
+            // else {
             if (res.data.stateObj.stateType) {
                 this.status += ' (' + res.data.stateObj.stateType + ')';
             }

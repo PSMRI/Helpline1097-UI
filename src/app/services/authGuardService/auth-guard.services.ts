@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
     //     .toPromise()
     //     .then(response => {
     //       if (response) {
-    //         // debugger;
+    // debugger;
     //         this.dataSettingService.Userdata = response.json().data;
     //         // this.dataSettingService.userPriveliges = response.Previlege;
     //         this.dataSettingService.userPriveliges = response.json().data.previlegeObj;
@@ -47,7 +47,7 @@ export class AuthGuard implements CanActivate {
     //       return false;
     //     });
     // }
-    if(authkey) {
+    if (authkey) {
 
       if (key === 'yes') {
         alert('Not allowed to go back, Please complete & close the call');

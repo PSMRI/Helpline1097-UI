@@ -52,6 +52,12 @@ export class ClosureComponent implements OnInit
   languages: any = [];
   preferredLanguageName: any;
   isCallDisconnected: boolean = false;
+  transferValid: boolean = false;
+  campaignNames : any = [];
+  campaignName : any;
+  campaignSkills : any = [];
+  campaignSkill : any;
+
   constructor(
     private _callServices: CallServices,
     private saved_data: dataService,
@@ -87,9 +93,20 @@ export class ClosureComponent implements OnInit
     }
     this.isCallDisconnected = this.saved_data.isCallDisconnected;
     this.getLanguages();
+
+    let data = {
+      "serviceName": this.saved_data.current_service.serviceName
+    }
+    console.log(data);
+    this._callServices.getCampaignNames(data).subscribe(response =>this.campaignNamesSuccess(response),
+  (err)=> {
+    console.log("ERROR IN FETCHING CAMPAIGN NAMES");
+  })
   }
 
-
+  campaignNamesSuccess(res) {
+    this.campaignNames = res.campaign;
+  }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
@@ -121,6 +138,12 @@ export class ClosureComponent implements OnInit
     // })
   }
   getCallSubType(callType: any) {
+    if(callType == 'Transfer') {
+      this.transferValid = true;
+    }
+    else {
+      this.transferValid = false;
+    }
     this.callTypeID = undefined;
     // Below variable is used to disable save and continue when call is already disconnected.
     this.isCallDisconnected = this.saved_data.isCallDisconnected;
@@ -159,6 +182,39 @@ export class ClosureComponent implements OnInit
     }, (err) => {
       this.message.alert(err.errorMessage,'error');
 
+    });
+  }
+
+  getCampaignSkills(campaign_name) {
+    this.campaignSkill = "";
+    this.campaignSkills = [];
+
+    let data = {
+      "campaign_name": campaign_name
+    }
+    this._callServices.getCampaignSkills(data).subscribe(response => this.skillsSuccess(response),
+  (err) => {
+    this.message.alert(err.errorMessage,'error');
+  })
+  }
+  skillsSuccess(res) {
+    this.campaignSkills = res.response ? res.response.skills : [];
+  }
+  
+  transferCall(values) {
+    let obj = {
+      "transfer_from": this.saved_data.cZentrixAgentID,
+      "transfer_campaign_info": values.campaignName,
+      "skill_transfer_flag": values.campaignSkill ? '1' : '0',
+      "skill": values.campaignSkill
+    }
+    this._callServices.transferCall(obj).subscribe(response => {
+      delete values.campaignName;
+      delete values.campaignSkill;
+      this.closeCall(values,"submitClose");
+    },
+    (err) => {
+      this.message.alert("Error in transfering","error");
     });
   }
   closeCall(values: any, btnType: any) {
@@ -255,7 +311,12 @@ export class ClosureComponent implements OnInit
 
   showAlert() {
     sessionStorage.removeItem("isOnCall");
+    if(this.transferValid == true) {
+      this.message.alert("Call transferred successfully",'success');
+    }
+    else {
     this.message.alert('Call closed successfully','success');
+    }
     // alert('Call closed Successful!!!!');
   }
   isFollow(e) {

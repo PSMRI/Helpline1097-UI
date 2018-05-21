@@ -187,7 +187,7 @@ export class InnerpageComponent implements OnInit {
   }
   getSelectedBenDetails(data: any) {
     if (data != null) {
-      this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryRegID;
+      this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryID;
       this.beneficiaryRegID = data.beneficiaryRegID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;

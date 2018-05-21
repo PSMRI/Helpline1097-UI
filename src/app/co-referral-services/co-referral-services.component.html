@@ -127,7 +127,7 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15 m-b-20">
-        <button type="button" class="font-regular mar-right f-s-18" md-raised-button color="primary" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
+        <button type="button" class="font-regular mar-right" md-raised-button color="primary" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
           (click)="GetReferralDetails()">{{currentlanguage.referral_service?.get_details}}</button>
         <button color="accent" md-raised-button (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
       </div>
