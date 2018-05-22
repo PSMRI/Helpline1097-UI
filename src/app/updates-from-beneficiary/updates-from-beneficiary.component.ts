@@ -85,7 +85,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
       this.occupationID = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
       this.educationID = this.saved_data.beneficiaryData.i_bendemographics.educationID;
-      this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationId;
+      this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationID;
       this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = this.saved_data.beneficiaryData.isHIVPos;
       this.remarks = this.saved_data.beneficiaryData.remarks;
@@ -96,7 +96,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       this.beneficiaryRegID = beneficiaryData.beneficiaryRegID;
       this.occupationID = beneficiaryData.i_bendemographics.occupationID;
       this.educationID = beneficiaryData.i_bendemographics.educationID;
-      this.sexualOrientationID = beneficiaryData.sexualOrientationId;
+      this.sexualOrientationID = beneficiaryData.sexualOrientationID;
       this.placeOfWork = beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = beneficiaryData.isHIVPos;
       this.remarks = beneficiaryData.remarks;
@@ -123,7 +123,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationID; // values.occupation;
     this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationID;
     this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
-    this.saved_data.beneficiaryData.sexualOrientationId = values.sexualOrientationID;
+    this.saved_data.beneficiaryData.sexualOrientationID = values.sexualOrientationID;
     this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
     this.saved_data.beneficiaryData.remarks = values.remarks;
     this.saved_data.beneficiaryData.sourceOfInformation = values.cameToKnowFrom ? values.cameToKnowFrom.toString() : undefined;
