@@ -15,7 +15,7 @@ import { SocketService } from '../services/socketService/socket.service';
 @Component({
   selector: 'dashboard-component',
   templateUrl: './dashboard.html',
-  styleUrls : ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css']
 })
 
 export class dashboardContentClass implements OnInit {
@@ -54,41 +54,41 @@ export class dashboardContentClass implements OnInit {
     private callService: CallServices,
     //private toasterService: ToasterService,
     private listnerService: ListnerService, public socketService: SocketService
-  ) { 
+  ) {
 
-    this.socketService.getMessages().subscribe((data)=>{
+    this.socketService.getMessages().subscribe((data) => {
       console.log(data);
       this.alertRefresh++;
-      if(data.type=='Alert'){
+      if (data.type == 'Alert') {
         // this.toasterService.popAsync('error',data.type, data.subject+": "+data.message).subscribe((res)=>{
         //   console.log(res);
         // });
       }
 
-      if(data.type=='Notification'){
+      if (data.type == 'Notification') {
         // this.toasterService.popAsync('success',data.type, data.subject+": "+data.message).subscribe((res)=>{
         //   console.log(res);
         // });
       }
 
-      if(data.type=='Emergency_Contact'){
+      if (data.type == 'Emergency_Contact') {
         // this.toasterService.popAsync('warning',data.type, data.subject+" "+data.message).subscribe((res)=>{
         //   console.log(res);
         // });
       }
 
-      if(data.type=='Training_Resource'){
+      if (data.type == 'Training_Resource') {
         // this.toasterService.popAsync('wait',data.type, data.subject+": "+data.message).subscribe((res)=>{
         //   console.log(res);
         // });
       }
 
-      if(data.type=='Location_Message'){
+      if (data.type == 'Location_Message') {
         // this.toasterService.popAsync('info',data.type, data.subject+": "+data.message).subscribe((res)=>{
         //   console.log(res);
         // });
       }
-  })
+    })
 
   };
 
@@ -109,7 +109,7 @@ export class dashboardContentClass implements OnInit {
     this.listnerService.cZentrixSendData(obj);
     this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
     }, (err) => {
-    //  this.message.alert(err.errorMessage);
+      //  this.message.alert(err.errorMessage);
     })
     // const userObj = JSON.parse(Cookie.get('userID'));
     // if (userObj) {
@@ -119,7 +119,7 @@ export class dashboardContentClass implements OnInit {
 
     //   this.dataSettingService.current_role = roleObj;
     //   this.dataSettingService.current_service = userObj.serviceObj;
-       this.current_role = this.dataSettingService.current_role.RoleName;
+    this.current_role = this.dataSettingService.current_role.RoleName;
     //   this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
     //     if (response.isAuthenticated === true && response.Status === 'Active') {
     //       this.dataSettingService.Userdata = response;
@@ -147,11 +147,11 @@ export class dashboardContentClass implements OnInit {
     this.agentID = this.dataSettingService.cZentrixAgentID;
     this.agentIDexists(this.agentID);
 
-    jQuery(document).ready(function(){
-      jQuery('[data-toggle="tooltip"]').tooltip(); 
+    jQuery(document).ready(function () {
+      jQuery('[data-toggle="tooltip"]').tooltip();
 
-  }); 
-      this.dataSettingService.sendHeaderStatus.next(this.current_role+" Dashboard");
+    });
+    this.dataSettingService.sendHeaderStatus.next(this.current_role + " Dashboard");
 
   }
 
@@ -198,7 +198,7 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-    document.dispatchEvent(event);
+    //document.dispatchEvent(event);
 
   }
 
@@ -209,14 +209,14 @@ export class dashboardContentClass implements OnInit {
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
     // if (event.origin === 'http://10.201.13.17') {
-      if (event.data) {
-        this.eventSpiltData = event.data.split('|');
-      } else {
-        this.eventSpiltData = event.detail.data.split('|');
-      }
-      if (this.eventSpiltData[0].toLowerCase() === 'accept') {
-        this.handleEvent(this.eventSpiltData);
-      }
+    if (event.data) {
+      this.eventSpiltData = event.data.split('|');
+    } else {
+      this.eventSpiltData = event.detail.data.split('|');
+    }
+    if (this.eventSpiltData[0].toLowerCase() === 'accept') {
+      this.handleEvent(this.eventSpiltData);
+    }
     //}
 
   }
@@ -274,7 +274,7 @@ export class dashboardContentClass implements OnInit {
           this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'INBOUND';
           }, (err) => {
-            this.message.alert(err.errorMessage,'error');
+            this.message.alert(err.errorMessage, 'error');
             this.inOutBound = 0;
           })
         } else {
@@ -289,7 +289,7 @@ export class dashboardContentClass implements OnInit {
           this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'OUTBOUND';
           }, (err) => {
-            this.message.alert(err.errorMessage,'error');
+            this.message.alert(err.errorMessage, 'error');
             this.inOutBound = 1;
           })
         } else {
@@ -349,48 +349,48 @@ export class dashboardContentClass implements OnInit {
   ngOnDestroy() {
     this.listenCall();
   }
-    // CODE FOR SIDE NAV
-    clicked: boolean = false;
-    hamburgerHoverOut() {
-      console.log(this.clicked);
-      if (this.clicked === true) {
-        const element = document.querySelector('.leftMenu');
-        element.classList.toggle('openMenu');
-  
-        // const hamburger = document.querySelector('.hamburger');
-        // hamburger.classList.toggle('open');
-  
-        const closeAccordion = document.getElementsByClassName('dropdown');
-        let i = 0;
-        for (i = 0; i < closeAccordion.length; i++) {
-          closeAccordion[i].classList.remove('active');
-        }
-  
+  // CODE FOR SIDE NAV
+  clicked: boolean = false;
+  hamburgerHoverOut() {
+    console.log(this.clicked);
+    if (this.clicked === true) {
+      const element = document.querySelector('.leftMenu');
+      element.classList.toggle('openMenu');
+
+      // const hamburger = document.querySelector('.hamburger');
+      // hamburger.classList.toggle('open');
+
+      const closeAccordion = document.getElementsByClassName('dropdown');
+      let i = 0;
+      for (i = 0; i < closeAccordion.length; i++) {
+        closeAccordion[i].classList.remove('active');
       }
-      this.clicked = false;
+
     }
-  
-    hamburgerClick() {
-      if (this.clicked === false) {
-        this.clicked = true;
-        const element = document.querySelector('.leftMenu');
-        element.classList.toggle('openMenu');
-  
-        // const hamburger = document.querySelector('.hamburger');
-        // hamburger.classList.toggle('open');
-  
-        const closeAccordion = document.getElementsByClassName('dropdown');
-        let i = 0;
-        for (i = 0; i < closeAccordion.length; i++) {
-          closeAccordion[i].classList.remove('active');
-        }
+    this.clicked = false;
+  }
+
+  hamburgerClick() {
+    if (this.clicked === false) {
+      this.clicked = true;
+      const element = document.querySelector('.leftMenu');
+      element.classList.toggle('openMenu');
+
+      // const hamburger = document.querySelector('.hamburger');
+      // hamburger.classList.toggle('open');
+
+      const closeAccordion = document.getElementsByClassName('dropdown');
+      let i = 0;
+      for (i = 0; i < closeAccordion.length; i++) {
+        closeAccordion[i].classList.remove('active');
       }
-  
     }
-    routeToRoleSelection(){
-     this.socketService.logOut();
-      this.router.navigate(['/MultiRoleScreenComponent']);
-     this.socketService.reInstantiate();
-    }
+
+  }
+  routeToRoleSelection() {
+    this.socketService.logOut();
+    this.router.navigate(['/MultiRoleScreenComponent']);
+    this.socketService.reInstantiate();
+  }
 }
 

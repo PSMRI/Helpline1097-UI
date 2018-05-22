@@ -126,7 +126,8 @@
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none">
 
-          <md-select multiple placeholder="{{currentlanguage.other_details?.feedback_question}}" [style.width]="'100%'" [(ngModel)]="cameToKnowFrom" name="cameToKnowFrom">
+          <md-select multiple placeholder="{{currentlanguage.other_details?.feedback_question}}" [style.width]="'100%'" [(ngModel)]="cameToKnowFrom"
+            name="cameToKnowFrom">
             <md-option *ngFor="let source of sourceOfInfo" value="{{source.value}}">
 
               {{source.name}}
@@ -155,9 +156,9 @@
     <!-- </div> -->
     <!--</div>-->
     <!--  </div> -->
-   
-     
-      <!--<div>
+
+
+    <!--<div>
                     <label class="checkbox-inline">
                     <input type="checkbox" value="Pamphlet" [(ngModel)]="knowHow.pamphlet">Pamphlet</label>
                     <label class="checkbox-inline">
@@ -173,14 +174,14 @@
                     <label class="checkbox-inline">
                     <input type="checkbox" value="Not Disclosed" [(ngModel)]="knowHow.notdisclosed">Not Disclosed</label>
                 </div>-->
-      <!--<div *ngFor="let source of sourceOfInfo; let i=index">-->
-      <!--<div *ngFor="let source of sourceOfInfo">-->
+    <!--<div *ngFor="let source of sourceOfInfo; let i=index">-->
+    <!--<div *ngFor="let source of sourceOfInfo">-->
 
-      <!--           <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
+    <!--           <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
 
             <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label> -->
-      
-    
+
+
     <!--<div class="col-xs-12 col-sm-12 m-t-5 m-b-5">
             <div class="row">
                 <button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18" id="">Save</button>

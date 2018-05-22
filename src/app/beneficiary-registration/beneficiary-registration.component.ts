@@ -839,6 +839,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updatedObj.i_bendemographics.preferredLangID = this.preferredLanguage;
 
     this.updatedObj.is1097 = true;
+    this.updatedObj.changeInSelfDetails = true;
+    this.updatedObj.changeInAddress = true;
+    this.updatedObj.changeInContacts = true;
+    this.updatedObj.changeInIdentities = true;
+    this.updatedObj.changeInOtherDetails = true;
+    this.updatedObj.changeInFamilyDetails = true;
+    this.updatedObj.changeInAssociations = true;
+    this.updatedObj.changeInBankDetails = false;
+    this.updatedObj.changeInBenImage = false;
     // saving the updated ben data in the in_app_saved data service file
     this.saved_data.beneficiaryData = this.updatedObj;
     // return;
