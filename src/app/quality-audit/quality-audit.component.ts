@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfigService } from '../services/config/config.service';
 import { dataService } from '../services/dataService/data.service';
 import { QualityAuditService } from '../services/supervisorServices/quality-audit-service.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { NgForm } from '@angular/forms';
+import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-quality-audit',
@@ -19,6 +21,7 @@ export class QualityAuditComponent implements OnInit {
   roles = [];
   callTypes: any = [];
   callSubTypes: any = [];
+  filteredCallList: any = [];
 
   // constants
   userID: any = '';
@@ -26,7 +29,10 @@ export class QualityAuditComponent implements OnInit {
   serviceProviderID: any = '';
   serviceID: any = '';
 
-  @ViewChild('qaForm') qaForm;
+  @ViewChild('qaForm') qaForm: NgForm;
+
+  min: any;
+  max: any;
 
 
   constructor(
@@ -34,10 +40,14 @@ export class QualityAuditComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private commonData: dataService,
     private qualityAuditService: QualityAuditService,
-    private alertService: ConfirmationDialogsService
+    private alertService: ConfirmationDialogsService,
+    public dialog: MdDialog
   ) { }
 
   ngOnInit() {
+    var currentDate = new Date();
+    this.setMinMaxDate(currentDate);
+
     // let url = this.configService.getTelephonyServerURL() + "adminui.php?voice_logger";
     // console.log("url = " + url);
     // this.qualityAuditURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -45,9 +55,23 @@ export class QualityAuditComponent implements OnInit {
     this.serviceProviderID = this.commonData.serviceProviderID;
     this.providerServiceMapID = this.commonData.current_service.serviceID;
     this.getServiceProviderID();
+    this.getFilteredCallList_default();
     // this.getServicelines();
     // this.getAgents();
     // this.getCallTypes();
+  }
+
+  setMinMaxDate(startDate) {
+    this.qaForm.form.patchValue({ 'startDate': new Date(startDate.setHours(0, 0, 0, 0)) });
+    this.min = new Date(startDate.setHours(0, 0, 0, 0));
+
+    var date = new Date();
+    date.setDate(startDate.getDate() + 14);
+    this.max = new Date(date.setHours(23, 59, 59, 0));
+  }
+
+  setEndDate(endDate) {
+    this.qaForm.form.patchValue({ 'endDate': new Date(endDate.setHours(23, 59, 59, 0)) });
   }
 
   blockey(e: any) {
@@ -161,16 +185,90 @@ export class QualityAuditComponent implements OnInit {
     let obj = {
       'calledServiceID': this.providerServiceMapID,
       'callTypeID': formval.CallSubType,
-      'filterStartDate': formval.startDate,
-      'filterEndDate': formval.endDate,
+      'filterStartDate': new Date(formval.startDate.valueOf() - 1 * formval.startDate.getTimezoneOffset() * 60 * 1000),
+      'filterEndDate': new Date(formval.endDate.valueOf() - 1 * formval.endDate.getTimezoneOffset() * 60 * 1000),
       'receivedRoleName': formval.Role
     }
+
+    this.qualityAuditService.getFilteredCallList(obj)
+      .subscribe(response => {
+        console.log('TABLE DATA FETCHED', response);
+        this.filteredCallList = response;
+      }, err => {
+        console.log('TABLE DATA FETCHED ERROR', err.errorMessage);
+        this.alertService.alert(err.errorMessage, 'error');
+        this.filteredCallList = [];
+      });
+  }
+
+  getFilteredCallList_default() {
+    let date = new Date();
+    let startDate = new Date();
+    startDate.setHours(0, 0, 0, 0);
+
+    date.setDate(date.getDate() + 14);
+    let endDate = new Date(date);
+    endDate.setHours(23, 59, 59, 0);
+
+
+    let obj = {
+      'calledServiceID': this.providerServiceMapID,
+      'filterStartDate': new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
+      'filterEndDate': new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000)
+    }
+
+    this.qualityAuditService.getFilteredCallList(obj)
+      .subscribe(response => {
+        console.log('TABLE DATA FETCHED first time', response);
+        this.filteredCallList = response;
+      }, err => {
+        console.log('TABLE DATA FETCHED ERROR', err.errorMessage);
+        this.alertService.alert(err.errorMessage, 'error');
+        this.filteredCallList = [];
+      });
   }
 
   reset() {
     this.qaForm.resetForm();
+    this.getFilteredCallList_default();
+  }
+
+  invokeCaseSheetDialog(benCallID) {
+    this.qualityAuditService.getCallSummary(benCallID)
+      .subscribe(response => {
+        console.log('success in getting call details(casesheet)', response);
+        if (response) {
+          let casesheetDialogReff = this.dialog.open(CaseSheetSummaryDialogComponent, {
+            width: '800px',
+            disableClose: true,
+            data: response
+          });
+        }
+      }, err => {
+        console.log('error in getting call details(casesheet)', err.errorMessage);
+      })
   }
 
 
+
+}
+
+
+@Component({
+  selector: 'app-case-sheet-summary-dialog',
+  templateUrl: './case-sheet-summary-dialog.html',
+  styleUrls: ['./quality-audit.component.css']
+
+})
+export class CaseSheetSummaryDialogComponent {
+
+
+  constructor( @Inject(MD_DIALOG_DATA) public data: any,
+    public dialog: MdDialog,
+    public dialogRef: MdDialogRef<CaseSheetSummaryDialogComponent>,
+    private commondata: dataService,
+    private alertService: ConfirmationDialogsService) {
+    console.log('modal content', this.data);
+  }
 
 }

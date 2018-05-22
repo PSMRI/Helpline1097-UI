@@ -1,180 +1,17 @@
 <div class="row" >
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left"><h4 class="f-s-b m-b-10 m-t-20"> Call Auditing </h4> </label>
-      <!--<div class="clearfix"></div>
-        <div class="col-xs-12 col-sm-12">
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <md-input-container style="width: 100%">
-              <input mdInput placeholder="District" [(ngModel)]="district">
-            </md-input-container>
-          </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <md-input-container style="width: 100%">
-              <input mdInput placeholder="Taluk" [(ngModel)]="taluk">
-            </md-input-container>
-          </div>  
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <md-input-container style="width: 100%">
-              <input mdInput placeholder="Village" [(ngModel)]="village">
-            </md-input-container>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-12">
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
-            <md-select placeholder="Role" [style.width]="'100%'" [(ngModel)]="role">
-              <md-option value="1">
-                RO
-              </md-option>
-              <md-option value="2">
-                HAO
-              </md-option>
-              <md-option value="3">
-                MO
-              </md-option>
-              <md-option value="4">
-                CO
-              </md-option>
-              <md-option value="5">
-                SIO
-              </md-option>
-              <md-option value="5">
-                PD
-              </md-option>
-            </md-select>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-15">
-            <md-select placeholder="Language" [style.width]="'100%'" [(ngModel)]="language">
-              <md-option value="1">
-                English
-              </md-option>
-              <md-option value="2">
-                Hindi
-              </md-option>
-              <md-option value="3">
-                Kannada
-              </md-option>
-            </md-select>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-10">
-            <md-input-container style="width: 100%">
-              <input mdInput [mdDatepicker]="picker1" placeholder="From Date" [(ngModel)]="fromDate">
-              <button mdSuffix [mdDatepickerToggle]="picker1"></button>
-            </md-input-container>
-            <md-datepicker #picker1></md-datepicker>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 m-t-10">
-            <md-input-container style="width: 100%">
-              <input mdInput [mdDatepicker]="picker2" placeholder="To Date" [(ngModel)]="toDate">
-              <button mdSuffix [mdDatepickerToggle]="picker2"></button>
-            </md-input-container>
-            <md-datepicker #picker2></md-datepicker>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 m-t-15">
-            <md-select placeholder="Call Type" [style.width]="'100%'" [(ngModel)]="callType">
-              <md-option value="1">
-                Valid
-              </md-option>
-              <md-option value="2">
-                Invalid
-              </md-option>
-              <md-option value="3">
-                Incomplete
-              </md-option>
-            </md-select>
-          </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 m-t-15">
-            <md-select placeholder="Call Subtype" [style.width]="'100%'" [(ngModel)]="callSubtype">
-              <md-option value="1">
-                SubType1
-              </md-option>
-              <md-option value="2">
-                SubType2
-              </md-option>
-              <md-option value="3">
-                SubType3
-              </md-option>
-            </md-select>
-          </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 m-t-15">
-            <md-select placeholder="Audio Format" [style.width]="'100%'" [(ngModel)]="audioFormat">
-              <md-option value="1">
-                mp3
-              </md-option>
-              <md-option value="2">
-                mp4
-              </md-option>
-            </md-select>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15" align="center">
-          <button md-raised-button (click)="findRecordings()">Get Recordings</button>
-        </div>
-      </div>
-    </div>
-    <div class="row" *ngIf="!showSearchPanel">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-          <button md-raised-button (click)="refineSearch()">Refine Search</button>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive ">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>CallID</th>
-                <th>BeneficiaryID</th>
-                <th>Beneficiary Name</th>
-                <th>Phone Number</th>
-                <th>AgentID</th>
-                <th>Agent Name</th>
-                <th>Date</th>
-                <th>Action</th>
-                <th>Remarks</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="cursor: pointer;">
-                <td>002313</td>
-                <td>BEN0007</td>
-                <td>Diamond Khanna</td>
-                <td>9023650041</td>
-                <td>1253071</td>
-                <td>Prateek Rathi</td>
-                <td>24/06/2017</td>
-                <td style="cursor: pointer;">
-                  <md-icon class="mat-icon material-icons" role="img" aria-hidden="true" (click)="play()">play_circle_outline</md-icon>
-                </td>
-                <td>
-                  <md-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true" (click)="saveRatings()">save</md-icon>
-                </td>
-              </tr>
-              <tr style="cursor: pointer;">
-                <td>002312</td>
-                <td>BEN0123</td>
-                <td>Sabya Sahoo</td>
-                <td>9023902341</td>
-                <td>1253078</td>
-                <td>Jhanvi Pathania</td>
-                <td>24/06/2017</td>
-                <td style="cursor: pointer;">
-                  <md-icon class="mat-icon material-icons" role="img" aria-hidden="true" (click)="play()">play_circle_outline</md-icon>
-                </td>
-                <td>
-                  <md-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true" (click)="saveRatings()">save</md-icon>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>-->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <form #qaForm='ngForm' autocomplete="off" >
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <md2-datepicker name="startDate" (keydown)="blockey($event)"  placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'" ></md2-datepicker>
+          <md2-datepicker name="startDate" (keydown)="blockey($event)"  placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'" (change)="setMinMaxDate(startDate.value)"></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Start Date is required</span>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <md2-datepicker name="endDate" (keydown)="blockey($event)"  placeholder="Valid Till" #endDate="ngModel" ngModel required [style.width]="'100%'" ></md2-datepicker>
+          <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="min" [max]="max"  placeholder="Valid Till" #endDate="ngModel" ngModel required [style.width]="'100%'" (change)="setEndDate(endDate.value)"></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">End Date is required</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value<startDate.value) && endDate.dirty">End Date can not be before Start Date</span>          
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <md-input-container class="hide_underline" [style.width]="'100%'">
@@ -227,7 +64,7 @@
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none">
-            <md-select placeholder="Call Type" [style.width]="'100%'" name="CallType" [(ngModel)]="callGroupType" (change)="populateCallSubTypes(callGroupType)">
+            <md-select placeholder="Call Type" [style.width]="'100%'" name="CallType" [(ngModel)]="callGroupType" (change)="populateCallSubTypes(callGroupType)" required>
               <md-option *ngFor="let item of callTypes" [value]="item.callGroupType" >
                 {{item.callGroupType}}
               </md-option>
@@ -237,7 +74,7 @@
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <md-input-container class="hide_underline" [style.width]="'100%'">
               <input mdInput style="display:none">
-              <md-select placeholder="Call SubType" [style.width]="'100%'" [(ngModel)]="callsubtype" name="CallSubType">
+              <md-select placeholder="Call SubType" [style.width]="'100%'" [(ngModel)]="callsubtype" name="CallSubType" required>
                 <md-option *ngFor="let item of callSubTypes" [value]="item.callTypeID" >
                   {{item.callType}}
                 </md-option>
@@ -245,12 +82,55 @@
             </md-input-container>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <button md-raised-button color="accent" (click)="getFilteredCallList(qaForm.value)">Search</button>
-            <button md-raised-button color="accent" (click)="reset()">Reset</button>
+            <button md-raised-button color="accent" class="m-t-10" (click)="getFilteredCallList(qaForm.value)" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">Search</button>
+            <button md-raised-button color="accent" class="m-t-10" (click)="reset()">Reset</button>
         </div>
       </form>
     </div>
-    
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+        <table class="table table-hover table-striped" [md2Data]="filteredCallList" #md2="md2DataTable" [rowsPerPage]="4">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Call ID</th>
+                <th>Call Date & Time</th>
+                <th>Beneficiary ID</th>
+                <th>Beneficiary Name</th>
+                <th>Beneficiary Phone No.</th>
+                <th>Call Remarks</th>
+                <th>Call Type</th>
+                <th>Case Sheet</th>
+                <th>Voice Record</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="md2.data.length==0">
+                <td class="record-not-found" colspan="10">
+                No Record Found
+                </td>
+              </tr>
+              <tr *ngFor="let record of  md2.data;let i=index ">
+               <td>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</td>
+               <td>{{record.benCallID?record.benCallID:'-'}}</td>
+               <td>{{record.callTime| utcDate| date:'dd/MM/yyyy HH:mm a'}}</td>
+               <td>{{record.beneficiaryID?record.beneficiaryID:'-'}}</td>
+               <td>{{record.name?record.name:'-'}}</td>
+               <td>{{record.phoneNo?record.phoneNo:'-'}}</td>
+               <td>{{record.remarks?record.remarks:'-'}}</td>
+               <td>{{record.callType?record.callType:'-'}}</td>
+               <td><i class="fa fa-file-text-o f-s-20 m-t--8 pull-left f-c-g cursorPointer" aria-hidden="true" (click)="invokeCaseSheetDialog(record.benCallID)"></i></td>
+               <td>{{record.vr?record.vr:'-'}}</td>               
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="10">
+                  <md2-pagination></md2-pagination>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+    </div>
   </div>
   
   <!--Below line commented on 21 may,2018 for screen revamp, Diamond Khanna  -->
