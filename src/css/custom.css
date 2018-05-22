@@ -868,6 +868,13 @@ color:#545454;
 .m-t-80 {
   margin-top: 80px;
 }
+
+.caseSheetHeader{
+	background:#0ab0bf;display: inline-block; padding:5px 10px; color:#fff;	
+}
+.printTable td{
+	border-top:none !important;
+}
 .w-h-20x20{
 	width:20px;
 	height:20px;
@@ -931,6 +938,10 @@ border-radius:50px !important;
 .m-b-0 {
   margin-bottom: 0px !important;
 }
+
+.border-a-1{
+  border:1px solid #ccc !important; 
+  }
 
 .m-b-1 {
   margin-bottom: 1px !important;

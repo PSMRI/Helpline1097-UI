@@ -60,6 +60,8 @@ import { AgentStatusComponent } from './agent-status/agent-status.component';
 import { BlockUnblockNumberComponent } from './block-unblock-number/block-unblock-number.component';
 import { DialBeneficiaryComponent } from './dial-beneficiary/dial-beneficiary.component';
 import { QualityAuditComponent } from './quality-audit/quality-audit.component';
+import { CaseSheetSummaryDialogComponent } from './quality-audit/quality-audit.component';
+
 import { SupervisorNotificationsComponent } from './supervisor-notifications/supervisor-notifications.component';
 
 
@@ -185,7 +187,7 @@ import { AlertsNotificationsDialogComponent } from './alerts-notifications/alert
 //import { ToasterModule } from 'angular2-toaster';
 import { UtcDatePipe } from './utc-date.pipe';
 import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-modal/emergency-contacts-view-modal.component';
-import {QualityAuditService} from './services/supervisorServices/quality-audit-service.service';
+import { QualityAuditService } from './services/supervisorServices/quality-audit-service.service';
 
 
 @NgModule({
@@ -221,8 +223,9 @@ import {QualityAuditService} from './services/supervisorServices/quality-audit-s
     GenderDistributionReportComponent,
     COComponent,
     UtcDatePipe,
-    EmergencyContactsViewModalComponent
-    
+    EmergencyContactsViewModalComponent,
+    CaseSheetSummaryDialogComponent
+
   ],
   imports: [
     BrowserModule,
@@ -297,40 +300,39 @@ import {QualityAuditService} from './services/supervisorServices/quality-audit-s
         component: helpline1097CoComponent
       },
       // {
-        //   path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
-        //   component: InnerpageComponent,
-        //   canActivate: [AuthGuard2],
-        // }
-      ]),
-      Md2Module],
-      entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent,
-        AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
-        , CoAlternateNumberComponent, EmergencyContactsViewModalComponent],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
-          UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
-          UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-          UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2, SocketService,
-          CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-          OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, ForceLogoutService,
-          CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService,
-          QualityAuditService, {
-            provide: InterceptedHttp, useFactory: httpFactory,
-            deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
-          },
-          {
-            provide: AuthorizationWrapper,
-            useFactory: AuthorizationFactory,
-            deps: [XHRBackend, RequestOptions, Router, AuthService, ConfirmationDialogsService]
-          },
-          {
-            provide: HTTP_INTERCEPTORS,
-            useClass: TokenInterceptor,
-            multi: true
-          }, CzentrixServices],
-          
-          bootstrap: [AppComponent]
-        })
-        
-        export class AppModule { }
-        
+      //   path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
+      //   component: InnerpageComponent,
+      //   canActivate: [AuthGuard2],
+      // }
+    ]),
+    Md2Module],
+  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent,
+    AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
+    , CoAlternateNumberComponent, EmergencyContactsViewModalComponent, CaseSheetSummaryDialogComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
+    UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
+    UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2, SocketService,
+    CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
+    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, ForceLogoutService,
+    CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService,
+    QualityAuditService, {
+      provide: InterceptedHttp, useFactory: httpFactory,
+      deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
+    },
+    {
+      provide: AuthorizationWrapper,
+      useFactory: AuthorizationFactory,
+      deps: [XHRBackend, RequestOptions, Router, AuthService, ConfirmationDialogsService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }, CzentrixServices],
+
+  bootstrap: [AppComponent]
+})
+
+export class AppModule { }
