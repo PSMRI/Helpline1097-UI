@@ -7,7 +7,7 @@
           <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none" >
             <md-select class="width100" placeholder="Select Role" name="role" [(ngModel)]="search_role" #role="ngModel" (change)="getAgents(search_role)" required>
-              <md-option *ngFor="let role of roles" [value]="role.RoleID">{{role.RoleName}}</md-option>
+              <md-option *ngFor="let role of roles" [value]="role.roleID">{{role.roleName}}</md-option>
             </md-select>
             <md-hint *ngIf="role.errors && role.touched">
               <span class="error_text">Role is required</span>

@@ -133,9 +133,9 @@ export class ClosureComponent implements OnInit
       return { 'callTypeDesc': item.callGroupType };
     });
     this.calltypes = calls;
-    // this.calltypes = calls.filter((item) => {
-    //   return item.callTypeDesc.toLowerCase().trim() !== 'transfer';
-    // })
+    this.calltypes = calls.filter((item) => {
+      return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds';
+    })
   }
   getCallSubType(callType: any) {
     if(callType == 'Transfer') {

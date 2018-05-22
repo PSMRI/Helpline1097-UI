@@ -51,7 +51,7 @@ export class ReallocateCallsComponent implements OnInit {
     }).subscribe((response) => {
       this.roles = response;
       this.roles = this.roles.filter((obj) => {
-        return obj.RoleName.trim().toUpperCase() != "PROVIDERADMIN" && obj.RoleName.trim().toUpperCase() != "SUPERVISOR";
+        return obj.roleName.trim().toUpperCase() != "PROVIDERADMIN" && obj.roleName.trim().toUpperCase() != "SUPERVISOR";
       });
       console.log("roles:", JSON.stringify(this.roles));
     }),(err) => {

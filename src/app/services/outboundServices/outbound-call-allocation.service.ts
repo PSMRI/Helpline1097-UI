@@ -27,7 +27,7 @@ export class OutboundCallAllocationService {
     getRolesbyProviderID(providerServiceMapID: number) {
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
-        return this._http.post(this._getRole_url, body)
+        return this.httpIntercept.post(this._getRole_url, body)
             .map(this.extractData)
             .catch(this.handleError);
     }

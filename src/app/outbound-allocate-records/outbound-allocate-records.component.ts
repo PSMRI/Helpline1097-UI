@@ -68,7 +68,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         this.initialCount = resProviderData.data.length;
         this.allocateForm.controls['outboundCallRequests'].setValue(resProviderData.data);
       }, err => {
-        this.alertMessage.alert(err.errorMessage,'error');
+        this.alertMessage.alert(err.errorMessage, 'error');
       });
   }
 
@@ -82,13 +82,14 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   }
   getRoles() {
     this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
-      .subscribe(resProviderData => {
-        this.roles = resProviderData.filter(function (item) {
-          return item.RoleName.toLowerCase() !== 'supervisor' && item.RoleName.toLowerCase() !== 'provideradmin';
+      .subscribe(response => {
+        console.log(response);
+        this.roles = response.filter((item) => {
+          return item.roleName.toLowerCase() !== 'supervisor' && item.roleName.toLowerCase() !== 'provideradmin';
         })
       }
-      ),(err) =>{
-        this.alertMessage.alert(err.errorMessage,'error');
+      ), (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
 
       };
   }
@@ -102,20 +103,24 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         console.log('reading...')
         if (resProviderData.length > 0) {
           this.users = resProviderData;
-          this.showAgents = false;
-        } else {
+          if (this.filterAgent != '') {
+            this.users = this.users.filter((obj) => {
+              return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
+            });
+            if (this.users.length > 0) {
+              this.showAgents = false;
+            }
+            else {
+              this.showAgents = true;
+            }
+          }
+        }
+        else {
           this.showAgents = true;
         }
-
-        if (this.filterAgent != '') {
-          this.users = this.users.filter((obj) => {
-            return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
-          })
-        }
-      }),(err) => {
-       this.alertMessage.alert(err.errorMessage,'error');
+      }), (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
       }
-
   }
 
   getAgentsbyLanguageName(roleID: any, languageName) {
@@ -128,11 +133,12 @@ export class OutboundAllocateRecordsComponent implements OnInit {
           })
         }
       }), (err) => {
-        this.alertMessage.alert(err.errorMessage,'error');
+        this.alertMessage.alert(err.errorMessage, 'error');
       }
   }
 
   ngOnChanges() {
+
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.allocateForm.reset();
     this.users = [];
@@ -158,7 +164,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this._OCAService.allocateCallsToAgenta(this.allocateForm.value)
       .subscribe(
       (response) => {
-        this.alertMessage.alert('Call allocated successfully','success');
+        this.alertMessage.alert('Call allocated successfully', 'success');
         this.afterAllocate = false;
         let obj = {};
         if (this.outboundCallRequests.startDate) {
@@ -175,30 +181,30 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         // this.getUnallocateCall(this.providerServiceMapID);
       },
       (error) => {
-        this.alertMessage.alert(error.errorMessage,'error');
+        this.alertMessage.alert(error.errorMessage, 'error');
       });
   }
 
-  blockKey(e: any){
-		if((e.keyCode>47 && e.keyCode<58) || e.keyCode==8 || e.keyCode==9 ){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+  blockKey(e: any) {
+    if ((e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8 || e.keyCode == 9) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
-  validate(key,value){
-		var tempObj={};
-		if(value < 1) {
-			tempObj[key] = undefined;
-			this.allocateForm.patchValue(tempObj);
-		}
-		else if(value>this.initialCount) {
-			tempObj[key] = this.initialCount;
-			this.allocateForm.patchValue(tempObj)
-		}
-	}
+  validate(key, value) {
+    var tempObj = {};
+    if (value < 1) {
+      tempObj[key] = undefined;
+      this.allocateForm.patchValue(tempObj);
+    }
+    else if (value > this.initialCount) {
+      tempObj[key] = this.initialCount;
+      this.allocateForm.patchValue(tempObj)
+    }
+  }
 
   OnSelectChange() {
     let outboundlistCount = this.allocateForm.get('outboundCallRequests').value;

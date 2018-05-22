@@ -14,6 +14,7 @@ import { ClosureComponent } from '../closure/closure.component';
 import { Observable } from 'rxjs/Rx';
 import { ListnerService } from './../services/common/listner.service';
 import { AuthService } from '../services/authentication/auth.service';
+import { RegisterService } from '../services/register-services/register-service';
 
 declare const jQuery: any;
 
@@ -53,6 +54,8 @@ export class InnerpageComponent implements OnInit {
   id: any;
   disconectCallId: any;
   backToDashboard: boolean = true;
+  callID: any;
+
   // eventSpiltData: any;
 
 
@@ -75,7 +78,7 @@ export class InnerpageComponent implements OnInit {
     public basicrouter: Router,
     public router: ActivatedRoute,
     public HttpServices: HttpServices,
-    public http: Http,
+    public http: Http, private _util : RegisterService,
     public sanitizer: DomSanitizer,
     private _config: ConfigService,
     private remarksMessage: ConfirmationDialogsService,
@@ -110,6 +113,8 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.current_service = this.getCommonData.current_service.serviceName;
+    this.current_role = this.getCommonData.current_role.RoleName;
     const obj = { 'innerPage': true };
     this.listnerService.cZentrixSendData(obj);
     this.data = this.getCommonData.Userdata;
@@ -136,13 +141,18 @@ export class InnerpageComponent implements OnInit {
           this.getCommonData.isOutbound = false;
         }
       }
+      if (params['callID'] != undefined) {
+        let callID = params['callID'];
+        if(this.current_role.toLowerCase() != 'supervisor') {
+          this.benByCallID(callID);
+        }
+      }
     });
     this.getCallTypes(this.providerServiceMapId);
     this.language_change = 'english';
     this.getLanguageObject(this.language_change);
 
-    this.current_service = this.getCommonData.current_service.serviceName;
-    this.current_role = this.getCommonData.current_role.RoleName;
+
     if (this.current_role.toLowerCase() === 'supervisor') {
       this.checkRole = false;
     }
@@ -170,7 +180,21 @@ export class InnerpageComponent implements OnInit {
     jQuery('#' + val).find('a').addClass('active-tab');
   }
 
-
+  benByCallID(callID) {
+    let data = '{"callID":"' + callID + '"}';
+    this._callServices.getBeneficiaryByCallID(data).subscribe(response => {
+			if (response.i_beneficiary) {
+				this._util.retrieveRegHistory(response.i_beneficiary.beneficiaryID).subscribe(response => {
+          this.getSelectedBenDetails(response[0]);
+        }),
+        (err) => {
+          console.log("Error in getting ben history");
+        }
+			}			
+		}, (err) => {
+			console.log("error in benDetailByCallerID");
+		});
+  }
   calculateAge(date) {
     if (date) {
       const newDate = new Date(date);
@@ -410,7 +434,7 @@ export class InnerpageComponent implements OnInit {
       && (sessionVar.test(eventData[1]) || eventData[1] === '')) {
       this.getAgentStatus();
       this.disconnectCall();
-      //  this.startCallWraupup(eventData);
+        this.startCallWraupup(eventData);
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
@@ -432,7 +456,7 @@ export class InnerpageComponent implements OnInit {
       requestObj['endCall'] = false;
     }
 
-    requestObj['callType'] = 'valid';
+    requestObj['callType'] = 'wrapup exceeds';
     requestObj['beneficiaryRegID'] = this.beneficiaryRegID
     requestObj['remarks'] = remarks;
     requestObj['providerServiceMapID'] = this.getCommonData.current_service.serviceID;

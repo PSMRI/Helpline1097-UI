@@ -11,7 +11,7 @@
         <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none">
           <md-select [style.width]="'100%'" formControlName="roleID" name="roleID" placeholder="Select Role" (change)="getAgents($event.value)">
-            <md-option *ngFor="let role of roles" [value]="role.RoleID"> {{role.RoleName}}</md-option>
+            <md-option *ngFor="let role of roles" [value]="role.roleID"> {{role.roleName}}</md-option>
           </md-select>
         </md-input-container>
       </div>

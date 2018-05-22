@@ -10,8 +10,8 @@
             <!-- <img src="assets/images/transferCallIcon.png " alt="Caller Icon
     " title="Caller Icon " /> -->
             <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green">{{callStatus}}</span>
-            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold" *ngIf="callTime">{{callDuration}}</span>
-            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold" *ngIf="wrapupTime"> Time Remaining -{{ticks}}</span>
+            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold">{{callDuration}}</span>
+            <!-- <span class="m-l-lg-20 f-s-14 whiteC font-Semibold" *ngIf="wrapupTime"> Time Remaining -{{ticks}}</span> -->
           </li>
         </ul>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
@@ -109,7 +109,10 @@
                 <li *ngIf="selectedBenData.language">{{selectedBenData.language}}</li>
                 <li *ngIf="selectedBenData.relation">{{selectedBenData.relation}}</li>
               </ul>
-              <ul class="list-unstyled list-inline pull-right m-b-0 ">
+              <span *ngIf="wrapupTime" class="pull-right">Time Remaining :
+                  <strong>{{ticks}}</strong>
+                </span>
+              <!-- <ul class="list-unstyled list-inline pull-right m-b-0 "> -->
                 <!--               <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
     " title="Transfer Icon "/></span>
                 <br />
@@ -122,7 +125,7 @@
     Icon " title="End Call Icon "/></span>
               <br />
               <span class="f-s-14 ">End Call</span></li> -->
-              </ul>
+              <!-- </ul> -->
             </div>
           </div>
         </div>

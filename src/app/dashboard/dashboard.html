@@ -86,7 +86,7 @@
           <span class="clearfix"></span>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="current_role!='Supervisor'">
           <div class="col-xs-12 col-sm-12">
             <app-call-statistics></app-call-statistics>
           </div>

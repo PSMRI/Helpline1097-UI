@@ -57,7 +57,7 @@ export class ActivityThisWeekComponent implements OnInit {
 
   openTrainingDialog() {
     let dialog = this.dialog.open(MessageDialogComponent, {
-      width: '400px',
+      width: '700px',
       disableClose: true,
       data: {
         type: 'KM Docs',
