@@ -24,6 +24,10 @@ export class CallServices {
   _switchToInbound_url = this._commonURL + 'cti/switchToInbound/'
   _getRecording_url = this._commonURL + 'call/nueisanceCallHistory/';
   _switchToOutbound_url = this._commonURL + 'cti/switchToOutbound/';
+  _getCampaignNames_url = this._commonURL + 'cti/getCampaignNames';
+  _getCampaignSkills_url = this._commonURL + 'cti/getCampaignSkills';
+  _transferCall_url = this._commonURL + 'cti/transferCall';
+
   constructor(
     private _http: AuthorizationWrapper,
     private _config: ConfigService,
@@ -91,6 +95,15 @@ export class CallServices {
   switchToOutbound(agentID) {
     const agentObj = { 'agent_id': agentID };
     return this._httpInterceptor.post(this._switchToOutbound_url, agentObj).map(this.extractData).catch(this.handleCustomError);
+  }
+  getCampaignNames(serviceNameObj) {
+    return this._http.post(this._getCampaignNames_url,serviceNameObj).map(this.extractData).catch(this.handleError);
+  }
+  getCampaignSkills(campaignName) {
+    return this._httpInterceptor.post(this._getCampaignSkills_url,campaignName).map(this.extractData).catch(this.handleCustomError);
+  }
+  transferCall(data) {
+    return this._httpInterceptor.post(this._transferCall_url,data).map(this.extractData).catch(this.handleCustomError);
   }
   extractData(response: Response) {
     if (response.json().data) {

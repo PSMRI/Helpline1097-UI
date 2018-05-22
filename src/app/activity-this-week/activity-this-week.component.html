@@ -29,16 +29,16 @@
 <div class="panel panel-default m-b-10">
 	<div class="panel-heading p-t-b-3 f-s-16 bg-white">Activity for this week <span class="pull-right"><img src="assets/images/activityIcon.png" alt="Activity"></span></div>
 	<div class="panel-body">
-		<ol class="p-l-15" *ngIf="this.getCommonData.current_campaign != 'OUTBOUND'">
+		<!-- <ol class="p-l-15" *ngIf="this.getCommonData.current_campaign != 'OUTBOUND'">
 			<li>Outbound Worklist</li>
 			<li>Surveryor Worklist</li>
 			<li>Outbound Worklist</li>
 			<li>Surveryor Worklist</li>
 			<li>Outbound Worklist</li>
-		</ol>
-		<ol class="p-l-15" *ngIf="(role==='CO') && (this.getCommonData.current_campaign == 'OUTBOUND' )">
+		</ol> -->
+		<ul class="p-l-15" *ngIf="(role==='CO') && (this.getCommonData.current_campaign == 'OUTBOUND' )">
 			<li><a routerLink="/MultiRoleScreenComponent/InnerpageComponent"   routerLinkActive="active">Outbound Worklist</a></li>
-    </ol>
+    </ul>
     <div class="row">         
       <div class="col-xs-3 col-sm-3 m-t-10">
         <ul class="dots p-a-0">

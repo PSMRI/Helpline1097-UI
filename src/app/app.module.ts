@@ -185,6 +185,7 @@ import { AlertsNotificationsDialogComponent } from './alerts-notifications/alert
 //import { ToasterModule } from 'angular2-toaster';
 import { UtcDatePipe } from './utc-date.pipe';
 import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-modal/emergency-contacts-view-modal.component';
+import {QualityAuditService} from './services/supervisorServices/quality-audit-service.service';
 
 
 @NgModule({
@@ -221,7 +222,7 @@ import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-m
     COComponent,
     UtcDatePipe,
     EmergencyContactsViewModalComponent
-
+    
   ],
   imports: [
     BrowserModule,
@@ -296,38 +297,40 @@ import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-m
         component: helpline1097CoComponent
       },
       // {
-      //   path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
-      //   component: InnerpageComponent,
-      //   canActivate: [AuthGuard2],
-      // }
-    ]),
-    Md2Module],
-  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent,
-    AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
-    , CoAlternateNumberComponent, EmergencyContactsViewModalComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
-    UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
-    UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2, SocketService,
-    CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
-    OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, ForceLogoutService,
-    CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService, {
-      provide: InterceptedHttp, useFactory: httpFactory,
-      deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
-    },
-    {
-      provide: AuthorizationWrapper,
-      useFactory: AuthorizationFactory,
-      deps: [XHRBackend, RequestOptions, Router, AuthService, ConfirmationDialogsService]
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }, CzentrixServices],
-
-  bootstrap: [AppComponent]
-})
-
-export class AppModule { }
+        //   path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
+        //   component: InnerpageComponent,
+        //   canActivate: [AuthGuard2],
+        // }
+      ]),
+      Md2Module],
+      entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent,
+        AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
+        , CoAlternateNumberComponent, EmergencyContactsViewModalComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
+          UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
+          UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
+          UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2, SocketService,
+          CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
+          OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, ForceLogoutService,
+          CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService,
+          QualityAuditService, {
+            provide: InterceptedHttp, useFactory: httpFactory,
+            deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
+          },
+          {
+            provide: AuthorizationWrapper,
+            useFactory: AuthorizationFactory,
+            deps: [XHRBackend, RequestOptions, Router, AuthService, ConfirmationDialogsService]
+          },
+          {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+          }, CzentrixServices],
+          
+          bootstrap: [AppComponent]
+        })
+        
+        export class AppModule { }
+        

@@ -44,7 +44,7 @@
   </div>
   <router-outlet></router-outlet>
   <div (click)="minimizeBar()" *ngIf="hideBar">
-    <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
+    <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
     <!-- <iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar"></iframe> -->
     <!-- <iframe *ngIf="current_role.toLowerCase().trim()!=='supervisor'" [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar"
       [hidden]="barMinimized" (click)="toggleBar()"></iframe> -->

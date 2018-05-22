@@ -137,9 +137,9 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
-        <button [disabled]="searchForm.invalid" type="button" md-raised-button color="accent" class="f-s-18 m-r-10 pull-right" value="search"
-          (click)="searchBeneficiary(searchForm.value)">{{currentlanguage.beneficiary_registration?.search}}</button>
-        <!--  <button type="button" md-raised-button color="accent" class="f-s-18" value="search" (click)="back1()">{{currentlanguage.beneficiary_registration?.back}}</button> -->
+        <button [disabled]="searchForm.invalid" type="button" md-raised-button color="accent" class="m-r-10 pull-right"
+          value="search" (click)="searchBeneficiary(searchForm.value)">{{currentlanguage.beneficiary_registration?.search}}</button>
+       <!--  <button type="button" md-raised-button color="accent" class="" value="search" (click)="back1()">{{currentlanguage.beneficiary_registration?.back}}</button> -->
       </div>
     </form>
   </div>
@@ -278,7 +278,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <div class="form-group">
           <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
-          <md2-datepicker required (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
+          <md2-datepicker (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
             name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB" #ageEvent2="ngModel"></md2-datepicker>
         </div>
       </div>
@@ -564,18 +564,16 @@
       </div>
 
       <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="!updationProcess">
-        <button md-raised-button color="primary" class="p-l-r-38 font-regular f-s-18" (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
-
-        <button md-raised-button color="primary" [disabled]="BeneficaryForm.invalid || !stateSelected.valid || !citySelected.valid || pin.errors?.minlength"
-          class="pull-right p-l-r-38 font-regular
-                f-s-18" (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
-        <button md-raised-button class="pull-right p-l-r-38 m-l-10 m-r-10 font-regular
-                f-s-18" (click)="BeneficaryForm.reset();reset()">{{currentlanguage.beneficiary_registration?.clear}}</button>
+        <button md-raised-button color="primary" class="p-l-r-38 font-regular "  (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
+        
+        <button md-raised-button color="primary" [disabled]="BeneficaryForm.invalid || !stateSelected.valid || !citySelected.valid || pin.errors?.minlength" class="pull-right p-l-r-38 font-regular
+                " (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
+                <button md-raised-button class="pull-right p-l-r-38 m-l-10 m-r-10 font-regular
+                " (click)="BeneficaryForm.reset();reset()">{{currentlanguage.beneficiary_registration?.clear}}</button>
       </div>
       <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="updationProcess">
-        <button md-raised-button color="accent" class="p-l-r-38 font-regular f-s-18" (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>
-        <button md-raised-button [disabled]="BeneficaryForm.invalid || pin.errors?.minlength" color="primary" class="pull-right p-l-r-38 font-regular f-s-18"
-          (click)="updateBeneficiary()">{{currentlanguage.beneficiary_registration?.update}}</button>
+        <button md-raised-button color="accent" class="p-l-r-38 font-regular "  (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>
+        <button md-raised-button [disabled]="BeneficaryForm.invalid || pin.errors?.minlength" color="primary" class="pull-right p-l-r-38 font-regular " (click)="updateBeneficiary()">{{currentlanguage.beneficiary_registration?.update}}</button>
       </div>
     </div>
   </form>
