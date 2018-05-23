@@ -10,7 +10,7 @@ import { ListnerService } from './../services/common/listner.service';
 import { CallServices } from './../services/callservices/callservice.service';
 declare var jQuery: any;
 import { SocketService } from '../services/socketService/socket.service';
-//import {ToasterService, ToasterConfig} from 'angular2-toaster';
+import {ToasterService, ToasterConfig} from 'angular2-toaster';
 
 @Component({
   selector: 'dashboard-component',
@@ -42,6 +42,11 @@ export class dashboardContentClass implements OnInit {
 
   agentID: any;
   agentIDExitsFlag: boolean = false;
+  public config: ToasterConfig = 
+  new ToasterConfig({
+      timeout: 15000
+  });
+
   constructor(
     public dataSettingService: dataService,
     public router: Router,
@@ -52,7 +57,7 @@ export class dashboardContentClass implements OnInit {
     private _loginService: loginService,
     private renderer: Renderer,
     private callService: CallServices,
-    //private toasterService: ToasterService,
+    private toasterService: ToasterService,
     private listnerService: ListnerService, public socketService: SocketService
   ) {
 
@@ -60,33 +65,33 @@ export class dashboardContentClass implements OnInit {
       console.log(data);
       this.alertRefresh++;
       if (data.type == 'Alert') {
-        // this.toasterService.popAsync('error',data.type, data.subject+": "+data.message).subscribe((res)=>{
-        //   console.log(res);
-        // });
+        this.toasterService.popAsync('error',data.type, data.subject+": "+data.message).subscribe((res)=>{
+          console.log(res);
+        });
       }
 
       if (data.type == 'Notification') {
-        // this.toasterService.popAsync('success',data.type, data.subject+": "+data.message).subscribe((res)=>{
-        //   console.log(res);
-        // });
+        this.toasterService.popAsync('success',data.type, data.subject+": "+data.message).subscribe((res)=>{
+          console.log(res);
+        });
       }
 
       if (data.type == 'Emergency_Contact') {
-        // this.toasterService.popAsync('warning',data.type, data.subject+" "+data.message).subscribe((res)=>{
-        //   console.log(res);
-        // });
+        this.toasterService.popAsync('warning',data.type, data.subject+" "+data.message).subscribe((res)=>{
+          console.log(res);
+        });
       }
 
       if (data.type == 'Training_Resource') {
-        // this.toasterService.popAsync('wait',data.type, data.subject+": "+data.message).subscribe((res)=>{
-        //   console.log(res);
-        // });
+        this.toasterService.popAsync('wait',data.type, data.subject+": "+data.message).subscribe((res)=>{
+          console.log(res);
+        });
       }
 
       if (data.type == 'Location_Message') {
-        // this.toasterService.popAsync('info',data.type, data.subject+": "+data.message).subscribe((res)=>{
-        //   console.log(res);
-        // });
+        this.toasterService.popAsync('info',data.type, data.subject+": "+data.message).subscribe((res)=>{
+          console.log(res);
+        });
       }
     })
 

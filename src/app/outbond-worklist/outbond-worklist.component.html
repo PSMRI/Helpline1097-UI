@@ -24,12 +24,11 @@
               <th>Call </th>
             </tr>
           </thead>
-          <tbody *ngIf="md2.data.length==0">
-            <p width=100% align="center">
-              No Outbound Records
-            </p>
-          </tbody>
-          <tbody *ngIf="md2.data.length>0">
+          <tbody>
+            <tr class="t-a-c record-not-found" *ngIf="md2.data.length==0">
+                No Outbound Records
+            </tr>
+
             <tr *ngFor="let listItem of  md2.data">
               <!-- <td width=20%>{{listItem.beneficiary?.benPhoneMaps[0]?.phoneNo.substing(4)}}</td> -->
               <td width=20%>{{listItem.beneficiary?.beneficiaryRegID}}</td>

@@ -4,6 +4,7 @@ import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { SocketService } from '../services/socketService/socket.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class loginContentClass implements OnInit {
   previlageObj: any = [];
 
   constructor(public loginservice: loginService, public router: Router, public alertService: ConfirmationDialogsService,
-    public dataSettingService: dataService, private czentrixServices: CzentrixServices) {
+    public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService) {
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         this.dataSettingService.Userdata = response;
@@ -113,6 +114,8 @@ export class loginContentClass implements OnInit {
       sessionStorage.removeItem('isOnCall');
       localStorage.setItem('authToken', response.key);
       this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+      this.socketService.reInstantiate();
+
     }
     if (response.isAuthenticated === true && response.Status === 'New') {
       localStorage.setItem('authToken', response.key);

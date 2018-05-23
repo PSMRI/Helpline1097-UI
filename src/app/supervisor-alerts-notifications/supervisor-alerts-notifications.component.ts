@@ -266,21 +266,21 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     let roomArray = [];
     if (roleID == undefined && allOfficeIDs == undefined) {
       for (var i = 0; i < this.roles.length; i++) {
-        roomArray.push(this.providerServiceMapID+"-"+this.roles[i].roleName);
+        roomArray.push(this.providerServiceMapID+"_"+this.roles[i].roleName.toLowerCase());
       }
     }
     else if (roleID != undefined && allOfficeIDs == undefined) {
       let selectedRole = this.roles.filter((item) => {
         return item.roleID == roleID;
       })
-      roomArray.push(this.providerServiceMapID+"-"+selectedRole[0].roleName);
+      roomArray.push(this.providerServiceMapID+"_"+selectedRole[0].roleName.toLowerCase());
     }
     else {
       let selectedRole = this.roles.filter((item) => {
         return item.roleID == roleID;
       })
       for (var i = 0; i < allOfficeIDs.length; i++) {
-        roomArray.push(this.providerServiceMapID+"-"+selectedRole[0].roleName + "_" + allOfficeIDs[i]);
+        roomArray.push(this.providerServiceMapID+"_"+selectedRole[0].roleName.toLowerCase() + "_" + allOfficeIDs[i]);
       }
     }
 

@@ -184,7 +184,7 @@ import { SupervisorEmergencyContactsComponent } from './supervisor-emergency-con
 import { ForceLogoutComponent } from './force-logout/force-logout.component';
 import { ForceLogoutService } from './services/supervisorServices/forceLogoutService.service';
 import { AlertsNotificationsDialogComponent } from './alerts-notifications/alerts-notifications.component';
-//import { ToasterModule } from 'angular2-toaster';
+import { ToasterModule } from 'angular2-toaster';
 import { UtcDatePipe } from './utc-date.pipe';
 import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-modal/emergency-contacts-view-modal.component';
 import { QualityAuditService } from './services/supervisorServices/quality-audit-service.service';
@@ -243,7 +243,7 @@ import { QualityAuditService } from './services/supervisorServices/quality-audit
     ValidationMessagesModule,
     BrowserAnimationsModule,
     MdCardModule,
-    //ToasterModule,
+    ToasterModule,
     MdTabsModule,
     RouterModule.forRoot([
       {

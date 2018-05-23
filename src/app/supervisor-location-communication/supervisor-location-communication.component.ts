@@ -211,12 +211,12 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
         defaultObj['workingLocationID'] = workingLocationIDs[i];
 
-        roomArray.push(this.providerServiceMapID + "-" + workingLocationIDs[i].toString());
+        roomArray.push(this.providerServiceMapID + "_" + workingLocationIDs[i].toString());
 
         request_array.push(defaultObj);
       }
     }
-
+    console.log(roomArray);
     this.notification_service.createNotification(request_array)
       .subscribe(response => {
         console.log(response.data, "Location Message created");

@@ -40,11 +40,12 @@ export class ServiceRoleSelectionComponent implements OnInit {
         let providerServiceMapID = service.providerServiceMapID;
         //code for live notification
         let finalArray = [
-            providerServiceMapID + "-" + roleName,
-            providerServiceMapID + "-" + roleName + "_" + role.workingLocationID,
-            providerServiceMapID + "-" + role.workingLocationID.toString()
+            providerServiceMapID + "_" + roleName.toLowerCase(),
+            providerServiceMapID + "_" + roleName.toLowerCase() + "_" + role.workingLocationID,
+            providerServiceMapID + "_" + role.workingLocationID.toString()
         ]
         console.log(finalArray);
+        debugger;
         this.socketService.sendRoomsArray({ userId: this.getCommonData.uid, role: finalArray });
 
         //code ended
