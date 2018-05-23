@@ -9,7 +9,7 @@
       <h4 class="col-xs-12 col-sm-12 m-t-10 ">Service Type 1097
         <ul class="pull-right list-inline list-unstyled">
           <li class="f-s-14"><a><i class="fa fa-download cursorPointer" aria-hidden="true"></i>   Download </a></li>
-          <li class="f-s-14"><strong> Date :</strong> <span> 12-01-2018</span> </li>
+          <li class="f-s-14"><strong> Date :</strong> <span> {{current_date|date:'dd/MM/yyyy'}}</span> </li>
         </ul>
       </h4>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-10 "> </div>
@@ -51,11 +51,11 @@
         <h4 class=""><span class="">Information Service</span></h4>
         <div class="table-responsive">
           <table class="table printTable m-b-0">
-            <tr>
+            <tr *ngFor="let item of information_services">
               <td class="col-xs-12 col-sm-3 p-l-0"><strong> Category :</strong></td>
-              <td class="col-xs-12 col-sm-3">Category</td>
+              <td class="col-xs-12 col-sm-3">{{item?.categoryDetails?.categoryName}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Sub Category :</strong></td>
-              <td class="col-xs-12 col-sm-3">Sub Category</td>
+              <td class="col-xs-12 col-sm-3">{{item?.subCategoryName}}</td>
             </tr>
           </table>
         </div>
@@ -64,11 +64,11 @@
         <h4 class=""><span class="">Counseling Service</span></h4>
         <div class="table-responsive">
           <table class="table printTable m-b-0">
-            <tr>
+            <tr *ngFor="let item of counselling_services">
               <td class="col-xs-12 col-sm-3 p-l-0"><strong> Category :</strong></td>
-              <td class="col-xs-12 col-sm-3">Category</td>
+              <td class="col-xs-12 col-sm-3">{{item?.categoryDetails?.categoryName}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Sub Category :</strong></td>
-              <td class="col-xs-12 col-sm-3">Sub Category</td>
+              <td class="col-xs-12 col-sm-3">{{item?.subCategoryName}}</td>
             </tr>
           </table>
         </div>
@@ -77,35 +77,35 @@
         <h4 class=""><span class="">Feedback Service</span></h4>
         <div class="table-responsive">
           <table class="table printTable m-b-0">
-            <tr>
+            <tr *ngFor="let item of feedback_services">
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>State:</strong></td>
-              <td class="col-xs-12 col-sm-3">Karnataka</td>
+              <td class="col-xs-12 col-sm-3">{{item.state}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>District :</strong></td>
-              <td class="col-xs-12 col-sm-3">Bangalore</td>
+              <td class="col-xs-12 col-sm-3">{{item.district}}</td>
             </tr>
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Sub District :</strong></td>
-              <td class="col-xs-12 col-sm-3">Bangalore</td>
+              <td class="col-xs-12 col-sm-3">{{item.block}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Institute Name:</strong></td>
-              <td class="col-xs-12 col-sm-3">Institute Name</td>
+              <td class="col-xs-12 col-sm-3">{{item.institute}}</td>
             </tr>
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Designation  :</strong></td>
-              <td class="col-xs-12 col-sm-3">designation</td>
+              <td class="col-xs-12 col-sm-3">{{item.designationID}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Type of Feedback:</strong></td>
-              <td class="col-xs-12 col-sm-3">Type of feedback</td>
+              <td class="col-xs-12 col-sm-3">{{item.feedbackTypeID}}</td>
             </tr>
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Incident date  :</strong></td>
-              <td class="col-xs-12 col-sm-3">Incident date</td>
+              <td class="col-xs-12 col-sm-3">{{item.serviceAvailDate|utcDate|date:'dd/MM/yyyy'}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Severity:</strong></td>
-              <td class="col-xs-12 col-sm-3">Severity</td>
+              <td class="col-xs-12 col-sm-3">{{item.severityID}}</td>
             </tr>
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Feedback Description:</strong></td>
-              <td class="col-xs-12 col-sm-3">Feedback Description</td>
+              <td class="col-xs-12 col-sm-3">{{item.feedback}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Feedback ID:</strong></td>
-              <td class="col-xs-12 col-sm-3">Feed00123</td>
+              <td class="col-xs-12 col-sm-3">{{item.feedbackID}}</td>
             </tr>
           </table>
         </div>
@@ -114,21 +114,21 @@
         <h4 class=""><span class="">Referral service</span></h4>
         <div class="table-responsive">
           <table class="table printTable m-b-0">
-            <tr>
+            <tr *ngFor="let item of refferal_services">
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>State:</strong></td>
-              <td class="col-xs-12 col-sm-3">Karnataka</td>
+              <td class="col-xs-12 col-sm-3">{{item.state}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>District :</strong></td>
-              <td class="col-xs-12 col-sm-3">Bangalore</td>
+              <td class="col-xs-12 col-sm-3">{{item.district}}</td>
             </tr>
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Sub District :</strong></td>
-              <td class="col-xs-12 col-sm-3">Bangalore</td>
+              <td class="col-xs-12 col-sm-3">{{item.block}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong>Information Required:</strong></td>
-              <td class="col-xs-12 col-sm-3">Information Required</td>
+              <td class="col-xs-12 col-sm-3">{{item.info}}</td>
             </tr>
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong> Results :</strong></td>
-              <td class="col-xs-12 col-sm-3">Results</td>
+              <td class="col-xs-12 col-sm-3">{{item.results}}</td>
               <td class="col-xs-12 col-sm-3 p-l-0"><strong> </strong></td>
               <td class="col-xs-12 col-sm-3"></td>
             </tr>

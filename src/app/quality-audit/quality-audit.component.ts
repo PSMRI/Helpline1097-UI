@@ -184,6 +184,7 @@ export class QualityAuditComponent implements OnInit {
       for (let i = 0; i < this.callSubTypes.length; i++) {
         arr = this.callSubTypes[i].callTypes;
       }
+      this.callsubtype = '';
       this.callSubTypes = arr;
     }
   }
@@ -211,12 +212,12 @@ export class QualityAuditComponent implements OnInit {
 
   getFilteredCallList_default() {
     let date = new Date();
-    let startDate = new Date();
-    startDate.setHours(0, 0, 0, 0);
-
-    date.setDate(date.getDate() + 14);
-    let endDate = new Date(date);
+    let endDate = new Date();
     endDate.setHours(23, 59, 59, 0);
+
+    date.setDate(date.getDate() - 14);
+    let startDate = new Date(date);
+    startDate.setHours(0, 0, 0, 0);
 
 
     let obj = {
@@ -270,13 +271,23 @@ export class QualityAuditComponent implements OnInit {
 })
 export class CaseSheetSummaryDialogComponent {
 
+  information_services: any = [];
+  counselling_services: any = [];
+  refferal_services: any = [];
+  feedback_services: any = [];
 
+  current_date = new Date();
   constructor( @Inject(MD_DIALOG_DATA) public data: any,
     public dialog: MdDialog,
     public dialogRef: MdDialogRef<CaseSheetSummaryDialogComponent>,
     private commondata: dataService,
     private alertService: ConfirmationDialogsService) {
     console.log('modal content', this.data);
+
+    this.information_services = this.data[0].informations;
+    this.counselling_services = this.data[0].counsellings;
+    this.refferal_services = this.data[0].referrals;
+    this.feedback_services = this.data[0].feedbacks;
   }
 
 }
