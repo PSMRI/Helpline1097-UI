@@ -283,11 +283,13 @@ export class CaseSheetSummaryDialogComponent {
     private commondata: dataService,
     private alertService: ConfirmationDialogsService) {
     console.log('modal content', this.data);
+    if (this.data.length > 0) {
+      this.information_services = this.data[0].informations;
+      this.counselling_services = this.data[0].counsellings;
+      this.refferal_services = this.data[0].referrals;
+      this.feedback_services = this.data[0].feedbacks;
+    }
 
-    this.information_services = this.data[0].informations;
-    this.counselling_services = this.data[0].counsellings;
-    this.refferal_services = this.data[0].referrals;
-    this.feedback_services = this.data[0].feedbacks;
   }
 
 }
