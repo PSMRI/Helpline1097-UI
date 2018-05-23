@@ -11,7 +11,7 @@ import { SocketService } from '../services/socketService/socket.service';
 })
 export class ServiceRoleSelectionComponent implements OnInit {
     privleges: any;
-    
+
     constructor(
         public getCommonData: dataService,
         public router: Router,
@@ -19,25 +19,33 @@ export class ServiceRoleSelectionComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        		this.getCommonData.sendHeaderStatus.next("Role Selection");
+        this.getCommonData.sendHeaderStatus.next("Role Selection");
 
         this.privleges = this.getCommonData.userPriveliges;
         // this.privleges[3].roles[1].RoleName = 'Supervisor';
 
     }
 
-    route2dashboard(role:any, service: any) {
-        let roleName = role.RoleName;
+    route2dashboard(role: any, service: any) {
+        let roleName = '';
         let serviceName = service.serviceName;
+        let screen = role.serviceRoleScreenMappings[0].screen.screenName;
+        if (screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
+            roleName = 'co';
+        } else if (screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {
+            roleName = 'supervisor';
+        } else {
+            roleName = '';
+        }
         let providerServiceMapID = service.providerServiceMapID;
         //code for live notification
         let finalArray = [
-			providerServiceMapID+"-"+roleName,
-		    providerServiceMapID+"-"+roleName+"_"+role.workingLocationID,
-			providerServiceMapID+"-"+role.workingLocationID.toString()
-		]
-		console.log(finalArray);
-		this.socketService.sendRoomsArray({ userId: this.getCommonData.uid , role: finalArray });
+            providerServiceMapID + "-" + roleName,
+            providerServiceMapID + "-" + roleName + "_" + role.workingLocationID,
+            providerServiceMapID + "-" + role.workingLocationID.toString()
+        ]
+        console.log(finalArray);
+        this.socketService.sendRoomsArray({ userId: this.getCommonData.uid, role: finalArray });
 
         //code ended
 
@@ -52,9 +60,16 @@ export class ServiceRoleSelectionComponent implements OnInit {
             } else {
                 this.listnerService.cZentrixSendData({ 'hideBar': false });
             }
-            
+
             this.getCommonData.current_workingLocationID = role.workingLocationID;
-            this.getCommonData.current_role = role;
+            if (screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
+                this.getCommonData.current_role = { 'RoleName': 'CO' };
+            } else if (screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {
+                this.getCommonData.current_role = { 'RoleName': 'Supervisor' };
+            } else {
+                this.getCommonData.current_role = '';
+            }
+            // this.getCommonData.current_role = role;
             this.getCommonData.current_service = service;
             this.router.navigate(['/MultiRoleScreenComponent/dashboard']);
             this.getCommonData.cZentrixAgentID =
