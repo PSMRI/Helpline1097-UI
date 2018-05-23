@@ -29,6 +29,14 @@ export class QualityAuditComponent implements OnInit {
   serviceProviderID: any = '';
   serviceID: any = '';
 
+  // ngModels
+  role: any;
+  ioc: any;
+  agent: any;
+  phno: any;
+  callGroupType: any;
+  callsubtype: any;
+
   @ViewChild('qaForm') qaForm: NgForm;
 
   min: any;
