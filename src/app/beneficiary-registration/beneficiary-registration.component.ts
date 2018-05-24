@@ -653,7 +653,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       });
       this.beneficiaryRelationID = undefined;
 
-      this.relationshipWith = 'Relationship with  ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
+      this.relationshipWith = 'Relationship with  ' + this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "" + ' ' + this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "";
       this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
       // if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
       // if ((this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID)) {
@@ -917,6 +917,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.onBenSelect.emit('benService');
         this.showSearchResult = false;
         this.notCalledEarlierLowerPart = false;
+        this.saved_data.beneficiarySelected.next({
+          "beneficiarySelected" : true
+        });
       });
     }
 
@@ -939,7 +942,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       if (response) {
         if (response.length > 0) {
           this.beneficiaryRelationID = undefined;
-          this.relationshipWith = 'Relationship With ' + response[0].firstName + ' ' + response[0].lastName;
+          let fname = response[0].firstName ? response[0].firstName : "";
+          let lname = response[0].lastName ? response[0].lasstName : ""
+          this.relationshipWith = 'Relationship with ' + fname + ' ' + lname;
         }
 
       }

@@ -53,7 +53,7 @@
         "village": "Village",
         "preferred_language": "Preferred Language",
         "beneficiary_tagging": "Beneficiary Tagging",
-        "no_records_found": "No Records Found",
+        "no_records_found": "No records found",
         "action": "Action"
       },
       "registration_form": "Registration Form",
@@ -94,7 +94,7 @@
         "subcategory": "Sub-Category",
         "created_by": "Information Provided By",
         "created_on": "Information Provided On",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "new_informations": "New Information"
     },
@@ -111,7 +111,7 @@
         "subcategory": "Sub-Category",
         "created_by": "Counselling Provided By",
         "created_on": "Counselling Provided On",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "new_counsellings": "New Counselling"
     },
@@ -138,7 +138,7 @@
         "institute_name": "Name Of Institute",
         "created_by": "Referral Provided By",
         "created_on": "Referral Provided On",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "new_referral": "New Referral"
     },
@@ -166,7 +166,7 @@
         "agent": "Agent",
         "status": "Status",
         "created_date": "Created Date",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "create_feedback": "Create Feedback"
     },
@@ -253,7 +253,7 @@
         "village": "Village",
         "preferred_language": "Preferred Language",
         "beneficiary_tagging": "Beneficiary Tagging",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "registration_form": "Registration Form",
       "title": "Title",
@@ -291,7 +291,7 @@
         "subcategory": "Sub-Category",
         "created_by": "Information Provided By",
         "created_on": "Information Provided On",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "new_informations": "New Informations"
     },
@@ -307,7 +307,7 @@
         "subcategory": "Sub-Category",
         "created_by": "Counselling Provided By",
         "created_on": "Counselling Provided On",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "new_counsellings": "New Counsellings"
     },
@@ -328,7 +328,7 @@
         "institute_name": "Name Of Institute",
         "created_by": "Referral Provided By",
         "created_on": "Referral Provided On",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "new_referral": "New Referral"
     },
@@ -354,7 +354,7 @@
         "agent": "Agent",
         "status": "Status",
         "created_date": "Created Date",
-        "no_records_found": "No Records Found"
+        "no_records_found": "No records found"
       },
       "create_feedback": "Create Feedback"
     },

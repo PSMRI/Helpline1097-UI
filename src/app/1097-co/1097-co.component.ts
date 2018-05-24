@@ -31,7 +31,7 @@ export class helpline1097CoComponent implements OnInit {
   @Input() current_language: any;
   currentlanguage: any;
   resetProvideServices: any;
-
+  disableBack: boolean;
   private current_campaign: any;
 
   data: any = this.getCommonData.Userdata;
@@ -60,6 +60,10 @@ export class helpline1097CoComponent implements OnInit {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
     }, 1000);
+    this.getCommonData.beneficiarySelected.subscribe((data)=>{
+      this.setFlag()
+    });
+
   }
 
 
@@ -87,6 +91,7 @@ export class helpline1097CoComponent implements OnInit {
       }
 
     });
+    this.disableBack = true;
   }
 
 
@@ -325,5 +330,7 @@ export class helpline1097CoComponent implements OnInit {
   CancelDisable() {
     this.isCancelDisable = false;
   }
-
+  setFlag() {
+    this.disableBack = false;
+  }
 }
