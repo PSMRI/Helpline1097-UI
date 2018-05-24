@@ -38,6 +38,8 @@ export class dataService {
 	current_workingLocationID: any;
 	sendHeaderStatus = new Subject();
 	currentCampaignName: any;
+	outboundBenRegID : any;
+    inOutCampaign = new Subject();
 
 
 

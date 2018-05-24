@@ -60,6 +60,10 @@ export class dashboardContentClass implements OnInit {
     private toasterService: ToasterService,
     private listnerService: ListnerService, public socketService: SocketService
   ) {
+    this.dataSettingService.inOutCampaign.subscribe((data) => {
+      console.log(data);
+      this.setCampaign(data)
+    });
 
     this.socketService.getMessages().subscribe((data) => {
       console.log(data);
@@ -170,12 +174,21 @@ export class dashboardContentClass implements OnInit {
     }
 
   }
-
+  setCampaign(data) {
+    if (data == '1') {
+      this.dataSettingService.current_campaign = 'INBOUND';
+      this.inOutBound = data;
+    }
+    else if (data == '0') {
+      this.dataSettingService.current_campaign = 'OUTBOUND';
+      this.inOutBound = data;
+    }
+  }
   showDashboard() {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
-    // this.addListener();
+     this.addListener();
     this.listenCall = this.renderer.listenGlobal('window', 'message', (event) => {
       this.listener(event);
       // Do something with 'event'

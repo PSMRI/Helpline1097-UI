@@ -134,7 +134,7 @@
       </div>
       <div class="clearfix"></div>
       <button *ngIf="current_campaign.toUpperCase() !== 'OUTBOUND'" md-raised-button color="accent" type="submit" name="save"
-        value="submitContinue" [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid || Form.invalid || transferValid" class="font-regular pull-right"
+        value="submitContinue" [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid || Form.invalid || transferValid || callType.value == 'Invalid'" class="font-regular pull-right"
         (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentlanguage.closure?.submitContinue}}</button>
       <button md-raised-button color="accent" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid || Form.invalid || transferValid"
         class="font-regular pull-right m-r-10" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentlanguage.closure?.submitClose}}</button>

@@ -68,6 +68,8 @@ export class CallServices {
     } else {
       obj['providerServiceMapID'] = serviceID;
     }
+    obj['is1097'] = true;
+    
     return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleCustomError);
   }
   getBlackListCalls(objSearch: any) {

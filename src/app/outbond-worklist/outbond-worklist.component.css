@@ -6,16 +6,51 @@ a {
   margin-top: 5px;
 }
 
-
-/* .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 1px;
-    /* line-height: 1.42857143; */
-
-
-/* vertical-align: top; */
-
-
-/* border-top: 1px solid #ddd; */
+.md-small {
+    width: 20px;
+    height: 25px;
+    padding: 0px;
+    font-size: 12px;
+    line-height: 20px;
+}
 
 
-/* }  */
+@media (min-width: 317px ) {
+    .dashboard-m-t-45{
+        margin-top: 75px;
+    }
+
+}
+@media (max-width: 317px ) {
+    .dashboard-m-t-45{
+        margin-top: 75px;
+    }
+
+}
+
+@media (min-width: 480px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+
+}
+
+@media (min-width: 767px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+}
+
+@media (min-width: 992px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .dashboard-m-t-45{
+        margin-top: 45px;
+    }
+
+}

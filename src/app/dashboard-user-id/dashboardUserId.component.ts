@@ -27,6 +27,7 @@ export class DashboardUserIdComponent implements OnInit {
     }
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
+            if (res && res.stateObj.stateName) {
             this.status = res.data.stateObj.stateName;
             if (this.status.toUpperCase() === 'INCALL' || this.status.toUpperCase() === 'CLOSURE') {
                 let CLI = res.data.cust_ph_no;
@@ -38,7 +39,13 @@ export class DashboardUserIdComponent implements OnInit {
             if (res.data.stateObj.stateType) {
                 this.status += ' (' + res.data.stateObj.stateType + ')';
             }
-
+            if(res.dialer_type.toUpperCase() == "PROGRESSIVE" )  {
+                this.dataSettingService.inOutCampaign.next("1");
+            }
+            else if(res.dialer_type.toUpperCase() == "PREVIEW") {
+                this.dataSettingService.inOutCampaign.next("0");
+            }
+        }
             // }
 
         }, (err) => {

@@ -59,6 +59,12 @@ export class RegisterService {
       .map(this.extractData)
       .catch(this.customhandleError);
   }
+  retrieveBenDetailsByRegID(registrationNo: any) {
+    const obj = { 'beneficiaryRegID': registrationNo, 'is1097': true };
+    return this.httpInterceptor.post(this._getuserdata, obj)
+      .map(this.extractData)
+      .catch(this.customhandleError);
+  }
 
   retrieveRegHistoryByPhoneNo(phoneNo: any) {
 

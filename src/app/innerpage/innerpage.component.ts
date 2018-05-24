@@ -78,7 +78,7 @@ export class InnerpageComponent implements OnInit {
     public basicrouter: Router,
     public router: ActivatedRoute,
     public HttpServices: HttpServices,
-    public http: Http, private _util : RegisterService,
+    public http: Http, private _util: RegisterService,
     public sanitizer: DomSanitizer,
     private _config: ConfigService,
     private remarksMessage: ConfirmationDialogsService,
@@ -113,6 +113,7 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
+
     this.current_service = this.getCommonData.current_service.serviceName;
     this.current_role = this.getCommonData.current_role.RoleName;
     const obj = { 'innerPage': true };
@@ -141,12 +142,12 @@ export class InnerpageComponent implements OnInit {
           this.getCommonData.isOutbound = false;
         }
       }
-      if (params['callID'] != undefined) {
-        let callID = params['callID'];
-        if(this.current_role.toLowerCase() != 'supervisor') {
-          this.benByCallID(callID);
-        }
-      }
+      // if (params['callID'] != undefined) {
+      //   let callID = params['callID'];
+      //   if (this.current_role.toLowerCase() != 'supervisor') {
+      //     this.benByCallID(callID);
+      //   }
+      // }
     });
     this.getCallTypes(this.providerServiceMapId);
     this.language_change = 'english';
@@ -174,6 +175,8 @@ export class InnerpageComponent implements OnInit {
     // this.addListener();
     this.getAgentStatus();
     this.getAgentCallDetails();
+
+
   }
   addActiveClass(val: any) {
     jQuery('#' + val).parent().find('a').removeClass('active-tab');
@@ -183,17 +186,31 @@ export class InnerpageComponent implements OnInit {
   benByCallID(callID) {
     let data = '{"callID":"' + callID + '"}';
     this._callServices.getBeneficiaryByCallID(data).subscribe(response => {
-			if (response.i_beneficiary) {
-				this._util.retrieveRegHistory(response.i_beneficiary.beneficiaryID).subscribe(response => {
+      if (response.i_beneficiary) {
+        this._util.retrieveRegHistory(response.i_beneficiary.beneficiaryID).subscribe(response => {
           this.getSelectedBenDetails(response[0]);
         }),
+          (err) => {
+            console.log("Error in getting ben history");
+          }
+      } // this will be excuted in case of browser off only
+      else {
+    //    this.retrieveData();
+      }
+    }, (err) => {
+    //  this.retrieveData();
+      console.log("error in benDetailByCallerID");
+    });
+  }
+  retrieveData() {
+    if (this.getCommonData.current_campaign == 'OUTBOUND') {
+      this._util.retrieveRegHistory(this.getCommonData.outboundBenRegID).subscribe(response => {
+        this.getSelectedBenDetails(response[0]);
+      }),
         (err) => {
           console.log("Error in getting ben history");
         }
-			}			
-		}, (err) => {
-			console.log("error in benDetailByCallerID");
-		});
+    }			// this code is to load navbar data in case of OUTBOUND
   }
   calculateAge(date) {
     if (date) {
@@ -434,7 +451,7 @@ export class InnerpageComponent implements OnInit {
       && (sessionVar.test(eventData[1]) || eventData[1] === '')) {
       this.getAgentStatus();
       this.disconnectCall();
-        this.startCallWraupup(eventData);
+      this.startCallWraupup(eventData);
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
@@ -455,7 +472,9 @@ export class InnerpageComponent implements OnInit {
       requestObj['prefferedDateTime'] = undefined;
       requestObj['endCall'] = false;
     }
-
+    if(this.getCommonData.current_campaign == 'OUTBOUND') {
+      requestObj['isCompleted'] = true;
+    }
     requestObj['callType'] = 'wrapup exceeds';
     requestObj['beneficiaryRegID'] = this.beneficiaryRegID
     requestObj['remarks'] = remarks;
