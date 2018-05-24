@@ -36,11 +36,11 @@
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none">
-            <md-select placeholder="Inbound/Outbound Call" [style.width]="'100%'" [(ngModel)]="ioc" name="InOutCall">
-              <md-option value="Inbound">
+            <md-select placeholder="Inbound/Outbound Call" [style.width]="'100%'" [(ngModel)]="ioc" name="InboundOutbound">
+              <md-option value="inbound">
               Inbound
               </md-option>
-              <md-option value="Outbound">
+              <md-option value="outbound">
               Outbound
               </md-option>
             </md-select>
@@ -119,7 +119,12 @@
                <td>{{record.remarks?record.remarks:'-'}}</td>
                <td>{{record.callType?record.callType:'-'}}</td>
                <td><i class="fa fa-file-text-o f-s-20 m-t--8 pull-left f-c-g cursorPointer" aria-hidden="true" (click)="invokeCaseSheetDialog(record.benCallID)"></i></td>
-               <td>{{record.vr?record.vr:'-'}}</td>               
+               <td>
+                 <audio controls>  
+                  <source src="{{record?.recordingPath}}" type="audio/ogg">
+                  <source src="{{record?.recordingPath}}" type="audio/mpeg">
+                </audio>
+              </td>               
               </tr>
             </tbody>
             <tfoot>

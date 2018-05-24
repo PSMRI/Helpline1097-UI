@@ -15,6 +15,7 @@ export class CzentrixServices {
   address = this._config.getTelephonyServerURL();
   _getAgentStatus_url = this.common_url + '/cti/getAgentState';
   _getCallDetails = this.common_url + '/cti/getAgentCallStats';
+  setCustomerPreferredLanguageUrl = this.common_url + '/cti/customerPreferredLanguage';
   _dialBeneficiary = this.common_url + 'cti/callBeneficiary';
 
   agent_id: any;
@@ -184,6 +185,12 @@ export class CzentrixServices {
     // tslint:disable-next-line:max-line-length
     const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
     return this._http.get(this.address + params).map(this.extractData).catch(this.handleError);
+  }
+
+  setCustomerPreferredLanguage(data) {
+    return this.http.post(this.setCustomerPreferredLanguageUrl, data)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {

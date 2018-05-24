@@ -70,7 +70,10 @@ export class QualityAuditService {
 
     getCallSummary(benCallID) {
         return this.httpIntercept.post(this.getCallSummaryUrl,
-            { 'benCallID': benCallID })
+            {
+                'benCallID': benCallID,
+                'is1097': true
+            })
             .map(this.handleSuccess)
             .catch(this.handleError);
     }
