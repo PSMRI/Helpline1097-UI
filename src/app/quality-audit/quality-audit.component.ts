@@ -276,6 +276,8 @@ export class CaseSheetSummaryDialogComponent {
   refferal_services: any = [];
   feedback_services: any = [];
 
+  item: any;
+
   current_date = new Date();
   constructor( @Inject(MD_DIALOG_DATA) public data: any,
     public dialog: MdDialog,
