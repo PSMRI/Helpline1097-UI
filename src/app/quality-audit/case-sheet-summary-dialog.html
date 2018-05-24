@@ -104,7 +104,7 @@
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Incident date  :</strong></td>
                 <td class="col-xs-12 col-sm-3">{{item?.serviceAvailDate|utcDate|date:'dd/MM/yyyy'}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Severity:</strong></td>
-                <td class="col-xs-12 col-sm-3">{{item?.severity?.severityName}}</td>
+                <td class="col-xs-12 col-sm-3">{{item?.severity?.severityTypeName}}</td>
               </tr>
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Feedback Description:</strong></td>
@@ -123,19 +123,19 @@
             <tbody *ngFor="let item of refferal_services">
               <tr >
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>State:</strong></td>
-                <td class="col-xs-12 col-sm-3">STATE</td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.states.stateName}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>District :</strong></td>
-                <td class="col-xs-12 col-sm-3">DISTRICT</td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.m_district.districtName}}</td>
               </tr>
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Sub District :</strong></td>
-                <td class="col-xs-12 col-sm-3">SUB DISTRICT</td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.block.blockName}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Information Required:</strong></td>
                 <td class="col-xs-12 col-sm-3">INFO</td>
               </tr>
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong> Results :</strong></td>
-                <td class="col-xs-12 col-sm-3">RESULTS</td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.institutionName}},{{item.institutionName.address}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong> </strong></td>
                 <td class="col-xs-12 col-sm-3"></td>
               </tr>
