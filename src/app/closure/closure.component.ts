@@ -218,6 +218,7 @@ export class ClosureComponent implements OnInit
     });
   }
   closeCall(values: any, btnType: any) {
+
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -241,6 +242,9 @@ export class ClosureComponent implements OnInit
     values.agentIPAddress = this.ipAddress;
     if (btnType === 'submitClose') {
       values.endCall = true;
+    }
+    if(this.saved_data.current_campaign == 'OUTBOUND') {
+      values.isCompleted = true;
     }
     console.log('close called with ' + values);
     if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {

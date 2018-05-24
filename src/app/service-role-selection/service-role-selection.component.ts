@@ -19,6 +19,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.listnerService.cZentrixSendData({ 'hideBar': true });
         this.getCommonData.sendHeaderStatus.next("Role Selection");
 
         this.privleges = this.getCommonData.userPriveliges;
@@ -45,7 +46,6 @@ export class ServiceRoleSelectionComponent implements OnInit {
             providerServiceMapID + "_" + role.workingLocationID.toString()
         ]
         console.log(finalArray);
-        debugger;
         this.socketService.sendRoomsArray({ userId: this.getCommonData.uid, role: finalArray });
 
         //code ended

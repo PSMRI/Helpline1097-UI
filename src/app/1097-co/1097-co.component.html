@@ -1,4 +1,4 @@
-<div (click)="minimizeBar()" [hidden]="current_campaign == 'OUTBOUND'" *ngIf="currentlanguage!=undefined">
+<div (click)="minimizeBar()" *ngIf="currentlanguage!=undefined">
 
     <div class="col-xs-12 col-sm-12 b-t-2-w p-t-10 m-b-10">
       <div class=" bs-wizard animate-box" style=" position:relative; z-index:1">
@@ -95,7 +95,7 @@
     </div>
   </div>
 </div>
-<div (click)="minimizeBar()" [hidden]="current_campaign == 'INBOUND'" *ngIf="currentlanguage!=undefined">
+<!-- <div (click)="minimizeBar()" [hidden]="current_campaign == 'INBOUND'" *ngIf="currentlanguage!=undefined">
   <div class="clearfix"></div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="panel-body card p-a-0 bg-white ">
@@ -103,12 +103,12 @@
         <div class="b-t-2-w">
           <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
             <div class="carousel-inner">
-              <div class="item active">
+              <div class="item active"> -->
                 <!--<app-beneficiary-registration (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                                         (StartNewCall)="startCall()" #registration></app-beneficiary-registration>-->
                 <!-- <app-beneficiary-registration (onBenSelect)="benService($event)" (onBenRegDataSelect)="getSelectedBenDetails($event); coservice.startCOService(); updatebeneficiary.PopulateUpdateData(); closure.onView();"
                   #registration></app-beneficiary-registration> -->
-                <app-outbond-worklist (onOutboundCall)="callBenOutbound($event)"></app-outbond-worklist>
+                <!-- <app-outbond-worklist (onOutboundCall)="callBenOutbound($event)"></app-outbond-worklist>
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <!-- <md2-dialog #confirm>

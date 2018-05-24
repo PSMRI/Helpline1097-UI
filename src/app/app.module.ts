@@ -284,6 +284,11 @@ import { QualityAuditService } from './services/supervisorServices/quality-audit
           {
             path: 'InnerpageComponent',
             component: InnerpageComponent,
+          },
+          {
+            path: 'OutboundWorkList',
+            component: OutbondWorklistComponent,
+            canActivate: [AuthGuard]
           }
         ]
       },

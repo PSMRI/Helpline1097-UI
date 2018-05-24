@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import { ConfigService } from '../config/config.service';
 import { dataService } from '../dataService/data.service';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
+import { InterceptedHttp } from './../../http.interceptor'
 
 
 @Injectable()
@@ -14,6 +15,8 @@ export class CzentrixServices {
   address = this._config.getTelephonyServerURL();
   _getAgentStatus_url = this.common_url + '/cti/getAgentState';
   _getCallDetails = this.common_url + '/cti/getAgentCallStats';
+  _dialBeneficiary = this.common_url + 'cti/callBeneficiary';
+
   agent_id: any;
   path = 'apps/appsHandler.php?';
   resFormat = 3;
@@ -22,7 +25,7 @@ export class CzentrixServices {
   _agentLogOut = this.common_url + 'cti/doAgentLogout';
   phone_num: number;
   constructor(private http: AuthorizationWrapper,
-    private _http: Http,
+    private _http: Http, private httpInterceptor:  InterceptedHttp,
      private _config: ConfigService, private _data: dataService, private normalHTTP :Http) {
     this.agent_id = this._data.cZentrixAgentID;
   }
@@ -78,15 +81,17 @@ export class CzentrixServices {
     let obj = { 'agent_id': this.agent_id };
     return this.http.post(this._getCallDetails, obj).map(this.extractData).catch(this.handleError);
   }
-  manualDialaNumber(agentId, ipAddress, phoneNum) {
-    this.transaction_id = 'CTI_DIAL';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
-    this.phone_num = phoneNum;
+  manualDialaNumber(agentId, phoneNum) {
+    const dialObj = { 'agent_id': this.agent_id, 'phone_num': phoneNum };
+    return this.httpInterceptor.post(this._dialBeneficiary, dialObj).map(this.extractData).catch(this.handleError);
 
-    // tslint:disable-next-line:max-line-length
-    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&phone_num=' + this.phone_num + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
+    // this.transaction_id = 'CTI_DIAL';
+    // this.agent_id = agentId;
+    // this.ip = ipAddress;
+    // this.phone_num = phoneNum;
+
+    // let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&phone_num=' + this.phone_num + '&resFormat=' + this.resFormat;
+    // return this.callAPI(params);
   }
 
   transferCall(transferFromAgentId, transferToAgentId, ipAddress) {

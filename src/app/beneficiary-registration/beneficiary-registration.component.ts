@@ -273,7 +273,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // });
   }
   reloadCall() {
-    this.retrieveRegHistoryByPhoneNo(this.saved_data.callerNumber);
+
+    if(this.saved_data.current_campaign == 'OUTBOUND') {
+      const res = this._util.retrieveRegHistory(this.saved_data.outboundBenRegID)
+      .subscribe(response => { 
+        this.handleRegHistorySuccess(response) }, err => {
+        this.alertMaessage.alert(err.status, 'error');
+        console.log('ERROR', err);
+      });    
+    }
+    else{
+      this.retrieveRegHistoryByPhoneNo(this.saved_data.callerNumber);
+
+    }
     this.calledEarlier = true;
     this.showSearchResult = false;
     this.notCalledEarlier = false;
@@ -599,7 +611,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
 
     const res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
-      .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
+      .subscribe(response => { 
+        this.handleRegHistorySuccess(response) }, err => {
         this.alertMaessage.alert(err.status, 'error');
         console.log('ERROR', err);
       });
@@ -613,7 +626,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.reloadCall();
     } else {
       const res = this._util.retrieveRegHistory(reg_no)
-        .subscribe(response => { this.handleRegHistorySuccess(response) }, err => {
+        .subscribe(response => { 
+          this.handleRegHistorySuccess(response) }, err => {
           this.alertMaessage.alert(err.status, 'error');
           console.log('ERROR', err);
         });
@@ -921,7 +935,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   // Handling Error
   getParentData(parentBenID) {
-    this._util.retrieveRegHistory(parentBenID).subscribe((response) => {
+    this._util.retrieveBenDetailsByRegID(parentBenID).subscribe((response) => {
       if (response) {
         if (response.length > 0) {
           this.beneficiaryRelationID = undefined;

@@ -37,7 +37,8 @@ export class dataService {
 	isOutbound: boolean = false;
 	current_workingLocationID: any;
 	sendHeaderStatus = new Subject();
-
+	outboundBenRegID : any;
+    inOutCampaign = new Subject();
 
 
 

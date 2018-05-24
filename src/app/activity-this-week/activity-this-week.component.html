@@ -36,8 +36,8 @@
 			<li>Surveryor Worklist</li>
 			<li>Outbound Worklist</li>
 		</ol> -->
-		<ul class="p-l-15" *ngIf="(role==='CO') && (this.getCommonData.current_campaign == 'OUTBOUND' )">
-			<li><a routerLink="/MultiRoleScreenComponent/InnerpageComponent"   routerLinkActive="active">Outbound Worklist</a></li>
+		<ul class="dots p-a-0" *ngIf="(role==='CO') && (this.getCommonData.current_campaign == 'OUTBOUND' )">
+			<li><a routerLink="/MultiRoleScreenComponent/OutboundWorkList"  routerLinkActive="active">Outbound Worklist</a></li>
     </ul>
     <div class="row">         
       <div class="col-xs-3 col-sm-3 m-t-10">
