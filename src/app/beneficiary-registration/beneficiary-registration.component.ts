@@ -185,10 +185,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-        (err) => {
-          this.alertMaessage.alert(err.errorMessage, 'error');
-          console.log('ERROR', err);
-        });
+      (err) => {
+        this.alertMaessage.alert(err.errorMessage, 'error');
+        console.log('ERROR', err);
+      });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -581,6 +581,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     const res = this._util.generateReg(this.updatedObj).subscribe(response => {
       this.benRegistrationResponse = response;
+      if (this.preferredLanguage != undefined && this.preferredLanguage != null) {
+        this.setBeneficiaryLanguageInCZentrix('select', this.preferredLanguage);
+      }
+
       this.handleRegHistorySuccess([response]);
       this.showAlert();
       this.populateUserData(response);
@@ -589,6 +593,34 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
     });
+  }
+
+  setBeneficiaryLanguageInCZentrix(action, language) {
+    let language_obj = {};
+    let lang = language;
+    if (lang != undefined) {
+      language_obj = this.language.filter(function (item) {
+        return item.languageID === lang;
+      });
+    }
+    let req_obj = {
+      'cust_ph_no': this.saved_data.callerNumber,
+      'campaign_name': this.saved_data.currentCampaignName,
+      'language': language_obj[0].languageName,
+      'action': action
+    };
+    this.czentrixService.setCustomerPreferredLanguage(req_obj)
+      .subscribe(response => {
+        console.log(response, 'RESPONSE for setting language in czentrix');
+        if (response.data != undefined) {
+          if (response.data.response.status.toUpperCase() === 'Success'.toUpperCase()) {
+            console.log('Language set successfully in CZentrix for Beneficiary');
+          }
+        }
+      }, err => {
+        console.log(err, 'Error while setting language in CZentrix for Beneficiary');
+        this.alertMaessage.alert('Desired language not set in CZentrix', 'error');
+      });
   }
 
   showAlert() {
@@ -863,6 +895,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   updateSuccessHandeler(response) {
     if (response) {
       this.alertMaessage.alert('Beneficiary updated successfully', 'success');
+      if (this.preferredLanguage != undefined && this.preferredLanguage!=null) {
+        this.setBeneficiaryLanguageInCZentrix('update', this.preferredLanguage);
+      }
       this.BeneficaryForm.resetForm();
       this.benUpdationResponse = response;
       // this.regHistoryList = [response];

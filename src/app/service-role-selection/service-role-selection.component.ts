@@ -63,6 +63,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
             }
 
             this.getCommonData.current_workingLocationID = role.workingLocationID;
+            this.getCommonData.currentCampaignName=role.serviceRoleScreenMappings[0].providerServiceMapping.ctiCampaignName;
             if (screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
                 this.getCommonData.current_role = { 'RoleName': 'CO','RoleID':role.RoleID };
             } else if (screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {

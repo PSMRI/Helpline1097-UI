@@ -196,7 +196,11 @@ export class QualityAuditComponent implements OnInit {
       'callTypeID': formval.CallSubType,
       'filterStartDate': new Date(formval.startDate.valueOf() - 1 * formval.startDate.getTimezoneOffset() * 60 * 1000),
       'filterEndDate': new Date(formval.endDate.valueOf() - 1 * formval.endDate.getTimezoneOffset() * 60 * 1000),
-      'receivedRoleName': formval.Role
+      'receivedRoleName': formval.Role ? formval.Role : undefined,
+      'phoneNo': formval.benPhoneNo ? formval.benPhoneNo : undefined,
+      'agentID': formval.Agent ? formval.Agent : undefined,
+      'inboundOutbound': formval.InboundOutbound ? formval.InboundOutbound : undefined,
+      'is1097': true
     }
 
     this.qualityAuditService.getFilteredCallList(obj)
@@ -204,8 +208,8 @@ export class QualityAuditComponent implements OnInit {
         console.log('TABLE DATA FETCHED', response);
         this.filteredCallList = response;
       }, err => {
-        console.log('TABLE DATA FETCHED ERROR', err.errorMessage);
-        this.alertService.alert(err.errorMessage, 'error');
+        console.log('TABLE DATA FETCHED ERROR', err.status);
+        this.alertService.alert(err.status, 'error');
         this.filteredCallList = [];
       });
   }
@@ -223,7 +227,8 @@ export class QualityAuditComponent implements OnInit {
     let obj = {
       'calledServiceID': this.providerServiceMapID,
       'filterStartDate': new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
-      'filterEndDate': new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000)
+      'filterEndDate': new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
+      'is1097': true
     }
 
     this.qualityAuditService.getFilteredCallList(obj)
@@ -291,7 +296,9 @@ export class CaseSheetSummaryDialogComponent {
       this.refferal_services = this.data[0].referrals;
       this.feedback_services = this.data[0].feedbacks;
     }
-
+    console.log(this.feedback_services, 'FEEDBACK ARRAY');
   }
+
+
 
 }

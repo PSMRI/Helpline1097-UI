@@ -14,6 +14,7 @@ export class CzentrixServices {
   address = this._config.getTelephonyServerURL();
   _getAgentStatus_url = this.common_url + '/cti/getAgentState';
   _getCallDetails = this.common_url + '/cti/getAgentCallStats';
+  setCustomerPreferredLanguageUrl = this.common_url + '/cti/customerPreferredLanguage';
   agent_id: any;
   path = 'apps/appsHandler.php?';
   resFormat = 3;
@@ -23,7 +24,7 @@ export class CzentrixServices {
   phone_num: number;
   constructor(private http: AuthorizationWrapper,
     private _http: Http,
-     private _config: ConfigService, private _data: dataService, private normalHTTP :Http) {
+    private _config: ConfigService, private _data: dataService, private normalHTTP: Http) {
     this.agent_id = this._data.cZentrixAgentID;
   }
 
@@ -179,6 +180,12 @@ export class CzentrixServices {
     // tslint:disable-next-line:max-line-length
     const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
     return this._http.get(this.address + params).map(this.extractData).catch(this.handleError);
+  }
+
+  setCustomerPreferredLanguage(data) {
+    return this.http.post(this.setCustomerPreferredLanguageUrl, data)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {
