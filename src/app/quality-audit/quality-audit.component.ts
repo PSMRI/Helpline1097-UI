@@ -62,8 +62,9 @@ export class QualityAuditComponent implements OnInit {
     this.userID = this.commonData.Userdata.userID;
     this.serviceProviderID = this.commonData.serviceProviderID;
     this.providerServiceMapID = this.commonData.current_service.serviceID;
-    this.getServiceProviderID();
     this.getFilteredCallList_default();
+    this.getServiceProviderID();
+
     // this.getServicelines();
     // this.getAgents();
     // this.getCallTypes();
@@ -307,7 +308,9 @@ export class CaseSheetSummaryDialogComponent {
     }
     console.log(this.feedback_services, 'FEEDBACK ARRAY');
 
-    this.age = this.calculateAge(this.benData.dOB);
+    if (this.benData.beneficiaryModel != undefined) {
+      this.age = this.calculateAge(this.benData.beneficiaryModel.dOB);
+    }
   }
 
 
