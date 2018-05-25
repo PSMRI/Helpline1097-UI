@@ -67,7 +67,7 @@ export class BlockUnblockNumberComponent implements OnInit {
       this.showTable = true;
       this.setBlackLists(response);
     }, (err) => {
-      this.message.alert(err.errorMessage,'error');
+      this.message.alert(err.errorMessage, 'error');
 
       this.showTable = false;
     });
@@ -88,20 +88,24 @@ export class BlockUnblockNumberComponent implements OnInit {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
     this.callService.UnBlockPhoneNumber(blockObj).subscribe((response) => {
-      this.message.alert('Successfully unblocked','success');
+      this.message.alert('Successfully unblocked', 'success');
       this.addToBlockList();
+      this.recording_data = [];
+      this.showRecordings = false;
     }, (err) => {
-      this.message.alert(err.status,'error');
+      this.message.alert(err.status, 'error');
     })
   }
   block(phoneBlockID: any) {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
     this.callService.blockPhoneNumber(blockObj).subscribe((response) => {
-      this.message.alert('Successfully blocked','success');
+      this.message.alert('Successfully blocked', 'success');
       this.addToBlockList();
+      this.recording_data = [];
+      this.showRecordings = false;
     }, (err) => {
-      this.message.alert(err.status,'error');
+      this.message.alert(err.status, 'error');
     })
   }
   getBlackList(e: any) {
@@ -121,7 +125,7 @@ export class BlockUnblockNumberComponent implements OnInit {
       }
 
       this.callService.getRecording(requestObj).subscribe(response => this.getRecordingsSuccessHandeler(response, obj.phoneNo),
-    (err) =>       this.message.alert(err.errorMessage,'error'));
+        (err) => this.message.alert(err.errorMessage, 'error'));
     }
 
   }
@@ -132,7 +136,9 @@ export class BlockUnblockNumberComponent implements OnInit {
     if (response) {
       this.recording_data = response;
       this.showRecordings = true;
-      this.audio_path = response[0].recordingPath;
+      if (response.length > 0) {
+        this.audio_path = response[0].recordingPath;
+      }
     }
 
     this.ph_no = ph_no;
