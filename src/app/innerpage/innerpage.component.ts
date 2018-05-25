@@ -123,7 +123,7 @@ export class InnerpageComponent implements OnInit {
 
     this.providerServiceMapId = this.getCommonData.current_service.serviceID;
 
-    const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
+    const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.id;
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     console.log('url = ' + url);
@@ -195,10 +195,10 @@ export class InnerpageComponent implements OnInit {
           }
       } // this will be excuted in case of browser off only
       else {
-    //    this.retrieveData();
+        //    this.retrieveData();
       }
     }, (err) => {
-    //  this.retrieveData();
+      //  this.retrieveData();
       console.log("error in benDetailByCallerID");
     });
   }
@@ -472,7 +472,7 @@ export class InnerpageComponent implements OnInit {
       requestObj['prefferedDateTime'] = undefined;
       requestObj['endCall'] = false;
     }
-    if(this.getCommonData.current_campaign == 'OUTBOUND') {
+    if (this.getCommonData.current_campaign == 'OUTBOUND') {
       requestObj['isCompleted'] = true;
     }
     requestObj['callType'] = 'wrapup exceeds';

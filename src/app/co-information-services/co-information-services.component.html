@@ -83,7 +83,7 @@
             <td>{{Information?.categoryDetails?.categoryName}}</td>
             <td>{{Information?.subCategoryDetails?.subCategoryName}}</td>
             <td>{{Information?.createdBy}}</td>
-            <td>{{Information?.createdDate?(millisToUTCDate(Information.createdDate)|date:'dd/MM/yyyy HH:mm'):''}}</td>
+            <td>{{Information?.createdDate?(millisToUTCDate(Information.createdDate)|date:'dd/MM/yyyy HH:mm a'):''}}</td>
           </tr>
         </tbody>
         <tfoot>

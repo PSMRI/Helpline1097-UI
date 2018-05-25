@@ -247,15 +247,19 @@ export class QualityAuditComponent implements OnInit {
     this.getFilteredCallList_default();
   }
 
-  invokeCaseSheetDialog(benCallID) {
+  invokeCaseSheetDialog(benCallID, beneficiaryData) {
     this.qualityAuditService.getCallSummary(benCallID)
       .subscribe(response => {
         console.log('success in getting call details(casesheet)', response);
         if (response) {
+          let obj = {
+            'response': response,
+            'benData': beneficiaryData
+          }
           let casesheetDialogReff = this.dialog.open(CaseSheetSummaryDialogComponent, {
             width: '800px',
             disableClose: true,
-            data: response
+            data: obj
           });
         }
       }, err => {
@@ -282,6 +286,8 @@ export class CaseSheetSummaryDialogComponent {
   feedback_services: any = [];
 
   item: any;
+  benData: any;
+  age: any;
 
   current_date = new Date();
   constructor( @Inject(MD_DIALOG_DATA) public data: any,
@@ -290,13 +296,34 @@ export class CaseSheetSummaryDialogComponent {
     private commondata: dataService,
     private alertService: ConfirmationDialogsService) {
     console.log('modal content', this.data);
-    if (this.data.length > 0) {
-      this.information_services = this.data[0].informations;
-      this.counselling_services = this.data[0].counsellings;
-      this.refferal_services = this.data[0].referrals;
-      this.feedback_services = this.data[0].feedbacks;
+    let response = [];
+    response = this.data.response;
+    this.benData = this.data.benData;
+    if (response.length > 0) {
+      this.information_services = response[0].informations;
+      this.counselling_services = response[0].counsellings;
+      this.refferal_services = response[0].referrals;
+      this.feedback_services = response[0].feedbacks;
     }
     console.log(this.feedback_services, 'FEEDBACK ARRAY');
+
+    this.age = this.calculateAge(this.benData.dOB);
+  }
+
+
+  calculateAge(date) {
+    if (date) {
+      const newDate = new Date(date);
+      const today = new Date();
+      let age = today.getFullYear() - newDate.getFullYear();
+      const month = today.getMonth() - newDate.getMonth();
+      if (month < 0 || (month === 0 && today.getDate() < newDate.getDate())) {
+        age--;
+      }
+      return age;
+    } else {
+      return undefined;
+    }
   }
 
 
