@@ -68,7 +68,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   ParentBenRegID: number;
   relationShips: any;
   benRegistrationResponse: any;
-  registrationNo: any = '';
+  registrationNo: any;
   benUpdationResponse: any;
   regHistoryList: any = [];
   beneficiaryParentList: any = [];
@@ -129,6 +129,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   cityErrFlag: any = false;
   unMaskedNumber: any;
   showTagging: boolean;
+  disableViewAll: boolean = true;
   // agentID: any;
 
   constructor(private _util: RegisterService, private _router: Router,
@@ -653,10 +654,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   retrieveRegHistory(reg_no: any) {
     this.back1();
-    this.registrationNo = "";
     if (!reg_no || reg_no === '') {
       this.reloadCall();
+      this.disableViewAll = true;
+      this.registrationNo = "";
     } else {
+      this.disableViewAll = false;
       const res = this._util.retrieveRegHistory(reg_no)
         .subscribe(response => { 
           this.handleRegHistorySuccess(response) }, err => {
