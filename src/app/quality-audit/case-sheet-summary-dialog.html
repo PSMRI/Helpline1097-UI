@@ -8,7 +8,7 @@
     <div class="row ">
       <h4 class="col-xs-12 col-sm-12 m-t-10 ">Service Type 1097
         <ul class="pull-right list-inline list-unstyled">
-          <li class="f-s-14"><a><i class="fa fa-download cursorPointer" aria-hidden="true"></i>   Download </a></li>
+          <!-- <li class="f-s-14"><a><i class="fa fa-download cursorPointer" aria-hidden="true"></i>   Download </a></li> -->
           <li class="f-s-14"><strong> Date :</strong> <span> {{current_date|date:'dd/MM/yyyy'}}</span> </li>
         </ul>
       </h4>
@@ -38,11 +38,11 @@
           </tr>
           <tr>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong> Address :</strong></td>
-            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.i_bendemographics?.districtBranchName}},
-              {{benData?.beneficiaryModel?.i_bendemographics?.blockName}},
-              {{benData?.beneficiaryModel?.i_bendemographics?.districtName}},
-              {{benData?.beneficiaryModel?.i_bendemographics?.stateName}} -
-              {{benData?.beneficiaryModel?.i_bendemographics?.pinCode}}| India</td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.i_bendemographics?.districtBranchName?benData?.beneficiaryModel?.i_bendemographics?.districtBranchName:'-'}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.blockName?benData?.beneficiaryModel?.i_bendemographics?.blockName:'-'}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.districtName?benData?.beneficiaryModel?.i_bendemographics?.districtName:'-'}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.stateName?benData?.beneficiaryModel?.i_bendemographics?.stateName:'-'}} -
+              {{benData?.beneficiaryModel?.i_bendemographics?.pinCode?benData?.beneficiaryModel?.i_bendemographics?.pinCode:'-'}} | India</td>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong> Beneficiary ID :</strong></td>
             <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.beneficiaryID}}</td>
           </tr>
@@ -88,15 +88,15 @@
             <tbody *ngFor="let item of feedback_services">
               <tr >
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>State:</strong></td>
-                <td class="col-xs-12 col-sm-3">STATE</td>
+                <td class="col-xs-12 col-sm-3">{{item?.states?.stateName}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>District :</strong></td>
-                <td class="col-xs-12 col-sm-3">DISTRICT</td>
+                <td class="col-xs-12 col-sm-3">{{item?.district?.districtName}}</td>
               </tr>
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Sub District :</strong></td>
-                <td class="col-xs-12 col-sm-3">BLOCK</td>
+                <td class="col-xs-12 col-sm-3">{{item?.districtBlock?.blockName}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Institute Name:</strong></td>
-                <td class="col-xs-12 col-sm-3">INSTITUTE</td>
+                <td class="col-xs-12 col-sm-3">-</td>
               </tr>
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Designation  :</strong></td>

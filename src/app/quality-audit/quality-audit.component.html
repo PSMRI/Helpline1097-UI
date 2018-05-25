@@ -12,6 +12,7 @@
           <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="min" [max]="max"  placeholder="Valid Till" #endDate="ngModel" ngModel required [style.width]="'100%'" (change)="setEndDate(endDate.value)"></md2-datepicker>
           <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">End Date is required</span>
           <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value<startDate.value) && endDate.dirty">End Date can not be before Start Date</span>          
+          <span class="error_text f-s-10 p-l-10" *ngIf="(max<endDate.value) && endDate.dirty">Start Date & End Date can have max 15 days gap</span>                    
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <md-input-container class="hide_underline" [style.width]="'100%'">
@@ -83,7 +84,7 @@
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <button md-raised-button color="accent" class="m-t-10" (click)="getFilteredCallList(qaForm.value)" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">Search</button>
-            <button md-raised-button color="accent" class="m-t-10" (click)="reset()">Reset</button>
+            <button md-raised-button color="primary" class="m-t-10" (click)="reset()">Reset</button>
         </div>
       </form>
     </div>
