@@ -20,27 +20,31 @@
         <table class="table printTable m-b-0">
           <tr>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong> Call ID :</strong></td>
-            <td class="col-xs-12 col-sm-3">call001</td>
+            <td class="col-xs-12 col-sm-3">{{benData?.benCallID}}</td>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong>Agent ID :</strong></td>
-            <td class="col-xs-12 col-sm-3">Agent001</td>
+            <td class="col-xs-12 col-sm-3">{{benData?.agentID}}</td>
           </tr>
           <tr>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong> First Name :</strong></td>
-            <td class="col-xs-12 col-sm-3">Kumar</td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.firstName}}</td>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong>Last Name :</strong></td>
-            <td class="col-xs-12 col-sm-3">S S</td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.lastName}}</td>
           </tr>
           <tr>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong> Age :</strong></td>
-            <td class="col-xs-12 col-sm-3">38</td>
+            <td class="col-xs-12 col-sm-3">{{age}}</td>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong> Gender :</strong></td>
-            <td class="col-xs-12 col-sm-3">Male</td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.m_gender?.genderName}}</td>
           </tr>
           <tr>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong> Address :</strong></td>
-            <td class="col-xs-12 col-sm-3">72, Keonics Electronic City, Hosur Road, Bangalore - 560100 | India</td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.i_bendemographics?.districtBranchName}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.blockName}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.districtName}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.stateName}} -
+              {{benData?.beneficiaryModel?.i_bendemographics?.pinCode}}| India</td>
             <td class="col-xs-12 col-sm-3 p-l-0"><strong> Beneficiary ID :</strong></td>
-            <td class="col-xs-12 col-sm-3">Beneficiary</td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.beneficiaryID}}</td>
           </tr>
         </table>
       </div>
@@ -98,7 +102,7 @@
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Designation  :</strong></td>
                 <td class="col-xs-12 col-sm-3">{{item?.designation?.designationName}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Type of Feedback:</strong></td>
-                <td class="col-xs-12 col-sm-3">{{item?.feedbackType?.feedbackTypeName}}</td>
+                <td class="col-xs-12 col-sm-3">{{item?.FeedbackTypeID?.feedbackTypeName}}</td>
               </tr>
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Incident date  :</strong></td>
@@ -131,11 +135,11 @@
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Sub District :</strong></td>
                 <td class="col-xs-12 col-sm-3">{{item.institutionDetails.block.blockName}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong>Information Required:</strong></td>
-                <td class="col-xs-12 col-sm-3">INFO</td>
+                <td class="col-xs-12 col-sm-3">{{item.directory.instituteDirectoryName}},{{item.subDirectory.instituteSubDirectoryName}}</td>
               </tr>
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong> Results :</strong></td>
-                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.institutionName}},{{item.institutionName.address}}</td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.institutionName}},{{item.institutionDetails.address}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0"><strong> </strong></td>
                 <td class="col-xs-12 col-sm-3"></td>
               </tr>

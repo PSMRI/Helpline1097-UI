@@ -118,7 +118,7 @@
                <td>{{record.phoneNo?record.phoneNo:'-'}}</td>
                <td>{{record.remarks?record.remarks:'-'}}</td>
                <td>{{record.callType?record.callType:'-'}}</td>
-               <td><i class="fa fa-file-text-o f-s-20 m-t--8 pull-left f-c-g cursorPointer" aria-hidden="true" (click)="invokeCaseSheetDialog(record.benCallID)"></i></td>
+               <td><i class="fa fa-file-text-o f-s-20 m-t--8 pull-left f-c-g cursorPointer" aria-hidden="true" (click)="invokeCaseSheetDialog(record.benCallID,record)"></i></td>
                <td>
                  <audio controls>  
                   <source src="{{record?.recordingPath}}" type="audio/ogg">
