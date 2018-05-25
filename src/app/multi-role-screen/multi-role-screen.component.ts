@@ -65,7 +65,7 @@ export class MultiRoleScreenComponent implements OnInit {
       this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     })
     this.hideHeader = true;
-    const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.id;
+    const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     console.log('url = ' + url);
