@@ -29,6 +29,8 @@ import { ResetComponent } from './resetPassword/resetPassword.component';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { myPassword } from './directives/password/myPassword.directive';
 import { myName } from './directives/name/myName.directive';
+import { myName_space } from './directives/name/myName.directive';
+
 import { myMobileNumber } from './directives/MobileNumber/myMobileNumber.directive';
 import { myEmail } from './directives/email/myEmail.directive';
 
@@ -198,7 +200,7 @@ import { QualityAuditService } from './services/supervisorServices/quality-audit
     DashboardUserIdComponent, ActivityThisWeekComponent,
     AlertsNotificationComponent, DailyTasksComponent, NewsInformationsComponent,
     RatingComponent, WeatherWarningsComponent, AdminServiceProviderComponent,
-    myName, myMobileNumber, myEmail, CoCounsellingServicesComponent,
+    myName, myMobileNumber, myEmail, CoCounsellingServicesComponent, myName_space,
     CoFeedbackServicesComponent, CoInformationServicesComponent,
     CoReferralServicesComponent, BeneficiaryRegistrationComponent,
     ServiceRoleSelectionComponent, CoServicesComponent, UpdatesFromBeneficiaryComponent,

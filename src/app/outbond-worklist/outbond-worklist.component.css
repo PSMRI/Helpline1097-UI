@@ -1,3 +1,6 @@
+ul {
+  list-style: none;
+}
 a {
   cursor: pointer;
 }
@@ -30,27 +33,32 @@ a {
 
 @media (min-width: 480px) {
     .dashboard-m-t-45{
-        margin-top: 45px;
+        margin-top: 48px;
     }
 
 }
 
 @media (min-width: 767px) {
     .dashboard-m-t-45{
-        margin-top: 45px;
+        margin-top: 48px;
     }
 }
 
 @media (min-width: 992px) {
     .dashboard-m-t-45{
-        margin-top: 45px;
+        margin-top: 48px;
     }
 }
 
 
 @media (min-width: 1200px) {
     .dashboard-m-t-45{
-        margin-top: 45px;
+        margin-top: 48px;
     }
 
+}
+i.fa {
+  padding: 0px!important;
+  font-size: 22px!important;
+  margin-top: 17px!important;
 }

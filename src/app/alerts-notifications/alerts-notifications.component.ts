@@ -211,7 +211,7 @@ export class AlertsNotificationsDialogComponent {
 
   initialize(data) {
     this.messages = data.messages;
-    this.heading = data.msg_type;
+    this.heading = data.msg_type.toLowerCase();
     this.notificationTypeID = data.notificationTypeID;
     this.messages.map((item) => {
       this.notificationIDArray.push(item.userNotificationMapID);
