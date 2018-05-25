@@ -38,8 +38,8 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-15 m-b-20">
       <button class="mar-right" [disabled]="!category.valid || !subCategory.valid || getDetailsFlag" type="button" md-raised-button
-        color="primary" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.counselling_service?.get_details}}</button>
-      <button type="button" md-raised-button color="accent" (click)="back()">{{currentlanguage.counselling_service?.back}}</button>
+        color="accent" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.counselling_service?.get_details}}</button>
+      <button type="button" md-raised-button color="primary" (click)="back()">{{currentlanguage.counselling_service?.back}}</button>
     </div>
     <!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 m-t-15">
 
@@ -63,7 +63,7 @@
             </a>
             <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">No Document Available</span> 
           </li>
-          <li *ngIf="detailsList?.length==0">No Records Found</li>
+          <li *ngIf="detailsList?.length==0">No records found</li>
         </ul>
       </div>
     </div>

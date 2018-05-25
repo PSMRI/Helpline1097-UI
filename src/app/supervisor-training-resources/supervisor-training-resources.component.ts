@@ -361,7 +361,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           console.log('Training resources', this.trainingResources);
         }
         else {
-          this.dialogService.alert('No Training Resources found');
+          this.dialogService.alert('No training resources found');
         }
       },
       (error) => {

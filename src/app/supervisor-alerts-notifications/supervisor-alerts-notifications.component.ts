@@ -129,7 +129,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   getAllNotificationTypesSuccessHandeler(response) {
     console.log('notification types', response);
     if (response.data.length === 0) {
-      this.dialogService.alert('No Notification Types Found. Contact Admin')
+      this.dialogService.alert('No notification types found. contact admin')
     }
     else {
       this.types = response.data.filter(item => {

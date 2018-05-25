@@ -32,7 +32,7 @@ export class MultiRoleScreenComponent implements OnInit {
   hideBar: boolean = false;
   subscription: Subscription;
   hideHeader: boolean = true;
-  label :any;
+  label: any;
   showContacts: boolean;
 
   constructor(public dataSettingService: dataService, private _config: ConfigService, location: PlatformLocation,
@@ -48,7 +48,7 @@ export class MultiRoleScreenComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.dataSettingService.sendHeaderStatus.subscribe((data)=>{this.setHeaderName(data)});
+    this.dataSettingService.sendHeaderStatus.subscribe((data) => { this.setHeaderName(data) });
 
     this.data = this.dataSettingService.Userdata;
     this.current_role = (this.dataSettingService.current_role) ? this.dataSettingService.current_role.RoleName : '';
@@ -60,6 +60,9 @@ export class MultiRoleScreenComponent implements OnInit {
       this.id = obj['id'];
       this.current_role = obj['role'];
       this.current_service = obj['service'];
+      const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.id;
+      console.log('url = ' + url);
+      this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     })
     this.hideHeader = true;
     const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
@@ -96,7 +99,7 @@ export class MultiRoleScreenComponent implements OnInit {
   // }
   setHeaderName(data) {
     this.label = data;
-    if(this.label.includes('Dashboard')) {
+    if (this.label.includes('Dashboard')) {
       this.showContacts = true;
     }
     else {

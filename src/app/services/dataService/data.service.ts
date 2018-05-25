@@ -40,7 +40,7 @@ export class dataService {
 	currentCampaignName: any;
 	outboundBenRegID : any;
     inOutCampaign = new Subject();
-
+	beneficiarySelected = new Subject();
 
 
 	// myBool$: Observable<boolean>;

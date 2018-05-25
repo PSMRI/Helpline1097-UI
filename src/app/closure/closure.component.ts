@@ -57,6 +57,7 @@ export class ClosureComponent implements OnInit
   campaignName : any;
   campaignSkills : any = [];
   campaignSkill : any;
+  beneficiarySelected: boolean;
 
   constructor(
     private _callServices: CallServices,
@@ -68,6 +69,9 @@ export class ClosureComponent implements OnInit
   ) {
     this.subscription = this.pass_data.getData().subscribe(benData => { this.outBoundCloseCall(benData) });
     this.subscription = this.clearfornData.clearFormGetter().subscribe(data => { this.clearForm(data) });
+    this.saved_data.beneficiarySelected.subscribe((data)=>{
+      this.setFlag()
+    });
   }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
@@ -102,6 +106,7 @@ export class ClosureComponent implements OnInit
   (err)=> {
     console.log("ERROR IN FETCHING CAMPAIGN NAMES");
   })
+  this.beneficiarySelected = false;
   }
 
   campaignNamesSuccess(res) {
@@ -145,6 +150,12 @@ export class ClosureComponent implements OnInit
       this.transferValid = false;
     }
     this.callTypeID = undefined;
+    if(callType == "Valid" && !this.beneficiarySelected){
+      this.message.alert("Can not make call valid without selecting beneficiary");
+      this.closureForm.form.patchValue({
+        "callType" : ""
+      })
+    }
     // Below variable is used to disable save and continue when call is already disconnected.
     this.isCallDisconnected = this.saved_data.isCallDisconnected;
     this.callSubTypes = this.callTypeObj.filter(function (item) {
@@ -401,5 +412,8 @@ export class ClosureComponent implements OnInit
     } else {
       return false;
     }
+  }
+  setFlag() {
+    this.beneficiarySelected = true;
   }
 }
