@@ -10,7 +10,7 @@ import { ListnerService } from './../services/common/listner.service';
 import { CallServices } from './../services/callservices/callservice.service';
 declare var jQuery: any;
 import { SocketService } from '../services/socketService/socket.service';
-import {ToasterService, ToasterConfig} from 'angular2-toaster';
+import { ToasterService, ToasterConfig } from 'angular2-toaster';
 
 @Component({
   selector: 'dashboard-component',
@@ -42,10 +42,10 @@ export class dashboardContentClass implements OnInit {
 
   agentID: any;
   agentIDExitsFlag: boolean = false;
-  public config: ToasterConfig = 
-  new ToasterConfig({
+  public config: ToasterConfig =
+    new ToasterConfig({
       timeout: 15000
-  });
+    });
 
   constructor(
     public dataSettingService: dataService,
@@ -69,31 +69,31 @@ export class dashboardContentClass implements OnInit {
       console.log(data);
       this.alertRefresh++;
       if (data.type == 'Alert') {
-        this.toasterService.popAsync('error',data.type, data.subject+": "+data.message).subscribe((res)=>{
+        this.toasterService.popAsync('error', data.type, data.subject + ": " + data.message).subscribe((res) => {
           console.log(res);
         });
       }
 
       if (data.type == 'Notification') {
-        this.toasterService.popAsync('success',data.type, data.subject+": "+data.message).subscribe((res)=>{
+        this.toasterService.popAsync('success', data.type, data.subject + ": " + data.message).subscribe((res) => {
           console.log(res);
         });
       }
 
       if (data.type == 'Emergency_Contact') {
-        this.toasterService.popAsync('warning',data.type, data.subject+" "+data.message).subscribe((res)=>{
+        this.toasterService.popAsync('warning', data.type, data.subject + " " + data.message).subscribe((res) => {
           console.log(res);
         });
       }
 
       if (data.type == 'Training_Resource') {
-        this.toasterService.popAsync('wait',data.type, data.subject+": "+data.message).subscribe((res)=>{
+        this.toasterService.popAsync('wait', data.type, data.subject + ": " + data.message).subscribe((res) => {
           console.log(res);
         });
       }
 
       if (data.type == 'Location_Message') {
-        this.toasterService.popAsync('info',data.type, data.subject+": "+data.message).subscribe((res)=>{
+        this.toasterService.popAsync('info', data.type, data.subject + ": " + data.message).subscribe((res) => {
           console.log(res);
         });
       }
@@ -136,7 +136,7 @@ export class dashboardContentClass implements OnInit {
     //       this.dataSettingService.userPriveliges = response.previlegeObj;
     //       this.dataSettingService.uid = response.userID;
     //       this.dataSettingService.uname = response.userName;
-    const url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
+    const url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.dataSettingService.cZentrixAgentID;
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     console.log('url = ' + url);
@@ -188,7 +188,7 @@ export class dashboardContentClass implements OnInit {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
-     this.addListener();
+    this.addListener();
     this.listenCall = this.renderer.listenGlobal('window', 'message', (event) => {
       this.listener(event);
       // Do something with 'event'
