@@ -45,3 +45,8 @@
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+i.fa {
+    padding: 0px!important;
+    font-size: 22px!important;
+    margin-top: 17px!important;
+}

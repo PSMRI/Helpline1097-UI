@@ -150,8 +150,8 @@ export class ClosureComponent implements OnInit
       this.transferValid = false;
     }
     this.callTypeID = undefined;
-    if(callType == "Valid" && !this.beneficiarySelected){
-      this.message.alert("Can not make call valid without selecting beneficiary");
+    if((callType == "Valid" || callType == 'Transfer') && !this.beneficiarySelected){
+      this.message.alert("Can't make call valid or transfer without selecting beneficiary");
       this.closureForm.form.patchValue({
         "callType" : ""
       })
