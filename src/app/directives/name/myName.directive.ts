@@ -51,3 +51,22 @@ export class myName {
 
 
 }
+@Directive({
+	selector: '[myName_space]'
+})
+export class myName_space {
+	constructor(element: ElementRef) {
+
+	}
+
+
+	@HostListener('keypress', ['$event']) onKeyPress(ev: any) {
+		var regex = new RegExp(/^[0-9~!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/);
+		var key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);
+		if (regex.test(key)) {
+			ev.preventDefault();
+		}
+	}
+
+
+}

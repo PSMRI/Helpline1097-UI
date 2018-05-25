@@ -39,9 +39,9 @@
           </md-input-container>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-10 m-b-10">
-          <button type="button" class="hidden-md hidden-xs" md-raised-button color="primary" [disabled]="startDate.invalid || endDate.invalid || language.invalid"
+          <button type="button" class="hidden-md hidden-xs" md-raised-button color="accent" [disabled]="startDate.invalid || endDate.invalid || language.invalid"
             (click)="getUnallocateCall(getOutboundForm.value)">Search</button>
-          <button type="button" class="visible-md visible-xs pull-right" md-raised-button color="primary" [disabled]="startDate.invalid || endDate.invalid || language.invalid"
+          <button type="button" class="visible-md visible-xs pull-right" md-raised-button color="accent" [disabled]="startDate.invalid || endDate.invalid || language.invalid"
             (click)="getUnallocateCall(getOutboundForm.value)">Search</button>
         </div>
       </form>
@@ -66,7 +66,7 @@
               <th>{{item?.language}}</th>
               <td>{{item?.count}}
                 <button type="button" *ngIf="item.language !== 'All'" [disabled]="(item?.count === 0 )" (click)="allocateCalls(startDate.value,endDate.value,item?.language, $event)"
-                  md-raised-button color="primary" class="md-btn pull-right">Allocate</button>
+                  md-raised-button color="accent" class="md-btn pull-right">Allocate</button>
                   
               </td>
             </tr>

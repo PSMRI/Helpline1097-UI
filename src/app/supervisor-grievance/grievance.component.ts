@@ -12,6 +12,7 @@ import { AlernateEmailModelComponent } from './../alernate-email-model/alernate-
 import { MdDialog } from '@angular/material';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { FeedbackTypes } from '../services/common/feedbacktypes.service';
+import { request } from 'd3';
 
 @Component({
   selector: 'supervisor-grievance',
@@ -142,6 +143,7 @@ export class grievanceComponent implements OnInit {
     this.serviceID = this._saved_data.current_service.serviceID;
     let requestData = {};
     requestData['serviceID'] = this.serviceID;
+    requestData['is1097'] = true;
 
     this.feedbackService.getFeedbackTypeID(this.serviceID)
       .subscribe((response) => {
@@ -418,6 +420,7 @@ export class grievanceComponent implements OnInit {
       bodyString.feedbackTypeID = undefined;
     }
     bodyString['serviceID'] = this.serviceID;
+    bodyString['is1097'] = true;
     // this._feedbackservice.searchFeedback( bodyString )
     //   .subscribe( resProviderData => this.providers( resProviderData ) );
     this._feedbackservice.getFeedback(bodyString)

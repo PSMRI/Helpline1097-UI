@@ -149,7 +149,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   showAlert() {
-    this.message.alert('Updated Successfully', 'success');
+    this.message.alert('Details updated successfully', 'success');
 
     //this.form.reset();
   }
