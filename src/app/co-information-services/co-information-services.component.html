@@ -49,7 +49,7 @@
           <ul class="m-t-10" [hidden]="!showresult">
             <li *ngFor="let detail of detailsList">
               <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank">
-                <md-icon class="f-s-22 icon" color="">file_download</md-icon><span class="m-l-10">{{detail?.subCategoryName}}:{{detail?.subCategoryDesc}}</span>
+                <md-icon class="f-s-22 icon" color="">file_download</md-icon><span class="m-l-10">{{detail?.subCategoryName}}<span *ngIf="detail?.subCategoryDesc">:</span>{{detail?.subCategoryDesc}}</span>
               </a>
               <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">No Document Available</span> 
             </li>
