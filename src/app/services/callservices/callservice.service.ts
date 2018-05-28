@@ -27,7 +27,8 @@ export class CallServices {
   _getCampaignNames_url = this._commonURL + 'cti/getCampaignNames';
   _getCampaignSkills_url = this._commonURL + 'cti/getCampaignSkills';
   _transferCall_url = this._commonURL + 'cti/transferCall';
-  _getBeneficiaryURL =this._commonURL + "call/beneficiaryByCallID"; 
+  _getBeneficiaryURL = this._commonURL + "call/beneficiaryByCallID";
+  _getBenOutboundListUrl = this._commonURL + "call/getBenRequestedOutboundCall";
 
   constructor(
     private _http: AuthorizationWrapper,
@@ -69,7 +70,7 @@ export class CallServices {
       obj['providerServiceMapID'] = serviceID;
     }
     obj['is1097'] = true;
-    
+
     return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleCustomError);
   }
   getBlackListCalls(objSearch: any) {
@@ -100,17 +101,21 @@ export class CallServices {
     return this._httpInterceptor.post(this._switchToOutbound_url, agentObj).map(this.extractData).catch(this.handleCustomError);
   }
   getCampaignNames(serviceNameObj) {
-    return this._http.post(this._getCampaignNames_url,serviceNameObj).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._getCampaignNames_url, serviceNameObj).map(this.extractData).catch(this.handleError);
   }
   getCampaignSkills(campaignName) {
-    return this._httpInterceptor.post(this._getCampaignSkills_url,campaignName).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._getCampaignSkills_url, campaignName).map(this.extractData).catch(this.handleCustomError);
   }
   transferCall(data) {
-    return this._httpInterceptor.post(this._transferCall_url,data).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._transferCall_url, data).map(this.extractData).catch(this.handleCustomError);
   }
-  getBeneficiaryByCallID(data){
+  getBeneficiaryByCallID(data) {
     return this._http.post(this._getBeneficiaryURL, data).map(this.extractData).catch(this.handleError);
-}
+  }
+  getBenOutboundList(data) {
+    return this._http.post(this._getBenOutboundListUrl, data).map(this.extractData).catch(this.handleError);
+  }
+
   extractData(response: Response) {
     if (response.json().data) {
       return response.json().data;

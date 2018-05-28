@@ -76,8 +76,8 @@ export class ActivityThisWeekComponent implements OnInit {
       'providerServiceMapID': this.providerServiceMapID,
       'notificationTypeID': KMconfig[0].notificationTypeID,
       'roleIDs': [this.current_roleID],
-      'validFrom': new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
-      'validTill': new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000)
+      'validFrom': new Date(),
+      'validTill': new Date()
     }
 
 

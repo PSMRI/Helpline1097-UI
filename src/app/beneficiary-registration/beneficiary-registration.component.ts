@@ -602,6 +602,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.showAlert();
       this.populateUserData(response);
       this.onBenSelect.emit('benService');
+      this.saved_data.beneficiarySelected.next({
+        "beneficiarySelected" : true
+      });
     }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
@@ -738,6 +741,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         } else {
           this.alertMaessage.alert('No data found');
         }
+        this.onBenSelect.emit('benService');
+        this.showSearchResult = false;
+        this.notCalledEarlierLowerPart = false;
+        this.saved_data.beneficiarySelected.next({
+          "beneficiarySelected" : true
+        });
       }, err => {
         this.alertMaessage.alert(err.errorMessage, 'error');
         console.log('ERROR', err);
@@ -952,12 +961,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         this.populateUserData(regHistory);
-        this.onBenSelect.emit('benService');
-        this.showSearchResult = false;
-        this.notCalledEarlierLowerPart = false;
-        this.saved_data.beneficiarySelected.next({
-          "beneficiarySelected" : true
-        });
+     //   this.onBenSelect.emit('benService');
+        // this.showSearchResult = false;
+        // this.notCalledEarlierLowerPart = false;
+        // this.saved_data.beneficiarySelected.next({
+        //   "beneficiarySelected" : true
+        // });
       });
     }
 
