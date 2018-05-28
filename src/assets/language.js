@@ -199,7 +199,7 @@
       "call_details": "Call Details",
       "followup_question": "Is Follow-Up Required?",
       "calltype": "Select Call Type",
-      "callSubtype": "Select Subcall Type",
+      "callSubtype": "Select Sub Call Type",
       "remarks": "Enter Remarks",
       "preferred_date": "Preferred Date (dd/mm/yyyy)",
       "follow_up_reason": "Follow-up Reason",
