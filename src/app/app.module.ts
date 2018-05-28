@@ -190,6 +190,7 @@ import { ToasterModule } from 'angular2-toaster';
 import { UtcDatePipe } from './utc-date.pipe';
 import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-modal/emergency-contacts-view-modal.component';
 import { QualityAuditService } from './services/supervisorServices/quality-audit-service.service';
+import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logout.component';
 
 
 @NgModule({
@@ -226,7 +227,8 @@ import { QualityAuditService } from './services/supervisorServices/quality-audit
     COComponent,
     UtcDatePipe,
     EmergencyContactsViewModalComponent,
-    CaseSheetSummaryDialogComponent
+    CaseSheetSummaryDialogComponent,
+    AgentForceLogoutComponent
 
   ],
   imports: [
@@ -315,7 +317,7 @@ import { QualityAuditService } from './services/supervisorServices/quality-audit
     Md2Module],
   entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent,
     AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
-    , CoAlternateNumberComponent, EmergencyContactsViewModalComponent, CaseSheetSummaryDialogComponent],
+    , CoAlternateNumberComponent, EmergencyContactsViewModalComponent, CaseSheetSummaryDialogComponent, AgentForceLogoutComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,

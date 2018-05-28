@@ -821,8 +821,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // if (registeredBenData.benPhoneMaps[1]) {
     //   this.PhoneNo = registeredBenData.benPhoneMaps[1].phoneNo;
 
+
     // this.PhoneNo = 'XXXXXX' + registeredBenData.benPhoneMaps[1].phoneNo.toString()
     //   .substring(this.unMaskedNumber.length - 4 > 0 ? (this.unMaskedNumber.length - 4) : 0, this.unMaskedNumber.length);
+
 
     // }
 
@@ -951,7 +953,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     //   }
     //   if (this.updatedObj.benPhoneMaps[index].createdBy) {
     //     this.updatedObj.benPhoneMaps[index].modifiedBy = this.saved_data.uname;
-   //   } else {
+    //   } else {
     //     this.updatedObj.benPhoneMaps[index].createdBy = this.saved_data.uname;
     //     this.updatedObj.benPhoneMaps[index].deleted = false;
     //   }
@@ -1098,12 +1100,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         this.populateUserData(regHistory);
-        // this.onBenSelect.emit('benService');
-        // this.showSearchResult = false;
-        // this.notCalledEarlierLowerPart = false;
-        // this.saved_data.beneficiarySelected.next({
-        //   "beneficiarySelected": true
-        // });
+        this.onBenSelect.emit('benService');
+        this.showSearchResult = false;
+        this.notCalledEarlierLowerPart = false;
+        this.saved_data.beneficiarySelected.next({
+          "beneficiarySelected": true
+        });
       });
     }
 
