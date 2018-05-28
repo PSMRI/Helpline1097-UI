@@ -132,6 +132,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   disableViewAll: boolean = true;
   // agentID: any;
 
+  alternateNumber1: any;
+  alternateNumber2: any;
+  alternateNumber3: any;
+  alternateNumber4: any;
+  alternateNumber5: any;
+
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
@@ -275,15 +281,16 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   reloadCall() {
 
-    if(this.saved_data.current_campaign == 'OUTBOUND') {
+    if (this.saved_data.current_campaign == 'OUTBOUND') {
       const res = this._util.retrieveRegHistory(this.saved_data.outboundBenRegID)
-      .subscribe(response => { 
-        this.handleRegHistorySuccess(response) }, err => {
-        this.alertMaessage.alert(err.status, 'error');
-        console.log('ERROR', err);
-      });    
+        .subscribe(response => {
+          this.handleRegHistorySuccess(response)
+        }, err => {
+          this.alertMaessage.alert(err.status, 'error');
+          console.log('ERROR', err);
+        });
     }
-    else{
+    else {
       this.retrieveRegHistoryByPhoneNo(this.saved_data.callerNumber);
 
     }
@@ -408,7 +415,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.updationProcess = false;
       this.FirstName = undefined;
       this.LastName = undefined;
-      this.PhoneNo = undefined;
+      // this.PhoneNo = undefined;
+      this.alternateNumber1 = undefined;
+      this.alternateNumber2 = undefined;
+      this.alternateNumber3 = undefined;
+      this.alternateNumber4 = undefined;
+      this.alternateNumber5 = undefined;
       this.GenderID = undefined;
       this.age = undefined;
       this.TitleId = undefined;
@@ -567,13 +579,58 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updatedObj.benPhoneMaps[0].phoneNo = this.saved_data.callerNumber;
     this.updatedObj.benPhoneMaps[0].createdBy = this.saved_data.uname;
     this.updatedObj.benPhoneMaps[0].deleted = false;
-    if (this.PhoneNo) {
+    // if (this.PhoneNo) {
+    //   this.updatedObj.benPhoneMaps[1] = {};
+    //   this.updatedObj.benPhoneMaps[1].parentBenRegID = this.ParentBenRegID;
+    //   this.updatedObj.benPhoneMaps[1].benRelationshipID = this.beneficiaryRelationID;
+    //   this.updatedObj.benPhoneMaps[1].phoneNo = this.PhoneNo;
+    //   this.updatedObj.benPhoneMaps[1].createdBy = this.saved_data.uname;
+    //   this.updatedObj.benPhoneMaps[1].deleted = false;
+    // }
+
+    if (this.alternateNumber1) {
       this.updatedObj.benPhoneMaps[1] = {};
       this.updatedObj.benPhoneMaps[1].parentBenRegID = this.ParentBenRegID;
       this.updatedObj.benPhoneMaps[1].benRelationshipID = this.beneficiaryRelationID;
-      this.updatedObj.benPhoneMaps[1].phoneNo = this.PhoneNo;
+      this.updatedObj.benPhoneMaps[1].phoneNo = this.alternateNumber1;
       this.updatedObj.benPhoneMaps[1].createdBy = this.saved_data.uname;
       this.updatedObj.benPhoneMaps[1].deleted = false;
+    }
+
+    if (this.alternateNumber2) {
+      this.updatedObj.benPhoneMaps[2] = {};
+      this.updatedObj.benPhoneMaps[2].parentBenRegID = this.ParentBenRegID;
+      this.updatedObj.benPhoneMaps[2].benRelationshipID = this.beneficiaryRelationID;
+      this.updatedObj.benPhoneMaps[2].phoneNo = this.alternateNumber2;
+      this.updatedObj.benPhoneMaps[2].createdBy = this.saved_data.uname;
+      this.updatedObj.benPhoneMaps[2].deleted = false;
+    }
+
+    if (this.alternateNumber3) {
+      this.updatedObj.benPhoneMaps[3] = {};
+      this.updatedObj.benPhoneMaps[3].parentBenRegID = this.ParentBenRegID;
+      this.updatedObj.benPhoneMaps[3].benRelationshipID = this.beneficiaryRelationID;
+      this.updatedObj.benPhoneMaps[3].phoneNo = this.alternateNumber3;
+      this.updatedObj.benPhoneMaps[3].createdBy = this.saved_data.uname;
+      this.updatedObj.benPhoneMaps[3].deleted = false;
+    }
+
+    if (this.alternateNumber4) {
+      this.updatedObj.benPhoneMaps[4] = {};
+      this.updatedObj.benPhoneMaps[4].parentBenRegID = this.ParentBenRegID;
+      this.updatedObj.benPhoneMaps[4].benRelationshipID = this.beneficiaryRelationID;
+      this.updatedObj.benPhoneMaps[4].phoneNo = this.alternateNumber4;
+      this.updatedObj.benPhoneMaps[4].createdBy = this.saved_data.uname;
+      this.updatedObj.benPhoneMaps[4].deleted = false;
+    }
+
+    if (this.alternateNumber5) {
+      this.updatedObj.benPhoneMaps[5] = {};
+      this.updatedObj.benPhoneMaps[5].parentBenRegID = this.ParentBenRegID;
+      this.updatedObj.benPhoneMaps[5].benRelationshipID = this.beneficiaryRelationID;
+      this.updatedObj.benPhoneMaps[5].phoneNo = this.alternateNumber5;
+      this.updatedObj.benPhoneMaps[5].createdBy = this.saved_data.uname;
+      this.updatedObj.benPhoneMaps[5].deleted = false;
     }
     this.updatedObj.govtIdentityNo = this.aadharNo;
     this.updatedObj.govtIdentityTypeID = this.identityType;
@@ -644,8 +701,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
 
     const res = this._util.retrieveRegHistoryByPhoneNo(PhoneNo)
-      .subscribe(response => { 
-        this.handleRegHistorySuccess(response) }, err => {
+      .subscribe(response => {
+        this.handleRegHistorySuccess(response)
+      }, err => {
         this.alertMaessage.alert(err.status, 'error');
         console.log('ERROR', err);
       });
@@ -661,8 +719,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       this.disableViewAll = false;
       const res = this._util.retrieveRegHistory(reg_no)
-        .subscribe(response => { 
-          this.handleRegHistorySuccess(response) }, err => {
+        .subscribe(response => {
+          this.handleRegHistorySuccess(response)
+        }, err => {
           this.alertMaessage.alert(err.status, 'error');
           console.log('ERROR', err);
         });
@@ -758,10 +817,32 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     if (registeredBenData.benPhoneMaps[0]) {
       this.ParentBenRegID = registeredBenData.benPhoneMaps[0].parentBenRegID;
     }
-    if (registeredBenData.benPhoneMaps[1]) {
-      this.PhoneNo = registeredBenData.benPhoneMaps[1].phoneNo;
-      // this.PhoneNo = 'XXXXXX' + registeredBenData.benPhoneMaps[1].phoneNo.toString()
-      //   .substring(this.unMaskedNumber.length - 4 > 0 ? (this.unMaskedNumber.length - 4) : 0, this.unMaskedNumber.length);
+    // if (registeredBenData.benPhoneMaps[1]) {
+    //   this.PhoneNo = registeredBenData.benPhoneMaps[1].phoneNo;
+
+
+    // this.PhoneNo = 'XXXXXX' + registeredBenData.benPhoneMaps[1].phoneNo.toString()
+    //   .substring(this.unMaskedNumber.length - 4 > 0 ? (this.unMaskedNumber.length - 4) : 0, this.unMaskedNumber.length);
+
+
+    // }
+
+    for (let i = 1; i < registeredBenData.benPhoneMaps.length; i++) {
+      if (i == 1) {
+        this.alternateNumber1 = registeredBenData.benPhoneMaps[i].phoneNo;
+      }
+      if (i == 2) {
+        this.alternateNumber2 = registeredBenData.benPhoneMaps[i].phoneNo;
+      }
+      if (i == 3) {
+        this.alternateNumber3 = registeredBenData.benPhoneMaps[i].phoneNo;
+      }
+      if (i == 4) {
+        this.alternateNumber4 = registeredBenData.benPhoneMaps[i].phoneNo;
+      }
+      if (i == 5) {
+        this.alternateNumber5 = registeredBenData.benPhoneMaps[i].phoneNo;
+      }
     }
     this.aadharNo = registeredBenData.govtIdentityNo;
     this.identityType = registeredBenData.govtIdentityTypeID;
@@ -839,40 +920,110 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.updatedObj.parentBenRegID = this.ParentBenRegID;
     // this.updatedObj.altPhoneNo = this.PhoneNo;
     let phones = this.updatedObj.benPhoneMaps.length;
-    if (this.PhoneNo && phones === 1) {
-      const obj = {};
-      obj['parentBenRegID'] = this.ParentBenRegID;
-      obj['benificiaryRegID'] = this.updatedObj.beneficiaryRegID;
-      obj['benRelationshipID'] = this.beneficiaryRelationID;
-      obj['phoneNo'] = this.PhoneNo;
-      obj['modifiedBy'] = this.saved_data.uname;
-      obj['createdBy'] = this.saved_data.uname;
-      obj['deleted'] = false;
-      this.updatedObj.benPhoneMaps.push(obj);
+// commented on 28 may till * point
+
+    // if (this.alternateNumber1 && phones === 1) {
+    //   const obj = {};
+    //   obj['parentBenRegID'] = this.ParentBenRegID;
+    //   obj['benificiaryRegID'] = this.updatedObj.beneficiaryRegID;
+    //   obj['benRelationshipID'] = this.beneficiaryRelationID;
+    //   obj['phoneNo'] = this.alternateNumber1;
+    //   obj['modifiedBy'] = this.saved_data.uname;
+    //   obj['createdBy'] = this.saved_data.uname;
+    //   obj['deleted'] = false;
+    //   this.updatedObj.benPhoneMaps.push(obj);
+    // }
+
+    // for (let index = 0; index < phones; index++) {
+    //   this.updatedObj.benPhoneMaps[index].parentBenRegID = this.ParentBenRegID;
+    //   this.updatedObj.benPhoneMaps[index].benificiaryRegID = this.updatedObj.beneficiaryRegID;
+    //   this.updatedObj.benPhoneMaps[index].benRelationshipID = this.beneficiaryRelationID;
+    //   if (index === 1) {
+    //     this.updatedObj.benPhoneMaps[index].phoneNo = this.alternateNumber1;
+    //   }
+    //   if (index === 2) {
+    //     this.updatedObj.benPhoneMaps[index].phoneNo = this.alternateNumber2;
+    //   }
+    //   if (index === 3) {
+    //     this.updatedObj.benPhoneMaps[index].phoneNo = this.alternateNumber3;
+    //   }
+    //   if (index === 4) {
+    //     this.updatedObj.benPhoneMaps[index].phoneNo = this.alternateNumber4;
+    //   }
+    //   if (index === 5) {
+    //     this.updatedObj.benPhoneMaps[index].phoneNo = this.alternateNumber5;
+    //   }
+    //   if (this.updatedObj.benPhoneMaps[index].createdBy) {
+    //     this.updatedObj.benPhoneMaps[index].modifiedBy = this.saved_data.uname;
+    //   } else {
+    //     this.updatedObj.benPhoneMaps[index].createdBy = this.saved_data.uname;
+    //     this.updatedObj.benPhoneMaps[index].deleted = false;
+    //   }
+    // }
+
+    // commented on 28 may till here *
+
+    // NEW DATA FROM 104 on 28may
+    for (let j = 1; j < 6; j++) {
+      if (this.updatedObj.benPhoneMaps[j]) {
+        this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
+        this.updatedObj.benPhoneMaps[j].parentBenRegID = this.ParentBenRegID;
+        this.updatedObj.benPhoneMaps[j].benificiaryRegID = this.updatedObj.beneficiaryRegID;
+        this.updatedObj.benPhoneMaps[j].benRelationshipID = this.beneficiaryRelationID;
+
+        if (j === 1) {
+
+          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber1;
+        }
+        if (j === 2) {
+          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber2;
+        }
+        if (j === 3) {
+          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber3;
+        }
+        if (j === 4) {
+          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber4;
+        }
+        if (j === 5) {
+          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber5;
+        }
+        if (this.updatedObj.benPhoneMaps[j].createdBy) {
+          this.updatedObj.benPhoneMaps[j].modifiedBy = this.saved_data.uname;
+        } else {
+          this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
+          this.updatedObj.benPhoneMaps[j].deleted = false;
+        }
+      } else {
+        const obj = {};
+        obj['parentBenRegID'] = this.ParentBenRegID;
+        obj['benificiaryRegID'] = this.updatedObj.beneficiaryRegID;
+        obj['benRelationshipID'] = this.beneficiaryRelationID;
+        if (j === 1) {
+          obj['phoneNo'] = this.alternateNumber1;
+        }
+        if (j === 2) {
+          obj['phoneNo'] = this.alternateNumber2;
+        }
+        if (j === 3) {
+          obj['phoneNo'] = this.alternateNumber3;
+        }
+        if (j === 4) {
+          obj['phoneNo'] = this.alternateNumber4;
+        }
+        if (j === 5) {
+          obj['phoneNo'] = this.alternateNumber5;
+        }
+        obj['modifiedBy'] = this.saved_data.uname;
+        obj['createdBy'] = this.saved_data.uname;
+        obj['deleted'] = false;
+        this.updatedObj.benPhoneMaps.push(obj);
+      }
+
     }
 
-    // if (phones > 0) {
-    //   phones = 1;
-    // }
-    // if (
-    //   !this.updatedObj.benPhoneMaps[phones] ||
-    //   !((this.updatedObj.benPhoneMaps[phones].phoneNo) && (this.updatedObj.benPhoneMaps[phones].phoneNo === this.PhoneNo))
-    // )
-    for (let index = 0; index < phones; index++) {
-      // this.updatedObj.benPhoneMaps[phones] = {};
-      this.updatedObj.benPhoneMaps[index].parentBenRegID = this.ParentBenRegID;
-      this.updatedObj.benPhoneMaps[index].benificiaryRegID = this.updatedObj.beneficiaryRegID;
-      this.updatedObj.benPhoneMaps[index].benRelationshipID = this.beneficiaryRelationID;
-      if (index === 1) {
-        this.updatedObj.benPhoneMaps[index].phoneNo = this.PhoneNo;
-      }
-      if (this.updatedObj.benPhoneMaps[index].createdBy) {
-        this.updatedObj.benPhoneMaps[index].modifiedBy = this.saved_data.uname;
-      } else {
-        this.updatedObj.benPhoneMaps[index].createdBy = this.saved_data.uname;
-        this.updatedObj.benPhoneMaps[index].deleted = false;
-      }
-    }
+    // ends
+
+
     this.updatedObj.govtIdentityNo = this.aadharNo;
     this.updatedObj.govtIdentityTypeID = this.identityType;
     if (!this.updatedObj.i_bendemographics.beneficiaryRegID) {
@@ -912,7 +1063,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   updateSuccessHandeler(response) {
     if (response) {
       this.alertMaessage.alert('Beneficiary updated successfully', 'success');
-      if (this.preferredLanguage != undefined && this.preferredLanguage!=null) {
+      if (this.preferredLanguage != undefined && this.preferredLanguage != null) {
         this.setBeneficiaryLanguageInCZentrix('update', this.preferredLanguage);
       }
       this.BeneficaryForm.resetForm();
@@ -956,7 +1107,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.showSearchResult = false;
         this.notCalledEarlierLowerPart = false;
         this.saved_data.beneficiarySelected.next({
-          "beneficiarySelected" : true
+          "beneficiarySelected": true
         });
       });
     }

@@ -62,6 +62,7 @@
       "dob": "DOB: dd/MM/yyyy",
       "age": "Age",
       "alternate_number": "Alternate Number",
+      "mobile_validation": "Please enter 10 digits number",
       "next": "Next",
       "identity_type": "Identity Type",
       "id_number": "ID Number",
