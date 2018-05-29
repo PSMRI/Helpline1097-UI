@@ -144,8 +144,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
     private pass_data: CommunicationService,
     private outboundService: OutboundService, private czentrixService: CzentrixServices, private reload_call: ReloadService) {
-    this.subcriptionOutbound = this.outboundService.getOutboundData()
-      .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
+
+    // this.subcriptionOutbound = this.outboundService.getOutboundData()
+    //   .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
+    
     this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
@@ -158,6 +160,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.startNewCall();
     this.IntializeSessionValues();
     this.current_campaign = this.saved_data.current_campaign;
+    if(this.saved_data.current_campaign == 'OUTBOUND') {
+        this.startOutBoundCall(this.saved_data.outboundData);
+    }
     // this.agentID = this.saved_data.cZentrixAgentID;
     // this.reloadOutBoundCall(this.current_campaign);
 
@@ -210,7 +215,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.is1097 = true;
     data.createdBy = this.saved_data.uname;
     data.calledServiceID = this.saved_data.current_service.serviceID;
-    data.phoneNo = outboundData.outboundData.beneficiary.benPhoneMaps[0].phoneNo;
+    data.phoneNo = outboundData.beneficiary.benPhoneMaps[0].phoneNo;
     data.agentID = this.saved_data.cZentrixAgentID;
 
     /*added by diamond on asked by Vinay*/
@@ -226,7 +231,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       //     if (!this.cZentrixIp) {
       //       this.cZentrixIp = this.saved_data.loginIP;
       //     }
-      this.outboundEvent(outboundData.outboundData, this.cZentrixIp)
+      this.outboundEvent(outboundData, this.cZentrixIp)
       // },
       // (error) => {
       //   this.alertMaessage.alert('Some Error while calling Czentrix');
@@ -264,8 +269,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     //   .subscribe((res) => {
     //     console.log(res);
     //     if (res.response.status == 'SUCCESS') {
-    this.retrieveRegHistory(outboundData.beneficiary.beneficiaryRegID);
-    this.saved_data.current_campaign = 'OUTBOUND';
+    this.retrieveRegHistory(outboundData.beneficiary.beneficiaryID);
+    //this.saved_data.current_campaign = 'OUTBOUND';
     this.saved_data.outBoundCallID = outboundData.outboundCallReqID;
     this.current_campaign = this.saved_data.current_campaign;
     //   } else {
@@ -1326,7 +1331,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.subcriptionOutbound.unsubscribe();
+ //   this.subcriptionOutbound.unsubscribe();
 
   }
   // getLocationPerPincode(pincodeObj: any) {

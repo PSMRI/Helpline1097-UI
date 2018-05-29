@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Rx';
 import { ListnerService } from './../services/common/listner.service';
 import { AuthService } from '../services/authentication/auth.service';
 import { RegisterService } from '../services/register-services/register-service';
+import { Subscription } from 'rxjs/Subscription';
 
 declare const jQuery: any;
 
@@ -55,6 +56,7 @@ export class InnerpageComponent implements OnInit {
   disconectCallId: any;
   backToDashboard: boolean = true;
   callID: any;
+  wrapupTimerSubscription: Subscription;
 
   // eventSpiltData: any;
 
@@ -530,7 +532,7 @@ export class InnerpageComponent implements OnInit {
     this.wrapupTime = true;
     this.callTime = false;
     const timer = Observable.timer(2000, 1000);
-    timer.subscribe(t => {
+    this.wrapupTimerSubscription = timer.subscribe(t => {
       this.ticks = (this.timeRemaining - t);
       this.ticks = this.ticks + 's';
       const remarks = 'Call disconnect from customer.';
@@ -588,5 +590,9 @@ export class InnerpageComponent implements OnInit {
   }
   ngOnDestroy() {
     this.listenCallEvent();
+
+    if(this.wrapupTimerSubscription)
+    this.wrapupTimerSubscription.unsubscribe();
+  
   }
 }

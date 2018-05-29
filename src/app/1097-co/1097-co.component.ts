@@ -251,41 +251,41 @@ export class helpline1097CoComponent implements OnInit {
   getServiceHistory() {
     this.getHistory.emit(null);
   }
-  public callBenOutbound(event: any) {
-    // this.getSelectedBenDetails(event.beneficiary);
-    // this.benService('benService');
-    this.czentrixService.getIpAddress(this.getCommonData.cZentrixAgentID)
-      .subscribe((ipAddressresponse) => {
-        let cZentrixIp = ipAddressresponse.response.agent_ip;
-        if (!cZentrixIp) {
-          cZentrixIp = this.getCommonData.loginIP;
-        }
-        this.outboundEvent(event, cZentrixIp)
-      },
-        (error) => {
-          this.dialogService.alert('Some error while calling Czentrix', 'error');
-        });
-  }
+  // public callBenOutbound(event: any) {
+  //   // this.getSelectedBenDetails(event.beneficiary);
+  //   // this.benService('benService');
+  //   this.czentrixService.getIpAddress(this.getCommonData.cZentrixAgentID)
+  //     .subscribe((ipAddressresponse) => {
+  //       let cZentrixIp = ipAddressresponse.response.agent_ip;
+  //       if (!cZentrixIp) {
+  //         cZentrixIp = this.getCommonData.loginIP;
+  //       }
+  //       this.outboundEvent(event, cZentrixIp)
+  //     },
+  //       (error) => {
+  //         this.dialogService.alert('Some error while calling Czentrix', 'error');
+  //       });
+  // }  NO longer in use after implementing routing for outbound worklist.... gursimran 29/5/18
 
-  public outboundEvent(event: any, IpAddress: any) {
-    const params = 'transaction_id=CTI_DIAL&agent_id=' + this.getCommonData.cZentrixAgentID +
-      '&ip=' + IpAddress + '&phone_num=' + event.beneficiary.benPhoneMaps[0].phoneNo +
-      '&resFormat=3';
-    this.czentrixService.callAPI(params)
-      .subscribe((res) => {
-        if (res.response.status == 'SUCCESS') {
-          this.getCommonData.current_campaign = 'INBOUND';
-          this.current_campaign = this.getCommonData.current_campaign;
-          this.basicrouter.navigate(['/InnerpageComponent']);
-          this.outBoundService.sendOutboundData(event);
-        } else {
-          this.dialogService.alert('Czentrix user not logged-in');
-        }
-      },
-        (error) => {
-          this.dialogService.alert('Call not intiating, Please try again.');
-        });
-  }
+  // public outboundEvent(event: any, IpAddress: any) {
+  //   const params = 'transaction_id=CTI_DIAL&agent_id=' + this.getCommonData.cZentrixAgentID +
+  //     '&ip=' + IpAddress + '&phone_num=' + event.beneficiary.benPhoneMaps[0].phoneNo +
+  //     '&resFormat=3';
+  //   this.czentrixService.callAPI(params)
+  //     .subscribe((res) => {
+  //       if (res.response.status == 'SUCCESS') {
+  //         this.getCommonData.current_campaign = 'INBOUND';
+  //         this.current_campaign = this.getCommonData.current_campaign;
+  //         this.basicrouter.navigate(['/InnerpageComponent']);
+  //         this.outBoundService.sendOutboundData(event);
+  //       } else {
+  //         this.dialogService.alert('Czentrix user not logged-in');
+  //       }
+  //     },
+  //       (error) => {
+  //         this.dialogService.alert('Call not intiating, Please try again.');
+  //       });
+  // } NO longer in use after implementing routing for outbound worklist.... gursimran 29/5/18
   public ReloadBenOutbound(callType) {
     this.reloadCall.sendReloadCall(callType);
   }

@@ -1120,7 +1120,7 @@ em {
   padding-top: 15px !important;
 }
 .multiSelect {
-  background-color: #red;
+  background-color: red;
   position: absolute;
   z-index: 999;
   border: 1px solid #cccccc;
@@ -2094,7 +2094,9 @@ input:-webkit-autofill:hover {
   font-size: 15px !important;
   width: inherit;
 }
-
+.mat-input-infix {
+  padding: 0.2975em 0;
+}
 .mat-select-trigger {
   /*  margin-right: 55px !important;
     width: 160px !important;*/

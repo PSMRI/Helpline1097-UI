@@ -48,7 +48,7 @@ export class loginContentClass implements OnInit {
         //   this.router.navigate(['/setQuestions']);
         // }
       }, (err) => {
-        this.alertService.alert(err.errorMessage, 'error');
+      //  this.alertService.alert(err.errorMessage, 'error');
       });
     }
 
@@ -80,7 +80,7 @@ export class loginContentClass implements OnInit {
         //   this.router.navigate(['/setQuestions']);
         // }
       }, (err) => {
-        this.alertService.alert(err.errorMessage, 'error');
+      //  this.alertService.alert(err.errorMessage, 'error');
       });
     }
 
