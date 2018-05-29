@@ -73,7 +73,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   regHistoryList: any = [];
   beneficiaryParentList: any = [];
   beneficiaryRelations: any = [];
-  states: any = [];
+ states: any = [];
   titles: any = [];
   status: any = [];
   benEdus: any = [];
@@ -163,7 +163,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
-
   ngOnChanges() {
     this.setLanguage(this.current_language);
     // if (this.onReloadCall) {
@@ -176,12 +175,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
-
   setLanguage(language) {
     this.currentlanguage = language;
     console.log(language, 'language ben reg tk');
   }
-
 
   IntializeSessionValues() {
     this.today = new Date();
@@ -475,7 +472,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.blocks = [];
     this.district = undefined;
     this.taluk = undefined;
-    this.village = undefined;
+   this.village = undefined;
     this.spinner = true;
     this.spinnerState = false;
     if (state == undefined) {
@@ -659,6 +656,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.showAlert();
       this.populateUserData(response);
       this.onBenSelect.emit('benService');
+      this.showSearchResult = false;
+      this.notCalledEarlierLowerPart = false;
+      this.saved_data.beneficiarySelected.next({
+        "beneficiarySelected": true
+      });
     }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
@@ -683,7 +685,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe(response => {
         console.log(response, 'RESPONSE for setting language in czentrix');
         if (response.data != undefined) {
-          if (response.data.response.status.toUpperCase() === 'Success'.toUpperCase()) {
+         if (response.data.response.status.toUpperCase() === 'Success'.toUpperCase()) {
             console.log('Language set successfully in CZentrix for Beneficiary');
           }
         }
@@ -709,7 +711,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       });
   }
 
-
   retrieveRegHistory(reg_no: any) {
     this.back1();
     if (!reg_no || reg_no === '') {
@@ -726,7 +727,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
           console.log('ERROR', err);
         });
     }
-
 
   }
 
@@ -797,6 +797,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         } else {
           this.alertMaessage.alert('No data found');
         }
+
       }, err => {
         this.alertMaessage.alert(err.errorMessage, 'error');
         console.log('ERROR', err);
@@ -850,7 +851,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.educationQualification = registeredBenData.i_bendemographics.educationID;
     this.state = registeredBenData.i_bendemographics.stateID;
 
-
     this.GetDistricts(this.state);
     this.district = registeredBenData.i_bendemographics.districtID;
     console.log(registeredBenData.i_bendemographics.districtID, "experiment 1", this.districts);
@@ -884,7 +884,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     /* do not delete, commented because the district,taluk and village were not populting
     while editing the details*/
 
-
     // if (this.state) {
     //   this.GetDistricts(this.state);
     // }
@@ -894,7 +893,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // if (this.taluk) {
     //   this.GetBlocks(this.taluk);
     // }
-
 
     this.pincode = registeredBenData.i_bendemographics.pinCode;
     this.preferredLanguage = registeredBenData.i_bendemographics.preferredLangID;
@@ -1023,7 +1021,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     // ends
 
-
     this.updatedObj.govtIdentityNo = this.aadharNo;
     this.updatedObj.govtIdentityTypeID = this.identityType;
     if (!this.updatedObj.i_bendemographics.beneficiaryRegID) {
@@ -1114,7 +1111,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
-  getRelationShipType(relationShips) {
+ getRelationShipType(relationShips) {
     let benificiaryRelationType = [];
     benificiaryRelationType = relationShips.filter(function (item) {
       return item.benRelationshipType.toUpperCase() === 'SELF'; // This value has to go in constant
@@ -1246,7 +1243,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.isAdvancedSearch = false;
     });
 
-
   }
   // Data has to come from the databanse
   validateID(idType: any) {
@@ -1326,7 +1322,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // let a = null;
     // this.age = "0";
     // this.calculateDOB("0");
-
 
   }
   ngOnDestroy() {

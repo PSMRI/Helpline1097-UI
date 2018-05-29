@@ -61,7 +61,7 @@ export class helpline1097CoComponent implements OnInit {
       this.callDuration = this.callDuration + 1;
     }, 1000);
     this.getCommonData.beneficiarySelected.subscribe((data)=>{
-      this.setFlag()
+      this.setFlag(data)
     });
 
   }
@@ -330,7 +330,7 @@ export class helpline1097CoComponent implements OnInit {
   CancelDisable() {
     this.isCancelDisable = false;
   }
-  setFlag() {
-    this.disableBack = false;
+  setFlag(data) {
+    this.disableBack = !data.beneficiarySelected;
   }
 }

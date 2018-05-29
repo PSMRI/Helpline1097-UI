@@ -53,11 +53,13 @@ export class ClosureComponent implements OnInit
   preferredLanguageName: any;
   isCallDisconnected: boolean = false;
   transferValid: boolean = false;
-  campaignNames : any = [];
-  campaignName : any;
-  campaignSkills : any = [];
-  campaignSkill : any;
+  campaignNames: any = [];
+  campaignName: any;
+  campaignSkills: any = [];
+  campaignSkill: any;
   beneficiarySelected: boolean;
+  noOfOutbounds: any;
+  prefferedDatedTaken: any;
 
   constructor(
     private _callServices: CallServices,
@@ -69,8 +71,8 @@ export class ClosureComponent implements OnInit
   ) {
     this.subscription = this.pass_data.getData().subscribe(benData => { this.outBoundCloseCall(benData) });
     this.subscription = this.clearfornData.clearFormGetter().subscribe(data => { this.clearForm(data) });
-    this.saved_data.beneficiarySelected.subscribe((data)=>{
-      this.setFlag()
+    this.saved_data.beneficiarySelected.subscribe((data) => {
+      this.setFlag(data)
     });
   }
   /* Intialization of variable and object has to be come here */
@@ -81,7 +83,7 @@ export class ClosureComponent implements OnInit
       this.callTypeObj = response;
       this.populateCallTypes(response)
     }, (err) => {
-      this.message.alert(err.errorMessage,'error');
+      this.message.alert(err.errorMessage, 'error');
 
     });
 
@@ -102,11 +104,11 @@ export class ClosureComponent implements OnInit
       "serviceName": this.saved_data.current_service.serviceName
     }
     console.log(data);
-    this._callServices.getCampaignNames(data).subscribe(response =>this.campaignNamesSuccess(response),
-  (err)=> {
-    console.log("ERROR IN FETCHING CAMPAIGN NAMES");
-  })
-  this.beneficiarySelected = false;
+    this._callServices.getCampaignNames(data).subscribe(response => this.campaignNamesSuccess(response),
+      (err) => {
+        console.log("ERROR IN FETCHING CAMPAIGN NAMES");
+      })
+    this.beneficiarySelected = false;
   }
 
   campaignNamesSuccess(res) {
@@ -143,17 +145,17 @@ export class ClosureComponent implements OnInit
     })
   }
   getCallSubType(callType: any) {
-    if(callType == 'Transfer') {
+    if (callType == 'Transfer') {
       this.transferValid = true;
     }
     else {
       this.transferValid = false;
     }
     this.callTypeID = undefined;
-    if((callType == "Valid" || callType == 'Transfer') && !this.beneficiarySelected){
+    if ((callType == "Valid" || callType == 'Transfer') && !this.beneficiarySelected) {
       this.message.alert("Can't make call valid or transfer without selecting beneficiary");
       this.closureForm.form.patchValue({
-        "callType" : ""
+        "callType": ""
       })
     }
     // Below variable is used to disable save and continue when call is already disconnected.
@@ -163,12 +165,43 @@ export class ClosureComponent implements OnInit
     }).map(function (previousData, item) {
       return previousData.callTypes;
     })[0];
+
+    let obj = {
+      "beneficiaryRegID": this.saved_data.beneficiaryRegID,
+      "calledServiceID": this.saved_data.current_service.serviceID,
+      "is1097": true
+    }
+    this._callServices.getBenOutboundList(obj).subscribe(response => {
+      this.getBenOutboundDataSuccess(response, callType)
+    }), (err) => {
+      console.log("error in fetching getBenOutboundList for this ben")
+    }
   }
+  getBenOutboundDataSuccess(res, callType) {
+    if (callType == 'Valid') {
+      this.prefferedDatedTaken = [];
+      if (res.length > 0)
+        this.noOfOutbounds = res.length;
+
+      res.map((obj) => {
+        this.prefferedDatedTaken.push({"prefferedDateTime":obj.prefferedDateTime});
+      })
+    }
+  }
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
+
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
   // @Input()
   onView() {
     const requestObject = { 'benCallID': this.saved_data.callData.benCallID };
     this._callServices.getCallSummary(requestObject).subscribe(response => this.populateCallSummary(response),
-  (err) => console.log("error in getting call summary in closure component"));
+      (err) => console.log("error in getting call summary in closure component"));
   }
   populateCallSummary(response: any) {
     this.summaryList = [];
@@ -191,7 +224,7 @@ export class ClosureComponent implements OnInit
         this.preferredLanguageName = preferredlanguageList[0].languageName;
       }
     }, (err) => {
-      this.message.alert(err.errorMessage,'error');
+      this.message.alert(err.errorMessage, 'error');
 
     });
   }
@@ -204,14 +237,14 @@ export class ClosureComponent implements OnInit
       "campaign_name": campaign_name
     }
     this._callServices.getCampaignSkills(data).subscribe(response => this.skillsSuccess(response),
-  (err) => {
-    this.message.alert(err.errorMessage,'error');
-  })
+      (err) => {
+        this.message.alert(err.errorMessage, 'error');
+      })
   }
   skillsSuccess(res) {
     this.campaignSkills = res.response ? res.response.skills : [];
   }
-  
+
   transferCall(values) {
     let obj = {
       "transfer_from": this.saved_data.cZentrixAgentID,
@@ -222,11 +255,11 @@ export class ClosureComponent implements OnInit
     this._callServices.transferCall(obj).subscribe(response => {
       delete values.campaignName;
       delete values.campaignSkill;
-      this.closeCall(values,"submitClose");
+      this.closeCall(values, "submitClose");
     },
-    (err) => {
-      this.message.alert("Error in transfering","error");
-    });
+      (err) => {
+        this.message.alert("Error in transfering", "error");
+      });
   }
   closeCall(values: any, btnType: any) {
 
@@ -254,7 +287,7 @@ export class ClosureComponent implements OnInit
     if (btnType === 'submitClose') {
       values.endCall = true;
     }
-    if(this.saved_data.current_campaign == 'OUTBOUND') {
+    if (this.saved_data.current_campaign == 'OUTBOUND') {
       values.isCompleted = true;
     }
     console.log('close called with ' + values);
@@ -263,7 +296,7 @@ export class ClosureComponent implements OnInit
       this._callServices.closeOutBoundCall(this.saved_data.outBoundCallID, true).subscribe((response) => {
         this.closeOutboundCall(btnType, values);
       }, (err) => {
-        this.message.alert(err.status,'error');
+        this.message.alert(err.status, 'error');
       })
 
     } else {
@@ -287,7 +320,7 @@ export class ClosureComponent implements OnInit
             // });
           }
         }, (err) => {
-          this.message.alert(err.status,'error');
+          this.message.alert(err.status, 'error');
         });
       } else {
         this.message.confirm('Continue', 'Providing new service to beneficiary?').subscribe((res) => {
@@ -314,7 +347,7 @@ export class ClosureComponent implements OnInit
                 // this.pass_data.sendData(this.current_campaign);
               }
             }, (err) => {
-              this.message.alert(err.status,'error');
+              this.message.alert(err.status, 'error');
             });
           }
 
@@ -326,11 +359,11 @@ export class ClosureComponent implements OnInit
 
   showAlert() {
     sessionStorage.removeItem("isOnCall");
-    if(this.transferValid == true) {
-      this.message.alert("Call transferred successfully",'success');
+    if (this.transferValid == true) {
+      this.message.alert("Call transferred successfully", 'success');
     }
     else {
-    this.message.alert('Call closed successfully','success');
+      this.message.alert('Call closed successfully', 'success');
     }
     // alert('Call closed Successful!!!!');
   }
@@ -367,10 +400,10 @@ export class ClosureComponent implements OnInit
   getIpAddress() {
     this.czentrixServices.getIpAddress(this.saved_data.Userdata.agentID)
       .subscribe(response => this.ipSuccessHandler(response),
-    (err) => {
-      this.message.alert(err.errorMessage,'error');
+      (err) => {
+        this.message.alert(err.errorMessage, 'error');
 
-    });
+      });
   }
   ipSuccessHandler(response) {
     console.log('fetch ip response: ' + JSON.stringify(response));
@@ -379,7 +412,7 @@ export class ClosureComponent implements OnInit
   closeOutboundCall(btnType: any, values: any) {
     this._callServices.closeCall(values).subscribe((response) => {
       if (response) {
-        this.message.alert('Call closed successfully','success');
+        this.message.alert('Call closed successfully', 'success');
         if (btnType === 'submitClose') {
           this.callClosed.emit(this.current_campaign);
           /* below lines are commented to use old close call API */
@@ -395,7 +428,7 @@ export class ClosureComponent implements OnInit
         // this.pass_data.sendData(this.current_campaign);
       }
     }, (err) => {
-      this.message.alert(err.status,'error');
+      this.message.alert(err.status, 'error');
     });
   }
   clearForm(item) {
@@ -413,7 +446,7 @@ export class ClosureComponent implements OnInit
       return false;
     }
   }
-  setFlag() {
-    this.beneficiarySelected = true;
+  setFlag(data) {
+    this.beneficiarySelected = data.beneficiarySelected;
   }
 }

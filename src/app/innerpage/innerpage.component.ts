@@ -228,11 +228,12 @@ export class InnerpageComponent implements OnInit {
   }
   getSelectedBenDetails(data: any) {
     if (data != null) {
+      this.getCommonData.beneficiaryRegID = data.beneficiaryRegID;
       this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryID;
       this.beneficiaryRegID = data.beneficiaryRegID;
-      this.selectedBenData.fname = data.firstName;
-      this.selectedBenData.lname = data.lastName;
-      this.selectedBenData.name = 'Name: ' + data.firstName + ' ' + data.lastName;
+      let fname = data.firstName ? data.firstName : "";
+      let lname = data.lastName ? data.lastName : "";
+      this.selectedBenData.name = 'Name: ' + fname + ' ' + lname;
       // if ( data.dOB )
       // {
       //  let currDate = new Date();
@@ -249,6 +250,9 @@ export class InnerpageComponent implements OnInit {
       this.selectedBenData.language = 'Preferred Lang: ' + (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : '') : '') : '');
       this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : '') : '');
     } else {
+      this.getCommonData.beneficiarySelected.next({
+        "beneficiarySelected" : false
+      });
       this.selectedBenData.name = '';
       this.selectedBenData.id = '';
       this.selectedBenData.fname = '';
