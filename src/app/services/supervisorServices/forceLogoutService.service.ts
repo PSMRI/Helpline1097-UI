@@ -11,6 +11,7 @@ export class ForceLogoutService {
 
     commonBaseURL: any;
     force_logout_url: any;
+    agent_force_logout_url: any;
 
 
     constructor(private _http: AuthorizationWrapper,
@@ -18,10 +19,16 @@ export class ForceLogoutService {
         private httpIntercept: InterceptedHttp) {
         this.commonBaseURL = this._config.getCommonBaseURL();
         this.force_logout_url = this.commonBaseURL + 'user/forceLogout';
+        this.agent_force_logout_url = this.commonBaseURL + 'user/userForceLogout';
     }
 
     forcelogout(requestObject) {
         return this.httpIntercept.post(this.force_logout_url, requestObject)
+            .map(this.handleSuccess).catch(this.handleError);
+    }
+
+    agentForceLogout(reqObj) {
+        return this.httpIntercept.post(this.agent_force_logout_url, reqObj)
             .map(this.handleSuccess).catch(this.handleError);
     }
 
