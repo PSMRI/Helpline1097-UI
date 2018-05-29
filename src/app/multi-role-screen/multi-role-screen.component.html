@@ -20,6 +20,7 @@
           <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
             <li style="color: white"> Welcome {{userName}}</li>
             <li *ngIf="showContacts" class=""><img src="assets/images/callerIcon.png" (click)="showEmergencyContacts()" class="cursorPointer w85" alt="Contacts" mdTooltip="Emergency Contacts"></li>
+            <li *ngIf="current_role==='CO'"><img src="assets/images/flagCallIcon.png" class="cursorPointer w85" (click)="agentForceLogout()" alt="ForceLogout" mdTooltip="Force Logout"></li>
             <li class="">
               <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" mdTooltip="User Icon" [mdMenuTriggerFor]="menuNotification">
             </li>

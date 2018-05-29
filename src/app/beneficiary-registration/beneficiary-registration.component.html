@@ -544,16 +544,57 @@
         </md-input-container>
       </div>
       <div class="clearfix visible-md visible-sm"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
-        <!--       <div class="form-group">
-        <label class="control-label" for="PhoneNo">Alternate Number</label>
-        <input type="text" class="form-control" placeholder="Enter PhoneNo" name="PhoneNo" [(ngModel)]="PhoneNo">
-      </div> -->
+      <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <md-input-container myMobileNumber [style.width]="'100%'">
           <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}" maxlength="10" name="PhoneNo"
             [(ngModel)]="PhoneNo">
         </md-input-container>
-      </div>
+      </div> -->
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+          <md-input-container myMobileNumber [style.width]="'100%'">
+            <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}1" maxlength="10"
+              minlength="10" name="alterNateNumber1" #alt1 #alterNate1="ngModel" [(ngModel)]="alternateNumber1">
+              <md-hint class="error_text" *ngIf="alterNate1.invalid">
+                  {{currentlanguage.beneficiary_registration?.mobile_validation}}
+              </md-hint>
+          </md-input-container>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+          <md-input-container myMobileNumber [style.width]="'100%'">
+            <input mdInput [disabled]="alt1.value=='' || alterNate1.invalid" placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}2"
+              maxlength="10" minlength="10" name="alterNateNumber2" #alt2  #alterNate2="ngModel" [(ngModel)]="alternateNumber2">
+            <md-hint class="error_text" *ngIf="alterNate2.invalid">
+                {{currentlanguage.beneficiary_registration?.mobile_validation}}
+            </md-hint>
+          </md-input-container>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+          <md-input-container myMobileNumber [style.width]="'100%'">
+            <input mdInput [disabled]="alt2.value=='' || alterNate2.invalid || alt1.value=='' || alterNate1.invalid" placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}3"
+              maxlength="10" minlength="10" name="alterNateNumbe3" #alt3 #alterNate3="ngModel"  [(ngModel)]="alternateNumber3">
+              <md-hint class="error_text" *ngIf="alterNate3.invalid">
+                  {{currentlanguage.beneficiary_registration?.mobile_validation}}
+              </md-hint>
+          </md-input-container>
+        </div>
+        
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+          <md-input-container myMobileNumber [style.width]="'100%'">
+            <input mdInput [disabled]="alt3.value=='' || alterNate3.invalid || alt2.value=='' || alterNate2.invalid || alt1.value=='' || alterNate1.invalid" placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}4" maxlength="10" minlength="10" name="alterNateNumber4" #alt4 #alterNate4="ngModel"  [(ngModel)]="alternateNumber4">
+              <md-hint class="error_text" *ngIf="alterNate4.invalid">
+                  {{currentlanguage.beneficiary_registration?.mobile_validation}}
+              </md-hint>
+          </md-input-container>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+          <md-input-container myMobileNumber [style.width]="'100%'">
+            <input mdInput [disabled]="alt4.value=='' || alterNate4.invalid || alt3.value=='' || alterNate3.invalid || alt2.value=='' || alterNate2.invalid || alt1.value=='' || alterNate1.invalid" [(ngModel)]="alternateNumber5" #alterNate5="ngModel"  placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}5" maxlength="10"  minlength="10" name="alterNateNumber5" >
+              <md-hint class="error_text" *ngIf="alterNate5.invalid">
+                  {{currentlanguage.beneficiary_registration?.mobile_validation}}
+              </md-hint>
+          </md-input-container>
+        </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-left">
         <!--       <div class="form-group">
         <label class="control-label" for="preferredLanguage" i18n>Select Preferred Language</label>

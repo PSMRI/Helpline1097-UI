@@ -25,7 +25,7 @@ export class dashboardContentClass implements OnInit {
   ctiHandlerURL: any;
   current_service: any;
   current_role: any;
-  inOutBound: any = '1';
+  inOutBound: any;
   showDashboardContent: boolean = false;
   activity_component: boolean = true;
   ratings_component: boolean = true;

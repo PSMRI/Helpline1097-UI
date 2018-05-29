@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../services/authentication/auth.service';
 import { EmergencyContactsViewModalComponent } from '../emergency-contacts-view-modal/emergency-contacts-view-modal.component';
 import { MdDialog } from '@angular/material';
+import { AgentForceLogoutComponent } from '../agent-force-logout/agent-force-logout.component';
 
 @Component({
   selector: 'app-multi-role-screen',
@@ -65,7 +66,7 @@ export class MultiRoleScreenComponent implements OnInit {
       this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     })
     this.hideHeader = true;
-    const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
+    const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php'  + this.id;
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     console.log('url = ' + url);
@@ -158,6 +159,13 @@ export class MultiRoleScreenComponent implements OnInit {
     this.dialog.open(EmergencyContactsViewModalComponent, {
       width: '700px',
       //height: '550px'
+      disableClose: true
+    });
+  }
+
+  agentForceLogout() {
+    this.dialog.open(AgentForceLogoutComponent, {
+      width: '700px',
       disableClose: true
     });
   }
