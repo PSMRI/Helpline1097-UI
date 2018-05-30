@@ -186,7 +186,7 @@ export class InnerpageComponent implements OnInit {
   }
 
   benByCallID(callID) {
-    let data = '{"callID":"' + callID + '"}';
+    let data = '{"callID":"' + callID + ', "is1097":true}';
     this._callServices.getBeneficiaryByCallID(data).subscribe(response => {
       if (response.i_beneficiary) {
         this._util.retrieveRegHistory(response.i_beneficiary.beneficiaryID).subscribe(response => {
@@ -253,7 +253,7 @@ export class InnerpageComponent implements OnInit {
       this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : '') : '');
     } else {
       this.getCommonData.beneficiarySelected.next({
-        "beneficiarySelected" : false
+        "beneficiarySelected": false
       });
       this.selectedBenData.name = '';
       this.selectedBenData.id = '';
@@ -591,8 +591,8 @@ export class InnerpageComponent implements OnInit {
   ngOnDestroy() {
     this.listenCallEvent();
 
-    if(this.wrapupTimerSubscription)
-    this.wrapupTimerSubscription.unsubscribe();
-  
+    if (this.wrapupTimerSubscription)
+      this.wrapupTimerSubscription.unsubscribe();
+
   }
 }
