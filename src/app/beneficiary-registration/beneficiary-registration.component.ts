@@ -138,6 +138,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   alternateNumber4: any;
   alternateNumber5: any;
 
+  // added for masking the alternate numbers
+  alternateNumberDisplay1: any;
+  alternateNumberDisplay2: any;
+  alternateNumberDisplay3: any;
+  alternateNumberDisplay4: any;
+  alternateNumberDisplay5: any;
+
+  //public mobileNumberMask = [ /[^0-9]/, /\d/];
+
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
@@ -836,18 +845,23 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     for (let i = 1; i < registeredBenData.benPhoneMaps.length; i++) {
       if (i == 1) {
         this.alternateNumber1 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay1 = this.alternateNumber1.substring(0,3)+'XXXXX'+this.alternateNumber1.substring(7,9);
       }
       if (i == 2) {
         this.alternateNumber2 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay2 = this.alternateNumber2.substring(0,3)+'XXXXX'+this.alternateNumber2.substring(7,9);
       }
       if (i == 3) {
         this.alternateNumber3 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay3 = this.alternateNumber3.substring(0,3)+'XXXXX'+this.alternateNumber3.substring(7,9);
       }
       if (i == 4) {
         this.alternateNumber4 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay4 = this.alternateNumber4.substring(0,3)+'XXXXX'+this.alternateNumber4.substring(7,9);
       }
       if (i == 5) {
         this.alternateNumber5 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay5 = this.alternateNumber5.substring(0,3)+'XXXXX'+this.alternateNumber5.substring(7,9);
       }
     }
     this.aadharNo = registeredBenData.govtIdentityNo;

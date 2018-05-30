@@ -192,6 +192,8 @@ import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-m
 import { QualityAuditService } from './services/supervisorServices/quality-audit-service.service';
 import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logout.component';
 
+//for text mask
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -249,6 +251,7 @@ import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logo
     MdCardModule,
     ToasterModule,
     MdTabsModule,
+    TextMaskModule,
     RouterModule.forRoot([
       {
         path: 'resetPassword',
