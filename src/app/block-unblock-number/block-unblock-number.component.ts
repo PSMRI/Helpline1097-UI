@@ -61,6 +61,7 @@ export class BlockUnblockNumberComponent implements OnInit {
     const searchObj = {};
     searchObj['providerServiceMapID'] = this.serviceId;
     searchObj['phoneNo'] = this.phoneNumber;
+    searchObj['is1097'] = true;
     // searchObj['isBlocked'] = this.isBlockedType;
     this.isBlocked = Boolean(this.isBlocked);
     this.callService.getBlackListCalls(searchObj).subscribe((response) => {
@@ -87,6 +88,7 @@ export class BlockUnblockNumberComponent implements OnInit {
   unblock(phoneBlockID: any) {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
+    blockObj['is1097'] = true;
     this.callService.UnBlockPhoneNumber(blockObj).subscribe((response) => {
       this.message.alert('Successfully unblocked', 'success');
       this.addToBlockList();
@@ -99,6 +101,7 @@ export class BlockUnblockNumberComponent implements OnInit {
   block(phoneBlockID: any) {
     const blockObj = {};
     blockObj['phoneBlockID'] = phoneBlockID;
+    blockObj['is1097'] = true;
     this.callService.blockPhoneNumber(blockObj).subscribe((response) => {
       this.message.alert('Successfully blocked', 'success');
       this.addToBlockList();
@@ -121,7 +124,8 @@ export class BlockUnblockNumberComponent implements OnInit {
       let requestObj = {
         'calledServiceID': this.serviceId,
         'phoneNo': obj.phoneNo,
-        'count': obj.noOfNuisanceCall
+        'count': obj.noOfNuisanceCall,
+        'is1097': true
       }
 
       this.callService.getRecording(requestObj).subscribe(response => this.getRecordingsSuccessHandeler(response, obj.phoneNo),
