@@ -73,7 +73,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   regHistoryList: any = [];
   beneficiaryParentList: any = [];
   beneficiaryRelations: any = [];
- states: any = [];
+  states: any = [];
   titles: any = [];
   status: any = [];
   benEdus: any = [];
@@ -156,7 +156,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     // this.subcriptionOutbound = this.outboundService.getOutboundData()
     //   .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
-    
+
     this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
@@ -169,8 +169,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.startNewCall();
     this.IntializeSessionValues();
     this.current_campaign = this.saved_data.current_campaign;
-    if(this.saved_data.current_campaign == 'OUTBOUND') {
-        this.startOutBoundCall(this.saved_data.outboundData);
+    if (this.saved_data.current_campaign == 'OUTBOUND') {
+      this.startOutBoundCall(this.saved_data.outboundData);
     }
     // this.agentID = this.saved_data.cZentrixAgentID;
     // this.reloadOutBoundCall(this.current_campaign);
@@ -203,10 +203,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-      (err) => {
-        this.alertMaessage.alert(err.errorMessage, 'error');
-        console.log('ERROR', err);
-      });
+        (err) => {
+          this.alertMaessage.alert(err.errorMessage, 'error');
+          console.log('ERROR', err);
+        });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -486,7 +486,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.blocks = [];
     this.district = undefined;
     this.taluk = undefined;
-   this.village = undefined;
+    this.village = undefined;
     this.spinner = true;
     this.spinnerState = false;
     if (state == undefined) {
@@ -699,7 +699,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe(response => {
         console.log(response, 'RESPONSE for setting language in czentrix');
         if (response.data != undefined) {
-         if (response.data.response.status.toUpperCase() === 'Success'.toUpperCase()) {
+          if (response.data.response.status.toUpperCase() === 'Success'.toUpperCase()) {
             console.log('Language set successfully in CZentrix for Beneficiary');
           }
         }
@@ -845,23 +845,23 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     for (let i = 1; i < registeredBenData.benPhoneMaps.length; i++) {
       if (i == 1) {
         this.alternateNumber1 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay1 = this.alternateNumber1.substring(0,3)+'XXXXX'+this.alternateNumber1.substring(7,9);
+        this.alternateNumberDisplay1 = this.alternateNumber1.substring(0, 3) + 'XXXXX' + this.alternateNumber1.substring(7, 9);
       }
       if (i == 2) {
         this.alternateNumber2 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay2 = this.alternateNumber2.substring(0,3)+'XXXXX'+this.alternateNumber2.substring(7,9);
+        this.alternateNumberDisplay2 = this.alternateNumber2.substring(0, 3) + 'XXXXX' + this.alternateNumber2.substring(7, 9);
       }
       if (i == 3) {
         this.alternateNumber3 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay3 = this.alternateNumber3.substring(0,3)+'XXXXX'+this.alternateNumber3.substring(7,9);
+        this.alternateNumberDisplay3 = this.alternateNumber3.substring(0, 3) + 'XXXXX' + this.alternateNumber3.substring(7, 9);
       }
       if (i == 4) {
         this.alternateNumber4 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay4 = this.alternateNumber4.substring(0,3)+'XXXXX'+this.alternateNumber4.substring(7,9);
+        this.alternateNumberDisplay4 = this.alternateNumber4.substring(0, 3) + 'XXXXX' + this.alternateNumber4.substring(7, 9);
       }
       if (i == 5) {
         this.alternateNumber5 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay5 = this.alternateNumber5.substring(0,3)+'XXXXX'+this.alternateNumber5.substring(7,9);
+        this.alternateNumberDisplay5 = this.alternateNumber5.substring(0, 3) + 'XXXXX' + this.alternateNumber5.substring(7, 9);
       }
     }
     this.aadharNo = registeredBenData.govtIdentityNo;
@@ -937,7 +937,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.updatedObj.parentBenRegID = this.ParentBenRegID;
     // this.updatedObj.altPhoneNo = this.PhoneNo;
     let phones = this.updatedObj.benPhoneMaps.length;
-// commented on 28 may till * point
+    // commented on 28 may till * point
 
     // if (this.alternateNumber1 && phones === 1) {
     //   const obj = {};
@@ -981,6 +981,42 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // commented on 28 may till here *
 
     // NEW DATA FROM 104 on 28may
+
+    let numString = this.alternateNumber1 + this.alternateNumber2 + this.alternateNumber3 + this.alternateNumber4 + this.alternateNumber5;
+    debugger;
+    console.log("numString.split(this.alternateNumber5).length", numString.split(this.alternateNumber5).length);
+    console.log("numString.indexOf(this.alternateNumber3)",numString.indexOf(this.alternateNumber3));
+    console.log("numString.indexOf(this.alternateNumber2)",numString.indexOf(this.alternateNumber2));
+    
+    
+    debugger;
+    if (this.alternateNumber5 != undefined && numString.indexOf(this.alternateNumber5)<40) {
+    debugger;
+      
+      // alternate number 5 already exists
+      this.alertMaessage.alert("Alternate number 5 already exits", 'error');
+      return;
+    } else if (this.alternateNumber4 != undefined && numString.indexOf(this.alternateNumber4)<30) {
+    debugger;
+      
+      // alternate number 4 already exists
+      this.alertMaessage.alert("Alternate number 4 already exits", 'error');
+      return;
+    }
+    else if (this.alternateNumber3 != undefined && numString.indexOf(this.alternateNumber3)<20) {
+    debugger;
+      // alternate number 3 already exists
+      this.alertMaessage.alert("Alternate number 3 already exits", 'error');
+      return;
+    }
+    else if (this.alternateNumber2 != undefined && numString.indexOf(this.alternateNumber2)<10) {
+    debugger;
+      
+      // alternate number 2 already exists
+      this.alertMaessage.alert("Alternate number 2 already exits", 'error');
+      return;
+    }
+
     for (let j = 1; j < 6; j++) {
       if (this.updatedObj.benPhoneMaps[j]) {
         this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
@@ -1130,7 +1166,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
- getRelationShipType(relationShips) {
+  getRelationShipType(relationShips) {
     let benificiaryRelationType = [];
     benificiaryRelationType = relationShips.filter(function (item) {
       return item.benRelationshipType.toUpperCase() === 'SELF'; // This value has to go in constant
@@ -1345,7 +1381,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
- //   this.subcriptionOutbound.unsubscribe();
+    //   this.subcriptionOutbound.unsubscribe();
 
   }
   // getLocationPerPincode(pincodeObj: any) {
