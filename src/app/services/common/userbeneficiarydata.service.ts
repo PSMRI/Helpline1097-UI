@@ -72,6 +72,8 @@ export class UserBeneficiaryData {
         createData['i_bendemographics'] = {};
         createData['i_bendemographics']['stateID'] = state;
         createData['i_bendemographics']['districtID'] = district;
+        createData['i_bendemographics']['blockID'] = talukSearch;
+        createData['is1097'] = true;
         return this._httpInterceptor.post(this._searchBeneficiary, createData)
             .map(this.extractData).catch(this.handleError);
     }
