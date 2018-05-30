@@ -983,35 +983,35 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // NEW DATA FROM 104 on 28may
 
     let numString = this.alternateNumber1 + this.alternateNumber2 + this.alternateNumber3 + this.alternateNumber4 + this.alternateNumber5;
-    debugger;
-    console.log("numString.split(this.alternateNumber5).length", numString.split(this.alternateNumber5).length);
-    console.log("numString.indexOf(this.alternateNumber3)",numString.indexOf(this.alternateNumber3));
-    console.log("numString.indexOf(this.alternateNumber2)",numString.indexOf(this.alternateNumber2));
-    
-    
-    debugger;
-    if (this.alternateNumber5 != undefined && numString.indexOf(this.alternateNumber5)<40) {
-    debugger;
-      
+    // debugger;
+    // console.log("numString.split(this.alternateNumber5).length", numString.split(this.alternateNumber5).length);
+    // console.log("numString.indexOf(this.alternateNumber3)",numString.indexOf(this.alternateNumber3));
+    // console.log("numString.indexOf(this.alternateNumber2)",numString.indexOf(this.alternateNumber2));
+
+
+    // debugger;
+    if (this.alternateNumber5 != undefined && numString.indexOf(this.alternateNumber5) < 40) {
+      // debugger;
+
       // alternate number 5 already exists
       this.alertMaessage.alert("Alternate number 5 already exits", 'error');
       return;
-    } else if (this.alternateNumber4 != undefined && numString.indexOf(this.alternateNumber4)<30) {
-    debugger;
-      
+    } else if (this.alternateNumber4 != undefined && numString.indexOf(this.alternateNumber4) < 30) {
+      // debugger;
+
       // alternate number 4 already exists
       this.alertMaessage.alert("Alternate number 4 already exits", 'error');
       return;
     }
-    else if (this.alternateNumber3 != undefined && numString.indexOf(this.alternateNumber3)<20) {
-    debugger;
+    else if (this.alternateNumber3 != undefined && numString.indexOf(this.alternateNumber3) < 20) {
+      // debugger;
       // alternate number 3 already exists
       this.alertMaessage.alert("Alternate number 3 already exits", 'error');
       return;
     }
-    else if (this.alternateNumber2 != undefined && numString.indexOf(this.alternateNumber2)<10) {
-    debugger;
-      
+    else if (this.alternateNumber2 != undefined && numString.indexOf(this.alternateNumber2) < 10) {
+      // debugger;
+
       // alternate number 2 already exists
       this.alertMaessage.alert("Alternate number 2 already exits", 'error');
       return;

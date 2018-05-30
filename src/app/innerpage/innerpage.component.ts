@@ -242,7 +242,8 @@ export class InnerpageComponent implements OnInit {
       //  let dob = new Date( data.dOB );
       //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
 
-      this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
+      // this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
+      this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
       // }
       this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
       this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
