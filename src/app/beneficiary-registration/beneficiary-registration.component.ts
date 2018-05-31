@@ -1163,7 +1163,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         });
       });
     }
-
+    this.registrationNo = "";
   }
 
   getRelationShipType(relationShips) {
@@ -1266,7 +1266,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.calledEarlier = false;
       this.showSearchResult = false;
     }
-
+    this.registrationNo = "";
   }
   back1() {
     this.isAdvancedSearch = true;
