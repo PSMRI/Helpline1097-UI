@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Rx';
 import { ListnerService } from './../services/common/listner.service';
 import { AuthService } from '../services/authentication/auth.service';
 import { RegisterService } from '../services/register-services/register-service';
+import { Subscription } from 'rxjs/Subscription';
 
 declare const jQuery: any;
 
@@ -55,6 +56,7 @@ export class InnerpageComponent implements OnInit {
   disconectCallId: any;
   backToDashboard: boolean = true;
   callID: any;
+  wrapupTimerSubscription: Subscription;
 
   // eventSpiltData: any;
 
@@ -184,7 +186,7 @@ export class InnerpageComponent implements OnInit {
   }
 
   benByCallID(callID) {
-    let data = '{"callID":"' + callID + '"}';
+    let data = '{"callID":"' + callID + ', "is1097":true}';
     this._callServices.getBeneficiaryByCallID(data).subscribe(response => {
       if (response.i_beneficiary) {
         this._util.retrieveRegHistory(response.i_beneficiary.beneficiaryID).subscribe(response => {
@@ -240,7 +242,8 @@ export class InnerpageComponent implements OnInit {
       //  let dob = new Date( data.dOB );
       //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
 
-      this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
+      // this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
+      this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
       // }
       this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
       this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
@@ -251,7 +254,7 @@ export class InnerpageComponent implements OnInit {
       this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : '') : '');
     } else {
       this.getCommonData.beneficiarySelected.next({
-        "beneficiarySelected" : false
+        "beneficiarySelected": false
       });
       this.selectedBenData.name = '';
       this.selectedBenData.id = '';
@@ -530,7 +533,7 @@ export class InnerpageComponent implements OnInit {
     this.wrapupTime = true;
     this.callTime = false;
     const timer = Observable.timer(2000, 1000);
-    timer.subscribe(t => {
+    this.wrapupTimerSubscription = timer.subscribe(t => {
       this.ticks = (this.timeRemaining - t);
       this.ticks = this.ticks + 's';
       const remarks = 'Call disconnect from customer.';
@@ -554,10 +557,10 @@ export class InnerpageComponent implements OnInit {
   getAgentStatus() {
     this.Czentrix.getAgentStatus().subscribe((res) => {
       this.callStatus = res.data.stateObj.stateName;
-      // if (this.callStatus.toLowerCase().trim() === 'closure') {
-      //   this.wrapupTime = true;
-      //   this.callTime = false;
-      // }
+      if (this.callStatus.toLowerCase().trim() === 'closure') {
+        this.wrapupTime = true;
+        this.callTime = false;
+      }
       if (res.data.stateObj.stateType) {
         this.callStatus += ' (' + res.data.stateObj.stateType + ')';
       }
@@ -588,5 +591,9 @@ export class InnerpageComponent implements OnInit {
   }
   ngOnDestroy() {
     this.listenCallEvent();
+
+    if (this.wrapupTimerSubscription)
+      this.wrapupTimerSubscription.unsubscribe();
+
   }
 }

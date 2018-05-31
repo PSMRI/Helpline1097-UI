@@ -138,14 +138,25 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   alternateNumber4: any;
   alternateNumber5: any;
 
+  // added for masking the alternate numbers
+  alternateNumberDisplay1: any;
+  alternateNumberDisplay2: any;
+  alternateNumberDisplay3: any;
+  alternateNumberDisplay4: any;
+  alternateNumberDisplay5: any;
+
+  //public mobileNumberMask = [ /[^0-9]/, /\d/];
+
   constructor(private _util: RegisterService, private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
     private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
     private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
     private pass_data: CommunicationService,
     private outboundService: OutboundService, private czentrixService: CzentrixServices, private reload_call: ReloadService) {
-    this.subcriptionOutbound = this.outboundService.getOutboundData()
-      .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
+
+    // this.subcriptionOutbound = this.outboundService.getOutboundData()
+    //   .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
+
     this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
@@ -158,6 +169,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.startNewCall();
     this.IntializeSessionValues();
     this.current_campaign = this.saved_data.current_campaign;
+    if (this.saved_data.current_campaign == 'OUTBOUND') {
+      this.startOutBoundCall(this.saved_data.outboundData);
+    }
     // this.agentID = this.saved_data.cZentrixAgentID;
     // this.reloadOutBoundCall(this.current_campaign);
 
@@ -189,10 +203,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-      (err) => {
-        this.alertMaessage.alert(err.errorMessage, 'error');
-        console.log('ERROR', err);
-      });
+        (err) => {
+          this.alertMaessage.alert(err.errorMessage, 'error');
+          console.log('ERROR', err);
+        });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -210,7 +224,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.is1097 = true;
     data.createdBy = this.saved_data.uname;
     data.calledServiceID = this.saved_data.current_service.serviceID;
-    data.phoneNo = outboundData.outboundData.beneficiary.benPhoneMaps[0].phoneNo;
+    data.phoneNo = outboundData.beneficiary.benPhoneMaps[0].phoneNo;
     data.agentID = this.saved_data.cZentrixAgentID;
 
     /*added by diamond on asked by Vinay*/
@@ -226,7 +240,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       //     if (!this.cZentrixIp) {
       //       this.cZentrixIp = this.saved_data.loginIP;
       //     }
-      this.outboundEvent(outboundData.outboundData, this.cZentrixIp)
+      this.outboundEvent(outboundData, this.cZentrixIp)
       // },
       // (error) => {
       //   this.alertMaessage.alert('Some Error while calling Czentrix');
@@ -264,8 +278,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     //   .subscribe((res) => {
     //     console.log(res);
     //     if (res.response.status == 'SUCCESS') {
-    this.retrieveRegHistory(outboundData.beneficiary.beneficiaryRegID);
-    this.saved_data.current_campaign = 'OUTBOUND';
+    this.retrieveRegHistory(outboundData.beneficiary.beneficiaryID);
+    //this.saved_data.current_campaign = 'OUTBOUND';
     this.saved_data.outBoundCallID = outboundData.outboundCallReqID;
     this.current_campaign = this.saved_data.current_campaign;
     //   } else {
@@ -833,18 +847,23 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     for (let i = 1; i < registeredBenData.benPhoneMaps.length; i++) {
       if (i == 1) {
         this.alternateNumber1 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay1 = this.alternateNumber1.substring(0, 3) + 'XXXXX' + this.alternateNumber1.substring(7, 9);
       }
       if (i == 2) {
         this.alternateNumber2 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay2 = this.alternateNumber2.substring(0, 3) + 'XXXXX' + this.alternateNumber2.substring(7, 9);
       }
       if (i == 3) {
         this.alternateNumber3 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay3 = this.alternateNumber3.substring(0, 3) + 'XXXXX' + this.alternateNumber3.substring(7, 9);
       }
       if (i == 4) {
         this.alternateNumber4 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay4 = this.alternateNumber4.substring(0, 3) + 'XXXXX' + this.alternateNumber4.substring(7, 9);
       }
       if (i == 5) {
         this.alternateNumber5 = registeredBenData.benPhoneMaps[i].phoneNo;
+        this.alternateNumberDisplay5 = this.alternateNumber5.substring(0, 3) + 'XXXXX' + this.alternateNumber5.substring(7, 9);
       }
     }
     this.aadharNo = registeredBenData.govtIdentityNo;
@@ -964,6 +983,42 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // commented on 28 may till here *
 
     // NEW DATA FROM 104 on 28may
+
+    let numString = this.alternateNumber1 + this.alternateNumber2 + this.alternateNumber3 + this.alternateNumber4 + this.alternateNumber5;
+    // debugger;
+    // console.log("numString.split(this.alternateNumber5).length", numString.split(this.alternateNumber5).length);
+    // console.log("numString.indexOf(this.alternateNumber3)",numString.indexOf(this.alternateNumber3));
+    // console.log("numString.indexOf(this.alternateNumber2)",numString.indexOf(this.alternateNumber2));
+
+
+    // debugger;
+    if (this.alternateNumber5 != undefined && numString.indexOf(this.alternateNumber5) < 40) {
+      // debugger;
+
+      // alternate number 5 already exists
+      this.alertMaessage.alert("Alternate number 5 already exits", 'error');
+      return;
+    } else if (this.alternateNumber4 != undefined && numString.indexOf(this.alternateNumber4) < 30) {
+      // debugger;
+
+      // alternate number 4 already exists
+      this.alertMaessage.alert("Alternate number 4 already exits", 'error');
+      return;
+    }
+    else if (this.alternateNumber3 != undefined && numString.indexOf(this.alternateNumber3) < 20) {
+      // debugger;
+      // alternate number 3 already exists
+      this.alertMaessage.alert("Alternate number 3 already exits", 'error');
+      return;
+    }
+    else if (this.alternateNumber2 != undefined && numString.indexOf(this.alternateNumber2) < 10) {
+      // debugger;
+
+      // alternate number 2 already exists
+      this.alertMaessage.alert("Alternate number 2 already exits", 'error');
+      return;
+    }
+
     for (let j = 1; j < 6; j++) {
       if (this.updatedObj.benPhoneMaps[j]) {
         this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
@@ -1328,7 +1383,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.subcriptionOutbound.unsubscribe();
+    //   this.subcriptionOutbound.unsubscribe();
 
   }
   // getLocationPerPincode(pincodeObj: any) {

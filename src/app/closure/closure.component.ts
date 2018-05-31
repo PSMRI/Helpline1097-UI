@@ -63,7 +63,7 @@ export class ClosureComponent implements OnInit
 
   constructor(
     private _callServices: CallServices,
-    private saved_data: dataService,
+    public saved_data: dataService,
     private message: ConfirmationDialogsService,
     private pass_data: CommunicationService,
     private czentrixServices: CzentrixServices,

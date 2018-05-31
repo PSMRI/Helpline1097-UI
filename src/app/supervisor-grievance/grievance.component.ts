@@ -93,8 +93,8 @@ export class grievanceComponent implements OnInit {
     institutionName: new FormControl(),
     designationName: new FormControl(),
     severityTypeName: new FormControl(),
-    feedbackAgainst: new FormControl(),
-    natureOfComplaint: new FormControl(),
+    //feedbackAgainst: new FormControl(),
+    // natureOfComplaint: new FormControl(),
     // serviceName: new FormControl(),
     // userName: new FormControl(),
     // smsPhoneNo: new FormControl(),
@@ -244,7 +244,7 @@ export class grievanceComponent implements OnInit {
 
 
   requestFeedback(feedback) {
-    console.log(feedback, "****edit_FEEDBACK****");
+    console.log(JSON.stringify(feedback, null, 4), "****edit_FEEDBACK****");
     this.feedbackForm.reset();
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = 'edit';
@@ -252,7 +252,7 @@ export class grievanceComponent implements OnInit {
 
     this.feedbackID_whilesaving = feedback.feedbackID;
     // use request ID in place of feedbackID while displaying, but while saving/updating use feedbackID
-    this.feedbackForm.controls.feedbackID.setValue(feedback.requestID);
+    this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
       (feedback.feedbackRequests.length > 0 && feedback.feedbackRequests && feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary) ?
         feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary : feedback.feedback
@@ -271,12 +271,17 @@ export class grievanceComponent implements OnInit {
     }
     this.feedbackForm.controls.designationName.setValue(feedback.designation ? feedback.designation.designationName : "");
     this.feedbackForm.controls.severityTypeName.setValue(feedback.severity ? feedback.severity.severityTypeName : "");
-    this.feedbackForm.controls.feedbackAgainst.setValue(feedback.feedbackAgainst ? feedback.feedbackAgainst : "");
-    this.feedbackForm.controls.natureOfComplaint.setValue(feedback.feedbackNatureDetail ? feedback.feedbackNatureDetail.feedbackNature : "");
+    //this.feedbackForm.controls.feedbackAgainst.setValue(feedback.feedbackAgainst ? feedback.feedbackAgainst : "");
+    // this.feedbackForm.controls.natureOfComplaint.setValue(feedback.feedbackNatureDetail ? feedback.feedbackNatureDetail.feedbackNature : "");
     // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     // this.feedbackForm.controls.userName.setValue(feedback.userName);
     // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-    this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
+    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
+    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
+    if (responseCreatedBy) {
+      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
+    }
+    this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
@@ -317,14 +322,14 @@ export class grievanceComponent implements OnInit {
     console.log(JSON.stringify(feedback));
     this.feedbackID_whilesaving = feedback.feedbackID;
     // use request ID in place of feedbackID while displaying, but while saving/updating use feedbackID
-    this.feedbackForm.controls.feedbackID.setValue(feedback.requestID);
+    this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
-      (feedback.feedbackRequests.length > 0 && feedback.feedbackRequests && feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary) ?
-        feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary : feedback.feedback
+      (feedback.feedbackRequests.length > 0 && feedback.feedbackRequests && feedback.feedbackRequests[0].feedbackSupSummary) ?
+        feedback.feedbackRequests[0].feedbackSupSummary : feedback.feedback
     );
     this.feedbackForm.controls.feedbackRequestID.setValue(
-      (feedback.feedbackRequests && feedback.feedbackRequests.length > 0 && feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackRequestID) ?
-        feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackRequestID : undefined
+      (feedback.feedbackRequests && feedback.feedbackRequests.length > 0 && feedback.feedbackRequests[0].feedbackRequestID) ?
+        feedback.feedbackRequests[0].feedbackRequestID : undefined
     );
     this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiary.firstName + " " + (feedback.beneficiary.lastName ? feedback.beneficiary.lastName : ""));
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
@@ -339,13 +344,20 @@ export class grievanceComponent implements OnInit {
     }
     this.feedbackForm.controls.designationName.setValue(feedback.designation ? feedback.designation.designationName : "");
     this.feedbackForm.controls.severityTypeName.setValue(feedback.severity ? feedback.severity.severityTypeName : "");
-    this.feedbackForm.controls.feedbackAgainst.setValue(feedback.feedbackAgainst ? feedback.feedbackAgainst : "");
-    this.feedbackForm.controls.natureOfComplaint.setValue(feedback.feedbackNatureDetail ? feedback.feedbackNatureDetail.feedbackNature : "");
+    //this.feedbackForm.controls.feedbackAgainst.setValue(feedback.feedbackAgainst ? feedback.feedbackAgainst : "");
+    // this.feedbackForm.controls.natureOfComplaint.setValue(feedback.feedbackNatureDetail ? feedback.feedbackNatureDetail.feedbackNature : "");
 
     // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     // this.feedbackForm.controls.userName.setValue(feedback.userName);
     // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-    this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
+        // this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
+        let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
+        let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
+        if (responseCreatedBy) {
+          responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
+        }
+        this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+    
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 

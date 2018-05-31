@@ -103,23 +103,22 @@ export class dashboardContentClass implements OnInit {
 
   ngOnInit() {
 
-    this.activeRoute
-      .queryParams
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        if (params['compain']) {
-          this.compainType = params['compain'];
-        } else {
-          this.compainType = 'INBOUND';
-        }
-        this.setCompain(this.compainType);
-      });
+    // this.activeRoute
+    //   .queryParams
+    //   .subscribe(params => {
+    //     // Defaults to 0 if no query param provided.
+    //     if (params['compain']) {
+    //       this.compainType = params['compain'];
+    //     } else {
+    //       this.compainType = 'INBOUND';
+    //     }
+    //     this.setCompain(this.compainType);
+    //   });
     const obj = { 'innerPage': false };
     this.listnerService.cZentrixSendData(obj);
-    this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
-    }, (err) => {
-      //  this.message.alert(err.errorMessage);
-    })
+    // this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
+    // }, (err) => {
+    // })
     // const userObj = JSON.parse(Cookie.get('userID'));
     // if (userObj) {
     //   const roleObj = {};
@@ -182,6 +181,7 @@ export class dashboardContentClass implements OnInit {
     else if (data == '0') {
       this.dataSettingService.current_campaign = 'OUTBOUND';
       this.inOutBound = data;
+      this.router.navigate['MultiRoleScreenComponent/OutboundWorkList'];
     }
   }
   showDashboard() {
@@ -216,7 +216,7 @@ export class dashboardContentClass implements OnInit {
       bubbles: true,
       cancelable: true
     });
-    //document.dispatchEvent(event);
+    // document.dispatchEvent(event);
 
   }
 
@@ -275,15 +275,15 @@ export class dashboardContentClass implements OnInit {
       // document.attachEvent("onmessage", this.listener);
     }
   }
-  setCompain(compain: any) {
-    if (compain.toUpperCase() === 'OUTBOUND') {
-      this.inOutBound = 0;
-      this.router.navigate(['/InnerpageComponent']);
-    } else {
-      this.inOutBound = 1;
-      this.dataSettingService.current_campaign = 'INBOUND';
-    }
-  }
+  // (compain: any) {
+  //   if (compain.toUpperCase() === 'OUTBOUND') {
+  //     this.inOutBound = 0;
+  //     this.router.navigate(['/InnerpageComponent']);
+  //   } else {
+  //     this.inOutBound = 1;
+  //     this.dataSettingService.current_campaign = 'INBOUND';
+  //   }
+  // }
   campaign(value) {
     console.log(value);
     if (value === '1') {
