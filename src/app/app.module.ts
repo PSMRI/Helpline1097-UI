@@ -193,7 +193,7 @@ import { QualityAuditService } from './services/supervisorServices/quality-audit
 import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logout.component';
 
 //for text mask
-import { TextMaskModule } from 'angular2-text-mask';
+// import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -251,7 +251,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     MdCardModule,
     ToasterModule,
     MdTabsModule,
-    TextMaskModule,
+    // TextMaskModule,
     RouterModule.forRoot([
       {
         path: 'resetPassword',

@@ -40,6 +40,9 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   searchEndDate: Date;
   currentDate: Date = new Date();
 
+  startTime;
+  endTime;
+
   @ViewChild('notificationCreationForm') notificationCreationForm: NgForm;
 
   constructor(public notification_service: NotificationService,
