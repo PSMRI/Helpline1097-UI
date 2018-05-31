@@ -9,16 +9,16 @@ import { dataService } from '../services/dataService/data.service';
   styleUrls: ['./supervisor-campaign-status.component.css']
 })
 export class SupervisorCampaignStatusComponent implements OnInit {
-  // campaignStatusUrl: any;
+  campaignStatusUrl: any;
   constructor(private configService: ConfigService,
     public sanitizer: DomSanitizer,
     private saved_data: dataService) { }
 
   ngOnInit() {
 
-    // let url = this.configService.getTelephonyServerURL() + "adminui.php?campaignStatus";
-    // console.log("url = " + url);
-    // this.campaignStatusUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    let url = this.configService.getTelephonyServerURL() + "adminui.php?campaignStatus";
+    console.log("url = " + url);
+    this.campaignStatusUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
 }
