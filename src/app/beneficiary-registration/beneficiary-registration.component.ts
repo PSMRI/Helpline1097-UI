@@ -73,7 +73,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   regHistoryList: any = [];
   beneficiaryParentList: any = [];
   beneficiaryRelations: any = [];
- states: any = [];
+  states: any = [];
   titles: any = [];
   status: any = [];
   benEdus: any = [];
@@ -472,7 +472,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.blocks = [];
     this.district = undefined;
     this.taluk = undefined;
-   this.village = undefined;
+    this.village = undefined;
     this.spinner = true;
     this.spinnerState = false;
     if (state == undefined) {
@@ -685,7 +685,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe(response => {
         console.log(response, 'RESPONSE for setting language in czentrix');
         if (response.data != undefined) {
-         if (response.data.response.status.toUpperCase() === 'Success'.toUpperCase()) {
+          if (response.data.response.status.toUpperCase() === 'Success'.toUpperCase()) {
             console.log('Language set successfully in CZentrix for Beneficiary');
           }
         }
@@ -812,7 +812,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.FirstName = registeredBenData.firstName;
     this.LastName = registeredBenData.lastName;
     this.GenderID = registeredBenData.genderID;
-    this.DOB = new Date(registeredBenData.dOB);
+    if (registeredBenData.dOB != undefined) {
+      this.DOB = new Date(registeredBenData.dOB);
+    }
     this.TitleId = registeredBenData.titleId;
     this.MaritalStatusID = registeredBenData.maritalStatusID;
     if (registeredBenData.benPhoneMaps[0]) {
@@ -865,7 +867,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     this.village = registeredBenData.i_bendemographics.districtBranchID;
     console.log("experiment 3", this.blocks);
-    if (this.DOB) {
+    if (this.DOB != undefined) {
       this.calculateAge(this.DOB);
     }
     // this.age = registeredBenData.age;
@@ -918,7 +920,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // this.updatedObj.parentBenRegID = this.ParentBenRegID;
     // this.updatedObj.altPhoneNo = this.PhoneNo;
     let phones = this.updatedObj.benPhoneMaps.length;
-// commented on 28 may till * point
+    // commented on 28 may till * point
 
     // if (this.alternateNumber1 && phones === 1) {
     //   const obj = {};
@@ -1111,7 +1113,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
- getRelationShipType(relationShips) {
+  getRelationShipType(relationShips) {
     let benificiaryRelationType = [];
     benificiaryRelationType = relationShips.filter(function (item) {
       return item.benRelationshipType.toUpperCase() === 'SELF'; // This value has to go in constant
