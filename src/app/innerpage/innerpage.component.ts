@@ -54,6 +54,7 @@ export class InnerpageComponent implements OnInit {
   TotalTime: any;
   id: any;
   disconectCallId: any;
+  wrapupCallID: any;
   backToDashboard: boolean = true;
   callID: any;
   wrapupTimerSubscription: Subscription;
@@ -229,7 +230,7 @@ export class InnerpageComponent implements OnInit {
     }
   }
   getSelectedBenDetails(obj: any) {
-    let data:any = {};
+    let data: any = {};
 
     if (obj != null && obj.beneficiaryID != undefined) {
       this._util.retrieveRegHistory(obj.beneficiaryID)
@@ -249,7 +250,7 @@ export class InnerpageComponent implements OnInit {
               //  let currDate = new Date();
               //  let dob = new Date( data.dOB );
               //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
-        
+
               // this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
               this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
               // }
@@ -282,7 +283,7 @@ export class InnerpageComponent implements OnInit {
           console.log(err, 'error');
         })
     }
-    
+
   }
 
 
@@ -408,6 +409,37 @@ export class InnerpageComponent implements OnInit {
         this.remarksMessage.alert('Failed to get call types');
       }
 
+      // let wrapupObj = response.filter(function (item) {
+      //   return item.callGroupType.toLowerCase().startsWith('wrapup');
+      // });
+      // if (wrapupObj.length > 0) {
+      //   if (wrapupObj[0].callTypes) {
+      //     wrapupObj = wrapupObj[0].callTypes.filter(function (item) {
+      //       console.log("wrapup call types " + item.callTypeDesc);
+      //       return item.callTypeDesc.toLowerCase().startsWith('wrapup');
+      //     });
+      //   }
+      //   if (wrapupObj.length > 0) {
+      //     if (wrapupObj[0].callTypeID != undefined) {
+      //       this.wrapupCallID = wrapupObj[0].callTypeID;
+      //     }
+      //   }
+      // }
+
+      for (let i = 0; i < response.length; i++) {
+        if (response[i].callGroupType.startsWith('Wrapup')) {
+          if (response[i].callTypes) {
+            for (let j = 0; j < response[i].callTypes.length; j++) {
+              if (response[i].callTypes[j].callType.startsWith('Wrapup')) {
+                this.wrapupCallID = response[i].callTypes[j].callTypeID;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+
 
       let validObj = response.filter(function (item) {
         console.log(item.callGroupType);
@@ -477,7 +509,7 @@ export class InnerpageComponent implements OnInit {
       this.getCommonData.isOutbound = true;
     }
   }
-  closeCall(eventData, remarks, message?: any) {
+  closeCall(eventData, remarks, message?: any, wrapupCallID?: any) {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
     if (!this.transferInProgress) {
@@ -502,6 +534,10 @@ export class InnerpageComponent implements OnInit {
     requestObj['providerServiceMapID'] = this.getCommonData.current_service.serviceID;
     requestObj['createdBy'] = this.getCommonData.uname;
 
+
+    if (wrapupCallID != undefined) {
+      requestObj['callTypeID'] = wrapupCallID;
+    }
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
         this.remarksMessage.alert(message, 'success');
@@ -553,7 +589,7 @@ export class InnerpageComponent implements OnInit {
       const remarks = 'Call disconnect from customer.';
       if (t == this.timeRemaining) {
         // this.remarksMessage.close();
-        this.closeCall(eventData, remarks, 'Call Completed Successfully');
+        this.closeCall(eventData, remarks, 'Call Completed Successfully', this.wrapupCallID);
       }
     });
   }
