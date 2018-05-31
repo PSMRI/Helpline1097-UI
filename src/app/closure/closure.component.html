@@ -57,6 +57,10 @@
               <input mdInput id="remarks" placeholder="{{currentlanguage.closure?.remarks}}" maxlength="100" name="remarks" [(ngModel)]="remarks">
             </md-input-container>
           </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showFeedbackRequiredFlag" >
+              <md-checkbox color="primary" name="isFeedbackRequired" (change)="isFeedbackRequired($event)">{{currentlanguage.closure?.feedback_question}}</md-checkbox>
+            </div>
+            <div class="clearfix"></div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showSlider">
             <md-checkbox ngDefaultControl color="primary" name="isFollowupRequired" [value]=true [(ngModel)]="isFollowupRequired" (change)="isFollow($event)">{{currentlanguage.closure?.followup_question}}</md-checkbox>
             <!-- <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle> -->
@@ -139,7 +143,7 @@
           </table>
         </div>
         <div class="clearfix"></div>
-        <button *ngIf="this.saved_data.current_campaign.toUpperCase() !== 'OUTBOUND'" md-raised-button color="accent" type="submit" name="save" value="submitContinue"
+        <button *ngIf="this.saved_data?.current_campaign?.toUpperCase() !== 'OUTBOUND'" md-raised-button color="accent" type="submit" name="save" value="submitContinue"
           [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid || Form.invalid || transferValid || callType.value == 'Invalid'"
           class="font-regular pull-right" (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentlanguage.closure?.submitContinue}}</button>
         <button md-raised-button color="accent" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid || Form.invalid || transferValid"
