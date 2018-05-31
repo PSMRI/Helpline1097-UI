@@ -66,6 +66,8 @@ export class BlockUnblockNumberComponent implements OnInit {
     this.isBlocked = Boolean(this.isBlocked);
     this.callService.getBlackListCalls(searchObj).subscribe((response) => {
       this.showTable = true;
+      this.recording_data = [];
+      this.showRecordings = false;
       this.setBlackLists(response);
     }, (err) => {
       this.message.alert(err.errorMessage, 'error');

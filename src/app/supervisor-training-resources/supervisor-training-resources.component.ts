@@ -387,7 +387,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     this.notificationService.updateNotification(object)
       .subscribe((response) => {
         if (response.data !== {}) {
-          this.dialogService.alert('Training Resource Activated Successfully', 'success');
+          this.dialogService.alert('Training resource activated successfully', 'success');
           this.getTrainingResources();
         }
       },
@@ -415,7 +415,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     this.notificationService.updateNotification(object)
       .subscribe((response) => {
         if (response.data !== {}) {
-          this.dialogService.alert('Training Resource Deactivated Successfully', 'success');
+          this.dialogService.alert('Training resource deactivated successfully', 'success');
           this.getTrainingResources();
         }
       },
@@ -503,7 +503,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
   updateSuccess(response) {
     console.log(response.data);
     if (response.data) {
-      this.dialogService.alert('Training Resource updated successfully', 'success');
+      this.dialogService.alert('Training resource updated successfully', 'success');
       this.trainingResourceEditForm.reset();
       this.count = '0/300';
       this.getTrainingResources();
