@@ -33,8 +33,8 @@ export class MultiRoleScreenComponent implements OnInit {
   hideBar: boolean = false;
   subscription: Subscription;
   hideHeader: boolean = true;
-  label: any;
-  showContacts: boolean;
+  label: any = {};
+  showContacts: boolean = false;
 
   constructor(public dataSettingService: dataService, private _config: ConfigService, location: PlatformLocation,
     public router: Router, private authService: AuthService, private _loginService: loginService, private Czentrix: CzentrixServices,

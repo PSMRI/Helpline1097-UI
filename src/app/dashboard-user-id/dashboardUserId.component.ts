@@ -28,27 +28,25 @@ export class DashboardUserIdComponent implements OnInit {
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
             if (res && res.data.stateObj.stateName) {
-                if(res.data.dialer_type.toUpperCase() == "PROGRESSIVE" )  {
-                    this.dataSettingService.inOutCampaign.next("1");
+                if (res.data.dialer_type) {
+                    if (res.data.dialer_type.toUpperCase() == "PROGRESSIVE") {
+                        this.dataSettingService.inOutCampaign.next("1");
+                    }
+                    else if (res.data.dialer_type.toUpperCase() == "PREVIEW") {
+                        this.dataSettingService.inOutCampaign.next("0");
+                    }
                 }
-                else if(res.data.dialer_type.toUpperCase() == "PREVIEW") {
-                    this.dataSettingService.inOutCampaign.next("0");
+                this.status = res.data.stateObj.stateName;
+                if (this.status.toUpperCase() === 'INCALL' || this.status.toUpperCase() === 'CLOSURE') {
+                    let CLI = res.data.cust_ph_no;
+                    let session_id = res.data.session_id;
+                    sessionStorage.setItem('isOnCall', 'yes');
+                    this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent', CLI, session_id, 'INBOUND']);
                 }
-            this.status = res.data.stateObj.stateName;
-            if (this.status.toUpperCase() === 'INCALL' || this.status.toUpperCase() === 'CLOSURE') {
-                let CLI = res.data.cust_ph_no;
-                let session_id = res.data.session_id;
-                sessionStorage.setItem('isOnCall', 'yes');
-                this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent', CLI, session_id, 'INBOUND']);
-            } 
-            // else {
-            if (res.data.stateObj.stateType) {
-                this.status += ' (' + res.data.stateObj.stateType + ')';
+                if (res.data.stateObj.stateType) {
+                    this.status += ' (' + res.data.stateObj.stateType + ')';
+                }
             }
-
-        }
-            // }
-
         }, (err) => {
             // this.message.alert(err.errorMessage,'error');
             this.dataSettingService.inOutCampaign.next("1");
