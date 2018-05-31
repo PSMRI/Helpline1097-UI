@@ -557,10 +557,10 @@ export class InnerpageComponent implements OnInit {
   getAgentStatus() {
     this.Czentrix.getAgentStatus().subscribe((res) => {
       this.callStatus = res.data.stateObj.stateName;
-      // if (this.callStatus.toLowerCase().trim() === 'closure') {
-      //   this.wrapupTime = true;
-      //   this.callTime = false;
-      // }
+      if (this.callStatus.toLowerCase().trim() === 'closure') {
+        this.wrapupTime = true;
+        this.callTime = false;
+      }
       if (res.data.stateObj.stateType) {
         this.callStatus += ' (' + res.data.stateObj.stateType + ')';
       }

@@ -17,28 +17,29 @@ export class CzentrixServices {
   _getCallDetails = this.common_url + '/cti/getAgentCallStats';
   setCustomerPreferredLanguageUrl = this.common_url + '/cti/customerPreferredLanguage';
   _dialBeneficiary = this.common_url + 'cti/callBeneficiary';
+  _getAgentIPAddressURL = this.common_url + 'cti/getAgentIPAddress';
 
   agent_id: any;
-  path = 'apps/appsHandler.php?';
+  // path = 'apps/appsHandler.php?';
   resFormat = 3;
   transaction_id: any;
   ip: any;
   _agentLogOut = this.common_url + 'cti/doAgentLogout';
   phone_num: number;
   constructor(private http: AuthorizationWrapper,
-    private _http: Http, private httpInterceptor:  InterceptedHttp,
-     private _config: ConfigService, private _data: dataService, private normalHTTP :Http) {
+    private _http: Http, private httpInterceptor: InterceptedHttp,
+    private _config: ConfigService, private _data: dataService, private normalHTTP: Http) {
     this.agent_id = this._data.cZentrixAgentID;
   }
 
-  agentLogin(agentId, ipAddress) {
-    this.transaction_id = 'CTI_LOGIN';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
+  // agentLogin(agentId, ipAddress) {
+  //   this.transaction_id = 'CTI_LOGIN';
+  //   this.agent_id = agentId;
+  //   this.ip = ipAddress;
 
-    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
   getLoginKey(uname, password) {
     return this._http
@@ -59,14 +60,14 @@ export class CzentrixServices {
 
   }
 
-  getOnlineAgents(agentId, ipAddress) {
-    this.transaction_id = 'CTI_ONLINE_AGENTS';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
+  // getOnlineAgents(agentId, ipAddress) {
+  //   this.transaction_id = 'CTI_ONLINE_AGENTS';
+  //   this.agent_id = agentId;
+  //   this.ip = ipAddress;
 
-    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
   getAgentStatus() {
 
@@ -95,97 +96,98 @@ export class CzentrixServices {
     // return this.callAPI(params);
   }
 
-  transferCall(transferFromAgentId, transferToAgentId, ipAddress) {
+  // transferCall(transferFromAgentId, transferToAgentId, ipAddress) {
 
-    this.transaction_id = 'CTI_TRANSFER_AGENT';
-    this.ip = ipAddress;
+  //   this.transaction_id = 'CTI_TRANSFER_AGENT';
+  //   this.ip = ipAddress;
 
-    // tslint:disable-next-line:max-line-length
-    let params = 'transaction_id=' + this.transaction_id + '&transfer_ from=' + transferFromAgentId + '&transfer_to=' + transferToAgentId + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   // tslint:disable-next-line:max-line-length
+  //   let params = 'transaction_id=' + this.transaction_id + '&transfer_ from=' + transferFromAgentId + '&transfer_to=' + transferToAgentId + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
-  getAgentPhoneNumber(agentId) {
-    this.transaction_id = 'CTI_GETNUMBER';
-    this.agent_id = agentId;
+  // getAgentPhoneNumber(agentId) {
+  //   this.transaction_id = 'CTI_GETNUMBER';
+  //   this.agent_id = agentId;
 
-    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
-  switchToReadyMode(agentId, ipAddress) {
-    this.transaction_id = 'CTI_READY';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
+  // switchToReadyMode(agentId, ipAddress) {
+  //   this.transaction_id = 'CTI_READY';
+  //   this.agent_id = agentId;
+  //   this.ip = ipAddress;
 
-    let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
-  switchBreakFree(agentId, ipAddress, state) { // state : BREAK / FREE
-    this.transaction_id = 'CTI_PAUSE';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
+  // switchBreakFree(agentId, ipAddress, state) { // state : BREAK / FREE
+  //   this.transaction_id = 'CTI_PAUSE';
+  //   this.agent_id = agentId;
+  //   this.ip = ipAddress;
 
-    // tslint:disable-next-line:max-line-length
-    const params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&state=' + state + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   // tslint:disable-next-line:max-line-length
+  //   const params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&state=' + state + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
-  disconnectCall(agentId, ipAddress) {
-    this.transaction_id = 'CTI_DISCONNECT';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
+  // disconnectCall(agentId, ipAddress) {
+  //   this.transaction_id = 'CTI_DISCONNECT';
+  //   this.agent_id = agentId;
+  //   this.ip = ipAddress;
 
-    // tslint:disable-next-line:max-line-length
-    const params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   // tslint:disable-next-line:max-line-length
+  //   const params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
-  callHoldUnhold(agentId, ipAddress, state) {
-    this.transaction_id = 'CTI_HOLD';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
+  // callHoldUnhold(agentId, ipAddress, state) {
+  //   this.transaction_id = 'CTI_HOLD';
+  //   this.agent_id = agentId;
+  //   this.ip = ipAddress;
 
-    // tslint:disable-next-line:max-line-length
-    const params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&state=' + state + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   // tslint:disable-next-line:max-line-length
+  //   const params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&state=' + state + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
-  checkAgentStatus(agentId, ipAddress) {
-    this.transaction_id = 'CTI_CHECK_AGENT_STATE';
-    this.agent_id = agentId;
-    this.ip = ipAddress;
+  // checkAgentStatus(agentId, ipAddress) {
+  //   this.transaction_id = 'CTI_CHECK_AGENT_STATE';
+  //   this.agent_id = agentId;
+  //   this.ip = ipAddress;
 
-    // tslint:disable-next-line:max-line-length
-    const params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
-    return this.callAPI(params);
-  }
+  //   // tslint:disable-next-line:max-line-length
+  //   const params = 'transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&ip=' + this.ip + '&resFormat=' + this.resFormat;
+  //   return this.callAPI(params);
+  // }
 
   blockNumber() {
 
   }
 
   getIpAddress(agentId) {
-    this.transaction_id = 'CTI_GET_AGENTIP';
+    // this.transaction_id = 'CTI_GET_AGENTIP';
     this.agent_id = agentId;
+    let reqObj = {};
+    reqObj['agent_id'] = agentId;
     // tslint:disable-next-line:max-line-length
-    const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
-
-    return this._http.get(this.address + params).map((res: Response) => this.extractData(res));
+    // const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
+    return this.http.post(this._getAgentIPAddressURL, reqObj).map(this.extractData).catch(this.handleError);
   }
 
-  callAPI(params) {
-    return this.http.get(this.address + this.path + params).map((res: Response) => this.extractData(res));
-  }
+  // callAPI(params) {
+  //   return this.http.get(this.address + this.path + params).map((res: Response) => this.extractData(res));
+  // }
 
-  getTodayCallReports() {
-    this.transaction_id = 'CTI_AGENT_CALL_RECORD';
-    this.agent_id = this._data.cZentrixAgentID;
-    // tslint:disable-next-line:max-line-length
-    const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
-    return this._http.get(this.address + params).map(this.extractData).catch(this.handleError);
-  }
+  // getTodayCallReports() {
+  //   this.transaction_id = 'CTI_AGENT_CALL_RECORD';
+  //   this.agent_id = this._data.cZentrixAgentID;
+  //   // tslint:disable-next-line:max-line-length
+  //   const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
+  //   return this._http.get(this.address + params).map(this.extractData).catch(this.handleError);
+  // }
 
   setCustomerPreferredLanguage(data) {
     return this.http.post(this.setCustomerPreferredLanguageUrl, data)

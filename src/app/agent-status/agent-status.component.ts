@@ -9,7 +9,7 @@ import { dataService } from '../services/dataService/data.service';
   styleUrls: ['./agent-status.component.css']
 })
 export class AgentStatusComponent implements OnInit {
-  agentStatusURL: any;
+  // agentStatusURL: any;
   selection: any = "";
   constructor(
     private configService: ConfigService,
@@ -22,9 +22,9 @@ export class AgentStatusComponent implements OnInit {
     // this.agentStatusURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.agentStatusURL);
     // console.log('reportsURL: ' + this.agentStatusURL);
     // this.agentStatusURL = "http://10.201.13.17/adminui.php?agentStatus";
-    let url = this.configService.getTelephonyServerURL() + "adminui.php?agentStatus";
-    console.log( "url = " + url );
-    this.agentStatusURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
+    // let url = this.configService.getTelephonyServerURL() + "adminui.php?agentStatus";
+    // console.log( "url = " + url );
+    // this.agentStatusURL = this.sanitizer.bypassSecurityTrustResourceUrl( url );
   }
 
 }
