@@ -826,7 +826,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.FirstName = registeredBenData.firstName;
     this.LastName = registeredBenData.lastName;
     this.GenderID = registeredBenData.genderID;
-    this.DOB = new Date(registeredBenData.dOB);
+    if (registeredBenData.dOB != undefined) {
+      this.DOB = new Date(registeredBenData.dOB);
+    }
     this.TitleId = registeredBenData.titleId;
     this.MaritalStatusID = registeredBenData.maritalStatusID;
     if (registeredBenData.benPhoneMaps[0]) {
@@ -884,7 +886,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     this.village = registeredBenData.i_bendemographics.districtBranchID;
     console.log("experiment 3", this.blocks);
-    if (this.DOB) {
+    if (this.DOB != undefined) {
       this.calculateAge(this.DOB);
     }
     // this.age = registeredBenData.age;
@@ -1163,7 +1165,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         });
       });
     }
-
+    this.registrationNo = "";
   }
 
   getRelationShipType(relationShips) {
@@ -1266,7 +1268,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.calledEarlier = false;
       this.showSearchResult = false;
     }
-
+    this.registrationNo = "";
   }
   back1() {
     this.isAdvancedSearch = true;

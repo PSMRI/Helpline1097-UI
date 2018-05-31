@@ -323,13 +323,15 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.modalArray.push(object);
 
     this.modalArray = this.modalArray.map(function (data) {
+      
       return {
         'feedbackRequests': data.feedbackRequests,
         'feedbackResponses': data.feedbackResponses,
         'consolidatedRequests': data.consolidatedRequests,
-        'feedbackStatusName': data.feedbackStatusName
+        'feedbackStatusName': data.feedbackStatus.feedbackStatus
       }
     })
+    
     const dialogRef = this.dialog.open(FeedbackStatusComponent, {
       height: '90%',
       width: '80%',

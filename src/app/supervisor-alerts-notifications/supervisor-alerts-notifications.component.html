@@ -110,17 +110,29 @@
           </md-option>
         </md-select>
       </div>
+      <div class="clearfix"></div> <br><br>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
         <md2-datepicker name="startDate" (keydown)="blockey($event)" [min]="minDate" placeholder="Valid From" #startDate="ngModel"
           ngModel required [style.width]="'100%'"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+          <md-input-container>
+     <input type="time" mdInput placeholder="Start Time" name="startTime" [(ngModel)]="startTime" #time="ngModel">
+          </md-input-container>
+   </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="startDate.value" placeholder="Valid Till" #endDate="ngModel"
           ngModel required [style.width]="'100%'"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
       </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+          <md-input-container>
+     <input type="time" mdInput placeholder="End Time" name="endTime" [(ngModel)]="endTime" #time="ngModel">
+          </md-input-container>
+   </div>
+     
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-10">
         <md-input-container class="width100">
@@ -163,12 +175,22 @@
           placeholder="Valid From" #eStartDate="ngModel" required [style.width]="'100%'"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="eStartDate.touched && eStartDate.errors?.required">Date is required</span>
       </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+          <md-input-container>
+     <input type="time" mdInput placeholder="Start Time" name="startTime" [(ngModel)]="startTime" #time="ngModel">
+          </md-input-container>
+   </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [(ngModel)]="edate" [min]="eStartDate.value" placeholder="Valid Till"
           #eEndDate="ngModel" required [style.width]="'100%'"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="eEndDate.touched && eEndDate.errors?.required">Date is required</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(eEndDate.value < eStartDate.value) && eEndDate.dirty">End Date cannot be before Start Date!</span>
       </div>
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+          <md-input-container>
+     <input type="time" mdInput placeholder="End Time" name="endTime" [(ngModel)]="endTime" #time="ngModel">
+          </md-input-container>
+   </div>
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-10">
         <md-input-container class="width100">
