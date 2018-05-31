@@ -60,7 +60,7 @@ export class helpline1097CoComponent implements OnInit {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
     }, 1000);
-    this.getCommonData.beneficiarySelected.subscribe((data)=>{
+    this.getCommonData.beneficiarySelected.subscribe((data) => {
       this.setFlag(data)
     });
 

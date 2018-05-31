@@ -28,6 +28,9 @@ export class DashboardUserIdComponent implements OnInit {
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
             if (res && res.data.stateObj.stateName) {
+                if (!this.dataSettingService.current_campaign && sessionStorage.getItem("current_campaign")) {
+                    this.dataSettingService.current_campaign = sessionStorage.getItem("current_campaign");
+                }
                 if (res.data.dialer_type) {
                     if (res.data.dialer_type.toUpperCase() == "PROGRESSIVE") {
                         this.dataSettingService.inOutCampaign.next("1");
