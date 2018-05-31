@@ -166,7 +166,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   getOffices(roleID) {
     if (roleID == 'All') {
       roleID = undefined;
-      this.notificationCreationForm.form.patchValue({'offices':undefined});
+      this.notificationCreationForm.form.patchValue({ 'offices': undefined });
     }
     this.notification_service.getOfficeByRole(this.providerServiceMapID, roleID)
       .subscribe(response => this.getOfficeSuccessHandeler(response),
@@ -175,7 +175,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
   getOfficeSuccessHandeler(response) {
     console.log(response, "Offices based on role");
-    this.notificationCreationForm.form.patchValue({'offices':undefined});
+    this.notificationCreationForm.form.patchValue({ 'offices': undefined });
     if (response.length == 0) {
       this.dialogService.alert("No office found with the selected role functional in them")
     }
@@ -227,15 +227,27 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
   createAlertNotification(form_values) {
     let startDate: Date = new Date(form_values.startDate);
-    startDate.setHours(0);
-    startDate.setMinutes(0);
+    let endDate: Date = new Date(form_values.endDate);
+
+    if (form_values.startTime) {
+      startDate.setHours(form_values.startTime.split(":")[0]);
+      startDate.setMinutes(form_values.startTime.split(":")[1]);
+    } else {
+      startDate.setHours(0);
+      startDate.setMinutes(0);
+    }
     startDate.setSeconds(0);
     startDate.setMilliseconds(0);
 
-    let endDate: Date = new Date(form_values.endDate);
-    endDate.setHours(23);
-    endDate.setMinutes(59);
-    endDate.setSeconds(59);
+    if (form_values.endTime) {
+      endDate.setHours(form_values.endTime.split(":")[0]);
+      endDate.setMinutes(form_values.endTime.split(":")[1]);
+      endDate.setSeconds(0);
+    } else {
+      endDate.setHours(23);
+      endDate.setMinutes(59);
+      endDate.setSeconds(59);
+    }
     endDate.setMilliseconds(0);
 
     let defaultObj = {
@@ -269,21 +281,21 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     let roomArray = [];
     if (roleID == undefined && allOfficeIDs == undefined) {
       for (var i = 0; i < this.roles.length; i++) {
-        roomArray.push(this.providerServiceMapID+"_"+this.roles[i].roleName.toLowerCase());
+        roomArray.push(this.providerServiceMapID + "_" + this.roles[i].roleName.toLowerCase());
       }
     }
     else if (roleID != undefined && allOfficeIDs == undefined) {
       let selectedRole = this.roles.filter((item) => {
         return item.roleID == roleID;
       })
-      roomArray.push(this.providerServiceMapID+"_"+selectedRole[0].roleName.toLowerCase());
+      roomArray.push(this.providerServiceMapID + "_" + selectedRole[0].roleName.toLowerCase());
     }
     else {
       let selectedRole = this.roles.filter((item) => {
         return item.roleID == roleID;
       })
       for (var i = 0; i < allOfficeIDs.length; i++) {
-        roomArray.push(this.providerServiceMapID+"_"+selectedRole[0].roleName.toLowerCase() + "_" + allOfficeIDs[i]);
+        roomArray.push(this.providerServiceMapID + "_" + selectedRole[0].roleName.toLowerCase() + "_" + allOfficeIDs[i]);
       }
     }
 
@@ -357,23 +369,35 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     this.description = toBeEditedOBJ.notificationDesc;
     this.sdate = new Date(toBeEditedOBJ.validFrom);
     this.edate = new Date(toBeEditedOBJ.validTill);
-
+    this.startTime = toBeEditedOBJ.validFrom.split('T')[1].split(':')[0] + ':' + toBeEditedOBJ.validFrom.split('T')[1].split(':')[1];
+    this.endTime = toBeEditedOBJ.validTill.split('T')[1].split(':')[0] + ':' + toBeEditedOBJ.validTill.split('T')[1].split(':')[1];
 
   }
 
   editAlertNotification(form_values) {
     console.log("to be edited values", form_values);
-
     let startDate: Date = new Date(form_values.startDate);
-    startDate.setHours(0);
-    startDate.setMinutes(0);
+    let endDate: Date = new Date(form_values.endDate);
+
+    if (form_values.startTime) {
+      startDate.setHours(form_values.startTime.split(":")[0]);
+      startDate.setMinutes(form_values.startTime.split(":")[1]);
+    } else {
+      startDate.setHours(0);
+      startDate.setMinutes(0);
+    }
     startDate.setSeconds(0);
     startDate.setMilliseconds(0);
 
-    let endDate: Date = new Date(form_values.endDate);
-    endDate.setHours(23);
-    endDate.setMinutes(59);
-    endDate.setSeconds(59);
+    if (form_values.endTime) {
+      endDate.setHours(form_values.endTime.split(":")[0]);
+      endDate.setMinutes(form_values.endTime.split(":")[1]);
+      endDate.setSeconds(0);
+    } else {
+      endDate.setHours(23);
+      endDate.setMinutes(59);
+      endDate.setSeconds(59);
+    }
     endDate.setMilliseconds(0);
 
     if (endDate > startDate) {
