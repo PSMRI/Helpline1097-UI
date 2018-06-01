@@ -171,7 +171,7 @@ export class GenderDistributionReportComponent implements OnInit {
 
       obj['startTimestamp']=new Date((form_values.startDate) - 1 * (form_values.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
 
-      obj['endTimestamp']=new Date((form_values.endDate) - 1 * (form_values.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+      obj['endTimestamp']=new Date((form_values.endDate) - 1 * (form_values.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
 
       if(form_values.state)
       {
@@ -200,7 +200,7 @@ export class GenderDistributionReportComponent implements OnInit {
       obj['providerServiceMapID'] = this.providerServiceMapID;
       obj['startTimestamp']=new Date((form_values.startDate) - 1 * (form_values.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
 
-      obj['endTimestamp']=new Date((form_values.endDate) - 1 * (form_values.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+      obj['endTimestamp']=new Date((form_values.endDate) - 1 * (form_values.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
 
       if(form_values.state)
       {

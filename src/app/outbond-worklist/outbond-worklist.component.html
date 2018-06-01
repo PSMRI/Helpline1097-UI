@@ -42,8 +42,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="t-a-c record-not-found" *ngIf="md2.data.length==0">
-                      No Outbound Records
+                    <tr  *ngIf="md2.data.length==0">
+                     <td colspan="5" class="t-a-c record-not-found"> No records found</td>
                     </tr>
 
                     <tr *ngFor="let listItem of  md2.data">

@@ -1173,7 +1173,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.notCalledEarlierLowerPart = false;
     } else {
       const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
-        height: '68%',
+        height: '70%',
 
         width: '80%',
         disableClose: true,
