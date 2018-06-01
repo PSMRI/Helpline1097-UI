@@ -33,8 +33,8 @@ export class KnowledgeManagementComponent implements OnInit {
   public file: File;
   knowledgeForm: FormGroup;
 
-  valid_file_extensions=['msg','pdf','png','jpeg','jpg','doc','docx','xlsx','xls','csv','txt'];
-  invalid_file_flag:boolean=true;
+  valid_file_extensions = ['msg', 'pdf', 'png', 'jpeg', 'jpg', 'doc', 'docx', 'xlsx', 'xls', 'csv', 'txt'];
+  invalid_file_flag: boolean = true;
 
   // declaring variables
   public categoryID;
@@ -45,10 +45,11 @@ export class KnowledgeManagementComponent implements OnInit {
   public fileName;
   public fileExtension;
   public createdBy;
+  public subcategoryOBJ;
   public fileControl
   constructor(private fb: FormBuilder, private _coCategoryService: CoCategoryService,
-              private _dataService: dataService, private _uploadService: UploadServiceService,
-              private message: ConfirmationDialogsService) {
+    private _dataService: dataService, private _uploadService: UploadServiceService,
+    private message: ConfirmationDialogsService) {
     this.createForm();
   }
 
@@ -72,41 +73,55 @@ export class KnowledgeManagementComponent implements OnInit {
   getService() {
     // let serviceId= this.providerServiceMapID
     this._coCategoryService.getTypes(this.providerServiceMapID)
-    .subscribe((response) => {
-      this.services = response.filter(function (item) {
-        return item.subServiceName.trim().toLowerCase() === 'information service'
-        || item.subServiceName.trim().toLowerCase() === 'counselling service'
-      });
-    }, (err) => {
-      this.message.alert(err.errorMessage);
+      .subscribe((response) => {
+        this.services = response.filter(function (item) {
+          return item.subServiceName.trim().toLowerCase() === 'information service'
+            || item.subServiceName.trim().toLowerCase() === 'counselling service'
+        });
+      }, (err) => {
+        this.message.alert(err.errorMessage);
 
-      console.log('Error in Knowledge Managemant Catyegory');
+        console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
   }
   // getting list of category
   getCategory(subServiceId: any) {
+    this.subcategoryOBJ={};
     this._coCategoryService.getCategoriesByID(subServiceId)
-    .subscribe((response) => {
-      this.categories = response;
-    }, (err) => {
-      this.message.alert(err.errorMessage);
+      .subscribe((response) => {
+        this.categories = response;
+      }, (err) => {
+        this.message.alert(err.errorMessage);
 
-      console.log('Error in Knowledge Managemant Catyegory');
+        console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
   }
   // getting list of subcategory by categoryId
   getSubCategory(categoryID: any) {
+    this.subcategoryOBJ={};
     this._coCategoryService.getSubCategories(categoryID)
-    .subscribe((response) => {
-      this.subCategories = response;
-    }, (err) => {
-      this.message.alert(err.errorMessage);
+      .subscribe((response) => {
+        this.subCategories = response;
+      }, (err) => {
+        this.message.alert(err.errorMessage);
 
-      console.log('Error in Knowledge Managemant Catyegory');
+        console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
+  }
+
+  getSubcategoryObject(subCategoryID) {
+    let subcategoryArr = this.subCategories.filter(function (item) {
+      return item.subCategoryID === subCategoryID;
+    });
+
+   
+    if (subcategoryArr.length > 0) {
+      this.subcategoryOBJ = subcategoryArr[0];
+    }
+
   }
   // submit event to submit the form
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
@@ -133,21 +148,19 @@ export class KnowledgeManagementComponent implements OnInit {
   readThis(inputValue: any): any {
     this.file = inputValue.files[0];
     if (this.file) {
-      var isvalid=this.checkExtension(this.file);
-      console.log(isvalid,"VALID OR NOT");
-      if(isvalid)
-      {
+      var isvalid = this.checkExtension(this.file);
+      console.log(isvalid, "VALID OR NOT");
+      if (isvalid) {
         this.knowledgeForm.controls['fileInput'].setValue(this.file.name);
         const myReader: FileReader = new FileReader();
         // binding event to access the local variable
         myReader.onloadend = this.onLoadFileCallback.bind(this)
         myReader.readAsDataURL(this.file);
 
-        this.invalid_file_flag=false;
+        this.invalid_file_flag = false;
       }
-      else
-      {
-        this.invalid_file_flag=true;
+      else {
+        this.invalid_file_flag = true;
       }
     } else {
       this.knowledgeForm.controls['fileInput'].setValue('');
@@ -159,26 +172,21 @@ export class KnowledgeManagementComponent implements OnInit {
 
   }
 
-  checkExtension(file)
-  {
-    var count=0;
-    console.log("FILE DETAILS",file);
-    var array_after_split=file.name.split(".");
-    var file_extension=array_after_split[array_after_split.length-1];
-    for(let i=0;i<this.valid_file_extensions.length;i++)
-    {
-      if(file_extension.toUpperCase()===this.valid_file_extensions[i].toUpperCase())
-      {
-        count=count+1;
+  checkExtension(file) {
+    var count = 0;
+    console.log("FILE DETAILS", file);
+    var array_after_split = file.name.split(".");
+    var file_extension = array_after_split[array_after_split.length - 1];
+    for (let i = 0; i < this.valid_file_extensions.length; i++) {
+      if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
+        count = count + 1;
       }
     }
 
-    if(count>0)
-    {
+    if (count > 0) {
       return true;
     }
-    else
-    {
+    else {
       return false;
     }
 
@@ -188,11 +196,11 @@ export class KnowledgeManagementComponent implements OnInit {
   uploadFile(uploadObj: any) {
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
       console.log('KM configuration ', response);
-      this.message.alert('File uploaded successfully','success');
+      this.message.alert('File uploaded successfully', 'success');
       this.myInputVariable.nativeElement.value = '';
       this.knowledgeForm.reset(this.knowledgeForm.value);
     }, (err) => {
-      this.message.alert('Failed to upload file','error');
+      this.message.alert('Failed to upload file', 'error');
       this.myInputVariable.nativeElement.value = '';
     })
   }

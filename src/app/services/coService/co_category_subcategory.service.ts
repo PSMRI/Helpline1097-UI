@@ -18,7 +18,9 @@ export class CoCategoryService {
     // _servicetypesurl = this._baseurl + 'api/helpline1097/co/get/servicetypes'
     _categoryurl = this._baseurl + 'api/helpline1097/co/get/category';
     _categorybyidurl = this._baseurl + 'api/helpline1097/co/get/categoryByID';
-    _subcategoryurl = this._baseurl + 'api/helpline1097/co/get/subcategory';
+    // _subcategoryurl = this._baseurl + 'api/helpline1097/co/get/subcategory';
+    _subcategoryurl = this._commonURL + 'service/subcategory';
+    
     _savedetailsurl: string = this._baseurl + 'iEMR/saveBenCalServiceCatSubcatMapping';
     _saveCOdetailsurl: string = this._baseurl + 'iEMR/saveBenCalServiceCOCatSubcatMapping'
     constructor(
