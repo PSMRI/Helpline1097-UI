@@ -466,5 +466,6 @@ export class ClosureComponent implements OnInit
   }
   setFlag(data) {
     this.beneficiarySelected = data.beneficiarySelected;
+    console.log('BEN SELECTED',this.beneficiarySelected);
   }
 }
