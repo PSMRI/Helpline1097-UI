@@ -194,7 +194,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       this.notification_service.createEmergencyContacts(array)
         .subscribe(response => {
           console.log(response, 'create success');
-          this.dialogService.alert('Successfully Created', 'success');
+          this.dialogService.alert('Created successfully', 'success');
           this.emergencyContactForm.reset();
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
           this.tableMode();
@@ -269,7 +269,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       .subscribe(response => {
         if (response.data) {
           console.log(response.data.response, 'edited successfully');
-          this.dialogService.alert('Edited Successfully', 'success');
+          this.dialogService.alert('Edited successfully', 'success');
           this.editEmergencyContactForm.reset();
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
           this.tableMode();
@@ -292,7 +292,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       .subscribe(response => {
         if (response.data) {
           console.log(response.data.response, 'ACTIVATED SUCCESSFULLY');
-          this.dialogService.alert('Activated Successfully', 'success');
+          this.dialogService.alert('Activated successfully', 'success');
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
         }
       }, err => {
@@ -313,7 +313,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       .subscribe(response => {
         if (response.data) {
           console.log(response.data.response, 'DEACTIVATED SUCCESSFULLY');
-          this.dialogService.alert('Deactivated Successfully', 'success');
+          this.dialogService.alert('Deactivated successfully', 'success');
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
         }
       }, err => {
