@@ -166,11 +166,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   /* Intialization Of value and object has to be written in here */
 
   ngOnInit() {
-    this.startNewCall();
     this.IntializeSessionValues();
     this.current_campaign = this.saved_data.current_campaign;
     if (this.saved_data.current_campaign == 'OUTBOUND') {
       this.startOutBoundCall(this.saved_data.outboundData);
+    } else {
+      this.startNewCall();
     }
     // this.agentID = this.saved_data.cZentrixAgentID;
     // this.reloadOutBoundCall(this.current_campaign);
@@ -203,10 +204,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-      (err) => {
-        this.alertMaessage.alert(err.errorMessage, 'error');
-        console.log('ERROR', err);
-      });
+        (err) => {
+          this.alertMaessage.alert(err.errorMessage, 'error');
+          console.log('ERROR', err);
+        });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -231,6 +232,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.callReceivedUserID = this.saved_data.uid;
     data.receivedRoleName = this.saved_data.current_role.RoleName;
     /**/
+    data.beneficiaryRegID = outboundData.beneficiary.beneficiaryRegID;
     data.isOutbound = this.saved_data.isOutbound;
     this._util.startCall(data).subscribe((response) => {
       this.setBenCall(response);
@@ -263,7 +265,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     if (current_campaign.compainType.toLowerCase() === 'startcall') {
       if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
         this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
-        this.startCall();
+        // this.startCall();
       }
       if (this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
         this.startNewCall();
@@ -389,7 +391,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   calledEarlierCheck(flag) {
-    if(flag == false){
+    if (flag == false) {
       this.editAlternate = false;
     }
     this.alternateNumberDisplay1 = null;
@@ -673,7 +675,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     const res = this._util.generateReg(this.updatedObj).subscribe(response => {
       this.benRegistrationResponse = response;
       if (this.preferredLanguage != undefined && this.preferredLanguage != null) {
-        this.setBeneficiaryLanguageInCZentrix('select', this.preferredLanguage);
+        this.setBeneficiaryLanguageInCZentrix('update', this.preferredLanguage);
       }
 
       this.handleRegHistorySuccess([response]);
@@ -798,7 +800,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   // setting the data of selected beneficiary on the top section as BEN. Data for
   // the agent to see
   editAlternate: Boolean = false;
-  
+
   passBenRegHistoryData(benRegData: any) {
     this.editAlternate = true;
     this.notCalledEarlier = true;
@@ -822,7 +824,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     );
   }
 
-  
+
   populateUserData(benRegData: any) {
     this.updatebeneficiaryincall(benRegData);
     const res = this._util.retrieveRegHistory(benRegData.beneficiaryID)
