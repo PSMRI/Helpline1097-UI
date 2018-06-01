@@ -165,10 +165,8 @@ export class CallerAgeReportComponent implements OnInit {
     let noOfGroups = value.ageGroup.length;
     let array = [];
     let obj = {};
-
-
     let start_date = new Date((value.startDate) - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
-    let end_date = new Date((value.endDate) - 1 * (value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z"; 
+    let end_date = new Date((value.endDate) - 1 * (value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z"; 
     let state;
     if(this.state){
 
