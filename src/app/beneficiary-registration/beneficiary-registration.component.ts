@@ -389,9 +389,19 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   calledEarlierCheck(flag) {
+    if(flag == false){
+      this.editAlternate = false;
+    }
+    this.alternateNumberDisplay1 = null;
+    this.alternateNumberDisplay2 = null;
+    this.alternateNumberDisplay3 = null;
+    this.alternateNumberDisplay4 = null;
+    this.alternateNumberDisplay5 = null;
     this.genderErrFlag = false;
     this.stateErrFlag = false;
     this.cityErrFlag = false;
+    // added to reset benID after search
+    this.registrationNo = "";
     if (flag) {
       this.calledEarlier = true;
       this.searchValue = 'Advance Search';
@@ -780,7 +790,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   // setting the data of selected beneficiary on the top section as BEN. Data for
   // the agent to see
+  editAlternate: Boolean = false;
+  
   passBenRegHistoryData(benRegData: any) {
+    this.editAlternate = true;
     this.notCalledEarlier = true;
     this.calledEarlier = false;
     this.showSearchResult = false;
@@ -802,6 +815,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     );
   }
 
+  
   populateUserData(benRegData: any) {
     this.updatebeneficiaryincall(benRegData);
     const res = this._util.retrieveRegHistory(benRegData.beneficiaryID)
@@ -1105,7 +1119,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // saving the updated ben data in the in_app_saved data service file
     this.saved_data.beneficiaryData = this.updatedObj;
     // return;
-
+    this.populateUserData(this.updatedObj);
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
     }, (err) => {
@@ -1117,6 +1131,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   updateSuccessHandeler(response) {
     if (response) {
       this.alertMaessage.alert('Beneficiary updated successfully', 'success');
+      this.editAlternate = false;
       if (this.preferredLanguage != undefined && this.preferredLanguage != null) {
         this.setBeneficiaryLanguageInCZentrix('update', this.preferredLanguage);
       }
