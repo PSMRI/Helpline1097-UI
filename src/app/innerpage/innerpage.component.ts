@@ -608,7 +608,7 @@ export class InnerpageComponent implements OnInit {
       const remarks = 'Call disconnect from customer.';
       if (t == this.timeRemaining) {
         // this.remarksMessage.close();
-        this.closeCall(eventData, remarks, 'Call Completed Successfully', this.wrapupCallID);
+        this.closeCall(eventData, remarks, 'Call completed successfully', this.wrapupCallID);
       }
     });
   }
