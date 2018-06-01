@@ -537,6 +537,7 @@ export class InnerpageComponent implements OnInit {
 
     if (wrapupCallID != undefined) {
       requestObj['callTypeID'] = wrapupCallID;
+      requestObj['agentID']=this.getCommonData.cZentrixAgentID;
     }
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
