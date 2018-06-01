@@ -86,9 +86,9 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.notificationService.getNotificationTypes(this.providerServiceMapID)
       .subscribe((response) => { this.notificationTypeSuccess(response) },
-        (error) => {
-          console.log(error);
-        });
+      (error) => {
+        console.log(error);
+      });
 
     this.currentDate.setHours(0);
     this.currentDate.setMinutes(0);
@@ -127,9 +127,9 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
         }
 
       },
-        (error) => {
-          console.log(error);
-        });
+      (error) => {
+        console.log(error);
+      });
   }
 
   createTrainingResource(form_values) {
@@ -210,7 +210,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
 
     this.notificationService.createNotification(this.request_array)
       .subscribe((response) => this.createTrainingResourceSuccessHandeler(response, form_values, roomArray, startDate),
-        (error) => this.trainingResourceErrorHandeler(error));
+      (error) => this.trainingResourceErrorHandeler(error));
 
 
   }
@@ -230,15 +230,16 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           .subscribe((response) => {
             console.log(response.data);
           },
-            (error) => {
-              console.log(error);
-            });
+          (error) => {
+            console.log(error);
+          });
       }
     }
   }
 
   trainingResourceErrorHandeler(error) {
     console.log(error);
+    this.dialogService.alert(error.json().errorMessage, 'alert');
   }
 
 
@@ -364,10 +365,10 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           this.dialogService.alert('No training resources found');
         }
       },
-        (error) => {
-          console.log(error);
-          this.dialogService.alert(error, 'error');
-        });
+      (error) => {
+        console.log(error);
+        this.dialogService.alert(error, 'error');
+      });
   }
 
   activate(obj, val) {
@@ -391,10 +392,10 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           this.getTrainingResources();
         }
       },
-        (error) => {
-          console.log(error);
-          this.dialogService.alert("Failed to activate", 'error')
-        });
+      (error) => {
+        console.log(error);
+        this.dialogService.alert("Failed to activate", 'error')
+      });
   }
 
   deactivate(obj, val) {
@@ -419,10 +420,10 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           this.getTrainingResources();
         }
       },
-        (error) => {
-          console.log(error);
-          this.dialogService.alert('Failed to deactivate', 'error')
-        });
+      (error) => {
+        console.log(error);
+        this.dialogService.alert('Failed to deactivate', 'error')
+      });
   }
 
 
@@ -495,7 +496,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
 
     this.notificationService.updateNotification(editedObj)
       .subscribe((response) => this.updateSuccess(response),
-        (error) => this.notificationError(error));
+      (error) => this.notificationError(error));
 
 
   }
