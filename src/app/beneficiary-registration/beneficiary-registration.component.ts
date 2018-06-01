@@ -203,10 +203,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-        (err) => {
-          this.alertMaessage.alert(err.errorMessage, 'error');
-          console.log('ERROR', err);
-        });
+      (err) => {
+        this.alertMaessage.alert(err.errorMessage, 'error');
+        console.log('ERROR', err);
+      });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -682,9 +682,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
-      this.saved_data.beneficiarySelected.next({
-        "beneficiarySelected": true
-      });
+
     }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
@@ -756,6 +754,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   handleRegHistorySuccess(response: any) {
     if (response) {
+      this.saved_data.beneficiarySelected.next({
+        'beneficiarySelected': true
+      });
       this.regHistoryList = response;
       console.log(this.regHistoryList);
       this.showSearchResult = true;
@@ -771,7 +772,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       });
       this.beneficiaryRelationID = undefined;
 
-      this.relationshipWith = 'Relationship with  ' + this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "" + ' ' + this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "";
+      this.relationshipWith = 'Relationship with  ' + (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
+        + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
+      console.log('relationship with', this.regHistoryList[0].firstName, this.regHistoryList[0].lastName);
+      if (this.regHistoryList[0].firstName != undefined && this.regHistoryList[0].lastname != undefined) {
+        this.relationshipWith = 'Relationship with  ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
+      }
       this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
       // if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
       // if ((this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID)) {

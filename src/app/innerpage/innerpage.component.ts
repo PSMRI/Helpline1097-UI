@@ -54,6 +54,7 @@ export class InnerpageComponent implements OnInit {
   TotalTime: any;
   id: any;
   disconectCallId: any;
+  wrapupCallID: any;
   backToDashboard: boolean = true;
   callID: any;
   wrapupTimerSubscription: Subscription;
@@ -228,47 +229,61 @@ export class InnerpageComponent implements OnInit {
       return undefined;
     }
   }
-  getSelectedBenDetails(data: any) {
-    if (data != null) {
-      this.getCommonData.beneficiaryRegID = data.beneficiaryRegID;
-      this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryID;
-      this.beneficiaryRegID = data.beneficiaryRegID;
-      let fname = data.firstName ? data.firstName : "";
-      let lname = data.lastName ? data.lastName : "";
-      this.selectedBenData.name = 'Name: ' + fname + ' ' + lname;
-      // if ( data.dOB )
-      // {
-      //  let currDate = new Date();
-      //  let dob = new Date( data.dOB );
-      //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
+  getSelectedBenDetails(obj: any) {
+    let data: any = {};
 
-      // this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
-      this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
-      // }
-      this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
-      this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
-      this.selectedBenData.district = 'District: ' + (data.i_bendemographics ? (data.i_bendemographics.m_district ? (data.i_bendemographics.m_district.districtName ? data.i_bendemographics.m_district.districtName : "") : '') : '');
-      this.selectedBenData.block = 'Taluk: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtblock ? (data.i_bendemographics.m_districtblock.blockName ? data.i_bendemographics.m_districtblock.blockName : '') : '') : '');
-      this.selectedBenData.village = 'Village: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtbranchmapping ? (data.i_bendemographics.m_districtbranchmapping.villageName ? data.i_bendemographics.m_districtbranchmapping.villageName : '') : '') : '');
-      this.selectedBenData.language = 'Preferred Lang: ' + (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : '') : '') : '');
-      this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : '') : '');
-    } else {
-      this.getCommonData.beneficiarySelected.next({
-        "beneficiarySelected": false
-      });
-      this.selectedBenData.name = '';
-      this.selectedBenData.id = '';
-      this.selectedBenData.fname = '';
-      this.selectedBenData.lname = '';
-      this.selectedBenData.age = '';
-      this.selectedBenData.gender = '';
-      this.selectedBenData.state = '';
-      this.selectedBenData.district = '';
-      this.selectedBenData.block = '';
-      this.selectedBenData.village = '';
-      this.selectedBenData.language = '';
-      this.selectedBenData.relation = '';
+    if (obj != null && obj.beneficiaryID != undefined) {
+      this._util.retrieveRegHistory(obj.beneficiaryID)
+        .subscribe(response => {
+          if (response.length > 0) {
+            data = response[0];
+            if (data != null) {
+              console.log('**********BENEFICIARY REG ID**********', data.beneficiaryRegID);
+              this.getCommonData.beneficiaryRegID = data.beneficiaryRegID;
+              this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryID;
+              this.beneficiaryRegID = data.beneficiaryRegID;
+              let fname = data.firstName ? data.firstName : "";
+              let lname = data.lastName ? data.lastName : "";
+              this.selectedBenData.name = 'Name: ' + fname + ' ' + lname;
+              // if ( data.dOB )
+              // {
+              //  let currDate = new Date();
+              //  let dob = new Date( data.dOB );
+              //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
+
+              // this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
+              this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
+              // }
+              this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
+              this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
+              this.selectedBenData.district = 'District: ' + (data.i_bendemographics ? (data.i_bendemographics.m_district ? (data.i_bendemographics.m_district.districtName ? data.i_bendemographics.m_district.districtName : "") : '') : '');
+              this.selectedBenData.block = 'Taluk: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtblock ? (data.i_bendemographics.m_districtblock.blockName ? data.i_bendemographics.m_districtblock.blockName : '') : '') : '');
+              this.selectedBenData.village = 'Village: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtbranchmapping ? (data.i_bendemographics.m_districtbranchmapping.villageName ? data.i_bendemographics.m_districtbranchmapping.villageName : '') : '') : '');
+              this.selectedBenData.language = 'Preferred Lang: ' + (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : '') : '') : '');
+              this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : '') : '');
+            } else {
+              this.getCommonData.beneficiarySelected.next({
+                "beneficiarySelected": false
+              });
+              this.selectedBenData.name = '';
+              this.selectedBenData.id = '';
+              this.selectedBenData.fname = '';
+              this.selectedBenData.lname = '';
+              this.selectedBenData.age = '';
+              this.selectedBenData.gender = '';
+              this.selectedBenData.state = '';
+              this.selectedBenData.district = '';
+              this.selectedBenData.block = '';
+              this.selectedBenData.village = '';
+              this.selectedBenData.language = '';
+              this.selectedBenData.relation = '';
+            }
+          }
+        }, err => {
+          console.log(err, 'error');
+        })
     }
+
   }
 
 
@@ -394,6 +409,37 @@ export class InnerpageComponent implements OnInit {
         this.remarksMessage.alert('Failed to get call types');
       }
 
+      // let wrapupObj = response.filter(function (item) {
+      //   return item.callGroupType.toLowerCase().startsWith('wrapup');
+      // });
+      // if (wrapupObj.length > 0) {
+      //   if (wrapupObj[0].callTypes) {
+      //     wrapupObj = wrapupObj[0].callTypes.filter(function (item) {
+      //       console.log("wrapup call types " + item.callTypeDesc);
+      //       return item.callTypeDesc.toLowerCase().startsWith('wrapup');
+      //     });
+      //   }
+      //   if (wrapupObj.length > 0) {
+      //     if (wrapupObj[0].callTypeID != undefined) {
+      //       this.wrapupCallID = wrapupObj[0].callTypeID;
+      //     }
+      //   }
+      // }
+
+      for (let i = 0; i < response.length; i++) {
+        if (response[i].callGroupType.startsWith('Wrapup')) {
+          if (response[i].callTypes) {
+            for (let j = 0; j < response[i].callTypes.length; j++) {
+              if (response[i].callTypes[j].callType.startsWith('Wrapup')) {
+                this.wrapupCallID = response[i].callTypes[j].callTypeID;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+
 
       let validObj = response.filter(function (item) {
         console.log(item.callGroupType);
@@ -463,7 +509,7 @@ export class InnerpageComponent implements OnInit {
       this.getCommonData.isOutbound = true;
     }
   }
-  closeCall(eventData, remarks, message?: any) {
+  closeCall(eventData, remarks, message?: any, wrapupCallID?: any) {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
     if (!this.transferInProgress) {
@@ -488,6 +534,10 @@ export class InnerpageComponent implements OnInit {
     requestObj['providerServiceMapID'] = this.getCommonData.current_service.serviceID;
     requestObj['createdBy'] = this.getCommonData.uname;
 
+
+    if (wrapupCallID != undefined) {
+      requestObj['callTypeID'] = wrapupCallID;
+    }
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
         this.remarksMessage.alert(message, 'success');
@@ -526,7 +576,7 @@ export class InnerpageComponent implements OnInit {
   showRemarksNew(eventData) {
     let remarksGiven;
     remarksGiven = eventData[0] + ' to ' + eventData[2];
-    this.closeCall(eventData, remarksGiven, 'Call Transfered Successfully.');
+    this.closeCall(eventData, remarksGiven, 'Call Transfered Successfully');
   }
 
   startCallWraupup(eventData) {
@@ -539,7 +589,7 @@ export class InnerpageComponent implements OnInit {
       const remarks = 'Call disconnect from customer.';
       if (t == this.timeRemaining) {
         // this.remarksMessage.close();
-        this.closeCall(eventData, remarks, 'Call Completed Successfully.');
+        this.closeCall(eventData, remarks, 'Call Completed Successfully', this.wrapupCallID);
       }
     });
   }

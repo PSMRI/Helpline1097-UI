@@ -174,6 +174,7 @@ export class dashboardContentClass implements OnInit {
 
   }
   setCampaign(data) {
+    sessionStorage.setItem("current_campaign", "");
     if (data == '1') {
       this.dataSettingService.current_campaign = 'INBOUND';
       this.inOutBound = data;
@@ -183,6 +184,7 @@ export class dashboardContentClass implements OnInit {
       this.inOutBound = data;
       this.router.navigate['MultiRoleScreenComponent/OutboundWorkList'];
     }
+    sessionStorage.setItem("current_campaign", this.dataSettingService.current_campaign);
   }
   showDashboard() {
     this.data = this.dataSettingService.Userdata;
@@ -291,6 +293,7 @@ export class dashboardContentClass implements OnInit {
         if (response) {
           this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'INBOUND';
+            sessionStorage.setItem("current_campaign", 'INBOUND');
           }, (err) => {
             this.message.alert(err.errorMessage, 'error');
             this.inOutBound = 0;
@@ -300,12 +303,12 @@ export class dashboardContentClass implements OnInit {
         }
       })
 
-    }
-    if (value === '0') {
+    } else if (value === '0') {
       this.message.confirm('', 'Switch to Outbound?').subscribe((response) => {
         if (response) {
           this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'OUTBOUND';
+            sessionStorage.setItem("current_campaign", 'OUTBOUND');
           }, (err) => {
             this.message.alert(err.errorMessage, 'error');
             this.inOutBound = 1;

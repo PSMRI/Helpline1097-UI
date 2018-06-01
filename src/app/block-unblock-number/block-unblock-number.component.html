@@ -36,6 +36,7 @@
             <th md2SortBy="isBlocked">Status</th>
             <th>Call Count</th>
             <th>Reason</th>
+            <th>Blocked On</th>
             <th>Blocked Till</th>
             <th>Action</th>
           </tr>
@@ -50,9 +51,12 @@
           <tr *ngFor="let blacklist of md2.data">
             <td>{{blacklist?.phoneNo}}</td>
             <td>{{blacklist?.isBlocked ? 'Blocked' : 'UnBlocked'}}</td>
-            <td style="cursor: pointer"><a (click)="getRecording(blacklist)">{{blacklist?.noOfNuisanceCall ? ((blacklist.noOfNuisanceCall>0) ? blacklist.noOfNuisanceCall : 0): 0}}</a></td>
+            <td style="cursor: pointer">
+              <a (click)="getRecording(blacklist)">{{blacklist?.noOfNuisanceCall ? ((blacklist.noOfNuisanceCall>0) ? blacklist.noOfNuisanceCall : 0): 0}}</a>
+            </td>
             <td>Nuisance Call</td>
-            <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockEndDate)|date: 'dd/MM/yyyy HH:mm'): ''}}</td>
+            <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockStartDate)|date: 'dd/MM/yyyy hh:mm a'): ''}}</td>
+            <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockEndDate)|date: 'dd/MM/yyyy hh:mm a'): ''}}</td>
             <td>
               <!--<button md-raised-button color="primary" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
               <button md-raised-button color="primary" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>-->
@@ -70,28 +74,39 @@
         </tfoot>
       </table>
       <hr class="m-t-10" *ngIf="showRecordings">
-      <h4 class="pull-left" *ngIf="showRecordings">Call Recordings for <b>{{ph_no}}</b></h4>
-      <table *ngIf="showRecordings" class="table table-responsive table-striped m-t-10" [md2Data]="recording_data" #md2="md2DataTable" [rowsPerPage]="5">
+      <h4 class="pull-left" *ngIf="showRecordings">Call Recordings for
+        <b>{{ph_no}}</b>
+      </h4>
+      <table *ngIf="showRecordings" class="table table-responsive table-striped m-t-10" [md2Data]="recording_data" #md2="md2DataTable"
+        [rowsPerPage]="5">
         <thead>
           <tr>
+            <th>Beneficiary ID</th>
+            <th>Beneficiary Name</th>
+            <th>Age</th>
             <th>Phone Number</th>
             <th>CallID</th>
             <th>AgentID</th>
+            <th>Remarks</th>
             <th>Audio Recording</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngIf="md2.data.length < 1">
-            <td colspan="4" class="record-not-found">
-                No records found
+            <td colspan="8" class="record-not-found">
+              No records found
             </td>
           </tr>
           <tr *ngFor="let item of md2.data">
-            <td>{{ph_no}}</td>
+            <td>{{item?.beneficiaryModel.beneficiaryID}}</td>
+            <td>{{item?.beneficiaryModel?.firstName?item.beneficiaryModel.firstName:'-'}} {{item?.beneficiaryModel?.lastName?item.beneficiaryModel.lastName:'-'}}</td>
+            <td>{{item?.beneficiaryModel.age}}</td>
+            <td>{{item?.phoneNo}}</td>
             <td>{{item?.benCallID}}</td>
             <td>{{item?.agentID}}</td>
+            <td>{{item?.remarks?item.remarks:'-'}}</td>
             <td>
-              <audio controls>  
+              <audio controls>
                 <source src="{{item?.recordingPath}}" type="audio/ogg">
                 <source src="{{item?.recordingPath}}" type="audio/mpeg">
               </audio>
@@ -100,7 +115,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="4">
+            <td colspan="8">
               <md2-pagination></md2-pagination>
             </td>
           </tr>

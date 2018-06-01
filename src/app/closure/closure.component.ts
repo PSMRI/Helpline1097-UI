@@ -61,6 +61,9 @@ export class ClosureComponent implements OnInit
   noOfOutbounds: any;
   prefferedDatedTaken: any;
 
+  isFeedbackRequiredFlag = false;
+  showFeedbackRequiredFlag = false;
+
   constructor(
     private _callServices: CallServices,
     public saved_data: dataService,
@@ -158,6 +161,15 @@ export class ClosureComponent implements OnInit
         "callType": ""
       })
     }
+
+    if (callType.toUpperCase() === 'Valid'.toUpperCase()) {
+      // this.isFeedbackRequiredFlag = false;
+      this.showFeedbackRequiredFlag = true;
+    }
+    if (callType.toUpperCase() != 'Valid'.toUpperCase()) {
+      this.isFeedbackRequiredFlag = false;
+      this.showFeedbackRequiredFlag = false;
+    }
     // Below variable is used to disable save and continue when call is already disconnected.
     this.isCallDisconnected = this.saved_data.isCallDisconnected;
     this.callSubTypes = this.callTypeObj.filter(function (item) {
@@ -184,7 +196,7 @@ export class ClosureComponent implements OnInit
         this.noOfOutbounds = res.length;
 
       res.map((obj) => {
-        this.prefferedDatedTaken.push({"prefferedDateTime":obj.prefferedDateTime});
+        this.prefferedDatedTaken.push({ "prefferedDateTime": obj.prefferedDateTime });
       })
     }
   }
@@ -245,6 +257,11 @@ export class ClosureComponent implements OnInit
     this.campaignSkills = res.response ? res.response.skills : [];
   }
 
+
+  isFeedbackRequired(ev) {
+    this.isFeedbackRequiredFlag = ev.checked;
+  }
+
   transferCall(values) {
     let obj = {
       "transfer_from": this.saved_data.cZentrixAgentID,
@@ -263,6 +280,7 @@ export class ClosureComponent implements OnInit
   }
   closeCall(values: any, btnType: any) {
 
+    values.isFeedback = this.isFeedbackRequiredFlag;
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.beneficiaryRegID;
     values.providerServiceMapID = this.saved_data.current_service.serviceID;
