@@ -281,7 +281,7 @@ export class grievanceComponent implements OnInit {
     if (responseCreatedBy) {
       responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
     }
-    this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+    this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
@@ -356,7 +356,8 @@ export class grievanceComponent implements OnInit {
         if (responseCreatedBy) {
           responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
         }
-        this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+        // this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+        this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
     
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
@@ -385,7 +386,15 @@ export class grievanceComponent implements OnInit {
     this.feedbackForm1.controls.feedbackID.setValue(feedback.feedbackID);
     this.feedbackForm1.controls.feedbackSupSummary.setValue(feedback.feedback);
     this.feedbackForm1.controls.beneficiaryName.setValue(feedback.beneficiary.firstName + " " + (feedback.beneficiary.lastName ? feedback.beneficiary.lastName : ""));
-    this.feedbackForm1.controls.createdBy.setValue(feedback.createdBy);
+    // this.feedbackForm1.controls.createdBy.setValue(feedback.createdBy);
+    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
+        let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
+        if (responseCreatedBy) {
+          responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
+        }
+        this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+    
+    this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     this.feedbackForm1.controls.createdDate.setValue(feedback.createdDate);
 
     console.log('raj' + dataforUpdate)

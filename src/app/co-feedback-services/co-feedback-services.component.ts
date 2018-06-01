@@ -319,6 +319,7 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   // }
 
+
   modalData(object) {
     this.modalArray.push(object);
 
@@ -340,6 +341,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
     });
+    this.modalArray =[];
   }
 
   setFeedbackHistoryByID(response: any) {
