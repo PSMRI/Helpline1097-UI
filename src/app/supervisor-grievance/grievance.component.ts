@@ -281,7 +281,7 @@ export class grievanceComponent implements OnInit {
     if (responseCreatedBy) {
       responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
     }
-    this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+    this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
@@ -356,7 +356,8 @@ export class grievanceComponent implements OnInit {
         if (responseCreatedBy) {
           responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
         }
-        this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+        // this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+        this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
     
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
