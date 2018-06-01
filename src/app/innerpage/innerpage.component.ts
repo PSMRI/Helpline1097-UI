@@ -231,13 +231,15 @@ export class InnerpageComponent implements OnInit {
   }
   getSelectedBenDetails(obj: any) {
     let data: any = {};
-
     if (obj != null && obj.beneficiaryID != undefined) {
       this._util.retrieveRegHistory(obj.beneficiaryID)
         .subscribe(response => {
           if (response.length > 0) {
             data = response[0];
             if (data != null) {
+              this.getCommonData.beneficiarySelected.next({
+                "beneficiarySelected": true
+              });
               console.log('**********BENEFICIARY REG ID**********', data.beneficiaryRegID);
               this.getCommonData.beneficiaryRegID = data.beneficiaryRegID;
               this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryID;
@@ -282,6 +284,22 @@ export class InnerpageComponent implements OnInit {
         }, err => {
           console.log(err, 'error');
         })
+    } else {
+      this.getCommonData.beneficiarySelected.next({
+        "beneficiarySelected": false
+      });
+      this.selectedBenData.name = '';
+      this.selectedBenData.id = '';
+      this.selectedBenData.fname = '';
+      this.selectedBenData.lname = '';
+      this.selectedBenData.age = '';
+      this.selectedBenData.gender = '';
+      this.selectedBenData.state = '';
+      this.selectedBenData.district = '';
+      this.selectedBenData.block = '';
+      this.selectedBenData.village = '';
+      this.selectedBenData.language = '';
+      this.selectedBenData.relation = '';
     }
 
   }
@@ -537,7 +555,7 @@ export class InnerpageComponent implements OnInit {
 
     if (wrapupCallID != undefined) {
       requestObj['callTypeID'] = wrapupCallID;
-      requestObj['agentID']=this.getCommonData.cZentrixAgentID;
+      requestObj['agentID'] = this.getCommonData.cZentrixAgentID;
     }
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {

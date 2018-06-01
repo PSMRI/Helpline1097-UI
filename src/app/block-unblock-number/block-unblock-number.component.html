@@ -98,9 +98,9 @@
             </td>
           </tr>
           <tr *ngFor="let item of md2.data">
-            <td>{{item?.beneficiaryModel.beneficiaryID}}</td>
+            <td>{{item?.beneficiaryModel?.beneficiaryID?item.beneficiaryModel.beneficiaryID:'-'}}</td>
             <td>{{item?.beneficiaryModel?.firstName?item.beneficiaryModel.firstName:'-'}} {{item?.beneficiaryModel?.lastName?item.beneficiaryModel.lastName:'-'}}</td>
-            <td>{{item?.beneficiaryModel.age}}</td>
+            <td>{{item?.beneficiaryModel?.age?item.beneficiaryModel.age:'-'}}</td>
             <td>{{item?.phoneNo}}</td>
             <td>{{item?.benCallID}}</td>
             <td>{{item?.agentID}}</td>

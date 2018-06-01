@@ -754,9 +754,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   handleRegHistorySuccess(response: any) {
     if (response) {
-      this.saved_data.beneficiarySelected.next({
-        'beneficiarySelected': true
-      });
+      // console.log('KARNE LAGE HAI SET VALUE OF BEN SELECTED');
+      // this.saved_data.beneficiarySelected.next({
+      //   'beneficiarySelected': true
+      // });
       this.regHistoryList = response;
       console.log(this.regHistoryList);
       this.showSearchResult = true;
