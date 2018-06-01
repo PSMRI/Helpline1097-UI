@@ -49,12 +49,12 @@
 					</tr>
         </tbody>
         <tfoot>
-          <tr>
-            <td colspan="2" *ngIf="md2.data.length > 3">
+           <tr *ngIf="docs.length>3"> 
+            <td colspan="2">
                 <md2-pagination></md2-pagination>  
 
             </td>
-          </tr>
+           </tr> 
         </tfoot>
 			</table>
   </div>
