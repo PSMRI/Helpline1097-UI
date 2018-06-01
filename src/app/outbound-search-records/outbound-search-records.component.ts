@@ -96,13 +96,21 @@ export class OutboundSearchRecordsComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.showFlage = false;
     let startDate: Date = new Date(values.filterStartDate);
+    let endDate: Date = new Date(values.filterEndDate);
+
     startDate.setHours(0);
     startDate.setMinutes(0);
     startDate.setSeconds(0);
-    let endDate: Date = new Date(values.filterEndDate);
+    startDate.setMilliseconds(0);
+
     endDate.setHours(23);
     endDate.setMinutes(59);
     endDate.setSeconds(59);
+    endDate.setMilliseconds(0);
+
+    startDate = new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000);
+    endDate = new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000);
+    
     if (!values.preferredLanguageName || values.preferredLanguageName === 'undefined') {
       this.getOutboundCallCount(this.serviceProviderMapID, startDate,
         endDate);

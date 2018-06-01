@@ -1126,7 +1126,6 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // saving the updated ben data in the in_app_saved data service file
     this.saved_data.beneficiaryData = this.updatedObj;
     // return;
-    this.populateUserData(this.updatedObj);
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
     }, (err) => {
@@ -1138,6 +1137,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   updateSuccessHandeler(response) {
     if (response) {
       this.alertMaessage.alert('Beneficiary updated successfully', 'success');
+    this.populateUserData(response);
+      
       this.editAlternate = false;
       if (this.preferredLanguage != undefined && this.preferredLanguage != null) {
         this.setBeneficiaryLanguageInCZentrix('update', this.preferredLanguage);
