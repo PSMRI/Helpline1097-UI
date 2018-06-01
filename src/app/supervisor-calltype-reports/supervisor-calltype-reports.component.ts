@@ -73,20 +73,38 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     // this.minStartDate = new Date();
     // this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
     this.today = new Date();
+
+    
     this.end_date = new Date();
     this.end_date.setDate(this.today.getDate() - 1);
-    this.end_date.setHours(23, 59, 59, 0);
+    // this.end_date.setHours(23);
+    // this.end_date.setMinutes(59);
+    // this.end_date.setSeconds(59);
+    // this.end_date.setMilliseconds(0);
+    //this.end_date = new Date();
 
     this.start_date = new Date();
     this.start_date.setDate(this.today.getDate() - 7);
-    this.start_date.setHours(0, 0, 0, 0);
+    // this.start_date.setHours(0);
+    // this.start_date.setMinutes(0);
+    // this.start_date.setSeconds(0);
+    // this.start_date.setMilliseconds(0);
+
 
     this.maxStartDate = new Date();
     this.maxStartDate.setDate(this.today.getDate() - 1);
+    // this.maxStartDate.setHours(0);
+    // this.maxStartDate.setMinutes(0);
+    // this.maxStartDate.setSeconds(0);
+    // this.maxStartDate.setMilliseconds(0);
     this.maxStartDate.setHours(0, 0, 0, 0);
 
     this.maxEndDate = new Date();
     this.maxEndDate.setDate(this.today.getDate() - 1);
+    // this.maxEndDate.setHours(23);
+    // this.maxEndDate.setMinutes(59);
+    // this.maxEndDate.setSeconds(59);
+    // this.maxEndDate.setMilliseconds(0);
     this.maxEndDate.setHours(23, 59, 59, 0);
 
     let requestObject = { 'providerServiceMapID': this.commonDataService.current_service.serviceID };
@@ -122,9 +140,8 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     this.alertMessage.alert('No audio file uploded');
   }
   get_filterCallList(value) {
-
     let start_date = new Date((value.start_date) - 1 * (value.start_date.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
-    let end_date = new Date((value.end_date) - 1 * (value.end_date.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    let end_date = new Date((value.end_date) - 1 * (value.end_date.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
     let state;
     if (this.state) {
       state = this.state.stateName;
@@ -147,7 +164,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 
 
-    console.log(requestObj);
+    console.log("Call type req obj",JSON.stringify(requestObj, null, 4));
     // write the api here to get filtercall list
     this.reportService.getAllReportsByDate(requestObj).subscribe(
       (response: Response) => this.data = this.successhandeler(response),
