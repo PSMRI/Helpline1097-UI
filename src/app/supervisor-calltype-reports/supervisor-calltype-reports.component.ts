@@ -7,6 +7,7 @@ import { LocationService } from '../services/common/location.service';
 import { ReportsService } from '../services/reports-service/reports-service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { NgForm } from '@angular/forms';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-supervisor-calltype-reports',
@@ -74,7 +75,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     // this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
     this.today = new Date();
 
-    
+
     this.end_date = new Date();
     this.end_date.setDate(this.today.getDate() - 1);
     // this.end_date.setHours(23);
@@ -111,8 +112,8 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     this._SupervisorCallTypeReportService.getCallTypes(requestObject).subscribe((response: Response) => {
       this.callTypeObj = response;
       this.populateCallTypes(response)
-    }),(err) => {
-      this.alertMessage.alert(err.errorMessage,'error');
+    }), (err) => {
+      this.alertMessage.alert(err.errorMessage, 'error');
     }
 
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
@@ -125,10 +126,10 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
         this.languages = response['m_language'];
 
       },
-      (error) => {
-        this.alertMessage.alert(error.errorMessage,'error');
-        console.log(error);
-      })
+        (error) => {
+          this.alertMessage.alert(error.errorMessage, 'error');
+          console.log(error);
+        })
     this.showPaginationControls = false;
   }
 
@@ -155,8 +156,8 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       "beneficiaryCallSubType": this.callsubTypeID,
       "startTimestamp": start_date,
       "endTimestamp": end_date,
-      "beneficiaryState": state,
-      "beneficiaryDistrict": this.district,
+      "state": state,
+      "district": this.district,
       "gender": this.gender,
       "beneficiaryPreferredLanguage": this.language,
       "beneficiarySexualOrientation": this.sexuality
@@ -164,13 +165,13 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
 
 
-    console.log("Call type req obj",JSON.stringify(requestObj, null, 4));
+    console.log("Call type req obj", JSON.stringify(requestObj, null, 4));
     // write the api here to get filtercall list
     this.reportService.getAllReportsByDate(requestObj).subscribe(
       (response: Response) => this.data = this.successhandeler(response),
-    (err) => {
-      this.alertMessage.alert(err.errorMessage,'error');
-    });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
   }
   toUTCDate(date) {
     const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
@@ -188,21 +189,22 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       this.showPaginationControls = true;
     }
     if (response.length > 0) {
-      let array = response.filter(function (obj) {
-        delete obj.benReport;
-        for (var key in obj) {
-          //  console.log(key, obj[key]);
-          if (obj[key] == null) {
-            obj[key] = "";
-          }
-        }
-        return obj;
-      });
-      console.log(array);
-      let head = Object.keys(array[0]);
-      console.log(head);
-      new Angular2Csv(array, 'Consolidate Report', { headers: (head) });
-      this.alertMessage.alert('Consolidated report generated','success');
+      // let array = response.filter(function (obj) {
+      //   delete obj.benReport;
+      //   for (var key in obj) {
+      //     //  console.log(key, obj[key]);
+      //     if (obj[key] == null) {
+      //       obj[key] = "";
+      //     }
+      //   }
+      //   return obj;
+      // });
+      this.downloadV2(response);
+      // console.log(array);
+      // let head = Object.keys(array[0]);
+      // console.log(head);
+      // new Angular2Csv(array, 'Consolidate Report', { headers: (head) });
+      // this.alertMessage.alert('Consolidated report generated', 'success');
 
     }
     else {
@@ -244,7 +246,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     if (state) {
       this._locationService.getDistricts(state.stateID)
         .subscribe((response) => this.SetDistricts(response), (err) => {
-          this.alertMessage.alert(err.errorMessage,'error');
+          this.alertMessage.alert(err.errorMessage, 'error');
         });
     }
   }
@@ -283,6 +285,40 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       this.CallTypeReport.form.patchValue({
         'end_date': tempDate
       });
+    }
+  }
+  downloadV2(result: any = []) {
+    let criteria: any = [];
+    let stateName = (this.state ? (this.state.stateName ? this.state.stateName : 'Any') : 'Any');
+    criteria.push({ 'Filter_Name': 'Start_Date', 'value': this.start_date });
+    criteria.push({ 'Filter_Name': 'End_Date', 'value': this.end_date });
+    criteria.push({ 'Filter_Name': 'State', 'value': stateName });
+    criteria.push({ 'Filter_Name': 'District', 'value': this.district ? this.district : "Any" });
+    criteria.push({ 'Filter_Name': 'Language', 'value': this.language ? this.language : "Any" });
+    criteria.push({ 'Filter_Name': 'Call_Type', 'value': this.callTypeName ? this.callTypeName : "Any" });
+    criteria.push({ 'Filter_Name': 'Call_Sub_Type', 'value': this.callsubTypeID ? this.callsubTypeID : "Any" });
+    criteria.push({ 'Filter_Name': 'Gender', 'value': this.gender ? this.gender : "Any" });
+    criteria.push({ 'Filter_Name': 'Sexual_Orientation', 'value': this.sexuality ? this.sexuality : "Any" });
+    this.exportToxlsx(criteria, result);
+  }
+  exportToxlsx(criteria: any, result: any) {
+    let wb_name = "Call Type Report";
+    const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
+    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(result);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Report': report_worksheet, 'Criteria': criteria_worksheet }, SheetNames: ['Criteria', 'Report'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    let blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(blob, wb_name);
+    }
+    else {
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('visibility', 'hidden');
+      link.download = wb_name.replace(/ /g, "_") + ".xlsx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   }
 }

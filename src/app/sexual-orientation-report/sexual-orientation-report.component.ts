@@ -5,7 +5,8 @@ import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.serv
 import { ReportsService } from '../services/reports-service/reports-service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { LocationService } from '../services/common/location.service';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv'; 
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-sexual-orientation-report',
@@ -28,75 +29,78 @@ export class SexualOrientationReportComponent implements OnInit {
   orientations = [];
   states = [];
   districts = [];
+  sexualOrientation: any;
+  state: any;
+  district: any;
 
-  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData, 
-    private reportsService: ReportsService, private alertService: ConfirmationDialogsService, 
+  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData,
+    private reportsService: ReportsService, private alertService: ConfirmationDialogsService,
     private locationService: LocationService) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.dataService.current_service.serviceID;
     this.userbeneficiarydata.getUserBeneficaryData(this.providerServiceMapID)
-    .subscribe((response)=>{
-      console.log(response);
-      this.sexualOrientations = response['sexualOrientations'];
-      let all = {
-        "sexualOrientation": "All"
-      }
-      this.sexualOrientations.push(all);
-      this.states = response['states'];
-    },
-    (error)=>{
-      this.alertService.alert(error.errorMessage,'error');
+      .subscribe((response) => {
+        console.log(response);
+        this.sexualOrientations = response['sexualOrientations'];
+        let all = {
+          "sexualOrientation": "All"
+        }
+        this.sexualOrientations.push(all);
+        this.states = response['states'];
+      },
+        (error) => {
+          this.alertService.alert(error.errorMessage, 'error');
 
-      console.log(error);
-    })
+          console.log(error);
+        })
 
     this.providerServiceMapID = this.dataService.current_service.serviceID;
 
     this.today = new Date();
     this.end_date = new Date();
     this.end_date.setDate(this.today.getDate() - 1);
-    this.end_date.setHours(23,59,59,0);
+    this.end_date.setHours(23, 59, 59, 0);
 
     this.start_date = new Date();
-   this.start_date.setDate(this.today.getDate()-7);
-   this.start_date.setHours(0,0,0,0);
+    this.start_date.setDate(this.today.getDate() - 7);
+    this.start_date.setHours(0, 0, 0, 0);
 
     this.maxStartDate = new Date();
     this.maxStartDate.setDate(this.today.getDate() - 1);
-    this.maxStartDate.setHours(0,0,0,0);
+    this.maxStartDate.setHours(0, 0, 0, 0);
 
     this.maxEndDate = new Date();
-        this.maxEndDate.setDate(this.today.getDate() - 1);
-    this.maxEndDate.setHours(23,59,59,0);
+    this.maxEndDate.setDate(this.today.getDate() - 1);
+    this.maxEndDate.setHours(23, 59, 59, 0);
 
     //console.log("sd,ed,msd,med", this.start_date, this.end_date, this.maxStartDate, this.maxEndDate);
     //this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
   }
 
-  blockKey(e: any){
-      if(e.keyCode===9){
-          return true;
-      }
-      else {
-          return false;
-      }
+  blockKey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
-  getDistricts(){
+  getDistricts() {
     this.districts = [];
     this.sexualOrientationSearchForm.form.patchValue({
       'district': ''
     });
     this.locationService.getDistricts(this.sexualOrientationSearchForm.value.state.stateID)
-    .subscribe((response)=>{
-      this.districts = response;
-    },
-    (error)=>{
-      this.alertService.alert(error.errorMessage,'error');
+      .subscribe((response) => {
+        this.districts = response;
+      },
+        (error) => {
+          this.alertService.alert(error.errorMessage, 'error');
 
-      console.log(error);
-    })
+          console.log(error);
+        })
     console.log(this.sexualOrientations);
   }
 
@@ -111,32 +115,32 @@ export class SexualOrientationReportComponent implements OnInit {
   endDateChange() {
 
     //console.log("sd,med", this.start_date, this.maxEndDate);
-    if(this.today.getTime() < this.maxEndDate.getTime()) {
+    if (this.today.getTime() < this.maxEndDate.getTime()) {
       let i = new Date();
       i.setDate(this.today.getDate() - 1);
       this.maxEndDate = i;
-      this.maxEndDate.setHours(23,59,59,0);
+      this.maxEndDate.setHours(23, 59, 59, 0);
       //console.log("sd,med", this.start_date, this.maxEndDate);
     }
     else {
       this.maxEndDate = new Date(this.start_date);
-      this.maxEndDate.setMonth(this.maxEndDate.getMonth()+1);
-      this.maxEndDate.setHours(23,59,59,0);
+      this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+      this.maxEndDate.setHours(23, 59, 59, 0);
     }
 
-    var timeDiff = this.end_date.getTime() - this.start_date.getTime() ;
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    if(diffDays > 90) {
+    var timeDiff = this.end_date.getTime() - this.start_date.getTime();
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if (diffDays > 90) {
       var tempDate = new Date(this.start_date);
-      tempDate.setMonth(this.start_date.getMonth()+1);
-      tempDate.setHours(23,59,59,0);
+      tempDate.setMonth(this.start_date.getMonth() + 1);
+      tempDate.setHours(23, 59, 59, 0);
       this.sexualOrientationSearchForm.form.patchValue({
         'endDate': tempDate
       });
     }
-    if(diffDays < 0) {
+    if (diffDays < 0) {
       var tempDate = new Date(this.start_date);
-      tempDate.setHours(23,59,59,0);
+      tempDate.setHours(23, 59, 59, 0);
       this.sexualOrientationSearchForm.form.patchValue({
         'endDate': tempDate
       });
@@ -144,23 +148,23 @@ export class SexualOrientationReportComponent implements OnInit {
   }
 
 
-  
-  getReports(){
+
+  getReports() {
     console.log("values:", this.sexualOrientationSearchForm.value);
     this.postData = [];
-    if(this.sexualOrientationSearchForm.value.sexuality == "All"){
-      for(var i=0;i<this.sexualOrientations.length-1;i++){
+    if (this.sexualOrientationSearchForm.value.sexuality == "All") {
+      for (var i = 0; i < this.sexualOrientations.length - 1; i++) {
         var obj = {
           "providerServiceMapID": this.providerServiceMapID,
           "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
           "endTimestamp": new Date((this.sexualOrientationSearchForm.value.endDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
           "beneficiarySexualOrientation": this.sexualOrientations[i].sexualOrientation
         }
-        if(this.sexualOrientationSearchForm.value.state!=''){
-          obj['beneficiaryState'] = this.sexualOrientationSearchForm.value.state.stateName;
+        if (this.sexualOrientationSearchForm.value.state != '') {
+          obj['state'] = this.sexualOrientationSearchForm.value.state.stateName;
         }
-        if(this.sexualOrientationSearchForm.value.district!=''){
-          obj['beneficiaryDistrict'] = this.sexualOrientationSearchForm.value.district;
+        if (this.sexualOrientationSearchForm.value.district != '') {
+          obj['district'] = this.sexualOrientationSearchForm.value.district;
         }
         this.postData.push(obj);
       }
@@ -169,44 +173,79 @@ export class SexualOrientationReportComponent implements OnInit {
     else {
       //  for(var i=0; i< this.sexualOrientationSearchForm.value.sexuality.length;i++){
 
-        var obj = {
-          "providerServiceMapID": this.providerServiceMapID,
-          "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
-          "endTimestamp": new Date((this.sexualOrientationSearchForm.value.endDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
-          "beneficiarySexualOrientation": this.sexualOrientationSearchForm.value.sexuality
-        }
-        if(this.sexualOrientationSearchForm.value.state!=''){
-          obj['beneficiaryState'] = this.sexualOrientationSearchForm.value.state.stateName;
-        }
-        if(this.sexualOrientationSearchForm.value.district!=''){
-          obj['beneficiaryDistrict'] = this.sexualOrientationSearchForm.value.district;
-        }
-        this.postData.push(obj);
-        //  }
-
+      var obj = {
+        "providerServiceMapID": this.providerServiceMapID,
+        "startTimestamp": new Date((this.sexualOrientationSearchForm.value.startDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
+        "endTimestamp": new Date((this.sexualOrientationSearchForm.value.endDate.getTime() - 1 * (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
+        "beneficiarySexualOrientation": this.sexualOrientationSearchForm.value.sexuality
       }
-      console.log(this.postData);
-      this.reportsService.getAllBySexualOrientation(this.postData)
-      .subscribe((response)=>{
+      if (this.sexualOrientationSearchForm.value.state != '') {
+        obj['state'] = this.sexualOrientationSearchForm.value.state.stateName;
+      }
+      if (this.sexualOrientationSearchForm.value.district != '') {
+        obj['district'] = this.sexualOrientationSearchForm.value.district;
+      }
+      this.postData.push(obj);
+      //  }
+
+    }
+    this.sexualOrientation = this.sexualOrientationSearchForm.value.sexuality;
+    this.state = this.sexualOrientationSearchForm.value.state.stateName ? this.sexualOrientationSearchForm.value.state.stateName : 'Any';
+    this.district = this.sexualOrientationSearchForm.value.district ? this.sexualOrientationSearchForm.value.district : 'Any';
+    this.start_date = this.sexualOrientationSearchForm.value.startDate;
+    this.end_date = this.sexualOrientationSearchForm.value.endDate;
+    console.log(this.postData);
+    this.reportsService.getAllBySexualOrientation(this.postData)
+      .subscribe((response) => {
         console.log(response);
         this.tableFlag = true;
         this.orientations = response;
 
       },
-      (error)=>{
-        this.alertService.alert(error.errorMessage,'error');
+        (error) => {
+          this.alertService.alert(error.errorMessage, 'error');
 
-        console.log(error);
-      })
+          console.log(error);
+        })
+  }
+
+  download_report() {
+    var head = Object.keys(this.orientations[0]);
+    new Angular2Csv(this.orientations, 'Sexual Orientation Report', { headers: (head) });
+
+    this.alertService.alert('Sexual orientation report downloaded', 'success');
+
+  }
+  downloadV2() {
+    let criteria: any = [];
+    // let state = this.sexualOrientationSearchForm.value.state.stateName ? this.sexualOrientationSearchForm.value.state.stateName : 'Any';
+    // let district = this.sexualOrientationSearchForm.value.district ? this.sexualOrientationSearchForm.value.district : 'Any';
+    criteria.push({ 'Filter_Name': 'State', 'value': this.state });
+    criteria.push({ 'Filter_Name': 'District', 'value': this.district });
+    criteria.push({ 'Filter_Name': 'Sexual_Orientation', 'value': this.sexualOrientation });
+    criteria.push({ 'Filter_Name': 'Start_Date', 'value': this.start_date });
+    criteria.push({ 'Filter_Name': 'End_Date', 'value': this.end_date });
+    this.exportToxlsx(criteria);
+  }
+  exportToxlsx(criteria: any) {
+    let wb_name = "Sexual Orientation Report";
+    const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
+    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.orientations);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Report': report_worksheet, 'Criteria': criteria_worksheet }, SheetNames: ['Criteria', 'Report'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    let blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(blob, wb_name);
     }
-
-  download_report()
-{
-  var head=Object.keys(this.orientations[0]);
-  new Angular2Csv(this.orientations, 'Sexual Orientation Report', {headers: (head)});
-  
-        this.alertService.alert('Sexual orientation report downloaded','success');
-
-}
+    else {
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('visibility', 'hidden');
+      link.download = wb_name.replace(/ /g, "_") + ".xlsx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
 
 }
