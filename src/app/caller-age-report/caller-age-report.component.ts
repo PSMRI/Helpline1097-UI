@@ -108,8 +108,7 @@ export class CallerAgeReportComponent implements OnInit {
       {
         "ageGroupDisplay": "Above 59",
         "ageGroupValue": {
-          "minAge": 59,
-          "maxAge": 120
+          "minAge": 59
         }
       },
       {
