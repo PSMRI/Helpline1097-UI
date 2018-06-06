@@ -585,6 +585,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   registerBeneficiary() {
     this.updatedObj = {};
+    this.updatedObj.providerServiceMapID = this.commonData.current_service.serviceID;
     this.updatedObj.firstName = this.FirstName;
     this.updatedObj.lastName = this.LastName;
     this.updatedObj.genderID = this.GenderID;
