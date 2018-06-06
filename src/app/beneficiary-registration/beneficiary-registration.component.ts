@@ -204,10 +204,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-        (err) => {
-          this.alertMaessage.alert(err.errorMessage, 'error');
-          console.log('ERROR', err);
-        });
+      (err) => {
+        this.alertMaessage.alert(err.errorMessage, 'error');
+        console.log('ERROR', err);
+      });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -815,6 +815,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   updatebeneficiaryincall(benRegData: any) {
     this.saved_data.callData.beneficiaryRegID = benRegData.beneficiaryRegID;
+    this.saved_data.callData['isCalledEarlier'] = this.calledEarlier;
     this._util.updatebeneficiaryincall(this.saved_data.callData).subscribe(
       response => {
         console.log('Update Beneficiary in Call SUCCESS', response);
@@ -1139,8 +1140,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   updateSuccessHandeler(response) {
     if (response) {
       this.alertMaessage.alert('Beneficiary updated successfully', 'success');
-    this.populateUserData(response);
-      
+      this.populateUserData(response);
+
       this.editAlternate = false;
       if (this.preferredLanguage != undefined && this.preferredLanguage != null) {
         this.setBeneficiaryLanguageInCZentrix('update', this.preferredLanguage);

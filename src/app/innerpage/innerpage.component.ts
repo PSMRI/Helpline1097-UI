@@ -409,6 +409,11 @@ export class InnerpageComponent implements OnInit {
   }
   getCallTypes(providerServiceMapID) {
     const requestObject = { 'providerServiceMapID': providerServiceMapID };
+    if (this.getCommonData.current_campaign == 'INBOUND') {
+      requestObject['isInbound'] = true;
+    } else {
+      requestObject['isOutbound'] = true;
+    }
     this._callServices.getCallTypes(requestObject).subscribe(response => {
       console.log(response);
       let transferObj = response.filter(function (item) {

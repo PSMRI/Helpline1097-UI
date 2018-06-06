@@ -42,6 +42,7 @@ export class RegisterService {
   }
   startCall(data) {
     data.is1097 = true;
+    data.isCalledEarlier = false;
     return this._http.post(this._startCall, data)
       .map(this.extractData)
       .catch(this.handleError);

@@ -80,7 +80,12 @@ export class ClosureComponent implements OnInit
   }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
-    const requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
+    let requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
+    if (this.saved_data.current_campaign == 'INBOUND') {
+      requestObject['isInbound'] = true;
+    } else {
+      requestObject['isOutbound'] = true;
+    }
     this.isFollowUp = false;
     this._callServices.getCallTypes(requestObject).subscribe(response => {
       this.callTypeObj = response;
