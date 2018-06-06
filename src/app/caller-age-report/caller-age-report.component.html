@@ -83,6 +83,7 @@
           <tr>
             <th>S.No.</th>
             <th>Age Group</th>
+            <th>Service Provided Ratio</th>
             <th>Count</th>
           </tr>
         </thead>
@@ -90,12 +91,16 @@
           <tr *ngFor="let report of md2.data;let i=index ">
             <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
             <td>{{report.groupName=='all'?'Total': report.groupName}}</td>
+            <td>{{report.serviceProvidedRatio}}</td>
             <td>{{report.count}}</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td class="p-r-0" colspan="3">
+            <td colspan="2">
+              <md2-pagination></md2-pagination>
+            </td>
+            <td class="p-r-0" colspan="2">
               <button class="pull-right" md-raised-button color="primary" (click)="downloadV2()">Download Data</button>
             </td>
           </tr>

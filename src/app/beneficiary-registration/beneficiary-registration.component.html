@@ -32,7 +32,7 @@
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
           <button md-mini-fab color="primary" (click)="retrieveRegHistory(registrationNo)">
-            <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="Search" role="img" aria-hidden="true" style="cursor: pointer">search</md-icon>
+            <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="Search" role="img" aria-hidden="true" style="cursor: pointer">Search</md-icon>
           </button>
         </div>
         <!-- <md-icon class="mat-icon material-icons cursorPointer" mdTooltip="Search" role="img" aria-hidden="true" (click)="retrieveRegHistory(registrationNo)">
@@ -552,7 +552,7 @@
         </md-input-container>
       </div> -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " *ngIf="alternateNumberDisplay1">
-        <md-input-container myMobileNumber [style.width]="'100%'" >
+        <md-input-container myMobileNumber [style.width]="'100%'">
           <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}1" maxlength="10" minlength="10"
             name="alterNateNumber1" [(ngModel)]="alternateNumberDisplay1" readonly>
         </md-input-container>
@@ -570,7 +570,8 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " *ngIf="alternateNumberDisplay2">
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}2" maxlength="10" minlength="10" name="alterNateNumber2" [(ngModel)]="alternateNumberDisplay2" readonly>
+          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}2" maxlength="10" minlength="10"
+            name="alterNateNumber2" [(ngModel)]="alternateNumberDisplay2" readonly>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " [hidden]="editAlternate && (alternateNumberDisplay2 != null || alternateNumberDisplay2 != undefined)">
@@ -585,13 +586,15 @@
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " *ngIf="alternateNumberDisplay3">
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}3" maxlength="10" minlength="10" name="alterNateNumbe3" [(ngModel)]="alternateNumberDisplay3" readonly>
+          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}3" maxlength="10" minlength="10"
+            name="alterNateNumbe3" [(ngModel)]="alternateNumberDisplay3" readonly>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " [hidden]="editAlternate && (alternateNumberDisplay3 != null || alternateNumberDisplay3 != undefined)">
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput [disabled]="alt2.value=='' || alterNate2.invalid  || alt2.value == undefined || alt1.value=='' || alterNate1.invalid  || alt1.value == undefined" placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}3"
-            maxlength="10" minlength="10" name="alterNateNumbe3" #alt3 #alterNate3="ngModel" [(ngModel)]="alternateNumber3">
+          <input mdInput [disabled]="alt2.value=='' || alterNate2.invalid  || alt2.value == undefined || alt1.value=='' || alterNate1.invalid  || alt1.value == undefined"
+            placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}3" maxlength="10" minlength="10" name="alterNateNumbe3"
+            #alt3 #alterNate3="ngModel" [(ngModel)]="alternateNumber3">
           <md-hint class="error_text" *ngIf="alterNate3.invalid">
             {{currentlanguage.beneficiary_registration?.mobile_validation}}
           </md-hint>
@@ -600,8 +603,8 @@
 
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " *ngIf="alternateNumberDisplay4">
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}4" maxlength="10" minlength="10" name="alterNateNumber4"
-             [(ngModel)]="alternateNumberDisplay4" readonly>
+          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}4" maxlength="10" minlength="10"
+            name="alterNateNumber4" [(ngModel)]="alternateNumberDisplay4" readonly>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " [hidden]="editAlternate && (alternateNumberDisplay4 != null || alternateNumberDisplay4 != undefined)">
@@ -617,7 +620,8 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " *ngIf="alternateNumberDisplay5">
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput [(ngModel)]="alternateNumberDisplay5" placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}5" maxlength="10" minlength="10" name=" alternateNumber5" readonly>
+          <input mdInput [(ngModel)]="alternateNumberDisplay5" placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}5"
+            maxlength="10" minlength="10" name=" alternateNumber5" readonly>
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " [hidden]="editAlternate && (alternateNumberDisplay5 != null || alternateNumberDisplay5 != undefined)">

@@ -78,6 +78,7 @@
           <tr>
             <th>S.No</th>
             <th>Gender Distribution</th>
+            <th>Service Provided Ratio</th>
             <th>Count</th>
           </tr>
         </thead>
@@ -88,6 +89,7 @@
           <tr *ngFor="let item of md2.data; let i = index ">
             <td>{{i+1}}</td>
             <td>{{item.gender=='all'? 'Total':item.gender}}</td>
+            <td>{{item.serviceProvidedRatio}}</td>
             <td>{{item.count}}</td>
           </tr>
         </tbody>

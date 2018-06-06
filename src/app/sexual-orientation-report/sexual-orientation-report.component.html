@@ -67,6 +67,7 @@
         <tr>
           <th>S.No</th>
           <th>Sexual Orientation</th>
+          <th>Service Provided Ratio</th>
           <th>Count</th>
         </tr>
       </thead>
@@ -74,13 +75,17 @@
         <tr *ngFor="let item of md2.data; let i = index ">
           <td>{{i+1}}</td>
           <td>{{item.sexualOrientation=='all'? 'Total':item.sexualOrientation}}</td>
+          <td>{{item.serviceProvidedRatio}}</td>
           <td>{{item.count}}</td>
         </tr>
 
       </tbody>
       <tfoot>
         <tr>
-          <td class="p-r-0" colspan="3">
+          <td colspan="2">
+            <md2-pagination></md2-pagination>
+          </td>
+          <td class="p-r-0" colspan="2">
             <button class="pull-right" color="primary" md-raised-button (click)="downloadV2()">Download Data</button>
           </td>
         </tr>
