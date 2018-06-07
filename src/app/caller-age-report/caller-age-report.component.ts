@@ -276,10 +276,10 @@ export class CallerAgeReportComponent implements OnInit {
   exportToxlsx(criteria: any) {
     let wb_name = "Caller Age Group Report";
     const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
-    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.count);
+    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.count, { header: ["SlNo", "groupName", "minAge", "maxAge", "serviceProvidedRatio", "count"] });
     const workbook: XLSX.WorkBook = { Sheets: { 'Report': report_worksheet, 'Criteria': criteria_worksheet }, SheetNames: ['Criteria', 'Report'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
-    let blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: "array" });
+    let blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     if (navigator.msSaveBlob) {
       navigator.msSaveBlob(blob, wb_name);
     }

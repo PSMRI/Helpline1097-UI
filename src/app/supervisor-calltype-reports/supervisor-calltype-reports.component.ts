@@ -255,13 +255,11 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
   }
   endDateChange() {
 
-    //console.log("sd,med", this.start_date, this.maxEndDate);
     if (this.today.getTime() < this.maxEndDate.getTime()) {
       let i = new Date();
       i.setDate(this.today.getDate() - 1);
       this.maxEndDate = i;
       this.maxEndDate.setHours(23, 59, 59, 0);
-      //console.log("sd,med", this.start_date, this.maxEndDate);
     }
     else {
       this.maxEndDate = new Date(this.start_date);
@@ -304,10 +302,18 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
   exportToxlsx(criteria: any, result: any) {
     let wb_name = "Call Type Report";
     const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
-    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(result);
-    const workbook: XLSX.WorkBook = { Sheets: { 'Report': report_worksheet, 'Criteria': criteria_worksheet }, SheetNames: ['Criteria', 'Report'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
-    let blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(result, {
+      header: ["slNo", "agentID", "userRole", "callStartTime", "callEndTime", "callDate", "callHour", "callID", "phoneNo", "callType",
+        "callSubType", "userID", "userLocation", "preferredLanguage", "isCalledEarlier", "beneficiaryID", "title", "beneficiaryName",
+        "dob", "age", "gender", "state", "district", "subDistrict", "preferredLanguage", "occupation", "education", "sexualOrientation",
+        "maritalStatus", "placeOfWork", "ivrsSelectedLanguage", "categoryName", "subCategoryName", "documentName", "counsellingCategoryName",
+        "counsellingSubCategoryName", "counsellingDocumentName", "feedbackID", "feedback", "remarks"]
+    });
+    const workbook: XLSX.WorkBook = {
+      Sheets: { 'Report': report_worksheet, 'Filter_Criteria': criteria_worksheet }, SheetNames: ['Filter_Criteria', 'Report']
+    };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: "array" });
+    let blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     if (navigator.msSaveBlob) {
       navigator.msSaveBlob(blob, wb_name);
     }

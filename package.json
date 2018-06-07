@@ -50,7 +50,7 @@
     "socket.io-client": "2.0.4",
     "tether": "1.4.0",
     "zone.js": "0.8.11",
-    "xlsx": "^0.10.5"
+    "xlsx": "^0.13.0"
   },
   "devDependencies": {
     "@angular/cdk": "2.0.0-beta.8",
@@ -76,6 +76,6 @@
     "ts-node": "3.3.0",
     "tslint": "5.7.0",
     "typescript": "2.4.0",
-    "xlsx": "^0.10.5"
+    "xlsx": "^0.13.0"
   }
 }

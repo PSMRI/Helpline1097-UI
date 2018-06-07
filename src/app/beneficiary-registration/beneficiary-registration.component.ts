@@ -204,10 +204,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-      (err) => {
-        this.alertMaessage.alert(err.errorMessage, 'error');
-        console.log('ERROR', err);
-      });
+        (err) => {
+          this.alertMaessage.alert(err.errorMessage, 'error');
+          console.log('ERROR', err);
+        });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -585,7 +585,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   registerBeneficiary() {
     this.updatedObj = {};
-    this.updatedObj.providerServiceMapID = this.commonData.current_service.serviceID;
+    this.updatedObj.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.updatedObj.firstName = this.FirstName;
     this.updatedObj.lastName = this.LastName;
     this.updatedObj.genderID = this.GenderID;
@@ -1213,7 +1213,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         if (response.length > 0) {
           this.beneficiaryRelationID = undefined;
           let fname = response[0].firstName ? response[0].firstName : "";
-          let lname = response[0].lastName ? response[0].lasstName : ""
+          let lname = response[0].lastName ? response[0].lastName : ""
           this.relationshipWith = 'Relationship with ' + fname + ' ' + lname;
         }
 
