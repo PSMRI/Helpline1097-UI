@@ -29,12 +29,20 @@ export class CallServices {
   _transferCall_url = this._commonURL + 'cti/transferCall';
   _getBeneficiaryURL = this._commonURL + "call/beneficiaryByCallID";
   _getBenOutboundListUrl = this._commonURL + "call/getBenRequestedOutboundCall";
+  _servicetypesurl = this._commonURL + "service/servicetypes";
 
   constructor(
     private _http: AuthorizationWrapper,
     private _config: ConfigService,
     private _httpInterceptor: InterceptedHttp
   ) { }
+
+  getSubServiceTypes(requestObject: any) {
+
+    return this._http.post(this._servicetypesurl, requestObject)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
   closeCall(values: any) {
     console.log('data to be updated in service is', values);

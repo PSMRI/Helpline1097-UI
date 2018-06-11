@@ -206,7 +206,8 @@
       "preferred_date": "Preferred Date (dd/mm/yyyy)",
       "follow_up_reason": "Follow-up Reason",
       "submitClose": "Submit & Close",
-      "submitContinue": "Submit & Continue"
+      "submitContinue": "Submit & Continue",
+      "serviceRequested":"Outbound Required For"
     }
   },
   "kannada": {
@@ -375,11 +376,14 @@
     "closure": {
       "table_labels": {
         "table_heading": "Services Availed During The Call",
+        "sno": "S.No.",
         "call_id": "Call ID",
         "information": "Information",
         "counselling": "Counselling",
         "referral": "Referral",
-        "feedback": "Feedback"
+        "feedback": "Feedback",
+        "service_name": "Service Name",
+        "count": "Count"
       },
       "call_details": "Call Details",
       "followup_question": "Is Follow-Up Required?",
@@ -389,7 +393,8 @@
       "preferred_date": "Preferred Date (dd/mm/yyyy)",
       "follow_up_reason": "Follow-up Reason",
       "submitClose": "Submit & Close",
-      "submitContinue": "Submit & Continue"
+      "submitContinue": "Submit & Continue",
+      "serviceRequested":"Outbound Required For"
     }
   }
 }

@@ -15,12 +15,12 @@
                         <i class="fa fa-arrow-left fa-lg" aria-hidden="true" md-tooltip="Dashboard"></i>
                       </li> -->
                       <li>
-                          <h4 class="f-s-b"> Outbound Work List </h4>
-                          </li>
+                        <h4 class="f-s-b"> Outbound Work List </h4>
+                      </li>
                     </ul>
                   </div>
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                     <button type="button" md-raised-button color="primary" class="pull-right mar-top" (click)="backToDashBoard()">Back to Dashboard</button> 
+                    <button type="button" md-raised-button color="primary" class="pull-right mar-top" (click)="backToDashBoard()">Back to Dashboard</button>
                   </div>
                 </div>
               </nav>
@@ -37,25 +37,29 @@
                       <th md2SortBy="beneficiary.beneficiaryRegID">Beneficiary ID</th>
                       <th>Beneficiary Name</th>
                       <th md2SortBy="prefferedDateTime">Requested Date</th>
+                      <th>Requested Service</th>
                       <th>Remarks</th>
-                      <th>Call </th>
+                      <th>Call</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr  *ngIf="md2.data.length==0">
-                     <td colspan="5" class="t-a-c record-not-found"> No records found</td>
+                    <tr *ngIf="md2.data.length==0">
+                      <td colspan="5" class="t-a-c record-not-found"> No records found</td>
                     </tr>
 
                     <tr *ngFor="let listItem of  md2.data">
                       <!-- <td width=20%>{{listItem.beneficiary?.benPhoneMaps[0]?.phoneNo.substing(4)}}</td> -->
-                      <td width=20%>{{listItem.beneficiary?.beneficiaryID}}</td>
+                      <td width=15%>{{listItem.beneficiary?.beneficiaryID}}</td>
                       <td width=20%>{{listItem.beneficiary?.firstName}} {{listItem.beneficiary?.lastName}}</td>
-                      <td width=20%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td>
+                      <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td>
+                      <td width=20%>{{listItem.requestedService?.subServiceName}}</td>
                       <td width=20%>{{listItem.requestedFor}}</td>
-                      <td width=20% height="20px">
-                          <a class="pointer"><span (click)="viewHistory(listItem)">
-                              <img src="assets/images/transferCallIcon.png" md-tooltip="Call Beneficiary" align='center'/></span>
-                            </a>
+                      <td width=10% height="20px">
+                        <a class="pointer">
+                          <span (click)="viewHistory(listItem)">
+                            <img src="assets/images/transferCallIcon.png" md-tooltip="Call Beneficiary" align='center' />
+                          </span>
+                        </a>
                         <!-- <button md-icon-button title="call" (click)="viewHistory(listItem)">
                           <i class="material-icons" style="font-size: 18px;">settings_phone</i>
                         </button> -->
@@ -64,7 +68,7 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="5">
+                      <td colspan="6">
                         <md2-pagination></md2-pagination>
                       </td>
                     </tr>

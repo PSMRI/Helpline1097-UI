@@ -63,6 +63,8 @@ export class ClosureComponent implements OnInit
 
   isFeedbackRequiredFlag = false;
   showFeedbackRequiredFlag = false;
+  subServiceTypes: any = [];
+  requestedServiceID: number;
 
   constructor(
     private _callServices: CallServices,
@@ -117,6 +119,17 @@ export class ClosureComponent implements OnInit
         console.log("ERROR IN FETCHING CAMPAIGN NAMES");
       })
     this.beneficiarySelected = false;
+    this.getSubServiceTypes(requestObject);
+  }
+
+  getSubServiceTypes(requestObject: any) {
+    this._callServices.getSubServiceTypes(requestObject).subscribe(response => this.setSubServiceTypes(response),
+      (err) => {
+        console.log("ERROR IN FETCHING CAMPAIGN NAMES");
+      })
+  }
+  setSubServiceTypes(requestObject: any) {
+    this.subServiceTypes = requestObject;
   }
 
   campaignNamesSuccess(res) {
@@ -296,6 +309,7 @@ export class ClosureComponent implements OnInit
     }
 
     if (values.prefferedDateTime) {
+      values.requestedServiceID = this.requestedServiceID;
       values.prefferedDateTime = new Date(values.prefferedDateTime);
       values.prefferedDateTime
         = new Date((values.prefferedDateTime) - 1 * (values.prefferedDateTime.getTimezoneOffset() * 60 * 1000)).toJSON();
@@ -423,10 +437,10 @@ export class ClosureComponent implements OnInit
   getIpAddress() {
     this.czentrixServices.getIpAddress(this.saved_data.Userdata.agentID)
       .subscribe(response => this.ipSuccessHandler(response),
-      (err) => {
-        this.message.alert(err.errorMessage, 'error');
+        (err) => {
+          this.message.alert(err.errorMessage, 'error');
 
-      });
+        });
   }
   ipSuccessHandler(response) {
     console.log('fetch ip response: ' + JSON.stringify(response));
@@ -471,6 +485,6 @@ export class ClosureComponent implements OnInit
   }
   setFlag(data) {
     this.beneficiarySelected = data.beneficiarySelected;
-    console.log('BEN SELECTED',this.beneficiarySelected);
+    console.log('BEN SELECTED', this.beneficiarySelected);
   }
 }
