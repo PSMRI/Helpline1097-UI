@@ -196,7 +196,8 @@
               <td>{{regHistory.beneficiaryID}}</td>
               <td>{{regHistory.firstName}} {{regHistory.middleName}} {{regHistory.lastName}}</td>
               <!-- <td>{{regHistory.dOB|date:'dd-MM-yyyy'}}</td> -->
-              <td>{{regHistory.age}}</td>
+              <!-- <td>{{regHistory.age}}</td> -->
+              <td>{{regHistory.actualAge?regHistory.actualAge:'-'}} {{regHistory.ageUnits?regHistory.ageUnits:'-'}}</td>
               <td>{{regHistory.m_gender?.genderName}}</td>
               <td>{{regHistory.i_bendemographics?.m_state?.stateName}}</td>
               <td>{{regHistory.i_bendemographics?.m_district?.districtName}}</td>

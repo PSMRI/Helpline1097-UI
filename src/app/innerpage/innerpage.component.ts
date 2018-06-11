@@ -75,6 +75,7 @@ export class InnerpageComponent implements OnInit {
   transferCallID: any;
   listenCallEvent: any;
   transferInProgress: Boolean = false;
+  zoneName: any;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -155,7 +156,7 @@ export class InnerpageComponent implements OnInit {
     this.getCallTypes(this.providerServiceMapId);
     this.language_change = 'english';
     this.getLanguageObject(this.language_change);
-
+    this.getIVRSPathDetails();
 
     if (this.current_role.toLowerCase() === 'supervisor') {
       this.checkRole = false;
@@ -254,7 +255,8 @@ export class InnerpageComponent implements OnInit {
               //  let age = new Date( currDate.getTime() - dob.getTime() ).getFullYear() - this.startYear;
 
               // this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
-              this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
+              // this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
+              this.selectedBenData.age = 'Age: ' + (data.actualAge ? data.actualAge : "") + " " + (data.ageUnits ? data.ageUnits : "");
               // }
               this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
               this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
@@ -561,19 +563,20 @@ export class InnerpageComponent implements OnInit {
     if (wrapupCallID != undefined) {
       requestObj['callTypeID'] = wrapupCallID;
       requestObj['agentID'] = this.getCommonData.cZentrixAgentID;
+      requestObj['endCall'] = true;
     }
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
         this.remarksMessage.alert(message, 'success');
         sessionStorage.removeItem('isOnCall');
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
-        this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
-          console.log('disconnect response', res);
+        // this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
+        //   console.log('disconnect response', res);
 
-        }, (err) => {
-          this.remarksMessage.alert(err.errorMessage);
+        // }, (err) => {
+        //   this.remarksMessage.alert(err.errorMessage);
 
-        });
+        // });
       }
     }, (err) => {
       this.remarksMessage.alert(err.status, 'error');
@@ -638,6 +641,16 @@ export class InnerpageComponent implements OnInit {
       if (res.data.stateObj.stateType) {
         this.callStatus += ' (' + res.data.stateObj.stateType + ')';
       }
+    }, (err) => {
+      // this.remarksMessage.alert(err.errorMessage);
+      console.log("CZ AGENT NOT LOGGED IN");
+    })
+  }
+
+  getIVRSPathDetails() {
+    this.zoneName = undefined;
+    this.Czentrix.getIVRSPathDetails().subscribe((res) => {
+      this.zoneName = res.data.zoneName;
     }, (err) => {
       // this.remarksMessage.alert(err.errorMessage);
       console.log("CZ AGENT NOT LOGGED IN");
