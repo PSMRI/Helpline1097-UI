@@ -52,6 +52,9 @@ export class grievanceComponent implements OnInit {
   today: any;
   maxStartDate: any;
   maxEndDate: any;
+  providerServiceMapID: any;
+  current_agent: any;
+  userId: any;
 
   constructor(
     private _feedbackservice: FeedbackService,
@@ -117,7 +120,7 @@ export class grievanceComponent implements OnInit {
     startDate: new FormControl(),
     complaintId: new FormControl(),
     endDate: new FormControl()
-    
+
 
   });
 
@@ -150,9 +153,9 @@ export class grievanceComponent implements OnInit {
         console.log(response, "FeedBack Types response");
         this.feedbackTypes = response;
       },
-      (error) => {
-        console.log(error);
-      });
+        (error) => {
+          console.log(error);
+        });
 
     this._feedbackservice.getFeedbackStatuses().subscribe(resProviderData => this.feedbackStatuses = resProviderData);
 
@@ -162,6 +165,9 @@ export class grievanceComponent implements OnInit {
       .subscribe(resProviderData => this.providers(resProviderData));
 
     this.today = new Date();
+    this.providerServiceMapID = this._saved_data.current_service.serviceID;
+    this.current_agent = this._saved_data.uname;
+    this.userId = this._saved_data.uid;
 
     this.maxStartDate = new Date();
     this.maxStartDate.setDate(this.today.getDate());
@@ -200,15 +206,30 @@ export class grievanceComponent implements OnInit {
               this.showUsers(resfeedbackData);
             });
         },
-        (error) => {
-          this.alertMessage.alert(error.errorMessage, 'error');
-        });
+          (error) => {
+            this.alertMessage.alert(error.errorMessage, 'error');
+          });
     }
     // if(this.action == 'edit')
     // this._feedbackservice.updateFeedback( bodyString )
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
     if (this.action == 'update') {
+      let kmFileManager = undefined;
+      if (this.file != undefined) {
+        kmFileManager = {
+          "fileName": (this.file != undefined) ? this.file.name : '',
+          "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+          "providerServiceMapID": this.providerServiceMapID,
+          "userID": this.userId,
+          "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+          "createdBy": this.current_agent
+        }
+
+      }
+      bodyString['kmFileManager'] = kmFileManager;
+      bodyString['feedbackResponseID'] = undefined;
+
       this._feedbackservice.updateResponce(bodyString)
         .subscribe((resfeedbackData) => {
           this.alertMessage.alert('Successfully updated', 'success');
@@ -276,10 +297,10 @@ export class grievanceComponent implements OnInit {
     // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     // this.feedbackForm.controls.userName.setValue(feedback.userName);
     // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
-    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
+    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0] ? feedback.feedbackRequests[0].createdBy : undefined) : undefined);
+    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0] ? feedback.feedbackResponses[0].createdBy : undefined) : undefined);
     if (responseCreatedBy) {
-      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
+      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID === feedback.feedbackRequests[0].feedbackRequestID) ? responseCreatedBy : requestCreatedBy;
     }
     this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
@@ -350,15 +371,15 @@ export class grievanceComponent implements OnInit {
     // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     // this.feedbackForm.controls.userName.setValue(feedback.userName);
     // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-        // this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
-        let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
-        let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
-        if (responseCreatedBy) {
-          responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
-        }
-        // this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
-        this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
-    
+    // this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
+    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0] ? feedback.feedbackRequests[0].createdBy : undefined) : undefined);
+    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0] ? feedback.feedbackResponses[0].createdBy : undefined) : undefined);
+    if (responseCreatedBy) {
+      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID === feedback.feedbackRequests[0].feedbackRequestID) ? responseCreatedBy : requestCreatedBy;
+    }
+    // this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
+    this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
+
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
 
@@ -387,13 +408,13 @@ export class grievanceComponent implements OnInit {
     this.feedbackForm1.controls.feedbackSupSummary.setValue(feedback.feedback);
     this.feedbackForm1.controls.beneficiaryName.setValue(feedback.beneficiary.firstName + " " + (feedback.beneficiary.lastName ? feedback.beneficiary.lastName : ""));
     // this.feedbackForm1.controls.createdBy.setValue(feedback.createdBy);
-    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
-        let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
-        if (responseCreatedBy) {
-          responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
-        }
-        this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
-    
+    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0] ? feedback.feedbackRequests[0].createdBy : undefined) : undefined);
+    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0] ? feedback.feedbackResponses[0].createdBy : undefined) : undefined);
+    if (responseCreatedBy) {
+      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID === feedback.feedbackRequests[0].feedbackRequestID) ? responseCreatedBy : requestCreatedBy;
+    }
+    this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy : feedback.createdBy));
+
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     this.feedbackForm1.controls.createdDate.setValue(feedback.createdDate);
 
@@ -448,9 +469,9 @@ export class grievanceComponent implements OnInit {
       .subscribe((resProviderData) => {
         this.providers(resProviderData)
       },
-      (err) => {
-        this.alertMessage.alert(err.status, 'error');
-      });
+        (err) => {
+          this.alertMessage.alert(err.status, 'error');
+        });
   }
 
   onClick(feedback) {
@@ -506,7 +527,7 @@ export class grievanceComponent implements OnInit {
     });
   }
 
-   // file change event
+  // file change event
   onFileUpload($event): void {
     this.readThis($event.target);
   }
