@@ -47,6 +47,7 @@ export class grievanceComponent implements OnInit {
   public isCollapsedResponse = false;
   public beneficiaryID = undefined;
   totalRecord;
+  lastFeedbackStatus: any;
   public feedbackStatusData: any;
   error: any = { isError: false, errorMessage: '' };
   today: any;
@@ -286,6 +287,7 @@ export class grievanceComponent implements OnInit {
     this.feedbackForm.controls.feedbackStatus.setValue(feedback.feedbackStatus ? feedback.feedbackStatus.feedbackStatus : "");
     this.feedbackForm.controls.emailStatus.setValue(feedback.emailStatus.emailStatus);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
+    this.lastFeedbackStatus = feedback.feedbackStatus ? feedback.feedbackStatus.feedbackStatus : undefined;
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
     if (feedback.instituteType) {
       this.feedbackForm.controls.institutionName.setValue(feedback.instituteType.institutionType);
@@ -297,10 +299,12 @@ export class grievanceComponent implements OnInit {
     // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     // this.feedbackForm.controls.userName.setValue(feedback.userName);
     // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0] ? feedback.feedbackRequests[0].createdBy : undefined) : undefined);
-    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0] ? feedback.feedbackResponses[0].createdBy : undefined) : undefined);
-    if (responseCreatedBy) {
-      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID === feedback.feedbackRequests[0].feedbackRequestID) ? responseCreatedBy : requestCreatedBy;
+    let requestCreatedBy = (feedback.consolidatedRequests ? (
+      feedback.consolidatedRequests[0] ? feedback.consolidatedRequests[0].createdBy : undefined) : undefined);
+    let responseCreatedBy = (feedback.consolidatedRequests ? (
+      feedback.consolidatedRequests[0] ? feedback.consolidatedRequests[0].responseUpdatedBy : undefined) : undefined);
+    if (!responseCreatedBy) {
+      responseCreatedBy = requestCreatedBy;
     }
     this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
@@ -320,7 +324,7 @@ export class grievanceComponent implements OnInit {
     //     console.log('Error in fetching Data of FeedBack');
     //   });
 
-    this.feedBackRequestsResponse = feedback.feedbackRequests;
+    this.feedBackRequestsResponse = feedback.consolidatedRequests;
     this.feedBackResponses = feedback.feedbackResponses;
 
     /*
@@ -365,6 +369,7 @@ export class grievanceComponent implements OnInit {
     }
     this.feedbackForm.controls.designationName.setValue(feedback.designation ? feedback.designation.designationName : "");
     this.feedbackForm.controls.severityTypeName.setValue(feedback.severity ? feedback.severity.severityTypeName : "");
+    this.lastFeedbackStatus = feedback.feedbackStatus ? feedback.feedbackStatus.feedbackStatus : undefined;
     //this.feedbackForm.controls.feedbackAgainst.setValue(feedback.feedbackAgainst ? feedback.feedbackAgainst : "");
     // this.feedbackForm.controls.natureOfComplaint.setValue(feedback.feedbackNatureDetail ? feedback.feedbackNatureDetail.feedbackNature : "");
 
@@ -372,23 +377,32 @@ export class grievanceComponent implements OnInit {
     // this.feedbackForm.controls.userName.setValue(feedback.userName);
     // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
     // this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
-    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0] ? feedback.feedbackRequests[0].createdBy : undefined) : undefined);
-    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0] ? feedback.feedbackResponses[0].createdBy : undefined) : undefined);
-    if (responseCreatedBy) {
-      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID === feedback.feedbackRequests[0].feedbackRequestID) ? responseCreatedBy : requestCreatedBy;
+    let requestCreatedBy = (feedback.consolidatedRequests ? (
+      feedback.consolidatedRequests[0] ? feedback.consolidatedRequests[0].createdBy : undefined) : undefined);
+    let responseCreatedBy = (feedback.consolidatedRequests ? (
+      feedback.consolidatedRequests[0] ? feedback.consolidatedRequests[0].responseUpdatedBy : undefined) : undefined);
+    if (!responseCreatedBy) {
+      responseCreatedBy = requestCreatedBy;
     }
-    // this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
     this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
-
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
+
+    // feedback request response
 
     /*
      editor:Diamond Khanna
      date:16 Aug,2017
    */
 
-    this.feedBackRequestsResponse = feedback.feedbackRequests;
+    // this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryID, this.serviceID)
+    //   .subscribe((response) => {
+    //     this.setFeedbackHistoryByID(response)
+    //   }, (err) => {
+    //     console.log('Error in fetching Data of FeedBack');
+    //   });
+
+    this.feedBackRequestsResponse = feedback.consolidatedRequests;
     this.feedBackResponses = feedback.feedbackResponses;
 
     /*
@@ -570,12 +584,21 @@ export class grievanceComponent implements OnInit {
         count = count + 1;
       }
     }
-
     if (count > 0) {
       return true;
     } else {
       return false;
     }
-
   }
+
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
+
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
+
 }
