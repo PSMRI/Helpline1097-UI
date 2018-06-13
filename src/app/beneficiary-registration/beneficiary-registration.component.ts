@@ -16,6 +16,9 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { OutboundService } from './../services/common/outbound.services';
 import { ReloadService } from './../services/common/reload.service';
 import { Subscription } from 'rxjs/Subscription';
+import { NgForm } from '@angular/forms';
+import * as moment from 'moment';
+
 declare var jQuery: any;
 
 @Component({
@@ -37,6 +40,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   @Output() wentAwayMainScreen: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('ageRef') input: ElementRef;
   @ViewChild('BeneficaryForm') BeneficaryForm;
+
+  @ViewChild('BeneficaryForm') BeneficaryCreationForm: NgForm;
+
   fname: any = '';
   lname: any = '';
   fhname: any = '';
@@ -204,10 +210,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-        (err) => {
-          this.alertMaessage.alert(err.errorMessage, 'error');
-          console.log('ERROR', err);
-        });
+      (err) => {
+        this.alertMaessage.alert(err.errorMessage, 'error');
+        console.log('ERROR', err);
+      });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
     this.searchValue = 'Advance Search';
@@ -1275,6 +1281,74 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   // enableAge(data) {
   //   this.renderer.setElementAttribute(this.input.nativeElement, 'readonly', null);
   // }
+
+
+  // NEW CODE 
+  ageUnit: any = 'Years';
+
+  onAgeEntered(age) {
+    let valueEntered = age;
+    if (valueEntered) {
+      if (valueEntered > 120 && this.ageUnit == 'Years') {
+        alert(`Age can only be set between Today to 120 Years`);
+        this.age = null;
+
+      } else {
+        console.log(moment().subtract(this.ageUnit, valueEntered).toDate());
+        this.DOB = moment().subtract(this.ageUnit, valueEntered).toDate();
+      }
+
+    }
+
+  }
+
+  onAgeUnitEntered() {
+    if (this.age != null) { this.onAgeEntered(this.age); }
+  }
+
+  dobChangeByCalender(dobval) {
+    const date = new Date(this.DOB);
+    console.log(this.BeneficaryCreationForm.value.dateOfBirth)
+
+    if (dobval!=undefined) {
+
+      const dateDiff = Date.now() - date.getTime();
+      const age = new Date(dateDiff);
+      const yob = Math.abs(age.getFullYear() - 1970);
+      const mob = Math.abs(age.getMonth());
+      const dob = Math.abs(age.getDate() - 1);
+      if (yob > 0) {
+        this.BeneficaryCreationForm.form.patchValue({ age: yob });
+        this.BeneficaryCreationForm.form.patchValue({ ageUnit: 'Years' });
+        // this.ageUnit='Years';
+      } else if (mob > 0) {
+        this.BeneficaryCreationForm.form.patchValue({ age: mob });
+        this.BeneficaryCreationForm.form.patchValue({ ageUnit: 'Months' });
+        // this.ageUnit='Months';
+      } else if (dob > 0) {
+        this.BeneficaryCreationForm.form.patchValue({ age: dob });
+        this.BeneficaryCreationForm.form.patchValue({ ageUnit: 'Days' });
+        // this.ageUnit='Days';
+      }
+      if (date.setHours(0, 0, 0, 0) == this.today.setHours(0, 0, 0, 0)) {
+        this.BeneficaryCreationForm.form.patchValue({ age: 1 });
+        this.BeneficaryCreationForm.form.patchValue({ ageUnit: 'Days' });
+      }
+
+
+    } else if (dobval == 'Invalid date') {
+      this.BeneficaryCreationForm.form.patchValue({ dob: null });
+      this.DOB = null;
+      alert('Invalid date entered, please recheck');
+    } else {
+      this.BeneficaryCreationForm.form.patchValue({ age: null });
+    }
+
+  }
+
+
+  // NEW CODE ENDS
+
   blockey(e: any) {
     if (e.keyCode === 9) {
       return true;

@@ -288,29 +288,47 @@
 
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <div class="form-group">
-          <!--   <label class="control-label" for="dOB" i18n>DOB</label> -->
           <md2-datepicker (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
             name="dateOfBirth" (change)="calculateAge($event.value)" [(ngModel)]="DOB" #ageEvent2="ngModel"></md2-datepicker>
         </div>
-      </div>
+      </div> -->
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-b-7">
-        <!--       <div class="form-group">
-        <label class="control-label" for="lastName">Age </label>
-        <input type="text" class="form-control" #ageRef placeholder="Enter age" name="age" (blur)="calculateDOB(ageRef.value)"
-          [(ngModel)]="age" readonly="readonly" autocomplete="off" (dblclick)="enableAge($event)" />
-        </div> -->
+      <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-b-7">
         <md-input-container myMobileNumber [style.width]="'100%'">
           <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.age}}" id="datee" #ageRef min="0" max="150" name="age"
             maxlength="3" [(ngModel)]="age" (keyup)="calculateDOB(ageRef.value)" #ageEvent="ngModel">
-          <!-- <md-hint *ngIf=" !ageEvent.valid && ( ageEvent.dirty || ageEvent.touched)"> -->
           <md-hint *ngIf=" ageFlag && ( ageEvent.dirty || ageEvent.touched)">
             <span class="error_text">Enter valid age (max:150) </span>
           </md-hint>
         </md-input-container>
+      </div> -->
+
+      <!--NEW CODE  -->
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+        <div class="form-group">
+          <md2-datepicker (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
+            name="dateOfBirth" (change)="dobChangeByCalender($event.value)" [(ngModel)]="DOB" #ageEvent2="ngModel"></md2-datepicker>
+        </div>
       </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-b-7">
+        <md-input-container myMobileNumber [style.width]="'100%'">
+            <input autocomplete="off" mdInput placeholder="Age" [(ngModel)]="age" (change)="onAgeEntered(age)" min="0" max="150" name="age" maxlength="3">
+          </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="select-container">
+            <md-select class="p-t-12" [style.width]="'100%'" (change)="onAgeUnitEntered()" [(ngModel)]="ageUnit" placeholder="Age Unit" name="ageUnit">
+                <md-option value='Days'>Days</md-option>
+                <md-option value='Months'>Months</md-option>
+                <md-option value='Years'>Years</md-option>
+            </md-select>
+        </div>
+    </div>
+
+    <!--NEW CODE ENDS  -->
+
       <div class="clearfix visible-md"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container class="hide_underline" [style.width]="'100%'">

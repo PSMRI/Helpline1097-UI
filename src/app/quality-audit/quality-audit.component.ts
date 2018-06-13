@@ -71,12 +71,24 @@ export class QualityAuditComponent implements OnInit {
   }
 
   setMinMaxDate(startDate) {
-    this.qaForm.form.patchValue({ 'startDate': new Date(startDate.setHours(0, 0, 0, 0)) });
-    this.min = new Date(startDate.setHours(0, 0, 0, 0));
+    startDate.setHours(0, 0, 0, 0);
+    this.qaForm.form.patchValue({ 'startDate': new Date(startDate) });
+    // startDate.setHours(0, 0, 0, 0);
+    this.min = new Date(startDate);
 
     var date = new Date();
     date.setDate(startDate.getDate() + 14);
-    this.max = new Date(date.setHours(23, 59, 59, 0));
+    date.setHours(23, 59, 59, 0)
+
+
+    let currentDate = new Date();
+    currentDate.setHours(23, 59, 59, 0);
+
+    if (date > currentDate) {
+      this.max = new Date(currentDate);
+    } else {
+      this.max = new Date(date);
+    }
   }
 
   setEndDate(endDate) {
