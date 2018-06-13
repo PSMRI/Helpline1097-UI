@@ -88,7 +88,7 @@
           <label class="control-label" for="placeOfWork">Place of Work</label>
           <input type="text" class="form-control" id="placeOfWork" placeholder="Enter Place of Work" name="placeOfWork" [(ngModel)]="placeOfWork">
         </div> -->
-        <md-input-container myName_space [style.width]="'100%'">
+        <md-input-container [style.width]="'100%'">
           <input mdInput placeholder="{{currentlanguage.other_details?.work_place}}" maxlength="25" name="placeOfWork" [(ngModel)]="placeOfWork">
         </md-input-container>
       </div>
@@ -109,7 +109,7 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t--10 m-b-20">
-        <h5>{{currentlanguage.other_details?.hiv_question}}
+        <!-- <h5>{{currentlanguage.other_details?.hiv_question}}
           <b>{{currentlanguage.other_details?.hiv_question_condition}}</b>
         </h5>
         <md-radio-group>
@@ -117,9 +117,21 @@
             (change)="changeRadio($event.value)">Yes</md-radio-button>
           <md-radio-button ngDefaultControl name="isHIVPos" color="primary" [value]=false [checked]="!isHIVPos" [(ngModel)]="isHIVPos"
             (change)="changeRadio($event.value)">No</md-radio-button>
-        </md-radio-group>
+        </md-radio-group> -->
 
-        <!-- <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">{{currentlanguage.other_details?.hiv_question}}<b>{{currentlanguage.other_details?.hiv_question_condition}}</b></md-slide-toggle> -->
+
+        <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none">
+          <md-select placeholder="{{currentlanguage.other_details?.hiv_question}} {{currentlanguage.other_details?.hiv_question_condition}}"
+            [style.width]="'100%'" [(ngModel)]="isHIVPos" name="isHIVPos">
+            <md-option value="yes">Yes</md-option>
+            <md-option value="no">No</md-option>
+            <md-option value="">Not disclosed</md-option>
+          </md-select>
+          <md-hint>
+            <span class="error_text"></span>
+          </md-hint>
+        </md-input-container>
       </div>
       <div class="clearfix visible-lg"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -127,8 +139,8 @@
           <input mdInput class="display_none">
 
           <md-select multiple placeholder="{{currentlanguage.other_details?.feedback_question}}" [style.width]="'100%'" [(ngModel)]="cameToKnowFrom"
-            name="cameToKnowFrom">
-            <md-option *ngFor="let source of sourceOfInfo" value="{{source.value}}">
+            name="cameToKnowFrom" (change)="checkInCaseNotDisclosed(cameToKnowFrom)">
+            <md-option *ngFor="let source of sourceOfInfo" [disabled]="source.disabled" value="{{source.value}}">
 
               {{source.name}}
             </md-option>
@@ -139,54 +151,6 @@
         <button type="submit" md-raised-button color="accent" class="pull-right p-l-r-38 font-regular">{{currentlanguage.other_details?.save}}</button>
       </div>
     </div>
-    <!-- <div class="row"> -->
-    <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"> -->
-    <!-- <h4 class="">Is beneficiary suffering from HIV/AIDS?(Captured only if, caller voluntarily informs)</h4>  -->
-    <!-- </div> -->
-    <!-- <md-slide-toggle ngDefaultControl name="isHIVPos" color="primary" [(ngModel)]="isHIVPos">Is beneficiary suffering from HIV/AIDS?<b>(Captured only if, caller voluntarily informs)</b></md-slide-toggle> -->
-    <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">-->
-    <!-- <div class=""> -->
-    <!-- <label class="" for="sufferingFromAids"><span class="f-c-g">Is beneficiary suffering from AIDS/HIV?</span></label>
-         <label class="radio-inline">
-                        <input type="radio" name="isHIVPos" value=true [(ngModel)]="isHIVPos"> Yes 
-                    </label>
-        <label class="radio-inline">
-                        <input type="radio" name="isHIVPos" value=false [(ngModel)]="isHIVPos" checked > No
-                    </label>  -->
-    <!-- </div> -->
-    <!--</div>-->
-    <!--  </div> -->
-
-
-    <!--<div>
-                    <label class="checkbox-inline">
-                    <input type="checkbox" value="Pamphlet" [(ngModel)]="knowHow.pamphlet">Pamphlet</label>
-                    <label class="checkbox-inline">
-                    <input type="checkbox" value="Radio" [(ngModel)]="knowHow.radio">Radio</label>
-                    <label class="checkbox-inline">
-                    <input type="checkbox" value="Television" [(ngModel)]="knowHow.tv">Television</label>
-                    <label class="checkbox-inline">
-                    <input type="checkbox" value="Family and Friends" [(ngModel)]="knowHow.fnf">Family and Friends</label>
-                    <label class="checkbox-inline">
-                    <input type="checkbox" value="Healthcare worker" [(ngModel)]="knowHow.healthcare">Healthcare worker</label>
-                    <label class="checkbox-inline">
-                    <input type="checkbox" value="Others" [(ngModel)]="knowHow.others">Others</label>
-                    <label class="checkbox-inline">
-                    <input type="checkbox" value="Not Disclosed" [(ngModel)]="knowHow.notdisclosed">Not Disclosed</label>
-                </div>-->
-    <!--<div *ngFor="let source of sourceOfInfo; let i=index">-->
-    <!--<div *ngFor="let source of sourceOfInfo">-->
-
-    <!--           <label class="checkbox-inline" *ngFor="let source of sourceOfInfo">
-
-            <md-checkbox color="primary" value="{{source.value}}"></md-checkbox> {{source.name}}</label> -->
-
-
-    <!--<div class="col-xs-12 col-sm-12 m-t-5 m-b-5">
-            <div class="row">
-                <button type="button" class="btn cu-green-btn  pull-right p-l-r-38 font-regular f-s-18" id="">Save</button>
-            </div>
-        </div>-->
 
   </div>
 </form>

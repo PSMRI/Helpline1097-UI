@@ -24,7 +24,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   sexualOrientationID: any;
   placeOfWork: any;
   remarks: any;
-  isHIVPos: boolean = false;
+  isHIVPos = "";
   beneficiaryRegID: any;
   educationQualifications: any = [];
   sexualOrientations: any = [];
@@ -35,13 +35,14 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   subscription: Subscription;
 
   sourceOfInfo: any = [
-    { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1 },
-    { name: 'Radio', value: 'Radio', selected: false, id: 2 },
-    { name: 'Television', value: 'Television', selected: false, id: 3 },
-    { name: 'Family and Friends', value: 'Family and Friends', selected: false, id: 4 },
-    { name: 'Healthcare Worker', value: 'Healthcare Worker', selected: false, id: 5 },
-    { name: 'Others', value: 'Others', selected: false, id: 6 },
-    { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7 }
+    { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1, disabled: false },
+    { name: 'Radio', value: 'Radio', selected: false, id: 2, disabled: false },
+    { name: 'Television', value: 'Television', selected: false, id: 3, disabled: false },
+    { name: 'Family and Friends', value: 'Family and Friends', selected: false, id: 4, disabled: false },
+    { name: 'Healthcare Worker', value: 'Healthcare Worker', selected: false, id: 5, disabled: false },
+    { name: 'Others', value: 'Others', selected: false, id: 6, disabled: false },
+    { name: 'Newspaper', value: 'Newspaper', selected: false, id: 8, disabled: false },
+    { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7, disabled: false }
   ];
 
   constructor(
@@ -89,6 +90,10 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = this.saved_data.beneficiaryData.isHIVPos;
       this.remarks = this.saved_data.beneficiaryData.remarks;
+      this.cameToKnowFrom = this.saved_data.beneficiaryData.sourceOfInformation ? this.saved_data.beneficiaryData.sourceOfInformation.split(',') : undefined;
+      this.populateSourceOfInformation(this.cameToKnowFrom);
+
+
     }
   }
   PopulateOutBoundData(beneficiaryData: any) {
@@ -98,9 +103,37 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
       this.educationID = beneficiaryData.i_bendemographics.educationID;
       this.sexualOrientationID = beneficiaryData.sexualOrientationID;
       this.placeOfWork = beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
-      this.isHIVPos = beneficiaryData.isHIVPos;
+      this.isHIVPos = beneficiaryData.isHIVPos.toLowerCase();
       this.remarks = beneficiaryData.remarks;
       this.cameToKnowFrom = beneficiaryData.sourceOfInformation ? beneficiaryData.sourceOfInformation.split(',') : undefined;
+      this.populateSourceOfInformation(this.cameToKnowFrom);
+    }
+  }
+
+  populateSourceOfInformation(cameToKnowFrom) {
+    if (cameToKnowFrom && cameToKnowFrom.includes('Not Disclosed')) {
+      this.sourceOfInfo = [
+        { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1, disabled: true },
+        { name: 'Radio', value: 'Radio', selected: false, id: 2, disabled: true },
+        { name: 'Television', value: 'Television', selected: false, id: 3, disabled: true },
+        { name: 'Family and Friends', value: 'Family and Friends', selected: false, id: 4, disabled: true },
+        { name: 'Healthcare Worker', value: 'Healthcare Worker', selected: false, id: 5, disabled: true },
+        { name: 'Others', value: 'Others', selected: false, id: 6, disabled: true },
+        { name: 'Newspaper', value: 'Newspaper', selected: false, id: 8, disabled: true },
+        { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7, disabled: false }
+      ];
+    }
+    else {
+      this.sourceOfInfo = [
+        { name: 'Pamphlet', value: 'Pamphlet', selected: false, id: 1, disabled: false },
+        { name: 'Radio', value: 'Radio', selected: false, id: 2, disabled: false },
+        { name: 'Television', value: 'Television', selected: false, id: 3, disabled: false },
+        { name: 'Family and Friends', value: 'Family and Friends', selected: false, id: 4, disabled: false },
+        { name: 'Healthcare Worker', value: 'Healthcare Worker', selected: false, id: 5, disabled: false },
+        { name: 'Others', value: 'Others', selected: false, id: 6, disabled: false },
+        { name: 'Newspaper', value: 'Newspaper', selected: false, id: 8, disabled: false },
+        { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7, disabled: false }
+      ];
     }
   }
 
@@ -153,6 +186,53 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
     //this.form.reset();
   }
+
+  checkInCaseNotDisclosed(selected_values) {
+    let contains = false;
+    let notDisclosedValue = "";
+
+    for (let i = 0; i < selected_values.length; i++) {
+      if (selected_values[i].toLowerCase() === 'Not Disclosed'.toLowerCase()) {
+        contains = true;
+        break;
+      }
+      else {
+        contains = false;
+      }
+    }
+
+    if (selected_values.length === 0) {
+      contains = false;
+    }
+
+    if (contains) {
+      for (let i = 0; i < this.sourceOfInfo.length; i++) {
+        if (this.sourceOfInfo[i].name.toLowerCase() != 'Not Disclosed'.toLowerCase()) {
+          this.sourceOfInfo[i].disabled = true;
+        }
+        else {
+          notDisclosedValue = this.sourceOfInfo[i].value;
+        }
+      }
+
+      this.cameToKnowFrom = [];
+      this.cameToKnowFrom.push(notDisclosedValue);
+
+
+    }
+    if (!contains && this.cameToKnowFrom.length === 0) {
+      for (let i = 0; i < this.sourceOfInfo.length; i++) {
+        if (this.sourceOfInfo[i].name.toLowerCase() != 'Not Disclosed'.toLowerCase()) {
+          this.sourceOfInfo[i].disabled = false;
+        }
+      }
+
+      this.cameToKnowFrom = [];
+      notDisclosedValue = "";
+
+    }
+  }
+
   updateCount() {
     this.count = this.remarks.length + '/300';
   }
@@ -160,13 +240,13 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   public getBenData(data: any) {
     this.PopulateOutBoundData(data.dataPass);
   }
-  changeRadio(value) {
-    if (value) {
-      this.isHIVPos = value;
-    } else {
-      this.isHIVPos = false;
-    }
-  }
+  // changeRadio(value) {
+  //   if (value) {
+  //     this.isHIVPos = value;
+  //   } else {
+  //     this.isHIVPos = false;
+  //   }
+  // }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
