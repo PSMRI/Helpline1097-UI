@@ -279,6 +279,7 @@
                 <th>Feedback Description</th>
                 <th>Supervisor Comments</th>
                 <th>Response Received</th>
+                <th>Response Attachment</th>
                 <th>Last Feedback Status</th>
                 <th>Email Status</th>
                 <th>Forwarded By</th>
@@ -289,7 +290,7 @@
             </thead>
             <tbody>
               <tr *ngIf="md2.data.length<1">
-                <td class="t-a-c record-not-found" colspan="10">
+                <td class="t-a-c record-not-found" colspan="12">
                   No records found
                 </td>
               </tr>
@@ -300,6 +301,11 @@
                 <td>{{feedback.feedbackSupSummary}}</td>
                 <td>{{feedback.comments}}</td>
                 <td>{{feedback.responseComments}}</td>
+                <td>
+                  <p *ngIf="feedback.attachmentPath">
+                    <a href="{{feedback?.attachmentPath}}" target="_blank">{{feedback.kmFileManager?.fileName}}</a>
+                  </p>
+                </td>
                 <td>{{lastFeedbackStatus}}</td>
                 <td>{{feedback.emailStatus?.emailStatus}}</td>
                 <td>{{feedback.createdBy}}</td>
@@ -310,7 +316,7 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="10">
+                <td colspan="12">
                   <md2-pagination></md2-pagination>
                 </td>
                 <!-- <td colspan="3" class="p-r-0">

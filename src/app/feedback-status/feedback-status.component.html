@@ -60,6 +60,7 @@
               <th>Feedback Description</th>
               <th>Supervisor Comments</th>
               <th>Response Received</th>
+              <th>Response Attachment</th>
               <th>Last Feedback Status</th>
               <th>Email Status</th>
               <th>Forwarded By</th>
@@ -74,6 +75,11 @@
               <td>{{feedBackRequest.feedbackSupSummary}}</td>
               <td>{{feedBackRequest.comments}}</td>
               <td>{{feedBackRequest.responseComments}}</td>
+              <td>
+                <p *ngIf="feedBackRequest.attachmentPath">
+                  <a href="{{feedBackRequest?.attachmentPath}}" target="_blank">{{feedBackRequest.kmFileManager?.fileName}}</a>
+                </p>
+              </td>
               <td>{{feedbackStatusName}}</td>
               <td>{{feedBackRequest.emailStatus?.emailStatus}}</td>
               <td>{{feedBackRequest.createdBy}}</td>
