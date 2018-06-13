@@ -17,7 +17,7 @@
       <tbody>
         <tr *ngIf="md2.data?.length==0">
           <td colspan="6" class="record-not-found">
-              No records found
+            No records found
           </td>
 
         </tr>
@@ -55,7 +55,7 @@
   <form #emergencyContact="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" myName_space>
       <md-input-container [style.width]="'100%'">
-        <input mdInput class="" placeholder="Name" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="15"
+        <input mdInput class="" placeholder="Name" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50"
           minlength="3">
         <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">Enter atleast 3 characters</md-hint>
       </md-input-container>
@@ -137,7 +137,7 @@
   <form #editEmergencyContact="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
-        <input mdInput placeholder="Name" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="15" minlength="3">
+        <input mdInput placeholder="Name" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50" minlength="3">
         <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">Enter atleast 3 characters</md-hint>
       </md-input-container>
     </div>
