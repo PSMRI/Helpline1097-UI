@@ -27,13 +27,13 @@
                 {{data.userName}}</md-list-item>
               <md-list-item class="b-t-1-w">ID:{{id}}-{{current_role}}-{{current_service}}</md-list-item>
             </md-list>
-            </md-menu>
-            <!-- <li class="help cursorPointer" *ngIf= routerLink="/MultiRoleScreenComponent/dashboard" title="Home">
+          </md-menu>
+          <!-- <li class="help cursorPointer" *ngIf= routerLink="/MultiRoleScreenComponent/dashboard" title="Home">
               <md-icon class="material-icons" class="homeIcon" role="img" aria-hidden="true">home</md-icon>
             </li> -->
-            <li class="logout" title="Logout" (click)="log_out()">
-              <a>&nbsp;</a>
-            </li>
+          <li class="logout" title="Logout" (click)="log_out()">
+            <a>&nbsp;</a>
+          </li>
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
           <li>
@@ -97,6 +97,7 @@
               </div> -->
               <ul class="list-unstyled list-inline pull-left  p-a-0 m-b-3 ">
                 <!-- <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li> -->
+                <li *ngIf="zoneName">Zone: {{zoneName}}</li>
                 <li>
                   <span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span>
                 </li>
@@ -111,18 +112,18 @@
                 <li *ngIf="selectedBenData.relation">{{selectedBenData.relation}}</li>
               </ul>
               <span *ngIf="wrapupTime" class="pull-right">Time Remaining :
-                  <strong>{{ticks}}</strong>
-                </span>
+                <strong>{{ticks}}</strong>
+              </span>
               <!-- <ul class="list-unstyled list-inline pull-right m-b-0 "> -->
-                <!--               <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
+              <!--               <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
     " title="Transfer Icon "/></span>
                 <br />
                 <span class="f-s-14 ">Transfer Call</span></li> -->
-                <!-- <li class="text-center m-l-lg-40 f-s-9"><span><img src="assets/images/flagCallIcon.png " class="f-s-9" alt="Flag Call
+              <!-- <li class="text-center m-l-lg-40 f-s-9"><span><img src="assets/images/flagCallIcon.png " class="f-s-9" alt="Flag Call
     Icon " title="Flag Call Icon "/></span>
                   <br />
                   <span class="f-s-14 ">Flag Call</span></li> -->
-                <!-- <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png " alt="End Call
+              <!-- <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png " alt="End Call
     Icon " title="End Call Icon "/></span>
               <br />
               <span class="f-s-14 ">End Call</span></li> -->

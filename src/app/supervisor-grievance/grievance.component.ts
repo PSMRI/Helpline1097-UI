@@ -47,11 +47,15 @@ export class grievanceComponent implements OnInit {
   public isCollapsedResponse = false;
   public beneficiaryID = undefined;
   totalRecord;
+  lastFeedbackStatus: any;
   public feedbackStatusData: any;
   error: any = { isError: false, errorMessage: '' };
   today: any;
   maxStartDate: any;
   maxEndDate: any;
+  providerServiceMapID: any;
+  current_agent: any;
+  userId: any;
 
   constructor(
     private _feedbackservice: FeedbackService,
@@ -117,7 +121,7 @@ export class grievanceComponent implements OnInit {
     startDate: new FormControl(),
     complaintId: new FormControl(),
     endDate: new FormControl()
-    
+
 
   });
 
@@ -150,9 +154,9 @@ export class grievanceComponent implements OnInit {
         console.log(response, "FeedBack Types response");
         this.feedbackTypes = response;
       },
-      (error) => {
-        console.log(error);
-      });
+        (error) => {
+          console.log(error);
+        });
 
     this._feedbackservice.getFeedbackStatuses().subscribe(resProviderData => this.feedbackStatuses = resProviderData);
 
@@ -162,6 +166,9 @@ export class grievanceComponent implements OnInit {
       .subscribe(resProviderData => this.providers(resProviderData));
 
     this.today = new Date();
+    this.providerServiceMapID = this._saved_data.current_service.serviceID;
+    this.current_agent = this._saved_data.uname;
+    this.userId = this._saved_data.uid;
 
     this.maxStartDate = new Date();
     this.maxStartDate.setDate(this.today.getDate());
@@ -200,15 +207,30 @@ export class grievanceComponent implements OnInit {
               this.showUsers(resfeedbackData);
             });
         },
-        (error) => {
-          this.alertMessage.alert(error.errorMessage, 'error');
-        });
+          (error) => {
+            this.alertMessage.alert(error.errorMessage, 'error');
+          });
     }
     // if(this.action == 'edit')
     // this._feedbackservice.updateFeedback( bodyString )
     //   .subscribe( resfeedbackData => this.showUsers( resfeedbackData ) )
 
     if (this.action == 'update') {
+      let kmFileManager = undefined;
+      if (this.file != undefined) {
+        kmFileManager = {
+          "fileName": (this.file != undefined) ? this.file.name : '',
+          "fileExtension": (this.file != undefined) ? '.' + this.file.name.split('.')[1] : '',
+          "providerServiceMapID": this.providerServiceMapID,
+          "userID": this.userId,
+          "fileContent": (this.fileContent != undefined) ? this.fileContent.split(',')[1] : '',
+          "createdBy": this.current_agent
+        }
+
+      }
+      bodyString['kmFileManager'] = kmFileManager;
+      bodyString['feedbackResponseID'] = undefined;
+
       this._feedbackservice.updateResponce(bodyString)
         .subscribe((resfeedbackData) => {
           this.alertMessage.alert('Successfully updated', 'success');
@@ -265,6 +287,7 @@ export class grievanceComponent implements OnInit {
     this.feedbackForm.controls.feedbackStatus.setValue(feedback.feedbackStatus ? feedback.feedbackStatus.feedbackStatus : "");
     this.feedbackForm.controls.emailStatus.setValue(feedback.emailStatus.emailStatus);
     this.feedbackForm.controls.feedbackStatusID.setValue(feedback.feedbackStatusID);
+    this.lastFeedbackStatus = feedback.feedbackStatus ? feedback.feedbackStatus.feedbackStatus : undefined;
     this.feedbackForm.controls.emailStatusID.setValue(feedback.emailStatusID);
     if (feedback.instituteType) {
       this.feedbackForm.controls.institutionName.setValue(feedback.instituteType.institutionType);
@@ -276,10 +299,12 @@ export class grievanceComponent implements OnInit {
     // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     // this.feedbackForm.controls.userName.setValue(feedback.userName);
     // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
-    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
-    if (responseCreatedBy) {
-      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
+    let requestCreatedBy = (feedback.consolidatedRequests ? (
+      feedback.consolidatedRequests[0] ? feedback.consolidatedRequests[0].createdBy : undefined) : undefined);
+    let responseCreatedBy = (feedback.consolidatedRequests ? (
+      feedback.consolidatedRequests[0] ? feedback.consolidatedRequests[0].responseUpdatedBy : undefined) : undefined);
+    if (!responseCreatedBy) {
+      responseCreatedBy = requestCreatedBy;
     }
     this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
@@ -299,7 +324,7 @@ export class grievanceComponent implements OnInit {
     //     console.log('Error in fetching Data of FeedBack');
     //   });
 
-    this.feedBackRequestsResponse = feedback.feedbackRequests;
+    this.feedBackRequestsResponse = feedback.consolidatedRequests;
     this.feedBackResponses = feedback.feedbackResponses;
 
     /*
@@ -344,30 +369,40 @@ export class grievanceComponent implements OnInit {
     }
     this.feedbackForm.controls.designationName.setValue(feedback.designation ? feedback.designation.designationName : "");
     this.feedbackForm.controls.severityTypeName.setValue(feedback.severity ? feedback.severity.severityTypeName : "");
+    this.lastFeedbackStatus = feedback.feedbackStatus ? feedback.feedbackStatus.feedbackStatus : undefined;
     //this.feedbackForm.controls.feedbackAgainst.setValue(feedback.feedbackAgainst ? feedback.feedbackAgainst : "");
     // this.feedbackForm.controls.natureOfComplaint.setValue(feedback.feedbackNatureDetail ? feedback.feedbackNatureDetail.feedbackNature : "");
 
     // this.feedbackForm.controls.serviceName.setValue(feedback.serviceName);
     // this.feedbackForm.controls.userName.setValue(feedback.userName);
     // this.feedbackForm.controls.smsPhoneNo.setValue(feedback.smsPhoneNo);
-        // this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
-        let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
-        let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
-        if (responseCreatedBy) {
-          responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
-        }
-        // this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
-        this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
-    
+    // this.feedbackForm.controls.modifiedBy.setValue(feedback.modifiedBy);
+    let requestCreatedBy = (feedback.consolidatedRequests ? (
+      feedback.consolidatedRequests[0] ? feedback.consolidatedRequests[0].createdBy : undefined) : undefined);
+    let responseCreatedBy = (feedback.consolidatedRequests ? (
+      feedback.consolidatedRequests[0] ? feedback.consolidatedRequests[0].responseUpdatedBy : undefined) : undefined);
+    if (!responseCreatedBy) {
+      responseCreatedBy = requestCreatedBy;
+    }
+    this.feedbackForm.controls.modifiedBy.setValue(this._saved_data.uname);
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     //  this.feedbackForm.controls.feedbackID.setValue(feedback.FeedbackID);
+
+    // feedback request response
 
     /*
      editor:Diamond Khanna
      date:16 Aug,2017
    */
 
-    this.feedBackRequestsResponse = feedback.feedbackRequests;
+    // this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryID, this.serviceID)
+    //   .subscribe((response) => {
+    //     this.setFeedbackHistoryByID(response)
+    //   }, (err) => {
+    //     console.log('Error in fetching Data of FeedBack');
+    //   });
+
+    this.feedBackRequestsResponse = feedback.consolidatedRequests;
     this.feedBackResponses = feedback.feedbackResponses;
 
     /*
@@ -387,13 +422,13 @@ export class grievanceComponent implements OnInit {
     this.feedbackForm1.controls.feedbackSupSummary.setValue(feedback.feedback);
     this.feedbackForm1.controls.beneficiaryName.setValue(feedback.beneficiary.firstName + " " + (feedback.beneficiary.lastName ? feedback.beneficiary.lastName : ""));
     // this.feedbackForm1.controls.createdBy.setValue(feedback.createdBy);
-    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0]?feedback.feedbackRequests[0].createdBy:undefined):undefined);
-        let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0]?feedback.feedbackResponses[0].createdBy:undefined):undefined);
-        if (responseCreatedBy) {
-          responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID ===  feedback.feedbackRequests[0].feedbackRequestID)?responseCreatedBy:requestCreatedBy;
-        }
-        this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy :feedback.createdBy));
-    
+    let requestCreatedBy = (feedback.feedbackRequests ? (feedback.feedbackRequests[0] ? feedback.feedbackRequests[0].createdBy : undefined) : undefined);
+    let responseCreatedBy = (feedback.feedbackResponses ? (feedback.feedbackResponses[0] ? feedback.feedbackResponses[0].createdBy : undefined) : undefined);
+    if (responseCreatedBy) {
+      responseCreatedBy = (feedback.feedbackResponses[0].feedbackRequestID === feedback.feedbackRequests[0].feedbackRequestID) ? responseCreatedBy : requestCreatedBy;
+    }
+    this.feedbackForm.controls.modifiedBy.setValue((responseCreatedBy ? responseCreatedBy : feedback.createdBy));
+
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     this.feedbackForm1.controls.createdDate.setValue(feedback.createdDate);
 
@@ -448,9 +483,9 @@ export class grievanceComponent implements OnInit {
       .subscribe((resProviderData) => {
         this.providers(resProviderData)
       },
-      (err) => {
-        this.alertMessage.alert(err.status, 'error');
-      });
+        (err) => {
+          this.alertMessage.alert(err.status, 'error');
+        });
   }
 
   onClick(feedback) {
@@ -506,7 +541,7 @@ export class grievanceComponent implements OnInit {
     });
   }
 
-   // file change event
+  // file change event
   onFileUpload($event): void {
     this.readThis($event.target);
   }
@@ -549,12 +584,21 @@ export class grievanceComponent implements OnInit {
         count = count + 1;
       }
     }
-
     if (count > 0) {
       return true;
     } else {
       return false;
     }
-
   }
+
+  toUTCDate(date) {
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
+
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
+
 }

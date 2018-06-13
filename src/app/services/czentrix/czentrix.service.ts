@@ -14,6 +14,7 @@ export class CzentrixServices {
   common_url = this._config.getCommonBaseURL();
   address = this._config.getTelephonyServerURL();
   _getAgentStatus_url = this.common_url + '/cti/getAgentState';
+  _getIVRSPathDetails_url = this.common_url + '/cti/getIVRSPathDetails';
   _getCallDetails = this.common_url + '/cti/getAgentCallStats';
   setCustomerPreferredLanguageUrl = this.common_url + '/cti/customerPreferredLanguage';
   _dialBeneficiary = this.common_url + 'cti/callBeneficiary';
@@ -75,6 +76,14 @@ export class CzentrixServices {
     let obj = { 'agent_id': this.agent_id };
 
     return this.http.post(this._getAgentStatus_url, obj).map(this.extractData).catch(this.handleError);
+  }
+
+  getIVRSPathDetails() {
+
+    this.agent_id = this._data.cZentrixAgentID;
+    let obj = { 'agent_id': this.agent_id };
+
+    return this.http.post(this._getIVRSPathDetails_url, obj).map(this.extractData).catch(this.handleError);
   }
 
   getCallDetails() {

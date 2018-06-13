@@ -57,10 +57,10 @@
               <input mdInput id="remarks" placeholder="{{currentlanguage.closure?.remarks}}" maxlength="100" name="remarks" [(ngModel)]="remarks">
             </md-input-container>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showFeedbackRequiredFlag" >
-              <md-checkbox color="primary" name="isFeedbackRequired" (change)="isFeedbackRequired($event)">{{currentlanguage.closure?.feedback_question}}</md-checkbox>
-            </div>
-            <div class="clearfix"></div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showFeedbackRequiredFlag">
+            <md-checkbox color="primary" name="isFeedbackRequired" (change)="isFeedbackRequired($event)">{{currentlanguage.closure?.feedback_question}}</md-checkbox>
+          </div>
+          <div class="clearfix"></div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showSlider">
             <md-checkbox ngDefaultControl color="primary" name="isFollowupRequired" [value]=true [(ngModel)]="isFollowupRequired" (change)="isFollow($event)">{{currentlanguage.closure?.followup_question}}</md-checkbox>
             <!-- <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle> -->
@@ -94,6 +94,20 @@
               </md-select>
               <md-hint *ngIf="languageName.invalid && (languageName.dirty || languageName.touched)">
                 <span class="error_text">Language is required </span>
+              </md-hint>
+            </md-input-container>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="isFollowUp">
+            <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none">
+              <md-select required placeholder="{{currentlanguage.closure?.serviceRequested}}" [style.width]="'100%'" [(ngModel)]="requestedServiceID"
+                name="requestedServiceID" #requestedService="ngModel">
+                <md-option *ngFor="let subServiceType of subServiceTypes" [value]="subServiceType.subServiceID">
+                  {{subServiceType.subServiceName}}
+                </md-option>
+              </md-select>
+              <md-hint *ngIf="requestedService.invalid && (requestedService.dirty || requestedService.touched)">
+                <span class="error_text">Outbound requested service is required </span>
               </md-hint>
             </md-input-container>
           </div>
@@ -143,8 +157,8 @@
           </table>
         </div>
         <div class="clearfix"></div>
-        <button *ngIf="this.saved_data?.current_campaign?.toUpperCase() !== 'OUTBOUND'" md-raised-button color="accent" type="submit" name="save" value="submitContinue"
-          [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid || Form.invalid || transferValid || callType.value == 'Invalid'"
+        <button *ngIf="this.saved_data?.current_campaign?.toUpperCase() !== 'OUTBOUND'" md-raised-button color="accent" type="submit"
+          name="save" value="submitContinue" [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid || Form.invalid || transferValid || callType.value == 'Invalid'"
           class="font-regular pull-right" (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentlanguage.closure?.submitContinue}}</button>
         <button md-raised-button color="accent" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid || Form.invalid || transferValid"
           class="font-regular pull-right m-r-10" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentlanguage.closure?.submitClose}}</button>
