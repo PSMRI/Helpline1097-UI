@@ -174,6 +174,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   ngOnInit() {
     this.IntializeSessionValues();
     console.log('ageUnit', this.ageUnit);
+    this.BeneficaryCreationForm.form.patchValue({
+      ageUnit: 'Years'
+    })
     this.current_campaign = this.saved_data.current_campaign;
     if (this.saved_data.current_campaign == 'OUTBOUND') {
       this.startOutBoundCall(this.saved_data.outboundData);
@@ -854,6 +857,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   populateRegistrationFormForUpdate(registeredBenData) {
     this.wentAwayMainScreen.emit();
+    this.DOB = null;
+    this.age = null;
+    this.ageUnit = 'Years';
+    this.BeneficaryCreationForm.form.patchValue({
+      age: null,
+      ageUnit: 'Years'
+    })
     console.log('registered ben data is :', registeredBenData)
     this.FirstName = registeredBenData.firstName;
     this.LastName = registeredBenData.lastName;
@@ -920,6 +930,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     console.log("experiment 3", this.blocks);
     if (this.DOB != undefined) {
       this.calculateAge(this.DOB);
+      this.dobChangeByCalender(this.DOB);
     }
     // this.age = registeredBenData.age;
     // Checking whether it has parent or not
@@ -1285,7 +1296,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   // NEW CODE 
-  ageUnit: any = 'Years';
+  ageUnit: any;
 
   onAgeEntered(age) {
     let valueEntered = age;
