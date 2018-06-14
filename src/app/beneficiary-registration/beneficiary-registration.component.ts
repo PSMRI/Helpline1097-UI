@@ -173,6 +173,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.IntializeSessionValues();
+    console.log('ageUnit', this.ageUnit);
     this.current_campaign = this.saved_data.current_campaign;
     if (this.saved_data.current_campaign == 'OUTBOUND') {
       this.startOutBoundCall(this.saved_data.outboundData);
@@ -1294,6 +1295,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.age = null;
 
       } else {
+        console.log('ageUnit', this.ageUnit);
         console.log(moment().subtract(this.ageUnit, valueEntered).toDate());
         this.DOB = moment().subtract(this.ageUnit, valueEntered).toDate();
       }
@@ -1303,6 +1305,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   onAgeUnitEntered() {
+    console.log('ageUnit', this.ageUnit);
+
     if (this.age != null) { this.onAgeEntered(this.age); }
   }
 
@@ -1310,7 +1314,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     const date = new Date(this.DOB);
     console.log(this.BeneficaryCreationForm.value.dateOfBirth)
 
-    if (dobval!=undefined) {
+    if (dobval != undefined) {
 
       const dateDiff = Date.now() - date.getTime();
       const age = new Date(dateDiff);
