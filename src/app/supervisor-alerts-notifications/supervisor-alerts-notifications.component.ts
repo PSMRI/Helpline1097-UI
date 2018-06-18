@@ -492,6 +492,17 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   resetEndDate() {
     this.edate = undefined;
   }
+  min_time: any;
+  checkValidationForEndTime(start_date, start_time, end_date, end_time) {
+    if (start_date == end_date) {
+      if (start_time != undefined && end_time != undefined) {
+        if (start_time > end_time) {
+          this.dialogService.alert("End time can't be less than start time", 'info');
+          this.endTime = undefined;
+        }
+      }
+    }
+  }
 
 
 }

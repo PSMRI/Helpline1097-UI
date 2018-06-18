@@ -182,13 +182,13 @@
    </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [(ngModel)]="edate" [min]="eStartDate.value" placeholder="Valid Till"
-          #eEndDate="ngModel" required [style.width]="'100%'"></md2-datepicker>
+          #eEndDate="ngModel" required [style.width]="'100%'" ></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="eEndDate.touched && eEndDate.errors?.required">Date is required</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(eEndDate.value < eStartDate.value) && eEndDate.dirty">End Date cannot be before Start Date!</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
           <md-input-container>
-     <input type="time" mdInput placeholder="End Time" name="endTime" [(ngModel)]="endTime" #time="ngModel">
+     <input type="time" mdInput placeholder="End Time" name="endTime" (change)="checkValidationForEndTime(sdate,startTime,edate,endTime)" [(ngModel)]="endTime" #time="ngModel">
           </md-input-container>
    </div>
       <div class="clearfix"></div>
