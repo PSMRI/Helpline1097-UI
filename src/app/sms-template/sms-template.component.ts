@@ -184,13 +184,13 @@ export class SmsTemplateComponent implements OnInit {
     let reqObj = {
       'createdBy': this.commonData.uname,
       'modifiedBy': this.commonData.uname,
-      'smsParamaterName': form_values.parameter,
-      'smsParamaterType': form_values.value.smsParameterType,
+      'smsParameterName': form_values.parameter,
+      'smsParameterType': form_values.value.smsParameterType,
       'smsParameterID': form_values.value.smsParameterID,
       'smsParameterValue': form_values.value.smsParameterName
     }
-    if (reqObj.smsParamaterName != undefined &&
-      reqObj.smsParamaterType != undefined &&
+    if (reqObj.smsParameterName != undefined &&
+      reqObj.smsParameterType != undefined &&
       reqObj.smsParameterID != undefined) {
       this.smsParameterMaps.push(reqObj);
     } else {
@@ -207,7 +207,7 @@ export class SmsTemplateComponent implements OnInit {
     this.smsParameterMaps.splice(index, 1);
 
     // putting back the respective Parameter if is row is deleted from buffer array
-    this.Parameters.push(obj.smsParamaterName);
+    this.Parameters.push(obj.smsParameterName);
     this.smsParameters = [];
     this.selectedParameterValues = [];
   }
