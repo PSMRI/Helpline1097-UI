@@ -103,6 +103,7 @@ export class loginContentClass implements OnInit {
     // this.dataSettingService.userPriveliges = response.Previlege;
     this.dataSettingService.userPriveliges = this.previlageObj;
     this.dataSettingService.uid = response.userID;
+    this.dataSettingService.current_serviceID=response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID;
     this.dataSettingService.uname = response.userName;
     this.dataSettingService.Userdata.agentID = response.agentID;
     this.dataSettingService.loginIP = response.loginIPAddress;

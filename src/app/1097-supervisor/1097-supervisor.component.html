@@ -108,6 +108,9 @@
                   <li style="cursor: pointer" (click)='show("10")'>
                     <a>Knowledge Management</a>
                   </li>
+                  <li style="cursor: pointer" (click)='show("24")'>
+                    <a>SMS Templates</a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -152,6 +155,8 @@
           <app-supervisor-training-resources *ngSwitchCase="21"></app-supervisor-training-resources>
           <app-supervisor-emergency-contacts *ngSwitchCase="22"></app-supervisor-emergency-contacts>
           <app-force-logout  *ngSwitchCase="23"></app-force-logout>
+          <app-sms-template *ngSwitchCase="24"></app-sms-template>
+          
     
         </div>
       </div>

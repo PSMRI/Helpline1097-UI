@@ -192,6 +192,10 @@ import { EmergencyContactsViewModalComponent } from './emergency-contacts-view-m
 import { QualityAuditService } from './services/supervisorServices/quality-audit-service.service';
 import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logout.component';
 
+
+import { SmsTemplateComponent } from './sms-template/sms-template.component';
+import { SmsTemplateService } from './services/supervisorServices/sms-template-service.service';
+
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
 
@@ -230,7 +234,8 @@ import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logo
     UtcDatePipe,
     EmergencyContactsViewModalComponent,
     CaseSheetSummaryDialogComponent,
-    AgentForceLogoutComponent
+    AgentForceLogoutComponent,
+    SmsTemplateComponent
 
   ],
   imports: [
@@ -318,9 +323,19 @@ import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logo
       // }
     ]),
     Md2Module],
-  entryComponents: [BeneficiaryHistoryComponent, FeedbackStatusComponent, MessageDialogComponent, AlertsNotificationsDialogComponent,
-    AlernateEmailModelComponent, CommonDialogComponent, NotificationsDialogComponent, EditNotificationsComponent
-    , CoAlternateNumberComponent, EmergencyContactsViewModalComponent, CaseSheetSummaryDialogComponent, AgentForceLogoutComponent],
+  entryComponents: [
+    BeneficiaryHistoryComponent,
+    FeedbackStatusComponent,
+    MessageDialogComponent,
+    AlertsNotificationsDialogComponent,
+    AlernateEmailModelComponent,
+    CommonDialogComponent,
+    NotificationsDialogComponent,
+    EditNotificationsComponent,
+    CoAlternateNumberComponent,
+    EmergencyContactsViewModalComponent,
+    CaseSheetSummaryDialogComponent,
+    AgentForceLogoutComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
@@ -329,7 +344,7 @@ import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logo
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, ForceLogoutService,
     CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService,
-    QualityAuditService, {
+    QualityAuditService, SmsTemplateService, {
       provide: InterceptedHttp, useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, LoaderService, Router, AuthService, ConfirmationDialogsService]
     },

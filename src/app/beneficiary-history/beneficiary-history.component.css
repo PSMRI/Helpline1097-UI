@@ -3,3 +3,7 @@
   text-align: left;
   vertical-align: middle;
 }
+
+.mat-dialog-container{
+  padding:15px !important;
+}

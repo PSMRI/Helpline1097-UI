@@ -600,7 +600,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updatedObj.lastName = this.LastName;
     this.updatedObj.genderID = this.GenderID;
     if (this.DOB) {
-      this.updatedObj.dOB = new Date((this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)).toJSON();
+      this.updatedObj.dOB = new Date((this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,  10)+'T00:00:00.000Z';
     } else {
       this.updatedObj.dOB = undefined;
     }

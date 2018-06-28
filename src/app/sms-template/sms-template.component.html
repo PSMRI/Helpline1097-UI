@@ -1,0 +1,168 @@
+<div class="row" *ngIf="showTableFlag">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">SMS Template List</h4>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+    <table class="table table-striped table-hover" [md2Data]="existing_templates" #md2="md2DataTable" [rowsPerPage]="5">
+      <thead>
+        <tr>
+          <th width="5%">S.No</th>
+          <th width="25%">Template Name </th>
+          <th width="30%">Template Type</th>
+          <th width="20%">Template</th>
+          <th width="10%">View</th>
+          <th width="10%">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="md2.data?.length==0">
+          <td colspan="6" class="record-not-found">
+            No Record Found
+          </td>
+
+        </tr>
+        <tr *ngFor="let item of md2.data; let i = index ">
+          <td>
+            <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <md-icon class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" style="color:gray">visibility</md-icon>
+          </td>
+          <td>
+              <button *ngIf="!deleted" md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="ActivateDeactivate(true)">Deactivate</button>
+              <button *ngIf="deleted" md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="ActivateDeactivate(false)">Activate</button>              
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <td colspan="3">
+          <md2-pagination></md2-pagination>
+        </td>
+        <td colspan="3">
+          <button md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="showForm()">Create New SMS Template</button>
+        </td>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="!showTableFlag">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">Create SMS Template</h4>
+  </div>
+
+  <form #smsForm="ngForm" autocomplete="off">
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" myName_space>
+      <md-input-container [style.width]="'100%'">
+        <input mdInput required placeholder="Template Name" ngModel name="templateName" maxlength="40">
+      </md-input-container>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <md-input-container class="hide_underline" [style.width]="'100%'">
+      <input mdInput style="display:none">
+      <md-select [style.width]="'100%'" ngModel required placeholder="SMS Type"
+        name="smsType">
+        <md-option *ngFor="let type of SMS_Types" [value]="type.smsTypeID">
+          {{type.smsType}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+  </div>
+  
+
+  <div class="clearfix"></div>
+
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <md-input-container style="width: 100%">
+      <textarea mdInput rows="5" ngModel required placeholder="SMS Template" minlength="20" maxlength="160" #sms name="smsTemplate"></textarea>
+      <md-hint align="end">{{sms.value.length?sms.value.length:0}}/160</md-hint>
+    </md-input-container>
+  </div>
+
+  <!-- </form> -->
+  <div class="clearfix"></div>
+
+  <div *ngIf="showParameters">
+    <!-- <form #smsForm2="ngForm" autocomplete="off"> -->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput style="display:none">
+        <md-select [style.width]="'100%'" ngModel placeholder="Select Parameter"
+          name="parameter">
+          <md-option *ngFor="let parameter of Parameters" [value]="parameter">
+            {{parameter}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput style="display:none">
+        <md-select [style.width]="'100%'" ngModel placeholder="Select Value Type"
+          name="valueType" (change)="setValuesInDropdown(parameterValueType.value)" #parameterValueType="ngModel">
+          <md-option *ngFor="let type of smsParameters" [value]="type">
+            {{type.smsParameterType}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput style="display:none">
+        <md-select [style.width]="'100%'" ngModel placeholder="Select Value"
+          name="value">
+          <md-option *ngFor="let val of selectedParameterValues" [value]="val">
+            {{val.smsParameterName}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <button  md-raised-button color="primary" type="button" (click)="add(smsForm.value)">Add</button>
+    </div>        
+    <!-- </form> -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 table-responsive" *ngIf="smsParameterMaps.length>0">
+      <table class="table table-hover table-striped" [md2Data]="smsParameterMaps" #md2="md2DataTable" [rowsPerPage]="3">
+        <thead>
+          <tr>
+            <th width="20%">S.No</th>
+            <th width="20%">Parameter</th>
+            <th width="20%">Value Type</th>
+            <th width="20%">Value</th>
+            <th width="20%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of md2.data; let i = index ">
+            <td>
+              <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+            </td>
+            <td>{{item.smsParamaterName}}</td>
+            <td>{{item.smsParamaterType}}</td>
+            <td>{{item.smsParameterValue}}</td>
+            <td>
+              <md-icon mdTooltip="remove" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" (click)="remove(i)">clear</md-icon>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td colspan="5">
+            <md2-pagination></md2-pagination>
+          </td>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  </form>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <button md-raised-button color="primary" type="button" class="pull-left" (click)="showTable()">Back</button>      
+    <button *ngIf="showParameters" md-raised-button color="primary" type="button" class="pull-left m-r-10 m-l-10"  (click)="cancel();smsForm.reset()">Cancel</button>
+    <button *ngIf="showParameters" md-raised-button color="primary" type="button" class="pull-right">Submit</button>
+    <button md-raised-button color="primary" type="button" [disabled]="smsForm.invalid" class="pull-right" *ngIf="!showParameters" (click)="extractParameters(sms.value)">Continue</button>      
+  </div>
+
+  
+</div>

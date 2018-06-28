@@ -25,6 +25,8 @@ export class dataService {
 	roleSelected = new Subject();
 	current_role: any;
 	current_service: any;
+	current_serviceID:any;
+	
 	parentBeneficiaryData: any = {};
 	cZentrixAgentID: number;
 	loginIP: any;
