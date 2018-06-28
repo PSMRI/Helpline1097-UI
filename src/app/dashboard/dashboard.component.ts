@@ -11,6 +11,7 @@ import { CallServices } from './../services/callservices/callservice.service';
 declare var jQuery: any;
 import { SocketService } from '../services/socketService/socket.service';
 import { ToasterService, ToasterConfig } from 'angular2-toaster';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'dashboard-component',
@@ -39,6 +40,7 @@ export class dashboardContentClass implements OnInit {
   loginUrl = this.configService.getCommonLoginUrl();
   compainType: any;
   alertRefresh: number = 1;
+  notificationSubscription: Subscription;
 
   agentID: any;
   agentIDExitsFlag: boolean = false;
@@ -65,7 +67,7 @@ export class dashboardContentClass implements OnInit {
       this.setCampaign(data)
     });
 
-    this.socketService.getMessages().subscribe((data) => {
+    this.notificationSubscription = this.socketService.getMessages().subscribe((data) => {
       console.log(data);
       this.alertRefresh++;
       if (data.type == 'Alert') {
@@ -369,6 +371,7 @@ export class dashboardContentClass implements OnInit {
 
   ngOnDestroy() {
     this.listenCall();
+    this.notificationSubscription.unsubscribe();
   }
   // CODE FOR SIDE NAV
   clicked: boolean = false;
