@@ -17,12 +17,14 @@ export class SmsTemplateComponent implements OnInit {
 
   showTableFlag = true;
 
-  deleted = false;
   showParameters = false;
+  isReadonly = false;
 
   SMS_Types = [];
+  smsType_ID_array = [];
 
   Parameters = [];
+  Parameters_count;
 
   smsParameters = [];
   selectedParameterType;
@@ -49,6 +51,14 @@ export class SmsTemplateComponent implements OnInit {
       .subscribe(response => {
         if (response != undefined && response.length >= 0) {
           this.existing_templates = response;
+
+          // code to extract(IDs) all those non deleted SMS-Types
+          this.smsType_ID_array = [];
+          for (let i = 0; i < this.existing_templates.length; i++) {
+            if (this.existing_templates[i].deleted === false) {
+              this.smsType_ID_array.push(this.existing_templates[i].smsType.smsTypeID);
+            }
+          }
         }
       }, err => {
         console.log('Error while fetching SMS templates', err);
@@ -65,17 +75,17 @@ export class SmsTemplateComponent implements OnInit {
       .subscribe(response => {
         this.SMS_Types = response;
 
-        if (this.SMS_Types.length == 0) {
-          this.SMS_Types = [
-            {
-              "smsTypeID": 2,
-              "smsType": "Registration SMS",
-              "description": "SMS sent with registration",
-              "serviceID": 3,
-              "deleted": false
-            }
-          ]
+        if (this.smsType_ID_array.length > 0) {
+          this.SMS_Types = this.SMS_Types.filter(object => {
+            return !this.smsType_ID_array.includes(object.smsTypeID);
+          });
         }
+
+
+        if (this.SMS_Types.length == 0) {
+          this.commonDialogService.alert('All SMS Types have been used and are those templates are active', 'info');
+        }
+
       }, err => {
         console.log(err, 'error while fetching sms types');
         this.commonDialogService.alert(err.errorMessage, 'error');
@@ -85,10 +95,31 @@ export class SmsTemplateComponent implements OnInit {
   showTable() {
     this.showTableFlag = true;
     this.cancel();
+    this.getSMStemplates(this.providerServiceMapID);
+
   }
 
-  ActivateDeactivate(flag) {
-    this.deleted = flag;
+  ActivateDeactivate(object, flag) {
+
+    object.deleted = flag;
+    object.modifiedBy = this.commonData.uname;
+    this.sms_service.updateSMStemplate(object)
+      .subscribe(response => {
+        if (response) {
+          if (flag) {
+            this.commonDialogService.alert('Deactivated successfully', 'success');
+            this.getSMStemplates(this.providerServiceMapID);
+
+          } else {
+            this.commonDialogService.alert('Activated successfully', 'success');
+            this.getSMStemplates(this.providerServiceMapID);
+
+          }
+        }
+      }, err => {
+
+      });
+
   }
 
   extractParameters(string) {
@@ -112,9 +143,13 @@ export class SmsTemplateComponent implements OnInit {
       return index == self.indexOf(elem);
     });
 
+    this.Parameters.push('SMS_PHONE_NO');
+    this.Parameters_count = this.Parameters.length;
+
     if (this.Parameters.length > 0) {
       this.showParameters = true;
-      this.getSMSparameters();
+      this.isReadonly = true;
+      // this.getSMSparameters();
     } else {
       this.commonDialogService.alert('No parameters identified in sms template', 'info');
     }
@@ -122,11 +157,14 @@ export class SmsTemplateComponent implements OnInit {
 
 
   getSMSparameters() {
+    this.smsParameters = [];
+    this.selectedParameterValues = [];
     this.sms_service.getSMSparameters()
       .subscribe(response => {
         this.smsParameters = response;
       }, err => {
         console.log(err, 'error while fetching sms parameters');
+        this.commonDialogService.alert(err.errorMessage, 'error');
       })
   }
 
@@ -136,6 +174,8 @@ export class SmsTemplateComponent implements OnInit {
   }
 
   cancel() {
+    this.Parameters_count = undefined;
+    this.isReadonly = false;
     this.showParameters = false;
     this.smsParameterMaps = [];
   }
@@ -149,11 +189,27 @@ export class SmsTemplateComponent implements OnInit {
       'smsParameterID': form_values.value.smsParameterID,
       'smsParameterValue': form_values.value.smsParameterName
     }
-    this.smsParameterMaps.push(reqObj);
+    if (reqObj.smsParamaterName != undefined &&
+      reqObj.smsParamaterType != undefined &&
+      reqObj.smsParameterID != undefined) {
+      this.smsParameterMaps.push(reqObj);
+    } else {
+      this.commonDialogService.alert('Parameter, Value Type and Value should be selected', 'info');
+    }
+
+    // removing of the parameters pushed into buffer from the Parameters array and resetting of next two dropdowns
+    this.Parameters.splice(this.Parameters.indexOf(form_values.parameter), 1);
+    this.smsParameters = [];
+    this.selectedParameterValues = [];
   }
 
-  remove(index) {
+  remove(obj, index) {
     this.smsParameterMaps.splice(index, 1);
+
+    // putting back the respective Parameter if is row is deleted from buffer array
+    this.Parameters.push(obj.smsParamaterName);
+    this.smsParameters = [];
+    this.selectedParameterValues = [];
   }
 
   saveSMStemplate(form_values) {
@@ -167,5 +223,13 @@ export class SmsTemplateComponent implements OnInit {
     }
 
     console.log('Save Request', requestObject);
+
+    this.sms_service.saveSMStemplate(requestObject)
+      .subscribe(res => {
+        this.commonDialogService.alert('Template saved successfully', 'success');
+        this.showTable();
+      }, err => {
+        this.commonDialogService.alert(err.errorMessage, 'error');
+      });
   }
 }

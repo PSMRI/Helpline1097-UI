@@ -54,6 +54,18 @@ export class SmsTemplateService {
             .catch(this.handleError);
     }
 
+    saveSMStemplate(obj) {
+        return this.httpIntercept.post(this.saveSMStemplate_url, obj)
+            .map(this.handleSuccess)
+            .catch(this.handleError);
+    }
+
+    updateSMStemplate(obj) {
+        return this.httpIntercept.post(this.updateSMStemplate_url, obj)
+            .map(this.handleSuccess)
+            .catch(this.handleError);
+    }
+
 
 
     handleSuccess(response: Response) {

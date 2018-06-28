@@ -94,7 +94,9 @@
       </div>
     </form>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+  <div class="col-xs-12 col-sm-12">
+
+    <div class="table-responsive">
     <table class="table table-hover table-striped" [md2Data]="filteredCallList" #md2="md2DataTable" [rowsPerPage]="4">
       <thead>
         <tr>
@@ -144,6 +146,7 @@
         </tr>
       </tfoot>
     </table>
+  </div>
   </div>
 </div>
 
