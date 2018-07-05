@@ -35,8 +35,8 @@ export class SmsTemplateComponent implements OnInit {
   smsParameterMaps = [];
 
   @ViewChild('smsForm') Smsform1: NgForm;
-  // @ViewChild('smsForm2') Smsform2: NgForm;
-
+  @ViewChild('smsViewForm') smsViewForm: NgForm;
+  
 
   constructor(public commonData: dataService,
     public sms_service: SmsTemplateService,
