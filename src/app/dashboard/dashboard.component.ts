@@ -212,16 +212,16 @@ export class dashboardContentClass implements OnInit {
   // testing event
   testEvent() {
     // var event = new Event('message');
+    let date = new Date().getTime().toString().slice(0, 10);
     let event = new CustomEvent('message', {
       detail: {
-        data: 'Accept|9845098451|1489742008.5180000000|INBOUND',
+        data: 'Accept|9845098451|' + date + '.' + date + '|INBOUND',
         time: new Date(),
       },
       bubbles: true,
       cancelable: true
     });
     // document.dispatchEvent(event);
-
   }
 
   listener(event) {

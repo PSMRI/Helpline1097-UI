@@ -29,7 +29,7 @@
           <td>{{item.smsType.smsType}}</td>
           <td>{{item.smsTemplate}}</td>
           <td>
-            <md-icon class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" style="color:gray">visibility</md-icon>
+            <md-icon class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" style="color:gray" (click)="view(item)">visibility</md-icon>
           </td>
           <td>
               <button *ngIf="!item.deleted" md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="ActivateDeactivate(item,true)">Deactivate</button>
@@ -48,7 +48,7 @@
     </table>
   </div>
 </div>
-<div class="row" *ngIf="!showTableFlag">
+<div class="row" *ngIf="!showTableFlag && !viewTemplate">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4 class="f-s-b m-t-20 m-b-20">Create SMS Template</h4>
   </div>
@@ -166,3 +166,65 @@
 
   
 </div>
+
+<div  class="row" *ngIf="viewTemplate">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="f-s-b m-t-20 m-b-20">View SMS Template</h4>
+  </div>
+
+  <form #smsViewForm="ngForm" autocomplete="off">
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput required placeholder="Template Name" ngModel name="templateName" readonly>
+      </md-input-container>
+    </div> 
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <md-input-container [style.width]="'100%'">
+      <input mdInput placeholder="SMS Type" ngModel name="smsType" readonly>
+    </md-input-container>
+  </div>
+  
+
+  <div class="clearfix"></div>
+
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <md-input-container style="width: 100%">
+      <textarea mdInput rows="5" ngModel required placeholder="SMS Template"  #sms name="smsTemplate" readonly></textarea>
+      <md-hint align="end">{{sms.value.length?sms.value.length:0}}/160</md-hint>
+    </md-input-container>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 table-responsive" *ngIf="viewSMSparameterTable.length>0">
+    <table class="table table-hover table-striped" [md2Data]="viewSMSparameterTable" #md2="md2DataTable" [rowsPerPage]="3">
+      <thead>
+        <tr>
+          <th width="25%">S.No</th>
+          <th width="25%">Parameter</th>
+          <th width="25%">Value Type</th>
+          <th width="25%">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of md2.data; let i = index ">
+          <td>
+            <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+          </td>
+          <td>{{item.smsParameterName}}</td>
+          <td>{{item.smsParameterType}}</td>
+          <td>{{item.smsParameterValue}}</td>
+          
+        </tr>
+      </tbody>
+      <tfoot>
+        <td colspan="2">
+          <md2-pagination></md2-pagination>
+        </td>
+        <td colspan="2">
+          <button md-raised-button color="primary" type="button" class="pull-right m-r-0" (click)="showTable()">Back</button>      
+        </td>
+      </tfoot>
+    </table>
+  </div>
+  </form>
+</div>
+

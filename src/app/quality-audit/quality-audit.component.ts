@@ -6,6 +6,8 @@ import { QualityAuditService } from '../services/supervisorServices/quality-audi
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { NgForm } from '@angular/forms';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+// import * as jsPDF from 'jspdf';
+// declare var jQuery: any;
 
 @Component({
   selector: 'app-quality-audit',
@@ -340,6 +342,42 @@ export class CaseSheetSummaryDialogComponent {
       return undefined;
     }
   }
+
+  // print()
+  // {
+  //   var pdf = new jsPDF('p', 'pt', 'letter');
+  
+  //   var source = jQuery('#content')[0];
+
+  //   var specialElementHandlers = {
+  //     // element with id of "bypass" - jQuery style selector
+  //     '#bypassme': function (element, renderer) {
+  //         // true = "handled elsewhere, bypass text extraction"
+  //         return true
+  //     }
+  // };
+
+  //   var margins = {
+  //     top: 80,
+  //     bottom: 60,
+  //     left: 40,
+  //     width: 522
+  // };
+
+  //   pdf.fromHTML(
+  //     source, // HTML string or DOM elem ref.
+  //     margins.left, // x coord
+  //     margins.top, { // y coord
+  //         'width': margins.width, // max width of content on PDF
+  //         'elementHandlers': specialElementHandlers
+  //     },
+
+  //     function (dispose) {
+  //         // dispose: object with X, Y of the last line add to the PDF 
+  //         //          this allow the insertion of new lines after html
+  //         pdf.save('1097casesheet.pdf');
+  //     }, margins);
+  // }
 
 
 

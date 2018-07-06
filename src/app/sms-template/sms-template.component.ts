@@ -16,6 +16,8 @@ export class SmsTemplateComponent implements OnInit {
   existing_templates: any = [];
 
   showTableFlag = true;
+  viewTemplate = false;
+  viewSMSparameterTable = [];
 
   showParameters = false;
   isReadonly = false;
@@ -33,8 +35,8 @@ export class SmsTemplateComponent implements OnInit {
   smsParameterMaps = [];
 
   @ViewChild('smsForm') Smsform1: NgForm;
-  // @ViewChild('smsForm2') Smsform2: NgForm;
-
+  @ViewChild('smsViewForm') smsViewForm: NgForm;
+  
 
   constructor(public commonData: dataService,
     public sms_service: SmsTemplateService,
@@ -94,6 +96,7 @@ export class SmsTemplateComponent implements OnInit {
 
   showTable() {
     this.showTableFlag = true;
+    this.viewTemplate = false;
     this.cancel();
     this.getSMStemplates(this.providerServiceMapID);
 
@@ -231,5 +234,27 @@ export class SmsTemplateComponent implements OnInit {
       }, err => {
         this.commonDialogService.alert(err.errorMessage, 'error');
       });
+  }
+
+  view(object) {
+    console.log('templateID', object);
+   
+    this.sms_service.getFullSMSTemplate(object.providerServiceMapID, object.smsTemplateID)
+      .subscribe(response => {
+        console.log(response, 'getfullSMStemplate success');
+        this.viewSMSparameterTable = response.smsParameterMaps;
+        this.viewTemplate = true;
+        this.showTableFlag = false;
+
+        this.smsViewForm.form.patchValue({
+          'templateName': response.smsTemplateName,
+          'smsType': response.smsType.smsType,
+          'smsTemplate': response.smsTemplate
+        });
+
+      }, err => {
+        console.log(err, 'getfullSMStemplate error');
+      })
+
   }
 }
