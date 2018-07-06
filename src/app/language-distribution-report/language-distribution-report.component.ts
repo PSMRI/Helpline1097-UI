@@ -98,10 +98,10 @@ export class LanguageDistributionReportComponent implements OnInit {
       .subscribe((response) => {
         this.districts = response;
       },
-        (error) => {
-          this.alertService.alert(error.errorMessage);
-          console.log(error);
-        })
+      (error) => {
+        this.alertService.alert(error.errorMessage);
+        console.log(error);
+      })
   }
 
   endDateChange() {
@@ -194,10 +194,10 @@ export class LanguageDistributionReportComponent implements OnInit {
         this.tableFlag = true;
         this.languageDistributions = response;
       },
-        (error) => {
-          this.alertService.alert(error.errorMessage);
-          console.log(error);
-        })
+      (error) => {
+        this.alertService.alert(error.errorMessage);
+        console.log(error);
+      })
   }
   download() {
     var options = {
@@ -224,9 +224,44 @@ export class LanguageDistributionReportComponent implements OnInit {
     this.exportToxlsx(criteria);
   }
   exportToxlsx(criteria: any) {
+    let headers = ["SlNo", "preferredLanguage", "serviceProvidedRatio", "count"];
     let wb_name = "Gender Distribution Report";
     const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
-    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.languageDistributions, { header: ["SlNo", "preferredLanguage", "serviceProvidedRatio", "count"] });
+    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.languageDistributions, { header: headers });
+
+    // below code added to modify the headers ---XXXXXXXXXXXXXX----- 5/7/18 gursimran
+
+    let i = 65;    // starting from 65 since it is the ASCII code of 'A'.
+    let count = 0;
+    while (i < headers.length + 65) {
+      let j;
+      if (count > 0) {
+        j = i - (26 * count);
+      }
+      else {
+        j = i;
+      }
+      let cellPosition = String.fromCharCode(j);
+      let finalCellName: any;
+      if (count == 0) {
+        finalCellName = cellPosition + "1";
+        // console.log(finalCellName);
+      }
+      else {
+        let newcellPosition = String.fromCharCode(64 + count);
+        finalCellName = newcellPosition + cellPosition + "1";
+        // console.log(finalCellName);
+      }
+      let newName = this.modifyHeader(headers, i);
+      delete report_worksheet[finalCellName].w; report_worksheet[finalCellName].v = newName;
+      i++;
+      if (i == 91 + (count * 26)) {
+        // i = 65;
+        count++;
+      }
+    }
+    // --------end--------
+
     const workbook: XLSX.WorkBook = { Sheets: { 'Report': report_worksheet, 'Criteria': criteria_worksheet }, SheetNames: ['Criteria', 'Report'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: "array" });
     let blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -243,5 +278,11 @@ export class LanguageDistributionReportComponent implements OnInit {
       document.body.removeChild(link);
     }
   }
-
+  modifyHeader(headers, i) {
+    let modifiedHeader: String;
+    modifiedHeader = headers[i - 65].toString().replace(/([A-Z])/g, ' $1').trim();
+    modifiedHeader = modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
+    //console.log(modifiedHeader);
+    return modifiedHeader.replace(/I D/g, "ID");
+  }
 }
