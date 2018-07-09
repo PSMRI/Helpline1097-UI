@@ -71,10 +71,10 @@ export class CallerAgeReportComponent implements OnInit {
       .subscribe((response) => {
         this.SetUserBeneficiaryRegistrationData(response)
       },
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
 
-        });
+      });
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.ageGroups = [
       {
@@ -274,9 +274,44 @@ export class CallerAgeReportComponent implements OnInit {
     this.exportToxlsx(criteria);
   }
   exportToxlsx(criteria: any) {
+    let headers = ["SlNo", "groupName", "minAge", "maxAge", "serviceProvidedRatio", "count"];
     let wb_name = "Caller Age Group Report";
     const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
-    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.count, { header: ["SlNo", "groupName", "minAge", "maxAge", "serviceProvidedRatio", "count"] });
+    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.count, { header: headers });
+
+    // below code added to modify the headers ---XXXXXXXXXXXXXX----- 5/7/18 gursimran
+
+    let i = 65;    // starting from 65 since it is the ASCII code of 'A'.
+    let count = 0;
+    while (i < headers.length + 65) {
+      let j;
+      if (count > 0) {
+        j = i - (26 * count);
+      }
+      else {
+        j = i;
+      }
+      let cellPosition = String.fromCharCode(j);
+      let finalCellName: any;
+      if (count == 0) {
+        finalCellName = cellPosition + "1";
+        // console.log(finalCellName);
+      }
+      else {
+        let newcellPosition = String.fromCharCode(64 + count);
+        finalCellName = newcellPosition + cellPosition + "1";
+        // console.log(finalCellName);
+      }
+      let newName = this.modifyHeader(headers, i);
+      delete report_worksheet[finalCellName].w; report_worksheet[finalCellName].v = newName;
+      i++;
+      if (i == 91 + (count * 26)) {
+        // i = 65;
+        count++;
+      }
+    }
+    // --------end--------
+
     const workbook: XLSX.WorkBook = { Sheets: { 'Report': report_worksheet, 'Criteria': criteria_worksheet }, SheetNames: ['Criteria', 'Report'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: "array" });
     let blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -292,5 +327,12 @@ export class CallerAgeReportComponent implements OnInit {
       link.click();
       document.body.removeChild(link);
     }
+  }
+  modifyHeader(headers, i) {
+    let modifiedHeader: String;
+    modifiedHeader = headers[i - 65].toString().replace(/([A-Z])/g, ' $1').trim();
+    modifiedHeader = modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
+    //console.log(modifiedHeader);
+    return modifiedHeader.replace(/I D/g, "ID");
   }
 }
