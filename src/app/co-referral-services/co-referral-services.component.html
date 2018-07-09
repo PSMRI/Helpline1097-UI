@@ -137,7 +137,7 @@
             <div class=" height-120 border-1-g overflow-auto" for="subCategoryDetails">
               <div *ngIf="showresult">
                 <span *ngFor="let detail of detailsList">
-                  <md-checkbox color="primary" (change)="toggleSms($event)" class="m-l-10" name={{detail.institutionDetails.institutionID}}>
+                  <md-checkbox color="primary" (change)="toggleSms($event,detail.institutionDetails.institutionID)" class="m-l-10" name={{detail.institutionDetails.institutionID}}>
                   </md-checkbox>
                   {{detail.institutionDetails?.institutionName}}
                   <span *ngIf="detail.institutionDetails?.address">, {{detail.institutionDetails?.address}}</span>

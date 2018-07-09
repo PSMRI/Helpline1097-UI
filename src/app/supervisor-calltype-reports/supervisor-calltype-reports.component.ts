@@ -304,7 +304,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
     const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(result, {
       header: ["slNo", "agentID", "userRole", "callStartTime", "callEndTime", "callDate", "callHour", "callID", "phoneNo", "callType",
-        "callSubType", "userID", "userLocation", "preferredLanguage", "isCalledEarlier", "beneficiaryID", "title", "beneficiaryName",
+        "callSubType", "userName", "userLocation", "preferredLanguage", "isCalledEarlier", "beneficiaryID", "title", "beneficiaryName",
         "dob", "age", "gender", "state", "district", "subDistrict", "preferredLanguage", "occupation", "education", "sexualOrientation",
         "maritalStatus", "placeOfWork", "ivrsSelectedLanguage", "categoryName", "subCategoryName", "documentName", "counsellingCategoryName",
         "counsellingSubCategoryName", "counsellingDocumentName", "feedbackID", "feedback", "remarks"]

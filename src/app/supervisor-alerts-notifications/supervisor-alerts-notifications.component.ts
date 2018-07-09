@@ -304,16 +304,18 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     this.notification_service.createNotification(requestArray)
       .subscribe(response => {
         console.log(response, "NOTIFICATION/ALERT CREATED");
+        let currentDate = new Date();
+
         if (response.data != undefined && response.data.length > 0) {
           if (response.data[0].notificationTypeID == 18) {
             this.dialogService.alert("Alert created successfully", 'success');
             this.notificationCreationForm.reset();
-            if (startDate.getTime() <= this.currentDate.getTime()) {
+            if (startDate.getTime() <= currentDate.getTime()) {
               this.notification_service.sendSocketNotification({
                 "room": roomArray, type: "Alert", "message": form_values.message, "subject": form_values.subject
               })
-                .subscribe((response) => {
-                  console.log(response.data);
+                .subscribe((res) => {
+                  console.log(res.data);
                 },
                 (error) => {
                   console.log(error);
@@ -323,12 +325,12 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
           if (response.data[0].notificationTypeID == 19) {
             this.dialogService.alert("Notification created successfully", 'success');
             this.notificationCreationForm.reset();
-            if (startDate.getTime() <= this.currentDate.getTime()) {
+            if (startDate.getTime() <= currentDate.getTime()) {
               this.notification_service.sendSocketNotification({
                 "room": roomArray, type: "Notification", "message": form_values.message, "subject": form_values.subject
               })
-                .subscribe((response) => {
-                  console.log(response.data);
+                .subscribe((res) => {
+                  console.log(res.data);
                 },
                 (error) => {
                   console.log(error);

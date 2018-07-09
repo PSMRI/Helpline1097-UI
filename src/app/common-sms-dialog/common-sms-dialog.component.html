@@ -1,0 +1,34 @@
+<div class="successHeaderDiv">
+  <h4 class="popupHeader">Success</h4>
+</div>
+<div class="col-xs-12 col-sm-12">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4>{{data.statement}}:{{data.generatedID}}</h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <md-checkbox color="primary" name="altNum" [(ngModel)]="altNum">
+        Alternate Number
+      </md-checkbox>
+      <div *ngIf="altNum">
+        <md-input-container myMobileNumber>
+          <input mdInput autocomplete="off" minlength="10" maxlength="10" (keyup)="mobileNum(mobileNumber)" placeholder="Mobile Number"
+          required name="mobileNumber" [(ngModel)]="mobileNumber" #phnNum="ngModel">
+          <md-hint *ngIf=" phnNum.errors && (  phnNum.touched)" class="errorText">
+          <span>
+            Enter 10 digit mobile number
+          </span>
+          </md-hint>
+        </md-input-container>
+      </div>
+    </div>
+      
+      <div class="col-xs-12 col-sm-12">
+          <button md-raised-button color="primary" class="pull-right font-regular  m-t-8" (click)="dialogReff.close('close')">Close</button>
+          <button md-raised-button color="accent" [disabled]="altNum && !validNumber" class="pull-right font-regular  m-t-8 m-r-5"
+              (click)="dialogReff.close(mobileNumber)">Send SMS
+          </button>
+      </div>
+  </div>
+   
+</div>

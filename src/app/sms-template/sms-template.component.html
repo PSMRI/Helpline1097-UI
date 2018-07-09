@@ -167,12 +167,12 @@
   
 </div>
 
-<div  class="row" *ngIf="viewTemplate">
+<div  class="row" [hidden]="!viewTemplate">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4 class="f-s-b m-t-20 m-b-20">View SMS Template</h4>
   </div>
 
-  <form #smsViewForm="ngForm" autocomplete="off">
+  <form #vf="ngForm" autocomplete="off">
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
         <input mdInput required placeholder="Template Name" ngModel name="templateName" readonly>
@@ -224,6 +224,9 @@
         </td>
       </tfoot>
     </table>
+  </div>
+  <div class="col-xs-12 col-sm-12" *ngIf="viewSMSparameterTable.length===0">
+    <button md-raised-button color="primary" type="button" class="pull-right m-r-0" (click)="showTable()">Back</button>      
   </div>
   </form>
 </div>

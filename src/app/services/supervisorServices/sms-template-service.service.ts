@@ -19,7 +19,7 @@ export class SmsTemplateService {
     getSMSparameters_url: any;
 
     getFullSMSTemplate_url: any;
-
+    sendSMS_url: any;
 
     constructor(
         private _config: ConfigService,
@@ -33,13 +33,17 @@ export class SmsTemplateService {
         this.getSMStypes_url = this.commonBaseURL + 'sms/getSMSTypes';
         this.getSMSparameters_url = this.commonBaseURL + 'sms/getSMSParameters';
         this.getFullSMSTemplate_url = this.commonBaseURL + 'sms/getFullSMSTemplate';
+        this.sendSMS_url = this.commonBaseURL + 'sms/sendSMS';
 
 
     }
 
-    getSMStemplates(providerServiceMapID) {
+    getSMStemplates(providerServiceMapID, smsTypeID?) {
         return this.httpIntercept.post(this.getSMStemplates_url,
-            { 'providerServiceMapID': providerServiceMapID })
+            {
+                'providerServiceMapID': providerServiceMapID,
+                'smsTypeID': smsTypeID ? smsTypeID : undefined
+            })
             .map(this.handleSuccess)
             .catch(this.handleError);
     }
@@ -77,6 +81,12 @@ export class SmsTemplateService {
 
     updateSMStemplate(obj) {
         return this.httpIntercept.post(this.updateSMStemplate_url, obj)
+            .map(this.handleSuccess)
+            .catch(this.handleError);
+    }
+
+    sendSMS(obj) {
+        return this.httpIntercept.post(this.sendSMS_url, obj)
             .map(this.handleSuccess)
             .catch(this.handleError);
     }

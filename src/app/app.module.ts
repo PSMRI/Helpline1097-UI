@@ -195,6 +195,7 @@ import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logo
 
 import { SmsTemplateComponent } from './sms-template/sms-template.component';
 import { SmsTemplateService } from './services/supervisorServices/sms-template-service.service';
+import { CommonSmsDialogComponent } from './common-sms-dialog/common-sms-dialog.component';
 
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
@@ -235,7 +236,8 @@ import { SmsTemplateService } from './services/supervisorServices/sms-template-s
     EmergencyContactsViewModalComponent,
     CaseSheetSummaryDialogComponent,
     AgentForceLogoutComponent,
-    SmsTemplateComponent
+    SmsTemplateComponent,
+    CommonSmsDialogComponent
 
   ],
   imports: [
@@ -335,7 +337,8 @@ import { SmsTemplateService } from './services/supervisorServices/sms-template-s
     CoAlternateNumberComponent,
     EmergencyContactsViewModalComponent,
     CaseSheetSummaryDialogComponent,
-    AgentForceLogoutComponent],
+    AgentForceLogoutComponent,
+    CommonSmsDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,

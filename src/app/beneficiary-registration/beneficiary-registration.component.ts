@@ -17,6 +17,9 @@ import { OutboundService } from './../services/common/outbound.services';
 import { ReloadService } from './../services/common/reload.service';
 import { Subscription } from 'rxjs/Subscription';
 import { NgForm } from '@angular/forms';
+import { CommonSmsDialogComponent } from '../common-sms-dialog/common-sms-dialog.component';
+import { SmsTemplateService } from './../services/supervisorServices/sms-template-service.service';
+
 import * as moment from 'moment';
 
 declare var jQuery: any;
@@ -153,12 +156,22 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   //public mobileNumberMask = [ /[^0-9]/, /\d/];
 
-  constructor(private _util: RegisterService, private _router: Router,
-    private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
-    private updateBen: UpdateService, private saved_data: dataService, private renderer: Renderer,
-    private message: Message, public dialog: MdDialog, private alertMaessage: ConfirmationDialogsService,
+  constructor(private _util: RegisterService,
+    private _router: Router,
+    private _userBeneficiaryData: UserBeneficiaryData,
+    private _locationService: LocationService,
+    private updateBen: UpdateService,
+    private saved_data: dataService,
+    private renderer: Renderer,
+    private message: Message,
+    public dialog: MdDialog,
+    private alertMaessage: ConfirmationDialogsService,
     private pass_data: CommunicationService,
-    private outboundService: OutboundService, private czentrixService: CzentrixServices, private reload_call: ReloadService) {
+    private outboundService: OutboundService,
+    private czentrixService: CzentrixServices,
+    private reload_call: ReloadService,
+    private _smsService: SmsTemplateService
+  ) {
 
     // this.subcriptionOutbound = this.outboundService.getOutboundData()
     //   .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
@@ -600,7 +613,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updatedObj.lastName = this.LastName;
     this.updatedObj.genderID = this.GenderID;
     if (this.DOB) {
-      this.updatedObj.dOB = new Date((this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0,  10)+'T00:00:00.000Z';
+      this.updatedObj.dOB = new Date((this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + 'T00:00:00.000Z';
     } else {
       this.updatedObj.dOB = undefined;
     }
@@ -732,7 +745,30 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   showAlert() {
     this.BeneficaryForm.resetForm();
-    this.alertMaessage.alert('Beneficiary registered with ID :' + this.benRegistrationResponse.beneficiaryID, 'success');
+    // this.alertMaessage.alert('Beneficiary registered with ID :' + this.benRegistrationResponse.beneficiaryID, 'success');
+    let dialogReff = this.dialog.open(CommonSmsDialogComponent, {
+      disableClose: true,
+      width: '420px',
+      data: {
+        'statement': 'Beneficiary registered with ID ',
+        'generatedID': this.benRegistrationResponse.beneficiaryID
+      }
+    });
+
+    dialogReff.afterClosed().subscribe(result => {
+      let mobile_number;
+      mobile_number = result;
+
+      if (mobile_number != 'close' && (mobile_number === undefined || mobile_number === '')) {
+        // mobile no is undefined
+        console.log('Registered number will be used'); // Registered number will be used
+        // ** code to send SMS **
+        this.sendSMS(this.benRegistrationResponse.beneficiaryRegID);
+      } else {
+        // ** code to send SMS **
+        this.sendSMS(this.benRegistrationResponse.beneficiaryRegID, mobile_number);
+      }
+    });
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -1515,5 +1551,80 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   //   }
   // }
   /** Purpose: function to retrive beneficiaries based on the fileds entered */
+
+
+
+  /* 3 July,2018
+	Author:Diamond Khanna
+	Purpose: SMS sending */
+  sendSMS(generated_ben_id, alternate_Phone_No?) {
+
+    let sms_template_id = '';
+    let smsTypeID = '';
+    let currentServiceID = this.saved_data.current_serviceID;
+
+    this._smsService.getSMStypes(currentServiceID)
+      .subscribe(response => {
+        if (response != undefined) {
+          if (response.length > 0) {
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].smsType.toLowerCase() === 'Registration SMS'.toLowerCase()) {
+                smsTypeID = response[i].smsTypeID;
+                break;
+              }
+            }
+          }
+        }
+
+        if (smsTypeID != '') {
+          this._smsService.getSMStemplates(this.saved_data.current_service.serviceID,
+            smsTypeID).subscribe(res => {
+              if (res != undefined) {
+                if (res.length > 0) {
+                  for (let j = 0; j < res.length; j++) {
+                    if (res[j].deleted === false) {
+                      sms_template_id = res[j].smsTemplateID;
+                      break;
+                    }
+                  }
+
+                }
+
+                if (smsTypeID != '') {
+                  let reqObj = {
+                    'alternateNo': alternate_Phone_No,
+                    'beneficiaryRegID': generated_ben_id,
+                    'createdBy': this.saved_data.uname,
+                    'is1097': false,
+                    'providerServiceMapID': this.saved_data.current_service.serviceID,
+                    'smsTemplateID': sms_template_id,
+                    'smsTemplateTypeID': smsTypeID
+                    // "userID": 0
+                  }
+
+                  let arr = [];
+                  arr.push(reqObj);
+
+                  this._smsService.sendSMS(arr)
+                    .subscribe(ressponse => {
+                      console.log(ressponse, 'SMS Sent');
+                      alert('SMS sent');
+                    }, err => {
+                      console.log(err, 'SMS not sent Error');
+                    })
+                }
+              }
+            }, err => {
+              console.log(err, 'Error in fetching sms templates');
+            })
+        }
+
+
+
+      }, err => {
+        console.log(err, 'error while fetching sms types');
+      })
+
+  }
 
 }

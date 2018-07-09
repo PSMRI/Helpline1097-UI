@@ -35,8 +35,8 @@ export class SmsTemplateComponent implements OnInit {
   smsParameterMaps = [];
 
   @ViewChild('smsForm') Smsform1: NgForm;
-  @ViewChild('smsViewForm') smsViewForm: NgForm;
-  
+  @ViewChild('vf') viewform: NgForm;
+
 
   constructor(public commonData: dataService,
     public sms_service: SmsTemplateService,
@@ -246,7 +246,7 @@ export class SmsTemplateComponent implements OnInit {
         this.viewTemplate = true;
         this.showTableFlag = false;
 
-        this.smsViewForm.form.patchValue({
+        this.viewform.form.patchValue({
           'templateName': response.smsTemplateName,
           'smsType': response.smsType.smsType,
           'smsTemplate': response.smsTemplate
