@@ -12,7 +12,7 @@
       <div class="form-group">
         <input type="hidden" class="form-control" id="beneficiaryRegID" name="beneficiaryRegID" [(ngModel)]="beneficiaryRegID">
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--         <div class="form-group">
           <label class="control-label" for="occupation">Occupation</label>
           <select class="form-control drop-arrow" name="occupationID" [(ngModel)]="occupationID">
@@ -21,8 +21,8 @@
                     </option>
                 </select>
         </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
 
           <md-select placeholder="{{currentlanguage.other_details?.occupation}}" [style.width]="'100%'" [(ngModel)]="occupationID"
             name="occupationID">
@@ -31,12 +31,12 @@
               {{occupation.occupationType}}
             </md-option>
           </md-select>
-          <md-hint>
+          <!-- <md-hint>
             <span class="error_text"></span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--         <div class="form-group">
           <label class="control-label" for="educationQualification">Select Education Qualification </label>
           <select class="form-control drop-arrow" name="educationID" [(ngModel)]="educationID">
@@ -45,8 +45,8 @@
                     </option>
                 </select>
         </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
 
           <md-select placeholder="{{currentlanguage.other_details?.qualification}}" [style.width]="'100%'" [(ngModel)]="educationID"
             name="educationID">
@@ -55,12 +55,12 @@
               {{educationQualification.educationType}}
             </md-option>
           </md-select>
-          <md-hint>
+          <!-- <md-hint>
             <span class="error_text"></span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--         <div class="form-group">
           <label class="control-label" for="so">Sexual Orientation</label>
           <select class="form-control drop-arrow" name="sexualOrientationID" [(ngModel)]="sexualOrientationID">
@@ -68,8 +68,8 @@
                         {{sexualOrientation.sexualOrientation}}
                 </select>
         </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
 
           <md-select placeholder="{{currentlanguage.other_details?.sexual_orientation}}" [style.width]="'100%'" [(ngModel)]="sexualOrientationID"
             name="sexualOrientationID">
@@ -78,10 +78,10 @@
               {{sexualOrientation.sexualOrientation}}
             </md-option>
           </md-select>
-          <md-hint>
+          <!-- <md-hint>
             <span class="error_text"></span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--         <div class="form-group">
@@ -108,7 +108,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t--10 m-b-20">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  p-b-1-5">
         <!-- <h5>{{currentlanguage.other_details?.hiv_question}}
           <b>{{currentlanguage.other_details?.hiv_question_condition}}</b>
         </h5>
@@ -120,23 +120,23 @@
         </md-radio-group> -->
 
 
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
           <md-select placeholder="{{currentlanguage.other_details?.hiv_question}} {{currentlanguage.other_details?.hiv_question_condition}}"
             [style.width]="'100%'" [(ngModel)]="isHIVPos" name="isHIVPos">
             <md-option value="yes">Yes</md-option>
             <md-option value="no">No</md-option>
             <md-option value="">Not disclosed</md-option>
           </md-select>
-          <md-hint>
+          <!-- <md-hint>
             <span class="error_text"></span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
       <div class="clearfix visible-lg"></div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
 
           <md-select multiple placeholder="{{currentlanguage.other_details?.feedback_question}}" [style.width]="'100%'" [(ngModel)]="cameToKnowFrom"
             name="cameToKnowFrom" (change)="checkInCaseNotDisclosed(cameToKnowFrom)">
@@ -145,7 +145,7 @@
               {{source.name}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-b-10 p-t-lg-15">
         <button type="submit" md-raised-button color="accent" class="pull-right p-l-r-38 font-regular">{{currentlanguage.other_details?.save}}</button>

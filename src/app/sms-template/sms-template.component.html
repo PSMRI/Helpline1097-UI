@@ -59,16 +59,16 @@
         <input mdInput required placeholder="Template Name" [readonly]="isReadonly" ngModel name="templateName" maxlength="40">
       </md-input-container>
     </div> 
-  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-    <md-input-container class="hide_underline" [style.width]="'100%'">
-      <input mdInput style="display:none">
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 p-b-1-5">
+    <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+      <input mdInput style="display:none"> -->
       <md-select [style.width]="'100%'" ngModel required placeholder="SMS Type"
         name="smsType">
         <md-option *ngFor="let type of SMS_Types" [value]="type.smsTypeID">
           {{type.smsType}}
         </md-option>
       </md-select>
-    </md-input-container>
+    <!-- </md-input-container> -->
   </div>
   
 
@@ -86,38 +86,38 @@
 
   <div *ngIf="showParameters">
     <!-- <form #smsForm2="ngForm" autocomplete="off"> -->
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-      <md-input-container class="hide_underline" [style.width]="'100%'">
-        <input mdInput style="display:none">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 p-b-1-5">
+      <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput style="display:none"> -->
         <md-select [style.width]="'100%'" ngModel placeholder="Select Parameter"
           name="parameter" (change)="getSMSparameters()">
           <md-option *ngFor="let parameter of Parameters" [value]="parameter">
             {{parameter}}
           </md-option>
         </md-select>
-      </md-input-container>
+      <!-- </md-input-container> -->
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-      <md-input-container class="hide_underline" [style.width]="'100%'">
-        <input mdInput style="display:none">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 p-b-1-5">
+      <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput style="display:none"> -->
         <md-select [style.width]="'100%'" ngModel placeholder="Select Value Type"
           name="valueType" (change)="setValuesInDropdown(parameterValueType.value)" #parameterValueType="ngModel">
           <md-option *ngFor="let type of smsParameters" [value]="type">
             {{type.smsParameterType}}
           </md-option>
         </md-select>
-      </md-input-container>
+      <!-- </md-input-container> -->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-      <md-input-container class="hide_underline" [style.width]="'100%'">
-        <input mdInput style="display:none">
+      <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+        <input mdInput style="display:none"> -->
         <md-select [style.width]="'100%'" ngModel placeholder="Select Value"
           name="value">
           <md-option *ngFor="let val of selectedParameterValues" [value]="val">
             {{val.smsParameterName}}
           </md-option>
         </md-select>
-      </md-input-container>
+      <!-- </md-input-container> -->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <button class="m-t-10" md-raised-button color="primary" type="button" (click)="add(smsForm.value)">Add</button>

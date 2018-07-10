@@ -4,53 +4,53 @@
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 m-t-10">
         <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.closure?.call_details}}</h4>
         <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-            <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5">
+            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none"> -->
               <md-select required placeholder="{{currentlanguage.closure?.calltype}}" [style.width]="'100%'" ngModel name="callType" #callType="ngModel"
                 (change)="getCallSubType(callType.value)">
                 <md-option *ngFor="let calltype of calltypes" value="{{calltype.callTypeDesc}}">
                   {{calltype.callTypeDesc}}
                 </md-option>
               </md-select>
-              <md-hint *ngIf="callType.invalid && (callType.dirty || callType.touched)">
+              <!-- <md-hint *ngIf="callType.invalid && (callType.dirty || callType.touched)">
                 <span class="error_text">Call Type is required </span>
               </md-hint>
-            </md-input-container>
+            </md-input-container> -->
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-            <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5">
+            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none"> -->
               <md-select required placeholder="{{currentlanguage.closure?.callSubtype}}" [style.width]="'100%'" [(ngModel)]="callTypeID"
                 (change)="sliderVisibility(callTypeID)" name="callTypeID" #subCallType="ngModel">
                 <md-option *ngFor="let callSubtype of callSubTypes" value="{{callSubtype?.callTypeID}},{{callSubtype?.fitToBlock}},{{callSubtype?.fitForFollowUp}}">
                   {{callSubtype.callType}}
                 </md-option>
               </md-select>
-              <md-hint *ngIf="subCallType.invalid && (subCallType.dirty || subCallType.touched)">
+              <!-- <md-hint *ngIf="subCallType.invalid && (subCallType.dirty || subCallType.touched)">
                 <span class="error_text">Sub Call Type is required </span>
               </md-hint>
-            </md-input-container>
+            </md-input-container> -->
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="transferValid">
-            <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="transferValid">
+            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none"> -->
               <md-select required placeholder="Campaign Names" [style.width]="'100%'" [(ngModel)]="campaignName" name="campaignName" (change)="getCampaignSkills(campaignName)">
                 <md-option *ngFor="let campaigns of campaignNames" value="{{campaigns.campaign_name}}">
                   {{campaigns.campaign_name}}
                 </md-option>
               </md-select>
-            </md-input-container>
+            <!-- </md-input-container> -->
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="transferValid">
-            <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="transferValid">
+            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none"> -->
               <md-select placeholder="Campaign Skills" [style.width]="'100%'" [(ngModel)]="campaignSkill" name="campaignSkill">
                 <md-option *ngFor="let skills of campaignSkills" value="{{skills.skill_name}}">
                   {{skills.skill_name}}
                 </md-option>
               </md-select>
-            </md-input-container>
+            <!-- </md-input-container> -->
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <md-input-container style="width: 100%">
@@ -83,33 +83,33 @@
               <input mdInput placeholder="{{currentlanguage.closure?.follow_up_reason}}" maxlength="200" name="requestedFor" required [(ngModel)]="requestedFor">
             </md-input-container>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="isFollowUp">
-            <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="isFollowUp">
+            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none"> -->
               <md-select required placeholder="{{currentlanguage.closure?.language}}" [style.width]="'100%'" [(ngModel)]="preferredLanguageName"
                 name="preferredLanguageName" #languageName="ngModel">
                 <md-option *ngFor="let lang of languages" [value]="lang.languageName">
                   {{lang.languageName}}
                 </md-option>
               </md-select>
-              <md-hint *ngIf="languageName.invalid && (languageName.dirty || languageName.touched)">
+              <!-- <md-hint *ngIf="languageName.invalid && (languageName.dirty || languageName.touched)">
                 <span class="error_text">Language is required </span>
               </md-hint>
-            </md-input-container>
+            </md-input-container> -->
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="isFollowUp">
-            <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="isFollowUp">
+            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none"> -->
               <md-select required placeholder="{{currentlanguage.closure?.serviceRequested}}" [style.width]="'100%'" [(ngModel)]="requestedServiceID"
                 name="requestedServiceID" #requestedService="ngModel">
                 <md-option *ngFor="let subServiceType of subServiceTypes" [value]="subServiceType.subServiceID">
                   {{subServiceType.subServiceName}}
                 </md-option>
               </md-select>
-              <md-hint *ngIf="requestedService.invalid && (requestedService.dirty || requestedService.touched)">
+              <!-- <md-hint *ngIf="requestedService.invalid && (requestedService.dirty || requestedService.touched)">
                 <span class="error_text">Outbound requested service is required </span>
               </md-hint>
-            </md-input-container>
+            </md-input-container> -->
           </div>
         </div>
       </div>

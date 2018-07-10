@@ -43,7 +43,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   @Output() wentAwayMainScreen: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('ageRef') input: ElementRef;
   @ViewChild('BeneficaryForm') BeneficaryForm;
-
+  
   @ViewChild('BeneficaryForm') BeneficaryCreationForm: NgForm;
 
   fname: any = '';
@@ -209,7 +209,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // if (this.onStartNewCall) {
     //   this.startNewCall();
     // }
-    jQuery("#BeneficaryForm").trigger("reset");
+    this.BeneficaryForm.resetForm();
 
   }
 
@@ -346,7 +346,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.startCall();
   }
   startCall() {
-    jQuery("#benForm").trigger("reset");
+    this.BeneficaryForm.resetForm();
 
     const data: any = {};
     data.callID = this.saved_data.callID;
@@ -446,7 +446,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     if (!flag) {
 
-      jQuery("#BeneficaryForm").trigger("reset");
+      // jQuery("#BeneficaryForm").trigger("reset");
+      this.BeneficaryForm.resetForm();
 
       this.searchValue = 'Advance Search';
       this.advanceBtnHide = false;
@@ -459,33 +460,38 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.calledEarlier = false;
       this.showSearchResult = false;
       this.updationProcess = false;
-      this.FirstName = undefined;
-      this.LastName = undefined;
+      //..
+      // this.FirstName = undefined;
+      // this.LastName = undefined;
+
       // this.PhoneNo = undefined;
-      this.alternateNumber1 = undefined;
-      this.alternateNumber2 = undefined;
-      this.alternateNumber3 = undefined;
-      this.alternateNumber4 = undefined;
-      this.alternateNumber5 = undefined;
-      this.GenderID = undefined;
-      this.age = undefined;
-      this.TitleId = undefined;
-      this.MaritalStatusID = undefined;
-      this.DOB = undefined;
-      this.aadharNo = undefined;
-      this.caste = undefined;
-      this.BeneficiaryTypeID = undefined;
+      //..
+      // this.alternateNumber1 = undefined;
+      // this.alternateNumber2 = undefined;
+      // this.alternateNumber3 = undefined;
+      // this.alternateNumber4 = undefined;
+      // this.alternateNumber5 = undefined;
+      // this.GenderID = undefined;
+      // this.age = undefined;
+      // this.TitleId = undefined;
+      // this.MaritalStatusID = undefined;
+      // this.DOB = undefined;
+      // this.aadharNo = undefined;
+      // this.caste = undefined;
+      // this.BeneficiaryTypeID = undefined;
+
       // this.educationQualification = undefined;
-      this.state = undefined;
-      this.district = undefined;
+      //..
+      // this.state = undefined;
+      // this.district = undefined;
       this.districts = [];
-      this.taluk = undefined;
-      this.taluks = [];
-      this.village = undefined;
+      // this.taluk = undefined;
+       this.taluks = [];
+      // this.village = undefined;
       this.blocks = [];
-      this.pincode = undefined;
-      this.preferredLanguage = undefined;
-      this.identityType = undefined;
+      // this.pincode = undefined;
+      // this.preferredLanguage = undefined;
+      // this.identityType = undefined;
       this.wentAwayMainScreen.emit();
       //             this.age = "0";
       // this.calculateDOB("0"); //for default age to be zero
@@ -1338,7 +1344,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     let valueEntered = age;
     if (valueEntered) {
       if (valueEntered > 120 && this.ageUnit == 'Years') {
-        alert(`Age can only be set between Today to 120 Years`);
+        // alert(`Age can only be set between Today to 120 Years`);
         this.age = null;
 
       } else {
@@ -1526,6 +1532,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
   reset() {
+    this.BeneficaryForm.resetForm();
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
     // let a = null;

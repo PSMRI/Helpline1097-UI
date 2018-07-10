@@ -59,15 +59,15 @@
     <h4 class="f-s-b m-t-20 m-b-20">Training Resource</h4>
   </div>
   <form #trainingResources="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <md-input-container [style.width]="'100%'" class="hide_underline">
-        <input mdInput class="display_none">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+        <input mdInput class="display_none"> -->
         <md-select multiple placeholder="Select Roles" [style.width]="'100%'" required [(ngModel)]="role" name="roles">
           <md-option *ngFor="let item of roles" [value]="item.roleID">
             {{item.roleName}}
           </md-option>
         </md-select>
-      </md-input-container>
+      <!-- </md-input-container> -->
     </div>
     <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" [min]="minStartDate" #start_Date="ngModel"
