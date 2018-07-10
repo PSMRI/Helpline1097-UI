@@ -370,7 +370,8 @@ export class CoReferralServicesComponent implements OnInit {
                         'instituteID': this.ref_array[i],
                         'stateID': this.row_array[i].stateID,
                         'districtID': this.row_array[i].districtID,
-                        'blockID': this.row_array[i].blockID
+                        'blockID': this.row_array[i].blockID,
+                        'beneficiaryRegID':this.beneficiaryRegID
                       }
 
                       req_arr.push(Obj);
