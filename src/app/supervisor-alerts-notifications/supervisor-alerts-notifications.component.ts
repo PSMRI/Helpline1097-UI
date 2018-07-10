@@ -349,6 +349,28 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       });
   }
 
+  invalidTimeFlag = false;
+  validateTime(start_date, end_date, start_time, end_time) {
+    if (start_time === undefined && end_time === undefined) {
+
+    }
+    if (start_time != undefined && end_time != undefined &&
+      start_date.getDate() != undefined && end_date.getDate() != undefined) {
+      if ((start_date.getDate() === end_date.getDate()) && (start_time > end_time)) {
+        this.invalidTimeFlag = true;
+      }
+      if ((start_date.getDate() === end_date.getDate()) && (start_time < end_time)) {
+        this.invalidTimeFlag = false;
+      }
+      if ((start_date.getDate() === end_date.getDate()) && (start_time === end_time)) {
+        this.invalidTimeFlag = true;
+      }
+      if (start_date.getDate() != end_date.getDate()) {
+        this.invalidTimeFlag = false;
+      }
+    }
+  }
+
   /*-----content for editing---------  */
   editType: any;
   notification_subject: any;
