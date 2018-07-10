@@ -7,6 +7,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { CoAlternateNumberComponent } from './co-alternate-number/co-alternate-number.component';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { CommonSmsDialogComponent } from '../common-sms-dialog/common-sms-dialog.component';
+import { SmsTemplateService } from './../services/supervisorServices/sms-template-service.service';
+
 // Common service to pass Data
 declare var jQuery: any;
 
@@ -51,7 +54,7 @@ export class CoReferralServicesComponent implements OnInit {
   subscription: Subscription
   beneficiaryRegID: any;
   p = 1;
-  enableSms: boolean = true;
+  enableSms: boolean = false;
   showresult: boolean;
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -60,7 +63,8 @@ export class CoReferralServicesComponent implements OnInit {
     private saved_data: dataService,
     private pass_data: CommunicationService,
     private dialog: MdDialog,
-    private message: ConfirmationDialogsService
+    private message: ConfirmationDialogsService,
+    private _smsService: SmsTemplateService
   ) { this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) }); }
 
   ngOnInit() {
@@ -74,7 +78,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe(response => this.SetUserBeneficiaryRegistrationData(response),
       (err) => {
-        this.message.alert(err.errorMessage,'error');
+        this.message.alert(err.errorMessage, 'error');
       });
     this.GetInformationDirectory();
   }
@@ -82,7 +86,7 @@ export class CoReferralServicesComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
-    if(this.resetProvideServices) {
+    if (this.resetProvideServices) {
       this.tempFlag = true;
 
       this.showTableCondition = true;
@@ -92,7 +96,7 @@ export class CoReferralServicesComponent implements OnInit {
       // this.selected_state = undefined;
 
     }
-    
+
   }
 
   setLanguage(language) {
@@ -104,7 +108,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._coReferralService.getTypes(this.providerServiceMapID)
       .subscribe(response => this.setServiceTypes(response),
       (err) => {
-        this.message.alert(err.errorMessage,'error');
+        this.message.alert(err.errorMessage, 'error');
       });
   }
   setServiceTypes(response: any) {
@@ -120,7 +124,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._coReferralService.getReferralHistoryByID(this.beneficiaryRegID, this.saved_data.current_service.providerServiceMapID)
       .subscribe(response => this.getReferralHistory(response),
       (err) => {
-        this.message.alert(err.errorMessage,'error');
+        this.message.alert(err.errorMessage, 'error');
       });
   }
 
@@ -139,9 +143,9 @@ export class CoReferralServicesComponent implements OnInit {
   showForm() {
     this.showFormCondition = true;
     this.showTableCondition = false;
-    if(this.tempFlag){
-            jQuery('#referralForm').trigger("reset");
-            this.tempFlag = false;
+    if (this.tempFlag) {
+      jQuery('#referralForm').trigger("reset");
+      this.tempFlag = false;
     }
 
   }
@@ -164,7 +168,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._locationService.getDirectory(this.providerServiceMapID).subscribe((response) => {
       this.directory = response.directory;
     }, (err) => {
-      this.message.alert(err.errorMessage,'error');
+      this.message.alert(err.errorMessage, 'error');
 
     });
   }
@@ -175,7 +179,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._locationService.getDistricts(state)
       .subscribe(response => this.SetDistricts(response),
       (err) => {
-        this.message.alert(err.errorMessage,'error');
+        this.message.alert(err.errorMessage, 'error');
       });
   }
   SetDistricts(response: any) {
@@ -187,7 +191,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._locationService.getTaluks(district)
       .subscribe(response => this.SetTaluks(response),
       (err) => {
-        this.message.alert(err.errorMessage,'error');
+        this.message.alert(err.errorMessage, 'error');
       });
   }
   SetTaluks(response: any) {
@@ -198,7 +202,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._locationService.getBranches(taluk)
       .subscribe(response => this.SetSDTB(response),
       (err) => {
-        this.message.alert(err.errorMessage,'error');
+        this.message.alert(err.errorMessage, 'error');
       });
   }
   SetSDTB(response: any) {
@@ -209,7 +213,7 @@ export class CoReferralServicesComponent implements OnInit {
     this._locationService.getSubDirectory(directoryID)
       .subscribe(response => this.SetSubDirectory(response),
       (err) => {
-        this.message.alert(err.errorMessage,'error');
+        this.message.alert(err.errorMessage, 'error');
       });
   }
   SetSubDirectory(response: any) {
@@ -221,9 +225,9 @@ export class CoReferralServicesComponent implements OnInit {
       this.selected_directory, this.selected_sub_directory, this.selected_state, this.selected_district, this.selected_taluk,
       this.saved_data.uname, this.beneficiaryRegID, this.subServiceID, this.saved_data.callData.benCallID
     ).subscribe(response => this.SetReferralDetails(response),
-    (err) => {
-      this.message.alert(err.errorMessage,'error');
-    });
+      (err) => {
+        this.message.alert(err.errorMessage, 'error');
+      });
   }
 
   SetReferralDetails(response: any) {
@@ -271,36 +275,129 @@ export class CoReferralServicesComponent implements OnInit {
   };
 
   sendSMS() {
-    let dialogReff = this.dialog.open(CoAlternateNumberComponent, {
-      height: '280px',
-      width: '420px',
+    let dialogReff = this.dialog.open(CommonSmsDialogComponent, {
       disableClose: true,
+      width: '420px',
       data: {
-        'currentlanguage': this.current_language
+        'statement': undefined,
+        'generatedID': this.ref_array
       }
     });
 
     dialogReff.afterClosed().subscribe(result => {
       if (result) {
-        this.message.alert('Message sent to alternate number','success');
+        // this.message.alert('Message sent to alternate number', 'success');
+        this.send_sms(this.ref_array, result)
       }
       else {
         let primaryNumber = this.saved_data.callerNumber;
-        this.message.alert('Message sent to primary number','success');
+        // this.message.alert('Message sent to primary number', 'success');
+        this.send_sms(this.ref_array)
+
       }
     });
   }
-  toggleSms(e: any) {
-    if (!e.checked) {
-      this.enableSms = true;
+
+  ref_array = [];
+  row_array = [];
+  toggleSms(e: any, id, obj) {
+    if (e.checked) {
+      this.ref_array.push(id);
+      this.row_array.push(obj);
     } else {
+
+      this.row_array.splice(this.ref_array.indexOf(id), 1);
+      this.ref_array.splice(this.ref_array.indexOf(id), 1);
+    }
+
+    if (this.ref_array.length == 0) {
       this.enableSms = false;
+    } else {
+      this.enableSms = true;
     }
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
+  }
+
+
+  /* 9 July,2018
+	Author:Diamond Khanna
+	Purpose: SMS sending */
+  send_sms(generated_ben_ids, alternate_Phone_No?) {
+
+    let sms_template_id = '';
+    let smsTypeID = '';
+    let currentServiceID = this.saved_data.current_serviceID;
+    if (currentServiceID != undefined) {
+      this._smsService.getSMStypes(currentServiceID)
+        .subscribe(response => {
+          if (response != undefined) {
+            if (response.length > 0) {
+              for (let i = 0; i < response.length; i++) {
+                if (response[i].smsType.toLowerCase() === 'Referral SMS'.toLowerCase()) {
+                  smsTypeID = response[i].smsTypeID;
+                  break;
+                }
+              }
+            }
+          }
+
+          if (smsTypeID != '') {
+            this._smsService.getSMStemplates(this.saved_data.current_service.serviceID,
+              smsTypeID).subscribe(res => {
+                if (res != undefined) {
+                  if (res.length > 0) {
+                    for (let j = 0; j < res.length; j++) {
+                      if (res[j].deleted === false) {
+                        sms_template_id = res[j].smsTemplateID;
+                        break;
+                      }
+                    }
+                  }
+                  if (smsTypeID != '') {
+                    let req_arr = [];
+                    for (let i = 0; i < this.ref_array.length; i++) {
+                      let Obj = {
+                        'alternateNo': alternate_Phone_No,
+                        'createdBy': this.saved_data.uname,
+                        'is1097': true,
+                        'providerServiceMapID': this.saved_data.current_service.serviceID,
+                        'smsTemplateID': sms_template_id,
+                        'smsTemplateTypeID': smsTypeID,
+                        'instituteID': this.ref_array[i],
+                        'stateID': this.row_array[i].stateID,
+                        'districtID': this.row_array[i].districtID,
+                        'blockID': this.row_array[i].blockID
+                      }
+
+                      req_arr.push(Obj);
+                    }
+
+
+                    this._smsService.sendSMS(req_arr)
+                      .subscribe(ressponse => {
+                        console.log(ressponse, 'SMS Sent');
+                        alert('SMS sent');
+                      }, err => {
+                        console.log(err, 'SMS not sent Error');
+                      })
+                  }
+                }
+              }, err => {
+                console.log(err, 'Error in fetching sms templates');
+              })
+          }
+        }, err => {
+          console.log(err, 'error while fetching sms types');
+        });
+    } else {
+      console.log('Service ID not found')
+    }
+
+
   }
 
 

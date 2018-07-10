@@ -48,7 +48,7 @@ export class loginContentClass implements OnInit {
         //   this.router.navigate(['/setQuestions']);
         // }
       }, (err) => {
-      //  this.alertService.alert(err.errorMessage, 'error');
+        //  this.alertService.alert(err.errorMessage, 'error');
       });
     }
 
@@ -80,7 +80,7 @@ export class loginContentClass implements OnInit {
         //   this.router.navigate(['/setQuestions']);
         // }
       }, (err) => {
-      //  this.alertService.alert(err.errorMessage, 'error');
+        //  this.alertService.alert(err.errorMessage, 'error');
       });
     }
 
@@ -103,7 +103,7 @@ export class loginContentClass implements OnInit {
     // this.dataSettingService.userPriveliges = response.Previlege;
     this.dataSettingService.userPriveliges = this.previlageObj;
     this.dataSettingService.uid = response.userID;
-    this.dataSettingService.current_serviceID=response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID;
+    this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID;
     this.dataSettingService.uname = response.userName;
     this.dataSettingService.Userdata.agentID = response.agentID;
     this.dataSettingService.loginIP = response.loginIPAddress;
@@ -112,6 +112,9 @@ export class loginContentClass implements OnInit {
     console.log('array' + this.previlageObj);
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
+      if (this.dataSettingService.current_serviceID === undefined) {
+        alert('ServiceID not found. Some things may not work');
+      }
       sessionStorage.removeItem('isOnCall');
       localStorage.setItem('authToken', response.key);
       this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });

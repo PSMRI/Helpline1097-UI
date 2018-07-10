@@ -1561,7 +1561,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     let sms_template_id = '';
     let smsTypeID = '';
-    let currentServiceID = this.saved_data.current_serviceID;
+    // below line has hardcoded content in else section; needs to be removed
+    let currentServiceID = this.saved_data.current_serviceID ? this.saved_data.current_serviceID : 1;
 
     this._smsService.getSMStypes(currentServiceID)
       .subscribe(response => {

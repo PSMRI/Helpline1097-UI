@@ -3,13 +3,14 @@
 </div>
 <div class="col-xs-12 col-sm-12">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="data.statement!=undefined">
       <h4>{{data.statement}}:{{data.generatedID}}</h4>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <md-checkbox color="primary" name="altNum" [(ngModel)]="altNum">
         Alternate Number
       </md-checkbox>
+      
       <div *ngIf="altNum">
         <md-input-container myMobileNumber>
           <input mdInput autocomplete="off" minlength="10" maxlength="10" (keyup)="mobileNum(mobileNumber)" placeholder="Mobile Number"
