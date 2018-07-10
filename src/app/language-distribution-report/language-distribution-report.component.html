@@ -31,36 +31,36 @@
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.errors?.required">End date should be greator than start(max 30 days)</span>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select class="" placeholder="State" [style.width]="'100%'" ngModel name="state" #state="ngModel" (change)="getDistricts()">
             <md-option *ngFor="let item of states" [value]="item">
               {{item.stateName}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select class="" placeholder="District" [style.width]="'100%'" ngModel name="district" #district="ngModel">
             <md-option *ngFor="let item of districts" [value]="item.districtName">
               {{item.districtName}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select class="" placeholder="Language" [style.width]="'100%'" required ngModel name="language" #language="ngModel">
             <!--<md-option value="all">ALL</md-option>-->
             <md-option *ngFor="let item of languages" [value]="item.languageName">
               {{item.languageName}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
 
 

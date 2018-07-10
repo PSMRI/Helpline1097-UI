@@ -33,39 +33,39 @@
           <span class="error_text f-s-10 p-l-10" *ngIf="endDate.errors?.required">End date should be greator than start(max 30 days)</span>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput style="display:none"> -->
 
             <md-select placeholder="Select State" [style.width]="'100%'" [(ngModel)]="state" name="state" (change)="GetDistricts(state)">
               <md-option *ngFor="let stat of states" [value]="stat">
                 {{stat.stateName}}
               </md-option>
             </md-select>
-          </md-input-container>
+          <!-- </md-input-container> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput style="display:none"> -->
 
             <md-select placeholder="Select District" [style.width]="'100%'" [(ngModel)]="district" name="district">
               <md-option *ngFor="let district of districts" [value]="district.districtName">
                 {{district.districtName}}
               </md-option>
             </md-select>
-          </md-input-container>
+          <!-- </md-input-container> -->
 
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput style="display:none"> -->
 
             <md-select required placeholder="Select Age Group" [style.width]="'100%'" [(ngModel)]="ageGroup" name="ageGroup">
               <md-option *ngFor="let age of ageGroups" [value]="age.ageGroupValue">
                 {{age.ageGroupDisplay}}
               </md-option>
             </md-select>
-          </md-input-container>
+          <!-- </md-input-container> -->
 
         </div>
 

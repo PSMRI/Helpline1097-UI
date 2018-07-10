@@ -21,40 +21,40 @@
     </div> -->
       <!-- <form novalidate #form="ngForm"> -->
       <form id="referralForm" autocomplete="off">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
 
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput class="display_none"> -->
             <md-select required placeholder="{{currentlanguage.referral_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state"
               name="state" #state="ngModel" (change)="GetDistricts(selected_state)">
               <md-option *ngFor="let state of states" [value]="state.stateID">
                 {{state.stateName}}
               </md-option>
             </md-select>
-            <md-hint *ngIf="(state.invalid && (state.dirty || state.touched))">
+            <!-- <md-hint *ngIf="(state.invalid && (state.dirty || state.touched))">
               <span class="error_text">State is required</span>
             </md-hint>
-          </md-input-container>
+          </md-input-container> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
 
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput class="display_none"> -->
             <md-select required #district="ngModel" placeholder="{{currentlanguage.referral_service?.district}}" [style.width]="'100%'"
               [(ngModel)]="selected_district" name="district" (change)="GetTaluks(selected_district)">
               <md-option *ngFor="let district of districts" [value]="district.districtID">
                 {{district.districtName}}
               </md-option>
             </md-select>
-            <md-hint *ngIf="district.invalid && (district.dirty || district.touched)">
+            <!-- <md-hint *ngIf="district.invalid && (district.dirty || district.touched)">
               <span class="error_text">District is required</span>
             </md-hint>
-          </md-input-container>
+          </md-input-container> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
 
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput class="display_none"> -->
             <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
               name="taluk" (change)="GetSDTB(selected_taluk)">
               <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
@@ -64,7 +64,7 @@
             <!-- <md-hint *ngIf="taluk.invalid && (taluk.dirty || taluk.touched)">
             <span class="error_text">Taluk is required</span>
           </md-hint> -->
-          </md-input-container>
+          <!-- </md-input-container> -->
         </div>
         <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> -->
         <!--             <div class="form-group">
@@ -91,7 +91,7 @@
           </md-hint> -->
         <!-- </md-input-container>
       </div> -->
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
           <!--             <div class="form-group has-label">
                 <label class="control-label" for="whatInformation">What Information do you require?(Directory)</label>
                 <select class="form-control drop-arrow ng-pristine ng-untvillageouched ng-valid ng-empty" name="whatInformation" [(ngModel)]="selected_directory"
@@ -99,34 +99,34 @@
                     <option *ngFor="let directoryItem of directory" value={{directoryItem.instituteDirectoryID}}>{{directoryItem.instituteDirectoryName}}</option>
                 </select>
             </div> -->
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput class="display_none"> -->
             <md-select required #directoryVar="ngModel" placeholder="{{currentlanguage.referral_service?.directory}}" [style.width]="'100%'"
               [(ngModel)]="selected_directory" name="whatInformation" (change)="GetSubDirectory(selected_directory)">
               <md-option *ngFor="let directoryItem of directory " [value]="directoryItem.instituteDirectoryID">
                 {{directoryItem.instituteDirectoryName}}
               </md-option>
             </md-select>
-            <md-hint *ngIf="directoryVar.invalid && (directoryVar.dirty || directoryVar.touched)">
+            <!-- <md-hint *ngIf="directoryVar.invalid && (directoryVar.dirty || directoryVar.touched)">
               <span class="error_text">Directory is required</span>
             </md-hint>
-          </md-input-container>
+          </md-input-container> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput class="display_none"> -->
             <md-select required #subDirectory="ngModel" placeholder="{{currentlanguage.referral_service?.sub_directory}}" [style.width]="'100%'"
               [(ngModel)]="selected_sub_directory" name="subDirectory" (change)="GetSubDirectory(selected_directory)">
               <md-option *ngFor="let sub_directoryItem of sub_directory" [value]="sub_directoryItem.instituteSubDirectoryID">
                 {{sub_directoryItem.instituteSubDirectoryName}}
               </md-option>
             </md-select>
-            <md-hint *ngIf="subDirectory.invalid && (subDirectory.dirty || subDirectory.touched)">
+            <!-- <md-hint *ngIf="subDirectory.invalid && (subDirectory.dirty || subDirectory.touched)">
               <span class="error_text">Sub Directory is required</span>
             </md-hint>
-          </md-input-container>
+          </md-input-container> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15 m-b-20">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <button type="button" class="font-regular mar-right" md-raised-button color="accent" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
             (click)="GetReferralDetails()">{{currentlanguage.referral_service?.get_details}}</button>
           <button color="primary" md-raised-button (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>

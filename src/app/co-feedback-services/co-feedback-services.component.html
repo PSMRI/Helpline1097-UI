@@ -15,21 +15,21 @@
   </div>
   <div class="row">
     <form id="feedbackForm" form="ngForm" [hidden]="!showFormCondition" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
           <md-select required #state="ngModel" placeholder="{{currentlanguage.feedback_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state"
             name="state" (change)="GetDistricts(selected_state)">
             <md-option *ngFor="let state of states" [value]="state.stateID">
               {{state.stateName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf="(state.invalid && (state.dirty || state.touched))">
+          <!-- <md-hint *ngIf="(state.invalid && (state.dirty || state.touched))">
             <span class="error_text">State is required</span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--                 <div class="form-group">
                     <label class="control-label" for="district1">District</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="district" [(ngModel)]="selected_district"
@@ -37,20 +37,20 @@
                             <option *ngFor="let district of districts" value="{{district.districtID}}">{{district.districtName}}</option>
                         </select>
                       </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
           <md-select required #district="ngModel" placeholder="{{currentlanguage.feedback_service?.district}}" [style.width]="'100%'"
             [(ngModel)]="selected_district" name="district" (change)="GetTaluks(selected_district)">
             <md-option *ngFor="let district of districts" [value]="district.districtID">
               {{district.districtName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf="district.invalid && (district.dirty || district.touched)">
+          <!-- <md-hint *ngIf="district.invalid && (district.dirty || district.touched)">
             <span class="error_text">District is required</span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--                 <div class="form-group">
                     <label class="control-label" for="taluk1">Taluk</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="taluk" [(ngModel)]="selected_taluk"
@@ -58,18 +58,18 @@
                             <option *ngFor="let taluk of taluks" value="{{taluk.blockID}}">{{taluk.blockName}}</option>
                         </select>
                       </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
           <md-select placeholder="{{currentlanguage.feedback_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
             name="taluk" (change)="GetBlocks(selected_taluk)">
             <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
               {{taluk.blockName}}
             </md-option>
           </md-select>
-          <md-hint>
+          <!-- <md-hint>
             <span class="error_text"></span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
       <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> -->
       <!--                 <div class="form-group">
@@ -92,15 +92,15 @@
         </md-hint>
       </md-input-container>
     </div> -->
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--                 <div class="form-group has-label">
                     <label class="control-label" for="whatInformation">Institution Name</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="institutionName" [(ngModel)]="selected_institution">
                             <option *ngFor="let institute of institutes" value="{{institute.institutionID}}">{{institute.institutionName}}</option>
                         </select>
                       </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
           <md-select placeholder="{{currentlanguage.feedback_service?.institution}}" [style.width]="'100%'" [(ngModel)]="selected_institution"
             name="institutionName">
             <md-option *ngFor="let institute of institutes" [value]="institute.institutionTypeID">
@@ -110,29 +110,29 @@
           <!-- <md-hint *ngIf="instituteVar.invalid && (instituteVar.dirty || instituteVar.touched)">
         <span class="error_text">Institute is required</span>
       </md-hint> -->
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--                 <div class="form-group">
                     <label class="control-label" for="designation">Designation</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="designation" [(ngModel)]="selected_designation">
                             <option *ngFor="let designation of designations" value="{{designation.designationID}}">{{designation.designationName}}</option>
                         </select>
                       </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
           <md-select required #desgVar="ngModel" placeholder="{{currentlanguage.feedback_service?.designation}}" [style.width]="'100%'"
             [(ngModel)]="selected_designation" name="designation">
             <md-option *ngFor="let designation of designations" [value]="designation.designationID">
               {{designation.designationName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf="desgVar.invalid && (desgVar.dirty || desgVar.touched)">
+          <!-- <md-hint *ngIf="desgVar.invalid && (desgVar.dirty || desgVar.touched)">
             <span class="error_text">Designation is required</span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--                 <div class="form-group">
                     <label class="control-label" for="FeedbackType">Type of feedback</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="feedbackType" [(ngModel)]="selected_feedbackType">
@@ -141,18 +141,18 @@
                             <option value="Grievience">Grievience</option>-->
         <!--                         </select>
 </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
           <md-select required #feedVar="ngModel" placeholder="{{currentlanguage.feedback_service?.feedback_type}}" [style.width]="'100%'"
             [(ngModel)]="selected_feedbackType" name="feedbackType">
             <md-option *ngFor="let feedbackType of feedbackTypes" [value]="feedbackType.feedbackTypeID">
               {{feedbackType.feedbackTypeName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf="feedVar.invalid && (feedVar.dirty || feedVar.touched)">
+          <!-- <md-hint *ngIf="feedVar.invalid && (feedVar.dirty || feedVar.touched)">
             <span class="error_text">Type is required</span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!--                 <div class="col-md-8 col-lg-8">
@@ -171,25 +171,25 @@
           name="incidentdate" [(ngModel)]="selected_doi"></md2-datepicker>
         <!-- </div> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!--                 <div class="form-group">
                     <label class="control-label" for="severity">Severity</label>
                     <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="severity" [(ngModel)]="selected_severity">
                             <option *ngFor="let feedbackSeverity of feedbackSeverities" value="{{feedbackSeverity.severityID}}">{{feedbackSeverity.severityTypeName}}</option>
                         </select>
                       </div> -->
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput class="display_none"> -->
           <md-select required #severityVar="ngModel" placeholder="{{currentlanguage.feedback_service?.severity}}" [style.width]="'100%'"
             [(ngModel)]="selected_severity" name="severity">
             <md-option *ngFor="let feedbackSeverity of feedbackSeverities" [value]="feedbackSeverity.severityID">
               {{feedbackSeverity.severityTypeName}}
             </md-option>
           </md-select>
-          <md-hint *ngIf="severityVar.invalid && (severityVar.dirty || severityVar.touched)">
+          <!-- <md-hint *ngIf="severityVar.invalid && (severityVar.dirty || severityVar.touched)">
             <span class="error_text">Severity is required</span>
           </md-hint>
-        </md-input-container>
+        </md-input-container> -->
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <!--                 <label class="control-label" for="feedbackDesc">Feedback Description</label>
@@ -204,7 +204,7 @@
           </md-hint>
         </md-input-container>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-t-lg-20">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 p-t-lg-15">
         <!--<button type="button" class="btn cu-green-btn pull-right p-l-r-38 font-regular f-s-18 m-b-15
               " id="" (click)="submitFeedback(feedbackForm.value)">Register</button>-->
         <button type="button" md-raised-button color="primary" class="pull-left font-regular  m-t-15 m-r-10" (click)="showTable()">

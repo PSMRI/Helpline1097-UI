@@ -15,7 +15,7 @@
       <!--Form Start  -->
       <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate autocomplete="off">
         <div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5 form-group">
             <md-select placeholder="Select Service" [style.width]="'100%'" name="service" formControlName="service" (change)="getCategory($event.value)">
               <md-option *ngFor="let service of services" [value]="service.subServiceID">
                 {{service.subServiceName}}
@@ -26,7 +26,7 @@
               Service is required
             </div>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group p-b-1-5">
             <md-select placeholder="Select Category" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)">
               <md-option *ngFor="let category of categories" [value]="category.categoryID">
                 {{category.categoryName}}
@@ -37,7 +37,7 @@
               Category is required
             </div>
           </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group p-b-1-5">
             <md-select placeholder="Select Sub Category" [style.width]="'100%'" formControlName="subCategory" (change)="getSubcategoryObject($event.value)">
               <md-option *ngFor="let subCategory of subCategories" [value]="subCategory.subCategoryID">
                 {{subCategory.subCategoryName}}

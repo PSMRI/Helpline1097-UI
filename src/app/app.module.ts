@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { InterceptedHttp } from './http.interceptor'
-import { MaterialModule, MdMenuModule, MdCardModule } from '@angular/material';
+import { MdMenuModule, MdCardModule } from '@angular/material';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -196,6 +196,7 @@ import { AgentForceLogoutComponent } from './agent-force-logout/agent-force-logo
 import { SmsTemplateComponent } from './sms-template/sms-template.component';
 import { SmsTemplateService } from './services/supervisorServices/sms-template-service.service';
 import { CommonSmsDialogComponent } from './common-sms-dialog/common-sms-dialog.component';
+import { MaterialModule } from './material.module';
 
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';

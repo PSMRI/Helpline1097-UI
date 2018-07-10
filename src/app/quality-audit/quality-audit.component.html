@@ -6,41 +6,41 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <form #qaForm='ngForm' autocomplete="off">
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" #startDate="ngModel" ngModel required
           [style.width]="'100%'" (change)="setMinMaxDate(startDate.value)"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Start Date is required</span>
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="min" [max]="max" placeholder="Valid Till" #endDate="ngModel"
           ngModel required [style.width]="'100%'" (change)="setEndDate(endDate.value)"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">End Date is required</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value<startDate.value) && endDate.dirty">End Date can not be before Start Date</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(max<endDate.value) && endDate.dirty">Start Date & End Date can have max 15 days gap</span>
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select placeholder="Service Line" [style.width]="'100%'" [(ngModel)]="serviceID" name="ServiceLine" required>
             <md-option *ngFor="let item of servicelines" [value]="item.serviceID">
               {{item.serviceName}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select placeholder="Role" [style.width]="'100%'" [(ngModel)]="role" name="Role">
             <md-option *ngFor="let item of roles" [value]="item.roleName">
               {{item.roleName}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select placeholder="Inbound/Outbound Call" [style.width]="'100%'" [(ngModel)]="ioc" name="InboundOutbound">
             <md-option value="inbound">
               Inbound
@@ -49,44 +49,44 @@
               Outbound
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select placeholder="Agent" [style.width]="'100%'" [(ngModel)]="agent" name="Agent">
             <md-option *ngFor="let item of agentIDs" [value]="item.agentID">
               {{item.agentID}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" myMobileNumber>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" myMobileNumber>
         <md-input-container [style.width]="'100%'">
           <input mdInput placeholder="Beneficiary Phone Number" [(ngModel)]="phno" minlength="10" maxlength="10" name="benPhoneNo">
         </md-input-container>
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select placeholder="Call Type" [style.width]="'100%'" name="CallType" [(ngModel)]="callGroupType" (change)="populateCallSubTypes(callGroupType)"
             required>
             <md-option *ngFor="let item of callTypes" [value]="item.callGroupType">
               {{item.callGroupType}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+          <input mdInput style="display:none"> -->
           <md-select placeholder="Call SubType" [style.width]="'100%'" [(ngModel)]="callsubtype" [disabled]="callGroupType==='All'"
             name="CallSubType" required>
             <md-option *ngFor="let item of callSubTypes" [value]="item.callTypeID">
               {{item.callType}}
             </md-option>
           </md-select>
-        </md-input-container>
+        <!-- </md-input-container> -->
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <button md-raised-button color="accent" class="m-t-10" (click)="getFilteredCallList(qaForm.value)" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">Search</button>

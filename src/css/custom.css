@@ -553,7 +553,9 @@ color:#545454;
 .p-t-80 {
   padding-top: 80px;
 }
-
+.p-b-1-5 {
+  padding-bottom: 1.5em !important;
+}
 .p-b-0 {
   padding-bottom: 0px !important;
 }

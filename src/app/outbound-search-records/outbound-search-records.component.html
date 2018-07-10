@@ -23,9 +23,9 @@
           <br>
           <span class="error-text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput style="display:none"> -->
             <md-select required placeholder="Select Language" [style.width]="'100%'" #language="ngModel" ngModel name="preferredLanguageName"
               [(ngModel)]="preferredLanguageName">
               <md-option value=undefined> All </md-option>
@@ -36,7 +36,7 @@
             <!-- <md-hint *ngIf="languageName.invalid && (languageName.dirty || languageName.touched)">
           <span class="error_text">Language is required </span>
         </md-hint> -->
-          </md-input-container>
+          <!-- </md-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-10 m-b-10">
           <button type="button" class="hidden-md hidden-xs" md-raised-button color="accent" [disabled]="startDate.invalid || endDate.invalid || language.invalid"

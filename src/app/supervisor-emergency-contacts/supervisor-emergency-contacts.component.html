@@ -60,15 +60,15 @@
         <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">Enter atleast 3 characters</md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <md-input-container [style.width]="'100%'" class="hide_underline">
-        <input mdInput class="display_none">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+        <input mdInput class="display_none"> -->
         <md-select placeholder="Designation" [style.width]="'100%'" required [(ngModel)]="designation" name="designation">
           <md-option *ngFor="let item of designations" [value]="item">
             {{item.designationName}}
           </md-option>
         </md-select>
-      </md-input-container>
+      <!-- </md-input-container> -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'" myAddress>
@@ -141,15 +141,15 @@
         <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">Enter atleast 3 characters</md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <md-input-container [style.width]="'100%'" class="hide_underline">
-        <input mdInput class="display_none">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+        <input mdInput class="display_none"> -->
         <md-select placeholder="Designation" [style.width]="'100%'" required [(ngModel)]="designation" name="designation">
           <md-option *ngFor="let item of designations" [value]="item.designationID">
             {{item.designationName}}
           </md-option>
         </md-select>
-      </md-input-container>
+      <!-- </md-input-container> -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'" myAddress>

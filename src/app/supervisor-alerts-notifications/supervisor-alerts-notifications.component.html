@@ -6,7 +6,7 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
     <form #searchNotificationForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-20">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3  p-b-1-5">
         <md-select placeholder="Communication Type" [(ngModel)]="searchNotificationType" name="notificationType" ngModel required
           [style.width]="'100%'">
           <md-option *ngFor="let obj of types" [value]="obj.notificationTypeID">
@@ -88,14 +88,14 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
     <form #notificationCreationForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 m-t-20">
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2  p-b-1-5">
         <md-select placeholder="Communication Type" name="notificationType" ngModel required [style.width]="'100%'">
           <md-option *ngFor="let obj of types" [value]="obj.notificationTypeID">
             {{ obj.notificationType }}
           </md-option>
         </md-select>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 m-t-20">
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2  p-b-1-5">
         <md-select class="width100" placeholder="Select Role" name="role" ngModel #role="ngModel" (change)="getOffices(role.value)">
           <md-option value="All">All</md-option>
           <md-option *ngFor="let item of roles" [value]="item.roleID">
@@ -103,7 +103,7 @@
           </md-option>
         </md-select>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 m-t-20">
+      <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2  p-b-1-5">
         <md-select class="width100" [disabled]="role.value=='All'" placeholder="Select Offices" [multiple]="true" name="offices" ngModel #office="ngModel">
           <md-option *ngFor="let item of offices" [value]="item.pSAddMapID">
             {{ item.locationName }}
