@@ -137,7 +137,7 @@
             <div class=" height-120 border-1-g overflow-auto" for="subCategoryDetails">
               <div *ngIf="showresult">
                 <span *ngFor="let detail of detailsList">
-                  <md-checkbox color="primary" (change)="toggleSms($event,detail.institutionDetails.institutionID)" class="m-l-10" name={{detail.institutionDetails.institutionID}}>
+                  <md-checkbox color="primary" (change)="toggleSms($event,detail.institutionDetails.institutionID,detail.institutionDetails)" class="m-l-10" name={{detail.institutionDetails.institutionID}}>
                   </md-checkbox>
                   {{detail.institutionDetails?.institutionName}}
                   <span *ngIf="detail.institutionDetails?.address">, {{detail.institutionDetails?.address}}</span>
@@ -158,7 +158,7 @@
             </div>
           </div>
           <div class="col-xs-2 col-sm-2" *ngIf="showSendSMS">
-            <button type="button" md-raised-button [disabled]="enableSms" color="primary" (click)="sendSMS()" class="pull-left font-regular">{{currentlanguage.referral_service?.send_sms}}</button>
+            <button type="button" md-raised-button [disabled]="!enableSms" color="primary" (click)="sendSMS()" class="pull-left font-regular">{{currentlanguage.referral_service?.send_sms}}</button>
           </div>
         </div>
       </form>

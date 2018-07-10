@@ -113,23 +113,27 @@
       <div class="clearfix"></div> <br><br>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
         <md2-datepicker name="startDate" (keydown)="blockey($event)" [min]="minDate" placeholder="Valid From" #startDate="ngModel"
-          ngModel required [style.width]="'100%'"></md2-datepicker>
+          ngModel required [style.width]="'100%'" (blur)="validateTime(startDate.value,endDate.value,Stime.value,Etime.value)"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
           <md-input-container>
-     <input type="time" mdInput placeholder="Start Time" name="startTime" [(ngModel)]="startTime" #time="ngModel">
+     <input type="time" mdInput placeholder="Start Time" name="startTime" [(ngModel)]="startTime" #Stime="ngModel" (blur)="validateTime(startDate.value,endDate.value,Stime.value,Etime.value)">
           </md-input-container>
    </div>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="startDate.value" placeholder="Valid Till" #endDate="ngModel"
-          ngModel required [style.width]="'100%'"></md2-datepicker>
+          ngModel required [style.width]="'100%'" (blur)="validateTime(startDate.value,endDate.value,Stime.value,Etime.value)"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
           <md-input-container>
-     <input type="time" mdInput placeholder="End Time" name="endTime" [(ngModel)]="endTime" #time="ngModel">
+     <input type="time" mdInput placeholder="End Time" name="endTime" [(ngModel)]="endTime" #Etime="ngModel" (blur)="validateTime(startDate.value,endDate.value,Stime.value,Etime.value)">
+     <md-hint>
+      <span class="error_text f-s-10 p-l-10" *ngIf="invalidTimeFlag && (Stime.value!=Etime.value)">End Time cannot be less than Start Time</span>
+      <span class="error_text f-s-10 p-l-10" *ngIf="invalidTimeFlag && (Stime.value===Etime.value)">Start Time and End Time cannot be same</span>
+    </md-hint>
           </md-input-container>
    </div>
      
@@ -157,7 +161,7 @@
     </form>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
       <button md-raised-button color="primary" class="pull-left" type="button" (click)="showTable()">Back</button>
-      <button md-raised-button color="accent" [disabled]="notificationCreationForm.invalid" class="pull-right" type="button" (click)="createAlertNotification(notificationCreationForm.value)">Save</button>
+      <button md-raised-button color="accent" [disabled]="notificationCreationForm.invalid||invalidTimeFlag" class="pull-right" type="button" (click)="createAlertNotification(notificationCreationForm.value)">Save</button>
     </div>
   </div>
 </div>
@@ -189,6 +193,7 @@
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
           <md-input-container>
      <input type="time" mdInput placeholder="End Time" name="endTime" (change)="checkValidationForEndTime(sdate,startTime,edate,endTime)" [(ngModel)]="endTime" #time="ngModel">
+    
           </md-input-container>
    </div>
       <div class="clearfix"></div>

@@ -44,7 +44,7 @@ export class SmsTemplateComponent implements OnInit {
 
   ngOnInit() {
     this.providerServiceMapID = this.commonData.current_service.serviceID; // check for each module
-    this.serviceID = this.commonData.current_serviceID; // check for each module
+    this.serviceID = this.commonData.current_serviceID ? this.commonData.current_serviceID : 1; // check for each module
     this.getSMStemplates(this.providerServiceMapID);
   }
 
@@ -238,7 +238,7 @@ export class SmsTemplateComponent implements OnInit {
 
   view(object) {
     console.log('templateID', object);
-   
+
     this.sms_service.getFullSMSTemplate(object.providerServiceMapID, object.smsTemplateID)
       .subscribe(response => {
         console.log(response, 'getfullSMStemplate success');

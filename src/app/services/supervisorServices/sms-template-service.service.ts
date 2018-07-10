@@ -42,7 +42,7 @@ export class SmsTemplateService {
         return this.httpIntercept.post(this.getSMStemplates_url,
             {
                 'providerServiceMapID': providerServiceMapID,
-                'smsTypeID': smsTypeID ? smsTypeID : undefined
+                'smsTemplateTypeID': smsTypeID ? smsTypeID : undefined
             })
             .map(this.handleSuccess)
             .catch(this.handleError);
