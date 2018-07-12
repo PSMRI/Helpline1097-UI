@@ -2143,6 +2143,12 @@ white-space: nowrap!important;
   top: 5px;
   right: 5px;
 }
+.fa:hover{
+  color:#fa4616!important;
+}
+.mdicon:hover{
+  color:#fa4616!important;
+}
 
 @media (max-width: 317px) {}
 

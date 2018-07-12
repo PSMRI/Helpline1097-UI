@@ -144,11 +144,33 @@ export class grievanceComponent implements OnInit {
   feedbackTypes: any = [];
 
   ngOnInit() {
+    let start = new Date();
+    start.setDate(start.getDate()-7);
+    start.setHours(0, 0, 0, 0);
+    this.feedbackForm2.controls.startDate.setValue(start);
+    let end = new Date();
+    end.setDate(end.getDate());
+    end.setHours(23, 59, 59, 0);
+    this.feedbackForm2.controls.endDate.setValue(end);
+
+
     this.serviceID = this._saved_data.current_service.serviceID;
     let requestData = {};
     requestData['serviceID'] = this.serviceID;
     requestData['is1097'] = true;
 
+    let eDate = new Date();
+    start.setDate(start.getDate());
+    eDate.setHours(23, 59, 59, 0);
+    eDate = this.updateTimeOffset(eDate);
+    requestData['endDate'] = eDate;
+
+    let sDate = new Date()
+    sDate.setDate(sDate.getDate()-7);
+    sDate.setHours(0, 0, 0, 0);
+    sDate = this.updateTimeOffset(sDate);
+    requestData['startDate'] = sDate;
+    
     this.feedbackService.getFeedbackTypeID(this.serviceID)
       .subscribe((response) => {
         console.log(response, "FeedBack Types response");
