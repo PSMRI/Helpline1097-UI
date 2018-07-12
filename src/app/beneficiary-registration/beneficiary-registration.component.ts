@@ -770,7 +770,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         console.log('Registered number will be used'); // Registered number will be used
         // ** code to send SMS **
         this.sendSMS(this.benRegistrationResponse.beneficiaryRegID);
-      } else {
+      } else if (mobile_number != 'close' && (mobile_number != undefined && mobile_number != '')) {
         // ** code to send SMS **
         this.sendSMS(this.benRegistrationResponse.beneficiaryRegID, mobile_number);
       }
