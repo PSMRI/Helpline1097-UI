@@ -159,14 +159,14 @@ export class MultiRoleScreenComponent implements OnInit {
     this.dialog.open(EmergencyContactsViewModalComponent, {
       width: '700px',
       //height: '550px'
-      disableClose: true
+      disableClose: false
     });
   }
 
   agentForceLogout() {
     this.dialog.open(AgentForceLogoutComponent, {
       width: '500px',
-      disableClose: true
+      disableClose: false
     });
   }
 }

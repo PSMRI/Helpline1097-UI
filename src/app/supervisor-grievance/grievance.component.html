@@ -71,10 +71,10 @@
               <td>{{feedback?.feedbackStatus?.feedbackStatus}}</td>
               <td>{{feedback?.emailStatus?.emailStatus}}</td>
               <td class="t-a-c">
-                <i class="material-icons cursorPointer" (click)="requestFeedback(feedback)" aria-hidden="true" mdTooltip="Edit">edit</i>
+                <i class="mdicon material-icons cursorPointer" (click)="requestFeedback(feedback)" aria-hidden="true" mdTooltip="Edit">edit</i>
               </td>
               <td class="t-a-c">
-                <i *ngIf="feedback?.feedbackRequests?.length > 0" class="material-icons cursorPointer" (click)="updateResponse(feedback)"
+                <i *ngIf="feedback?.feedbackRequests?.length > 0" class="mdicon material-icons cursorPointer" (click)="updateResponse(feedback)"
                   aria-hidden="true" mdTooltip="Update">publish</i>
                 <p *ngIf="feedback?.feedbackRequests?.length == 0">-</p>
               </td>
