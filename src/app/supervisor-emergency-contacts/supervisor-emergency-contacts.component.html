@@ -79,9 +79,9 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" myMobileNumber>
       <md-input-container [style.width]="'100%'">
-        <input mdInput [(ngModel)]="contactNumber" placeholder="Mobile Number" required minlength="10" name="contactNumber" maxlength="10"
+        <input mdInput [(ngModel)]="contactNumber" placeholder="Mobile Number" [pattern]="numberRegex" required minlength="10" name="contactNumber" maxlength="10"
           #mobileNum="ngModel">
-        <md-hint class="error_text" *ngIf="mobileNum.invalid && mobileNum.touched">Enter 10 digits mobile number</md-hint>
+        <md-hint class="error_text" *ngIf="mobileNum.invalid && mobileNum.touched">Enter 10 digits valid number</md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

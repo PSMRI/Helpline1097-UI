@@ -47,8 +47,9 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     public commonDataService: dataService,
     public dialogService: ConfirmationDialogsService) { }
 
-
+    numberRegex: any;
   ngOnInit() {
+    this.numberRegex = "^[1-9][0-9]*$";
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.Userdata.userName;
     this.getNotificationTypeID();
