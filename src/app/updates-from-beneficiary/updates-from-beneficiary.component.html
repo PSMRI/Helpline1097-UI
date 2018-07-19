@@ -24,8 +24,8 @@
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none"> -->
 
-          <md-select placeholder="{{currentlanguage.other_details?.occupation}}" [style.width]="'100%'" [(ngModel)]="occupationID"
-            name="occupationID">
+          <md-select placeholder="{{currentlanguage.other_details?.occupation}}" [style.width]="'100%'" [(ngModel)]="occupationIDs"
+            name="occupationIDs">
             <md-option *ngFor="let occupation of occupations" [value]="occupation.occupationID">
 
               {{occupation.occupationType}}
@@ -48,8 +48,8 @@
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput class="display_none"> -->
 
-          <md-select placeholder="{{currentlanguage.other_details?.qualification}}" [style.width]="'100%'" [(ngModel)]="educationID"
-            name="educationID">
+          <md-select placeholder="{{currentlanguage.other_details?.qualification}}" [style.width]="'100%'" [(ngModel)]="educationIDs"
+            name="educationIDs">
             <md-option *ngFor="let educationQualification of educationQualifications" [value]="educationQualification.educationID">
 
               {{educationQualification.educationType}}
