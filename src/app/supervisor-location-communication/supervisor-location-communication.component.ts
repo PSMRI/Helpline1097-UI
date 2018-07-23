@@ -198,15 +198,6 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     // endDate.setSeconds(59);
     // endDate.setMilliseconds(0);
 
-    let defaultObj = {
-      "providerServiceMapID": this.providerServiceMapID,
-      "notificationTypeID": this.location_communication_typeID,
-      "createdBy": this.createdBy,
-      "notification": form_values.subject,
-      "notificationDesc": form_values.message,
-      "validFrom": startDate,
-      "validTill": endDate
-    };
 
     let workingLocationIDs = undefined;
     workingLocationIDs = (form_values.offices == "") ? workingLocationIDs : form_values.offices;
