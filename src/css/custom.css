@@ -1058,6 +1058,12 @@ border-radius:50px !important;
   padding-left: 5px;
 }
 
+.p-l-12 {
+  padding-left: 12px !important;
+}
+.p-r-30 {
+  padding-right: 30px !important;
+}
 .cursorPointer {
   cursor: pointer;
 }
@@ -2145,6 +2151,16 @@ white-space: nowrap!important;
 }
 
 @media (max-width: 317px) {}
+
+@media print
+{
+.noprint {display:none;}
+}
+
+@media screen
+{
+
+}
 
 @media (min-width: 480px) {
   body{

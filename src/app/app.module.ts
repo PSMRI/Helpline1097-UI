@@ -337,7 +337,7 @@ import { MaterialModule } from './material.module';
     EditNotificationsComponent,
     CoAlternateNumberComponent,
     EmergencyContactsViewModalComponent,
-    CaseSheetSummaryDialogComponent,
+    
     AgentForceLogoutComponent,
     CommonSmsDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
