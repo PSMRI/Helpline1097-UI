@@ -58,7 +58,7 @@ export class InnerpageComponent implements OnInit {
   backToDashboard: boolean = true;
   callID: any;
   wrapupTimerSubscription: Subscription;
-
+  ipAddress: any;
   // eventSpiltData: any;
 
 
@@ -357,6 +357,7 @@ export class InnerpageComponent implements OnInit {
     if (this.getCommonData.loginIP === undefined || this.getCommonData.loginIP === '') {
       this.Czentrix.getIpAddress(this.getCommonData.cZentrixAgentID).subscribe((res) => {
         if (res) {
+          this.ipAddress = res.response.agent_ip;
           this.ipSuccessLogoutHandler(res.response.agent_ip);
         }
       },
@@ -558,7 +559,8 @@ export class InnerpageComponent implements OnInit {
     requestObj['remarks'] = remarks;
     requestObj['providerServiceMapID'] = this.getCommonData.current_service.serviceID;
     requestObj['createdBy'] = this.getCommonData.uname;
-
+    requestObj['agentID'] = this.getCommonData.cZentrixAgentID;
+    requestObj['agentIPAddress'] = this.ipAddress;
 
     if (wrapupCallID != undefined) {
       requestObj['callTypeID'] = wrapupCallID;

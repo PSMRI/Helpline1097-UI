@@ -54,10 +54,10 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     this.minDate.setSeconds(0);
     this.minDate.setMilliseconds(0);
 
-    this.currentDate.setHours(0);
-    this.currentDate.setMinutes(0);
-    this.currentDate.setSeconds(0);
-    this.currentDate.setMilliseconds(0);
+    // this.currentDate.setHours(0);
+    // this.currentDate.setMinutes(0);
+    // this.currentDate.setSeconds(0);
+    // this.currentDate.setMilliseconds(0);
   }
 
   blockey(e: any) {
@@ -175,31 +175,29 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
         this.dialogService.alert(error, 'error');
       });
   }
-
+  updateTimeOffset(date: any) {
+    date = new Date(date.valueOf() - 1 * date.getTimezoneOffset() * 60 * 1000);
+    return date;
+  }
   createLanguageMessage(form_values) {
     let request_array = [];
 
     let startDate: Date = new Date(form_values.startDate);
-    startDate.setHours(0);
-    startDate.setMinutes(0);
-    startDate.setSeconds(0);
-    startDate.setMilliseconds(0);
+    startDate.setHours(0, 0, 0, 0);
+    startDate = this.updateTimeOffset(startDate);
+    // startDate.setHours(0);
+    // startDate.setMinutes(0);
+    // startDate.setSeconds(0);
+    // startDate.setMilliseconds(0);
 
     let endDate: Date = new Date(form_values.endDate);
-    endDate.setHours(23);
-    endDate.setMinutes(59);
-    endDate.setSeconds(59);
-    endDate.setMilliseconds(0);
+    endDate.setHours(23, 59, 59, 0);
+    endDate = this.updateTimeOffset(endDate);
+    // endDate.setHours(23);
+    // endDate.setMinutes(59);
+    // endDate.setSeconds(59);
+    // endDate.setMilliseconds(0);
 
-    let defaultObj = {
-      "providerServiceMapID": this.providerServiceMapID,
-      "notificationTypeID": this.location_communication_typeID,
-      "createdBy": this.createdBy,
-      "notification": form_values.subject,
-      "notificationDesc": form_values.message,
-      "validFrom": startDate,
-      "validTill": endDate
-    };
 
     let workingLocationIDs = undefined;
     workingLocationIDs = (form_values.offices == "") ? workingLocationIDs : form_values.offices;
@@ -208,8 +206,16 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
     if (workingLocationIDs.length > 0) {
       for (var i = 0; i < workingLocationIDs.length; i++) {
-
-        defaultObj['workingLocationID'] = workingLocationIDs[i];
+        let defaultObj = {
+          "providerServiceMapID": this.providerServiceMapID,
+          "notificationTypeID": this.location_communication_typeID,
+          "createdBy": this.createdBy,
+          "notification": form_values.subject,
+          "notificationDesc": form_values.message,
+          "validFrom": startDate,
+          "validTill": endDate,
+          "workingLocationID": workingLocationIDs[i]
+        };
 
         roomArray.push(this.providerServiceMapID + "_" + workingLocationIDs[i].toString());
 

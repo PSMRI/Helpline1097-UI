@@ -18,9 +18,9 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   @Input() current_language: any;
   currentlanguage: any;
-  @ViewChild('Form') form;
+  @ViewChild('Form') updateForm;
   occupation: any;
-  educationID: any;
+  educationIDs: any;
   sexualOrientationID: any;
   placeOfWork: any;
   remarks: any;
@@ -29,7 +29,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   educationQualifications: any = [];
   sexualOrientations: any = [];
   count;
-  occupationID: any = undefined;
+  occupationIDs: any = undefined;
   occupations: any = [];
   cameToKnowFrom: any;
   subscription: Subscription;
@@ -84,8 +84,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   PopulateUpdateData() {
     if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
-      this.occupationID = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
-      this.educationID = this.saved_data.beneficiaryData.i_bendemographics.educationID;
+      this.occupationIDs = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
+      this.educationIDs = this.saved_data.beneficiaryData.i_bendemographics.educationID;
       this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationID;
       this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = this.saved_data.beneficiaryData.isHIVPos;
@@ -99,8 +99,10 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   PopulateOutBoundData(beneficiaryData: any) {
     if (beneficiaryData) {
       this.beneficiaryRegID = beneficiaryData.beneficiaryRegID;
-      this.occupationID = beneficiaryData.i_bendemographics.occupationID;
-      this.educationID = beneficiaryData.i_bendemographics.educationID;
+      // this.updateForm.form.patchValue({ 'occupationIDs': beneficiaryData.i_bendemographics.occupationID });
+
+      this.occupationIDs = beneficiaryData.i_bendemographics.occupationID.toString();
+      this.educationIDs = beneficiaryData.i_bendemographics.educationID.toString();
       this.sexualOrientationID = beneficiaryData.sexualOrientationID;
       this.placeOfWork = beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = beneficiaryData.isHIVPos.toLowerCase();
@@ -153,8 +155,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   updateBeneficiary(values: any) {
     const newOtherData: any = {};
     this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
-    this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationID; // values.occupation;
-    this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationID;
+    this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationIDs; // values.occupation;
+    this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationIDs;
     this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
     this.saved_data.beneficiaryData.sexualOrientationID = values.sexualOrientationID;
     this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
@@ -237,7 +239,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     this.count = this.remarks.length + '/300';
   }
   // get the data from diffrent commponent
-  public getBenData(data: any) {
+  getBenData(data: any) {
     this.PopulateOutBoundData(data.dataPass);
   }
   // changeRadio(value) {

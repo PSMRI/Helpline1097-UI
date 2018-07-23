@@ -160,7 +160,7 @@ export class AlertsNotificationComponent implements OnInit {
         let dialogRef = this.dialog.open(AlertsNotificationsDialogComponent, {
           width: '600px',
           // height: '500px',
-          disableClose: true,
+          disableClose: false,
           data: {
             'msg_type': messages_type,
             'messages': messages,
