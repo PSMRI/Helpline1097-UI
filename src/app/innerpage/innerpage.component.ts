@@ -539,7 +539,7 @@ export class InnerpageComponent implements OnInit {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
     if (!this.transferInProgress) {
-      requestObj['callTypeID'] = this.disconectCallId.toString();
+      requestObj['callTypeID'] = this.wrapupCallID.toString();
       requestObj['fitToBlock'] = 'false';
       requestObj['isFollowupRequired'] = false;
       requestObj['prefferedDateTime'] = undefined;
