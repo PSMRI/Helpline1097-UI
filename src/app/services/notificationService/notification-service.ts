@@ -50,7 +50,7 @@ export class NotificationService {
 
     getOffices(psmID) {
         console.log(psmID);
-        return this.http.post(this.getOfficesURL, {
+        return this.httpIntercepto.post(this.getOfficesURL, {
            'providerServiceMapID': psmID
         })
             .map((response: Response) => response.json().data);
@@ -75,7 +75,7 @@ export class NotificationService {
             .map((response: Response) => response.json());
     }
     createNotification(data) {
-        return this.http.post(this.createNotificationURL, data)
+        return this.httpIntercepto.post(this.createNotificationURL, data)
             .map((response: Response) => response.json());
     }
     getAlerts(data) {

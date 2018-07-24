@@ -247,7 +247,7 @@ export class InnerpageComponent implements OnInit {
               this.beneficiaryRegID = data.beneficiaryRegID;
               let fname = data.firstName ? data.firstName : "";
               let lname = data.lastName ? data.lastName : "";
-              this.selectedBenData.name = 'Name: ' + fname + ' ' + lname;
+              this.selectedBenData.name =  fname + ' ' + lname;
               // if ( data.dOB )
               // {
               //  let currDate = new Date();
@@ -256,15 +256,15 @@ export class InnerpageComponent implements OnInit {
 
               // this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
               // this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
-              this.selectedBenData.age = 'Age: ' + (data.actualAge ? data.actualAge : "") + " " + (data.ageUnits ? data.ageUnits : "");
+              this.selectedBenData.age =  (data.actualAge ? data.actualAge : "") + " " + (data.ageUnits ? data.ageUnits : "");
               // }
-              this.selectedBenData.gender = 'Gender: ' + (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
-              this.selectedBenData.state = 'State: ' + (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
-              this.selectedBenData.district = 'District: ' + (data.i_bendemographics ? (data.i_bendemographics.m_district ? (data.i_bendemographics.m_district.districtName ? data.i_bendemographics.m_district.districtName : "") : '') : '');
-              this.selectedBenData.block = 'Taluk: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtblock ? (data.i_bendemographics.m_districtblock.blockName ? data.i_bendemographics.m_districtblock.blockName : '') : '') : '');
-              this.selectedBenData.village = 'Village: ' + (data.i_bendemographics ? (data.i_bendemographics.m_districtbranchmapping ? (data.i_bendemographics.m_districtbranchmapping.villageName ? data.i_bendemographics.m_districtbranchmapping.villageName : '') : '') : '');
-              this.selectedBenData.language = 'Preferred Lang: ' + (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : '') : '') : '');
-              this.selectedBenData.relation = 'Family tagging: ' + (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : '') : '');
+              this.selectedBenData.gender =  (data.m_gender ? (data.m_gender.genderName ? data.m_gender.genderName : "") : "");
+              this.selectedBenData.state =   (data.i_bendemographics ? (data.i_bendemographics.m_state ? (data.i_bendemographics.m_state.stateName ? data.i_bendemographics.m_state.stateName : "") : "") : "");
+              this.selectedBenData.district =  (data.i_bendemographics ? (data.i_bendemographics.m_district ? (data.i_bendemographics.m_district.districtName ? data.i_bendemographics.m_district.districtName : "") : '') : '');
+              this.selectedBenData.block =  (data.i_bendemographics ? (data.i_bendemographics.m_districtblock ? (data.i_bendemographics.m_districtblock.blockName ? data.i_bendemographics.m_districtblock.blockName : '') : '') : '');
+              this.selectedBenData.village =  (data.i_bendemographics ? (data.i_bendemographics.m_districtbranchmapping ? (data.i_bendemographics.m_districtbranchmapping.villageName ? data.i_bendemographics.m_districtbranchmapping.villageName : '') : '') : '');
+              this.selectedBenData.language =  (data.i_bendemographics ? (data.i_bendemographics.m_language ? (data.i_bendemographics.m_language.languageName ? data.i_bendemographics.m_language.languageName : '') : '') : '');
+              this.selectedBenData.relation =  (data.benPhoneMaps[0] ? (data.benPhoneMaps[0].benRelationshipType ? (data.benPhoneMaps[0].benRelationshipType.benRelationshipType) : '') : '');
             } else {
               this.getCommonData.beneficiarySelected.next({
                 "beneficiarySelected": false
@@ -618,7 +618,7 @@ export class InnerpageComponent implements OnInit {
       const remarks = 'Call disconnect from customer.';
       if (t == this.timeRemaining) {
         // this.remarksMessage.close();
-        this.closeCall(eventData, remarks, 'Call completed successfully', this.wrapupCallID);
+        this.closeCall(eventData, remarks, 'Call closed successfully', this.wrapupCallID);
       }
     });
   }
