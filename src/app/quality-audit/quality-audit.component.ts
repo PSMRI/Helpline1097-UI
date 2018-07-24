@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ConfigService } from '../services/config/config.service';
 import { dataService } from '../services/dataService/data.service';
@@ -16,7 +16,8 @@ import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 })
 export class QualityAuditComponent implements OnInit {
   // qualityAuditURL: any;
-
+  showCaseSheet = false;
+  CaseSheetData: any;
   // arrays
   servicelines: any = [];
   agentIDs = [];
@@ -263,6 +264,10 @@ export class QualityAuditComponent implements OnInit {
   }
 
   invokeCaseSheetDialog(benCallID, beneficiaryData) {
+    let obj = {
+      'response': undefined,
+      'benData': undefined
+    }
     this.qualityAuditService.getCallSummary(benCallID)
       .subscribe(response => {
         console.log('success in getting call details(casesheet)', response);
@@ -271,15 +276,46 @@ export class QualityAuditComponent implements OnInit {
             'response': response,
             'benData': beneficiaryData
           }
-          let casesheetDialogReff = this.dialog.open(CaseSheetSummaryDialogComponent, {
-            width: '800px',
-            disableClose: true,
-            data: obj
-          });
+
+          if (obj.response != undefined) {
+            let r = [];
+            r = obj.response;
+            this.benData = obj.benData;
+            if (r.length > 0) {
+              this.information_services = r[0].informations;
+              this.counselling_services = r[0].counsellings;
+              this.refferal_services = r[0].referrals;
+              this.feedback_services = r[0].feedbacks;
+            }
+            this.CaseSheetData = obj;
+            this.showCaseSheet = true;
+          }
         }
       }, err => {
         console.log('error in getting call details(casesheet)', err.errorMessage);
-      })
+      });
+
+
+  }
+
+
+  information_services: any = [];
+  counselling_services: any = [];
+  refferal_services: any = [];
+  feedback_services: any = [];
+
+  item: any;
+  benData: any;
+  age: any;
+
+  current_date = new Date();
+
+  hideCaseSheetFunction() {
+    this.showCaseSheet = false;
+  }
+
+  print() {
+    window.print();
   }
 
 
@@ -293,7 +329,8 @@ export class QualityAuditComponent implements OnInit {
   styleUrls: ['./quality-audit.component.css']
 
 })
-export class CaseSheetSummaryDialogComponent {
+export class CaseSheetSummaryDialogComponent implements OnInit {
+
 
   information_services: any = [];
   counselling_services: any = [];
@@ -304,27 +341,18 @@ export class CaseSheetSummaryDialogComponent {
   benData: any;
   age: any;
 
+  @Input() data;
+  @Output() hideCaseSheet: EventEmitter<any> = new EventEmitter<any>();
+
   current_date = new Date();
-  constructor( @Inject(MD_DIALOG_DATA) public data: any,
-    public dialog: MdDialog,
-    public dialogRef: MdDialogRef<CaseSheetSummaryDialogComponent>,
+  constructor(
     private commondata: dataService,
     private alertService: ConfirmationDialogsService) {
-    console.log('modal content', this.data);
-    let response = [];
-    response = this.data.response;
-    this.benData = this.data.benData;
-    if (response.length > 0) {
-      this.information_services = response[0].informations;
-      this.counselling_services = response[0].counsellings;
-      this.refferal_services = response[0].referrals;
-      this.feedback_services = response[0].feedbacks;
-    }
-    console.log(this.feedback_services, 'FEEDBACK ARRAY');
 
-    if (this.benData.beneficiaryModel != undefined) {
-      this.age = this.calculateAge(this.benData.beneficiaryModel.dOB);
-    }
+  }
+
+  ngOnInit() {
+
   }
 
 
@@ -343,42 +371,30 @@ export class CaseSheetSummaryDialogComponent {
     }
   }
 
-  // print()
-  // {
-  //   var pdf = new jsPDF('p', 'pt', 'letter');
-  
-  //   var source = jQuery('#content')[0];
+  hideCaseSheetFunction() {
+    this.hideCaseSheet.emit(
+      {
+        'value': false
+      }
+    );
+  }
 
-  //   var specialElementHandlers = {
-  //     // element with id of "bypass" - jQuery style selector
-  //     '#bypassme': function (element, renderer) {
-  //         // true = "handled elsewhere, bypass text extraction"
-  //         return true
-  //     }
-  // };
+  ngOnChange() {
+    console.log('modal content', this.data);
+    let response = [];
+    response = this.data.response;
+    this.benData = this.data.benData;
+    if (response.length > 0) {
+      this.information_services = response[0].informations;
+      this.counselling_services = response[0].counsellings;
+      this.refferal_services = response[0].referrals;
+      this.feedback_services = response[0].feedbacks;
+    }
+    console.log(this.feedback_services, 'FEEDBACK ARRAY');
 
-  //   var margins = {
-  //     top: 80,
-  //     bottom: 60,
-  //     left: 40,
-  //     width: 522
-  // };
-
-  //   pdf.fromHTML(
-  //     source, // HTML string or DOM elem ref.
-  //     margins.left, // x coord
-  //     margins.top, { // y coord
-  //         'width': margins.width, // max width of content on PDF
-  //         'elementHandlers': specialElementHandlers
-  //     },
-
-  //     function (dispose) {
-  //         // dispose: object with X, Y of the last line add to the PDF 
-  //         //          this allow the insertion of new lines after html
-  //         pdf.save('1097casesheet.pdf');
-  //     }, margins);
-  // }
-
-
+    if (this.benData.beneficiaryModel != undefined) {
+      this.age = this.calculateAge(this.benData.beneficiaryModel.dOB);
+    }
+  }
 
 }

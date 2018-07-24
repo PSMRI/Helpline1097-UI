@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" [hidden]="showCaseSheet">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
       <h4 class="f-s-b m-b-10 m-t-20"> Call Auditing </h4>
@@ -148,6 +148,229 @@
     </table>
   </div>
   </div>
+</div>
+<div class="row p-r-30" [hidden]="!showCaseSheet">
+    <div class="col-xs-12 col-sm-12">
+      <h4 class="pull-left">Case Sheet</h4>
+      <button md-raised-button color="primary" class="m-t-5 pull-right noprint" (click)="hideCaseSheetFunction()"><span class="noprint">Back</span></button>
+    </div>
+    <div class="col-xs-12 col-sm-12 "> 
+      <h4 class="col-xs-12 col-sm-12 m-t-10 ">Service Type 1097
+        <ul class="pull-right list-inline list-unstyled noprint"> 
+           <li class="f-s-14 noprint"><a class="noprint" (click)="print()"><i class="fa fa-download cursorPointer noprint" aria-hidden="true"></i>Download</a></li>  
+          <li class="f-s-14">
+            <strong> Date :</strong>
+            <span> {{current_date|date:'dd/MM/yyyy'}}</span>
+          </li>
+        </ul>
+      </h4>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-10 "> </div>
+    </div> 
+    <div class="col-xs-12 col-sm-12 border-a-1 m-b-20 m-l-15">
+      <h4 class="m-t--15">
+        <span class="caseSheetHeader">Beneficiary Details</span>
+      </h4>
+      <div class="table-responsive">
+        <table class="table printTable m-b-0">
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> Call ID :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{benData?.benCallID}}</td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>Agent ID :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{benData?.agentID}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> First Name :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.firstName}}</td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>Last Name :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.lastName}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> Age :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.actualAge}} {{benData?.beneficiaryModel?.ageUnits}}</td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> Gender :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.m_gender?.genderName}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> Address :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.i_bendemographics?.districtBranchName?benData?.beneficiaryModel?.i_bendemographics?.districtBranchName:'-'}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.blockName?benData?.beneficiaryModel?.i_bendemographics?.blockName:'-'}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.districtName?benData?.beneficiaryModel?.i_bendemographics?.districtName:'-'}},
+              {{benData?.beneficiaryModel?.i_bendemographics?.stateName?benData?.beneficiaryModel?.i_bendemographics?.stateName:'-'}}
+              - {{benData?.beneficiaryModel?.i_bendemographics?.pinCode?benData?.beneficiaryModel?.i_bendemographics?.pinCode:'-'}}
+              | India</td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> Beneficiary ID :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{benData?.beneficiaryModel?.beneficiaryID}}</td>
+          </tr>
+          
+        </table>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 border-a-1 m-b-20 m-l-15 m-b-40 p-l-12 p-r-46">
+      <h4 class="m-t--15">
+        <span class="caseSheetHeader">Service Requested</span>
+      </h4>
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-10">
+        <h4 class="">
+          <span class="">Information Service</span>
+        </h4>
+        <div class="table-responsive">
+          <table class="table printTable m-b-0">
+            <tbody *ngFor="let item of information_services">
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong> Category :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.categoryDetails?.categoryName}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Sub Category :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.subCategoryName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-10">
+        <h4 class="">
+          <span class="">Counselling Service</span>
+        </h4>
+        <div class="table-responsive">
+          <table class="table printTable m-b-0">
+            <tbody *ngFor="let item of counselling_services">
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong> Category :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.categoryDetails?.categoryName}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Sub Category :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.subCategoryName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-10">
+        <h4 class="">
+          <span class="">Feedback Service</span>
+        </h4>
+        <div class="table-responsive">
+          <table class="table printTable m-b-0">
+            <tbody *ngFor="let item of feedback_services">
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>State:</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.states?.stateName}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>District :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.district?.districtName}}</td>
+              </tr>
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Sub District :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.districtBlock?.blockName}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Institute Name:</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">-</td>
+              </tr>
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Designation :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.designation?.designationName}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Type of Feedback:</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.FeedbackTypeID?.feedbackTypeName}}</td>
+              </tr>
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Incident date :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.serviceAvailDate|utcDate|date:'dd/MM/yyyy'}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Severity:</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.severity?.severityTypeName}}</td>
+              </tr>
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Feedback Description:</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.feedback}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Feedback ID:</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item?.feedbackID}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-10">
+        <h4 class="">
+          <span class="">Referral Service</span>
+        </h4>
+        <div class="table-responsive">
+          <table class="table printTable m-b-0">
+            <tbody *ngFor="let item of refferal_services">
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>State:</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.states.stateName}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>District :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.m_district.districtName}}</td>
+              </tr>
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Sub District :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.block.blockName}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong>Information Required:</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item.directory.instituteDirectoryName}},{{item.subDirectory.instituteSubDirectoryName}}</td>
+              </tr>
+              <tr>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong> Results :</strong>
+                </td>
+                <td class="col-xs-12 col-sm-3">{{item.institutionDetails.institutionName}},{{item.institutionDetails.address}}</td>
+                <td class="col-xs-12 col-sm-3 p-l-0">
+                  <strong> </strong>
+                </td>
+                <td class="col-xs-12 col-sm-3"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+      
 </div>
 
 <!--Below line commented on 21 may,2018 for screen revamp, Diamond Khanna  -->

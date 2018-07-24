@@ -43,7 +43,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   @Output() wentAwayMainScreen: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('ageRef') input: ElementRef;
   @ViewChild('BeneficaryForm') BeneficaryForm;
-  
+
   @ViewChild('BeneficaryForm') BeneficaryCreationForm: NgForm;
 
   fname: any = '';
@@ -486,7 +486,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // this.district = undefined;
       this.districts = [];
       // this.taluk = undefined;
-       this.taluks = [];
+      this.taluks = [];
       // this.village = undefined;
       this.blocks = [];
       // this.pincode = undefined;
@@ -516,6 +516,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.GenderID = 2;
     } else {
       this.GenderID = "";
+    }
+
+    //precautionary code
+    if (this.regHistoryList.length === 0) {
+      this.beneficiaryRelationID = 1;
     }
   }
 
@@ -1264,7 +1269,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     if (benificiaryRelationType.length > 0) {
       beneficiaryRelationID = benificiaryRelationType[0]['benRelationshipID']
     }
-    return beneficiaryRelationID;
+    if (this.regHistoryList.length === 0) {
+      return beneficiaryRelationID;
+    }
+
   }
   // Handling Error
   getParentData(parentBenID) {
@@ -1521,6 +1529,12 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       this.genderErrFlag = false;
       // this.genderFlag = false;
+    }
+
+
+    //precautionary code
+    if (this.regHistoryList.length === 0) {
+      this.beneficiaryRelationID = 1;
     }
   }
   // used to pass data between Components
