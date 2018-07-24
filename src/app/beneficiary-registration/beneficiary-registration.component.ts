@@ -141,18 +141,18 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   disableViewAll: boolean = true;
   // agentID: any;
 
-  alternateNumber1: any;
-  alternateNumber2: any;
-  alternateNumber3: any;
-  alternateNumber4: any;
-  alternateNumber5: any;
+  alternateNumber1 = "";
+  alternateNumber2 = "";
+  alternateNumber3 = "";
+  alternateNumber4 = "";
+  alternateNumber5 = "";
 
   // added for masking the alternate numbers
-  alternateNumberDisplay1: any;
-  alternateNumberDisplay2: any;
-  alternateNumberDisplay3: any;
-  alternateNumberDisplay4: any;
-  alternateNumberDisplay5: any;
+  alternateNumberDisplay1 = "";
+  alternateNumberDisplay2 = "";
+  alternateNumberDisplay3 = "";
+  alternateNumberDisplay4 = "";
+  alternateNumberDisplay5 = "";
 
   //public mobileNumberMask = [ /[^0-9]/, /\d/];
 
@@ -210,7 +210,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     //   this.startNewCall();
     // }
     this.BeneficaryForm.resetForm();
-
+    this.alternateNumber1 = "";
+    this.alternateNumber2= "";
+    this.alternateNumber3 = "";
+    this.alternateNumber4 = "";
+    this.alternateNumber5 = "";
   }
 
   setLanguage(language) {
@@ -366,6 +370,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       console.log('ERROR', err);
 
     });
+    this.alternateNumber1 = "";
+    this.alternateNumber2= "";
+    this.alternateNumber3 = "";
+    this.alternateNumber4 = "";
+    this.alternateNumber5 = "";
   }
 
   setBenCall(response) {
@@ -415,7 +424,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   calledEarlierCheck(flag) {
     if (flag == false) {
-      this.editAlternate = false;
+      //   this.editAlternate = false;
     }
     this.alternateNumberDisplay1 = null;
     this.alternateNumberDisplay2 = null;
@@ -505,7 +514,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // if ()
       // this.beneficiaryRelationID = this.getRelationShipType(this.beneficiaryRelations);
       // this value also comes from the constants
-
+      this.alternateNumber1 = "";
+      this.alternateNumber2= "";
+      this.alternateNumber3 = "";
+      this.alternateNumber4 = "";
+      this.alternateNumber5 = "";
     }
   }
 
@@ -780,6 +793,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.sendSMS(this.benRegistrationResponse.beneficiaryRegID, mobile_number);
       }
     });
+    this.alternateNumber1 = "";
+    this.alternateNumber2= "";
+    this.alternateNumber3 = "";
+    this.alternateNumber4 = "";
+    this.alternateNumber5 = "";
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -860,7 +878,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   editAlternate: Boolean = false;
 
   passBenRegHistoryData(benRegData: any) {
-    this.editAlternate = true;
+    //  this.editAlternate = true;
     this.notCalledEarlier = true;
     this.calledEarlier = false;
     this.showSearchResult = false;
@@ -935,24 +953,29 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     for (let i = 1; i < registeredBenData.benPhoneMaps.length; i++) {
       if (i == 1) {
-        this.alternateNumber1 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay1 = this.alternateNumber1.substring(0, 3) + 'XXXXX' + this.alternateNumber1.substring(7, 9);
+        this.alternateNumberDisplay1 = registeredBenData.benPhoneMaps[i].phoneNo;
+        if (this.alternateNumberDisplay1 != "")
+          this.alternateNumber1 = this.alternateNumberDisplay1.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay1.substring(7, 10);
       }
       if (i == 2) {
-        this.alternateNumber2 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay2 = this.alternateNumber2.substring(0, 3) + 'XXXXX' + this.alternateNumber2.substring(7, 9);
+        this.alternateNumberDisplay2 = registeredBenData.benPhoneMaps[i].phoneNo;
+        if (this.alternateNumberDisplay2 != "")
+          this.alternateNumber2 = this.alternateNumberDisplay2.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay2.substring(7, 10);
       }
       if (i == 3) {
-        this.alternateNumber3 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay3 = this.alternateNumber3.substring(0, 3) + 'XXXXX' + this.alternateNumber3.substring(7, 9);
+        this.alternateNumberDisplay3 = registeredBenData.benPhoneMaps[i].phoneNo;
+        if (this.alternateNumberDisplay3 != "")
+          this.alternateNumber3 = this.alternateNumberDisplay3.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay3.substring(7, 10);
       }
       if (i == 4) {
-        this.alternateNumber4 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay4 = this.alternateNumber4.substring(0, 3) + 'XXXXX' + this.alternateNumber4.substring(7, 9);
+        this.alternateNumberDisplay4 = registeredBenData.benPhoneMaps[i].phoneNo;
+        if (this.alternateNumberDisplay4 != "")
+          this.alternateNumber4 = this.alternateNumberDisplay4.substring(0, 3) + 'XXXXX' + this.alternateNumberDisplay4.substring(7, 10);
       }
       if (i == 5) {
-        this.alternateNumber5 = registeredBenData.benPhoneMaps[i].phoneNo;
-        this.alternateNumberDisplay5 = this.alternateNumber5.substring(0, 3) + 'XXXXX' + this.alternateNumber5.substring(7, 9);
+        this.alternateNumberDisplay5 = registeredBenData.benPhoneMaps[i].phoneNo;
+        if (this.alternateNumberDisplay5 != "")
+          this.alternateNumber5 = this.alternateNumberDisplay5.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay5.substring(7, 10);
       }
     }
     this.aadharNo = registeredBenData.govtIdentityNo;
@@ -1074,7 +1097,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     // NEW DATA FROM 104 on 28may
 
-    let numString = this.alternateNumber1 + this.alternateNumber2 + this.alternateNumber3 + this.alternateNumber4 + this.alternateNumber5;
+    let numString = (this.alternateNumberDisplay1 ? this.alternateNumberDisplay1 : this.alternateNumber1) + (this.alternateNumberDisplay2 ? this.alternateNumberDisplay2 : this.alternateNumber2) + (this.alternateNumberDisplay3 ? this.alternateNumberDisplay3 : this.alternateNumber3) + (this.alternateNumberDisplay4 ? this.alternateNumberDisplay4 : this.alternateNumber4) + (this.alternateNumberDisplay5 ? this.alternateNumberDisplay5 : this.alternateNumber5);
     // debugger;
     // console.log("numString.split(this.alternateNumber5).length", numString.split(this.alternateNumber5).length);
     // console.log("numString.indexOf(this.alternateNumber3)",numString.indexOf(this.alternateNumber3));
@@ -1082,28 +1105,34 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
     // debugger;
-    if (this.alternateNumber5 != undefined && numString.indexOf(this.alternateNumber5) < 40) {
+    if (this.alternateNumber5 != "" && (this.alternateNumberDisplay5 ? numString.includes(this.alternateNumberDisplay5) : numString.includes(this.alternateNumber5)) && (this.alternateNumberDisplay5 ? numString.indexOf(this.alternateNumberDisplay5) < this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length + this.alternateNumber4.length : numString.indexOf(this.alternateNumber5) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length + this.alternateNumber4.length))) {
       // debugger;
 
       // alternate number 5 already exists
       this.alertMaessage.alert("Alternate number 5 already exits", 'error');
       return;
-    } else if (this.alternateNumber4 != undefined && numString.indexOf(this.alternateNumber4) < 30) {
+    } else if (this.alternateNumber4 != "" && (this.alternateNumberDisplay4 ? numString.includes(this.alternateNumberDisplay4) : numString.includes(this.alternateNumber4)) && (this.alternateNumberDisplay4 ? numString.indexOf(this.alternateNumberDisplay4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length) : numString.indexOf(this.alternateNumber4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length))) {
       // debugger;
 
       // alternate number 4 already exists
       this.alertMaessage.alert("Alternate number 4 already exits", 'error');
       return;
     }
-    else if (this.alternateNumber3 != undefined && numString.indexOf(this.alternateNumber3) < 20) {
+    else if (this.alternateNumber3 != "" && (this.alternateNumberDisplay3 ? numString.includes(this.alternateNumberDisplay3) : numString.includes(this.alternateNumber3)) && (this.alternateNumberDisplay3 ? numString.indexOf(this.alternateNumberDisplay3) < (this.alternateNumber2.length + this.alternateNumber1.length) : numString.indexOf(this.alternateNumber3) < (this.alternateNumber2.length + this.alternateNumber1.length))) {
       // debugger;
       // alternate number 3 already exists
+      console.log(numString.includes(this.alternateNumberDisplay3));
+      console.log(numString.includes(this.alternateNumber3));
+      console.log(numString.indexOf(this.alternateNumberDisplay3) < 20);
+      console.log(numString.indexOf(this.alternateNumber3) < 20);
       this.alertMaessage.alert("Alternate number 3 already exits", 'error');
       return;
     }
-    else if (this.alternateNumber2 != undefined && numString.indexOf(this.alternateNumber2) < 10) {
-      // debugger;
-
+    else if (this.alternateNumber2 != "" && (this.alternateNumberDisplay2 ? numString.includes(this.alternateNumberDisplay2) : numString.includes(this.alternateNumber2)) && (this.alternateNumberDisplay2 ? numString.indexOf(this.alternateNumberDisplay2) < (this.alternateNumber1.length) : numString.indexOf(this.alternateNumber2) < (this.alternateNumber1.length))) {
+      console.log(numString.indexOf(this.alternateNumber2) < 10);
+      console.log(numString.indexOf(this.alternateNumberDisplay2) < 10);
+      console.log(numString.includes(this.alternateNumberDisplay2));
+      console.log(numString.includes(this.alternateNumber2));
       // alternate number 2 already exists
       this.alertMaessage.alert("Alternate number 2 already exits", 'error');
       return;
@@ -1117,24 +1146,49 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.updatedObj.benPhoneMaps[j].benRelationshipID = this.beneficiaryRelationID;
 
         if (j === 1) {
-
-          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber1;
+          if (this.alternateNumberDisplay1 != "") {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay1
+          }
+          else {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber1;
+          }
         }
         if (j === 2) {
-          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber2;
+          if (this.alternateNumberDisplay2 != "") {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay2;
+          }
+          else {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber2;
+          }
         }
         if (j === 3) {
-          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber3;
+          if (this.alternateNumberDisplay3 != "") {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay3
+          }
+          else {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber3;
+          }
         }
         if (j === 4) {
-          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber4;
+          if (this.alternateNumberDisplay4 != "") {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay4
+          }
+          else {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber4
+          }
         }
         if (j === 5) {
-          this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber5;
+          if (this.alternateNumberDisplay5 != "") {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay5
+          }
+          else {
+            this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumber5
+          }
         }
         if (this.updatedObj.benPhoneMaps[j].createdBy) {
           this.updatedObj.benPhoneMaps[j].modifiedBy = this.saved_data.uname;
-        } else {
+        }
+        else {
           this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
           this.updatedObj.benPhoneMaps[j].deleted = false;
         }
@@ -1202,13 +1256,45 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       console.log('ERROR', err);
     });
   }
+  alternateNumber(value, e) {
+    console.log(e);
+    if (e.keyCode == '8' || e.keyCode == '127' && this.updationProcess) {
+      switch (value) {
+        case 1: {
+          this.alternateNumberDisplay1 = "";
+          this.alternateNumber1 = "";
+          break;
+        }
+        case 2: {
+          this.alternateNumberDisplay2 = "";
+          this.alternateNumber2 = "";
+          break;
+        }
+        case 3: {
+          this.alternateNumberDisplay3 = "";
+          this.alternateNumber3 = "";
+          break;
+        }
+        case 4: {
+          this.alternateNumberDisplay4 = "";
+          this.alternateNumber4 = "";
+          break;
+        }
+        case 5: {
+          this.alternateNumberDisplay5 = "";
+          this.alternateNumber5 = "";
+          break;
+        }
+      }
+    }
+  }
 
   updateSuccessHandeler(response) {
     if (response) {
       this.alertMaessage.alert('Beneficiary updated successfully', 'success');
       this.populateUserData(response);
 
-      this.editAlternate = false;
+      //   this.editAlternate = false;
       if (this.preferredLanguage != undefined && this.preferredLanguage != null) {
         this.setBeneficiaryLanguageInCZentrix('update', this.preferredLanguage);
       }
@@ -1225,6 +1311,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
       this.selectBeneficiary(this.saved_data.beneficiaryData, 'update');
     }
+    this.alternateNumber1 = "";
+    this.alternateNumber2= "";
+    this.alternateNumber3 = "";
+    this.alternateNumber4 = "";
+    this.alternateNumber5 = "";
   }
 
   /**
