@@ -836,6 +836,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // this.saved_data.beneficiarySelected.next({
       //   'beneficiarySelected': true
       // });
+      this.state=undefined;
+      this.preferredLanguage=undefined;
       this.regHistoryList = response;
       console.log(this.regHistoryList);
       this.showSearchResult = true;
