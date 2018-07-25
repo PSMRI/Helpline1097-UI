@@ -25,7 +25,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   placeOfWork: any;
   remarks: any;
   isHIVPos = "";
-  beneficiaryRegID: any;
+  beneficiaryRegID: any=this.saved_data.beneficiaryRegID;
   educationQualifications: any = [];
   sexualOrientations: any = [];
   count;
@@ -98,7 +98,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
   PopulateOutBoundData(beneficiaryData: any) {
     if (beneficiaryData) {
-      this.beneficiaryRegID = beneficiaryData.beneficiaryRegID;
+      this.beneficiaryRegID = beneficiaryData.beneficiaryRegID ? beneficiaryData.beneficiaryRegID : this.saved_data.beneficiaryRegID;
       // this.updateForm.form.patchValue({ 'occupationIDs': beneficiaryData.i_bendemographics.occupationID });
 
       this.occupationIDs = beneficiaryData.i_bendemographics.occupationID.toString();

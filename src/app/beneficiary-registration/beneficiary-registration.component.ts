@@ -838,6 +838,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // });
       this.state=undefined;
       this.preferredLanguage=undefined;
+     
+       this.saved_data.beneficiary_regID_subject.next({'beneficiaryRegID':response[0].beneficiaryRegID});
       this.regHistoryList = response;
       console.log(this.regHistoryList);
       this.showSearchResult = true;

@@ -34,7 +34,7 @@ export class CoInformationServicesComponent implements OnInit {
   public totalRecord: any;
   dataToGet: any;
   subscription: Subscription;
-  beneficiaryID: any;
+  beneficiaryID: any=this.saved_data.beneficiaryRegID;
   benCallID: any;
   getDetailsFlag: boolean = false;
   tempFlag: any;
@@ -45,10 +45,14 @@ export class CoInformationServicesComponent implements OnInit {
     private pass_data: CommunicationService, public alertService: ConfirmationDialogsService
   ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
-
+    this.saved_data.beneficiary_regID_subject.subscribe(response => {
+      this.setBenRegID(response);
+    });
     // saved_data.myBool$.subscribe((newBool: boolean) => { alert("new val in co info",newBool) });
   }
   ngOnInit() {
+    this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
+    
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     // Add here
     this.GetServiceTypes();
@@ -73,7 +77,7 @@ export class CoInformationServicesComponent implements OnInit {
     this._coCategoryService.getTypes(this.providerServiceMapID)
       .subscribe(response => this.setServiceTypes(response),
       (err) => {
-        this.alertService.alert(err.errorMessage,'error');
+        this.alertService.alert(err.errorMessage, 'error');
       });
 
   }
@@ -94,7 +98,7 @@ export class CoInformationServicesComponent implements OnInit {
         this.SetCategories(response)
       },
       (err) => {
-        this.alertService.alert(err.errorMessage,'error');
+        this.alertService.alert(err.errorMessage, 'error');
 
       });
   }
@@ -104,7 +108,7 @@ export class CoInformationServicesComponent implements OnInit {
         this.SetCategories(response)
       },
       (err) => {
-        this.alertService.alert(err.errorMessage,'error');
+        this.alertService.alert(err.errorMessage, 'error');
 
       });
   }
@@ -119,7 +123,7 @@ export class CoInformationServicesComponent implements OnInit {
     this._coCategoryService.getSubCategories(id)
       .subscribe(response => this.SetSubCategories(response),
       (err) => {
-        this.alertService.alert(err.errorMessage,'error');
+        this.alertService.alert(err.errorMessage, 'error');
 
       });
   }
@@ -137,10 +141,10 @@ export class CoInformationServicesComponent implements OnInit {
       id, this.saved_data.uname, this.beneficiaryID,
       this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
     ).subscribe(response => this.SetSubCategoryDetails(response),
-    (err) => {
-      this.alertService.alert(err.errorMessage,'error');
+      (err) => {
+        this.alertService.alert(err.errorMessage, 'error');
 
-    });
+      });
   }
   SetSubCategoryDetails(response: any) {
     console.log('success', response);
@@ -178,13 +182,13 @@ export class CoInformationServicesComponent implements OnInit {
 
       },
       (err) => {
-        this.alertService.alert(err.errorMessage,'error');
+        this.alertService.alert(err.errorMessage, 'error');
 
       })
   }
   // get the data from diffrent commponent
   public getData(data: any) {
-    this.beneficiaryID = data.dataPass.beneficiaryRegID;
+    this.beneficiaryID = data.dataPass.beneficiaryRegID ? data.dataPass.beneficiaryRegID : this.saved_data.beneficiaryRegID;
     this.GetInformationHistory();
   }
   // tslint:disable-next-line:use-life-cycle-interface
@@ -201,4 +205,8 @@ export class CoInformationServicesComponent implements OnInit {
   millisToUTCDate(millis) {
     return this.toUTCDate(new Date(millis));
   };
+
+  setBenRegID(data) {
+    this.beneficiaryID = data.beneficiaryRegID;
+  }
 }

@@ -54,6 +54,8 @@ export class dataService {
 	//       this.reset_flag = false;
 	//       this.myBool$ = this.reset_flag.asObservable();
 	//   }
+
+	beneficiary_regID_subject=new Subject();
 };
 
 

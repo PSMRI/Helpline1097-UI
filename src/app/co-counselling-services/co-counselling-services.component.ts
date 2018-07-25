@@ -35,7 +35,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   public data: any;
   public totalRecord: any;
   subscription: Subscription;
-  beneficiaryID: any;
+  beneficiaryID: any=this.saved_data.beneficiaryRegID;
   getDetailsFlag: boolean = false;
   showresult: boolean;
   p = 1;
@@ -48,6 +48,9 @@ export class CoCounsellingServicesComponent implements OnInit {
     private alertService: ConfirmationDialogsService
   ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
+    this.saved_data.beneficiary_regID_subject.subscribe(response => {
+      this.setBenRegID(response);
+    });
   }
 
   ngOnInit() {
@@ -56,10 +59,14 @@ export class CoCounsellingServicesComponent implements OnInit {
     this.GetServiceTypes();
   }
 
+  setBenRegID(data) {
+    this.beneficiaryID = data.beneficiaryRegID;
+  }
+
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     this.setLanguage(this.current_language);
-    if(this.resetProvideServices) {
+    if (this.resetProvideServices) {
       this.tempFlag = true;
 
       this.showTableCondition = true;
@@ -76,10 +83,10 @@ export class CoCounsellingServicesComponent implements OnInit {
   GetServiceTypes() {
     this._coCategoryService.getTypes(this.providerServiceMapID)
       .subscribe(response => this.setServiceTypes(response),
-    (err) => {
-      this.alertService.alert(err.errorMessage,'error');
+      (err) => {
+        this.alertService.alert(err.errorMessage, 'error');
 
-    });
+      });
   }
 
   setServiceTypes(response: any) {
@@ -95,17 +102,17 @@ export class CoCounsellingServicesComponent implements OnInit {
   GetCategories() {
     this._coCategoryService.getCategories()
       .subscribe(response => this.SetCategories(response),
-    (err) => {
-      this.alertService.alert(err.errorMessage,'error');
+      (err) => {
+        this.alertService.alert(err.errorMessage, 'error');
 
-    });
+      });
   }
   GetCategoriesByID() {
     this._coCategoryService.getCategoriesByID(this.serviceID)
       .subscribe(response => this.SetCategories(response),
       (err) => {
-        this.alertService.alert(err.errorMessage,'error');
-  
+        this.alertService.alert(err.errorMessage, 'error');
+
       });
   }
 
@@ -119,8 +126,8 @@ export class CoCounsellingServicesComponent implements OnInit {
     this._coCategoryService.getSubCategories(id)
       .subscribe(response => this.SetSubCategories(response),
       (err) => {
-        this.alertService.alert(err.errorMessage,'error');
-  
+        this.alertService.alert(err.errorMessage, 'error');
+
       });
   }
 
@@ -136,10 +143,10 @@ export class CoCounsellingServicesComponent implements OnInit {
       id, this.saved_data.uname, this.beneficiaryID,
       this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID
     ).subscribe(response => this.SetSubCategoryDetails(response),
-    (err) => {
-      this.alertService.alert(err.errorMessage,'error');
+      (err) => {
+        this.alertService.alert(err.errorMessage, 'error');
 
-    });
+      });
   }
   EnabledGetDetails() {
     this.getDetailsFlag = false;
@@ -154,7 +161,7 @@ export class CoCounsellingServicesComponent implements OnInit {
     }
   }
   showForm() {
-    if(this.tempFlag){
+    if (this.tempFlag) {
       jQuery("#counsellingForm").trigger("reset");
       this.tempFlag = false;
     }
@@ -178,14 +185,14 @@ export class CoCounsellingServicesComponent implements OnInit {
         this.alertService.alert("No data found contact your administrator");
       }
     }, (err) => {
-      this.alertService.alert(err.errorMessage,'error');
+      this.alertService.alert(err.errorMessage, 'error');
 
       console.log('Some error reteriving Information History ', err);
     })
   }
   // get the data from diffrent commponent
   public getData(data: any) {
-    this.beneficiaryID = data.dataPass.beneficiaryRegID;
+    this.beneficiaryID = data.dataPass.beneficiaryRegID ? data.dataPass.beneficiaryRegID : this.saved_data.beneficiaryRegID;
     this.GetCounsellingHistory();
   }
   // tslint:disable-next-line:use-life-cycle-interface

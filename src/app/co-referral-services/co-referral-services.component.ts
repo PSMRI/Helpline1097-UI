@@ -52,7 +52,7 @@ export class CoReferralServicesComponent implements OnInit {
   showSendSMS: boolean = false;
   providerServiceMapID: number;
   subscription: Subscription
-  beneficiaryRegID: any;
+  beneficiaryRegID: any = this.saved_data.beneficiaryRegID;
   p = 1;
   enableSms: boolean = false;
   showresult: boolean;
@@ -65,7 +65,12 @@ export class CoReferralServicesComponent implements OnInit {
     private dialog: MdDialog,
     private message: ConfirmationDialogsService,
     private _smsService: SmsTemplateService
-  ) { this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) }); }
+  ) {
+  this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) });
+    this.saved_data.beneficiary_regID_subject.subscribe(response => {
+      this.setBenRegID(response);
+    });
+  }
 
   ngOnInit() {
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -84,6 +89,10 @@ export class CoReferralServicesComponent implements OnInit {
   }
   tempFlag: boolean;
   // tslint:disable-next-line:use-life-cycle-interface
+
+  setBenRegID(data) {
+    this.beneficiaryRegID = data.beneficiaryRegID;
+  }
   ngOnChanges() {
     this.setLanguage(this.current_language);
     if (this.resetProvideServices) {
@@ -261,7 +270,7 @@ export class CoReferralServicesComponent implements OnInit {
 
   }
   getBenData(benData: any) {
-    this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
+    this.beneficiaryRegID = benData.dataPass.beneficiaryRegID ? benData.dataPass.beneficiaryRegID : this.saved_data.beneficiaryRegID;
     this.setBeneficiaryData();
   }
   toUTCDate(date) {
@@ -371,7 +380,7 @@ export class CoReferralServicesComponent implements OnInit {
                         'stateID': this.row_array[i].stateID,
                         'districtID': this.row_array[i].districtID,
                         'blockID': this.row_array[i].blockID,
-                        'beneficiaryRegID':this.beneficiaryRegID
+                        'beneficiaryRegID': this.beneficiaryRegID
                       }
 
                       req_arr.push(Obj);

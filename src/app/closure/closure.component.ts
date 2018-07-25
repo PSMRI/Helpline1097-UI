@@ -43,7 +43,7 @@ export class ClosureComponent implements OnInit
   compaignSpecific: boolean = false;
   showSlider: boolean;
   benCallID: any;
-  beneficiaryRegID: any;
+  beneficiaryRegID: any = this.saved_data.beneficiaryRegID;
   serviceID: any;
   subscription: Subscription
   callTypeObj: any;
@@ -79,9 +79,14 @@ export class ClosureComponent implements OnInit
     this.saved_data.beneficiarySelected.subscribe((data) => {
       this.setFlag(data)
     });
+
+    this.saved_data.beneficiary_regID_subject.subscribe(response => {
+      this.setBenRegID(response);
+    });
   }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
+    this.beneficiaryRegID = this.saved_data.beneficiaryRegID;
     let requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
     if (this.saved_data.current_campaign == 'INBOUND') {
       requestObject['isInbound'] = true;
@@ -416,7 +421,7 @@ export class ClosureComponent implements OnInit
   }
   outBoundCloseCall(benData: any) {
 
-    this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
+    this.beneficiaryRegID = benData.dataPass.beneficiaryRegID ? benData.dataPass.beneficiaryRegID : this.saved_data.beneficiaryRegID;
     if (benData.dataPass.i_bendemographics.m_language) {
       this.preferredLanguageName = benData.dataPass.i_bendemographics.m_language.languageName;
       // this.preferredLanguageName = benData.dataPass.i_bendemographics.m_language.map(function (item) {
@@ -437,10 +442,10 @@ export class ClosureComponent implements OnInit
   getIpAddress() {
     this.czentrixServices.getIpAddress(this.saved_data.Userdata.agentID)
       .subscribe(response => this.ipSuccessHandler(response),
-        (err) => {
-          this.message.alert(err.errorMessage, 'error');
+      (err) => {
+        this.message.alert(err.errorMessage, 'error');
 
-        });
+      });
   }
   ipSuccessHandler(response) {
     console.log('fetch ip response: ' + JSON.stringify(response));
@@ -486,5 +491,9 @@ export class ClosureComponent implements OnInit
   setFlag(data) {
     this.beneficiarySelected = data.beneficiarySelected;
     console.log('BEN SELECTED', this.beneficiarySelected);
+  }
+
+  setBenRegID(data) {
+    this.beneficiaryRegID = data.beneficiaryRegID;
   }
 }

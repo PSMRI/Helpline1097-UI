@@ -42,7 +42,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   selected_doi: any = undefined;
 
   feedbackDescription: any = '';
-  beneficiaryRegID: any;
+  beneficiaryRegID: any = this._savedData.beneficiaryRegID;
   userName: any;
 
   states: any = [];
@@ -77,7 +77,12 @@ export class CoFeedbackServicesComponent implements OnInit {
     public dialog: MdDialog,
     private alertMessage: ConfirmationDialogsService,
     private pass_data: CommunicationService
-  ) { this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) }); }
+  ) {
+  this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) });
+    this._savedData.beneficiary_regID_subject.subscribe(response => {
+      this.setBenRegID(response);
+    });
+  }
 
 
 
@@ -91,25 +96,25 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.GetServiceTypes();
     this._userBeneficiaryData.getUserBeneficaryData(this._savedData.current_service.serviceID)
       .subscribe(response => this.SetUserBeneficiaryFeedbackData(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
 
-        });
+      });
     this._coFeedbackService.getDesignations()
       .subscribe(response => this.setDesignation(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-        });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
     this._feedbackTypes.getFeedbackTypesData(this.providerServiceMapID)
       .subscribe(response => this.setFeedbackTypes(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-        });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
     this._feedbackTypes.getFeedbackSeverityData(this.providerServiceMapID)
       .subscribe(response => this.setFeedbackSeverity(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-        });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
     this.count = '0/300';
 
     this.today = new Date();
@@ -118,6 +123,10 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.GetInstitutes();
   }
   tempFlag: any;
+
+  setBenRegID(data) {
+    this.beneficiaryRegID = data.beneficiaryRegID;
+  }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
@@ -147,9 +156,9 @@ export class CoFeedbackServicesComponent implements OnInit {
   GetServiceTypes() {
     this._feedbackTypes.getTypes(this.providerServiceMapID)
       .subscribe(response => this.setServiceTypes(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-        });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
   }
   setServiceTypes(response: any) {
     for (let i: any = 0; i < response.length; i++) {
@@ -196,9 +205,9 @@ export class CoFeedbackServicesComponent implements OnInit {
     // this.institutes = [];
     this._locationService.getDistricts(state)
       .subscribe(response => this.SetDistricts(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-        });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
   }
   SetDistricts(response: any) {
     this.districts = response;
@@ -209,9 +218,9 @@ export class CoFeedbackServicesComponent implements OnInit {
     // this.institutes = [];
     this._locationService.getTaluks(district)
       .subscribe(response => this.SetTaluks(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-        });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
   }
   SetTaluks(response: any) {
     this.taluks = response;
@@ -221,9 +230,9 @@ export class CoFeedbackServicesComponent implements OnInit {
     // this.institutes = [];
     this._locationService.getBranches(taluk)
       .subscribe(response => this.SetBlocks(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-        });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
   }
   SetBlocks(response: any) {
     this.blocks = response;
@@ -235,9 +244,9 @@ export class CoFeedbackServicesComponent implements OnInit {
     // let object = { 'providerServiceMapID': this.providerServiceMapID };
     this._locationService.getInstituteList(object)
       .subscribe(response => this.SetInstitutes(response),
-        (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-        });
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
   }
   SetInstitutes(response: any) {
     this.institutes = response;
@@ -359,7 +368,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.count = this.feedbackDescription.length + '/300';
   }
   getBenData(benData: any) {
-    this.beneficiaryRegID = benData.dataPass.beneficiaryRegID;
+    this.beneficiaryRegID = benData.dataPass.beneficiaryRegID ? benData.dataPass.beneficiaryRegID : this._savedData.beneficiaryRegID;
     this.showBeneficiaryFeedbackList();
   }
   toUTCDate(date) {
