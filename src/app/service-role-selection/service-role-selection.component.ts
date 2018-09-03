@@ -28,6 +28,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
     }
 
     route2dashboard(role: any, service: any) {
+        sessionStorage.setItem('apiman_key',service.apimanClientKey);
         let roleName = '';
         let serviceName = service.serviceName;
         let screen = role.serviceRoleScreenMappings[0].screen.screenName;

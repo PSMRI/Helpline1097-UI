@@ -14,6 +14,7 @@ export class AuthService {
         }
     }
     public removeToken() {
+        sessionStorage.removeItem('apiman_key');
         localStorage.removeItem('authToken');
     }
     public isAuthenticated(): boolean {
