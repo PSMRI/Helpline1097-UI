@@ -11,7 +11,8 @@ import { InterceptedHttp } from './../../http.interceptor'
 
 @Injectable()
 export class CzentrixServices {
-  common_url = this._config.getOpenCommonBaseURL();
+  openCommonUrl = this._config.getOpenCommonBaseUrl();
+  common_url = this._config.getCommonBaseURL();
   address = this._config.getTelephonyServerURL();
   _getAgentStatus_url = this.common_url + '/cti/getAgentState';
   _getIVRSPathDetails_url = this.common_url + '/cti/getIVRSPathDetails';
@@ -25,7 +26,7 @@ export class CzentrixServices {
   resFormat = 3;
   transaction_id: any;
   ip: any;
-  _agentLogOut = this.common_url + 'cti/doAgentLogout';
+  _agentLogOut = this.openCommonUrl + 'cti/doAgentLogout';
   phone_num: number;
   constructor(private http: AuthorizationWrapper,
     private _http: Http, private httpInterceptor: InterceptedHttp,
@@ -57,7 +58,7 @@ export class CzentrixServices {
     // let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + agentId + '&ip=' + ipAddress + '&resFormat=' + this.resFormat;
     // return this.callAPI(params);
     const loginObj = { 'agent_id': agentId };
-    return this._http.post(this._agentLogOut, loginObj).map(this.extractData).catch(this.handleError);
+    return this.httpInterceptor.post(this._agentLogOut, loginObj).map(this.extractData).catch(this.handleError);
 
   }
 

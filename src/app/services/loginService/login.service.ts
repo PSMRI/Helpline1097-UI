@@ -10,11 +10,12 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Injectable()
 export class loginService {
-  _baseURL = this._config.getOpenCommonBaseURL();
-  _userAuthURL = this._baseURL + 'user/userAuthenticate/';
-  _forgotPasswordURL = this._baseURL + 'user/forgetPassword/';
+  openBaseUrl = this._config.getOpenCommonBaseUrl();
+  _baseURL = this._config.getCommonBaseURL();
+  _userAuthURL = this.openBaseUrl + 'user/userAuthenticate/';
+  _forgotPasswordURL = this.openBaseUrl + 'user/forgetPassword/';
   _getDetailsByID = this._baseURL + 'user/getUserDetails/';
-  _authorisedUser = this._baseURL + '/user/getLoginResponse';
+  _authorisedUser = this.openBaseUrl + '/user/getLoginResponse';
   constructor(
     private _http: InterceptedHttp,
     private _config: ConfigService

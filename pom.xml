@@ -19,7 +19,7 @@
 			<properties>
 				<old-api-url>10.152.3.99</old-api-url>
 				<old-cti-url>10.208.122.99</old-cti-url>
-				<new-api-url>10.152.3.99</new-api-url>
+				<new-api-url>10.208.122.38</new-api-url>
 				<new-cti-url>10.208.122.99</new-cti-url>
                 <environment>dev</environment>
 			</properties>
@@ -56,7 +56,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<final-name>1097ui-v1.0</final-name>
-		<hostname-dev>10.152.3.99</hostname-dev>
+		<hostname-dev>10.208.122.38</hostname-dev>
 		<port-dev>9990</port-dev>
         <hostname-local>localhost</hostname-local>
 		<port-local>9990</port-local>

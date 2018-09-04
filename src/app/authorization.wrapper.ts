@@ -28,11 +28,9 @@ export class AuthorizationWrapper extends Http {
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        // url = this.updateUrl(url);
-        let URL = this.updateURL(url);
-
+         url = this.updateUrl(url);
         if (this.networkCheck()) {
-            return super.get(URL, this.getRequestOptionArgs(options)).catch(this.onCatch)
+            return super.get(url, this.getRequestOptionArgs(options)).catch(this.onCatch)
                 .do((res: Response) => {
                     this.onSuccess(res);
                 }, (error: any) => {
@@ -48,11 +46,9 @@ export class AuthorizationWrapper extends Http {
     }
 
     post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        // url = this.updateUrl(url);
-        let URL = this.updateURL(url);
-
+         url = this.updateUrl(url);
         if (this.networkCheck()) {
-            return super.post(URL, body, this.getRequestOptionArgs(
+            return super.post(url, body, this.getRequestOptionArgs(
                 options
             )).catch(
                 this.onCatch
@@ -72,7 +68,7 @@ export class AuthorizationWrapper extends Http {
     }
 
     put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        // url = this.updateUrl(url);
+         url = this.updateUrl(url);
         return super.put(url, body, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
             this.onSuccess(res);
         }, (error: any) => {
@@ -84,7 +80,7 @@ export class AuthorizationWrapper extends Http {
     }
 
     delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        // url = this.updateUrl(url);
+         url = this.updateUrl(url);
         return super.delete(url, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
             this.onSuccess(res);
         }, (error: any) => {
@@ -98,7 +94,7 @@ export class AuthorizationWrapper extends Http {
     // private updateUrl(req: string) {
     //     return environment.origin + req;
     // }
-    private updateURL(url) {
+    private updateUrl(url) {
         if (sessionStorage.getItem('apiman_key') != undefined && sessionStorage.getItem('apiman_key') != null) {
             url = url + '?apikey=' + sessionStorage.getItem('apiman_key');
             return url;

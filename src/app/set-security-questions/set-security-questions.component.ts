@@ -29,7 +29,7 @@ passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,
 
   ngOnInit() {
 
-    this.http_calls.getData(this.configService.getCommonBaseURL() + "user/getsecurityquetions")
+    this.http_calls.getData(this.configService.getOpenCommonBaseUrl() + "user/getsecurityquetions")
     .subscribe(
                (response: any) => this.handleSuccess(response),
                (error: any) => this.handleError(error)
@@ -227,7 +227,7 @@ confirmpwd: any;
 
 updatePassword(new_pwd) {
   if (new_pwd === this.confirmpwd) {
-    this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/saveUserSecurityQuesAns', this.dataArray)
+    this.http_calls.postData(this.configService.getOpenCommonBaseUrl() + 'user/saveUserSecurityQuesAns', this.dataArray)
     .subscribe((response: any) => this.handleQuestionSaveSuccess(response,new_pwd),
                (error: any) => this.handleQuestionSaveError(error));
 
@@ -240,7 +240,7 @@ updatePassword(new_pwd) {
 
 handleQuestionSaveSuccess(response,new_pwd) {
   console.log('saved questions', response);
-  this.http_calls.postData(this.configService.getCommonBaseURL() + 'user/setForgetPassword',
+  this.http_calls.postData(this.configService.getOpenCommonBaseUrl() + 'user/setForgetPassword',
                            { 'userName': this.uname, 'password': new_pwd })
   .subscribe((response: any) => this.successCallback(response),
              (error: any) => this.errorCallback(error));

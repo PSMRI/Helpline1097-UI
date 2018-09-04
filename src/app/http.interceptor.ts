@@ -30,11 +30,10 @@ export class InterceptedHttp extends Http {
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        // url = this.updateUrl(url);
-        let URL = this.updateURL(url);
+         url = this.updateUrl(url);
         if (this.networkCheck()) {
             this.showLoader();
-            return super.get(URL, this.getRequestOptionArgs(options)).catch(this.onCatch)
+            return super.get(url, this.getRequestOptionArgs(options)).catch(this.onCatch)
                 .do((res: Response) => {
                     this.onSuccess(res);
                 }, (error: any) => {
@@ -50,11 +49,10 @@ export class InterceptedHttp extends Http {
     }
 
     post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        // url = this.updateUrl(url);
-        let URL = this.updateURL(url);
+         url = this.updateUrl(url);
         if (this.networkCheck()) {
             this.showLoader();
-            return super.post(URL, body, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
+            return super.post(url, body, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
                 this.onSuccess(res);
             }, (error: any) => {
                 this.onError(error);
@@ -69,7 +67,7 @@ export class InterceptedHttp extends Http {
     }
 
     put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        // url = this.updateUrl(url);
+         url = this.updateUrl(url);
         return super.put(url, body, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
             this.onSuccess(res);
         }, (error: any) => {
@@ -81,7 +79,7 @@ export class InterceptedHttp extends Http {
     }
 
     delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        // url = this.updateUrl(url);
+         url = this.updateUrl(url);
         return super.delete(url, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
             this.onSuccess(res);
         }, (error: any) => {
@@ -95,14 +93,13 @@ export class InterceptedHttp extends Http {
     // private updateUrl(req: string) {
     //     return environment.origin + req;
     // }
-    private updateURL(url) {
+    private updateUrl(url) {
         if (sessionStorage.getItem('apiman_key') != undefined && sessionStorage.getItem('apiman_key') != null) {
             url = url + '?apikey=' + sessionStorage.getItem('apiman_key');
             return url;
         }
         return url;
     }
-
     private getRequestOptionArgs(options?: RequestOptionsArgs): RequestOptionsArgs {
         if (options == null) {
             options = new RequestOptions();
