@@ -43,7 +43,7 @@ export class ConfigService {
         return this._commonBaseURL;
     }
     getOpenCommonBaseURL() {
-        return this._opencommonBaseURL;
+        return this.openCommonURL;
     }
     get1097BaseURL() {
         return this._helpline1097BaseURL;
