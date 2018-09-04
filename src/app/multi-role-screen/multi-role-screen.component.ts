@@ -127,11 +127,13 @@ export class MultiRoleScreenComponent implements OnInit {
       if (res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
         this.router.navigate(['']);
+        sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
 
       } else {
         sessionStorage.removeItem('isOnCall');
         this.router.navigate(['']);
+        sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
 
         // this.alertMessage.alert('Czentrix Agent Not Logged In');

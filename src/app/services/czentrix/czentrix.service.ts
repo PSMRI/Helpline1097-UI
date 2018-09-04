@@ -11,7 +11,7 @@ import { InterceptedHttp } from './../../http.interceptor'
 
 @Injectable()
 export class CzentrixServices {
-  common_url = this._config.getCommonBaseURL();
+  common_url = this._config.getOpenCommonBaseURL();
   address = this._config.getTelephonyServerURL();
   _getAgentStatus_url = this.common_url + '/cti/getAgentState';
   _getIVRSPathDetails_url = this.common_url + '/cti/getIVRSPathDetails';

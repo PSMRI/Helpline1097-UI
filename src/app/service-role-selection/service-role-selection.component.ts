@@ -28,6 +28,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
     }
 
     route2dashboard(role: any, service: any) {
+        sessionStorage.setItem('apiman_key', service.apimanClientKey);
         let roleName = '';
         let serviceName = service.serviceName;
         let screen = role.serviceRoleScreenMappings[0].screen.screenName;
@@ -63,11 +64,11 @@ export class ServiceRoleSelectionComponent implements OnInit {
             }
 
             this.getCommonData.current_workingLocationID = role.workingLocationID;
-            this.getCommonData.currentCampaignName=role.serviceRoleScreenMappings[0].providerServiceMapping.ctiCampaignName;
+            this.getCommonData.currentCampaignName = role.serviceRoleScreenMappings[0].providerServiceMapping.ctiCampaignName;
             if (screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
-                this.getCommonData.current_role = { 'RoleName': 'CO','RoleID':role.RoleID };
+                this.getCommonData.current_role = { 'RoleName': 'CO', 'RoleID': role.RoleID };
             } else if (screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {
-                this.getCommonData.current_role = { 'RoleName': 'Supervisor','RoleID':role.RoleID };
+                this.getCommonData.current_role = { 'RoleName': 'Supervisor', 'RoleID': role.RoleID };
             } else {
                 this.getCommonData.current_role = '';
             }

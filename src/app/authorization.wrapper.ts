@@ -29,8 +29,10 @@ export class AuthorizationWrapper extends Http {
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         // url = this.updateUrl(url);
+        let URL = this.updateURL(url);
+
         if (this.networkCheck()) {
-            return super.get(url, this.getRequestOptionArgs(options)).catch(this.onCatch)
+            return super.get(URL, this.getRequestOptionArgs(options)).catch(this.onCatch)
                 .do((res: Response) => {
                     this.onSuccess(res);
                 }, (error: any) => {
@@ -47,12 +49,14 @@ export class AuthorizationWrapper extends Http {
 
     post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         // url = this.updateUrl(url);
+        let URL = this.updateURL(url);
+
         if (this.networkCheck()) {
-            return super.post(url, body, this.getRequestOptionArgs(
+            return super.post(URL, body, this.getRequestOptionArgs(
                 options
             )).catch(
                 this.onCatch
-            ).do(
+                ).do(
                 (res: Response) => {
                     this.onSuccess(res);
                 }, (error: any) => {
@@ -94,6 +98,13 @@ export class AuthorizationWrapper extends Http {
     // private updateUrl(req: string) {
     //     return environment.origin + req;
     // }
+    private updateURL(url) {
+        if (sessionStorage.getItem('apiman_key') != undefined && sessionStorage.getItem('apiman_key') != null) {
+            url = url + '?apikey=' + sessionStorage.getItem('apiman_key');
+            return url;
+        }
+        return url;
+    }
 
     private getRequestOptionArgs(options?: RequestOptionsArgs): RequestOptionsArgs {
         if (options == null) {

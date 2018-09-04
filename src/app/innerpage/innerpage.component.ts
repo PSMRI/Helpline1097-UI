@@ -375,6 +375,7 @@ export class InnerpageComponent implements OnInit {
     this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
       if (res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
+        sessionStorage.removeItem('apiman_key');
         this.basicrouter.navigate(['']);
       } else {
         if (this.current_role.toLowerCase() !== 'supervisor') {
@@ -382,6 +383,7 @@ export class InnerpageComponent implements OnInit {
           this.remarksMessage.alert('Cannot logout during active call');
         } else {
           sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('apiman_key');          
           this.basicrouter.navigate(['']);
         }
       }

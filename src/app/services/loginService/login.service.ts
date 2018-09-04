@@ -10,7 +10,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Injectable()
 export class loginService {
-  _baseURL = this._config.getCommonBaseURL();
+  _baseURL = this._config.getOpenCommonBaseURL();
   _userAuthURL = this._baseURL + 'user/userAuthenticate/';
   _forgotPasswordURL = this._baseURL + 'user/forgetPassword/';
   _getDetailsByID = this._baseURL + 'user/getUserDetails/';
