@@ -1712,7 +1712,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
                     'alternateNo': alternate_Phone_No,
                     'beneficiaryRegID': generated_ben_id,
                     'createdBy': this.saved_data.uname,
-                    'is1097': false,
+                    'is1097': true,
                     'providerServiceMapID': this.saved_data.current_service.serviceID,
                     'smsTemplateID': sms_template_id,
                     'smsTemplateTypeID': smsTypeID
