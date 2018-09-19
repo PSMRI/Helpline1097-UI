@@ -21,6 +21,7 @@ export class QualityAuditComponent implements OnInit {
   // arrays
   servicelines: any = [];
   agentIDs = [];
+  allAgentIDs = [];
   roles = [];
   callTypes: any = [];
   callSubTypes: any = [];
@@ -150,11 +151,34 @@ export class QualityAuditComponent implements OnInit {
       });
   }
 
+  getRoleSpecificAgents(role_name, roles_array) {
+    let roleID = undefined;
+
+    for (let i = 0; i < roles_array.length; i++) {
+      if (role_name.toLowerCase() === roles_array[i].roleName.toLowerCase()) {
+        roleID = roles_array[i].roleID;
+        break;
+      }
+    }
+
+    if (roleID != undefined) {
+      this.qualityAuditService.getRoleSpecificAgents(this.providerServiceMapID, roleID)
+        .subscribe(response => {
+          this.agent = undefined;
+          this.agentIDs = response;
+        }, err => {
+          console.log(err, 'Error while fetching role specific agent IDs');
+        });
+    }
+  }
+
   getAgents() {
     this.qualityAuditService.getAllAgents(this.providerServiceMapID)
       .subscribe(response => {
         console.log(response, 'QA AGENTIDs success');
         this.agentIDs = response;
+        this.allAgentIDs = response;
+
         this.getCallTypes();
       }, err => {
         console.log(err.errorMessage, 'QA AGENTIDs error');
@@ -261,6 +285,8 @@ export class QualityAuditComponent implements OnInit {
   reset() {
     this.qaForm.resetForm();
     this.getFilteredCallList_default();
+    this.agent = undefined;
+    this.agentIDs = this.allAgentIDs;
   }
 
   invokeCaseSheetDialog(benCallID, beneficiaryData) {

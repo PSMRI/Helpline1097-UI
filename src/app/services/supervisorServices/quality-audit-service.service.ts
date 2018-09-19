@@ -20,6 +20,8 @@ export class QualityAuditService {
     filterCallListUrl: any = '';
     getCallSummaryUrl: any = '';
     getAllAgents_Url: any = '';
+    getRoleSpecificAgentIDs_url: any = '';
+    
 
     constructor(private _http: AuthorizationWrapper,
         private _config: ConfigService,
@@ -35,6 +37,8 @@ export class QualityAuditService {
         this.filterCallListUrl = this.commonBaseURL + 'call/filterCallList';
         this.getCallSummaryUrl = this._1097baseUrl + 'services/getCaseSheet';
         this.getAllAgents_Url = this.admin_Base_Url + 'getAllAgentIds';
+        this.getRoleSpecificAgentIDs_url = this.commonBaseURL + 'user/getAgentByRoleID';
+        
 
     }
 
@@ -82,6 +86,18 @@ export class QualityAuditService {
         return this.httpIntercept
             .post(this.getAllAgents_Url,
             { 'providerServiceMapID': providerServiceMapID })
+            .map(this.handleSuccess)
+            .catch(this.handleError)
+    }
+
+    
+    getRoleSpecificAgents(providerServiceMapID, roleID) {
+        return this.httpIntercept
+            .post(this.getRoleSpecificAgentIDs_url,
+            {
+                'providerServiceMapID': providerServiceMapID,
+                'RoleID': roleID
+            })
             .map(this.handleSuccess)
             .catch(this.handleError)
     }
