@@ -20,14 +20,9 @@ export class ConfigService {
     // private _loginUrl = 'http://deviemr.piramalswasthya.org:8080/commonui-v1.0';
     // private adminBaseUrl = 'http://deviemr.piramalswasthya.org:8080/adminapi-v1.0/';
 
-    // private _commonBaseURL: String = "http://10.208.122.38:8080/apiman-gateway/IEMR/Common/1.0/";
-    private _commonBaseURL: String = "http://10.208.122.38:8080/commonapi-v1.0/";
-    private openCommonURL: String="http://10.208.122.38:8080/commonapi-v1.0/";
-    
-    // private openCommonURL: String = "http://10.208.122.38:8080/apiman-gateway/IEMR/Common/open/";
-    // private _helpline1097BaseURL: String = 'http://10.208.122.38:8080/apiman-gateway/IEMR/1097/1.0/';
-    private _helpline1097BaseURL: String = 'http://10.208.122.38:8080/1097api-v1.0/';
-    
+    private _commonBaseURL: String = "http://10.208.122.38:8080/apiman-gateway/IEMR/Common/1.0/";
+    private openCommonURL: String = "http://10.208.122.38:8080/apiman-gateway/IEMR/Common/open/";
+    private _helpline1097BaseURL: String = 'http://10.208.122.38:8080/apiman-gateway/IEMR/1097/1.0/';
     private _telephonyServerURL: String = 'http://10.208.122.99/';
     private _localeString = 'en-in';
     private _loginUrl = 'http://10.152.3.99:8080/commonui-v1.0';

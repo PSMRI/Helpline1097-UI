@@ -94,10 +94,10 @@ export class InterceptedHttp extends Http {
     //     return environment.origin + req;
     // }
     private updateUrl(url) {
-        // if (sessionStorage.getItem('apiman_key') != undefined && sessionStorage.getItem('apiman_key') != null) {
-        //     url = url + '?apikey=' + sessionStorage.getItem('apiman_key');
-        //     return url;
-        // }
+        if (sessionStorage.getItem('apiman_key') != undefined && sessionStorage.getItem('apiman_key') != null) {
+            url = url + '?apikey=' + sessionStorage.getItem('apiman_key');
+            return url;
+        }
         return url;
     }
     private getRequestOptionArgs(options?: RequestOptionsArgs): RequestOptionsArgs {
