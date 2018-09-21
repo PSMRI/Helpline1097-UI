@@ -23,7 +23,7 @@ export class ForceLogoutComponent implements OnInit {
   kickout(obj) {
     console.log(obj, 'object values');
     obj['providerServiceMapID'] = this.commonData.current_service.serviceID;
-    this.alertService.confirm('', ' Do you really want to kickout ' + obj.userName).subscribe(
+    this.alertService.confirm('', ' Do you really want to kickout ' + obj.userName +'?').subscribe(
       response => {
         if (response) {
           this.forceLogoutService.forcelogout(obj)
