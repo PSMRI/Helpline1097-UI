@@ -59,7 +59,7 @@
         <md-icon color="" class="copyright_icon">copyright</md-icon> PSMRI</p>
     </div>
     <div class="col-sm-4 col-xs-4" >
-      <button *ngIf="hideBar" md-raised-button type="button" color="primary" class="footer-height pull-right" (click)="toggleBar()">CZentrix</button>
+      <button *ngIf="(hideBar && (id != undefined || id != null))" md-raised-button type="button" color="primary" class="footer-height pull-right" (click)="toggleBar()">CZentrix</button>
     </div>
   </footer>
   <!-- <router-outlet name="postLogin_router"></router-outlet> -->
