@@ -28,6 +28,7 @@
         <thead>
           <tr>
             <th>S.No</th>
+            <th>Office</th>
             <th>Type</th>
             <th>Subject</th>
             <th>Description</th>
@@ -38,12 +39,13 @@
         </thead>
         <tbody>
           <tr *ngIf="location_messages?.length < 1">
-            <td class="record-not-found" colspan="7">
+            <td class="record-not-found" colspan="8">
                 No records found
             </td>
           </tr>
           <tr *ngFor="let row of md2.data;let i = index ">
             <td>{{(md2.activePage-1)*3+i+1}}</td>
+            <td>{{row.workingLocation.locationName}}</td>
             <td>{{row.notificationType.notificationType}} </td>
             <td>{{row.notification}}</td>
             <td>{{row.notificationDesc}}</td>
@@ -59,7 +61,7 @@
             <td colspan="4">
               <md2-pagination></md2-pagination>
             </td>
-            <td colspan="3" class="p-r-0">
+            <td colspan="4" class="p-r-0">
               <button md-raised-button color="primary" type="button" class="pull-right" (click)="showForm()">Create New</button>
             </td>
           </tr>
@@ -132,6 +134,11 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
     <form #notificationEditingForm="ngForm" autocomplete="off">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <md-input-container class="width100">
+              <input mdInput placeholder="Office" name="office" [(ngModel)]="office_name" ngModel #office="ngModel" [disabled]="true">
+            </md-input-container>
+          </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md2-datepicker name="startDate" (keydown)="blockey($event)" [(ngModel)]="sdate" (change)="resetEndDate()" [min]="minDate"
           placeholder="Valid From" #startDate="ngModel" required [style.width]="'100%'"></md2-datepicker>

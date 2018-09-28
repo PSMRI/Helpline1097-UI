@@ -249,6 +249,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   }
 
   editType: any;
+  office_name: any;
   notification_subject: any;
   description: any;
   sdate: Date;
@@ -264,7 +265,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     this.editMode = true;
 
     this.editType = toBeEditedOBJ.notificationType.notificationType;
-
+    this.office_name = toBeEditedOBJ.workingLocation.locationName;
     this.notification_subject = toBeEditedOBJ.notification;
     this.description = toBeEditedOBJ.notificationDesc;
     this.sdate = new Date(toBeEditedOBJ.validFrom);
