@@ -5,6 +5,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { ConfigService } from '../config/config.service';
 import { InterceptedHttp } from './../../http.interceptor';
+import { dataService } from '../dataService/data.service';
+
 
 @Injectable()
 export class SmsTemplateService {
@@ -23,6 +25,7 @@ export class SmsTemplateService {
 
     constructor(
         private _config: ConfigService,
+        private dataService:dataService,
         private httpIntercept: InterceptedHttp) {
         this.commonBaseURL = this._config.getCommonBaseURL();
 
@@ -68,7 +71,9 @@ export class SmsTemplateService {
 
     getSMSparameters() {
         return this.httpIntercept.post(this.getSMSparameters_url,
-            {})
+            { 'serviceID': this.dataService.current_serviceID?this.dataService.current_serviceID:1 } 
+ 
+)
             .map(this.handleSuccess)
             .catch(this.handleError);
     }
