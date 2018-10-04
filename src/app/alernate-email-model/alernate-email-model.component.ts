@@ -37,8 +37,8 @@ export class AlernateEmailModelComponent implements OnInit {
   ngOnInit() {
     this.feedbackID = this.data.feedbackID;
     let obj = {
-      // districtID : this.data.districtID
-      districtID: 1
+      districtID : this.data.districtID
+      // districtID: 1
     }
     this.feedbackService.fetchEmails(obj).subscribe(res => {
       this.handleSuccess(res)

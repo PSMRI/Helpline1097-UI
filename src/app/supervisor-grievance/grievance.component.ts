@@ -56,6 +56,7 @@ export class grievanceComponent implements OnInit {
   providerServiceMapID: any;
   current_agent: any;
   userId: any;
+  distictID: any;
 
   constructor(
     private _feedbackservice: FeedbackService,
@@ -222,7 +223,10 @@ export class grievanceComponent implements OnInit {
           let dialog = this.dialog.open(AlernateEmailModelComponent, {
             disableClose: true,
             width: '500px',
-            data: 'Successfully edited'
+            data: {
+              'feedbackID' : this.feedbackID_whilesaving,
+              'districtID' :this.distictID
+            }
           })
           dialog.afterClosed()
             .subscribe((response) => {
@@ -354,7 +358,7 @@ export class grievanceComponent implements OnInit {
    */
 
     this.isCollapsedResponse = true;
-
+    this.distictID = feedback.beneficiary.i_bendemographics.districtID
 
   }
 
