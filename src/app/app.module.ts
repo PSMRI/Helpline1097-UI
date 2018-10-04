@@ -65,6 +65,7 @@ import { QualityAuditComponent } from './quality-audit/quality-audit.component';
 import { CaseSheetSummaryDialogComponent } from './quality-audit/quality-audit.component';
 
 import { SupervisorNotificationsComponent } from './supervisor-notifications/supervisor-notifications.component';
+import { FeedbackService } from './services/supervisorServices/Feedbackservice.service';
 
 
 //cocomponents
@@ -344,7 +345,7 @@ import { MaterialModule } from './material.module';
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, AuthGuard, AuthGuard2, SocketService,
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, FeedbackService, AuthGuard, AuthGuard2, SocketService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, ForceLogoutService,
     CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService,

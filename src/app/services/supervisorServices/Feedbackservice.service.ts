@@ -20,6 +20,8 @@ export class FeedbackService {
 
     private _getFeedbackStatus: string = this._config.getCommonBaseURL() + 'feedback/getFeedbackStatus'
     private _getEmailStatus: string = this._config.getCommonBaseURL() + 'feedback/getEmailStatus'
+    private _fetchEmailIDs = this._config.getCommonBaseURL() + 'emailController/getAuthorityEmailID';
+    private sendEmailurl = this._config.getCommonBaseURL() + 'emailController/SendEmail';
 
     constructor(
         private _http: AuthorizationWrapper,
@@ -50,6 +52,16 @@ export class FeedbackService {
     updateResponce(resData: any) {
         return this.httpIterceptor.post(this._updateResponseURL, resData).map(this.handleSuccess).catch(this.handleCustomError);
         // .map(( response: Response ) => response.json() );
+    }
+
+    fetchEmails(obj: any) {
+        return this.httpIterceptor.post(this._fetchEmailIDs, obj).map(this.handleSuccess).catch(this.handleError);
+        // .map(( response: Response ) => response.json() );
+
+    }
+
+    sendEmail(obj) {
+        return this.httpIterceptor.post(this.sendEmailurl,obj).map(this.handleSuccess).catch(this.handleSuccess);
     }
 
     handleSuccess(response: Response) {
