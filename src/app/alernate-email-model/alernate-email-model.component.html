@@ -1,4 +1,4 @@
-  <!-- <md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close('close')">clear</md-icon>
+<!-- <md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close('close')">clear</md-icon>
 
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -33,7 +33,7 @@
     -->
 
 
-    <!-- <div class="successHeaderDiv">
+<!-- <div class="successHeaderDiv">
     <h4 class="popupHeader">Success</h4>
   </div>
   <div class="col-xs-12 col-sm-12">
@@ -69,10 +69,11 @@
     
   </div> -->
 
-  <div class="successHeaderDiv">
-    <h4 class="popupHeader">Success</h4>
-  </div>
-  <md-dialog-content>
+<div class="successHeaderDiv">
+  <h4 class="popupHeader">Success</h4>
+</div>
+<md-dialog-content>
+  <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <md-select class="p-b-1-5" [style.width]="'70%'" required placeholder="Emails" multiple [(ngModel)]="email" name="email"
         #emailSelected="ngModel">
@@ -91,22 +92,24 @@
 
             </md-input-container>
             <span>
-              <md-icon (click)="deleteInputField(i)" mdSuffix mdTooltip="Delete row" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">delete</md-icon>
+              <md-icon (click)="deleteInputField(i)" mdSuffix mdTooltip="Delete row" class="mat-icon material-icons" role="img" aria-hidden="true"
+                style="cursor: pointer">delete</md-icon>
             </span>
           </ng-container>
         </div>
       </ng-container>
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-        <button  md-mini-fab color="primary" class="m-l-10" 
-            (click)="addInputField()">
-            <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="Add manually"role="img" aria-hidden="true" style="cursor: pointer">add</md-icon>
-          </button>
+        <button md-mini-fab color="primary" class="m-l-10" (click)="addInputField()">
+          <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="Add manually" role="img" aria-hidden="true" style="cursor: pointer">add</md-icon>
+        </button>
       </div>
     </form>
-  </md-dialog-content>
-  <md-dialog-actions>
-    <button md-raised-button color="primary" class="pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close()">Close</button>
-    <button [disabled]="emailForm.invalid || emailSelected.invalid" md-raised-button color="accent" class="pull-right font-regular f-s-18  m-t-8 m-r-5"
-      (click)="sendEmail(email,emailForm.value)">Send Email
-    </button>
+  </div>
+</md-dialog-content>
+
+<md-dialog-actions class="pull-right m-r--10 p-b-14">
+  <button md-raised-button color="primary" class="pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close()">Close</button>
+  <button [disabled]="emailForm.invalid || emailSelected.invalid" md-raised-button color="accent" class="pull-right font-regular f-s-18  m-t-8 m-r-5"
+    (click)="sendEmail(email,emailForm.value)">Send Email
+  </button>
 </md-dialog-actions>
