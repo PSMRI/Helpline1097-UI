@@ -211,7 +211,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // }
     this.BeneficaryForm.resetForm();
     this.alternateNumber1 = "";
-    this.alternateNumber2= "";
+    this.alternateNumber2 = "";
     this.alternateNumber3 = "";
     this.alternateNumber4 = "";
     this.alternateNumber5 = "";
@@ -371,7 +371,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     });
     this.alternateNumber1 = "";
-    this.alternateNumber2= "";
+    this.alternateNumber2 = "";
     this.alternateNumber3 = "";
     this.alternateNumber4 = "";
     this.alternateNumber5 = "";
@@ -515,7 +515,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // this.beneficiaryRelationID = this.getRelationShipType(this.beneficiaryRelations);
       // this value also comes from the constants
       this.alternateNumber1 = "";
-      this.alternateNumber2= "";
+      this.alternateNumber2 = "";
       this.alternateNumber3 = "";
       this.alternateNumber4 = "";
       this.alternateNumber5 = "";
@@ -632,6 +632,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   registerBeneficiary() {
     this.updatedObj = {};
+    this.updatedObj.vanID = this.saved_data.current_serviceID;
     this.updatedObj.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.updatedObj.firstName = this.FirstName;
     this.updatedObj.lastName = this.LastName;
@@ -794,7 +795,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       }
     });
     this.alternateNumber1 = "";
-    this.alternateNumber2= "";
+    this.alternateNumber2 = "";
     this.alternateNumber3 = "";
     this.alternateNumber4 = "";
     this.alternateNumber5 = "";
@@ -836,10 +837,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // this.saved_data.beneficiarySelected.next({
       //   'beneficiarySelected': true
       // });
-      this.state=undefined;
-      this.preferredLanguage=undefined;
-     
-       this.saved_data.beneficiary_regID_subject.next({'beneficiaryRegID':response[0].beneficiaryRegID});
+      this.state = undefined;
+      this.preferredLanguage = undefined;
+
+      this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': response[0].beneficiaryRegID });
       this.regHistoryList = response;
       console.log(this.regHistoryList);
       this.showSearchResult = true;
@@ -1042,6 +1043,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
 
   updateBeneficiary() {
+    this.updatedObj.vanID = this.saved_data.current_serviceID;
+
     this.updatedObj.firstName = this.FirstName;
     this.updatedObj.lastName = this.LastName;
     this.updatedObj.genderID = this.GenderID;
@@ -1316,7 +1319,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.selectBeneficiary(this.saved_data.beneficiaryData, 'update');
     }
     this.alternateNumber1 = "";
-    this.alternateNumber2= "";
+    this.alternateNumber2 = "";
     this.alternateNumber3 = "";
     this.alternateNumber4 = "";
     this.alternateNumber5 = "";
