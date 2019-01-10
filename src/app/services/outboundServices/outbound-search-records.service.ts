@@ -23,11 +23,13 @@ export class OutboundSearchRecordService {
             obj['providerServiceMapID'] = serviceID;
             obj['assignedUserID'] = userID;
             obj['preferredLanguageName'] = language;
+            obj['is1097'] = true;
         } else {
             obj['providerServiceMapID'] = serviceID;
             obj['filterStartDate'] = startDate;
             obj['filterEndDate'] = endDate;
             obj['preferredLanguageName'] = language;
+            obj['is1097'] = true;
         }
         return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleError);
     }
