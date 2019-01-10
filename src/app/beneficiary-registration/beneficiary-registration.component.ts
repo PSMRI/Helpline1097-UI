@@ -632,6 +632,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   registerBeneficiary() {
     this.updatedObj = {};
+    console.log("vanID/serviceID:" + this.saved_data.current_serviceID);
     this.updatedObj.vanID = this.saved_data.current_serviceID;
     this.updatedObj.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.updatedObj.firstName = this.FirstName;
