@@ -27,7 +27,7 @@ export class ConfigService {
     private _localeString = 'en-in';
     private _loginUrl = 'http://10.152.3.99:8080/commonui-v1.0';
     private adminBaseUrl = 'http://10.208.122.38:8080/adminapi-v1.0/';
-
+    private _opencommonBaseURL: String="http://10.208.122.38:8080/commonapi-v1.0/";
     // private _commonBaseURL: String = 'http://l-185000861.wipro.com:8080/commonapi-v1.0/';
     // private _helpline1097BaseURL: String = 'http://l-185000861.wipro.com:8080/1097api-v1.0/';
     // private _telephonyServerURL: String = 'http://10.208.122.99/';
@@ -44,6 +44,9 @@ export class ConfigService {
     }
     getOpenCommonBaseURL() {
         return this.openCommonURL;
+    }
+    _getOpenCommonBaseURL(){
+        return this._opencommonBaseURL;
     }
     get1097BaseURL() {
         return this._helpline1097BaseURL;

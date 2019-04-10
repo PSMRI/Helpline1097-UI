@@ -45,6 +45,15 @@
               <!-- <li class="help" alt="Help Icon" title="Help">
                 <a class="">&nbsp;</a>
               </li> -->
+              <li class="help">
+                <i class="fa fa-question-circle helpAlign" alt="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></i>
+              </li>
+              <md-menu #knowAboutUs x-position="before"  class="m-t-40">
+                <md-list class="p-t-0">
+                  <md-list-item>Version: 1.0</md-list-item>
+                  <md-list-item><a target="_blank" href={{licenseURL}}>License Info.</a></md-list-item>
+                </md-list>
+                </md-menu>
               <li class="logout" (click)="logOut()" alt="Logout Icon" mdTooltip="Logout">
                 <a class="">&nbsp;</a>
               </li>
