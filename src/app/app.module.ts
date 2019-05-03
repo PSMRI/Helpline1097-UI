@@ -47,6 +47,7 @@ import { DailyTasksComponent } from './daily-tasks/daily-tasks.component';
 import { NewsInformationsComponent } from './news-informations/news-informations.component';
 import { RatingComponent } from './rating/rating.component';
 import { WeatherWarningsComponent } from './weather-warnings/weather-warnings.component';
+import { ViewVersionDetailsComponent } from './view-version-details/view-version-details.component';
 
 // multi role screen component
 import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
@@ -239,7 +240,8 @@ import { MaterialModule } from './material.module';
     CaseSheetSummaryDialogComponent,
     AgentForceLogoutComponent,
     SmsTemplateComponent,
-    CommonSmsDialogComponent
+    CommonSmsDialogComponent,
+    ViewVersionDetailsComponent
 
   ],
   imports: [
@@ -338,9 +340,9 @@ import { MaterialModule } from './material.module';
     EditNotificationsComponent,
     CoAlternateNumberComponent,
     EmergencyContactsViewModalComponent,
-    
     AgentForceLogoutComponent,
-    CommonSmsDialogComponent],
+    CommonSmsDialogComponent,
+    ViewVersionDetailsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,

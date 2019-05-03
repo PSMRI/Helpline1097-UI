@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <h4 class="modal-title">Version Details</h4>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <button md-button class="pull-right p-r-0" [md-dialog-close]="true">
+      <md-icon mdTooltip="close" class="mat-icon material-icons pull-right" role="img" aria-hidden="true" style="cursor: pointer">clear</md-icon>
+    </button>
+  </div>
+</div>
+<md-dialog-content>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="20%"></th>
+          <th width="40%">API</th>
+          <th width="40%">UI</th>
+        </tr>
+      </thead>
+      <tbody>
+          <!-- uiversionDetails: this.uiVersionDetails, -->
+        <!-- api_versionDetails: api_versionDetails -->
+        <tr class="table-hover">
+          <th>Version</th>
+          <td> {{input.api_versionDetails.Version}}</td>
+          <td >{{input.uiversionDetails.Version}} </td>
+        </tr>
+        <tr class="table-hover">
+            <th>Commit</th>
+            <td> {{input.api_versionDetails.Commit}}</td>
+            <td >{{input.uiversionDetails.Commit}} </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</md-dialog-content>

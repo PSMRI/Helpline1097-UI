@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "postinstall": "node version.js",
+    "start": "node version.js && ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -52,7 +53,8 @@
     "socket.io-client": "2.0.4",
     "tether": "1.4.0",
     "xlsx": "0.13.0",
-    "zone.js": "0.8.11"
+    "zone.js": "0.8.11",
+     "git-commit-info": "^1.0.0"
   },
   "devDependencies": {
     "@angular/cdk": "2.0.0-beta.11",

@@ -12,10 +12,13 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class loginService {
   openBaseUrl = this._config.getOpenCommonBaseUrl();
   _baseURL = this._config.getCommonBaseURL();
+  admin = this._config.getAdminBaseUrl();
+  base1097URL = this._config.get1097BaseURL();
   _userAuthURL = this.openBaseUrl + 'user/userAuthenticate/';
   _forgotPasswordURL = this.openBaseUrl + 'user/forgetPassword/';
   _getDetailsByID = this._baseURL + 'user/getUserDetails/';
   _authorisedUser = this.openBaseUrl + '/user/getLoginResponse';
+  apiVersionUrl = this.admin + "version";
   constructor(
     private _http: InterceptedHttp,
     private _config: ConfigService
@@ -45,7 +48,10 @@ export class loginService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-
+  getApiVersionDetails() {
+    return this._http.get(this.apiVersionUrl)
+      .map(res => res.json());
+  }
   private extractData(response: Response) {
     if (response.json().data) {
       return response.json().data;

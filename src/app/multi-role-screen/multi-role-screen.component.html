@@ -21,16 +21,7 @@
             <li style="color: white"> Welcome {{userName}}</li>
             <li *ngIf="showContacts" class=""><img src="assets/images/callerIcon.png" (click)="showEmergencyContacts()" class="cursorPointer w85" alt="Contacts" mdTooltip="Emergency Contacts"></li>
             <li *ngIf="showContacts && current_role==='CO'"><img src="assets/images/flagCallIcon.png" class="cursorPointer w85" (click)="agentForceLogout()" alt="ForceLogout" mdTooltip="Force Logout"></li>
-            <li class="">
-              <i class="fa fa-question-circle helpAlign" alt="Help" title="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></i>
-            </li>
-            <md-menu #knowAboutUs x-position="before" class="m-t-40">
-              <md-list class="p-t-0">
-                <md-list-item>Version: 1.0</md-list-item>
-                <md-list-item>Link</md-list-item>
-              </md-list>
-              </md-menu>
-
+           
             <li class="">
               <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" mdTooltip="User Icon" [mdMenuTriggerFor]="menuNotification">
             </li>
@@ -46,11 +37,11 @@
                 <a class="">&nbsp;</a>
               </li> -->
               <li class="help">
-                <i class="fa fa-question-circle helpAlign" alt="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></i>
+                <i class="fa fa-question-circle helpAlign cursorPointer" alt="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></i>
               </li>
               <md-menu #knowAboutUs x-position="before"  class="m-t-40">
                 <md-list class="p-t-0">
-                  <md-list-item>Version: 1.0</md-list-item>
+                   <md-list-item class="cursorPointer" (click)="viewVersionDetails()">Version</md-list-item>
                   <md-list-item><a target="_blank" href={{licenseURL}}>License Info.</a></md-list-item>
                 </md-list>
                 </md-menu>

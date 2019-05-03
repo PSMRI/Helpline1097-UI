@@ -30,6 +30,11 @@ export class HttpServices {
 				.map(this.handleGetSuccess)
 				.catch(this.handleGetError);
 	}
+  	getCommitDetails(url: string) {
+		return this.http.get(url)
+			.map(this.handleGetSuccess)
+			.catch(this.handleGetError);
+	}
   handleGetSuccess(response: Response) {
     if (response.json().data) {
       return response.json().data;
