@@ -181,18 +181,15 @@ export class MultiRoleScreenComponent implements OnInit {
     });
   }
   getCommitDetails() {
-
     let Data = this.commitDetailsPath;
-    this.HttpServices.getCommitDetails(this.commitDetailsPath).subscribe((res) => this.successhandeler1(res), err => this.successhandeler1(err));
+    this.HttpServices.getCommitDetails(this.commitDetailsPath).subscribe((res) => this.successhandeler(res), err => this.successhandeler(err));
   }
-  successhandeler1(response) {
-    console.log(response, "language response");
+  successhandeler(response) {
     this.commitDetails = response;
     this.uiVersionDetails = {
       'Version': this.commitDetails['version'],
       'Commit': this.commitDetails['commit']
     }
-    console.log('uiVersionDetails', this.uiVersionDetails);
   }
  viewVersionDetails() {
     this._loginService.getApiVersionDetails().subscribe((apiResponse) => {
