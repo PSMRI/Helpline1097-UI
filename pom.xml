@@ -4,10 +4,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<!-- @Author : Sunil K Sundaram @Date : 21-May-17 @Email : sunil.ks@gmail.com -->
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.iemr.inventoryui</groupId>
-	<artifactId>inventory-ui</artifactId>
+	<groupId>com.iemr.1097ui</groupId>
+	<artifactId>1097-ui</artifactId>
 	<version>1.0</version>
-	<name>inventory-ui</name>
+	<name>1097-ui</name>
 	<packaging>war</packaging>
 	<profiles>
 		<profile>
@@ -58,7 +58,7 @@
 	<!-- we could create individual properties similar to variables -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<final-name>inventoryui-v1.0</final-name>
+		<final-name>1097ui-v1.0</final-name>
 		<hostname-dev>10.208.122.38</hostname-dev>
 		<port-dev>9990</port-dev>
 		<hostname-local>localhost</hostname-local>
@@ -74,7 +74,7 @@
 	
 	<!-- install the necessary node_modules & compile in prod mode -->
 	<build>
-		<finalName>inventory-ui-v1.0</finalName>
+		<finalName>1097-ui-v1.0</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
