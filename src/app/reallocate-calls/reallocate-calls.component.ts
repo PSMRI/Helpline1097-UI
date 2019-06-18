@@ -163,7 +163,8 @@ export class ReallocateCallsComponent implements OnInit {
     let reqObj = {
       "providerServiceMapID": this.providerServiceMapID,
       "assignedUserID": this.reallocationForm.value.agentName.userID,
-      "preferredLanguageName": language
+      "preferredLanguageName": language,
+      "is1097": true
     }
 
     if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
@@ -214,7 +215,8 @@ export class ReallocateCallsComponent implements OnInit {
     let reqObj = {
       "providerServiceMapID": this.providerServiceMapID,
       "assignedUserID": this.reallocationForm.value.agentName.userID,
-      "preferredLanguageName": language
+      "preferredLanguageName": language,
+      "is1097": true
     }
 
     if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
