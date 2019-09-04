@@ -74,7 +74,7 @@
 	
 	<!-- install the necessary node_modules & compile in prod mode -->
 	<build>
-		<finalName>1097-ui-v1.0</finalName>
+		<finalName>1097ui-v1.0</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
