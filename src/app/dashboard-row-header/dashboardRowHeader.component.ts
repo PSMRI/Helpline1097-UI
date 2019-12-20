@@ -7,7 +7,7 @@ import { ConfigService } from '../services/config/config.service';
   templateUrl: './dashboardRowHeader.html',
 })
 export class DashboardRowHeaderComponent {
-  loginUrl = this._config.getCommonLoginUrl();
+  // loginUrl = this._config.getCommonLoginUrl();
   data: any = this.getCommonData.Userdata;
   constructor(public getCommonData: dataService, public _config: ConfigService) {
 

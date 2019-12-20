@@ -8,7 +8,7 @@ import { dataService } from './../services/dataService/data.service';
     templateUrl: './dashboardNavigation.html',
 })
 export class DashboardNavigationComponent implements OnInit {
-    loginUrl = this._config.getCommonLoginUrl();
+    // loginUrl = this._config.getCommonLoginUrl();
     currentRole: any;
     leftNavigation: boolean = true;
     constructor(private _config: ConfigService, private router: Router, private data_service: dataService) {

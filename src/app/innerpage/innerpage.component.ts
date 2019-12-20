@@ -69,7 +69,7 @@ export class InnerpageComponent implements OnInit {
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   current_service: any;
   current_role: any;
-  loginUrl = this._config.getCommonLoginUrl();
+  // loginUrl = this._config.getCommonLoginUrl();
   data: any = {};
   ctiHandlerURL: any;
   transferCallID: any;

@@ -18,9 +18,9 @@ export class CallServices {
   _blacklistCalls = this._commonURL + 'call/getBlacklistNumbers/';
   _blockPhoneNo = this._commonURL + 'call/blockPhoneNumber/';
   _unblockPhoneNo = this._commonURL + 'call/unblockPhoneNumber/';
-  _outbouncClose_url = this._commonURL + '/call/completeOutboundCall/';
-  _getLanguage_url = this._commonURL + '/beneficiary/getLanguageList/';
-  _disconnectCall_url = this._commonURL + '/cti/disconnectCall/';
+  _outbouncClose_url = this._commonURL + 'call/completeOutboundCall/';
+  _getLanguage_url = this._commonURL + 'beneficiary/getLanguageList/';
+  _disconnectCall_url = this._commonURL + 'cti/disconnectCall/';
   _switchToInbound_url = this._commonURL + 'cti/switchToInbound/'
   _getRecording_url = this._commonURL + 'call/nueisanceCallHistory/';
   _switchToOutbound_url = this._commonURL + 'cti/switchToOutbound/';

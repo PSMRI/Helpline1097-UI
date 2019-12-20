@@ -14,10 +14,10 @@ export class CzentrixServices {
   openCommonUrl = this._config.getOpenCommonBaseUrl();
   common_url = this._config.getCommonBaseURL();
   address = this._config.getTelephonyServerURL();
-  _getAgentStatus_url = this.common_url + '/cti/getAgentState';
-  _getIVRSPathDetails_url = this.common_url + '/cti/getIVRSPathDetails';
-  _getCallDetails = this.common_url + '/cti/getAgentCallStats';
-  setCustomerPreferredLanguageUrl = this.common_url + '/cti/customerPreferredLanguage';
+  _getAgentStatus_url = this.common_url + 'cti/getAgentState';
+  _getIVRSPathDetails_url = this.common_url + 'cti/getIVRSPathDetails';
+  _getCallDetails = this.common_url + 'cti/getAgentCallStats';
+  setCustomerPreferredLanguageUrl = this.common_url + 'cti/customerPreferredLanguage';
   _dialBeneficiary = this.common_url + 'cti/callBeneficiary';
   _getAgentIPAddressURL = this.common_url + 'cti/getAgentIPAddress';
 

@@ -29,7 +29,7 @@ export class MultiRoleScreenComponent implements OnInit {
   id: any;
   userName: any = '';
   ctiHandlerURL: any;
-  loginUrl: String = this._config.getCommonLoginUrl();
+  // loginUrl: String = this._config.getCommonLoginUrl();
   licenseURL: String = this._config._getOpenCommonBaseURL() + "license.html";
   barMinimized: boolean = true;
   checkRole = true;

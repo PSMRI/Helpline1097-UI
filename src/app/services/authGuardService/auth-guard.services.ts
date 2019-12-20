@@ -12,8 +12,8 @@ import 'rxjs/add/operator/toPromise'
 @Injectable()
 export class AuthGuard implements CanActivate {
   _baseURL = this._config.getCommonBaseURL();
-  _authorisedUser = this._baseURL + '/user/getLoginResponse';
-  _deleteToken = this._baseURL + '/user/userLogout';
+  _authorisedUser = this._baseURL + 'user/getLoginResponse';
+  _deleteToken = this._baseURL + 'user/userLogout';
   constructor(
     private router: Router,
     private route: ActivatedRoute, public dataSettingService: dataService, private _http: InterceptedHttp

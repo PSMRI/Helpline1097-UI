@@ -16,7 +16,7 @@ import 'rxjs/add/operator/map';
 export class UploadServiceService {
 
   public baseUrl = this._config.getCommonBaseURL();
-  public uploadDocumentUrl = this.baseUrl + '/kmfilemanager/addFile';
+  public uploadDocumentUrl = this.baseUrl + 'kmfilemanager/addFile';
   constructor(private _http: Http,
     private _config: ConfigService,
     private httpInter: InterceptedHttp

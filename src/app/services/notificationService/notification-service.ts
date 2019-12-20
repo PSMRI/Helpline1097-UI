@@ -26,7 +26,7 @@ export class NotificationService {
     getUsersByProviderID_URL = this.configService.getCommonBaseURL() + 'user/getUsersByProviderID';
     getServiceProviderID_url = this.configService.getAdminBaseUrl() + 'getServiceProviderid';
     sendSocketNotification_url = this.socketService.getSocketURL() + 'notification/notificationToRoom';
-    getDesignationsUrl = this.configService.getAdminBaseUrl() + '/m/getDesignation';
+    getDesignationsUrl = this.configService.getAdminBaseUrl() + 'm/getDesignation';
     getSupervisorEmergencyContacts_url = this.configService.getCommonBaseURL() + 'notification/getSupervisorEmergencyContacts';
     createEmergencyContacts_url = this.configService.getCommonBaseURL() + 'notification/createEmergencyContacts';
     updateEmergencyContacts_url = this.configService.getCommonBaseURL() + 'notification/updateEmergencyContacts';

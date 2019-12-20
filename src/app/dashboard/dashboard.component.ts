@@ -37,7 +37,7 @@ export class dashboardContentClass implements OnInit {
   training_resources: boolean = true;
   widget: any = '0';
   listenCall: any;
-  loginUrl = this.configService.getCommonLoginUrl();
+  // loginUrl = this.configService.getCommonLoginUrl();
   compainType: any;
   alertRefresh: number = 1;
   notificationSubscription: Subscription;

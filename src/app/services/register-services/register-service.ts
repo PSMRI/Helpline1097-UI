@@ -18,7 +18,7 @@ export class RegisterService {
   _startCall = this._baseUrl + 'call/startCall/';
   _updatebeneficiaryincall = this._baseUrl + 'call/updatebeneficiaryincall';
   _getregistrationdata = this._baseUrl + 'beneficiary/getRegistrationDataV1';
-  _searchBeneficiaryURL = this._baseUrl + '/beneficiary/searchBeneficiary';
+  _searchBeneficiaryURL = this._baseUrl + 'beneficiary/searchBeneficiary';
   constructor(
     private _http: AuthorizationWrapper,
     private _config: ConfigService,

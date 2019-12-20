@@ -13,7 +13,7 @@ import { AuthorizationWrapper } from './../../authorization.wrapper';
 export class UserBeneficiaryData {
     _commonBaseURL = this._config.getCommonBaseURL();
     _getUserBeneficaryDataURL = this._commonBaseURL + 'beneficiary/getRegistrationDataV1/';
-    _searchBeneficiary = this._commonBaseURL + '/beneficiary/searchBeneficiary';
+    _searchBeneficiary = this._commonBaseURL + 'beneficiary/searchBeneficiary';
     constructor(
         private _http: AuthorizationWrapper,
         private _config: ConfigService,

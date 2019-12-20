@@ -17,7 +17,7 @@ export class loginService {
   _userAuthURL = this.openBaseUrl + 'user/userAuthenticate/';
   _forgotPasswordURL = this.openBaseUrl + 'user/forgetPassword/';
   _getDetailsByID = this._baseURL + 'user/getUserDetails/';
-  _authorisedUser = this.openBaseUrl + '/user/getLoginResponse';
+  _authorisedUser = this.openBaseUrl + 'user/getLoginResponse';
   apiVersionUrl = this.base1097URL + "version";
   constructor(
     private _http: InterceptedHttp,
