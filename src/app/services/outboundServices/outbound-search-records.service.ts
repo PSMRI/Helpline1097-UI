@@ -47,7 +47,17 @@ export class OutboundSearchRecordService {
         }
         return this._httpInterceptor.post(this._outboundCallsCount, obj).map(this.extractData).catch(this.handleError);
     }
-
+    getEverwellUnallocatedCallsCount(serviceID: any,  language?: any, userID?: any) {
+        const obj = {};
+        if (userID) {
+            obj['providerServiceMapID'] = serviceID;
+            obj['assignedUserID'] = userID;
+        } else {
+            obj['providerServiceMapID'] = serviceID;           
+            obj['preferredLanguageName'] = language;
+        }
+        return this._httpInterceptor.post(this._outboundCallsCount, obj).map(this.extractData).catch(this.handleError);
+    }
     getSubRecords(data: any, key: any, val: any) {
         return data.json().filter(data => data.key === val);
     }

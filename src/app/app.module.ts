@@ -12,16 +12,12 @@ import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-
 import { MdDatepickerModule } from '@angular/material';
 import { MdInputModule } from '@angular/material';
 import { MdNativeDateModule } from '@angular/material';
 import { CustomFormsModule } from 'ng2-validation';
 import { ValidationMessagesModule } from 'ng2-custom-validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
-
 import { AppComponent } from './app.component';
 // login components
 import { loginContentClass } from './login/login.component';
@@ -199,16 +195,18 @@ import { SmsTemplateComponent } from './sms-template/sms-template.component';
 import { SmsTemplateService } from './services/supervisorServices/sms-template-service.service';
 import { CommonSmsDialogComponent } from './common-sms-dialog/common-sms-dialog.component';
 import { MaterialModule } from './material.module';
-
+import {CallReAllocateComponent} from './everwell-outbound-reallocate/callReallocate.component';
+import {CallAllocateComponent} from './Everwell-outbound-search-call-allocate/callAllocate.component';
+import { EverwellAllocateRecordsComponent } from './everwell-allocate-records/everwell-allocate-records.component';
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
     AppComponent, dashboardContentClass, loginContentClass,
-    ResetComponent, myPassword, InnerpageComponent, MultiRoleScreenComponent,
+    ResetComponent, myPassword, InnerpageComponent, MultiRoleScreenComponent,CallReAllocateComponent,
     DashboardRowHeaderComponent, DashboardNavigationComponent,
-    DashboardUserIdComponent, ActivityThisWeekComponent,
+    DashboardUserIdComponent, ActivityThisWeekComponent,CallAllocateComponent,
     AlertsNotificationComponent, DailyTasksComponent, NewsInformationsComponent,
     RatingComponent, WeatherWarningsComponent, AdminServiceProviderComponent,
     myName, myMobileNumber, myEmail, CoCounsellingServicesComponent, myName_space,
@@ -241,7 +239,8 @@ import { MaterialModule } from './material.module';
     AgentForceLogoutComponent,
     SmsTemplateComponent,
     CommonSmsDialogComponent,
-    ViewVersionDetailsComponent
+    ViewVersionDetailsComponent,
+    EverwellAllocateRecordsComponent
 
   ],
   imports: [
