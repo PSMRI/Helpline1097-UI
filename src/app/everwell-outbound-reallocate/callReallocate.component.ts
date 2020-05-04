@@ -110,8 +110,8 @@ export class CallReAllocateComponent implements OnInit {
     this.agentName = this.searchAgent.firstName + " " + this.searchAgent.lastName;
     console.log(this.reallocationForm.value, "FORM VALUE");
     this.postData = {
-      "providerServiceMapID": this.providerServiceMapID,
-      "assignedUserID": this.reallocationForm.value.agentName.userID
+      "ProviderServiceMapID": this.providerServiceMapID,
+      "AgentID": this.reallocationForm.value.agentName.userID
       // "preferredLanguageName": this.reallocationForm.value.preferredLanguage.languageName
     };
     // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
@@ -122,10 +122,10 @@ export class CallReAllocateComponent implements OnInit {
     // }
     console.log(JSON.stringify(this.postData));
     this.onAgentSelected = false;
-    this.OCRService.getReallocationCalls(this.postData)
+    this.OCRService.getEverwellReallocationCalls(this.postData)
       .subscribe((resProviderData) => {
         console.log(resProviderData, "in component reallocate-calls, post successful response");
-        this.totalAgentRecords = [{count: 1, language: "All"}];
+        this.totalAgentRecords = resProviderData;
         if (this.totalAgentRecords.length == 0) {
           this.alertService.alert("No records available.");
         }
@@ -143,7 +143,7 @@ export class CallReAllocateComponent implements OnInit {
   reallocationDone() {
     this.showFlag = false;
     //refreshing reallocation screen
-    this.OCRService.getReallocationCalls(this.postData)
+    this.OCRService.getEverwellReallocationCalls(this.postData)
       .subscribe((resProviderData) => {
         // console.log(resProviderData);
         // this.alertService.alert("Moved to Bin Successfully");
@@ -172,7 +172,7 @@ export class CallReAllocateComponent implements OnInit {
     //   reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
     // }
 
-    this.OCRService.getOutboundCallList(reqObj).subscribe(response => {
+    this.OCRService.getEverwellOutboundCallList(reqObj).subscribe(response => {
       console.log("OUTBOUND CALL LIST", response);
       values = response;
 
@@ -182,7 +182,7 @@ export class CallReAllocateComponent implements OnInit {
         tempArray.push(values[i].outboundCallReqID);
       }
       console.log(JSON.stringify(tempArray));
-      this.OCRService.moveToBin({
+      this.OCRService.everwellMoveToBin({
         "outboundCallReqIDs": tempArray
       }).subscribe((response) => {
         console.log(response);
@@ -210,8 +210,8 @@ export class CallReAllocateComponent implements OnInit {
     }
 
     let reqObj = {
-      "providerServiceMapID": this.providerServiceMapID,
-      "assignedUserID": this.reallocationForm.value.agentName.userID
+      "ProviderServiceMapID": this.providerServiceMapID,
+      "AgentID": this.reallocationForm.value.agentName.userID
     }
 
     // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
@@ -221,7 +221,7 @@ export class CallReAllocateComponent implements OnInit {
     //   reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
     // }
 
-    this.OCRService.getOutboundCallList(reqObj).subscribe(response => this.success(response),
+    this.OCRService.getEverwellOutboundCallList(reqObj).subscribe(response => this.success(response),
   (err)=> {
     this.alertService.alert(err.errorMessage,'error');
   });

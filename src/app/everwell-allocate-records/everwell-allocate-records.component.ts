@@ -63,29 +63,19 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   }
 
   getOutboundCall(serviceProviderMapID,  AgentId?:any, isAllocated?:boolean) {  
-    // this._OSRService.getUnallocatedCalls(serviceProviderMapID, AgentId, isAllocated)
-    //   .subscribe(resProviderData => {
-    //     this.initialCount = [{EverwellID: 1234, beneficiaryRegID: 9876,providerServiceMapID:1761,firstName:"pradeep",lastName:"mr",primarynumber:"123456789"},
-    //     {EverwellID: 1234, beneficiaryRegID: 9867,providerServiceMapID:1761,firstName:"pradeep",lastName:"mr",primarynumber:"123456789"}
-    //   ].length;
-    //     this.allocateEverwellForm.controls['outboundCallRequests'].setValue([{EverwellID: 1234, beneficiaryRegID: 9876,providerServiceMapID:1761,firstName:"pradeep",lastName:"mr",primarynumber:"123456789"},
-    //     {EverwellID: 1234, beneficiaryRegID: 9867,providerServiceMapID:1761,firstName:"pradeep",lastName:"mr",primarynumber:"123456789"}
-    //   ]);
-    //   }, err => {
-    //     this.alertMessage.alert(err.errorMessage, 'error');
-    //   });
-    this.initialCount = [{EverwellID: 1234, beneficiaryRegID: 9876,providerServiceMapID:1761,firstName:"pradeep",lastName:"mr",primarynumber:"123456789"},
-    {EverwellID: 1234, beneficiaryRegID: 9867,providerServiceMapID:1761,firstName:"pradeep",lastName:"mr",primarynumber:"123456789"}
-  ].length;
-    this.allocateEverwellForm.controls['outboundCallRequests'].setValue([{EverwellID: 1234, beneficiaryRegID: 9876,providerServiceMapID:1761,firstName:"pradeep",lastName:"mr",primarynumber:"123456789"},
-    {EverwellID: 1234, beneficiaryRegID: 9867,providerServiceMapID:1761,firstName:"pradeep",lastName:"mr",primarynumber:"123456789"}]);
-
+    this._OSRService.getEverwellUnallocatedCalls(serviceProviderMapID, AgentId)
+      .subscribe(resProviderData => {
+        this.initialCount =resProviderData.length;
+        this.allocateEverwellForm.controls['outboundCallRequests'].setValue(resProviderData.data);
+      }, err => {
+        this.alertMessage.alert(err.errorMessage, 'error');
+      });
   }
 
   createForm() {
     this.allocateEverwellForm = this.fb.group({
       roleID: ['', Validators.required],
-      userID: ['', Validators.required], // <--- the FormControl called "name"
+      AgentID: ['', Validators.required], // <--- the FormControl called "name"
       allocateNo: ['', Validators.required],
       outboundCallRequests: [null]
     });
@@ -171,17 +161,17 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   }
 
   onCreate(val: any) {
-    this._OCAService.allocateCallsToAgenta(this.allocateEverwellForm.value)
+    this._OCAService.allocateEverwellCallsToAgenta(this.allocateEverwellForm.value)
       .subscribe(
       (response) => {
         this.alertMessage.alert('Call allocated successfully', 'success');
         this.afterAllocate = false;
         let obj = {};
-        if (this.outboundCallRequests.startDate) {
-          obj['startDate'] = this.outboundCallRequests.startDate;
-          obj['endDate'] = this.outboundCallRequests.endDate;
-        }
-        obj['providerServiceMapId'] = this.providerServiceMapID;
+        // if (this.outboundCallRequests.startDate) {
+        //   obj['startDate'] = this.outboundCallRequests.startDate;
+        //   obj['endDate'] = this.outboundCallRequests.endDate;
+        // }
+        obj['ProviderServiceMapID'] = this.providerServiceMapID;
 
         // if (this.outboundCallRequests.langaugeName) {
         //   obj['language'] = this.outboundCallRequests.langaugeName.langName;
@@ -218,7 +208,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
 
   OnSelectChange() {
     let outboundlistCount = this.allocateEverwellForm.get('outboundCallRequests').value;
-    let tempValue = Math.floor(outboundlistCount.length / this.allocateEverwellForm.value.userID.length);
+    let tempValue = Math.floor(outboundlistCount.length / this.allocateEverwellForm.value.AgentID.length);
     this.initialCount = tempValue;
     this.allocateEverwellForm.patchValue({
       allocateNo: tempValue

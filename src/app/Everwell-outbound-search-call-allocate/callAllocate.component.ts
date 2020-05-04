@@ -56,9 +56,7 @@ export class CallAllocateComponent implements OnInit {
   getOutboundCallCount(serviceProviderMapID,  language?: any) {
     this._OSRService.getEverwellUnallocatedCallsCount(serviceProviderMapID, language)
       .subscribe(resProviderData => {
-        this._unAllocatedCalls = [{count: 2, language: "All"}];
-       
-        
+        this._unAllocatedCalls = resProviderData.data;
         // this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
         this.showCount = true;
         this.selectedlang = language;

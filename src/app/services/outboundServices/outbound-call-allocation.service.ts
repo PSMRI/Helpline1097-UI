@@ -11,10 +11,13 @@ import { AuthorizationWrapper } from './../../authorization.wrapper';
 export class OutboundCallAllocationService {
 
     test = [];
-    _baseurl: String = this._config.getCommonBaseURL();
+    // _baseurl: String = this._config.getCommonBaseURL();
+    _baseurl: String = "http://localhost:8080/";
     private _geturl: string = this._baseurl + 'user/getUsersByProviderID';
     private _getRole_url: string = this._baseurl + 'user/getRolesByProviderID';
     private _allocateurl: string = this._baseurl + 'call/outboundAllocation';
+    private _allocateEverwellUrl: string = this._baseurl + 'everwellCall/outboundAllocation';
+    
 
     constructor(private _http: AuthorizationWrapper, private _config: ConfigService, private httpIntercept: InterceptedHttp) { }
     getRoles(providerServiceMapID: number) {
@@ -72,6 +75,13 @@ export class OutboundCallAllocationService {
     allocateCallsToAgenta(data: any) {
 
         return this.httpIntercept.post(this._allocateurl, data)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
+    allocateEverwellCallsToAgenta(data: any) {
+
+        return this.httpIntercept.post(this._allocateEverwellUrl, data)
             .map(this.extractData)
             .catch(this.handleError);
 
