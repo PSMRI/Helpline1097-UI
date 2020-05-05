@@ -11,6 +11,7 @@ export class OutboundSearchRecordService {
     test = [];
     data: any;
      _baseurl: String = this._config.getCommonBaseURL();
+     //_baseurl='http://localhost:8080/';
     private _outboundCalls: string = this._baseurl + 'call/outboundCallList';
     private _outboundCallsCount: string = this._baseurl + 'call/outboundCallCount';
     private _everwelloutboundCallsCount: string = this._baseurl + 'everwellCall/outboundCallCount';
@@ -38,10 +39,10 @@ export class OutboundSearchRecordService {
     getEverwellUnallocatedCalls(serviceID: any, agentId?: any) {
         const obj = {};
         if (agentId) {
-            obj['ProviderServiceMapID'] = serviceID;
+            obj['providerServiceMapId'] = serviceID;
             obj['AgentID'] = agentId;
         } else {
-            obj['ProviderServiceMapID'] = serviceID;    
+            obj['providerServiceMapId'] = serviceID;    
         }
         return this._httpInterceptor.post(this._outboundEverwellCalls, obj).map(this.extractData).catch(this.handleError);
     }
@@ -62,10 +63,10 @@ export class OutboundSearchRecordService {
     getEverwellUnallocatedCallsCount(serviceID: any,  language?: any, userID?: any) {
         const obj = {};
         if (userID) {
-            obj['ProviderServiceMapID'] = serviceID;
-            obj['AgentID'] = userID;
+            obj['providerServiceMapId'] = serviceID;
+            obj['agentId'] = userID;
         } else {
-            obj['ProviderServiceMapID'] = serviceID;           
+            obj['providerServiceMapId'] = serviceID;           
             obj['preferredLanguageName'] = language;
         }
         return this._httpInterceptor.post(this._everwelloutboundCallsCount, obj).map(this.extractData).catch(this.handleError);

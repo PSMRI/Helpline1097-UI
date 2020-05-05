@@ -62,8 +62,8 @@ export class EverwellAllocateRecordsComponent implements OnInit {
     //  this.getOutboundCall(this.providerServiceMapID);
   }
 
-  getOutboundCall(serviceProviderMapID,  AgentId?:any, isAllocated?:boolean) {  
-    this._OSRService.getEverwellUnallocatedCalls(serviceProviderMapID, AgentId)
+  getOutboundCall(serviceProviderMapID,  agentId?:any, isAllocated?:boolean) {  
+    this._OSRService.getEverwellUnallocatedCalls(serviceProviderMapID, agentId)
       .subscribe(resProviderData => {
         this.initialCount =resProviderData.length;
         this.allocateEverwellForm.controls['outboundCallRequests'].setValue(resProviderData.data);
@@ -75,7 +75,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   createForm() {
     this.allocateEverwellForm = this.fb.group({
       roleID: ['', Validators.required],
-      AgentID: ['', Validators.required], // <--- the FormControl called "name"
+      agentId: ['', Validators.required], // <--- the FormControl called "name"
       allocateNo: ['', Validators.required],
       outboundCallRequests: [null]
     });
@@ -171,7 +171,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
         //   obj['startDate'] = this.outboundCallRequests.startDate;
         //   obj['endDate'] = this.outboundCallRequests.endDate;
         // }
-        obj['ProviderServiceMapID'] = this.providerServiceMapID;
+        obj['providerServiceMapId'] = this.providerServiceMapID;
 
         // if (this.outboundCallRequests.langaugeName) {
         //   obj['language'] = this.outboundCallRequests.langaugeName.langName;
@@ -208,7 +208,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
 
   OnSelectChange() {
     let outboundlistCount = this.allocateEverwellForm.get('outboundCallRequests').value;
-    let tempValue = Math.floor(outboundlistCount.length / this.allocateEverwellForm.value.AgentID.length);
+    let tempValue = Math.floor(outboundlistCount.length / this.allocateEverwellForm.value.agentId.length);
     this.initialCount = tempValue;
     this.allocateEverwellForm.patchValue({
       allocateNo: tempValue

@@ -110,8 +110,8 @@ export class CallReAllocateComponent implements OnInit {
     this.agentName = this.searchAgent.firstName + " " + this.searchAgent.lastName;
     console.log(this.reallocationForm.value, "FORM VALUE");
     this.postData = {
-      "ProviderServiceMapID": this.providerServiceMapID,
-      "AgentID": this.reallocationForm.value.agentName.userID
+      "providerServiceMapId": this.providerServiceMapID,
+      "agentId": this.reallocationForm.value.agentName.userID
       // "preferredLanguageName": this.reallocationForm.value.preferredLanguage.languageName
     };
     // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
@@ -161,8 +161,8 @@ export class CallReAllocateComponent implements OnInit {
     let values = [];
 
     let reqObj = {
-      "ProviderServiceMapID": this.providerServiceMapID,
-      "AgentID": this.reallocationForm.value.agentName.userID     
+      "providerServiceMapId": this.providerServiceMapID,
+      "agentId": this.reallocationForm.value.agentName.userID     
     }
 
     // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
@@ -183,7 +183,7 @@ export class CallReAllocateComponent implements OnInit {
       }
       console.log(JSON.stringify(tempArray));
       this.OCRService.everwellMoveToBin({
-        "EAPIIDs": tempArray
+        "eapiIds": tempArray
       }).subscribe((response) => {
         console.log(response);
         this.alertService.alert("Moved to bin successfully",'success');
@@ -210,8 +210,8 @@ export class CallReAllocateComponent implements OnInit {
     }
 
     let reqObj = {
-      "ProviderServiceMapID": this.providerServiceMapID,
-      "AgentID": this.reallocationForm.value.agentName.userID
+      "providerServiceMapId": this.providerServiceMapID,
+      "agentId": this.reallocationForm.value.agentName.userID
     }
 
     // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
