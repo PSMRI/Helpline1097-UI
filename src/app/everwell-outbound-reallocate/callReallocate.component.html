@@ -55,8 +55,8 @@
             <tr *ngFor="let item of totalAgentRecords">
               <td>{{item.language}}</td>
               <td>{{item.count}}
-                <button  md-raised-button color="primary" type="button" class="md-small pull-right m-r-5" (click)="moveToBin(item.language, $event)">Move To Bin</button>
-                <button  md-raised-button color="accent" type="button" class="md-small pull-right m-r-5" (click)="allocateCalls(item.language, $event)">Re-Allocate</button>
+                <button *ngIf="item.count!=0"  md-raised-button color="primary" type="button" class="md-small pull-right m-r-5" (click)="moveToBin(item.language, $event)">Move To Bin</button>
+                <button *ngIf="item.count!=0" md-raised-button color="accent" type="button" class="md-small pull-right m-r-5" (click)="allocateCalls(item.language, $event)">Re-Allocate</button>
               </td>
             </tr>
               <!-- <tr>
@@ -72,7 +72,7 @@
       </div>
       <div class="row" *ngIf="showFlag">
         <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >-->
-          <app-everwell-allocate-records [outboundCallRequests] ="records" (refreshScreen)="reallocationDone()" [reallocationFlag]="showFlag" [filterAgent]="selectedAgent"></app-everwell-allocate-records>     
+          <app-everwell-allocate-records [outboundCallRequests] ="records" (everwellrefreshScreen)="reallocationDone()" [reallocationFlag]="showFlag" [filterAgent]="selectedAgent"></app-everwell-allocate-records>     
         <!--</div>-->
       </div>
     </div>

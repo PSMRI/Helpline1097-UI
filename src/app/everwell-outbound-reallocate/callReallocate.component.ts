@@ -161,8 +161,8 @@ export class CallReAllocateComponent implements OnInit {
     let values = [];
 
     let reqObj = {
-      "providerServiceMapID": this.providerServiceMapID,
-      "assignedUserID": this.reallocationForm.value.agentName.userID     
+      "ProviderServiceMapID": this.providerServiceMapID,
+      "AgentID": this.reallocationForm.value.agentName.userID     
     }
 
     // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {

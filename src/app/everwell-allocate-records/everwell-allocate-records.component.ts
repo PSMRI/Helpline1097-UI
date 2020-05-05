@@ -233,7 +233,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   getUnallocateCall(serviceProviderMapId, value) {
     // tslint:disable-next-line:max-line-length
     console.log(value, "value");    
-    this.getOutboundCall(serviceProviderMapId, null, false);
+    this.getOutboundCall(serviceProviderMapId, value.assignedUserID, false);
   }
 }
 
