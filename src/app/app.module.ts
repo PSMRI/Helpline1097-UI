@@ -198,6 +198,7 @@ import { MaterialModule } from './material.module';
 import {CallReAllocateComponent} from './everwell-outbound-reallocate/callReallocate.component';
 import {CallAllocateComponent} from './Everwell-outbound-search-call-allocate/callAllocate.component';
 import { EverwellAllocateRecordsComponent } from './everwell-allocate-records/everwell-allocate-records.component';
+import { EverwellOutboundWorklistComponent } from './everwell-outbound-worklist/everwell-outbound-worklist.component';
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
 
@@ -240,7 +241,8 @@ import { EverwellAllocateRecordsComponent } from './everwell-allocate-records/ev
     SmsTemplateComponent,
     CommonSmsDialogComponent,
     ViewVersionDetailsComponent,
-    EverwellAllocateRecordsComponent
+    EverwellAllocateRecordsComponent,
+    EverwellOutboundWorklistComponent
 
   ],
   imports: [
@@ -305,6 +307,11 @@ import { EverwellAllocateRecordsComponent } from './everwell-allocate-records/ev
           {
             path: 'OutboundWorkList',
             component: OutbondWorklistComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'EverwellOutboundWorkList',
+            component: EverwellOutboundWorklistComponent,
             canActivate: [AuthGuard]
           }
         ]
