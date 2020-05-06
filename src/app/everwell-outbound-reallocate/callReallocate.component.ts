@@ -179,7 +179,7 @@ export class CallReAllocateComponent implements OnInit {
       // console.log("move to bin api followed by refresh logic");
       var tempArray = [];
       for (var i = 0; i < values.length; i++) {
-        tempArray.push(values[i].EAPIID);
+        tempArray.push(values[i].eapiId);
       }
       console.log(JSON.stringify(tempArray));
       this.OCRService.everwellMoveToBin({

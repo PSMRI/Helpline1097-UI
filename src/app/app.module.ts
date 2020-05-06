@@ -199,6 +199,8 @@ import {CallReAllocateComponent} from './everwell-outbound-reallocate/callReallo
 import {CallAllocateComponent} from './Everwell-outbound-search-call-allocate/callAllocate.component';
 import { EverwellAllocateRecordsComponent } from './everwell-allocate-records/everwell-allocate-records.component';
 import { EverwellOutboundWorklistComponent } from './everwell-outbound-worklist/everwell-outbound-worklist.component';
+import { EverwellWorklistComponent, SupportActionModal } from './everwell-worklist/everwell-worklist.component';
+
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
 
@@ -242,7 +244,9 @@ import { EverwellOutboundWorklistComponent } from './everwell-outbound-worklist/
     CommonSmsDialogComponent,
     ViewVersionDetailsComponent,
     EverwellAllocateRecordsComponent,
-    EverwellOutboundWorklistComponent
+    EverwellOutboundWorklistComponent,
+    EverwellWorklistComponent,
+    SupportActionModal
 
   ],
   imports: [
@@ -348,7 +352,8 @@ import { EverwellOutboundWorklistComponent } from './everwell-outbound-worklist/
     EmergencyContactsViewModalComponent,
     AgentForceLogoutComponent,
     CommonSmsDialogComponent,
-    ViewVersionDetailsComponent],
+    ViewVersionDetailsComponent,
+    SupportActionModal],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,

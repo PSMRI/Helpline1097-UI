@@ -48,6 +48,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     //    this._dataServivce.outboundBenID = data.beneficiary.beneficiaryRegID;
    //     this._dataServivce.outboundCallReqID = data.outboundCallReqID;
         sessionStorage.setItem("isOnCall", "yes");
+        sessionStorage.setItem("isEverwellCall", "yes");
   //      this._dataServivce.isSelf = data.isSelf;
       }
       console.log('resp', res);

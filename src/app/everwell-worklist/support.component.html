@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="pull-left m-l-15">
+        <h4 class="modal-title">Feedback</h4>
+    </div>
+    <div class="pull-right">
+        <button md-button class="pull-right" [md-dialog-close]="true">
+            <md-icon mdTooltip="close" class="mat-icon material-icons pull-right" role="img" aria-hidden="true" style="cursor: pointer">clear
+            </md-icon>
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div>
+        <form #editAdminCreationForm="ngForm" autocomplete="off">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+                    <input mdInput style="display:none"> -->
+                    <md-select placeholder="Category" [style.width]="'100%'" [(ngModel)]="titleID" name="title_Id" (change)="setGenderOnCondition()"
+                        required>
+                        <md-option value="select">
+                            Call
+                        </md-option>
+                    </md-select>
+                <!-- </md-input-container> -->
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+                <md-input-container class="width100" myName>
+                    <input mdInput placeholder="comments" ngModel name="providerAdmin" [(ngModel)]="admin_firstName" minlength="2" maxlength="50"
+                        #fname="ngModel" required>
+                    <md-hint *ngIf="fname.touched">
+                        <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
+                    </md-hint>
+                </md-input-container>
+            </div>
+            
+            <div class="clearfix visible-lg"></div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+                <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+                    <input mdInput style="display:none"> -->
+                    <md-select placeholder="Subcategory" [style.width]="'100%'" [(ngModel)]="gender" name="adminGender" required>
+                        <md-option *ngFor="let item of subcategory" [value]='select'>
+                            {{item}}
+                        </md-option>
+                    </md-select>
+                <!-- </md-input-container> -->
+            </div>
+            <div class="clearfix visible-sm visible-md"></div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+                <md2-datepicker class="width100" placeholder="Date " [(ngModel)]="dob" name="admin_dob" [min]="mindate" [max]="maxdate"
+                    #dOB="ngModel" (keydown)="preventTyping($event)"  required></md2-datepicker>
+                <md-hint class="errorText" *ngIf="dOB.errors && dOB.touched">date is required</md-hint>
+            </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
+        <button md-raised-button color="accent" class="pull-right" >Submit</button>
+</div>
+</form>
+</div>
+</div>

@@ -40,7 +40,7 @@ export class OutboundSearchRecordService {
         const obj = {};
         if (agentId) {
             obj['providerServiceMapId'] = serviceID;
-            obj['AgentID'] = agentId;
+            obj['agentId'] = agentId;
         } else {
             obj['providerServiceMapId'] = serviceID;    
         }

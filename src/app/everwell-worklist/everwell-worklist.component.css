@@ -1,0 +1,17 @@
+.matclass{
+    margin: 10px;
+}
+.labelwidth{    
+    width: 70px;
+}
+.mat-standard-chip
+{
+    border-radius: 18px !important;
+    min-height: 27px !important;
+    padding: 7px 8px !important;
+    margin: 1px !important;
+}
+
+.mat-chip:not(.mat-basic-chip){
+    padding: 7px 8px !important;
+}

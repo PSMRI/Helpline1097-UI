@@ -74,7 +74,7 @@ export class helpline1097CoComponent implements OnInit {
     'lname': '',
     'mob': ''
   };
-
+  isEverwell:string;
   ngOnInit() {
     this.current_campaign = this.getCommonData.current_campaign;
     var idx = jQuery('.carousel-inner div.active').index();
@@ -92,6 +92,8 @@ export class helpline1097CoComponent implements OnInit {
 
     });
     this.disableBack = true;
+    this.isEverwell = sessionStorage.getItem("isEverwellCall");
+    console.log('isEverwell'+this.isEverwell);    
   }
 
 
