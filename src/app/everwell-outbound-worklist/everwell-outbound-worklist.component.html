@@ -36,8 +36,8 @@
                       <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
                       <th md2SortBy="beneficiary.beneficiaryRegID">Beneficiary ID</th>
                       <th>Beneficiary Name</th>
-                      <th md2SortBy="prefferedDateTime">Requested Date</th>
-                      <th>Requested Service</th>
+                      <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
+                      <th>Mobile Number</th>
                       <th>Remarks</th>
                       <th>Call</th>
                     </tr>
@@ -49,11 +49,11 @@
 
                     <tr *ngFor="let listItem of  md2.data">
                       <!-- <td width=20%>{{listItem.beneficiary?.benPhoneMaps[0]?.phoneNo.substing(4)}}</td> -->
-                      <td width=15%>{{listItem.beneficiary?.beneficiaryID}}</td>
-                      <td width=20%>{{listItem.beneficiary?.firstName}} {{listItem.beneficiary?.lastName}}</td>
-                      <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td>
-                      <td width=20%>{{listItem.requestedService?.subServiceName}}</td>
-                      <td width=20%>{{listItem.requestedFor}}</td>
+                      <td width=15%>{{listItem.beneficiaryRegId}}</td>
+                      <td width=20%>{{listItem.firstName}} {{listItem.lastName}}</td>
+                      <!-- <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td> -->
+                      <td width=20%>{{listItem.primaryNumber}}</td>
+                      <td width=20%>No</td>
                       <td width=10% height="20px">
                         <a class="pointer">
                           <span (click)="viewHistory(listItem)">

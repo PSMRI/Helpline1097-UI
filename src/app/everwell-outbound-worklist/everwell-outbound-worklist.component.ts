@@ -4,6 +4,7 @@ import { dataService } from './../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
+import { OutboundReAllocationService } from "../services/outboundServices/outbound-call-reallocation.service";
 
 @Component({
   selector: 'app-everwell-outbound-worklist',
@@ -14,21 +15,27 @@ import { CzentrixServices } from './../services/czentrix/czentrix.service';
 export class EverwellOutboundWorklistComponent implements OnInit {
   @Output() onOutboundCall: EventEmitter<any> = new EventEmitter<any>();
   data: any = [];
-  constructor(private cz_service : CzentrixServices, private _outBoundService: CallServices, 
+  constructor(private cz_service : CzentrixServices, private _outBoundService: CallServices, private OCRService: OutboundReAllocationService,
     public alertService: ConfirmationDialogsService, private _common: dataService, public router: Router) {
   }
-
+  
   ngOnInit() {
     this._common.sendHeaderStatus.next("");
     const serviceProviderMapID = this._common.current_service.serviceID;
     const userId = this._common.uid;
-    this._outBoundService.getOutboundCallList(serviceProviderMapID, userId).subscribe((response) => {
-      this.AssignData(response);
-      console.log('Call History Data is', response);
-    }, (err) => {
-      this.alertService.alert(err.errorMessage, 'error');
-      console.log('error in call history ');
-    })
+    let reqObj = {
+      "providerServiceMapId": serviceProviderMapID,
+      "agentId": userId
+    };  
+    this.OCRService.getEverwellOutboundCallList(reqObj).subscribe(response => 
+      {
+        this.AssignData(response);
+        console.log('Everwell Call History Data is', response);
+      },
+    (err)=> {
+      this.alertService.alert(err.errorMessage,'error');
+      console.log('Everwell error in call history ');
+    });
   };
 
   AssignData(outboundHistory: any) {
@@ -36,14 +43,14 @@ export class EverwellOutboundWorklistComponent implements OnInit {
   }
   //   modaldata:any;
   viewHistory(data: any) {
-    this._common.outboundBenRegID = data.beneficiary.beneficiaryID;
+    this._common.outboundBenRegID = data.beneficiaryRegId;
     //  this.onOutboundCall.emit(data); code commented, since routing implemented, calling which was happenning in parent is now here....gursimran 24/5/18
     this._common.outboundData = data;
-    this.cz_service.manualDialaNumber("", data.beneficiary.benPhoneMaps[0].phoneNo).subscribe((res) => {
+    this.cz_service.manualDialaNumber("", data.primaryNumber).subscribe((res) => {
       if (res.status.toLowerCase() === 'fail') {
         this.alertService.alert('Something went wrong in calling', 'error');
       } else {
-        this._common.callerNumber = data.beneficiary.benPhoneMaps[0].phoneNo;
+        this._common.callerNumber = data.primaryNumber;
 
     //    this._dataServivce.outboundBenID = data.beneficiary.beneficiaryRegID;
    //     this._dataServivce.outboundCallReqID = data.outboundCallReqID;
