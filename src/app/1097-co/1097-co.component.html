@@ -13,7 +13,7 @@
           </div>
           <a class="bs-wizard-dot cursorPointer active-tab"></a>
         </div>
-        <div id="two" class="col-xs-2 bs-wizard-step disabled">
+        <div id="two" class="col-xs-2 bs-wizard-step disabled" *ngIf="isEverwell !='yes'">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguage.co?.provide_service}}</div>
           <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguage.co?.provide_service_mobile}}</div>
           <div class="progress progress-bar-disabled progress-margin">
@@ -21,7 +21,7 @@
           </div>
           <a class="bs-wizard-dot cursorPointer"></a>
         </div>
-        <div id="three" class="col-xs-2 bs-wizard-step disabled">
+        <div id="three" class="col-xs-2 bs-wizard-step disabled" *ngIf="isEverwell !='yes'">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguage.co?.other_details}}</div>
           <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguage.co?.other_details_mobile}}</div>
           <div class="progress progress-bar-disabled progress-margin">

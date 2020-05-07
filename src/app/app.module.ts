@@ -147,8 +147,8 @@ import { CollapseDirective } from './directives/collapse/collapse.directive'
 
 // md2 Material2  modules and components
 import { Md2Module } from 'md2';
-import { MdSnackBarModule, MdTabsModule, MdButtonModule } from '@angular/material';
-
+import { MdSnackBarModule, MdButtonModule } from '@angular/material';
+import {  MdTabsModule} from '@angular/material/tabs';
 import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-history.component'
 import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component';
 import { KnowledgeManagementComponent } from './knowledge-management/knowledge-management.component';
@@ -200,6 +200,7 @@ import {CallAllocateComponent} from './Everwell-outbound-search-call-allocate/ca
 import { EverwellAllocateRecordsComponent } from './everwell-allocate-records/everwell-allocate-records.component';
 import { EverwellOutboundWorklistComponent } from './everwell-outbound-worklist/everwell-outbound-worklist.component';
 import { EverwellWorklistComponent, SupportActionModal } from './everwell-worklist/everwell-worklist.component';
+import { OutboundCallWorklistsComponent } from './outbound-call-worklists/outbound-call-worklists.component';
 
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
@@ -246,7 +247,8 @@ import { EverwellWorklistComponent, SupportActionModal } from './everwell-workli
     EverwellAllocateRecordsComponent,
     EverwellOutboundWorklistComponent,
     EverwellWorklistComponent,
-    SupportActionModal
+    SupportActionModal,
+    OutboundCallWorklistsComponent
 
   ],
   imports: [
@@ -307,6 +309,11 @@ import { EverwellWorklistComponent, SupportActionModal } from './everwell-workli
           {
             path: 'InnerpageComponent',
             component: InnerpageComponent,
+          },
+          {
+            path: 'OutboundCallWorklistsComponent',
+            component: OutboundCallWorklistsComponent,
+            canActivate: [AuthGuard]
           },
           {
             path: 'OutboundWorkList',
