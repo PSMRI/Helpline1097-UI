@@ -39,6 +39,7 @@ export class helpline1097CoComponent implements OnInit {
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
   // @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() everwellBeneficiarySelected: EventEmitter<any> = new EventEmitter<any>();  
   @Output() getHistory: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancel') cancel;
@@ -155,6 +156,23 @@ export class helpline1097CoComponent implements OnInit {
 
 
 
+  }
+
+  getEverwellSelectedBenDetails(data: any) {
+    // if (data != null) {
+
+    //   this.selectedBenData.id = data.beneficiaryID;
+    //   this.selectedBenData.fname = data.firstName;
+    //   this.selectedBenData.lname = data.lastName;
+    // } else {
+
+    //   this.selectedBenData.id = '';
+    //   this.selectedBenData.fname = '';
+    //   this.selectedBenData.lname = '';
+    // }
+    console.log('1097co174' + data);
+    
+    this.everwellBeneficiarySelected.emit(data);
   }
 
   // startNewCall() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 //import { ThemePalette } from '@angular/material/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
@@ -18,7 +18,7 @@ export class EverwellWorklistComponent implements OnInit {
   showEditForm = false;
   name: any;
   showCalender= false;
-
+  @Output() everwellBeneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
 
   //Calender
   val: string; date: Date;
@@ -42,29 +42,22 @@ export class EverwellWorklistComponent implements OnInit {
     let reqObj = {
       "providerServiceMapId": serviceProviderMapID,
       "agentId": userId
-    };  
-    this.OCRService.getEverwellOutboundCallList(reqObj).subscribe(response => 
-      {
-        this.AssignData(response);
-        console.log('Everwell Call History Data is', response);
-      },
-    (err)=> {
-      this.alertService.alert(err.errorMessage,'error');
-      console.log('Everwell error in call history ');
-    });
-  }
-  AssignData(outboundHistory: any) {
-    this.data = outboundHistory;
+    };      
+    // if (this._common.current_campaign == 'OUTBOUND') {
+    //   this.startOutBoundCall(this._common.outboundEverwellData);
+    // }
+    this.startOutBoundCall(this._common.outboundEverwellData);
   }
   tableMode() {
     this.showTable = true;
     this.showCalender = false;
     this.showEditForm = false;
   }
-  editMode() {
+  editMode(benData:any) {
     this.showTable = false;
     this.showEditForm = false;
     this.showCalender = true;
+    this.everwellBeneficiarySelected.emit(benData);    
   }
   getcurrentmonth() {
     var curmonth = new Date();
@@ -201,6 +194,25 @@ export class EverwellWorklistComponent implements OnInit {
     alert("clicked" + a);
   }
   
+  startOutBoundCall(outboundData: any) {
+    if(outboundData)
+    {
+    console.log('everwelldata'+ JSON.stringify(outboundData));
+    
+    this.data.callID = this._common.callID;
+    this.data.is1097 = true;
+    //this.data.createdBy = outboundData.everwelldata.createdBy;
+    this.data.calledServiceID = outboundData.providerServiceMapId;
+    this.data.primaryNumber = outboundData.primaryNumber;
+    this.data.agentID = outboundData.agentId;
+    this.data.beneficiaryRegId = outboundData.beneficiaryRegId;
+    this.data.firstName = outboundData.firstName;
+    this.data.lastName = outboundData.lastName;
+    this.data.remarks = outboundData.comments;
+    console.log('primaryNumber'+ this.data.primaryNumber);    
+  } 
+}
+
 }
 export interface ChipColor {
   name: string;

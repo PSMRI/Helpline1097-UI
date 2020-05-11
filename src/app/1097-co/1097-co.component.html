@@ -79,7 +79,7 @@
           <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
             <div class="carousel-inner">
               <div class="item active">            
-                <app-everwell-worklist ></app-everwell-worklist>
+                <app-everwell-worklist (everwellBeneficiarySelected)="getEverwellSelectedBenDetails($event);" ></app-everwell-worklist>
               </div>            
             </div>
           </div>

@@ -76,6 +76,11 @@ export class InnerpageComponent implements OnInit {
   listenCallEvent: any;
   transferInProgress: Boolean = false;
   zoneName: any;
+  everwellFullname: string;
+  EverwellBeneficiaryRegID: string;
+  everwellPrimaryNumber: string;
+  isEverwell:string;
+  everwellSelectedBenData:any;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -179,6 +184,7 @@ export class InnerpageComponent implements OnInit {
     // this.addListener();
     this.getAgentStatus();
     this.getAgentCallDetails();
+    this.isEverwell = sessionStorage.getItem("isEverwellCall");
 
 
   }
@@ -307,6 +313,17 @@ export class InnerpageComponent implements OnInit {
   }
 
 
+  
+  getEverwellSelectedBenDetails(obj: any) {   
+   console.log('evewellcall311' + obj);
+   console.log(obj);
+   this.everwellSelectedBenData = obj;   
+   let firstName = obj.firstName ? obj.firstName : "";
+   let lname = obj.lastName ? obj.lastName : "";
+   this.EverwellBeneficiaryRegID = 'Ben ID: ' + obj.beneficiaryRegId;
+   this.everwellFullname = firstName + ' ' + lname;
+    this.everwellPrimaryNumber = obj.primaryNumber;
+  }
   minimizeBar() {
     this.barMinimized = true;
   }

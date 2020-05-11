@@ -20,14 +20,14 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngIf="md2.data.length==0">
+            <tr *ngIf="data === undefined">
               <td colspan="5" class="t-a-c record-not-found"> No records found</td>
             </tr>
-            <tr *ngFor="let listItem of  md2.data" (click)="editMode()">
-              <td width=15%>{{listItem.beneficiaryRegId}}</td>
-              <td width=20%>{{listItem.firstName}} {{listItem.lastName}}</td>
-              <td width=20%>{{listItem.primaryNumber}}</td>
-              <td width=20%>No</td>
+            <tr (click)="editMode(data)">
+              <td width=15%>{{data.beneficiaryRegId}}</td>
+              <td width=20%>{{data.firstName}} {{data.lastName}}</td>
+              <td width=20%>{{data.primaryNumber}}</td>
+              <td width=20%>{{data.remarks}}</td>
             </tr>
         </tbody>
         <tfoot>
