@@ -3,6 +3,10 @@ import { NgForm } from '@angular/forms';
 //import { ThemePalette } from '@angular/material/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { MD_DIALOG_DATA } from '@angular/material';
+import { dataService } from '../services/dataService/data.service';
+import { Router } from '@angular/router';
+import { OutboundReAllocationService } from "../services/outboundServices/outbound-call-reallocation.service";
+import { ConfirmationDialogsService } from 'app/services/dialog/confirmation.service';
 @Component({
   selector: 'app-everwell-worklist',
   templateUrl: './everwell-worklist.component.html',
@@ -26,10 +30,31 @@ export class EverwellWorklistComponent implements OnInit {
   beforemonth: string;
   beforemonth2: string;
 
-  constructor(public dialog: MdDialog) { }
-
+  data: any = [];
+  constructor(public dialog: MdDialog, private OCRService: OutboundReAllocationService,
+     private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService) {
+  }
   ngOnInit() {
+    this._common.sendHeaderStatus.next("");
+    const serviceProviderMapID = this._common.current_service.serviceID;
+    const userId = this._common.uid;
     this.getcurrentmonth();
+    let reqObj = {
+      "providerServiceMapId": serviceProviderMapID,
+      "agentId": userId
+    };  
+    this.OCRService.getEverwellOutboundCallList(reqObj).subscribe(response => 
+      {
+        this.AssignData(response);
+        console.log('Everwell Call History Data is', response);
+      },
+    (err)=> {
+      this.alertService.alert(err.errorMessage,'error');
+      console.log('Everwell error in call history ');
+    });
+  }
+  AssignData(outboundHistory: any) {
+    this.data = outboundHistory;
   }
   tableMode() {
     this.showTable = true;

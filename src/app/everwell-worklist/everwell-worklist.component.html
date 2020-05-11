@@ -8,85 +8,27 @@
   <div class="col-xs-12 col-sm-12">
 
     <div class="table-responsive">
-      <table class="table table-hover table-striped">
+      <table class="table table-hover table-striped" [md2Data]="data" #md2="md2DataTable">
         <thead>
           <tr>
-            <th>S.No.</th>
-            <th>Call ID</th>
-            <th>Call Date & Time</th>
+            <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
             <th>Beneficiary ID</th>
             <th>Beneficiary Name</th>
-            <th>Beneficiary Phone No.</th>
-            <th>Call Remarks</th>
-            <th>Call Type</th>
+            <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
+            <th>Mobile Number</th>
+            <th>Remarks</th>
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngIf="md2.data.length==0">
-              <td class="record-not-found" colspan="10">
-                No records found
-              </td>
-            </tr> -->
-          <tr>
-            <td><a class="nav-link" [routerLink]="['/details']" routerLinkActive="active">asdf</a></td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-          </tr>
-          <tr (click)="editMode()">
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-          </tr>
-          <tr (click)="editMode()">
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-          </tr>
-          <tr (click)="editMode()">
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-          </tr>
-          <tr (click)="editMode()">
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-          </tr>
-          <tr (click)="editMode()">
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-            <td>Call Type</td>
-          </tr>
+            <tr *ngIf="md2.data.length==0">
+              <td colspan="5" class="t-a-c record-not-found"> No records found</td>
+            </tr>
+            <tr *ngFor="let listItem of  md2.data" (click)="editMode()">
+              <td width=15%>{{listItem.beneficiaryRegId}}</td>
+              <td width=20%>{{listItem.firstName}} {{listItem.lastName}}</td>
+              <td width=20%>{{listItem.primaryNumber}}</td>
+              <td width=20%>No</td>
+            </tr>
         </tbody>
         <tfoot>
           <tr>
