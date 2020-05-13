@@ -30,6 +30,7 @@ export class CallServices {
   _getBeneficiaryURL = this._commonURL + "call/beneficiaryByCallID";
   _getBenOutboundListUrl = this._commonURL + "call/getBenRequestedOutboundCall";
   _servicetypesurl = this._commonURL + "service/servicetypes";
+  _outEverwellbouncClose_url = this._commonURL + 'everwellCall/completeOutboundCall/';
 
   constructor(
     private _http: AuthorizationWrapper,
@@ -59,6 +60,16 @@ export class CallServices {
     outboundObj['outboundCallReqID'] = callID;
     outboundObj['isCompleted'] = isCompleted;
     return this._httpInterceptor.post(this._outbouncClose_url, outboundObj).map(this.extractData).catch(this.handleCustomError);
+  }
+
+  closeEverwellOutBoundCall(eapiIdcallID: any, isCompleted: boolean,callId:any,benCallID:any) {
+    let outboundObj = {};
+    outboundObj['eapiId'] = eapiIdcallID;
+    outboundObj['isCompleted'] = isCompleted;
+   // outboundObj['callId'] = callId;
+    outboundObj['benCallID'] = benCallID;
+
+    return this._httpInterceptor.post(this._outEverwellbouncClose_url, outboundObj).map(this.extractData).catch(this.handleCustomError);
   }
   getCallSummary(values: any) {
     // debugger

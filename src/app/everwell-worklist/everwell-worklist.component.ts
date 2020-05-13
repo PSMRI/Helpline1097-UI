@@ -7,6 +7,7 @@ import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { OutboundReAllocationService } from "../services/outboundServices/outbound-call-reallocation.service";
 import { ConfirmationDialogsService } from 'app/services/dialog/confirmation.service';
+import { RegisterService } from '../services/register-services/register-service';
 @Component({
   selector: 'app-everwell-worklist',
   templateUrl: './everwell-worklist.component.html',
@@ -32,7 +33,9 @@ export class EverwellWorklistComponent implements OnInit {
 
   data: any = [];
   constructor(public dialog: MdDialog, private OCRService: OutboundReAllocationService,
-     private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService) {
+     private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService,
+     private _util: RegisterService,private alertMaessage: ConfirmationDialogsService
+     ) {
   }
   ngOnInit() {
     this._common.sendHeaderStatus.next("");
@@ -209,8 +212,29 @@ export class EverwellWorklistComponent implements OnInit {
     this.data.firstName = outboundData.firstName;
     this.data.lastName = outboundData.lastName;
     this.data.remarks = outboundData.comments;
+    this.data.outBoundCallID = outboundData.eapiId;
+
+    const startCallData: any = {};
+    startCallData.callID = this._common.callID;
+    startCallData.is1097 = true;
+    startCallData.createdBy = this._common.uname;
+    startCallData.calledServiceID = this._common.current_service.serviceID;
+    startCallData.phoneNo = this._common.callerNumber;
+    startCallData.agentID = this._common.cZentrixAgentID;    
+    startCallData.callReceivedUserID = this._common.uid;
+    startCallData.receivedRoleName = this._common.current_role.RoleName;   
+    startCallData.beneficiaryRegID = outboundData.beneficiaryRegId;
+    startCallData.isOutbound = this._common.isOutbound;
+    this._util.startCall(startCallData).subscribe((response) => { this.setBenCall(response) }, (err) => {
+      this.alertMaessage.alert(err.errorMessage, 'error');
+      console.log('ERROR', err);
+
+    });
     console.log('primaryNumber'+ this.data.primaryNumber);    
   } 
+}
+setBenCall(response) {
+  this._common.callData = response;
 }
 
 }
@@ -256,7 +280,7 @@ export class SupportActionModal {
   isExistPan: boolean = false;
   errorMessageForAadhar: string;
   errorMessageForPan: string;
-  subcategory:any=["call not received","dose taken","dose not taken"];
+  subcategory:any=["Dose not taken","Dose taken but did not call TFN","Called & Counselled","Phone not reachable","“Phone switched off","“Did not receive the cal","Others"];
   // arrays
   genders: any = [];
   genderID: any = [];

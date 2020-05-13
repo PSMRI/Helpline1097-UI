@@ -252,12 +252,54 @@ export class helpline1097CoComponent implements OnInit {
     });
 
   }
+  openEverwellDialog() {
+
+    this.dialogService.confirm('Cancel Call ', 'Do you want to cancel?').subscribe((response) => {
+      if (response) {
+        this.resetProvideServices = '2';
+        // this.reloadCall();
+        //   this.beneficiarySelected.emit(null);
+        const id = jQuery('.carousel-inner div.active').index();
+        jQuery('#myCarouselEverwell').carousel(0);
+        jQuery('#one').parent().find('a').removeClass('active-tab');
+        jQuery('#one').find('a').addClass('active-tab');
+        jQuery('#btnClosure').attr('disabled', null);
+        // jQuery('#benForm').trigger('reset');
+        // jQuery('#closeForm').trigger('reset');
+        this.ClearForm.clearFormSender('closure');
+        // jQuery('#otherDetailsForm').trigger('reset');
+        this.isCancelDisable = true;
+        this.isClosureDisable = false;
+        this.isNext = false;
+        this.isPrevious = false;
+        this.ReloadBenOutbound('reloadcall');
+      }
+    });
+
+  }
   openDialogClosure() {
 
     this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
       if (response) {
         this.resetProvideServices = '3';
         jQuery('#myCarousel').carousel(3);
+        jQuery('#four').parent().find('a').removeClass('active-tab');
+        jQuery('#four').find('a').addClass('active-tab');
+        this.isClosureDisable = true;
+        this.isCancelDisable = false;
+        this.isNext = false;
+        this.isPrevious = true;
+      }
+    });
+
+  }
+
+  openEverwellDialogClosure() {
+
+    this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
+      if (response) {
+        this.resetProvideServices = '3';
+        jQuery('#myCarouselEverwell').carousel(1);
         jQuery('#four').parent().find('a').removeClass('active-tab');
         jQuery('#four').find('a').addClass('active-tab');
         this.isClosureDisable = true;
