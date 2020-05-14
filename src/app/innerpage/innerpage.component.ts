@@ -367,6 +367,7 @@ export class InnerpageComponent implements OnInit {
       this.remarksMessage.alert('Cannot logout during active call');
     } else {
       sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
       this.basicrouter.navigate(['']);
       this.authService.removeToken();
     }
@@ -395,6 +396,7 @@ export class InnerpageComponent implements OnInit {
     this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
       if (res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
+        sessionStorage.removeItem('isEverwellCall');
         sessionStorage.removeItem('apiman_key');
         this.basicrouter.navigate(['']);
       } else {
@@ -403,6 +405,7 @@ export class InnerpageComponent implements OnInit {
           this.remarksMessage.alert('Cannot logout during active call');
         } else {
           sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
           sessionStorage.removeItem('apiman_key');          
           this.basicrouter.navigate(['']);
         }
@@ -418,6 +421,7 @@ export class InnerpageComponent implements OnInit {
       this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
         if (res.response.status.toUpperCase() !== 'FAIL') {
           sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
           this.basicrouter.navigate(['']);
         } else {
           // if (this.current_role.toLowerCase() !== 'supervisor') {
@@ -429,6 +433,7 @@ export class InnerpageComponent implements OnInit {
       });
     } else {
       sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
       this.basicrouter.navigate(['']);
     }
   }
@@ -593,6 +598,7 @@ export class InnerpageComponent implements OnInit {
       if (response) {
         this.remarksMessage.alert(message, 'success');
         sessionStorage.removeItem('isOnCall');
+        sessionStorage.removeItem('isEverwellCall');
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         // this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
         //   console.log('disconnect response', res);

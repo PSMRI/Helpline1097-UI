@@ -224,6 +224,7 @@ export class helpline1097CoComponent implements OnInit {
     this.getCommonData.current_campaign = compain_type;
     this.getCommonData.isCallDisconnected = false;
     sessionStorage.removeItem('isOnCall');
+    sessionStorage.removeItem('isEverwellCall');
 
     this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }

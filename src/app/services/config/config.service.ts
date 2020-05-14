@@ -6,10 +6,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import * as config from 'assets/config.json';
 
-const commonIP = 'http://10.208.122.38:8080/';
-const IP1097 = 'http://10.208.122.38:8080/';
+const commonIP = 'http://10.208.122.32:8080/';
+const IP1097 = 'http://10.208.122.32:8080/';
 const telephonyServerIP = 'http://10.208.122.99/';
-const adminIP = 'http://10.208.122.38:8080/';
+const adminIP = 'http://10.208.122.32:8080/';
 
 @Injectable()
 export class ConfigService {

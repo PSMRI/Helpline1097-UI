@@ -363,16 +363,17 @@ export class ClosureComponent implements OnInit
     }
     else{
       let outboundObj = {};
+      outboundObj['eapiId'] = this.saved_data.outboundEverwellData.eapiId;
       outboundObj['assignedUserID'] = this.saved_data.uid;
       outboundObj['isCompleted'] = true;
       outboundObj['beneficiaryRegId'] = this.saved_data.outboundEverwellData.beneficiaryRegId;
       outboundObj['callTypeID'] = values.callTypeID;
       outboundObj['benCallID'] = values.benCallID;
       outboundObj['callId'] = this.saved_data.callID;
-      outboundObj['providerServiceMapID'] = values.providerServiceMapID;
+      outboundObj['providerServiceMapId'] = values.providerServiceMapID;
       outboundObj['requestedServiceID'] = null;
       outboundObj['preferredLanguageName'] = "All"
-      outboundObj['createdBy'] = this.saved_data.uname;     
+      outboundObj['createdBy'] = this.saved_data.uname;
 
       this._callServices.closeEverwellOutBoundCall(outboundObj).subscribe((response) => {
         this.closeOutboundCall(btnType, values);

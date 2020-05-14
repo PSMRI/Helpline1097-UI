@@ -78,7 +78,7 @@
           <ng-container *ngIf="checkcurrent(item.name)">
             <label *ngIf="current" class="labelwidth" style="color:green"><b>{{item.name}}</b></label><br />
             <ng-container *ngFor="let item of createRange(currentdaysactive()),let i=index">
-              <md-chip title="" color="accent" selected="true" style="background-color: red "
+              <md-chip title="" color="accent" selected="true" style="background-color: green "
                 (click)="callsupportdialog()">
                 {{item}}
               </md-chip>
