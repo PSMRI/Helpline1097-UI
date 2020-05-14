@@ -1,10 +1,12 @@
-<div class="row" *ngIf="showTable">
+<div class="container-fluid" *ngIf="showTable">
+  <div  class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
       <h4 class="f-s-b m-b-10 m-t-20"> Everwell-Worklist </h4>
     </label>
   </div>
-
+</div>
+<div  class="row">
   <div class="col-xs-12 col-sm-12">
 
     <div class="table-responsive">
@@ -20,10 +22,10 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngIf="data === undefined">
+            <tr *ngIf="data?.length > 0">
               <td colspan="5" class="t-a-c record-not-found"> No records found</td>
             </tr>
-            <tr (click)="editMode(data)">
+            <tr (click)="editMode(data)" style="cursor: pointer">
               <td width=15%>{{data.beneficiaryRegId}}</td>
               <td width=20%>{{data.firstName}} {{data.lastName}}</td>
               <td width=20%>{{data.primaryNumber}}</td>
@@ -40,7 +42,7 @@
       </table>
     </div>
   </div>
-
+</div>
 </div>
 <div class="row" *ngIf="showEditForm">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -102,7 +104,6 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">Back</button>
-    <button md-raised-button color="accent" class="pull-right">Update</button>
+    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">Back</button>   
   </div>
 </div>

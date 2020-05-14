@@ -362,7 +362,19 @@ export class ClosureComponent implements OnInit
       })
     }
     else{
-      this._callServices.closeEverwellOutBoundCall(this.saved_data.outboundEverwellData.eapiId, true,this.saved_data.callID,this.saved_data.callData.benCallID).subscribe((response) => {
+      let outboundObj = {};
+      outboundObj['assignedUserID'] = this.saved_data.uid;
+      outboundObj['isCompleted'] = true;
+      outboundObj['beneficiaryRegId'] = this.saved_data.outboundEverwellData.beneficiaryRegId;
+      outboundObj['callTypeID'] = values.callTypeID;
+      outboundObj['benCallID'] = values.benCallID;
+      outboundObj['callId'] = this.saved_data.callID;
+      outboundObj['providerServiceMapID'] = values.providerServiceMapID;
+      outboundObj['requestedServiceID'] = null;
+      outboundObj['preferredLanguageName'] = "All"
+      outboundObj['createdBy'] = this.saved_data.uname;     
+
+      this._callServices.closeEverwellOutBoundCall(outboundObj).subscribe((response) => {
         this.closeOutboundCall(btnType, values);
       }, (err) => {
         this.message.alert(err.status, 'error');

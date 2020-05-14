@@ -57,11 +57,11 @@
               <input mdInput id="remarks" placeholder="{{currentlanguage.closure?.remarks}}" maxlength="100" name="remarks" [(ngModel)]="remarks">
             </md-input-container>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showFeedbackRequiredFlag">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showFeedbackRequiredFlag && isEverwell !='yes'">
             <md-checkbox color="primary" name="isFeedbackRequired" (change)="isFeedbackRequired($event)">{{currentlanguage.closure?.feedback_question}}</md-checkbox>
           </div>
           <div class="clearfix"></div>
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showSlider">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showSlider && isEverwell !='yes'">
             <md-checkbox ngDefaultControl color="primary" name="isFollowupRequired" [value]=true [(ngModel)]="isFollowupRequired" (change)="isFollow($event)">{{currentlanguage.closure?.followup_question}}</md-checkbox>
             <!-- <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle> -->
           </div>

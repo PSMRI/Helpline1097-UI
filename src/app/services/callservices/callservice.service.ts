@@ -62,14 +62,8 @@ export class CallServices {
     return this._httpInterceptor.post(this._outbouncClose_url, outboundObj).map(this.extractData).catch(this.handleCustomError);
   }
 
-  closeEverwellOutBoundCall(eapiIdcallID: any, isCompleted: boolean,callId:any,benCallID:any) {
-    let outboundObj = {};
-    outboundObj['eapiId'] = eapiIdcallID;
-    outboundObj['isCompleted'] = isCompleted;
-   // outboundObj['callId'] = callId;
-    outboundObj['benCallID'] = benCallID;
-
-    return this._httpInterceptor.post(this._outEverwellbouncClose_url, outboundObj).map(this.extractData).catch(this.handleCustomError);
+  closeEverwellOutBoundCall(clsoutboundcalldata:any) {   
+    return this._httpInterceptor.post(this._outEverwellbouncClose_url, clsoutboundcalldata).map(this.extractData).catch(this.handleCustomError);
   }
   getCallSummary(values: any) {
     // debugger

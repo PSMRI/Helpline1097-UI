@@ -57,10 +57,12 @@ export class EverwellWorklistComponent implements OnInit {
     this.showEditForm = false;
   }
   editMode(benData:any) {
+    if(benData){
     this.showTable = false;
     this.showEditForm = false;
     this.showCalender = true;
     this.everwellBeneficiarySelected.emit(benData);    
+    }
   }
   getcurrentmonth() {
     var curmonth = new Date();
@@ -87,8 +89,8 @@ export class EverwellWorklistComponent implements OnInit {
   callsupportdialog() {
     console.log("Existing Data");
     let dialog_Ref = this.dialog.open(SupportActionModal, {
-      height: '500px',
-      width: '1000px',
+      height: '400px',
+      width: '700px',
       disableClose: true,
       //data: item
     });
@@ -393,23 +395,7 @@ export class SupportActionModal {
     console.log("Marital status", response);
     this.maritalStatus = response;
   }
-  /*
-  * Check Uniqueness in Aadhar
-  */
-  // checkAadhar() {
-  //   this.isExistAadhar = false;
-  //   this.errorMessageForAadhar = '';
-  //   if (this.aadharNumber != undefined && this.aadharNumber != null) {
-  //     if (this.aadharNumber.length == 12) {
-  //       this.superadminService.validateAadhar(this.aadharNumber).subscribe(
-  //         (response: any) => {
-  //           this.checkAadharSuccessHandler(response);
-  //         },
-  //         err => { console.log("Error", err); }
-  //       );
-  //     }
-  //   }
-  // }
+  
   checkAadharSuccessHandler(response) {
     if (response.response == 'true') {
       this.isExistAadhar = true;
@@ -419,24 +405,7 @@ export class SupportActionModal {
       this.errorMessageForAadhar = '';
     }
   }
-  /*
-    * Check Uniqueness in Pan
-    */
-  // checkPan() {
-  //   this.isExistPan = false;
-  //   this.errorMessageForPan = '';
-  //   if (this.panNumber != undefined && this.panNumber != null) {
-  //     if (this.panNumber.length == 10) {
-  //       this.superadminService.validatePan(this.panNumber).subscribe(
-  //         response => {
-  //           console.log("pan response", response);
-  //           this.checkPanSuccessHandler(response);
-  //         },
-  //         err => { }
-  //       );
-  //     }
-  //   }
-  // }
+  
   checkPanSuccessHandler(response) {
     if (response.response == 'true') {
       this.isExistPan = true;
@@ -476,11 +445,6 @@ export class SupportActionModal {
       'modifiedBy': this.data.createdBy
 
     }
-    // this.superadminService.updateProviderAdmin(update_tempObj).subscribe(response => {
-    //   console.log("Data to be update", response);
-    //   this.dialogRef.close("success")
-
-
   }
 
 
