@@ -8,7 +8,10 @@ import { Router } from '@angular/router';
 import { OutboundReAllocationService } from "../services/outboundServices/outbound-call-reallocation.service";
 import { ConfirmationDialogsService } from 'app/services/dialog/confirmation.service';
 import { RegisterService } from '../services/register-services/register-service';
-import { CallServices } from '../services/callservices/callservice.service'
+import { CallServices } from '../services/callservices/callservice.service';
+import { DatePipe } from'@angular/common';
+
+
 @Component({
   selector: 'app-everwell-worklist',
   templateUrl: './everwell-worklist.component.html',
@@ -33,6 +36,8 @@ export class EverwellWorklistComponent implements OnInit {
   beforemonth2: string;
 
   data: any = [];
+  previous: number;
+  previousDay: string;
   constructor(public dialog: MdDialog, private OCRService: OutboundReAllocationService,
      private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService,
      private _util: RegisterService,private alertMaessage: ConfirmationDialogsService
@@ -81,19 +86,22 @@ export class EverwellWorklistComponent implements OnInit {
 
     this.daysmonth = this.daysmonth.filter(
       m => m.name.toString() == this.currentmonth ||
-        m.name.toString() == this.aftermonth ||
-        m.name.toString() == this.aftermonth2 ||
+       // m.name.toString() == this.aftermonth ||
+        // m.name.toString() == this.aftermonth2 ||
         m.name.toString() == this.beforemonth ||
         m.name.toString() == this.beforemonth2
     );
   }
   callsupportdialog() {
-    console.log("Existing Data");
+    var curmonth = new Date();
+    curmonth.setDate(curmonth.getDate() - 1);
+    this.previousDay =curmonth.toLocaleString('en-US',{hour12:false}).split(" ")[0];
+    this.previousDay = this.previousDay.substring(0,9);
     let dialog_Ref = this.dialog.open(SupportActionModal, {
       height: '400px',
       width: '700px',
       disableClose: true,
-      //data: item
+      data: this.previousDay
     });
     dialog_Ref.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
@@ -107,6 +115,7 @@ export class EverwellWorklistComponent implements OnInit {
     });
   }
   checkcurrent(name) {
+    this.currentdaysactive(name);
     if (this.currentmonth == name) {
       this.current = true;
       return true;
@@ -116,7 +125,7 @@ export class EverwellWorklistComponent implements OnInit {
       return false;
     }
   }
-  currentdaysactive() {
+  currentdaysactive(month) {
     var c = 0; this.date = new Date();
     this.val = new Date().toDateString();
     for (var i = 0; i < this.val.length; i++) {
@@ -128,11 +137,11 @@ export class EverwellWorklistComponent implements OnInit {
         }
       }
     }
-    return Number(days);
+    this.previous=Number(days)-1;
   }
   currentdaysInactive(val) {
-    var active = this.currentdaysactive(); var ar: number[] = [];
-    for (var i = active + 1; i <= val; i++) {
+    this.currentdaysactive(val); var ar: number[] = [];
+    for (var i = this.previous + 1; i <= val; i++) {
       ar.push(i);
     }
     return ar;
@@ -213,6 +222,9 @@ export class EverwellWorklistComponent implements OnInit {
     this.data.lastName = outboundData.lastName;
     this.data.remarks = outboundData.comments;
     this.data.outBoundCallID = outboundData.eapiId;
+    this.data.state = outboundData.state;
+    this.data.gender = outboundData.gender;
+    this.data.district = outboundData.district;
 
     const startCallData: any = {};
     startCallData.callID = this._common.callID;
@@ -251,6 +263,7 @@ export interface month {
   selector: 'SupportActionModal',
   templateUrl: './support.component.html',
   //styleUrls: ['./provider-admin-list.component.css']
+  providers: [ DatePipe ] 
 })
 export class SupportActionModal {
   // arrays  
@@ -258,7 +271,7 @@ export class SupportActionModal {
   subcategries:any=["Dose not taken","Dose taken but did not call TFN","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the cal","Others"];  
   category:any=["Support_Action_Call"];
   comments:any;
-  dob: Date;
+  dob: any;
   actionTaken:any=["Call"]
 
   emailPattern = /^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\.\b(org|com|COM|IN|in|co.in)\b$/;
@@ -266,7 +279,7 @@ export class SupportActionModal {
   @ViewChild('editAdminCreationForm') editAdminCreationForm: NgForm;
   everwellBenData: any;
 
-  constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,
+  constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
   private alertMaessage: ConfirmationDialogsService,public dialogRef: MdDialogRef<SupportActionModal>)
     { }
 
@@ -278,7 +291,7 @@ export class SupportActionModal {
    // this.edit();
    this.everwellBenData = this._common.outboundEverwellData;
    console.log('EverWell Ben Data'+ this.everwellBenData);
-   
+   this.dob=this.data;
   }
 
   preventTyping(e: any) {
@@ -302,7 +315,7 @@ export class SupportActionModal {
     providerObj['adherencePercentage'] = 8;
     providerObj['actionTaken'] = item.actionTaken[0];
     providerObj['comments'] = item.comments;
-    //providerObj['dateOfAction '] = item.dob;   
+    providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.dob), 'yyyy-MM-dd');   
    
     this._callservice.postEverwellFeedback(providerObj).subscribe((response) => {
       if(response.response == "1"){

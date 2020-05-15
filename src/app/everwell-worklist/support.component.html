@@ -1,6 +1,6 @@
 <div class="row">
     <div class="pull-left m-l-15">
-        <h4 class="modal-title">Feedback</h4>
+        <h3 class="modal-title">Feedback</h3>
     </div>
     <div class="pull-right">
         <button md-button class="pull-right" [md-dialog-close]="true">
@@ -9,16 +9,17 @@
             </md-icon>
         </button>
     </div>
+    <div class="clearfix"></div>
 </div>
 <div class="row">
     <div>
-        <form #form="ngForm" autocomplete="off">            
+        <form #form="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-               <label class="control-label">Missed Doses: {{everwellBenData.missedDoses}}</label>
+                <label class="control-label">Missed Doses: {{everwellBenData.missedDoses}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <label class="control-label">Adherence Percentage: {{everwellBenData.adherencePercentage}}</label>
-             </div>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                     <input mdInput style="display:none"> -->
@@ -46,7 +47,7 @@
                     <input mdInput style="display:none"> -->
                 <md-select placeholder="ActionTaken" [style.width]="'100%'" [(ngModel)]="actionTaken" name="actionTaken"
                     required>
-                    <md-option *ngFor="let action of actionTaken"  [value]="action">
+                    <md-option *ngFor="let action of actionTaken" [value]="action">
                         {{action}}
                     </md-option>
                 </md-select>
@@ -54,25 +55,41 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <md2-datepicker class="width100" placeholder="Date" [(ngModel)]="dob" name="dob" [min]="mindate"
-                    [max]="maxdate" #dOB="ngModel" (keydown)="preventTyping($event)" required></md2-datepicker>
-                <md-hint class="errorText" *ngIf="dOB.errors && dOB.touched">date is required</md-hint>
+                <!-- <md2-datepicker class="width100" placeholder="Date" [(ngModel)]="dob" name="dob" [min]="mindate"
+                    [max]="maxdate" #dOB="ngModel" (keydown)="preventTyping($event)" required  ></md2-datepicker>
+                <md-hint class="errorText" *ngIf="dOB.errors && dOB.touched">date is required</md-hint> -->
+
+                <md-input-container class="width100">
+                    <input mdInput placeholder="Date Of Action" ngModel name="dob" [(ngModel)]="dob" name="dob"
+                        minlength="2" maxlength="500" #fname="ngModel" readonly required>
+                    <md-hint *ngIf="dob.touched">
+                        <span class="errorText" [hidden]="!dob.errors">Select Date</span>
+                    </md-hint>
+                </md-input-container>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-                <md-input-container class="width100">
+                <!-- <md-input-container class="width100">
                     <input mdInput placeholder="comments" ngModel name="providerAdmin" [(ngModel)]="comments"
                         name="comments" minlength="2" maxlength="500" #fname="ngModel" required>
                     <md-hint *ngIf="fname.touched">
                         <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
                     </md-hint>
+                </md-input-container> -->
+                <md-input-container class="width100">
+                    <textarea mdInput rows="2" placeholder="Comments" ngModel #fname="ngModel"
+                        [(ngModel)]="comments" name="comments" required ></textarea>
+                    <md-hint *ngIf="fname.touched">
+                        <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
+                    </md-hint>
                 </md-input-container>
+
             </div>
 
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
-                <button md-raised-button color="accent" class="pull-right"
-                    (click)="submitFeedback(form.value)" [disabled]="!form.valid">Submit</button>
+                <button md-raised-button color="accent" class="pull-right" (click)="submitFeedback(form.value)"
+                    [disabled]="!form.valid">Submit</button>
             </div>
         </form>
     </div>

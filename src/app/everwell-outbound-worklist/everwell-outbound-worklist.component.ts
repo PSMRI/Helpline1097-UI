@@ -15,6 +15,7 @@ import { OutboundReAllocationService } from "../services/outboundServices/outbou
 export class EverwellOutboundWorklistComponent implements OnInit {
   @Output() onOutboundCall: EventEmitter<any> = new EventEmitter<any>();
   data: any = [];
+  filteredsearchResult: any = [];
   constructor(private cz_service : CzentrixServices, private _outBoundService: CallServices, private OCRService: OutboundReAllocationService,
     public alertService: ConfirmationDialogsService, private _common: dataService, public router: Router) {
   }
@@ -40,6 +41,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
 
   AssignData(outboundHistory: any) {
     this.data = outboundHistory;
+    this.filteredsearchResult = outboundHistory;
   }
   //   modaldata:any;
   viewHistory(data: any) {
@@ -77,4 +79,22 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     return this.toUTCDate(new Date(millis));
   };
 
+  filterComponentList(searchTerm?: string) {
+    if (!searchTerm) {
+      this.filteredsearchResult = this.data;
+    } else {
+      this.filteredsearchResult = [];
+      this.data.forEach((item) => {
+        for (let key in item) {
+          if (key == 'firstName' || key == 'primaryNumber' || key == 'beneficiaryRegId') {
+            let value: string = '' + item[key];
+            if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
+              this.filteredsearchResult.push(item); break;
+            }
+          }
+        }
+      });
+    }
+
+  }
 }

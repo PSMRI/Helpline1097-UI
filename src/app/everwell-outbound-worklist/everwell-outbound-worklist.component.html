@@ -26,15 +26,20 @@
               </nav>
             </div>
           </div>
-
+          <div class="pull-right m-t-10 row" *ngIf="data.length!==0">
+            <md-input-container id="filterbox">
+              <input mdInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
+              <md-icon mdSuffix>search</md-icon>
+            </md-input-container>
+          </div>
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="table-responsive">
-                <table id="outbondListTable" class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="4">
+                <table id="outbondListTable" class="table table-responsive table-striped table-hover" [md2Data]="filteredsearchResult" #md2="md2DataTable" [rowsPerPage]="4">
                   <thead>
                     <tr>
-                      <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
-                      <th md2SortBy="beneficiary.beneficiaryRegID">Beneficiary ID</th>
+                      <th width="4%">S.No.</th>
+                      <th md2SortBy="listItem.beneficiaryRegId">Beneficiary ID</th>
                       <th>Beneficiary Name</th>
                       <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
                       <th>Mobile Number</th>
@@ -47,8 +52,8 @@
                       <td colspan="5" class="t-a-c record-not-found"> No records found</td>
                     </tr>
 
-                    <tr *ngFor="let listItem of  md2.data">
-                      <!-- <td width=20%>{{listItem.beneficiary?.benPhoneMaps[0]?.phoneNo.substing(4)}}</td> -->
+                    <tr *ngFor="let listItem of  md2.data; let i= index">
+                      <td>{{(md2.activePage-1)*4+i+1}}</td>
                       <td width=15%>{{listItem.beneficiaryRegId}}</td>
                       <td width=20%>{{listItem.firstName}} {{listItem.lastName}}</td>
                       <!-- <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td> -->

@@ -81,6 +81,9 @@ export class InnerpageComponent implements OnInit {
   everwellPrimaryNumber: string;
   isEverwell:string;
   everwellSelectedBenData:any;
+  everwellState: any;
+  everwellDistrict: any;
+  everwellGender: any;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -320,12 +323,16 @@ export class InnerpageComponent implements OnInit {
    this.getCommonData.everwellBeneficiarySelected.next({
     "isEverwellBeneficiarySelected": true
   });
-   this.everwellSelectedBenData = obj;   
-   let firstName = obj.firstName ? obj.firstName : "";
-   let lname = obj.lastName ? obj.lastName : "";
-   this.EverwellBeneficiaryRegID = 'Ben ID: ' + obj.beneficiaryRegId;
-   this.everwellFullname = firstName + ' ' + lname;
+    this.everwellSelectedBenData = obj;
+    let firstName = obj.firstName ? obj.firstName : "";
+    let lname = obj.lastName ? obj.lastName : "";
+    this.EverwellBeneficiaryRegID = 'Ben ID: ' + obj.beneficiaryRegId;
+    this.everwellFullname = firstName + ' ' + lname;
     this.everwellPrimaryNumber = obj.primaryNumber;
+    this.everwellState = obj.state;
+    this.everwellDistrict = obj.district;
+    this.everwellGender = obj.gender;
+
   }
   minimizeBar() {
     this.barMinimized = true;

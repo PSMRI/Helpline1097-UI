@@ -70,17 +70,25 @@
 
 <div class="main-content" *ngIf="showCalender">
   <div class="container-fluid">
-
+    <div class="clearfix clearFixClass"></div>      
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">Back</button>   
+    </div>
     <div class="col-md-12">
 
       <md-chip-list aria-label="Fish selection" class="matclass">
         <div *ngFor="let item of daysmonth">
           <ng-container *ngIf="checkcurrent(item.name)">
             <label *ngIf="current" class="labelwidth" style="color:green"><b>{{item.name}}</b></label><br />
-            <ng-container *ngFor="let item of createRange(currentdaysactive()),let i=index">
+            <ng-container *ngFor="let item of createRange(previous-1),let i=index">
+              <md-chip title="" color="accent" selected="true">
+                {{item}}
+              </md-chip>
+            </ng-container>
+            <ng-container >
               <md-chip title="" color="accent" selected="true" style="background-color: green "
                 (click)="callsupportdialog()">
-                {{item}}
+                {{previous}}
               </md-chip>
             </ng-container>
             <ng-container *ngFor="let item of currentdaysInactive(item.days),let i=index">
@@ -97,13 +105,6 @@
           </ng-container>
         </div>
       </md-chip-list>
-
-      <div class="alert alert-danger" role="alert" *ngIf="msg">
-        Last Updated with Ever well on {{date}}
-      </div>
-    </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">Back</button>   
   </div>
 </div>

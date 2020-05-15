@@ -15,3 +15,6 @@
 .mat-chip:not(.mat-basic-chip){
     padding: 7px 8px !important;
 }
+.clearFixClass{
+    padding: 10px;
+}

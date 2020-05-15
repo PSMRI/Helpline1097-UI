@@ -115,7 +115,10 @@
                 <!-- <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li> -->
                 <li *ngIf="EverwellBeneficiaryRegID">{{EverwellBeneficiaryRegID}}</li>
                 <li *ngIf="everwellFullname">{{everwellFullname}}</li>
-                <li *ngIf="everwellPrimaryNumber">{{everwellPrimaryNumber}}</li>      
+                <li *ngIf="everwellPrimaryNumber">{{everwellPrimaryNumber}}</li>
+                <li *ngIf="everwellState">{{everwellState}}</li>
+                <li *ngIf="everwellDistrict">{{everwellDistrict}}</li>
+                <li *ngIf="everwellGender">{{everwellGender}}</li>   
               </ul>
               <span *ngIf="wrapupTime" class="pull-right">Time Remaining :
                 <strong>{{ticks}}</strong>

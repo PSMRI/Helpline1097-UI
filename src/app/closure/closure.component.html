@@ -113,7 +113,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 m-b-20">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 m-b-20" *ngIf="isEverwell !='yes'">
 
         <label class="control-label m-t-20 m-b-10" for="callSummary">
           {{currentlanguage.closure?.table_labels?.table_heading}}
@@ -165,6 +165,9 @@
         <button md-raised-button color="accent" *ngIf="transferValid" [disabled]="isCallDisconnected || Form.invalid" class="font-regular pull-right m-r-10"
           (click)="transferCall(Form.value)">Transfer</button>
       </div>
+      <div class="clearfix" *ngIf="isEverwell ==='yes'"></div>      
+      <button md-raised-button color="accent" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid || Form.invalid || transferValid"
+      class="font-regular pull-right m-r-10" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()" *ngIf="isEverwell ==='yes'">{{currentlanguage.closure?.submitClose}}</button>
     </div>
     <!-- </div> -->
   </form>
