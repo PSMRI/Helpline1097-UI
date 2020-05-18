@@ -101,7 +101,8 @@ export class EverwellWorklistComponent implements OnInit {
       height: '400px',
       width: '700px',
       disableClose: true,
-      data: this.previousDay
+      data: this.previousDay,
+      panelClass: 'headerTitle'
     });
     dialog_Ref.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
@@ -273,8 +274,9 @@ export class SupportActionModal {
   comments:any;
   dob: any;
   actionTaken:any=["Call"]
-
+  feedbackData: any = [];
   emailPattern = /^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\.\b(org|com|COM|IN|in|co.in)\b$/;
+  isFeedbackData:string;
 
   @ViewChild('editAdminCreationForm') editAdminCreationForm: NgForm;
   everwellBenData: any;
@@ -292,6 +294,7 @@ export class SupportActionModal {
    this.everwellBenData = this._common.outboundEverwellData;
    console.log('EverWell Ben Data'+ this.everwellBenData);
    this.dob=this.data;
+   this.isFeedbackData= this._common.feedbackData;
   }
 
   preventTyping(e: any) {
@@ -319,6 +322,8 @@ export class SupportActionModal {
    
     this._callservice.postEverwellFeedback(providerObj).subscribe((response) => {
       if(response.response == "1"){
+        this._common.feedbackData = providerObj;
+        this.feedbackData = providerObj;        
         this.alertMaessage.alert('Feedback updated successfully', 'success');
         this.dialogRef.close();
         console.log('Feedback updated successfully', response);
@@ -329,4 +334,7 @@ export class SupportActionModal {
     });
   }
 
+  closeModal() {
+    this.dialogRef.close(false);
+  }
 }

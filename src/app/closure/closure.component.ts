@@ -178,6 +178,11 @@ export class ClosureComponent implements OnInit
     this.calltypes = calls.filter((item) => {
       return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds';
     })
+    if(this.isEverwell === 'yes'){
+    this.calltypes = calls.filter((item) => {
+      return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds' && item.callTypeDesc.toLowerCase().trim() === 'valid';
+    })
+  }
   }
   getCallSubType(callType: any) {
     if (callType == 'Transfer') {
@@ -498,6 +503,7 @@ export class ClosureComponent implements OnInit
       if (response) {
         this.message.alert('Call closed successfully', 'success');
         if (btnType === 'submitClose') {
+          this.saved_data.feedbackData = undefined;
           this.callClosed.emit(this.current_campaign);
           /* below lines are commented to use old close call API */
           // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {

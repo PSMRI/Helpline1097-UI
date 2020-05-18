@@ -26,11 +26,21 @@
               </nav>
             </div>
           </div>
-          <div class="pull-right m-t-10 row" *ngIf="data.length!==0">
+          <!-- <div class="pull-right m-t-10 row" *ngIf="data.length!==0">
             <md-input-container id="filterbox">
               <input mdInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
               <md-icon mdSuffix>search</md-icon>
             </md-input-container>
+          </div> -->
+          <div class="col-xs-8 col-sm-6 col-md-4 pull-right m-t-10 m-b-10" *ngIf="data.length!==0">
+            <div class="sw">
+              <input type="search" class="search" autocomplete="off" #filterTerm
+                placeholder="In-Table Search" 
+                (keyup)="filterComponentList(filterTerm.value)" />
+              <button class="go" (click)="filterComponentList(filterTerm.value)">
+                <i class="material-icons">search</i>
+              </button>
+            </div>
           </div>
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -39,11 +49,12 @@
                   <thead>
                     <tr>
                       <th width="4%">S.No.</th>
-                      <th md2SortBy="listItem.beneficiaryRegId">Beneficiary ID</th>
-                      <th>Beneficiary Name</th>
+                      <th md2SortBy="beneficiaryRegId">Beneficiary ID</th>
+                      <th md2SortBy="firstName">Beneficiary Name</th>
                       <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
                       <th>Mobile Number</th>
-                      <th>Remarks</th>
+                      <th>State</th>
+                      <th>District</th>
                       <th>Call</th>
                     </tr>
                   </thead>
@@ -58,7 +69,8 @@
                       <td width=20%>{{listItem.firstName}} {{listItem.lastName}}</td>
                       <!-- <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td> -->
                       <td width=20%>{{listItem.primaryNumber}}</td>
-                      <td width=20%>No</td>
+                      <td width=20%>{{listItem.state}}</td>
+                      <td width=20%>{{listItem.district}}</td>
                       <td width=10% height="20px">
                         <a class="pointer">
                           <span (click)="viewHistory(listItem)">
@@ -73,10 +85,15 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="6">
-                        <md2-pagination></md2-pagination>
+                      <td colspan="3">
+                        <div class="pull-left totalCount" *ngIf="filteredsearchResult.length > 0">
+                         Total Count : {{ filteredsearchResult.length }}
+                        </div>
                       </td>
-                    </tr>
+                      <td colspan="3">
+                        <md2-pagination class="pull-right"></md2-pagination>
+                      </td>                      
+                    </tr>                   
                   </tfoot>
                 </table>
               </div>

@@ -1,17 +1,28 @@
-<div class="row">
-    <div class="pull-left m-l-15">
-        <h3 class="modal-title">Feedback</h3>
-    </div>
-    <div class="pull-right">
-        <button md-button class="pull-right" [md-dialog-close]="true">
-            <md-icon mdTooltip="close" class="mat-icon material-icons pull-right" role="img" aria-hidden="true"
-                style="cursor: pointer">clear
-            </md-icon>
-        </button>
-    </div>
-    <div class="clearfix"></div>
+<style>
+    .title .exit {
+        cursor: pointer;
+    }
+
+    .title {
+        padding: 10px 24px 10px;
+        color: white;
+        font-size: 18px;
+        line-height: 32px;
+        font-weight: 400;
+        background: #0277bd;
+    }
+
+    .title h4 {
+        display: inline-block;
+    }
+</style>
+<div class="row headerTitle title">
+    <h4>Feedback</h4>
+    <button class="pull-right exit" [mdDialogClose]="null" md-icon-button>
+        <md-icon class="md-24">close</md-icon>
+    </button>
 </div>
-<div class="row">
+<div class="row container-fluid" *ngIf='isFeedbackData === undefined'>
     <div>
         <form #form="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
@@ -92,5 +103,38 @@
                     [disabled]="!form.valid">Submit</button>
             </div>
         </form>
+    </div>
+</div>
+
+<div class="container-fluid table-responsive" *ngIf='isFeedbackData !== undefined'>
+    <table class="table table-no-border casesheet-table">
+        <tr>
+            <th>Missed Doses:</th>
+            <td> {{isFeedbackData?.missedDoses}} </td>
+            <th>Adherence Percentage:</th>
+            <td>{{isFeedbackData?.adherencePercentage}} </td>
+        </tr>
+        <tr>
+            <th>Category:</th>
+            <td> {{isFeedbackData?.category}} </td>
+            <th>Subcategory:</th>
+            <td>{{isFeedbackData?.subCategory}} </td>
+        </tr>
+        <tr>
+            <th>ActionTaken:</th>
+            <td> {{isFeedbackData?.actionTaken}} </td>
+            <th>Date Of Action:</th>
+            <td>{{isFeedbackData?.dateOfAction}} </td>
+        </tr>
+        <tr>
+            <th>Comments:</th>
+            <td> {{isFeedbackData?.comments}} </td>
+        </tr>
+        <tr></tr>
+    </table>
+    <div class="row m-t-20">
+        <div class="col-sm-12 step-btn m-t-100">
+            <button md-raised-button class="pull-right" color="primary" id="closeModal" (click)="closeModal()">Ok</button>
+        </div>
     </div>
 </div>
