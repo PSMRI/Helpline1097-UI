@@ -126,6 +126,17 @@ export class EverwellWorklistComponent implements OnInit {
       return false;
     }
   }
+  checkcurrentMonthDay(name,days) {
+    this.currentdaysactive(name);
+    if (this.currentmonth == name && this.previous==days) {
+      this.current = true;
+      return true;
+    }
+    else {
+      this.current = false;
+      return false;
+    }
+  }
   currentdaysactive(month) {
     var c = 0; this.date = new Date();
     this.val = new Date().toDateString();
@@ -152,53 +163,25 @@ export class EverwellWorklistComponent implements OnInit {
   }
   daysmonth: month[] = [
 
-    { name: 'January', days: 31 },
-    { name: 'February', days: 29 },
-    { name: 'March', days: 31 },
-    { name: 'April', days: 30 },
-    { name: 'May', days: 31 },
-    { name: 'June', days: 30 },
-    { name: 'July', days: 30 },
-    { name: 'August', days: 30 },
-    { name: 'September', days: 30 },
-    { name: 'October', days: 30 },
-    { name: 'November', days: 30 },
-    { name: 'December', days: 30 },
+    { name: 'January', days: this.daysInThisMonth(0) },
+    { name: 'February', days: this.daysInThisMonth(1) },
+    { name: 'March', days: this.daysInThisMonth(2)},
+    { name: 'April', days: this.daysInThisMonth(3) },
+    { name: 'May', days: this.daysInThisMonth(4) },
+    { name: 'June', days: this.daysInThisMonth(5) },
+    { name: 'July', days: this.daysInThisMonth(6) },
+    { name: 'August', days: this.daysInThisMonth(7) },
+    { name: 'September', days: this.daysInThisMonth(8) },
+    { name: 'October', days: this.daysInThisMonth(9) },
+    { name: 'November', days: this.daysInThisMonth(10) },
+    { name: 'December', days: this.daysInThisMonth(11) },
 
   ];
-  availableColors: ChipColor[] = [
-    { name: '', color: 'red' },
-    { name: '', color: 'green' },
-    { name: '', color: 'blue' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'primary' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'accent' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'primary' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'warn' },
-    { name: '', color: 'primary' },
-    { name: '', color: 'accent' },
-    { name: '', color: 'warn' }
-  ];
+  daysInThisMonth(month) {
+    var year = new Date().getFullYear();    
+    return new Date(new Date(year,month).getFullYear(), new Date(year,month).getMonth()+1, 0).getDate();
+  } 
+ 
   createRange(number) {
     var items: number[] = [];
     for (var i = 1; i <= number; i++) {
@@ -249,11 +232,6 @@ export class EverwellWorklistComponent implements OnInit {
 setBenCall(response) {
   this._common.callData = response;
 }
-
-}
-export interface ChipColor {
-  name: string;
-  color: string;
 
 }
 export interface month {

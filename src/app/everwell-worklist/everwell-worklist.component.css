@@ -18,3 +18,13 @@
 .clearFixClass{
     padding: 10px;
 }
+.pointer{
+    cursor: pointer;
+}
+.currentMonth{
+    color: green;
+}
+.currentDay{
+    background-color: green;
+    cursor: pointer;
+}
