@@ -324,14 +324,14 @@ export class InnerpageComponent implements OnInit {
     "isEverwellBeneficiarySelected": true
   });
     this.everwellSelectedBenData = obj;
-    let firstName = obj.firstName ? obj.firstName : "";
-    let lname = obj.lastName ? obj.lastName : "";
+    let firstName = obj.FirstName ? obj.FirstName : "";
+    let lname = obj.LastName ? obj.LastName : "";
     this.EverwellBeneficiaryRegID = 'Ben ID: ' + obj.beneficiaryRegId;
     this.everwellFullname = firstName + ' ' + lname;
-    this.everwellPrimaryNumber = obj.primaryNumber;
-    this.everwellState = obj.state;
-    this.everwellDistrict = obj.district;
-    this.everwellGender = obj.gender;
+    this.everwellPrimaryNumber = obj.PrimaryNumber;
+    this.everwellState = obj.State;
+    this.everwellDistrict = obj.District;
+    this.everwellGender = obj.Gender;
 
   }
   minimizeBar() {

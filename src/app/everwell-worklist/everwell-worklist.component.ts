@@ -199,15 +199,15 @@ export class EverwellWorklistComponent implements OnInit {
     this.data.is1097 = true;
     //this.data.createdBy = outboundData.everwelldata.createdBy;
     this.data.calledServiceID = outboundData.providerServiceMapId;
-    this.data.primaryNumber = outboundData.primaryNumber;
+    this.data.PrimaryNumber = outboundData.PrimaryNumber;
     this.data.agentID = outboundData.agentId;
     this.data.beneficiaryRegId = outboundData.beneficiaryRegId;
-    this.data.firstName = outboundData.firstName;
-    this.data.lastName = outboundData.lastName;
+    this.data.FirstName = outboundData.FirstName;
+    this.data.LastName = outboundData.LastName;
     this.data.remarks = outboundData.comments;
     this.data.outBoundCallID = outboundData.eapiId;
     this.data.state = outboundData.state;
-    this.data.gender = outboundData.gender;
+    this.data.Gender = outboundData.Gender;
     this.data.district = outboundData.district;
 
     const startCallData: any = {};
@@ -226,7 +226,7 @@ export class EverwellWorklistComponent implements OnInit {
       console.log('ERROR', err);
 
     });
-    console.log('primaryNumber'+ this.data.primaryNumber);    
+    console.log('primaryNumber'+ this.data.PrimaryNumber);    
   } 
 }
 setBenCall(response) {
@@ -290,10 +290,10 @@ export class SupportActionModal {
     }
     const providerObj = {};
     providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
-    providerObj['missedDoses'] = 5;
+    providerObj['MissedDoses'] = 5;
     providerObj['category'] = item.category[0];
     providerObj['subCategory'] = item.subcategory;
-    providerObj['adherencePercentage'] = 8;
+    providerObj['AdherencePercentage'] = 8;
     providerObj['actionTaken'] = item.actionTaken[0];
     providerObj['comments'] = item.comments;
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.dob), 'yyyy-MM-dd');   

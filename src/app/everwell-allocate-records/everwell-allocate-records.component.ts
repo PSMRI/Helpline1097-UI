@@ -105,7 +105,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
           this.users = resProviderData;
           if (this.filterAgent != '') {
             this.users = this.users.filter((obj) => {
-              return (obj.firstName + " " + obj.lastName) != this.filterAgent.agentName;
+              return (obj.FirstName + " " + obj.LastName) != this.filterAgent.agentName;
             });
             if (this.users.length > 0) {
               this.showAgents = false;
