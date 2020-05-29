@@ -58,6 +58,7 @@ export class EverwellWorklistComponent implements OnInit {
     this.startOutBoundCall(this._common.outboundEverwellData);
   }
   tableMode() {
+    alert("back button clicked")
     this.showTable = true;
     this.showCalender = false;
     this.showEditForm = false;
@@ -206,7 +207,7 @@ export class EverwellWorklistComponent implements OnInit {
     this.data.LastName = outboundData.LastName;
     this.data.remarks = outboundData.comments;
     this.data.outBoundCallID = outboundData.eapiId;
-    this.data.state = outboundData.state;
+    this.data.state = outboundData.State;
     this.data.Gender = outboundData.Gender;
     this.data.district = outboundData.district;
 
@@ -241,7 +242,7 @@ export interface month {
 @Component({
   selector: 'SupportActionModal',
   templateUrl: './support.component.html',
-  //styleUrls: ['./provider-admin-list.component.css']
+  styleUrls: ['./everwell-worklist.component.css'],
   providers: [ DatePipe ] 
 })
 export class SupportActionModal {

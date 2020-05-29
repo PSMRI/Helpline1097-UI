@@ -10,8 +10,8 @@ export class OutboundSearchRecordService {
 
     test = [];
     data: any;
-     _baseurl: String = this._config.getCommonBaseURL();
-     //_baseurl='http://localhost:8080/';
+    //  _baseurl: String = this._config.getCommonBaseURL();
+     _baseurl='http://localhost:8080/';
     private _outboundCalls: string = this._baseurl + 'call/outboundCallList';
     private _outboundCallsCount: string = this._baseurl + 'call/outboundCallCount';
     private _everwelloutboundCallsCount: string = this._baseurl + 'everwellCall/outboundCallCount';

@@ -66,11 +66,11 @@
                     <tr *ngFor="let listItem of  md2.data; let i= index">
                       <td>{{(md2.activePage-1)*4+i+1}}</td>
                       <td width=15%>{{listItem.beneficiaryRegId}}</td>
-                      <td width=20%>{{listItem.firstName}} {{listItem.lastName}}</td>
+                      <td width=20%>{{listItem.FirstName}} {{listItem.LastName}}</td>
                       <!-- <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td> -->
                       <td width=20%>{{listItem.PrimaryNumber}}</td>
-                      <td width=20%>{{listItem.state}}</td>
-                      <td width=20%>{{listItem.district}}</td>
+                      <td width=20%>{{listItem.State}}</td>
+                      <td width=20%>{{listItem.District}}</td>
                       <td width=10% height="20px">
                         <a class="pointer">
                           <span (click)="viewHistory(listItem)">
