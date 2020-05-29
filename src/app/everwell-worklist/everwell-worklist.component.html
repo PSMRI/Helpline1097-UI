@@ -1,10 +1,12 @@
-<div class="row" *ngIf="showTable">
+<div class="container-fluid" *ngIf="showTable">
+  <div  class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
       <h4 class="f-s-b m-b-10 m-t-20"> Everwell-Worklist </h4>
     </label>
   </div>
-
+</div>
+<div  class="row">
   <div class="col-xs-12 col-sm-12">
 
     <div class="table-responsive">
@@ -16,18 +18,20 @@
             <th>Beneficiary Name</th>
             <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
             <th>Mobile Number</th>
-            <th>Remarks</th>
+            <th>Gender</th>
+            <th>State</th>
           </tr>
         </thead>
         <tbody>
-            <tr *ngIf="md2.data.length==0">
+            <tr *ngIf="data?.length > 0">
               <td colspan="5" class="t-a-c record-not-found"> No records found</td>
             </tr>
-            <tr *ngFor="let listItem of  md2.data" (click)="editMode()">
-              <td width=15%>{{listItem.beneficiaryRegId}}</td>
-              <td width=20%>{{listItem.firstName}} {{listItem.lastName}}</td>
-              <td width=20%>{{listItem.primaryNumber}}</td>
-              <td width=20%>No</td>
+            <tr (click)="editMode(data)" style="cursor: pointer">
+              <td width=15%>{{data.beneficiaryRegId}}</td>
+              <td width=20%>{{data.FirstName}} {{data.LastName}}</td>
+              <td width=20%>{{data.PrimaryNumber}}</td>
+              <td width=20%>{{data.Gender}}</td>
+              <td width=20%>{{data.state}}</td>
             </tr>
         </tbody>
         <tfoot>
@@ -40,7 +44,7 @@
       </table>
     </div>
   </div>
-
+</div>
 </div>
 <div class="row" *ngIf="showEditForm">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -68,17 +72,25 @@
 
 <div class="main-content" *ngIf="showCalender">
   <div class="container-fluid">
-
+    <div class="clearfix clearFixClass"></div>      
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">Back</button>   
+    </div>
     <div class="col-md-12">
 
-      <md-chip-list aria-label="Fish selection" class="matclass">
+      <!-- <md-chip-list aria-label="Fish selection" class="matclass">
         <div *ngFor="let item of daysmonth">
           <ng-container *ngIf="checkcurrent(item.name)">
             <label *ngIf="current" class="labelwidth" style="color:green"><b>{{item.name}}</b></label><br />
-            <ng-container *ngFor="let item of createRange(currentdaysactive()),let i=index">
-              <md-chip title="" color="accent" selected="true" style="background-color: red "
-                (click)="callsupportdialog()">
+            <ng-container *ngFor="let item of createRange(previous-1),let i=index">
+              <md-chip title="" color="accent" selected="true">
                 {{item}}
+              </md-chip>
+            </ng-container>
+            <ng-container >
+              <md-chip title="" color="accent" selected="true" style="background-color: green "
+                (click)="callsupportdialog()">
+                {{previous}}
               </md-chip>
             </ng-container>
             <ng-container *ngFor="let item of currentdaysInactive(item.days),let i=index">
@@ -94,15 +106,22 @@
             </md-chip>
           </ng-container>
         </div>
-      </md-chip-list>
-
-      <div class="alert alert-danger" role="alert" *ngIf="msg">
-        Last Updated with Ever well on {{date}}
+      </md-chip-list> -->
+     <div class="row slots-container m-t-10 m-b-10">
+        <div class="col-xs-12" *ngIf="daysmonth?.length > 0">
+          <div *ngFor="let slots of daysmonth">
+            <label class="labelwidth"
+              [ngClass]="{'currentMonth': checkcurrent(slots.name)}"><b>{{slots.name}}</b></label><br />
+            <md-chip-list #chipList [selectable]="true" aria-label="Fish selection">
+              <md-chip *ngFor="let slot of createRange(slots.days)"
+                [ngClass]="{'currentDay': checkcurrentMonthDay(slots.name,slot)}"
+                (click)=" checkcurrentMonthDay(slots.name,slot) && callsupportdialog()">
+                {{(slot < 10 ? '0' : '') + slot }}
+              </md-chip>
+            </md-chip-list>
+        </div>
+        </div>
       </div>
-    </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">Back</button>
-    <button md-raised-button color="accent" class="pull-right">Update</button>
   </div>
 </div>

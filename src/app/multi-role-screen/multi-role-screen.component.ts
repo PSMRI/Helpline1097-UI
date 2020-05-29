@@ -135,12 +135,14 @@ export class MultiRoleScreenComponent implements OnInit {
 
       if (res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
+        sessionStorage.removeItem('isEverwellCall');
         this.router.navigate(['']);
         sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
 
       } else {
         sessionStorage.removeItem('isOnCall');
+        sessionStorage.removeItem('isEverwellCall');
         this.router.navigate(['']);
         sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
@@ -149,6 +151,7 @@ export class MultiRoleScreenComponent implements OnInit {
       }
     }, (err) => {
       sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
       this.router.navigate(['']);
       this.authService.removeToken();
 

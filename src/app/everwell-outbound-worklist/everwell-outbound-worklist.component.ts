@@ -15,6 +15,7 @@ import { OutboundReAllocationService } from "../services/outboundServices/outbou
 export class EverwellOutboundWorklistComponent implements OnInit {
   @Output() onOutboundCall: EventEmitter<any> = new EventEmitter<any>();
   data: any = [];
+  filteredsearchResult: any = [];
   constructor(private cz_service : CzentrixServices, private _outBoundService: CallServices, private OCRService: OutboundReAllocationService,
     public alertService: ConfirmationDialogsService, private _common: dataService, public router: Router) {
   }
@@ -40,17 +41,18 @@ export class EverwellOutboundWorklistComponent implements OnInit {
 
   AssignData(outboundHistory: any) {
     this.data = outboundHistory;
+    this.filteredsearchResult = outboundHistory;
   }
   //   modaldata:any;
   viewHistory(data: any) {
     this._common.outboundBenRegID = data.beneficiaryRegId;
     //  this.onOutboundCall.emit(data); code commented, since routing implemented, calling which was happenning in parent is now here....gursimran 24/5/18
-    this._common.outboundData = data;
-    this.cz_service.manualDialaNumber("", data.primaryNumber).subscribe((res) => {
+    this._common.outboundEverwellData = data;
+    this.cz_service.manualDialaNumber("", data.PrimaryNumber).subscribe((res) => {
       if (res.status.toLowerCase() === 'fail') {
         this.alertService.alert('Something went wrong in calling', 'error');
       } else {
-        this._common.callerNumber = data.primaryNumber;
+        this._common.callerNumber = data.PrimaryNumber;
 
     //    this._dataServivce.outboundBenID = data.beneficiary.beneficiaryRegID;
    //     this._dataServivce.outboundCallReqID = data.outboundCallReqID;
@@ -77,4 +79,22 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     return this.toUTCDate(new Date(millis));
   };
 
+  filterComponentList(searchTerm?: string) {
+    if (!searchTerm) {
+      this.filteredsearchResult = this.data;
+    } else {
+      this.filteredsearchResult = [];
+      this.data.forEach((item) => {
+        for (let key in item) {
+          if (key == 'FirstName' || key == 'primaryNumber' || key == 'beneficiaryRegId') {
+            let value: string = '' + item[key];
+            if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
+              this.filteredsearchResult.push(item); break;
+            }
+          }
+        }
+      });
+    }
+
+  }
 }

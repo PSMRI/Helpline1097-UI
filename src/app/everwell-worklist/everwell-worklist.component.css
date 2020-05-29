@@ -15,3 +15,16 @@
 .mat-chip:not(.mat-basic-chip){
     padding: 7px 8px !important;
 }
+.clearFixClass{
+    padding: 10px;
+}
+.pointer{
+    cursor: pointer;
+}
+.currentMonth{
+    color: green;
+}
+.currentDay{
+    background-color: green;
+    cursor: pointer;
+}

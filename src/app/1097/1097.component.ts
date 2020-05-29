@@ -13,6 +13,7 @@ export class helpline1097Component implements OnInit {
   currentlanguage: any;
 
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() everwellBeneficiarySelected: EventEmitter<any> = new EventEmitter<any>();  
   current_role: any;
   constructor(
     public getCommonData: dataService
@@ -46,6 +47,10 @@ export class helpline1097Component implements OnInit {
 
   selectBeneficiary(data: any) {
     this.beneficiarySelected.emit(data);
+  }
+
+  selectEverwellBeneficiary(data: any) {    
+    this.everwellBeneficiarySelected.emit(data);
   }
   Activity_Number: any;
 

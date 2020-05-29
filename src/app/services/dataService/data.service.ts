@@ -43,9 +43,12 @@ export class dataService {
 	outboundBenRegID : any;
     inOutCampaign = new Subject();
 	beneficiarySelected = new Subject();
+	everwellBeneficiarySelected = new Subject();
 
 	beneficiaryRegID: any;
 	outboundData: any;
+	outboundEverwellData: any;
+	feedbackData: any;
 	// myBool$: Observable<boolean>;
 
 	//   reset_flag:boolean;

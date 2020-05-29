@@ -39,6 +39,7 @@ export class helpline1097CoComponent implements OnInit {
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
   // @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() everwellBeneficiarySelected: EventEmitter<any> = new EventEmitter<any>();  
   @Output() getHistory: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancel') cancel;
@@ -157,6 +158,23 @@ export class helpline1097CoComponent implements OnInit {
 
   }
 
+  getEverwellSelectedBenDetails(data: any) {
+    // if (data != null) {
+
+    //   this.selectedBenData.id = data.beneficiaryID;
+    //   this.selectedBenData.fname = data.firstName;
+    //   this.selectedBenData.lname = data.lastName;
+    // } else {
+
+    //   this.selectedBenData.id = '';
+    //   this.selectedBenData.fname = '';
+    //   this.selectedBenData.lname = '';
+    // }
+    console.log('1097co174' + data);
+    
+    this.everwellBeneficiarySelected.emit(data);
+  }
+
   // startNewCall() {
   //   this.StartNewCall = true;
 
@@ -206,6 +224,7 @@ export class helpline1097CoComponent implements OnInit {
     this.getCommonData.current_campaign = compain_type;
     this.getCommonData.isCallDisconnected = false;
     sessionStorage.removeItem('isOnCall');
+    sessionStorage.removeItem('isEverwellCall');
 
     this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
   }
@@ -234,12 +253,54 @@ export class helpline1097CoComponent implements OnInit {
     });
 
   }
+  openEverwellDialog() {
+
+    this.dialogService.confirm('Cancel Call ', 'Do you want to cancel?').subscribe((response) => {
+      if (response) {
+        this.resetProvideServices = '2';
+        // this.reloadCall();
+        //   this.beneficiarySelected.emit(null);
+        const id = jQuery('.carousel-inner div.active').index();
+        jQuery('#myCarouselEverwell').carousel(0);
+        jQuery('#one').parent().find('a').removeClass('active-tab');
+        jQuery('#one').find('a').addClass('active-tab');
+        jQuery('#btnClosure').attr('disabled', null);
+        // jQuery('#benForm').trigger('reset');
+        // jQuery('#closeForm').trigger('reset');
+        this.ClearForm.clearFormSender('closure');
+        // jQuery('#otherDetailsForm').trigger('reset');
+        this.isCancelDisable = true;
+        this.isClosureDisable = false;
+        this.isNext = false;
+        this.isPrevious = false;
+        this.ReloadBenOutbound('reloadcall');
+      }
+    });
+
+  }
   openDialogClosure() {
 
     this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
       if (response) {
         this.resetProvideServices = '3';
         jQuery('#myCarousel').carousel(3);
+        jQuery('#four').parent().find('a').removeClass('active-tab');
+        jQuery('#four').find('a').addClass('active-tab');
+        this.isClosureDisable = true;
+        this.isCancelDisable = false;
+        this.isNext = false;
+        this.isPrevious = true;
+      }
+    });
+
+  }
+
+  openEverwellDialogClosure() {
+
+    this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
+      if (response) {
+        this.resetProvideServices = '3';
+        jQuery('#myCarouselEverwell').carousel(1);
         jQuery('#four').parent().find('a').removeClass('active-tab');
         jQuery('#four').find('a').addClass('active-tab');
         this.isClosureDisable = true;
