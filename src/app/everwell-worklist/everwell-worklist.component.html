@@ -71,11 +71,12 @@
 
 
 <div class="main-content" *ngIf="showCalender">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:10px;">
+    <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">Back</button>   
+  </div>
   <div class="container-fluid">
     <div class="clearfix clearFixClass"></div>      
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">Back</button>   
-    </div>
+   
     <div class="col-md-12">
 
       <!-- <md-chip-list aria-label="Fish selection" class="matclass">

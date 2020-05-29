@@ -99,7 +99,7 @@ export class EverwellWorklistComponent implements OnInit {
     this.previousDay =curmonth.toLocaleString('en-US',{hour12:false}).split(" ")[0];
     this.previousDay = this.previousDay.substring(0,9);
     let dialog_Ref = this.dialog.open(SupportActionModal, {
-      height: '400px',
+     // height: '700px',
       width: '700px',
       disableClose: true,
       data: this.previousDay,
