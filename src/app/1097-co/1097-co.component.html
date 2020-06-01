@@ -108,11 +108,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-xs-12 m-b-10" *ngIf="isEverwell =='yes'">
-        <div class="row">
-          <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
-            <button [disabled]="disableBack" id="previous" type="button" md-raised-button color="primary" class="pull-left " href="#myCarouselEverwell" data-slide="prev"
-              [hidden]="!isPrevious" (click)="prevVisual()">{{currentlanguage.co?.previous}}</button>
-          </div>
+        <div class="row">          
           <div class="col-xs-6 col-sm-6 col-md-6 col-xs-6 center-btn" align="center">
             <button type="button" id="btnCancel" value="Cancel" md-raised-button class="mar-right" color="primary" data-slide-to="1"
               (click)="openEverwellDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>

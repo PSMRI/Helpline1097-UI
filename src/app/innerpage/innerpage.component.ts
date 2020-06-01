@@ -318,7 +318,7 @@ export class InnerpageComponent implements OnInit {
 
   
   getEverwellSelectedBenDetails(obj: any) {   
-   console.log('evewellcall311' + obj);
+   console.log('evewellcall311' , obj);
    console.log(obj);
    this.getCommonData.everwellBeneficiarySelected.next({
     "isEverwellBeneficiarySelected": true
@@ -329,8 +329,8 @@ export class InnerpageComponent implements OnInit {
     this.EverwellBeneficiaryRegID = 'Ben ID: ' + obj.beneficiaryRegId;
     this.everwellFullname = firstName + ' ' + lname;
     this.everwellPrimaryNumber = obj.PrimaryNumber;
-    this.everwellState = obj.State;
-    this.everwellDistrict = obj.District;
+    this.everwellState = obj.state;
+    this.everwellDistrict = obj.district;
     this.everwellGender = obj.Gender;
 
   }

@@ -10,8 +10,8 @@ import { AuthorizationWrapper } from './../../authorization.wrapper';
 export class OutboundWorklistService {
 
     test = [];
-    // _baseurl: String = this._config.getCommonBaseURL();
-    _baseurl:String='http://localhost:8080/';
+    _baseurl: String = this._config.getCommonBaseURL();
+    // _baseurl:String='http://localhost:8080/';
     // _104BaseUrl: String = this._config.get104BaseURL();
     _104BaseUrl: String = 'http://localhost:8080/';
     private _callList: string = this._baseurl + 'call/outboundCallList';

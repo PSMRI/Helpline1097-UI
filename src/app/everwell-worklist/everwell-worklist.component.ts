@@ -58,7 +58,6 @@ export class EverwellWorklistComponent implements OnInit {
     this.startOutBoundCall(this._common.outboundEverwellData);
   }
   tableMode() {
-    alert("back button clicked")
     this.showTable = true;
     this.showCalender = false;
     this.showEditForm = false;
@@ -209,7 +208,7 @@ export class EverwellWorklistComponent implements OnInit {
     this.data.outBoundCallID = outboundData.eapiId;
     this.data.state = outboundData.State;
     this.data.Gender = outboundData.Gender;
-    this.data.district = outboundData.district;
+    this.data.district = outboundData.District;
 
     const startCallData: any = {};
     startCallData.callID = this._common.callID;

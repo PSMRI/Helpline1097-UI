@@ -11,8 +11,8 @@ import { AuthorizationWrapper } from './../../authorization.wrapper';
 export class OutboundCallAllocationService {
 
     test = [];
-    //  _baseurl: String = this._config.getCommonBaseURL();
-    _baseurl:String='http://localhost:8080/';
+     _baseurl: String = this._config.getCommonBaseURL();
+    // _baseurl:String='http://10.208.122.38:8080/commonapi-v1.0';
     private _geturl: string = this._baseurl + 'user/getUsersByProviderID';
     private _getRole_url: string = this._baseurl + 'user/getRolesByProviderID';
     private _allocateurl: string = this._baseurl + 'call/outboundAllocation';
