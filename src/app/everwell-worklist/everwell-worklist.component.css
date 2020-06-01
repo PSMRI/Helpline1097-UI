@@ -1,0 +1,49 @@
+.matclass{
+    margin: 10px;
+}
+.labelwidth{    
+    width: 70px;
+}
+.mat-standard-chip
+{
+    border-radius: 18px !important;
+    min-height: 27px !important;
+    padding: 7px 8px !important;
+    margin: 1px !important;
+}
+
+.mat-chip:not(.mat-basic-chip){
+    padding: 7px 8px !important;
+}
+.clearFixClass{
+    padding: 10px;
+}
+.pointer{
+    cursor: pointer;
+}
+.currentMonth{
+    color: green;
+}
+.currentDay{
+    background-color: green;
+    cursor: pointer;
+}
+
+/* support component */
+
+.title .exit {
+    cursor: pointer;
+}
+
+.title {
+    padding: 10px 24px 10px;
+    color: white;
+    font-size: 18px;
+    line-height: 32px;
+    font-weight: 400;
+    background: #0277bd;
+}
+
+.title h4 {
+    display: inline-block;
+}

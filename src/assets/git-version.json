@@ -1,3 +1,11 @@
 {
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "hash": "b77cc041b402757e0324a34c89da1d9f5bbdf131",
+  "shortHash": "b77cc04",
+  "commit": "b77cc041b402757e0324a34c89da1d9f5bbdf131",
+  "shortCommit": "b77cc04",
+  "author": "Shubham Shekhar (Digital)",
+  "email": "SH20094090@wipro.com",
+  "date": "Mon May 11 13:30:43 2020 +0530",
+  "message": "everwell patching"
 }

@@ -1,0 +1,124 @@
+
+<div class="row headerTitle title">
+    <h4>Feedback</h4>
+    <button class="pull-right exit" [mdDialogClose]="null" md-icon-button>
+        <md-icon class="md-24">close</md-icon>
+    </button>
+</div>
+
+  
+        <md-dialog-content style="min-height:300px" *ngIf='isFeedbackData === undefined'>
+        <form #form="ngForm" autocomplete="off">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <label class="control-label">Missed Doses: {{everwellBenData.MissedDoses}}</label>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <label class="control-label">Adherence Percentage: {{everwellBenData.AdherencePercentage}}</label>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+                    <input mdInput style="display:none"> -->
+                <md-select placeholder="Category" [style.width]="'100%'" [(ngModel)]="category" name="category"
+                    required>
+                    <md-option *ngFor="let cat of category" [value]="cat">
+                        {{cat}}
+                    </md-option>
+                </md-select>
+                <!-- </md-input-container> -->
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+                    <input mdInput style="display:none"> -->
+                <md-select placeholder="Subcategory" [style.width]="'100%'" [(ngModel)]="gender" name="subcategory"
+                    required>
+                    <md-option *ngFor="let item of subcategries" [value]="item">
+                        {{item}}
+                    </md-option>
+                </md-select>
+                <!-- </md-input-container> -->
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+                    <input mdInput style="display:none"> -->
+                <md-select placeholder="ActionTaken" [style.width]="'100%'" [(ngModel)]="actionTaken" name="actionTaken"
+                    required>
+                    <md-option *ngFor="let action of actionTaken" [value]="action">
+                        {{action}}
+                    </md-option>
+                </md-select>
+                <!-- </md-input-container> -->
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <!-- <md2-datepicker class="width100" placeholder="Date" [(ngModel)]="dob" name="dob" [min]="mindate"
+                    [max]="maxdate" #dOB="ngModel" (keydown)="preventTyping($event)" required  ></md2-datepicker>
+                <md-hint class="errorText" *ngIf="dOB.errors && dOB.touched">date is required</md-hint> -->
+
+                <md-input-container>
+                    <input mdInput placeholder="Date Of Action" ngModel name="dob" [(ngModel)]="dob" name="dob"
+                        minlength="2" maxlength="500" #fname="ngModel" readonly required>
+                    <md-hint *ngIf="dob.touched">
+                        <span class="errorText" [hidden]="!dob.errors">Select Date</span>
+                    </md-hint>
+                </md-input-container>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+                <!-- <md-input-container class="width100">
+                    <input mdInput placeholder="comments" ngModel name="providerAdmin" [(ngModel)]="comments"
+                        name="comments" minlength="2" maxlength="500" #fname="ngModel" required>
+                    <md-hint *ngIf="fname.touched">
+                        <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
+                    </md-hint>
+                </md-input-container> -->
+                <md-input-container>
+                    <textarea mdInput rows="2" placeholder="Comments" ngModel #fname="ngModel"
+                        [(ngModel)]="comments" name="comments" required ></textarea>
+                    <md-hint *ngIf="fname.touched">
+                        <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
+                    </md-hint>
+                </md-input-container>
+
+            </div>
+
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
+                <button md-raised-button color="accent" class="pull-right" (click)="submitFeedback(form.value)"
+                    [disabled]="!form.valid">Submit</button>
+            </div>
+        </form>
+    </md-dialog-content>
+  
+
+<div class="container-fluid table-responsive" *ngIf='isFeedbackData !== undefined'>
+    <table class="table table-no-border casesheet-table">
+        <tr>
+            <th>Missed Doses:</th>
+            <td> {{isFeedbackData?.MissedDoses}} </td>
+            <th>Adherence Percentage:</th>
+            <td>{{isFeedbackData?.AdherencePercentage}} </td>
+        </tr>
+        <tr>
+            <th>Category:</th>
+            <td> {{isFeedbackData?.category}} </td>
+            <th>Subcategory:</th>
+            <td>{{isFeedbackData?.subCategory}} </td>
+        </tr>
+        <tr>
+            <th>ActionTaken:</th>
+            <td> {{isFeedbackData?.actionTaken}} </td>
+            <th>Date Of Action:</th>
+            <td>{{isFeedbackData?.dateOfAction}} </td>
+        </tr>
+        <tr>
+            <th>Comments:</th>
+            <td> {{isFeedbackData?.comments}} </td>
+        </tr>
+        <tr></tr>
+    </table>
+    <div class="row m-t-20">
+        <div class="col-sm-12 step-btn m-t-100">
+            <button md-raised-button class="pull-right" color="primary" id="closeModal" (click)="closeModal()">Ok</button>
+        </div>
+    </div>
+</div>

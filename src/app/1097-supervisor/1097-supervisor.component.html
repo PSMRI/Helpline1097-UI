@@ -42,6 +42,12 @@
                   <li style="cursor: pointer" (click)='show("5")'>
                     <a>Call Auditing</a>
                   </li>
+                  <li style="cursor: pointer" (click)='show("26")'>
+                    <a>Everwell Call Allocation</a>
+                  </li>
+                  <li style="cursor: pointer" (click)='show("27")'>
+                    <a>Everwell Call Re-Allocation</a>
+                  </li>
                   <li style="cursor: pointer" (click)='show("1")'>
                     <a>Feedback Tracking</a>
                   </li>
@@ -156,6 +162,8 @@
           <app-supervisor-emergency-contacts *ngSwitchCase="22"></app-supervisor-emergency-contacts>
           <app-force-logout  *ngSwitchCase="23"></app-force-logout>
           <app-sms-template *ngSwitchCase="24"></app-sms-template>
+          <everwell-allocate *ngSwitchCase="26"></everwell-allocate>
+          <everwell-reallocate *ngSwitchCase="27"></everwell-reallocate>
           
     
         </div>

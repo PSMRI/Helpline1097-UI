@@ -12,16 +12,12 @@ import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-
 import { MdDatepickerModule } from '@angular/material';
 import { MdInputModule } from '@angular/material';
 import { MdNativeDateModule } from '@angular/material';
 import { CustomFormsModule } from 'ng2-validation';
 import { ValidationMessagesModule } from 'ng2-custom-validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
-
 import { AppComponent } from './app.component';
 // login components
 import { loginContentClass } from './login/login.component';
@@ -151,8 +147,8 @@ import { CollapseDirective } from './directives/collapse/collapse.directive'
 
 // md2 Material2  modules and components
 import { Md2Module } from 'md2';
-import { MdSnackBarModule, MdTabsModule, MdButtonModule } from '@angular/material';
-
+import { MdSnackBarModule, MdButtonModule } from '@angular/material';
+import {  MdTabsModule} from '@angular/material/tabs';
 import { BeneficiaryHistoryComponent } from './beneficiary-history/beneficiary-history.component'
 import { SupervisorCalltypeReportsComponent } from './supervisor-calltype-reports/supervisor-calltype-reports.component';
 import { KnowledgeManagementComponent } from './knowledge-management/knowledge-management.component';
@@ -199,6 +195,12 @@ import { SmsTemplateComponent } from './sms-template/sms-template.component';
 import { SmsTemplateService } from './services/supervisorServices/sms-template-service.service';
 import { CommonSmsDialogComponent } from './common-sms-dialog/common-sms-dialog.component';
 import { MaterialModule } from './material.module';
+import {CallReAllocateComponent} from './everwell-outbound-reallocate/callReallocate.component';
+import {CallAllocateComponent} from './Everwell-outbound-search-call-allocate/callAllocate.component';
+import { EverwellAllocateRecordsComponent } from './everwell-allocate-records/everwell-allocate-records.component';
+import { EverwellOutboundWorklistComponent } from './everwell-outbound-worklist/everwell-outbound-worklist.component';
+import { EverwellWorklistComponent, SupportActionModal } from './everwell-worklist/everwell-worklist.component';
+import { OutboundCallWorklistsComponent } from './outbound-call-worklists/outbound-call-worklists.component';
 
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
@@ -206,9 +208,9 @@ import { MaterialModule } from './material.module';
 @NgModule({
   declarations: [
     AppComponent, dashboardContentClass, loginContentClass,
-    ResetComponent, myPassword, InnerpageComponent, MultiRoleScreenComponent,
+    ResetComponent, myPassword, InnerpageComponent, MultiRoleScreenComponent,CallReAllocateComponent,
     DashboardRowHeaderComponent, DashboardNavigationComponent,
-    DashboardUserIdComponent, ActivityThisWeekComponent,
+    DashboardUserIdComponent, ActivityThisWeekComponent,CallAllocateComponent,
     AlertsNotificationComponent, DailyTasksComponent, NewsInformationsComponent,
     RatingComponent, WeatherWarningsComponent, AdminServiceProviderComponent,
     myName, myMobileNumber, myEmail, CoCounsellingServicesComponent, myName_space,
@@ -241,7 +243,12 @@ import { MaterialModule } from './material.module';
     AgentForceLogoutComponent,
     SmsTemplateComponent,
     CommonSmsDialogComponent,
-    ViewVersionDetailsComponent
+    ViewVersionDetailsComponent,
+    EverwellAllocateRecordsComponent,
+    EverwellOutboundWorklistComponent,
+    EverwellWorklistComponent,
+    SupportActionModal,
+    OutboundCallWorklistsComponent
 
   ],
   imports: [
@@ -304,8 +311,18 @@ import { MaterialModule } from './material.module';
             component: InnerpageComponent,
           },
           {
+            path: 'OutboundCallWorklistsComponent',
+            component: OutboundCallWorklistsComponent,
+            canActivate: [AuthGuard]
+          },
+          {
             path: 'OutboundWorkList',
             component: OutbondWorklistComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'EverwellOutboundWorkList',
+            component: EverwellOutboundWorklistComponent,
             canActivate: [AuthGuard]
           }
         ]
@@ -342,7 +359,8 @@ import { MaterialModule } from './material.module';
     EmergencyContactsViewModalComponent,
     AgentForceLogoutComponent,
     CommonSmsDialogComponent,
-    ViewVersionDetailsComponent],
+    ViewVersionDetailsComponent,
+    SupportActionModal],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,

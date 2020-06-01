@@ -76,6 +76,14 @@ export class InnerpageComponent implements OnInit {
   listenCallEvent: any;
   transferInProgress: Boolean = false;
   zoneName: any;
+  everwellFullname: string;
+  EverwellBeneficiaryRegID: string;
+  everwellPrimaryNumber: string;
+  isEverwell:string;
+  everwellSelectedBenData:any;
+  everwellState: any;
+  everwellDistrict: any;
+  everwellGender: any;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -179,6 +187,7 @@ export class InnerpageComponent implements OnInit {
     // this.addListener();
     this.getAgentStatus();
     this.getAgentCallDetails();
+    this.isEverwell = sessionStorage.getItem("isEverwellCall");
 
 
   }
@@ -307,6 +316,24 @@ export class InnerpageComponent implements OnInit {
   }
 
 
+  
+  getEverwellSelectedBenDetails(obj: any) {   
+   console.log('evewellcall311' + obj);
+   console.log(obj);
+   this.getCommonData.everwellBeneficiarySelected.next({
+    "isEverwellBeneficiarySelected": true
+  });
+    this.everwellSelectedBenData = obj;
+    let firstName = obj.FirstName ? obj.FirstName : "";
+    let lname = obj.LastName ? obj.LastName : "";
+    this.EverwellBeneficiaryRegID = 'Ben ID: ' + obj.beneficiaryRegId;
+    this.everwellFullname = firstName + ' ' + lname;
+    this.everwellPrimaryNumber = obj.PrimaryNumber;
+    this.everwellState = obj.State;
+    this.everwellDistrict = obj.District;
+    this.everwellGender = obj.Gender;
+
+  }
   minimizeBar() {
     this.barMinimized = true;
   }
@@ -347,6 +374,7 @@ export class InnerpageComponent implements OnInit {
       this.remarksMessage.alert('Cannot logout during active call');
     } else {
       sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
       this.basicrouter.navigate(['']);
       this.authService.removeToken();
     }
@@ -375,6 +403,7 @@ export class InnerpageComponent implements OnInit {
     this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
       if (res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
+        sessionStorage.removeItem('isEverwellCall');
         sessionStorage.removeItem('apiman_key');
         this.basicrouter.navigate(['']);
       } else {
@@ -383,6 +412,7 @@ export class InnerpageComponent implements OnInit {
           this.remarksMessage.alert('Cannot logout during active call');
         } else {
           sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
           sessionStorage.removeItem('apiman_key');          
           this.basicrouter.navigate(['']);
         }
@@ -398,6 +428,7 @@ export class InnerpageComponent implements OnInit {
       this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
         if (res.response.status.toUpperCase() !== 'FAIL') {
           sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
           this.basicrouter.navigate(['']);
         } else {
           // if (this.current_role.toLowerCase() !== 'supervisor') {
@@ -409,6 +440,7 @@ export class InnerpageComponent implements OnInit {
       });
     } else {
       sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
       this.basicrouter.navigate(['']);
     }
   }
@@ -573,6 +605,7 @@ export class InnerpageComponent implements OnInit {
       if (response) {
         this.remarksMessage.alert(message, 'success');
         sessionStorage.removeItem('isOnCall');
+        sessionStorage.removeItem('isEverwellCall');
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         // this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
         //   console.log('disconnect response', res);

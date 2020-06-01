@@ -4,3 +4,6 @@
 @import 'css/custom.css';
 @import 'css/dashboard.css';
 @import '../node_modules/angular2-toaster/toaster.css';
+.headerTitle .mat-dialog-container{
+    padding: 0 !important;
+}
