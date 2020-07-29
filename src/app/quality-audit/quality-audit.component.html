@@ -89,8 +89,8 @@
         <!-- </md-input-container> -->
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <button md-raised-button color="accent" class="m-t-10" (click)="getFilteredCallList(qaForm.value)" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">Search</button>
-        <button md-raised-button color="primary" class="m-t-10" (click)="reset()">Reset</button>
+        <button md-raised-button color="accent" class="m-t-10" (click)="getFilteredCallList(qaForm.value);resetFlag()" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">Search</button>
+        <button md-raised-button color="primary" class="m-t-10" (click)="reset();resetFlag()">Reset</button>
       </div>
     </form>
   </div>
@@ -131,17 +131,23 @@
             <i class="fa fa-file-text-o f-s-20 m-t--8 pull-left f-c-g cursorPointer" aria-hidden="true" (click)="invokeCaseSheetDialog(record.benCallID,record)"></i>
           </td>
           <td>
-            <audio controls>
-              <source src="{{record?.recordingPath}}" type="audio/ogg">
-              <source src="{{record?.recordingPath}}" type="audio/mpeg">
-            </audio>
+               
+            <img *ngIf="!(dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1))" style="width:30px;height:30px" (click)="check(record.agentID,record.callID,(md2.activePage-1)*(md2.rowsPerPage)+i+1)" src="assets/images/playicon.jpg" alt="Play" title="Play">
+                              
+            <audio  *ngIf="dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1)" controls autoplay preload="none">  
+              
+              <source src="{{audioResponse}}" type="audio/ogg">
+              <source src="{{audioResponse}}" type="audio/mpeg">
+                
+              </audio>
+            
           </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="10">
-            <md2-pagination></md2-pagination>
+            <md2-pagination (click)="resetFlag()"></md2-pagination>
           </td>
         </tr>
       </tfoot>

@@ -21,7 +21,7 @@ export class QualityAuditService {
     getCallSummaryUrl: any = '';
     getAllAgents_Url: any = '';
     getRoleSpecificAgentIDs_url: any = '';
-    
+    audioURL: any;
 
     constructor(private _http: AuthorizationWrapper,
         private _config: ConfigService,
@@ -38,6 +38,7 @@ export class QualityAuditService {
         this.getCallSummaryUrl = this._1097baseUrl + 'services/getCaseSheet';
         this.getAllAgents_Url = this.admin_Base_Url + 'getAllAgentIds';
         this.getRoleSpecificAgentIDs_url = this.commonBaseURL + 'user/getAgentByRoleID';
+        this.audioURL =  this.commonBaseURL+"call/getFilePathCTI";
         
 
     }
@@ -101,7 +102,13 @@ export class QualityAuditService {
             .map(this.handleSuccess)
             .catch(this.handleError)
     }
-
+    getAudio(agentid,sessionID) {
+        return this.httpIntercept.post(this.audioURL,
+            {
+                'agentID': agentid,
+                'callID': sessionID
+            }).map(this.handleSuccess).catch(this.handleError);
+    }
     handleSuccess(response: Response) {
         if (response.json().data) {
             return response.json().data;
