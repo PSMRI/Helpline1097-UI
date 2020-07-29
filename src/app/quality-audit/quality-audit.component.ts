@@ -120,6 +120,7 @@ export class QualityAuditComponent implements OnInit {
         console.log("RecordingArray",this.recordingArray)
       },
       err => {
+        this.alertService.alert("Failed to get the voice file path", 'error');
             console.log("ERROR", err);
           }
       );
