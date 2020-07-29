@@ -39,6 +39,7 @@ export class loginContentClass implements OnInit {
         console.log('array' + this.previlageObj);
         if (response.isAuthenticated === true && response.Status === 'Active') {
           sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
         // } else {
@@ -71,6 +72,7 @@ export class loginContentClass implements OnInit {
         console.log('array' + this.previlageObj);
         if (response.isAuthenticated === true && response.Status === 'Active') {
           sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
         // } else {
@@ -117,6 +119,7 @@ export class loginContentClass implements OnInit {
         alert('ServiceID not found. Some things may not work');
       }
       sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
       localStorage.setItem('authToken', response.key);
       this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
       this.socketService.reInstantiate();
@@ -125,6 +128,7 @@ export class loginContentClass implements OnInit {
     if (response.isAuthenticated === true && response.Status === 'New') {
       localStorage.setItem('authToken', response.key);
       sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
       this.router.navigate(['/setQuestions']);
     }
     // } else {

@@ -13,7 +13,7 @@
           </div>
           <a class="bs-wizard-dot cursorPointer active-tab"></a>
         </div>
-        <div id="two" class="col-xs-2 bs-wizard-step disabled">
+        <div id="two" class="col-xs-2 bs-wizard-step disabled" *ngIf="isEverwell !='yes'">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguage.co?.provide_service}}</div>
           <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguage.co?.provide_service_mobile}}</div>
           <div class="progress progress-bar-disabled progress-margin">
@@ -21,7 +21,7 @@
           </div>
           <a class="bs-wizard-dot cursorPointer"></a>
         </div>
-        <div id="three" class="col-xs-2 bs-wizard-step disabled">
+        <div id="three" class="col-xs-2 bs-wizard-step disabled" *ngIf="isEverwell !='yes'">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguage.co?.other_details}}</div>
           <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguage.co?.other_details_mobile}}</div>
           <div class="progress progress-bar-disabled progress-margin">
@@ -44,7 +44,7 @@
 <!--   <button (click)="toggleVAL()">test</button>
  -->  <div class="col-xs-12 col-sm-12">
     <div class="panel-body card p-a-0 bg-white m-b-40">
-      <div class="container-fluid p-a-0 overflow-y" style="height: 390px">
+      <div class="container-fluid p-a-0 overflow-y" style="height: 390px" *ngIf="isEverwell !='yes'">
         <div class=" b-t-2-w">
           <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
             <div class="carousel-inner">
@@ -74,7 +74,22 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-xs-12 m-b-10">
+      <div class="container-fluid p-a-0 overflow-y" style="height: 390px" *ngIf="isEverwell ==='yes'">
+        <div class=" b-t-2-w">
+          <div id="myCarouselEverwell" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
+            <div class="carousel-inner">
+              <div class="item active">            
+                <app-everwell-worklist (everwellBeneficiarySelected)="getEverwellSelectedBenDetails($event);" ></app-everwell-worklist>
+              </div>  
+              <div class="item ">             
+                <app-closure (callClosed)="closeCall($event);" (closedContinue)="closedContinue()" #closure [current_language]="currentlanguage"></app-closure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-xs-12 m-b-10" *ngIf="isEverwell !='yes'">
         <div class="row">
           <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
             <button [disabled]="disableBack" id="previous" type="button" md-raised-button color="primary" class="pull-left " href="#myCarousel" data-slide="prev"
@@ -88,6 +103,20 @@
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
             <button id="next" type="button" md-raised-button color="primary" class="pull-right " href="#myCarousel" data-slide="next"
+              [hidden]="!isNext" (click)="nxtVisual()">{{currentlanguage.co?.next}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-xs-12 m-b-10" *ngIf="isEverwell =='yes'">
+        <div class="row">          
+          <div class="col-xs-6 col-sm-6 col-md-6 col-xs-6 center-btn" align="center">
+            <button type="button" id="btnCancel" value="Cancel" md-raised-button class="mar-right" color="primary" data-slide-to="1"
+              (click)="openEverwellDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>
+            <button type="button" id="btnClosure" value="Close" md-raised-button color="primary" data-slide-to="4" (click)="openEverwellDialogClosure()"
+              [disabled]="isClosureDisable">{{currentlanguage.co?.closure}}</button>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
+            <button id="next" type="button" md-raised-button color="primary" class="pull-right " href="#myCarouselEverwell" data-slide="next"
               [hidden]="!isNext" (click)="nxtVisual()">{{currentlanguage.co?.next}}</button>
           </div>
         </div>

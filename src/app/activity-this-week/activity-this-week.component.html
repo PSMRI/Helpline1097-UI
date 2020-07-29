@@ -35,9 +35,12 @@
 			<li>Outbound Worklist</li>
 			<li>Surveryor Worklist</li>
 			<li>Outbound Worklist</li>
-		</ol> -->
+    </ol> -->
+    <!-- <ul class="dots p-a-0" *ngIf="(role==='CO') && (this.getCommonData.current_campaign == 'OUTBOUND' )">
+			<li><a routerLink="/MultiRoleScreenComponent/EverwellOutboundWorkList"  routerLinkActive="active">Everwell Outbound Worklist</a></li>
+    </ul> -->
 		<ul class="dots p-a-0" *ngIf="(role==='CO') && (this.getCommonData.current_campaign == 'OUTBOUND' )">
-			<li><a routerLink="/MultiRoleScreenComponent/OutboundWorkList"  routerLinkActive="active">Outbound Worklist</a></li>
+			<li><a routerLink="/MultiRoleScreenComponent/OutboundCallWorklistsComponent"  routerLinkActive="active">Outbound Worklist</a></li>
     </ul>
     <div class="row">         
       <div class="col-xs-3 col-sm-3 m-t-10">

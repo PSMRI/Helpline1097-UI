@@ -65,6 +65,8 @@ export class ClosureComponent implements OnInit
   showFeedbackRequiredFlag = false;
   subServiceTypes: any = [];
   requestedServiceID: number;
+  isEverwell: string;
+  everwellBeneficiarySelected: boolean;
 
   constructor(
     private _callServices: CallServices,
@@ -83,6 +85,13 @@ export class ClosureComponent implements OnInit
     this.saved_data.beneficiary_regID_subject.subscribe(response => {
       this.setBenRegID(response);
     });
+    this.isEverwell = sessionStorage.getItem("isEverwellCall");
+    if(this.isEverwell === 'yes')
+    {
+      this.saved_data.everwellBeneficiarySelected.subscribe(response => {
+        this.setEverwellBenRegID(response);
+      });
+    }
   }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
@@ -169,6 +178,11 @@ export class ClosureComponent implements OnInit
     this.calltypes = calls.filter((item) => {
       return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds';
     })
+    if(this.isEverwell === 'yes'){
+    this.calltypes = calls.filter((item) => {
+      return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds' && item.callTypeDesc.toLowerCase().trim() === 'valid';
+    })
+  }
   }
   getCallSubType(callType: any) {
     if (callType == 'Transfer') {
@@ -178,12 +192,22 @@ export class ClosureComponent implements OnInit
       this.transferValid = false;
     }
     this.callTypeID = undefined;
+    if(this.isEverwell === 'yes'){
+    if ((callType == "Valid" || callType == 'Transfer') && !this.everwellBeneficiarySelected) {
+      this.message.alert("Can't make call valid or transfer without selecting beneficiary");
+      this.closureForm.form.patchValue({
+        "callType": ""
+      })
+    }
+  }
+  else{
     if ((callType == "Valid" || callType == 'Transfer') && !this.beneficiarySelected) {
       this.message.alert("Can't make call valid or transfer without selecting beneficiary");
       this.closureForm.form.patchValue({
         "callType": ""
       })
     }
+  }
 
     if (callType.toUpperCase() === 'Valid'.toUpperCase()) {
       // this.isFeedbackRequiredFlag = false;
@@ -335,11 +359,34 @@ export class ClosureComponent implements OnInit
     console.log('close called with ' + values);
     if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
       this.current_campaign = this.saved_data.current_campaign;
+      if(this.isEverwell !== 'yes'){
       this._callServices.closeOutBoundCall(this.saved_data.outBoundCallID, true).subscribe((response) => {
         this.closeOutboundCall(btnType, values);
       }, (err) => {
         this.message.alert(err.status, 'error');
       })
+    }
+    else{
+      let outboundObj = {};
+      outboundObj['eapiId'] = this.saved_data.outboundEverwellData.eapiId;
+      outboundObj['assignedUserID'] = this.saved_data.uid;
+      outboundObj['isCompleted'] = true;
+      outboundObj['beneficiaryRegId'] = this.saved_data.outboundEverwellData.beneficiaryRegId;
+      outboundObj['callTypeID'] = values.callTypeID;
+      outboundObj['benCallID'] = values.benCallID;
+      outboundObj['callId'] = this.saved_data.callID;
+      outboundObj['providerServiceMapId'] = values.providerServiceMapID;
+      outboundObj['requestedServiceID'] = null;
+      outboundObj['preferredLanguageName'] = "All"
+      outboundObj['createdBy'] = this.saved_data.uname;
+
+      this._callServices.closeEverwellOutBoundCall(outboundObj).subscribe((response) => {
+        this.closeOutboundCall(btnType, values);
+      }, (err) => {
+        this.message.alert(err.status, 'error');
+      })
+
+    }    
 
     } else {
       if (btnType === 'submitClose') {
@@ -456,6 +503,7 @@ export class ClosureComponent implements OnInit
       if (response) {
         this.message.alert('Call closed successfully', 'success');
         if (btnType === 'submitClose') {
+          this.saved_data.feedbackData = undefined;
           this.callClosed.emit(this.current_campaign);
           /* below lines are commented to use old close call API */
           // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
@@ -491,6 +539,10 @@ export class ClosureComponent implements OnInit
   setFlag(data) {
     this.beneficiarySelected = data.beneficiarySelected;
     console.log('BEN SELECTED', this.beneficiarySelected);
+  }
+  setEverwellBenRegID(data) {    
+    this.everwellBeneficiarySelected = data.isEverwellBeneficiarySelected;
+    console.log('everwell BEN SELECTED', this.everwellBeneficiarySelected);
   }
 
   setBenRegID(data) {

@@ -8,6 +8,7 @@
 	<artifactId>1097-ui</artifactId>
 	<version>1.0</version>
 	<name>1097-ui</name>
+	<description>Piramal - 1097: Module ui</description>
 	<packaging>war</packaging>
 	<profiles>
 		<profile>
@@ -59,11 +60,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<final-name>1097ui-v1.0</final-name>
-		<hostname-dev>10.208.122.38</hostname-dev>
+		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+		<hostname-dev>10.208.122.32</hostname-dev>
 		<port-dev>9990</port-dev>
 		<hostname-local>localhost</hostname-local>
 		<port-local>9990</port-local>
-        <hostname-test>10.208.122.32</hostname-test>
+        <hostname-test>10.208.122.38</hostname-test>
 		<port-test>9990</port-test>
 		<hostname-uat>deviemr.piramalswasthya.org</hostname-uat>
 		<port-uat>9990</port-uat>
@@ -174,6 +177,10 @@
 						<resource>
 							<!-- this is relative to the pom.xml directory -->
 							<directory>dist</directory>
+						</resource>
+						<resource>		
+							<filtering>true</filtering>					
+							<directory>src/packaging/</directory>							
 						</resource>
 					</webResources>
 				</configuration>
