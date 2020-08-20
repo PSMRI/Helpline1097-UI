@@ -45,7 +45,16 @@ export class QualityAuditComponent implements OnInit {
 
   min: any;
   max: any;
+  audioURL: string;
+  audioTag: any;
+  audioResponse: any;
+  dispFlag: any;
 
+  displayIcon: boolean=false;
+
+ 
+  recordingArray:any = [];
+  apiCall: boolean=true;
 
   constructor(
     private configService: ConfigService,
@@ -73,6 +82,60 @@ export class QualityAuditComponent implements OnInit {
     // this.getAgents();
     // this.getCallTypes();
   }
+  resetFlag()
+  {
+    this.dispFlag=0;
+  }
+  check(agentID,sessionID,index){
+    console.log("AgentID",agentID);
+    console.log("sessionID",sessionID);
+    
+   this.audioResponse=null;
+  
+    if(agentID>0 && sessionID>0 )
+    {
+       if(this.recordingArray.length > 0)
+       {
+      this.recordingArray.forEach(element => {
+        if (sessionID === element.sessionId && agentID === element.agentId) {        
+          this.audioResponse=element.path;
+          this.dispFlag=index;
+          this.apiCall=false;
+
+        }
+      })
+    }
+      if(this.apiCall)
+      {
+     
+  
+    this.qualityAuditService.getAudio(agentID,sessionID).subscribe(response =>
+      {
+        console.log("RESPONSEss", response.response);
+        this.audioResponse = response.response;
+        this.dispFlag=index;
+       
+        console.log("Audio Response1",this.audioResponse)
+        this.recordingArray.push({sessionId:sessionID,agentId:agentID,path:this.audioResponse});
+        console.log("RecordingArray",this.recordingArray)
+      },
+      err => {
+        this.alertService.alert("Failed to get the voice file path", 'error');
+            console.log("ERROR", err);
+          }
+      );
+        
+     }
+
+      else
+     {
+      this.apiCall=true;
+     }
+        
+    }
+    
+  }
+
 
   setMinMaxDate(startDate) {
     startDate.setHours(0, 0, 0, 0);
