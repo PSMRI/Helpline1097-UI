@@ -200,14 +200,14 @@ export class ClosureComponent implements OnInit
       })
     }
   }
-  else{
-    if ((callType == "Valid" || callType == 'Transfer') && !this.beneficiarySelected) {
-      this.message.alert("Can't make call valid or transfer without selecting beneficiary");
-      this.closureForm.form.patchValue({
-        "callType": ""
-      })
-    }
-  }
+  // else{
+  //   if ((callType == "Valid" || callType == 'Transfer') && !this.beneficiarySelected) {
+  //     this.message.alert("Can't make call valid or transfer without selecting beneficiary");
+  //     this.closureForm.form.patchValue({
+  //       "callType": ""
+  //     })
+  //   }
+  //}
 
     if (callType.toUpperCase() === 'Valid'.toUpperCase()) {
       // this.isFeedbackRequiredFlag = false;
