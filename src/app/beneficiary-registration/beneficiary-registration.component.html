@@ -372,7 +372,7 @@
               </div> -->
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none"> -->
-        <md-select required placeholder="{{relationshipWith}}" #benRelation="ngModel" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID"
+        <md-select placeholder="{{relationshipWith}}" #benRelation="ngModel" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID"
           name="beneficiaryRealtionID">
           <md-option *ngFor="let beneficiaryRelation of beneficiaryRelations" [value]="beneficiaryRelation.benRelationshipID">
             {{beneficiaryRelation.benRelationshipType}}
