@@ -65,7 +65,7 @@
 
                     <tr *ngFor="let listItem of  md2.data; let i= index">
                       <td>{{(md2.activePage-1)*4+i+1}}</td>
-                      <td width=15%>{{listItem.beneficiaryRegId}}</td>
+                      <td width=15%>{{listItem.beneficiaryID}}</td>
                       <td width=20%>{{listItem.FirstName}} {{listItem.LastName}}</td>
                       <!-- <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td> -->
                       <td width=20%>{{listItem.PrimaryNumber}}</td>

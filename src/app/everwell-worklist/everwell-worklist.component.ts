@@ -34,6 +34,7 @@ export class EverwellWorklistComponent implements OnInit {
   aftermonth2: string;
   beforemonth: string;
   beforemonth2: string;
+  prev: any;
 
   data: any = [];
   previous: number;
@@ -174,18 +175,48 @@ export class EverwellWorklistComponent implements OnInit {
     }
   }
   currentdaysactive(month) {
-    var c = 0; this.date = new Date();
-    this.val = new Date().toDateString();
-    for (var i = 0; i < this.val.length; i++) {
-      if (this.val.charAt(i) == ' ') {
-        c++;
-        if (c == 2) {
-          var days = this.val.substring(i + 1, i + 3);
-          break;
-        }
-      }
+    // var c = 0; this.date = new Date();
+    // this.val = new Date().toDateString();
+    // for (var i = 0; i < this.val.length; i++) {
+    //   if (this.val.charAt(i) == ' ') {
+    //     c++;
+    //     if (c == 2) {
+    //       var days = this.val.substring(i + 1, i + 3);
+    //       break;
+    //     }
+    //   }
+    // }
+    var d = new Date();
+    this.previous= d.getDate()-1;
+    this.prev=d.setDate(d.getDate() - 1);
+    
+    // var n = d.getDay();
+    // this.previous=n-1;
+   
+    
+
+    
+    if(this.previous==0 && (month == 'January' || 'February' || 'April' || ' June'  || 'August' || 'September' || 'November'))
+    {
+    this.previous=31;
     }
-    this.previous=Number(days)-1;
+
+    if(this.previous==0 && (month == 'May' || 'July' || 'October' || 'December')){
+    this.previous=30;
+    
+  }
+  let k= (new Date()).getFullYear();
+  if(this.previous==0 && month=='March' && (k%4==0)){
+    this.previous=29;
+  }
+    else if(this.previous==0 && month=='March' && (k%4!=0))
+    {
+    this.previous=28;}
+  
+    
+
+
+    
   }
   currentdaysInactive(val) {
     this.currentdaysactive(val); var ar: number[] = [];
@@ -326,10 +357,10 @@ export class SupportActionModal {
     }
     const providerObj = {};
     providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
-    providerObj['MissedDoses'] = 5;
+    providerObj['MissedDoses'] = this.everwellBenData.MissedDoses;
     providerObj['category'] = item.category[0];
     providerObj['subCategory'] = item.subcategory;
-    providerObj['AdherencePercentage'] = 8;
+    providerObj['AdherencePercentage'] = this.everwellBenData.AdherencePercentage;
     providerObj['actionTaken'] = item.actionTaken[0];
     providerObj['comments'] = item.comments;
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.dob), 'yyyy-MM-dd');   
