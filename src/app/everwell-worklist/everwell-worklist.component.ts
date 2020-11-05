@@ -71,18 +71,54 @@ export class EverwellWorklistComponent implements OnInit {
     }
   }
   getcurrentmonth() {
+    // var curmonth = new Date();
+    // this.currentmonth = this.daysmonth[curmonth.getMonth()].name;
+
+    // var am = new Date();
+    // this.aftermonth = this.daysmonth[((am.getMonth()) + 2)].name;
+    // var am1 = new Date();
+    // this.aftermonth2 = this.daysmonth[((am1.getMonth()) + 1)].name;
+
+    // var bm = new Date();
+    // this.beforemonth = this.daysmonth[((bm.getMonth()) - 2)].name;
+    // var bm1 = new Date();
+    // this.beforemonth2 = this.daysmonth[((bm1.getMonth()) - 1)].name;
     var curmonth = new Date();
     this.currentmonth = this.daysmonth[curmonth.getMonth()].name;
-
+ 
     var am = new Date();
-    this.aftermonth = this.daysmonth[((am.getMonth()) + 2)].name;
+    let monthValue;
+    if(((am.getMonth() + 2)) >= 12){
+      monthValue = (am.getMonth() + 2) - 12;
+    }else{
+      monthValue = (am.getMonth() + 2);
+    }
+    this.aftermonth = this.daysmonth[(monthValue)].name;
     var am1 = new Date();
-    this.aftermonth2 = this.daysmonth[((am1.getMonth()) + 1)].name;
-
+    let monthValue1;
+    if(((am1.getMonth() + 1)) >= 12){
+      monthValue1 = (am1.getMonth() + 1) - 12;
+    }else{
+      monthValue1 = (am1.getMonth() + 1)
+    }
+    this.aftermonth2 = this.daysmonth[(monthValue1)].name;
+ 
     var bm = new Date();
-    this.beforemonth = this.daysmonth[((bm.getMonth()) - 2)].name;
+    let monthValue2;
+    if(((bm.getMonth() - 2)) < 0){
+      monthValue2 = (bm.getMonth() -2 ) +12;
+    }else{
+      monthValue2 = (bm.getMonth() -2 )
+    }
+    this.beforemonth = this.daysmonth[(monthValue2)].name;
     var bm1 = new Date();
-    this.beforemonth2 = this.daysmonth[((bm1.getMonth()) - 1)].name;
+    let monthValue3;
+    if(((bm1.getMonth() - 1)) < 0){
+      monthValue3 = (bm1.getMonth() - 1) + 12;
+    }else{
+      monthValue3 = (bm1.getMonth() - 1)
+    }
+    this.beforemonth2 = this.daysmonth[(monthValue3)].name;
 
     this.daysmonth = this.daysmonth.filter(
       m => m.name.toString() == this.currentmonth ||
