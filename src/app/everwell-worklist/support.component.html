@@ -83,7 +83,7 @@
 
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
-                <button md-raised-button color="accent" class="pull-right" (click)="submitFeedback(form.value)"
+                <button md-raised-button color="accent" style="margin: 25px;" class="pull-right" (click)="submitFeedback(form.value)"
                     [disabled]="!form.valid">Submit</button>
             </div>
         </form>
@@ -108,7 +108,7 @@
             <th>ActionTaken:</th>
             <td> {{isFeedbackData?.actionTaken}} </td>
             <th>Date Of Action:</th>
-            <td>{{prev}} </td>
+            <td>{{lastDay}} </td>
         </tr>
         <tr>
             <th>Comments:</th>
@@ -118,7 +118,7 @@
     </table>
     <div class="row m-t-20">
         <div class="col-sm-12 step-btn m-t-100">
-            <button md-raised-button class="pull-right" color="primary" id="closeModal" (click)="closeModal()">Ok</button>
+            <button md-raised-button class="pull-right" color="primary" style="margin: 15px;" id="closeModal" (click)="closeModal()">Ok</button>
         </div>
     </div>
 </div>
