@@ -180,7 +180,8 @@ export class ClosureComponent implements OnInit
     })
     if(this.isEverwell === 'yes'){
     this.calltypes = calls.filter((item) => {
-      return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds' && item.callTypeDesc.toLowerCase().trim() === 'valid';
+       return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds' && item.callTypeDesc.toLowerCase().trim() === 'valid';
+  
     })
   }
   }
@@ -192,14 +193,14 @@ export class ClosureComponent implements OnInit
       this.transferValid = false;
     }
     this.callTypeID = undefined;
-    if(this.isEverwell === 'yes'){
-    if ((callType == "Valid" || callType == 'Transfer') && !this.everwellBeneficiarySelected) {
-      this.message.alert("Can't make call valid or transfer without selecting beneficiary");
-      this.closureForm.form.patchValue({
-        "callType": ""
-      })
-    }
-  }
+  //   if(this.isEverwell === 'yes'){
+  //   if ((callType == "Valid" || callType == 'Transfer') && !this.everwellBeneficiarySelected) {
+  //     this.message.alert("Can't make call valid or transfer without selecting beneficiary");
+  //     this.closureForm.form.patchValue({
+  //       "callType": ""
+  //     })
+  //   }
+  // }
   // else{
   //   if ((callType == "Valid" || callType == 'Transfer') && !this.beneficiarySelected) {
   //     this.message.alert("Can't make call valid or transfer without selecting beneficiary");
