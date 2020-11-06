@@ -34,6 +34,7 @@ export class EverwellWorklistComponent implements OnInit {
   aftermonth2: string;
   beforemonth: string;
   beforemonth2: string;
+  prev: any;
 
   data: any = [];
   previous: number;
@@ -71,18 +72,54 @@ export class EverwellWorklistComponent implements OnInit {
     }
   }
   getcurrentmonth() {
+    // var curmonth = new Date();
+    // this.currentmonth = this.daysmonth[curmonth.getMonth()].name;
+
+    // var am = new Date();
+    // this.aftermonth = this.daysmonth[((am.getMonth()) + 2)].name;
+    // var am1 = new Date();
+    // this.aftermonth2 = this.daysmonth[((am1.getMonth()) + 1)].name;
+
+    // var bm = new Date();
+    // this.beforemonth = this.daysmonth[((bm.getMonth()) - 2)].name;
+    // var bm1 = new Date();
+    // this.beforemonth2 = this.daysmonth[((bm1.getMonth()) - 1)].name;
     var curmonth = new Date();
     this.currentmonth = this.daysmonth[curmonth.getMonth()].name;
-
+ 
     var am = new Date();
-    this.aftermonth = this.daysmonth[((am.getMonth()) + 2)].name;
+    let monthValue;
+    if(((am.getMonth() + 2)) >= 12){
+      monthValue = (am.getMonth() + 2) - 12;
+    }else{
+      monthValue = (am.getMonth() + 2);
+    }
+    this.aftermonth = this.daysmonth[(monthValue)].name;
     var am1 = new Date();
-    this.aftermonth2 = this.daysmonth[((am1.getMonth()) + 1)].name;
-
+    let monthValue1;
+    if(((am1.getMonth() + 1)) >= 12){
+      monthValue1 = (am1.getMonth() + 1) - 12;
+    }else{
+      monthValue1 = (am1.getMonth() + 1)
+    }
+    this.aftermonth2 = this.daysmonth[(monthValue1)].name;
+ 
     var bm = new Date();
-    this.beforemonth = this.daysmonth[((bm.getMonth()) - 2)].name;
+    let monthValue2;
+    if(((bm.getMonth() - 2)) < 0){
+      monthValue2 = (bm.getMonth() -2 ) +12;
+    }else{
+      monthValue2 = (bm.getMonth() -2 )
+    }
+    this.beforemonth = this.daysmonth[(monthValue2)].name;
     var bm1 = new Date();
-    this.beforemonth2 = this.daysmonth[((bm1.getMonth()) - 1)].name;
+    let monthValue3;
+    if(((bm1.getMonth() - 1)) < 0){
+      monthValue3 = (bm1.getMonth() - 1) + 12;
+    }else{
+      monthValue3 = (bm1.getMonth() - 1)
+    }
+    this.beforemonth2 = this.daysmonth[(monthValue3)].name;
 
     this.daysmonth = this.daysmonth.filter(
       m => m.name.toString() == this.currentmonth ||
@@ -138,18 +175,48 @@ export class EverwellWorklistComponent implements OnInit {
     }
   }
   currentdaysactive(month) {
-    var c = 0; this.date = new Date();
-    this.val = new Date().toDateString();
-    for (var i = 0; i < this.val.length; i++) {
-      if (this.val.charAt(i) == ' ') {
-        c++;
-        if (c == 2) {
-          var days = this.val.substring(i + 1, i + 3);
-          break;
-        }
-      }
+    // var c = 0; this.date = new Date();
+    // this.val = new Date().toDateString();
+    // for (var i = 0; i < this.val.length; i++) {
+    //   if (this.val.charAt(i) == ' ') {
+    //     c++;
+    //     if (c == 2) {
+    //       var days = this.val.substring(i + 1, i + 3);
+    //       break;
+    //     }
+    //   }
+    // }
+    var d = new Date();
+    this.previous= d.getDate()-1;
+    this.prev=d.setDate(d.getDate() - 1);
+    
+    // var n = d.getDay();
+    // this.previous=n-1;
+   
+    
+
+    
+    if(this.previous==0 && (month == 'January' || 'February' || 'April' || ' June'  || 'August' || 'September' || 'November'))
+    {
+    this.previous=31;
     }
-    this.previous=Number(days)-1;
+
+    if(this.previous==0 && (month == 'May' || 'July' || 'October' || 'December')){
+    this.previous=30;
+    
+  }
+  let k= (new Date()).getFullYear();
+  if(this.previous==0 && month=='March' && (k%4==0)){
+    this.previous=29;
+  }
+    else if(this.previous==0 && month=='March' && (k%4!=0))
+    {
+    this.previous=28;}
+  
+    
+
+
+    
   }
   currentdaysInactive(val) {
     this.currentdaysactive(val); var ar: number[] = [];
@@ -290,10 +357,10 @@ export class SupportActionModal {
     }
     const providerObj = {};
     providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
-    providerObj['MissedDoses'] = 5;
+    providerObj['MissedDoses'] = this.everwellBenData.MissedDoses;
     providerObj['category'] = item.category[0];
     providerObj['subCategory'] = item.subcategory;
-    providerObj['AdherencePercentage'] = 8;
+    providerObj['AdherencePercentage'] = this.everwellBenData.AdherencePercentage;
     providerObj['actionTaken'] = item.actionTaken[0];
     providerObj['comments'] = item.comments;
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.dob), 'yyyy-MM-dd');   
