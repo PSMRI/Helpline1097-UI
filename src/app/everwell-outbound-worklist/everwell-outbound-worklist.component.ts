@@ -42,10 +42,12 @@ export class EverwellOutboundWorklistComponent implements OnInit {
   AssignData(outboundHistory: any) {
     this.data = outboundHistory;
     this.filteredsearchResult = outboundHistory;
+    console.log("beneID in worklist", this.filteredsearchResult)
   }
   //   modaldata:any;
   viewHistory(data: any) {
     this._common.outboundBenRegID = data.beneficiaryRegId;
+    // this._common.beneficiaryID = data.beneficiaryID;
     //  this.onOutboundCall.emit(data); code commented, since routing implemented, calling which was happenning in parent is now here....gursimran 24/5/18
     this._common.outboundEverwellData = data;
     this.cz_service.manualDialaNumber("", data.PrimaryNumber).subscribe((res) => {
@@ -86,7 +88,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
       this.filteredsearchResult = [];
       this.data.forEach((item) => {
         for (let key in item) {
-          if (key == 'FirstName' || key == 'primaryNumber' || key == 'beneficiaryRegId') {
+          if (key == 'FirstName' || key == 'primaryNumber' || key == 'beneficiaryID') {
             let value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredsearchResult.push(item); break;

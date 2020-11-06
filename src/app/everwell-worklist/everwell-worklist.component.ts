@@ -269,6 +269,7 @@ export class EverwellWorklistComponent implements OnInit {
     this.data.PrimaryNumber = outboundData.PrimaryNumber;
     this.data.agentID = outboundData.agentId;
     this.data.beneficiaryRegId = outboundData.beneficiaryRegId;
+    this.data.beneficiaryID = outboundData.beneficiaryID;
     this.data.FirstName = outboundData.FirstName;
     this.data.LastName = outboundData.LastName;
     this.data.remarks = outboundData.comments;
@@ -325,6 +326,7 @@ export class SupportActionModal {
 
   @ViewChild('editAdminCreationForm') editAdminCreationForm: NgForm;
   everwellBenData: any;
+  lastDay: any;
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
   private alertMaessage: ConfirmationDialogsService,public dialogRef: MdDialogRef<SupportActionModal>)
@@ -339,6 +341,7 @@ export class SupportActionModal {
    this.everwellBenData = this._common.outboundEverwellData;
    console.log('EverWell Ben Data'+ this.everwellBenData);
    this.dob=this.data;
+   this.lastDay= this.dob;
    this.isFeedbackData= this._common.feedbackData;
   }
 
