@@ -378,7 +378,7 @@ export class SupportActionModal {
   feedbackData: any = [];
   emailPattern = /^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\.\b(org|com|COM|IN|in|co.in)\b$/;
   isFeedbackData:string;
-
+  addNum: boolean;
   @ViewChild('editAdminCreationForm') editAdminCreationForm: NgForm;
   everwellBenData: any;
   lastDay: any;
@@ -395,6 +395,7 @@ export class SupportActionModal {
     // this.superadminService.getAllMaritalStatus().subscribe(response => this.showAllMaritalSuccessHandler(response));
    // this.edit();
    this.everwellBenData = this._common.outboundEverwellData;
+   this.everwellBenData.currentMonthMissedDoses=22;
    console.log('EverWell Ben Data'+ this.everwellBenData);
    this.dob=this.data;
    this.lastDay= this.dob;
@@ -416,14 +417,21 @@ export class SupportActionModal {
     }
     const providerObj = {};
     providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
+    providerObj['Id']=this.everwellBenData.Id,
+    providerObj['providerServiceMapId']=this.everwellBenData.providerServiceMapId;
     providerObj['MissedDoses'] = this.everwellBenData.MissedDoses;
+    providerObj['currentMonthMissedDoses'] = this.everwellBenData.currentMonthMissedDoses;
     providerObj['category'] = item.category[0];
     providerObj['subCategory'] = item.subcategory;
     providerObj['AdherencePercentage'] = this.everwellBenData.AdherencePercentage;
     providerObj['actionTaken'] = item.actionTaken[0];
     providerObj['comments'] = item.comments;
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.dob), 'yyyy-MM-dd');   
-   
+    providerObj['secondaryPhoneNo'] = item.mblNum;
+    providerObj['createdBy']=this.everwellBenData.createdBy;
+    if(providerObj['secondaryPhoneNo']=="" || providerObj['secondaryPhoneNo']==undefined){
+      providerObj['secondaryPhoneNo']=null;
+    }
     this._callservice.postEverwellFeedback(providerObj).subscribe((response) => {
       if(response.response == "1"){
         this._common.feedbackData = providerObj;
@@ -440,5 +448,12 @@ export class SupportActionModal {
 
   closeModal() {
     this.dialogRef.close(false);
+  }
+  addNumber(status) {
+    if (status.checked) {
+      this.addNum = true;
+    } else {
+      this.addNum = false;
+    }
   }
 }
