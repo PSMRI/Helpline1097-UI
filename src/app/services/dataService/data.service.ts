@@ -48,7 +48,7 @@ export class dataService {
 	beneficiaryRegID: any;
 	outboundData: any;
 	outboundEverwellData: any;
-	feedbackData: any;
+	feedbackData=[];
 	// beneficiaryID: any;
 	// myBool$: Observable<boolean>;
 
