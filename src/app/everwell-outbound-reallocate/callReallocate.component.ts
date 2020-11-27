@@ -114,12 +114,12 @@ export class CallReAllocateComponent implements OnInit {
       "agentId": this.reallocationForm.value.agentName.userID
       // "preferredLanguageName": this.reallocationForm.value.preferredLanguage.languageName
     };
-    // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
-    //   this.postData["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
-    // }
-    // if (this.reallocationForm.value.endDate != '' && this.reallocationForm.value.endDate != null) {
-    //   this.postData["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
-    // }
+    if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
+      this.postData["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    }
+    if (this.reallocationForm.value.endDate != '' && this.reallocationForm.value.endDate != null) {
+      this.postData["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    }
     console.log(JSON.stringify(this.postData));
     this.onAgentSelected = false;
     this.OCRService.getEverwellReallocationCalls(this.postData)
@@ -159,18 +159,18 @@ export class CallReAllocateComponent implements OnInit {
   moveToBin(language, event) {
 
     let values = [];
-
     let reqObj = {
       "providerServiceMapId": this.providerServiceMapID,
-      "agentId": this.reallocationForm.value.agentName.userID     
+      "agentId": this.reallocationForm.value.agentName.userID,
+      "preferredLanguageName": language     
     }
-
-    // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
-    //   reqObj["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
-    // }
-    // if (this.reallocationForm.value.endDate != '' && this.reallocationForm.value.endDate != null) {
-    //   reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
-    // }
+    console.log("move to bin",reqObj);
+    if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
+      reqObj["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    }
+    if (this.reallocationForm.value.endDate != '' && this.reallocationForm.value.endDate != null) {
+      reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    }
 
     this.OCRService.getEverwellOutboundCallList(reqObj).subscribe(response => {
       console.log("OUTBOUND CALL LIST", response);
@@ -205,21 +205,23 @@ export class CallReAllocateComponent implements OnInit {
 
     this.selectedAgent = {
       "agentName": this.agentName,
-      "roleID": this.search_role,     
+      "roleID": this.search_role,  
+      "languageName": language,   
       "assignedUserID": this.reallocationForm.value.agentName.userID
     }
 
     let reqObj = {
       "providerServiceMapId": this.providerServiceMapID,
-      "agentId": this.reallocationForm.value.agentName.userID
+      "agentId": this.reallocationForm.value.agentName.userID,
+      "preferredLanguageName": language
     }
 
-    // if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
-    //   reqObj["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
-    // }
-    // if (this.reallocationForm.value.endDate != '' && this.reallocationForm.value.endDate != null) {
-    //   reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
-    // }
+    if (this.reallocationForm.value.startDate != '' && this.reallocationForm.value.startDate != null) {
+      reqObj["filterStartDate"] = new Date((this.reallocationForm.value.startDate) - 1 * (this.reallocationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    }
+    if (this.reallocationForm.value.endDate != '' && this.reallocationForm.value.endDate != null) {
+      reqObj["filterEndDate"] = new Date((this.reallocationForm.value.endDate) - 1 * (this.reallocationForm.value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    }
 
     this.OCRService.getEverwellOutboundCallList(reqObj).subscribe(response => this.success(response),
   (err)=> {
@@ -228,6 +230,7 @@ export class CallReAllocateComponent implements OnInit {
     this.records = {
       'outboundList': this.a
     }   
+    this.records['langaugeName'] = { "langName": language };
     this.records['assignedUserID'] = this.reallocationForm.value.agentName.userID;
 
 

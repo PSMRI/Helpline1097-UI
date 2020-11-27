@@ -39,6 +39,8 @@ export class EverwellWorklistComponent implements OnInit {
   data: any = [];
   previous: number;
   previousDay: string;
+  ar:any=[];
+  dateIndex: number;
   constructor(public dialog: MdDialog, private OCRService: OutboundReAllocationService,
      private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService,
      private _util: RegisterService,private alertMaessage: ConfirmationDialogsService
@@ -57,11 +59,28 @@ export class EverwellWorklistComponent implements OnInit {
     //   this.startOutBoundCall(this._common.outboundEverwellData);
     // }
     this.startOutBoundCall(this._common.outboundEverwellData);
+
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+     let aDate = new Date();aDate.setDate(aDate.getDate() - 1);
+     console.log(aDate);
+     let arr=[];
+     for(var i=1;i<=15;i++)
+    { aDate = new Date();
+     aDate.setDate(aDate.getDate() - i);
+     this.ar.push((aDate.getDate())+" "+monthNames[aDate.getMonth()]);
+    }
+    console.log("ar",this.ar);
+    
+
   }
   tableMode() {
     this.showTable = true;
     this.showCalender = false;
     this.showEditForm = false;
+  
   }
   editMode(benData:any) {
     if(benData){
@@ -131,9 +150,10 @@ export class EverwellWorklistComponent implements OnInit {
   }
   callsupportdialog() {
     var curmonth = new Date();
-    curmonth.setDate(curmonth.getDate() - 1);
+    curmonth.setDate(curmonth.getDate() - (this.dateIndex+1));
     this.previousDay =curmonth.toLocaleString('en-US',{hour12:false}).split(" ")[0];
-    this.previousDay = this.previousDay.substring(0,9);
+    this.previousDay = this.previousDay.substring(0,10);
+
     let dialog_Ref = this.dialog.open(SupportActionModal, {
      // height: '700px',
       width: '700px',
@@ -164,16 +184,51 @@ export class EverwellWorklistComponent implements OnInit {
     }
   }
   checkcurrentMonthDay(name,days) {
-    this.currentdaysactive(name);
-    if (this.currentmonth == name && this.previous==days) {
-      this.current = true;
-      return true;
+
+   
+
+    let monthDate=days+" "+name;
+    
+ let i=0;
+ this.dateIndex=0;
+    for(i=0;i<this.ar.length;i++)
+    {
+      if(monthDate == this.ar[i])
+      {
+       
+        this.current = true;
+        this.dateIndex=i;
+        return true;
+      }
     }
-    else {
+    if(i==this.ar.length)
+    {
       this.current = false;
       return false;
     }
   }
+  
+
+  // checkcurrentMonthDay(name,days) {
+
+
+  //   this.currentdaysactive(name);
+  //   if (this.currentmonth == name && this.previous==days) {
+
+  //      this.range=this.range-1;
+  //     this.current = true;
+   
+  //     return true;
+  //   }
+  //   else {
+  //     this.current = false;
+  //     return false;
+  //   }
+ 
+  // }
+
+
+
   currentdaysactive(month) {
     // var c = 0; this.date = new Date();
     // this.val = new Date().toDateString();
@@ -187,8 +242,8 @@ export class EverwellWorklistComponent implements OnInit {
     //   }
     // }
     var d = new Date();
-    this.previous= d.getDate()-1;
-    this.prev=d.setDate(d.getDate() - 1);
+    this.previous= d.getDate()-2;
+    this.prev=d.setDate(d.getDate() - 2);
     
     // var n = d.getDay();
     // this.previous=n-1;
@@ -327,6 +382,7 @@ export class SupportActionModal {
   @ViewChild('editAdminCreationForm') editAdminCreationForm: NgForm;
   everwellBenData: any;
   lastDay: any;
+ 
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
   private alertMaessage: ConfirmationDialogsService,public dialogRef: MdDialogRef<SupportActionModal>)
