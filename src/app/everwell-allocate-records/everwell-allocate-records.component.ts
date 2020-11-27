@@ -62,8 +62,8 @@ export class EverwellAllocateRecordsComponent implements OnInit {
     //  this.getOutboundCall(this.providerServiceMapID);
   }
 
-  getOutboundCall(serviceProviderMapID,  agentId?:any, isAllocated?:boolean) {  
-    this._OSRService.getEverwellUnallocatedCalls(serviceProviderMapID, agentId)
+  getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, agentId?:any,language?: any, isAllocated?:boolean) {  
+    this._OSRService.getEverwellUnallocatedCalls(serviceProviderMapID,startDate, endDate, language, agentId)
       .subscribe(resProviderData => {
         this.initialCount =resProviderData.length;
         this.allocateEverwellForm.controls['outboundCallRequests'].setValue(resProviderData.data);
@@ -98,7 +98,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
     if (this.outboundCallRequests.langaugeName) {
       languageName = this.outboundCallRequests.langaugeName.langName;
     }
-    this._OCAService.getEverwellAgentsbyRoleID(this.providerServiceMapID, roleID, null)
+    this._OCAService.getEverwellAgentsbyRoleID(this.providerServiceMapID, roleID, languageName)
       .subscribe(resProviderData => {
         console.log('reading...')
         if (resProviderData.length > 0) {
@@ -208,6 +208,10 @@ export class EverwellAllocateRecordsComponent implements OnInit {
 
   OnSelectChange() {
     let outboundlistCount = this.allocateEverwellForm.get('outboundCallRequests').value;
+    console.log("First",outboundlistCount);
+    console.log("Second",this.allocateEverwellForm.value.agentId);
+    console.log("outboundlistCount.length",outboundlistCount.length);
+    console.log("this.allocateEverwellForm.value.agentId.length",this.allocateEverwellForm.value.agentId.length);
     let tempValue = Math.floor(outboundlistCount.length / this.allocateEverwellForm.value.agentId.length);
     this.initialCount = tempValue;
     this.allocateEverwellForm.patchValue({
@@ -233,7 +237,17 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   getUnallocateCall(serviceProviderMapId, value) {
     // tslint:disable-next-line:max-line-length
     console.log(value, "value");    
-    this.getOutboundCall(serviceProviderMapId, value.assignedUserID, false);
+    let startDate: Date = new Date(value.startDate);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    let endDate: Date = new Date(value.endDate);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    this.getOutboundCall(serviceProviderMapId, startDate,
+      endDate, value.assignedUserID,value.langaugeName.langName, false);
+    //this.getOutboundCall(serviceProviderMapId, value.assignedUserID, false);
   }
 }
 
