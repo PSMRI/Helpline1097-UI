@@ -9,7 +9,7 @@ export class OutboundReAllocationService {
 
     test = [];
     data: any;
-     _baseurl: String = this._config.getCommonBaseURL();
+    _baseurl: String = this._config.getCommonBaseURL();
     // _baseurl:String='http://localhost:8080/';
     private _geturl: string = this._baseurl + 'user/getUsersByProviderID';
     private _getRolesURL: string = this._baseurl + 'user/getRolesByProviderID';

@@ -10,8 +10,8 @@ export class OutboundSearchRecordService {
 
     test = [];
     data: any;
-     _baseurl: String = this._config.getCommonBaseURL();
-    //  _baseurl='http://localhost:8080/';
+    _baseurl: String = this._config.getCommonBaseURL();
+      //_baseurl='http://localhost:8080/';
     private _outboundCalls: string = this._baseurl + 'call/outboundCallList';
     private _outboundCallsCount: string = this._baseurl + 'call/outboundCallCount';
     private _everwelloutboundCallsCount: string = this._baseurl + 'everwellCall/outboundCallCount';
@@ -36,13 +36,17 @@ export class OutboundSearchRecordService {
         }
         return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleError);
     }
-    getEverwellUnallocatedCalls(serviceID: any, agentId?: any) {
+    getEverwellUnallocatedCalls(serviceID: any, startDate?: any, endDate?: any, language?: any,agentId?: any) {
         const obj = {};
         if (agentId) {
             obj['providerServiceMapId'] = serviceID;
             obj['agentId'] = agentId;
+            obj['preferredLanguageName'] = language;
         } else {
             obj['providerServiceMapId'] = serviceID;    
+            obj['filterStartDate'] = startDate;
+            obj['filterEndDate'] = endDate;
+            obj['preferredLanguageName'] = language;
         }
         return this._httpInterceptor.post(this._outboundEverwellCalls, obj).map(this.extractData).catch(this.handleError);
     }
@@ -60,13 +64,15 @@ export class OutboundSearchRecordService {
         }
         return this._httpInterceptor.post(this._outboundCallsCount, obj).map(this.extractData).catch(this.handleError);
     }
-    getEverwellUnallocatedCallsCount(serviceID: any,  language?: any, userID?: any) {
+    getEverwellUnallocatedCallsCount(serviceID: any, startDate?: any, endDate?: any, language?: any, userID?: any) {
         const obj = {};
         if (userID) {
             obj['providerServiceMapId'] = serviceID;
             obj['agentId'] = userID;
         } else {
-            obj['providerServiceMapId'] = serviceID;           
+            obj['providerServiceMapId'] = serviceID;  
+            obj['filterStartDate'] = startDate;
+            obj['filterEndDate'] = endDate;         
             obj['preferredLanguageName'] = language;
         }
         return this._httpInterceptor.post(this._everwelloutboundCallsCount, obj).map(this.extractData).catch(this.handleError);

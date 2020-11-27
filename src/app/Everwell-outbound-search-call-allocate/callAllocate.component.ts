@@ -43,9 +43,14 @@ export class CallAllocateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serviceProviderMapID = this.saved_data.current_service.serviceID; 
+    this.serviceProviderMapID = this.saved_data.current_service.serviceID;
+    this.startOutboundDate = new Date();
+    this.endOutboundDate = new Date();
+    this.endOutboundDate.setDate(this.endOutboundDate.getDate() + 7);
+    this.startOutboundDate.setHours(0,0,0,0);
+    this.endOutboundDate.setHours(0,0,0,0);
     //  this.endOutboundDate.setDate(this.startOutboundDate.getDate() + 7);
-    this.getOutboundCallCount(this.serviceProviderMapID);
+    this.getOutboundCallCount(this.serviceProviderMapID, this.startOutboundDate, this.endOutboundDate);
     this.getLanguages();
     this.showCount = false;
   }
@@ -53,8 +58,8 @@ export class CallAllocateComponent implements OnInit {
     this.getOutboundCallCount(data.providerServiceMapId, data.language);
     this.showCount = false;
   }
-  getOutboundCallCount(serviceProviderMapID,  language?: any) {
-    this._OSRService.getEverwellUnallocatedCallsCount(serviceProviderMapID, language)
+  getOutboundCallCount(serviceProviderMapID,  startDate?: any, endDate?: any,language?: any) {
+    this._OSRService.getEverwellUnallocatedCallsCount(serviceProviderMapID,startDate,endDate, language)
       .subscribe(resProviderData => {
         this._unAllocatedCalls = resProviderData.data;
         // this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
@@ -64,14 +69,15 @@ export class CallAllocateComponent implements OnInit {
         this.alertService.alert(err.errorMessage,'error');
       }
   }
-  allocateCalls(language: any, event) {
+  allocateCalls(startDate: Date, endDate: Date, language: any, event) {
     // console.log('valuse: ' + values);
     if (this._unAllocatedCalls.length > 0) {
       this.showFlage = true;
     }
     const outboundObj = {};
     //  outboundObj['outboundList'] = values;
-  
+    outboundObj['startDate'] = startDate;
+    outboundObj['endDate'] = endDate;
     if (language || language !== "") {
       outboundObj['langaugeName'] = { langName: language };
     }
@@ -86,37 +92,37 @@ export class CallAllocateComponent implements OnInit {
 
     });
   }
-  // start search on start and end date 
-  // getUnallocateCall(values) {
-  //   // tslint:disable-next-line:max-line-length
-  //   this.showFlage = false;
-  //   let startDate: Date = new Date(values.filterStartDate);
-  //   let endDate: Date = new Date(values.filterEndDate);
+  //start search on start and end date 
+  getUnallocateCall(values) {
+    // tslint:disable-next-line:max-line-length
+    this.showFlage = false;
+    let startDate: Date = new Date(values.filterStartDate);
+    let endDate: Date = new Date(values.filterEndDate);
 
-  //   startDate.setHours(0);
-  //   startDate.setMinutes(0);
-  //   startDate.setSeconds(0);
-  //   startDate.setMilliseconds(0);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0);
 
-  //   endDate.setHours(23);
-  //   endDate.setMinutes(59);
-  //   endDate.setSeconds(59);
-  //   endDate.setMilliseconds(0);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    endDate.setMilliseconds(0);
 
-  //   startDate = new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000);
-  //   endDate = new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000);
+    startDate = new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000);
+    endDate = new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000);
     
-  //   if (!values.preferredLanguageName || values.preferredLanguageName === 'undefined') {
-  //     this.getOutboundCallCount(this.serviceProviderMapID, startDate,
-  //       endDate);
-  //     this.selectedlangflag = false;
-  //   } else {
-  //     this.getOutboundCallCount(this.serviceProviderMapID, startDate,
-  //       endDate, values.preferredLanguageName.languageName);
-  //     this.selectedlangflag = true;
-  //   }
-  // }
-  // end
+    if (!values.preferredLanguageName || values.preferredLanguageName === 'undefined') {
+      this.getOutboundCallCount(this.serviceProviderMapID, startDate,
+        endDate);
+      this.selectedlangflag = false;
+    } else {
+      this.getOutboundCallCount(this.serviceProviderMapID, startDate,
+        endDate, values.preferredLanguageName.languageName);
+      this.selectedlangflag = true;
+    }
+  }
+  
 
   blockey(e: any) {
     if (e.keyCode === 9) {
