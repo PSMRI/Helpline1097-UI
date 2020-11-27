@@ -7,7 +7,7 @@
 </div>
 
   
-        <md-dialog-content style="min-height:300px" *ngIf='isFeedbackData === undefined'>
+        <md-dialog-content style="min-height:300px" *ngIf='isFeedbackData.length===0'>
         <form #form="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <label class="control-label">Missed Doses: {{everwellBenData.MissedDoses}}</label>
@@ -92,6 +92,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" *ngIf="addNum">
                 <md-form-field [style.width]="'100%'">
                     <input 
+                    myMobileNumber
                     mdInput
                     allowText="number" mdInput placeholder="Secondary Mobile Number" [(ngModel)]="mblNum" name="mblNum" #mblNum1="ngModel" minlength="10"
                     maxlength="10"
@@ -102,7 +103,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
-                <button md-raised-button color="accent" style="margin: 25px;" class="pull-right" (click)="submitFeedback(form.value)"
+                <button md-raised-button color="accent"  class="pull-right" (click)="submitFeedback(form.value)"
                     [disabled]="!form.valid">Submit</button>
             </div>
 
@@ -111,29 +112,29 @@
     </md-dialog-content>
   
 
-<div class="container-fluid table-responsive" *ngIf='isFeedbackData !== undefined'>
-    <table class="table table-no-border casesheet-table">
+<div class="container-fluid table-responsive" *ngIf='isFeedbackData.length!==0'>
+    <table class="table table-no-border casesheet-table" *ngFor="let feedBackData of isFeedbackData">
         <tr>
             <th>Missed Doses:</th>
-            <td> {{isFeedbackData?.MissedDoses}} </td>
+            <td> {{feedBackData?.MissedDoses}} </td>
             <th>Adherence Percentage:</th>
-            <td>{{isFeedbackData?.AdherencePercentage}} </td>
+            <td>{{feedBackData?.AdherencePercentage}} </td>
         </tr>
         <tr>
             <th>Category:</th>
-            <td> {{isFeedbackData?.category}} </td>
+            <td> {{feedBackData?.category}} </td>
             <th>Subcategory:</th>
-            <td>{{isFeedbackData?.subCategory}} </td>
+            <td>{{feedBackData?.subCategory}} </td>
         </tr>
         <tr>
             <th>ActionTaken:</th>
-            <td> {{isFeedbackData?.actionTaken}} </td>
+            <td> {{feedBackData?.actionTaken}} </td>
             <th>Date Of Action:</th>
             <td>{{lastDay}} </td>
         </tr>
         <tr>
             <th>Comments:</th>
-            <td> {{isFeedbackData?.comments}} </td>
+            <td> {{feedBackData?.comments}} </td>
         </tr>
         <tr></tr>
     </table>

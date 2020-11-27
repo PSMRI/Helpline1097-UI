@@ -155,7 +155,7 @@ export class EverwellWorklistComponent implements OnInit {
     this.previousDay = this.previousDay.substring(0,10);
 
     let dialog_Ref = this.dialog.open(SupportActionModal, {
-     // height: '700px',
+      height: '550px',
       width: '700px',
       disableClose: true,
       data: this.previousDay,
@@ -164,7 +164,7 @@ export class EverwellWorklistComponent implements OnInit {
     dialog_Ref.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
       if (result === "success") {
-       // this.dialogService.alert("Updated successfully", 'success');
+      //  this.dialogService.alert("Updated successfully", 'success');
         //this.getAllProviderAdminDetails();
         //this.tableMode = true;
         //this.formMode = false;
@@ -377,11 +377,12 @@ export class SupportActionModal {
   actionTaken:any=["Call"]
   feedbackData: any = [];
   emailPattern = /^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\.\b(org|com|COM|IN|in|co.in)\b$/;
-  isFeedbackData:string;
+  isFeedbackData=[];
   addNum: boolean;
   @ViewChild('editAdminCreationForm') editAdminCreationForm: NgForm;
   everwellBenData: any;
   lastDay: any;
+  feedbackFlag: any;
  
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
@@ -395,11 +396,25 @@ export class SupportActionModal {
     // this.superadminService.getAllMaritalStatus().subscribe(response => this.showAllMaritalSuccessHandler(response));
    // this.edit();
    this.everwellBenData = this._common.outboundEverwellData;
-   this.everwellBenData.currentMonthMissedDoses=22;
+   this.everwellBenData.currentMonthMissedDoses=this._common.outboundEverwellData.CurrentMonthMissedDoses;
    console.log('EverWell Ben Data'+ this.everwellBenData);
    this.dob=this.data;
    this.lastDay= this.dob;
-   this.isFeedbackData= this._common.feedbackData;
+  //  this.isFeedbackData= this._common.feedbackData;
+  this.feedbackData= this._common.feedbackData;
+  console.log("this.feedbackData",this.feedbackData)
+  
+   this.isFeedbackData = this.feedbackData.filter(
+    result => result.dateOfAction == this.datepipe.transform(new Date(this.dob), 'yyyy-MM-dd')
+    
+  );
+   
+
+  
+
+   
+
+   
   }
 
   preventTyping(e: any) {
@@ -433,9 +448,12 @@ export class SupportActionModal {
       providerObj['secondaryPhoneNo']=null;
     }
     this._callservice.postEverwellFeedback(providerObj).subscribe((response) => {
-      if(response.response == "1"){
-        this._common.feedbackData = providerObj;
-        this.feedbackData = providerObj;        
+      console.log("response",response);
+      if(response.response === "Data saved successfully"){
+        // this._common.feedbackData = providerObj;
+        // this.feedbackData = providerObj;    
+        this._common.feedbackData.push(providerObj);
+     
         this.alertMaessage.alert('Feedback updated successfully', 'success');
         this.dialogRef.close();
         console.log('Feedback updated successfully', response);
@@ -447,6 +465,8 @@ export class SupportActionModal {
   }
 
   closeModal() {
+   this.isFeedbackData=[];
+
     this.dialogRef.close(false);
   }
   addNumber(status) {
