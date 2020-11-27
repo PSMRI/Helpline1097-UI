@@ -167,15 +167,17 @@ export class EverwellAllocateRecordsComponent implements OnInit {
         this.alertMessage.alert('Call allocated successfully', 'success');
         this.afterAllocate = false;
         let obj = {};
-        // if (this.outboundCallRequests.startDate) {
-        //   obj['startDate'] = this.outboundCallRequests.startDate;
-        //   obj['endDate'] = this.outboundCallRequests.endDate;
-        // }
+        console.log("outboundCallRequests",this.outboundCallRequests);
+        if (this.outboundCallRequests.startDate) {
+          obj['startDate'] = this.outboundCallRequests.startDate;
+          obj['endDate'] = this.outboundCallRequests.endDate;
+        }
         obj['providerServiceMapId'] = this.providerServiceMapID;
 
         // if (this.outboundCallRequests.langaugeName) {
         //   obj['language'] = this.outboundCallRequests.langaugeName.langName;
         // }
+        console.log("object",obj);
         this.outboundCount.emit(obj);
         this.everwellrefreshScreen.emit();
         // this.getUnallocateCall(this.providerServiceMapID);

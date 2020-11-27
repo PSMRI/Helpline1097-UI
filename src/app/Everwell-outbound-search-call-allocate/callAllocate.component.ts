@@ -55,7 +55,7 @@ export class CallAllocateComponent implements OnInit {
     this.showCount = false;
   }
   assignCount(data: any) {
-    this.getOutboundCallCount(data.providerServiceMapId, data.language);
+    this.getOutboundCallCount(data.providerServiceMapId, data.startDate, data.endDate, data.language);
     this.showCount = false;
   }
   getOutboundCallCount(serviceProviderMapID,  startDate?: any, endDate?: any,language?: any) {
