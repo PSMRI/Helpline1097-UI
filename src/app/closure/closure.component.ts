@@ -329,7 +329,7 @@ export class ClosureComponent implements OnInit
       });
   }
   closeCall(values: any, btnType: any) {
-
+    this.saved_data.everwellCallNotConnected=null;
     values.isFeedback = this.isFeedbackRequiredFlag;
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.beneficiaryRegID;
