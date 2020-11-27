@@ -119,24 +119,33 @@
             <td> {{feedBackData?.MissedDoses}} </td>
             <th>Adherence Percentage:</th>
             <td>{{feedBackData?.AdherencePercentage}} </td>
+            <th>Current Month Missed Doses:</th>
+            <td>{{feedBackData?.currentMonthMissedDoses}} </td>
         </tr>
         <tr>
             <th>Category:</th>
             <td> {{feedBackData?.category}} </td>
             <th>Subcategory:</th>
             <td>{{feedBackData?.subCategory}} </td>
+            <th></th>
+            <td></td>
         </tr>
         <tr>
             <th>ActionTaken:</th>
             <td> {{feedBackData?.actionTaken}} </td>
             <th>Date Of Action:</th>
             <td>{{lastDay}} </td>
+            <th></th>
+            <td></td>
         </tr>
         <tr>
+            <th>Secondary Mobile Number:</th>
+            <td> {{feedBackData?.secondaryPhoneNo}} </td>
             <th>Comments:</th>
             <td> {{feedBackData?.comments}} </td>
+            <th></th>
+            <td></td>
         </tr>
-        <tr></tr>
     </table>
     <div class="row m-t-20">
         <div class="col-sm-12 step-btn m-t-100">
