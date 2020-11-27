@@ -97,7 +97,8 @@ export class InnerpageComponent implements OnInit {
     private renderer: Renderer,
     private Czentrix: CzentrixServices,
     private listnerService: ListnerService,
-    private authService: AuthService
+    private authService: AuthService,
+    private _common: dataService
     // private closureComponent: ClosureComponent
 
   ) {
@@ -566,6 +567,7 @@ export class InnerpageComponent implements OnInit {
       this.getAgentStatus();
       this.disconnectCall();
       this.startCallWraupup(eventData);
+      this._common.everwellCallNotConnected="yes";
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }

@@ -58,7 +58,7 @@ export class dataService {
 	//       this.reset_flag = false;
 	//       this.myBool$ = this.reset_flag.asObservable();
 	//   }
-
+    everwellCallNotConnected:any;
 	beneficiary_regID_subject=new Subject();
 };
 

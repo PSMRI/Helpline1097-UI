@@ -370,7 +370,7 @@ export interface month {
 export class SupportActionModal {
   // arrays  
   
-  subcategries:any=["Dose not taken","Dose taken but did not call TFN","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the cal","Others"];  
+  subcategries:any=["Dose not taken","Dose taken but not reported by technology","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the call","Others"];  
   category:any=["Support_Action_Call"];
   comments:any;
   dob: any;
@@ -395,6 +395,11 @@ export class SupportActionModal {
     // this.superadminService.getAllQualifications().subscribe(response => this.getEduQualificationSuccessHandler(response));
     // this.superadminService.getAllMaritalStatus().subscribe(response => this.showAllMaritalSuccessHandler(response));
    // this.edit();
+   console.log("this._common.everwellCallNotConnected",this._common.everwellCallNotConnected);
+   if(this._common.everwellCallNotConnected==="yes")
+   {
+    this.subcategries=["Phone not reachable","Phone switched off","Did not receive the call","Wrong Phone number","Others"];  
+   }
    this.everwellBenData = this._common.outboundEverwellData;
    this.everwellBenData.currentMonthMissedDoses=this._common.outboundEverwellData.CurrentMonthMissedDoses;
    console.log('EverWell Ben Data'+ this.everwellBenData);
