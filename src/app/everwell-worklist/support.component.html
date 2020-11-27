@@ -16,6 +16,10 @@
                 <label class="control-label">Adherence Percentage: {{everwellBenData.AdherencePercentage}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <label class="control-label">Current Month Missed Doses: {{everwellBenData.currentMonthMissedDoses}}</label>
+            </div>
+            <div class="clearfix visible-md visible-lg"></div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                     <input mdInput style="display:none"> -->
                 <md-select placeholder="Category" [style.width]="'100%'" [(ngModel)]="category" name="category"
@@ -81,11 +85,28 @@
 
             </div>
 
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" style="padding-top: 2%">
+                <md-checkbox color="primary" name="addMblNum" [(ngModel)]="addMblNum" (change)="addNumber($event)">Add Mobile Number</md-checkbox>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" *ngIf="addNum">
+                <md-form-field [style.width]="'100%'">
+                    <input 
+                    mdInput
+                    allowText="number" mdInput placeholder="Secondary Mobile Number" [(ngModel)]="mblNum" name="mblNum" #mblNum1="ngModel" minlength="10"
+                    maxlength="10"
+                    [min]="10"/>
+                    <md-error *ngIf="mblNum1.errors?.minlength">
+                         Mobile Number should be 10-digits</md-error>
+                </md-form-field>
+            </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
                 <button md-raised-button color="accent" style="margin: 25px;" class="pull-right" (click)="submitFeedback(form.value)"
                     [disabled]="!form.valid">Submit</button>
             </div>
+
+
         </form>
     </md-dialog-content>
   
