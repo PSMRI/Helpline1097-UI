@@ -114,9 +114,10 @@
             <label class="labelwidth"
               [ngClass]="{'currentMonth': checkcurrent(slots.name)}"><b>{{slots.name}}</b></label><br />
             <md-chip-list #chipList [selectable]="true" aria-label="Fish selection">
-              <md-chip *ngFor="let slot of createRange(slots.days)"
-                [ngClass]="{'currentDay': checkcurrentMonthDay(slots.name,slot)}"
-                (click)=" checkcurrentMonthDay(slots.name,slot) && callsupportdialog()">
+              <md-chip *ngFor="let slot of createRange(slots.days)" 
+              [ngClass]="{'currentDay': checkcurrentMonthDay(slots.name,slot)}"
+
+                (click)="checkcurrentMonthDay(slots.name,slot) && callsupportdialog()">
                 {{(slot < 10 ? '0' : '') + slot }}
               </md-chip>
             </md-chip-list>
@@ -124,5 +125,6 @@
         </div>
       </div>
   </div>
+
   </div>
 </div>
