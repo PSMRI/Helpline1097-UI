@@ -24,6 +24,7 @@ export class EverwellWorklistComponent implements OnInit {
   name: any;
   showCalender= false;
   @Output() everwellBeneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() submitFeedback: EventEmitter<any> = new EventEmitter<any>();
 
   //Calender
   val: string; date: Date;
@@ -162,8 +163,13 @@ export class EverwellWorklistComponent implements OnInit {
       panelClass: 'headerTitle'
     });
     dialog_Ref.afterClosed().subscribe(result => {
-      //console.log(`Dialog result: ${result}`);
+      //console.log(`Dialog result: ${result}`);\
+      this.submitFeedback.emit(this._common.checkEverwellResponse);
+      console.log("result1",result);
       if (result === "success") {
+        console.log("result",result);
+        
+        
       //  this.dialogService.alert("Updated successfully", 'success');
         //this.getAllProviderAdminDetails();
         //this.tableMode = true;
@@ -332,6 +338,7 @@ export class EverwellWorklistComponent implements OnInit {
     this.data.state = outboundData.State;
     this.data.Gender = outboundData.Gender;
     this.data.district = outboundData.District;
+    this.data.eapiId = outboundData.eapiId;
 
     const startCallData: any = {};
     startCallData.callID = this._common.callID;
@@ -406,13 +413,17 @@ export class SupportActionModal {
    this.dob=this.data;
    this.lastDay= this.dob;
   //  this.isFeedbackData= this._common.feedbackData;
-  this.feedbackData= this._common.feedbackData;
-  console.log("this.feedbackData",this.feedbackData)
-  
-   this.isFeedbackData = this.feedbackData.filter(
-    result => result.dateOfAction == this.datepipe.transform(new Date(this.dob), 'yyyy-MM-dd')
+  console.log("checkFeedback",this._common.feedbackData)
+  if(this._common.feedbackData){
+    this.feedbackData= this._common.feedbackData;
+    console.log("this.feedbackData",this.feedbackData)
     
-  );
+     this.isFeedbackData = this.feedbackData.filter(
+      result => result.dateOfAction == this.datepipe.transform(new Date(this.dob), 'yyyy-MM-dd')
+      
+    );
+  }
+  
    
 
   
@@ -430,6 +441,7 @@ export class SupportActionModal {
     }
   }
   submitFeedback(item){
+    
     if(!this._common.outboundEverwellData)
     {
       this.alertMaessage.alert("Please select Beneficiary", 'error');
@@ -458,7 +470,7 @@ export class SupportActionModal {
         // this._common.feedbackData = providerObj;
         // this.feedbackData = providerObj;    
         this._common.feedbackData.push(providerObj);
-     
+        this._common.checkEverwellResponse = true;
         this.alertMaessage.alert('Feedback updated successfully', 'success');
         this.dialogRef.close();
         console.log('Feedback updated successfully', response);
