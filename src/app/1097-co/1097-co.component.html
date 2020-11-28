@@ -79,8 +79,8 @@
           <div id="myCarouselEverwell" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
             <div class="carousel-inner">
               <div class="item active">            
-                <app-everwell-worklist (everwellBeneficiarySelected)="getEverwellSelectedBenDetails($event);" ></app-everwell-worklist>
-              </div>  
+                <app-everwell-worklist (everwellBeneficiarySelected)="getEverwellSelectedBenDetails($event);" (submitFeedback)="changeSubmitFlag($event);" ></app-everwell-worklist>
+              </div>               
               <div class="item ">             
                 <app-closure (callClosed)="closeCall($event);" (closedContinue)="closedContinue()" #closure [current_language]="currentlanguage"></app-closure>
               </div>
@@ -97,7 +97,7 @@
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-xs-6 center-btn" align="center">
             <button type="button" id="btnCancel" value="Cancel" md-raised-button class="mar-right" color="primary" data-slide-to="1"
-              (click)="openDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>
+              (click)="openDialog()">{{currentlanguage.co?.cancel}}</button>
             <button type="button" id="btnClosure" value="Close" md-raised-button color="primary" data-slide-to="4" (click)="openDialogClosure()"
               [disabled]="isClosureDisable">{{currentlanguage.co?.closure}}</button>
           </div>
@@ -113,7 +113,7 @@
             <button type="button" id="btnCancel" value="Cancel" md-raised-button class="mar-right" color="primary" data-slide-to="1"
               (click)="openEverwellDialog()" [disabled]="isCancelDisable">{{currentlanguage.co?.cancel}}</button>
             <button type="button" id="btnClosure" value="Close" md-raised-button color="primary" data-slide-to="4" (click)="openEverwellDialogClosure()"
-              [disabled]="isClosureDisable">{{currentlanguage.co?.closure}}</button>
+              [disabled]="isClosureDisable || !submitCheck">{{currentlanguage.co?.closure}}</button>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
             <button id="next" type="button" md-raised-button color="primary" class="pull-right " href="#myCarouselEverwell" data-slide="next"

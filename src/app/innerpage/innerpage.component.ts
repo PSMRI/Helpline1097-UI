@@ -84,6 +84,9 @@ export class InnerpageComponent implements OnInit {
   everwellState: any;
   everwellDistrict: any;
   everwellGender: any;
+  eapiID: any;
+  everwelleapiId: any;
+  everwellSubmitBtn: boolean = false;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -97,7 +100,8 @@ export class InnerpageComponent implements OnInit {
     private renderer: Renderer,
     private Czentrix: CzentrixServices,
     private listnerService: ListnerService,
-    private authService: AuthService
+    private authService: AuthService,
+    private _common: dataService
     // private closureComponent: ClosureComponent
 
   ) {
@@ -125,7 +129,7 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
-
+    
     this.current_service = this.getCommonData.current_service.serviceName;
     this.current_role = this.getCommonData.current_role.RoleName;
     const obj = { 'innerPage': true };
@@ -564,13 +568,49 @@ export class InnerpageComponent implements OnInit {
     } else if (eventData[0] === 'CustDisconnect' && !this.transferInProgress
       && (sessionVar.test(eventData[1]) || eventData[1] === '')) {
       this.getAgentStatus();
-      this.disconnectCall();
+      console.log("this.isEverwell ",this.isEverwell );
+      
+      if(this.isEverwell != "yes"){
+        this.disconnectCall();
+      }      
       this.startCallWraupup(eventData);
+      this._common.everwellCallNotConnected="yes";
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
   }
-  closeCall(eventData, remarks, message?: any, wrapupCallID?: any) {
+  closeCall(eventData, remarks, message?: any, wrapupCallID?: any) {    
+    
+
+    if(this.isEverwell === "yes" && this.everwellSubmitBtn ){
+      console.log("submitting the everwellrsponse", this.everwellSubmitBtn );
+      console.log("submitting the everwellrsponse", this.isEverwell  );
+      
+      let outboundObj = {};
+      outboundObj['eapiId'] = this._common.outboundEverwellData.eapiId;
+      outboundObj['assignedUserID'] = this._common.uid;
+      outboundObj['isCompleted'] = true;
+      outboundObj['beneficiaryRegId'] = this._common.outboundEverwellData.beneficiaryRegId;
+      outboundObj['callTypeID'] = this.wrapupCallID.toString();
+      outboundObj['benCallID'] = this.getCommonData.callData.benCallID;
+      outboundObj['callId'] = this._common.callID;
+      outboundObj['providerServiceMapId'] = this.getCommonData.current_service.serviceID;
+      outboundObj['requestedServiceID'] = null;
+      outboundObj['preferredLanguageName'] = "All"
+      outboundObj['createdBy'] = this._common.uname;
+
+      this._callServices.closeEverwellOutBoundCall(outboundObj).subscribe((response) => {
+       console.log("everwell data updated");
+       
+      }, (err) => {
+        this.remarksMessage.alert(err.status, 'error');
+      })
+
+      console.log("everwell obj" , outboundObj);
+    }
+    
+      
+
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
     if (!this.transferInProgress) {
@@ -608,6 +648,7 @@ export class InnerpageComponent implements OnInit {
         sessionStorage.removeItem('isOnCall');
         sessionStorage.removeItem('isEverwellCall');
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
+        this._common.everwellCallNotConnected = null;
         // this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
         //   console.log('disconnect response', res);
 
@@ -652,6 +693,7 @@ export class InnerpageComponent implements OnInit {
       this.ticks = (this.timeRemaining - t);
       this.ticks = this.ticks + 's';
       const remarks = 'Call disconnect from customer.';
+      
       if (t == this.timeRemaining) {
         // this.remarksMessage.close();
         this.closeCall(eventData, remarks, 'Call closed successfully', this.wrapupCallID);
@@ -720,5 +762,8 @@ export class InnerpageComponent implements OnInit {
     if (this.wrapupTimerSubscription)
       this.wrapupTimerSubscription.unsubscribe();
 
+  }
+  checkSubmitBtnStatus(everwellSubmitBtnStatus){
+    this.everwellSubmitBtn = everwellSubmitBtnStatus;
   }
 }

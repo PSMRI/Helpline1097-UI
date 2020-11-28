@@ -42,7 +42,9 @@ export class helpline1097CoComponent implements OnInit {
   @Output() everwellBeneficiarySelected: EventEmitter<any> = new EventEmitter<any>();  
   @Output() getHistory: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
+  @Output() submitBtnCheck : EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancel') cancel;
+  submitCheck: boolean;
 
   constructor(
     public getCommonData: dataService,
@@ -94,6 +96,10 @@ export class helpline1097CoComponent implements OnInit {
     });
     this.disableBack = true;
     this.isEverwell = sessionStorage.getItem("isEverwellCall");
+
+    this.submitCheck = this.getCommonData.checkEverwellResponse;
+    console.log("submitCheck", this.submitCheck);
+    
     console.log('isEverwell'+this.isEverwell);    
   }
 
@@ -108,6 +114,8 @@ export class helpline1097CoComponent implements OnInit {
   /*experiment*/
   OUT: boolean;
   ngOnChanges() {
+    this.submitCheck = this.getCommonData.checkEverwellResponse;
+    console.log("submitCheckOn", this.submitCheck);
     this.setLanguage(this.current_language);
     if (this.getCommonData.current_campaign == 'OUTBOUND') {
       this.OUT = true;
@@ -395,5 +403,11 @@ export class helpline1097CoComponent implements OnInit {
   }
   setFlag(data) {
     this.disableBack = !data.beneficiarySelected;
+  }
+  changeSubmitFlag(submitFlag){
+    this.submitCheck = submitFlag;
+    this.submitBtnCheck.emit(submitFlag);
+    console.log("submitflag",submitFlag);
+     
   }
 }

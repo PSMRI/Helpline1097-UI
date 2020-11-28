@@ -46,10 +46,15 @@ export class EverwellOutboundWorklistComponent implements OnInit {
   }
   //   modaldata:any;
   viewHistory(data: any) {
+    this._common.everwellCallNotConnected=null;
+    this._common.checkEverwellResponse = false;
+    this._common.feedbackData = [];
     this._common.outboundBenRegID = data.beneficiaryRegId;
     // this._common.beneficiaryID = data.beneficiaryID;
     //  this.onOutboundCall.emit(data); code commented, since routing implemented, calling which was happenning in parent is now here....gursimran 24/5/18
     this._common.outboundEverwellData = data;
+    console.log("data54", data);
+    
     this.cz_service.manualDialaNumber("", data.PrimaryNumber).subscribe((res) => {
       if (res.status.toLowerCase() === 'fail') {
         this.alertService.alert('Something went wrong in calling', 'error');

@@ -48,7 +48,7 @@ export class dataService {
 	beneficiaryRegID: any;
 	outboundData: any;
 	outboundEverwellData: any;
-	feedbackData: any;
+	feedbackData=[];
 	// beneficiaryID: any;
 	// myBool$: Observable<boolean>;
 
@@ -58,8 +58,9 @@ export class dataService {
 	//       this.reset_flag = false;
 	//       this.myBool$ = this.reset_flag.asObservable();
 	//   }
-
+    everwellCallNotConnected:any = "No";
 	beneficiary_regID_subject=new Subject();
+	checkEverwellResponse :boolean = false;
 };
 
 

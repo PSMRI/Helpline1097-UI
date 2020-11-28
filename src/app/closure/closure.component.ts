@@ -95,6 +95,8 @@ export class ClosureComponent implements OnInit
   }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
+    console.log("everwellcallnotconnected",this.saved_data.everwellCallNotConnected);
+    console.log("condition",(this.saved_data.everwellCallNotConnected==="yes"));
     this.beneficiaryRegID = this.saved_data.beneficiaryRegID;
     let requestObject = { 'providerServiceMapID': this.saved_data.current_service.serviceID };
     if (this.saved_data.current_campaign == 'INBOUND') {
@@ -327,7 +329,7 @@ export class ClosureComponent implements OnInit
       });
   }
   closeCall(values: any, btnType: any) {
-
+    this.saved_data.everwellCallNotConnected=null;
     values.isFeedback = this.isFeedbackRequiredFlag;
     values.benCallID = this.saved_data.callData.benCallID;
     values.beneficiaryRegID = this.beneficiaryRegID;
@@ -391,6 +393,7 @@ export class ClosureComponent implements OnInit
 
     } else {
       if (btnType === 'submitClose') {
+        this.saved_data.everwellCallNotConnected=null;
         this._callServices.closeCall(values).subscribe((response) => {
           if (response) {
             this.showAlert();
@@ -400,7 +403,7 @@ export class ClosureComponent implements OnInit
             //   this.closedContinue.emit();
             // }
             // this.pass_data.sendData(this.current_campaign);
-
+            
             /* below lines are commented to use old close call API */
             // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
             //   console.log('disconnect response', res);

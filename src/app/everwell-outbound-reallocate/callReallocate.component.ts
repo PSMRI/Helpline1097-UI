@@ -107,7 +107,7 @@ export class CallReAllocateComponent implements OnInit {
     this.onAgentSelected = false;
     this.showFlag = false;
     console.log(this.searchAgent, "searchAgent");
-    this.agentName = this.searchAgent.FirstName + " " + this.searchAgent.LastName;
+    this.agentName = this.searchAgent.firstName + " " + this.searchAgent.lastName;
     console.log(this.reallocationForm.value, "FORM VALUE");
     this.postData = {
       "providerServiceMapId": this.providerServiceMapID,
