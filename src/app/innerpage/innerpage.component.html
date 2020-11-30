@@ -145,7 +145,7 @@
     <div class="clearfix "></div>
     <div>
       <!-- <router-outlet></router-outlet> -->
-      <app-1097 *ngIf="current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)" (submitBtnCheck)="checkSubmitBtnStatus($event)" (everwellBeneficiarySelected)="getEverwellSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
+      <app-1097 *ngIf="current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)" (submitBtnCheck) = "finalSubmitBtnCheck($event)" (everwellBeneficiarySelected)="getEverwellSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
     </div>
   </div>
   <!-- <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe> -->

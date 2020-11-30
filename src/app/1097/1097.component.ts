@@ -14,7 +14,9 @@ export class helpline1097Component implements OnInit {
 
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   @Output() everwellBeneficiarySelected: EventEmitter<any> = new EventEmitter<any>();  
+  @Output() submitBtnCheck : EventEmitter<any> = new EventEmitter<any>();
   current_role: any;
+  everwellSubmitBtn: any;
   constructor(
     public getCommonData: dataService
   ) { };
@@ -56,5 +58,8 @@ export class helpline1097Component implements OnInit {
 
   show(value) {
     this.Activity_Number = value;
+  }
+  checkSubmitBtnStatus(everwellSubmitBtnStatus){
+    this.submitBtnCheck.emit(everwellSubmitBtnStatus);
   }
 }

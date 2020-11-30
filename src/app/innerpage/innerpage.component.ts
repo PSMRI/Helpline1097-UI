@@ -37,7 +37,7 @@ export class InnerpageComponent implements OnInit {
   counter: number = 0;
   current_campaign: any;
   eventSpiltData: any;
-  wrapUpTimeInSeconds = 30;
+  wrapUpTimeInSeconds = 120;
   // language change stuff
   languageFilePath: any = 'assets/language.js';
   selectedlanguage: any = '';
@@ -45,7 +45,7 @@ export class InnerpageComponent implements OnInit {
   language_change: any;
   beneficiaryRegID: any;
   providerServiceMapId: any;
-  timeRemaining: number = 30;
+  timeRemaining: number = 20;
   ticks: any;
   callStatus: any;
   callTime: boolean = true;
@@ -79,7 +79,7 @@ export class InnerpageComponent implements OnInit {
   everwellFullname: string;
   EverwellBeneficiaryRegID: string;
   everwellPrimaryNumber: string;
-  isEverwell:string;
+  isEverwell:string = "No";
   everwellSelectedBenData:any;
   everwellState: any;
   everwellDistrict: any;
@@ -581,8 +581,11 @@ export class InnerpageComponent implements OnInit {
   }
   closeCall(eventData, remarks, message?: any, wrapupCallID?: any) {    
     
-
-    if(this.isEverwell === "yes" && this.everwellSubmitBtn ){
+    console.log("wrapup",this.wrapupCallID);
+    console.log("transferCallID",this.transferCallID);
+    console.log("submitting the everwellrsponse", this.everwellSubmitBtn );
+    console.log("submitting the everwellrsponse", this.isEverwell  );
+    if(this.isEverwell != undefined && this.isEverwell === "yes" && this.everwellSubmitBtn ){
       console.log("submitting the everwellrsponse", this.everwellSubmitBtn );
       console.log("submitting the everwellrsponse", this.isEverwell  );
       
@@ -591,7 +594,7 @@ export class InnerpageComponent implements OnInit {
       outboundObj['assignedUserID'] = this._common.uid;
       outboundObj['isCompleted'] = true;
       outboundObj['beneficiaryRegId'] = this._common.outboundEverwellData.beneficiaryRegId;
-      outboundObj['callTypeID'] = this.wrapupCallID.toString();
+      outboundObj['callTypeID'] = (this.wrapupCallID === null || this.wrapupCallID === undefined) ? null: this.wrapupCallID.toString();
       outboundObj['benCallID'] = this.getCommonData.callData.benCallID;
       outboundObj['callId'] = this._common.callID;
       outboundObj['providerServiceMapId'] = this.getCommonData.current_service.serviceID;
@@ -614,13 +617,13 @@ export class InnerpageComponent implements OnInit {
     let requestObj = {};
     requestObj['benCallID'] = this.getCommonData.callData.benCallID;
     if (!this.transferInProgress) {
-      requestObj['callTypeID'] = this.wrapupCallID.toString();
+      requestObj['callTypeID'] = (this.wrapupCallID === null || this.wrapupCallID === undefined) ? null : this.wrapupCallID.toString();
       requestObj['fitToBlock'] = 'false';
       requestObj['isFollowupRequired'] = false;
       requestObj['prefferedDateTime'] = undefined;
       requestObj['endCall'] = true;
     } else {
-      requestObj['callTypeID'] = this.transferCallID.toString();
+      requestObj['callTypeID'] = (this.transferCallID === null || this.transferCallID === undefined) ? null : this.transferCallID.toString();
       requestObj['fitToBlock'] = 'false';
       requestObj['isFollowupRequired'] = false;
       requestObj['prefferedDateTime'] = undefined;
@@ -763,7 +766,7 @@ export class InnerpageComponent implements OnInit {
       this.wrapupTimerSubscription.unsubscribe();
 
   }
-  checkSubmitBtnStatus(everwellSubmitBtnStatus){
-    this.everwellSubmitBtn = everwellSubmitBtnStatus;
+  finalSubmitBtnCheck(submitBtnStatus){
+    this.everwellSubmitBtn = submitBtnStatus;
   }
 }
