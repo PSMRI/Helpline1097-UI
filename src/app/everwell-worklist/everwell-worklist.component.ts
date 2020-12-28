@@ -81,8 +81,8 @@ export class EverwellWorklistComponent implements OnInit {
 
   getFeedBackDetails(everwellID){
     let req={
-      // "Id":this.data.Id
-      "Id": 290488
+       "Id":this.data.Id
+      //"Id": 290488
     };
     this.OCRService.getEverwellFeedBackDetails(req).subscribe(response => 
       {
