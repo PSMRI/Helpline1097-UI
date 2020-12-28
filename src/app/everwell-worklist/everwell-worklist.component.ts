@@ -81,12 +81,15 @@ export class EverwellWorklistComponent implements OnInit {
 
   getFeedBackDetails(everwellID){
     let req={
-      "Id":this.data.Id
+      // "Id":this.data.Id
+      "Id": 290488
     };
     this.OCRService.getEverwellFeedBackDetails(req).subscribe(response => 
       {
-        this.feedbackDetails=response.data.feedbackDetails;
         console.log('Everwell Call FeedBack Data is', response);
+        this.feedbackDetails=response.feedbackDetails;
+       
+        console.log('feedBack', this.feedbackDetails);
       },
     (err)=> {
       this.alertService.alert(err.errorMessage,'error');
@@ -94,9 +97,10 @@ export class EverwellWorklistComponent implements OnInit {
     });
   }
 
-checkColorCode(day)
+checkColorCode(day,param1,param2)
 {
-let d;
+  console.log("day11", day);
+let d;let result=null;
 if(this.feedbackDetails != undefined && this.feedbackDetails != null)
 {
   console.log("feed", this.feedbackDetails);
@@ -107,14 +111,17 @@ if(this.feedbackDetails != undefined && this.feedbackDetails != null)
  {
   if(this.feedbackDetails[i].subCategory==="Dose not taken")
   {
-   return "missedDose";
+   result="missedDose";
    }
    else if(this.feedbackDetails[i].subCategory==="Dose taken but not reported by technology")
-   return "mannualDose";
+   result="mannualDose";
    }
   }
 }
-  return "restDose";
+if(result==null)
+  result="restDose";
+  if(this.checkcurrentMonthDay(param1,param2))
+  return result;
  }
 
   tableMode() {
