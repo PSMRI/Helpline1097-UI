@@ -24,8 +24,16 @@
 .currentMonth{
     color: green;
 }
-.currentDay{
+.manualDose{
     background-color: green;
+    cursor: pointer;
+}
+.missedDose{
+    background-color: red;
+    cursor: pointer;
+}
+.restDose{
+    background-color: orange;
     cursor: pointer;
 }
 

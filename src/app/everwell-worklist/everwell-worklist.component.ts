@@ -42,6 +42,7 @@ export class EverwellWorklistComponent implements OnInit {
   previousDay: string;
   ar:any=[];
   dateIndex: number;
+  feedbackDetails: any;
   constructor(public dialog: MdDialog, private OCRService: OutboundReAllocationService,
      private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService,
      private _util: RegisterService,private alertMaessage: ConfirmationDialogsService
@@ -77,6 +78,45 @@ export class EverwellWorklistComponent implements OnInit {
     
 
   }
+
+  getFeedBackDetails(everwellID){
+    let req={
+      "Id":this.data.Id
+    };
+    this.OCRService.getEverwellFeedBackDetails(req).subscribe(response => 
+      {
+        this.feedbackDetails=response.data.feedbackDetails;
+        console.log('Everwell Call FeedBack Data is', response);
+      },
+    (err)=> {
+      this.alertService.alert(err.errorMessage,'error');
+      console.log('Everwell error in call FeedBack Data');
+    });
+  }
+
+checkColorCode(day)
+{
+let d;
+if(this.feedbackDetails != undefined && this.feedbackDetails != null)
+{
+  console.log("feed", this.feedbackDetails);
+ for(var i=0;i<this.feedbackDetails.length;i++)
+ {
+   d=new Date(this.feedbackDetails[i].dateOfAction);
+ if(d.getDate()===day)
+ {
+  if(this.feedbackDetails[i].subCategory==="Dose not taken")
+  {
+   return "missedDose";
+   }
+   else if(this.feedbackDetails[i].subCategory==="Dose taken but not reported by technology")
+   return "mannualDose";
+   }
+  }
+}
+  return "restDose";
+ }
+
   tableMode() {
     this.showTable = true;
     this.showCalender = false;
@@ -89,6 +129,7 @@ export class EverwellWorklistComponent implements OnInit {
     this.showEditForm = false;
     this.showCalender = true;
     this.everwellBeneficiarySelected.emit(benData);    
+    this.getFeedBackDetails(benData);
     }
   }
   getcurrentmonth() {
@@ -326,6 +367,8 @@ export class EverwellWorklistComponent implements OnInit {
     this.data.callID = this._common.callID;
     this.data.is1097 = true;
     //this.data.createdBy = outboundData.everwelldata.createdBy;
+    this.data.Id = outboundData.Id;
+    console.log("ID", this.data);
     this.data.calledServiceID = outboundData.providerServiceMapId;
     this.data.PrimaryNumber = outboundData.PrimaryNumber;
     this.data.agentID = outboundData.agentId;
@@ -493,4 +536,6 @@ export class SupportActionModal {
       this.addNum = false;
     }
   }
+
+ 
 }
