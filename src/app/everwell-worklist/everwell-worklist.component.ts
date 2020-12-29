@@ -459,6 +459,7 @@ export class SupportActionModal {
   editmblNum:any;
   enablecontrols: boolean = true;
   dosecolor: string;
+  efid: any;
 
  
 
@@ -485,6 +486,7 @@ export class SupportActionModal {
    let dateOfAction = new Date(this.dob); 
    console.log("dateAction", dateOfAction);
    this.lastDay= this.dob;
+   
    let ar=this._common.previousFeedback;
    if(ar!=undefined)
    {
@@ -496,7 +498,10 @@ export class SupportActionModal {
       {
         this.gender = ar[i].subCategory;
         this.comments = ar[i].comments;
-
+           if(ar[i].efid != undefined && ar[i].efid != null)
+           {
+             this.efid = ar[i].efid;
+           }
       }
   
      }
@@ -549,8 +554,11 @@ export class SupportActionModal {
       return false;
     }
     const providerObj = {};
+    if(this.efid != undefined && this.efid != null){
+    providerObj['efid'] = this.efid;
+    }
     providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
-    providerObj['Id']=this.everwellBenData.Id,
+    providerObj['Id']=this.everwellBenData.Id;
     providerObj['providerServiceMapId']=this.everwellBenData.providerServiceMapId;
     providerObj['MissedDoses'] = this.everwellBenData.MissedDoses;
     providerObj['currentMonthMissedDoses'] = this.everwellBenData.currentMonthMissedDoses;
