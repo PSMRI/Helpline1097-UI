@@ -7,7 +7,7 @@
 </div>
 
   
-        <md-dialog-content style="min-height:300px" *ngIf='isFeedbackData.length===0'>
+        <md-dialog-content style="min-height:300px" *ngIf='!isfeedbackedit'>
         <form #form="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <label class="control-label">Missed Doses: {{everwellBenData.MissedDoses}}</label>
@@ -86,7 +86,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" style="padding-top: 2%">
-                <md-checkbox color="primary" name="addMblNum" [(ngModel)]="addMblNum" (change)="addNumber($event)">Add Mobile Number</md-checkbox>
+                <md-checkbox color="primary" name="addMblNum" [(ngModel)]="addMblNum" (change)="addNumber($event);mblNum=null">Add Mobile Number</md-checkbox>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" *ngIf="addNum">
@@ -112,41 +112,116 @@
     </md-dialog-content>
   
 
-<div class="container-fluid table-responsive" *ngIf='isFeedbackData.length!==0'>
-    <table class="table table-no-border casesheet-table" *ngFor="let feedBackData of isFeedbackData">
-        <tr>
-            <th>Missed Doses:</th>
-            <td> {{feedBackData?.MissedDoses}} </td>
-            <th>Adherence Percentage:</th>
-            <td>{{feedBackData?.AdherencePercentage}} </td>
-            <th>Current Month Missed Doses:</th>
-            <td>{{feedBackData?.currentMonthMissedDoses}} </td>
-        </tr>
-        <tr>
-            <th>Category:</th>
-            <td> {{feedBackData?.category}} </td>
-            <th>Subcategory:</th>
-            <td>{{feedBackData?.subCategory}} </td>
-            <th></th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>ActionTaken:</th>
-            <td> {{feedBackData?.actionTaken}} </td>
-            <th>Date Of Action:</th>
-            <td>{{lastDay}} </td>
-            <th></th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>Secondary Mobile Number:</th>
-            <td> {{feedBackData?.secondaryPhoneNo}} </td>
-            <th>Comments:</th>
-            <td> {{feedBackData?.comments}} </td>
-            <th></th>
-            <td></td>
-        </tr>
-    </table>
+<div class="container-fluid table-responsive" *ngIf='isfeedbackedit'>
+    <md-dialog-content style="min-height:300px">
+        <form #editform="ngForm" autocomplete="off">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Missed Doses: {{everwellBenData?.MissedDoses}}</label>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <label class="control-label pull-right" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Adherence Percentage: {{everwellBenData?.AdherencePercentage}}</label>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Current Month Missed Doses:
+                    {{everwellBenData?.currentMonthMissedDoses}}</label>
+            </div>            
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <md-slide-toggle id="demographicsToggle" color="primary" class="pull-right"
+                    [checked]="demographicsEditEnabled" (change)="enableControls()" labelPosition="before"><span
+                        style="font-variant-caps: titling-caps; color: #14508c; font-weight: bold;">Edit Feedback</span>
+                </md-slide-toggle>
+            </div>
+            <div class="clearfix visible-md visible-lg" style="padding-bottom: 1%;"></div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput style="display:none"> -->
+                <md-select placeholder="Category" [style.width]="'100%'" [(ngModel)]="editcategory" name="editcategory"
+                    [disabled]='enablecontrols' required>
+                    <md-option *ngFor="let cat of category" [value]="cat">
+                        {{cat}}
+                    </md-option>
+                </md-select>
+                <!-- </md-input-container> -->
+            </div>           
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+                        <input mdInput style="display:none"> -->
+                <md-select placeholder="Subcategory" [style.width]="'100%'" [(ngModel)]="editsubcategries" name="editsubcategries" [disabled]='enablecontrols'
+                    required>
+                    <md-option *ngFor="let item of subcategries" [value]="item">
+                        {{item}}
+                    </md-option>
+                </md-select>
+                <!-- </md-input-container> -->
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+                        <input mdInput style="display:none"> -->
+                <md-select placeholder="ActionTaken" [style.width]="'100%'" [(ngModel)]="editactionTaken" name="editactionTaken" [disabled]='enablecontrols'
+                    required>
+                    <md-option *ngFor="let action of actionTaken" [value]="action">
+                        {{action}}
+                    </md-option>
+                </md-select>
+                <!-- </md-input-container> -->
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+                <!-- <md2-datepicker class="width100" placeholder="Date" [(ngModel)]="dob" name="dob" [min]="mindate"
+                        [max]="maxdate" #dOB="ngModel" (keydown)="preventTyping($event)" required  ></md2-datepicker>
+                    <md-hint class="errorText" *ngIf="dOB.errors && dOB.touched">date is required</md-hint> -->
+
+                <md-input-container>
+                    <input mdInput placeholder="Date Of Action" ngModel [(ngModel)]="editdob" name="editdob"
+                        minlength="2" maxlength="500" #fname="ngModel" readonly required [disabled]='enablecontrols'>
+                    <md-hint *ngIf="dob.touched">
+                        <span class="errorText" [hidden]="!dob.errors">Select Date</span>
+                    </md-hint>
+                </md-input-container>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+                <!-- <md-input-container class="width100">
+                        <input mdInput placeholder="comments" ngModel name="providerAdmin" [(ngModel)]="comments"
+                            name="comments" minlength="2" maxlength="500" #fname="ngModel" required>
+                        <md-hint *ngIf="fname.touched">
+                            <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
+                        </md-hint>
+                    </md-input-container> -->
+                <md-input-container>
+                    <textarea mdInput rows="2" placeholder="Comments" ngModel #fname="ngModel" [(ngModel)]="editcomments"
+                        name="editcomments" required [disabled]='enablecontrols'></textarea>
+                    <md-hint *ngIf="fname.touched">
+                        <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
+                    </md-hint>
+                </md-input-container>
+
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" style="padding-top: 2%">
+                <md-checkbox color="primary" name="addMblNum" [(ngModel)]="editaddMblNum" (change)="addNumber($event);editmblNum=null" [disabled]='enablecontrols'>Add
+                    Mobile Number</md-checkbox>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" *ngIf="addNum">
+                <md-form-field [style.width]="'100%'">
+                    <input myMobileNumber mdInput allowText="number" mdInput placeholder="Secondary Mobile Number"
+                        [(ngModel)]="editmblNum" name="mblNum" #mblNum1="ngModel" minlength="10" maxlength="10"
+                        [min]="10" [disabled]='enablecontrols'/>
+                    <md-error *ngIf="mblNum1.errors?.minlength">
+                        Mobile Number should be 10-digits</md-error>
+                </md-form-field>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
+                <!-- <button md-raised-button color="accent" class="pull-left" (click)="enableControls()">Edit</button> -->
+                <button md-raised-button color="accent" class="pull-right" (click)="updateFeedback(editform.value)"
+                    [disabled]="!(editform.valid && editform.dirty)">Update</button>
+            </div>
+
+
+        </form>
+    </md-dialog-content>
     <div class="row m-t-20">
         <div class="col-sm-12 step-btn m-t-100">
             <button md-raised-button class="pull-right" color="primary" style="margin: 15px;" id="closeModal" (click)="closeModal()">Ok</button>

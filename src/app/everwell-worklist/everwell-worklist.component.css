@@ -24,10 +24,58 @@
 .currentMonth{
     color: green;
 }
-.currentDay{
+.manualDose{
     background-color: green;
     cursor: pointer;
 }
+#demographicsToggle {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    border-color: #ccc;
+    padding: 2px 3px 3px 3px;
+}
+.dosecolor{
+    color: gray;
+}
+.missedDose{
+    background-color: red;
+    cursor: pointer;
+}
+.restDose{
+    background-color: #ff6600;
+    cursor: pointer;
+}
+.others{
+    background-color: #ccff33;
+    cursor: pointer;
+}
+.description {
+    padding-top: 15px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0px;
+  }
+  
+  ul li {
+    display: inline-block;
+    padding: 0 8px;
+  }
+  
+  ul li div,
+  ul li p {
+    display: inline-block;
+  }
+  
+  ul li div {
+    height: 15px;
+    width: 15px;
+  }
+   
+ 
+  
+
 
 
 

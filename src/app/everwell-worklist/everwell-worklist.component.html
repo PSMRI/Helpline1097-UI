@@ -115,7 +115,7 @@
               [ngClass]="{'currentMonth': checkcurrent(slots.name)}"><b>{{slots.name}}</b></label><br />
             <md-chip-list #chipList [selectable]="true" aria-label="Fish selection">
               <md-chip *ngFor="let slot of createRange(slots.days)" 
-              [ngClass]="{'currentDay': checkcurrentMonthDay(slots.name,slot)}"
+              [ngClass]="checkColorCode(slot,slots.name,slot)"
 
                 (click)="checkcurrentMonthDay(slots.name,slot) && callsupportdialog()">
                 {{(slot < 10 ? '0' : '') + slot }}
@@ -123,6 +123,29 @@
             </md-chip-list>
         </div>
         </div>
+      </div>
+      <div class="row slots-container m-t-10 m-b-10">
+        <td colspan="3">
+          <ul class="description">
+            <li>
+              <div class="manualDose"></div>
+              <p> Dose taken but not reported by technology</p>
+            </li>
+            <li>
+              <div class="missedDose"></div>
+              <p> Dose not taken</p>
+            </li>
+            <li>
+              <div class="restDose"></div>
+              <p> Other Subcategories</p>
+            </li>
+            <li>
+              <div class="others"></div>
+              <p> No Previous Feedback</p>
+            </li>
+
+          </ul>
+        </td>  
       </div>
   </div>
 
