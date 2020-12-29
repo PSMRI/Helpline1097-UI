@@ -79,7 +79,7 @@ export class EverwellWorklistComponent implements OnInit {
 
   }
 
-  getFeedBackDetails(everwellID){
+  getFeedBackDetails(){
     let req={
        "Id":this.data.Id
       //"Id": 290488
@@ -114,7 +114,7 @@ if(this.feedbackDetails != undefined && this.feedbackDetails != null)
    result="missedDose";
    }
    else if(this.feedbackDetails[i].subCategory==="Dose taken but not reported by technology")
-   result="mannualDose";
+   result="manualDose";
    
    else
    result="restDose";
@@ -139,7 +139,7 @@ if(result==null)
     this.showEditForm = false;
     this.showCalender = true;
     this.everwellBeneficiarySelected.emit(benData);    
-    this.getFeedBackDetails(benData);
+    this.getFeedBackDetails();
     }
   }
   getcurrentmonth() {
@@ -217,12 +217,14 @@ if(result==null)
     });
     dialog_Ref.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);\
+      this.getFeedBackDetails();
       this.submitFeedback.emit(this._common.checkEverwellResponse);
       console.log("result1",result);
       if (result === "success") {
         console.log("result",result);
         
         
+
       //  this.dialogService.alert("Updated successfully", 'success');
         //this.getAllProviderAdminDetails();
         //this.tableMode = true;
@@ -447,16 +449,6 @@ export class SupportActionModal {
   feedbackFlag: any;
   gender: any;
  
-  editcategory:any=["Support_Action_Call"];
-  editsubcategries:any=["Dose not taken","Dose taken but not reported by technology","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the call","Others"];  
-  editsubcategory:any;
-  editactionTaken:any=["Call"];
-  editdob: any;
-  editcomments:any;
-  editaddMblNum:any;
-  editmblNum:any;
-  enablecontrols: boolean = true;
-  dosecolor: string;
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
   private alertMaessage: ConfirmationDialogsService,public dialogRef: MdDialogRef<SupportActionModal>)
@@ -508,16 +500,6 @@ export class SupportActionModal {
       result => result.dateOfAction == this.datepipe.transform(new Date(this.dob), 'yyyy-MM-dd')
       
     );
-    if(this.isFeedbackData.length > 0){
-      this.editcategory= this.isFeedbackData[0].category;
-      this.editsubcategries=this.isFeedbackData[0].subCategory;
-      this.editactionTaken=this.isFeedbackData[0].actionTaken;
-      this.editdob = this.isFeedbackData[0].dateOfAction;
-      this.editcomments = this.isFeedbackData[0].comments;
-      this.addNum = true;
-      this.editaddMblNum = true;
-      this.editmblNum = this.isFeedbackData[0].secondaryPhoneNo;
-    }
   }
   
    
@@ -557,7 +539,6 @@ export class SupportActionModal {
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.dob), 'yyyy-MM-dd');   
     providerObj['secondaryPhoneNo'] = item.mblNum;
     providerObj['createdBy']=this.everwellBenData.createdBy;
-    providerObj['processed']="N";
     if(providerObj['secondaryPhoneNo']=="" || providerObj['secondaryPhoneNo']==undefined){
       providerObj['secondaryPhoneNo']=null;
     }
@@ -577,13 +558,6 @@ export class SupportActionModal {
       console.log('error in submit Feedback');
     });
   }
-  updateFeedback(item){
-    if(!this._common.outboundEverwellData)
-    {
-      this.alertMaessage.alert("Please select Beneficiary", 'error');
-      return false;
-    }
-  }
 
   closeModal() {
    this.isFeedbackData=[];
@@ -596,10 +570,6 @@ export class SupportActionModal {
     } else {
       this.addNum = false;
     }
-  }
-  enableControls(){    
-    this.enablecontrols = !this.enablecontrols;
-    this.dosecolor= this.enablecontrols?"":"dosecolor";
   }
 
  
