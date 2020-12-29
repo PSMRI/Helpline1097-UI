@@ -28,6 +28,15 @@
     background-color: green;
     cursor: pointer;
 }
+#demographicsToggle {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    border-color: #ccc;
+    padding: 2px 3px 3px 3px;
+}
+.dosecolor{
+    color: gray;
+}
 
 
 
