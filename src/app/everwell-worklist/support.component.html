@@ -116,14 +116,14 @@
     <md-dialog-content style="min-height:300px">
         <form #editform="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Missed Doses: {{feedbackData[0]?.MissedDoses}}</label>
+                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Missed Doses: {{isFeedbackData[0]?.MissedDoses}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label pull-right" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Adherence Percentage: {{feedbackData[0]?.AdherencePercentage}}</label>
+                <label class="control-label pull-right" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Adherence Percentage: {{isFeedbackData[0]?.AdherencePercentage}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Current Month Missed Doses:
-                    {{feedbackData[0]?.currentMonthMissedDoses}}</label>
+                    {{isFeedbackData[0]?.currentMonthMissedDoses}}</label>
             </div>            
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <md-slide-toggle id="demographicsToggle" color="primary" class="pull-right"

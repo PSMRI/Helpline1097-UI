@@ -448,6 +448,18 @@ export class SupportActionModal {
   lastDay: any;
   feedbackFlag: any;
   gender: any;
+
+  editcategory:any=["Support_Action_Call"];
+  editsubcategries:any=["Dose not taken","Dose taken but not reported by technology","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the call","Others"];  
+  editsubcategory:any;
+  editactionTaken:any=["Call"];
+  editdob: any;
+  editcomments:any;
+  editaddMblNum:any;
+  editmblNum:any;
+  enablecontrols: boolean = true;
+  dosecolor: string;
+
  
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
@@ -500,6 +512,17 @@ export class SupportActionModal {
       result => result.dateOfAction == this.datepipe.transform(new Date(this.dob), 'yyyy-MM-dd')
       
     );
+    if(this.isFeedbackData.length > 0){
+      this.editcategory= this.isFeedbackData[0].category;
+      this.editsubcategries=this.isFeedbackData[0].subCategory;
+      this.editactionTaken=this.isFeedbackData[0].actionTaken;
+      this.editdob = this.isFeedbackData[0].dateOfAction;
+      this.editcomments = this.isFeedbackData[0].comments;
+      this.addNum = true;
+      this.editaddMblNum = true;
+      this.editmblNum = this.isFeedbackData[0].secondaryPhoneNo;
+    }
+
   }
   
    
@@ -558,6 +581,14 @@ export class SupportActionModal {
       console.log('error in submit Feedback');
     });
   }
+  updateFeedback(item){
+    if(!this._common.outboundEverwellData)
+    {
+      this.alertMaessage.alert("Please select Beneficiary", 'error');
+      return false;
+    }
+  }
+
 
   closeModal() {
    this.isFeedbackData=[];
@@ -571,6 +602,11 @@ export class SupportActionModal {
       this.addNum = false;
     }
   }
+  enableControls(){    
+    this.enablecontrols = !this.enablecontrols;
+    this.dosecolor= this.enablecontrols?"":"dosecolor";
+  }
+
 
  
 }
