@@ -33,9 +33,40 @@
     cursor: pointer;
 }
 .restDose{
-    background-color: orange;
+    background-color: #ff6600;
     cursor: pointer;
 }
+.others{
+    background-color: #ff66ff;
+    cursor: pointer;
+}
+.description {
+    padding-top: 15px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0px;
+  }
+  
+  ul li {
+    display: inline-block;
+    padding: 0 8px;
+  }
+  
+  ul li div,
+  ul li p {
+    display: inline-block;
+  }
+  
+  ul li div {
+    height: 15px;
+    width: 15px;
+  }
+   
+ 
+  
+
 
 
 

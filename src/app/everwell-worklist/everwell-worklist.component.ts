@@ -67,7 +67,7 @@ export class EverwellWorklistComponent implements OnInit {
     "July", "August", "September", "October", "November", "December"
   ];
      let aDate = new Date();aDate.setDate(aDate.getDate() - 1);
-     console.log(aDate);
+    
      let arr=[];
      for(var i=1;i<=15;i++)
     { aDate = new Date();
@@ -88,7 +88,7 @@ export class EverwellWorklistComponent implements OnInit {
       {
         console.log('Everwell Call FeedBack Data is', response);
         this.feedbackDetails=response.feedbackDetails;
-       
+       this._common.previousFeedback=this.feedbackDetails;
         console.log('feedBack', this.feedbackDetails);
       },
     (err)=> {
@@ -99,11 +99,11 @@ export class EverwellWorklistComponent implements OnInit {
 
 checkColorCode(day,param1,param2)
 {
-  console.log("day11", day);
+ 
 let d;let result=null;
 if(this.feedbackDetails != undefined && this.feedbackDetails != null)
 {
-  console.log("feed", this.feedbackDetails);
+  
  for(var i=0;i<this.feedbackDetails.length;i++)
  {
    d=new Date(this.feedbackDetails[i].dateOfAction);
@@ -115,11 +115,14 @@ if(this.feedbackDetails != undefined && this.feedbackDetails != null)
    }
    else if(this.feedbackDetails[i].subCategory==="Dose taken but not reported by technology")
    result="mannualDose";
-   }
+   
+   else
+   result="restDose";
+  }
   }
 }
 if(result==null)
-  result="restDose";
+  result="others";
   if(this.checkcurrentMonthDay(param1,param2))
   return result;
  }
@@ -202,6 +205,8 @@ if(result==null)
     curmonth.setDate(curmonth.getDate() - (this.dateIndex+1));
     this.previousDay =curmonth.toLocaleString('en-US',{hour12:false}).split(" ")[0];
     this.previousDay = this.previousDay.substring(0,10);
+    console.log("prevDay",this.previousDay)
+    console.log("dateInd", this.dateIndex)
 
     let dialog_Ref = this.dialog.open(SupportActionModal, {
       height: '550px',
@@ -440,6 +445,7 @@ export class SupportActionModal {
   everwellBenData: any;
   lastDay: any;
   feedbackFlag: any;
+  gender: any;
  
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
@@ -461,7 +467,27 @@ export class SupportActionModal {
    this.everwellBenData.currentMonthMissedDoses=this._common.outboundEverwellData.CurrentMonthMissedDoses;
    console.log('EverWell Ben Data'+ this.everwellBenData);
    this.dob=this.data;
+
+   let dateOfAction = new Date(this.dob); 
+   console.log("dateAction", dateOfAction);
    this.lastDay= this.dob;
+   let ar=this._common.previousFeedback;
+   if(ar!=undefined)
+   {
+     for(var i=0;i<ar.length;i++)
+     {
+      let d=new Date(ar[i].dateOfAction);
+      console.log("dddd", d);
+      if(d.getTime()===dateOfAction.getTime())
+      {
+        this.gender = ar[i].subCategory;
+        this.comments = ar[i].comments;
+
+      }
+  
+     }
+  
+   }
   //  this.isFeedbackData= this._common.feedbackData;
   console.log("checkFeedback",this._common.feedbackData)
   if(this._common.feedbackData){

@@ -61,6 +61,7 @@ export class dataService {
     everwellCallNotConnected:any = "No";
 	beneficiary_regID_subject=new Subject();
 	checkEverwellResponse :boolean = false;
+	previousFeedback:any;
 };
 
 
