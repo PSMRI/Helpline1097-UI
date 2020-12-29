@@ -460,6 +460,7 @@ export class SupportActionModal {
   enablecontrols: boolean = true;
   dosecolor: string;
   efid: any;
+  isfeedbackedit: boolean = false;
 
  
 
@@ -486,24 +487,31 @@ export class SupportActionModal {
    let dateOfAction = new Date(this.dob); 
    console.log("dateAction", dateOfAction);
    this.lastDay= this.dob;
-   
+   this.isfeedbackedit=false;
    let ar=this._common.previousFeedback;
+   this.efid = null;
    if(ar!=undefined)
    {
      for(var i=0;i<ar.length;i++)
      {
       let d=new Date(ar[i].dateOfAction);
       console.log("dddd", d);
-      if(d.getTime()===dateOfAction.getTime())
-      {
-        this.gender = ar[i].subCategory;
-        this.comments = ar[i].comments;
-           if(ar[i].efid != undefined && ar[i].efid != null)
-           {
-             this.efid = ar[i].efid;
-           }
-      }
-  
+       if (d.getTime() === dateOfAction.getTime()) {        
+         this.editcategory = ar[i].category;
+         this.editsubcategries = ar[i].subCategory;
+         this.editactionTaken = ar[i].actionTaken;
+         this.editdob = this.dob;
+         this.editcomments = ar[i].comments;
+         this.addNum = ar[i].secondaryPhoneNo == undefined ? false : true;
+         this.editaddMblNum = ar[i].secondaryPhoneNo == undefined ? false : true;
+         this.editmblNum = ar[i].secondaryPhoneNo == undefined ? "" : ar[i].secondaryPhoneNo;
+        
+         if (ar[i].efid != undefined && ar[i].efid != null) {
+           this.efid = ar[i].efid;
+         }
+         this.isfeedbackedit=true;
+       }
+
      }
   
    }
@@ -517,26 +525,7 @@ export class SupportActionModal {
       result => result.dateOfAction == this.datepipe.transform(new Date(this.dob), 'yyyy-MM-dd')
       
     );
-    if(this.isFeedbackData.length > 0){
-      this.editcategory= this.isFeedbackData[0].category;
-      this.editsubcategries=this.isFeedbackData[0].subCategory;
-      this.editactionTaken=this.isFeedbackData[0].actionTaken;
-      this.editdob = this.isFeedbackData[0].dateOfAction;
-      this.editcomments = this.isFeedbackData[0].comments;
-      this.addNum = true;
-      this.editaddMblNum = true;
-      this.editmblNum = this.isFeedbackData[0].secondaryPhoneNo;
-    }
-
   }
-  
-   
-
-  
-
-   
-
-   
   }
 
   preventTyping(e: any) {
@@ -575,7 +564,7 @@ export class SupportActionModal {
     }
     this._callservice.postEverwellFeedback(providerObj).subscribe((response) => {
       console.log("response",response);
-      if(response.response === "Data saved successfully"){
+      if(response != null && response.savedData != null){
         // this._common.feedbackData = providerObj;
         // this.feedbackData = providerObj;    
         this._common.feedbackData.push(providerObj);
@@ -595,6 +584,39 @@ export class SupportActionModal {
       this.alertMaessage.alert("Please select Beneficiary", 'error');
       return false;
     }
+    const providerObj = {};
+    if(this.efid != undefined && this.efid != null){
+    providerObj['efid'] = this.efid;
+    }
+    providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
+    providerObj['Id']=this.everwellBenData.Id;
+    providerObj['providerServiceMapId']=this.everwellBenData.providerServiceMapId;
+    providerObj['MissedDoses'] = this.everwellBenData.MissedDoses;
+    providerObj['currentMonthMissedDoses'] = this.everwellBenData.currentMonthMissedDoses;
+    providerObj['category'] = item.editcategory;
+    providerObj['subCategory'] = item.editsubcategries;
+    providerObj['AdherencePercentage'] = this.everwellBenData.AdherencePercentage;
+    providerObj['actionTaken'] = item.editactionTaken;
+    providerObj['comments'] = item.editcomments;
+    providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.editdob), 'yyyy-MM-dd');   
+    providerObj['secondaryPhoneNo'] = item.mblNum;
+    providerObj['createdBy']=this.everwellBenData.createdBy;
+    if(providerObj['secondaryPhoneNo']=="" || providerObj['secondaryPhoneNo']==undefined){
+      providerObj['secondaryPhoneNo']=null;
+    }
+    this._callservice.postEverwellFeedback(providerObj).subscribe((response) => {
+      console.log("response",response);
+      if(response != null && response.savedData != null){        
+        this._common.feedbackData.push(providerObj);
+        this._common.checkEverwellResponse = true;
+        this.alertMaessage.alert('Feedback updated successfully', 'success');
+        this.dialogRef.close();
+        console.log('Feedback updated successfully', response);
+      }
+    }, (err) => {
+      this.alertMaessage.alert(err.errorMessage, 'error');
+      console.log('error in submit Feedback');
+    });
   }
 
 

@@ -7,7 +7,7 @@
 </div>
 
   
-        <md-dialog-content style="min-height:300px" *ngIf='isFeedbackData.length===0'>
+        <md-dialog-content style="min-height:300px" *ngIf='!isfeedbackedit'>
         <form #form="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <label class="control-label">Missed Doses: {{everwellBenData.MissedDoses}}</label>
@@ -112,18 +112,18 @@
     </md-dialog-content>
   
 
-<div class="container-fluid table-responsive" *ngIf='isFeedbackData.length!==0'>
+<div class="container-fluid table-responsive" *ngIf='isfeedbackedit'>
     <md-dialog-content style="min-height:300px">
         <form #editform="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Missed Doses: {{isFeedbackData[0]?.MissedDoses}}</label>
+                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Missed Doses: {{everwellBenData?.MissedDoses}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label pull-right" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Adherence Percentage: {{isFeedbackData[0]?.AdherencePercentage}}</label>
+                <label class="control-label pull-right" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Adherence Percentage: {{everwellBenData?.AdherencePercentage}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Current Month Missed Doses:
-                    {{isFeedbackData[0]?.currentMonthMissedDoses}}</label>
+                    {{everwellBenData?.currentMonthMissedDoses}}</label>
             </div>            
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <md-slide-toggle id="demographicsToggle" color="primary" class="pull-right"
@@ -215,7 +215,7 @@
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
                 <!-- <button md-raised-button color="accent" class="pull-left" (click)="enableControls()">Edit</button> -->
-                <button md-raised-button color="accent" class="pull-right" (click)="submitFeedback(editform.value)"
+                <button md-raised-button color="accent" class="pull-right" (click)="updateFeedback(editform.value)"
                     [disabled]="!(editform.valid && editform.dirty)">Update</button>
             </div>
 
