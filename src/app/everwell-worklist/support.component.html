@@ -77,7 +77,7 @@
                 </md-input-container> -->
                 <md-input-container>
                     <textarea mdInput rows="2" placeholder="Comments" ngModel #fname="ngModel"
-                        [(ngModel)]="comments" name="comments" required ></textarea>
+                        [(ngModel)]="comments" name="comments" required minlength="2" maxlength="500"></textarea>
                     <md-hint *ngIf="fname.touched">
                         <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
                     </md-hint>
@@ -190,7 +190,7 @@
                     </md-input-container> -->
                 <md-input-container>
                     <textarea mdInput rows="2" placeholder="Comments" ngModel #fname="ngModel" [(ngModel)]="editcomments"
-                        name="editcomments" required [disabled]='enablecontrols'></textarea>
+                        name="editcomments" required [disabled]='enablecontrols' minlength="2" maxlength="500"></textarea>
                     <md-hint *ngIf="fname.touched">
                         <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
                     </md-hint>
