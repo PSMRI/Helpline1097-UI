@@ -569,7 +569,10 @@ export class SupportActionModal {
         // this.feedbackData = providerObj;    
         this._common.feedbackData.push(providerObj);
         this._common.checkEverwellResponse = true;
+        if(this.efid != undefined && this.efid != null)
         this.alertMaessage.alert('Feedback updated successfully', 'success');
+        else
+        this.alertMaessage.alert('Feedback submitted successfully', 'success');
         this.dialogRef.close();
         console.log('Feedback updated successfully', response);
       }
