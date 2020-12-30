@@ -25,7 +25,7 @@
     color: green;
 }
 .manualDose{
-    background-color: green;
+    background-color: #66ff66;
     cursor: pointer;
 }
 #demographicsToggle {
@@ -46,7 +46,7 @@
     cursor: pointer;
 }
 .others{
-    background-color: #ccff33;
+    background-color: #80ccff;
     cursor: pointer;
 }
 .description {
