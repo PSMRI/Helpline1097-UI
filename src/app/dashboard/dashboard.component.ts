@@ -273,7 +273,16 @@ export class dashboardContentClass implements OnInit {
     if (window.parent.parent.addEventListener) {
       console.log('adding message listener');
       // document.addEventListener( "message", this.listener.bind( this ), false );
-      addEventListener('message', this.listener.bind(this), false);
+      
+      try {
+        addEventListener('message', this.listener.bind(this), false);
+      } catch (error) {
+        console.log("logging error : " , error);
+      }
+
+      console.log("Msg listener is added .");
+      
+      
     } else {
       console.log('adding onmessage listener');
       // document.attachEvent("onmessage", this.listener);
