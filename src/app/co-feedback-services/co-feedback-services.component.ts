@@ -156,7 +156,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.filterTerm = "";
 		this.searchType = "FeedbackID";
     this.minLength = 1;
-    this.maxLength = 10;
+    this.maxLength = 18;
     this.filteredFeedbackList= this.data;
   }
 
@@ -402,7 +402,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   }
 
   minLength: number = 1;
-  maxLength: number = 10;
+  maxLength: number = 18;
   filteredFeedbackList: any;
   searchType:any = "FeedbackID";
   onSearchChange(type) {
@@ -412,7 +412,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     }
     else {
       this.minLength = 1;
-      this.maxLength = 30;
+      this.maxLength = 18;
     }
   }
 
@@ -438,7 +438,7 @@ export class CoFeedbackServicesComponent implements OnInit {
 		this.filterTerm = "";
 		this.searchType = "FeedbackID";
     this.minLength = 1;
-    this.maxLength = 10;
+    this.maxLength = 18;
     this.filteredFeedbackList= this.data;
 		// this._coFeedbackService.getFeedbackHistoryById(this.benficiaryRegId, this.calledServiceID)
 		// 	.subscribe(response => this.setFeedbackHistoryByID(response));
