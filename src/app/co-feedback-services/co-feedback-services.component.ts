@@ -11,6 +11,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { Subscription } from 'rxjs/Subscription';
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
+import { FeedbackService } from 'app/services/supervisorServices/Feedbackservice.service';
 declare var jQuery: any;
 
 @Component({
@@ -61,7 +62,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   modalArray: any = [];
   providerServiceMapID: number;
   userID: number;
-
+  filterTerm: any;
   feedbackcounter: any = 1000;
   today: Date;
   maxDate: any;
@@ -76,7 +77,8 @@ export class CoFeedbackServicesComponent implements OnInit {
     private _savedData: dataService,
     public dialog: MdDialog,
     private alertMessage: ConfirmationDialogsService,
-    private pass_data: CommunicationService
+    private pass_data: CommunicationService,
+    private _feedbackListServices: FeedbackService
   ) {
   this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) });
     this._savedData.beneficiary_regID_subject.subscribe(response => {
@@ -151,6 +153,11 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.showFormCondition = false;
     this.showTableCondition = true;
     // this.showBeneficiaryFeedbackList();
+    this.filterTerm = "";
+		this.searchType = "FeedbackID";
+    this.minLength = 1;
+    this.maxLength = 10;
+    this.filteredFeedbackList= this.data;
   }
 
   GetServiceTypes() {
@@ -294,7 +301,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     }];
     this._coFeedbackService.createFeedback(feedbackObj)
       .subscribe((response) => {
-        this.alertMessage.alert('Feedback created successfully', 'success');
+        this.alertMessage.alert('Feedback created successfully and Feedback ID is :' + response.requestID, 'success');
         jQuery('#feedbackForm').trigger("reset");
         this.showBeneficiaryFeedbackList();
         this.feedbackServiceProvided.emit();
@@ -363,6 +370,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     console.log('the response for feedback history is', response);
     // this.feedbacksArray = response;
     this.data = response;
+    this.filteredFeedbackList = response;
   }
   updateCount() {
     this.count = this.feedbackDescription.length + '/300';
@@ -392,6 +400,49 @@ export class CoFeedbackServicesComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
+
+  minLength: number = 1;
+  maxLength: number = 10;
+  filteredFeedbackList: any;
+  searchType:any = "FeedbackID";
+  onSearchChange(type) {
+    if (type === 'MobileNumber') {
+      this.minLength = 10;
+      this.maxLength = 10;
+    }
+    else {
+      this.minLength = 1;
+      this.maxLength = 30;
+    }
+  }
+
+  filterFeedbackList(searchTerm: string) {
+    if (!searchTerm)
+      this.filteredFeedbackList = this.data;
+    else {
+      let object = {
+        "phoneNum": this.searchType == 'MobileNumber' ? searchTerm : null,
+        "requestID": this.searchType == 'FeedbackID' ? searchTerm : null
+      };
+
+      console.log(JSON.stringify(object));
+      this.filteredFeedbackList = [];
+      
+      this._feedbackListServices.getFeedback(object).subscribe((res) => {
+     // this.feedbackService.getFeedbacklist(object).subscribe((res) => {       
+          this.filteredFeedbackList = res;           
+      });     
+    }
+  }
+  revertFullTable() {
+		this.filterTerm = "";
+		this.searchType = "FeedbackID";
+    this.minLength = 1;
+    this.maxLength = 10;
+    this.filteredFeedbackList= this.data;
+		// this._coFeedbackService.getFeedbackHistoryById(this.benficiaryRegId, this.calledServiceID)
+		// 	.subscribe(response => this.setFeedbackHistoryByID(response));
+	}
 
 }
 
