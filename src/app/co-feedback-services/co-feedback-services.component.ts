@@ -412,7 +412,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     }
     else {
       this.minLength = 1;
-      this.maxLength = 30;
+      this.maxLength = 18;
     }
   }
 
