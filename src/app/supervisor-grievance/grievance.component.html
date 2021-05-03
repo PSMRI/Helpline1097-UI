@@ -30,7 +30,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
         <md-input-container style="width: 100%">
-          <input mdInput id="ComplaintId" placeholder="Enter Feedback ID" formControlName="feedbackID" name="feedback" maxlength="30">
+          <input mdInput id="ComplaintId" placeholder="Enter Feedback ID" formControlName="requestID" name="feedback" maxlength="30">
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
@@ -64,7 +64,7 @@
               </td>
             </tr>
             <tr *ngFor="let feedback of md2.data">
-              <td>{{feedback.feedbackID?feedback.feedbackID:'-'}}</td>
+              <td>{{feedback.requestID?feedback.requestID:'-'}}</td>
               <td>{{feedback?.createdDate |utcDate | date:'dd/MM/yyyy'}}</td>
               <td>{{feedback?.beneficiary?.firstName}} {{feedback?.beneficiary?.lastName ? feedback.beneficiary.lastName : ""}}</td>
               <td>{{feedback?.feedbackType?.feedbackTypeName}}</td>
