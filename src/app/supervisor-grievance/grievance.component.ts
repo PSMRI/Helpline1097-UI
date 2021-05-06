@@ -135,7 +135,7 @@ export class grievanceComponent implements OnInit {
 
   feedbackForm2 = new FormGroup({
 
-    feedbackID: new FormControl('', CustomValidators.number),
+    requestID: new FormControl('',),
 
     startDate: new FormControl('', CustomValidators.date),
     endDate: new FormControl('', CustomValidators.minDate('2016-09-09')),
@@ -300,7 +300,7 @@ export class grievanceComponent implements OnInit {
 
     this.feedbackID_whilesaving = feedback.feedbackID;
     // use request ID in place of feedbackID while displaying, but while saving/updating use feedbackID
-    this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
+    this.feedbackForm.controls.feedbackID.setValue(feedback.requestID);
     this.feedbackForm.controls.feedbackSupSummary.setValue(
       (feedback.feedbackRequests.length > 0 && feedback.feedbackRequests && feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary) ?
         feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary : feedback.feedback
@@ -495,8 +495,8 @@ export class grievanceComponent implements OnInit {
       bodyString.startDate = this.updateTimeOffset(bodyString.startDate);
     }
 
-    if (bodyString.feedbackID === '') {
-      bodyString.feedbackID = undefined;
+    if (bodyString.requestID === '') {
+      bodyString.requestID = undefined;
     }
     if (bodyString.feedbackTypeID === '') {
       bodyString.feedbackTypeID = undefined;
