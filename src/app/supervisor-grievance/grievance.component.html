@@ -39,10 +39,10 @@
           name="search">Search</button>
       </div>
     </form>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="action === 'view'">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="tableView">
       <h4 class="pull-left f-s-b m-t-10 m-b-10">Feedback Details</h4>
     </div>
-    <div class="col-xs-12 col-sm-12" *ngIf="action === 'view'">
+    <div class="col-xs-12 col-sm-12" *ngIf="tableView">
       <div class="table-responsive m-t-10">
         <table class="table table-striped" [md2Data]="feedbackList" #md2="md2DataTable" [rowsPerPage]="5">
           <thead>
@@ -234,12 +234,12 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" *ngIf="action==='edit'">
             <button md-raised-button color="accent" class="pull-right" type="submit" [disabled]="fb_form.invalid" name="save"> Save/Email</button>
-            <button md-raised-button color="primary" class="pull-right m-r-10" (click)="action='view'">Back</button>
+            <button md-raised-button color="primary" class="pull-right m-r-10" (click)="backToFeedbackTracking()">Back</button>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-10" *ngIf="action==='update'">
             <button md-raised-button color="accent" class="pull-right" type="submit" [disabled]="fb_form.invalid || invalid_file_flag"
               name="save">Update</button>
-            <button md-raised-button color="primary" class="pull-right m-r-10" (click)="action='view'">Back</button>
+            <button md-raised-button color="primary" class="pull-right m-r-10" (click)="backToFeedbackTracking()">Back</button>
           </div>
         </div>
       </div>
