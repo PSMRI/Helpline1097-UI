@@ -83,17 +83,25 @@ export class helpline1097CoComponent implements OnInit {
     var idx = jQuery('.carousel-inner div.active').index();
     let url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    this.router.params.subscribe((params: Params) => {
-      if (params['mobileNumber'] != undefined) {
-        this.callerNumber = parseInt(params['mobileNumber']);
-        this.getCommonData.callerNumber = this.callerNumber;
-      }
-      if (params['callID'] != undefined) {
-        this.callID = params['callID'];
-        this.getCommonData.callID = this.callID;
-      }
+    if (sessionStorage.getItem("CLI") !== undefined) {​​​​​​​​
+      this.callerNumber = sessionStorage.getItem("CLI");
+      this.getCommonData.callerNumber = this.callerNumber;
+          }​​​​​​​​
+      if (sessionStorage.getItem("session_id") !== undefined) {​​​​​​​
+            this.getCommonData.callID =sessionStorage.getItem("session_id");
+           // this.getCommonData.isOutbound = true;
+          }
+    // this.router.params.subscribe((params: Params) => {
+    //   if (params['mobileNumber'] != undefined) {
+    //     this.callerNumber = parseInt(params['mobileNumber']);
+    //     this.getCommonData.callerNumber = this.callerNumber;
+    //   }
+    //   if (params['callID'] != undefined) {
+    //     this.callID = params['callID'];
+    //     this.getCommonData.callID = this.callID;
+    //   }
 
-    });
+    // });
     this.disableBack = true;
     this.isEverwell = sessionStorage.getItem("isEverwellCall");
 

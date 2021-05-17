@@ -41,10 +41,12 @@ export class DashboardUserIdComponent implements OnInit {
                 }
                 this.status = res.data.stateObj.stateName;
                 if (this.status.toUpperCase() === 'INCALL' || this.status.toUpperCase() === 'CLOSURE') {
-                    let CLI = res.data.cust_ph_no;
-                    let session_id = res.data.session_id;
-                    sessionStorage.setItem('isOnCall', 'yes');
-                    this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent', CLI, session_id, 'INBOUND']);
+                    if (!sessionStorage.getItem('session_id')) {
+                        this.routeToInnerPage(res);
+                    } else if (sessionStorage.getItem('session_id') !== res.session_id) {  // If session id is different from previous session id then allow the call to drop
+                        this.routeToInnerPage(res);
+                    }
+                   
                 }
                 if (res.data.stateObj.stateType) {
                     this.status += ' (' + res.data.stateObj.stateType + ')';
@@ -57,5 +59,14 @@ export class DashboardUserIdComponent implements OnInit {
             console.log("CZ AGENT NOT LOGGED IN")
         })
     }
-    // tslint:disable-next-line:eofline
+    routeToInnerPage(res)
+    {
+        let CLI = res.data.cust_ph_no;
+        let session_id = res.data.session_id;
+        sessionStorage.setItem('isOnCall', 'yes');
+        sessionStorage.setItem('CLI', CLI);
+        sessionStorage.setItem('session_id', session_id);
+        this.dataSettingService.setUniqueCallIDForInBound = true;
+        this.router.navigate(['/MultiRoleScreenComponent/RedirectToInnerpageComponent']);
+    }
 }

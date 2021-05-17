@@ -365,11 +365,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.receivedRoleName = this.saved_data.current_role.RoleName;
     /**/
     data.isOutbound = this.saved_data.isOutbound;
-    this._util.startCall(data).subscribe((response) => { this.setBenCall(response) }, (err) => {
+    if( this.saved_data.setUniqueCallIDForInBound===true)
+    {
+    this._util.startCall(data).subscribe((response) => { this.setBenCall(response);
+      this.saved_data.setUniqueCallIDForInBound = false; }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
       console.log('ERROR', err);
 
     });
+  }
     this.alternateNumber1 = "";
     this.alternateNumber2 = "";
     this.alternateNumber3 = "";
@@ -909,7 +913,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   populateUserData(benRegData: any) {
-    this.updatebeneficiaryincall(benRegData);
+    let addBenCallID = Object.assign({}, benRegData, {"benCallID": this.saved_data.callData.benCallID})
+    this.updatebeneficiaryincall(addBenCallID);
     const res = this._util.retrieveRegHistory(benRegData.beneficiaryID)
       .subscribe(response => {
         if (response.length > 0) {
