@@ -21,6 +21,7 @@ import { CommonSmsDialogComponent } from '../common-sms-dialog/common-sms-dialog
 import { SmsTemplateService } from './../services/supervisorServices/sms-template-service.service';
 
 import * as moment from 'moment';
+import { LoaderService } from 'app/services/common/loader.service';
 
 declare var jQuery: any;
 
@@ -156,6 +157,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   //public mobileNumberMask = [ /[^0-9]/, /\d/];
 
+  btnDisabled = false;
   constructor(private _util: RegisterService,
     private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -170,7 +172,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     private outboundService: OutboundService,
     private czentrixService: CzentrixServices,
     private reload_call: ReloadService,
-    private _smsService: SmsTemplateService
+    private _smsService: SmsTemplateService,
+    private loaderService: LoaderService
   ) {
 
     // this.subcriptionOutbound = this.outboundService.getOutboundData()
@@ -523,6 +526,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.alternateNumber3 = "";
       this.alternateNumber4 = "";
       this.alternateNumber5 = "";
+      this.btnDisabled = false;
     }
   }
 
@@ -635,6 +639,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
    */
 
   registerBeneficiary() {
+    this.btnDisabled = true;
+    this.loaderService.show();
     this.updatedObj = {};
     console.log("vanID/serviceID:" + this.saved_data.current_serviceID);
     this.updatedObj.vanID = this.saved_data.current_serviceID;
@@ -738,8 +744,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
-
+      this.loaderService.hide();
     }, (err) => {
+      this.btnDisabled = false;
+      this.loaderService.hide();
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
     });
@@ -1653,6 +1661,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.BeneficaryForm.resetForm();
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
+    this.btnDisabled = false;
     // let a = null;
     // this.age = "0";
     // this.calculateDOB("0");
