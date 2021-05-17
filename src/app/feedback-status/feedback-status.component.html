@@ -69,8 +69,13 @@
               <th>Updated Date</th>
             </tr>
           </thead>
-          <tbody *ngFor=" let feedBackRequest of consolidatedRequests ">
-            <tr>
+          <tbody>
+            <tr *ngIf="consolidatedRequests?.length==0">
+              <td class="record-not-found" colspan="11">
+                No records found
+              </td>
+            </tr>
+            <tr *ngFor=" let feedBackRequest of consolidatedRequests ">
               <td>{{feedBackRequest.feedbackRequestID}}</td>
               <td>{{feedBackRequest.feedbackSupSummary}}</td>
               <td>{{feedBackRequest.comments}}</td>
@@ -94,5 +99,7 @@
       </div>
     </div>
   </md-dialog-content>
-
+  <div class="pull-right" style="padding:10px;">
+    <button  md-raised-button color="primary" class="closeBtn" md-dialog-close>Close</button>   
+  </div>
 </div>
