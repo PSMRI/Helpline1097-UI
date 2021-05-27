@@ -79,8 +79,8 @@
           </div>
           <div class="pull-right p-t-10 p-b-10"  *ngIf="current_role.toLowerCase().trim()!=='supervisor'">
             <md-radio-group name=" inOutBound" (change)="campaign(inOutBound)" [(ngModel)]="inOutBound">
-              <md-radio-button color="primary" value='1'>Inbound</md-radio-button>
-              <md-radio-button color="primary" value='0'>Outbound</md-radio-button>
+              <md-radio-button color="primary" value='1' *ngIf="inboundCall">Inbound</md-radio-button>
+              <md-radio-button color="primary" value='0' *ngIf="outboundCall">Outbound</md-radio-button>
             </md-radio-group>
           </div>
           <span class="clearfix"></span>

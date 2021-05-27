@@ -41,7 +41,8 @@ export class dashboardContentClass implements OnInit {
   compainType: any;
   alertRefresh: number = 1;
   notificationSubscription: Subscription;
-
+  inboundCall: boolean= false;
+  outboundCall: boolean= false;
   agentID: any;
   agentIDExitsFlag: boolean = false;
   public config: ToasterConfig =
@@ -130,6 +131,19 @@ export class dashboardContentClass implements OnInit {
     //   this.dataSettingService.current_role = roleObj;
     //   this.dataSettingService.current_service = userObj.serviceObj;
     this.current_role = this.dataSettingService.current_role.RoleName;
+    this.dataSettingService.inboundOutbound$.subscribe((response) => {
+      for(let i=0; i<response.previlegeObj.length; i++){
+        for(let j=0; j<response.previlegeObj[i].roles.length; j++){
+            if((response.previlegeObj[i].roles[j].inbound==true) && (this.current_role == response.previlegeObj[i].roles[j].RoleName)){
+              this.inboundCall=true;              
+            }
+            else if((response.previlegeObj[i].roles[j].outbound==true) && (this.current_role == response.previlegeObj[i].roles[j].RoleName)){
+              this.outboundCall=true;
+            }
+            }
+         }
+    }
+    );
     //   this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
     //     if (response.isAuthenticated === true && response.Status === 'Active') {
     //       this.dataSettingService.Userdata = response;

@@ -134,6 +134,7 @@ export class loginContentClass implements OnInit {
     // } else {
     //   this.loginResult = 'You do not have previlage to login to application';
     // }
+    this.dataSettingService.setInboundOutboundValue(response);
   };
   errorCallback(error: any) {
     if (error.status) {
