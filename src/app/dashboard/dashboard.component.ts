@@ -63,10 +63,6 @@ export class dashboardContentClass implements OnInit {
     private toasterService: ToasterService,
     private listnerService: ListnerService, public socketService: SocketService
   ) {
-    this.dataSettingService.inOutCampaign.subscribe((data) => {
-      console.log(data);
-      this.setCampaign(data)
-    });
 
     this.notificationSubscription = this.socketService.getMessages().subscribe((data) => {
       console.log(data);
@@ -105,7 +101,11 @@ export class dashboardContentClass implements OnInit {
   };
 
   ngOnInit() {
-
+    this.dataSettingService.inOutCampaign.subscribe((data) => {
+      console.log(data);
+      // this.setCampaign()
+    });
+    this.setCampaign()
     // this.activeRoute
     //   .queryParams
     //   .subscribe(params => {
@@ -177,37 +177,42 @@ export class dashboardContentClass implements OnInit {
     }
 
   }
-  setCampaign(data) {
-    //data=0;
+  setCampaign() {
     sessionStorage.setItem("current_campaign", "");
-    if (data == '1') {
-      this.dataSettingService.current_campaign = 'INBOUND';
-      this.inOutBound = data;
-    }
-    else if (data == '0') {
-      this.dataSettingService.current_campaign = 'OUTBOUND';
-      this.inOutBound = data;
-      this.router.navigate['MultiRoleScreenComponent/OutboundWorkList'];
-    }
-    sessionStorage.setItem("current_campaign", this.dataSettingService.current_campaign);
+    this.current_role = this.dataSettingService.current_role.RoleName;
+    let current_roleID=this.dataSettingService.current_role.RoleID;
     this.dataSettingService.inboundOutbound$.subscribe((response) => {
-      for(let i=0; i<response.previlegeObj.length; i++){
-        for(let j=0; j<response.previlegeObj[i].roles.length; j++){
-            if((response.previlegeObj[i].roles[j].inbound==true) && (this.current_role == response.previlegeObj[i].roles[j].RoleName)){
+      for(let value of response.previlegeObj){
+        for(let role of value.roles){
+          role.outbound === true;
+          if(role.RoleID === current_roleID && role.inbound === true && role.outbound === true){
+            if(this.dataSettingService.current_campaign === 'OUTBOUND'){
+              //this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.inOutBound = '0';
               this.inboundCall=true;
-              this.inOutBound = 1;             
-            }
-            if((response.previlegeObj[i].roles[j].outbound==true) && (this.current_role == response.previlegeObj[i].roles[j].RoleName)){
               this.outboundCall=true;
-              this.inOutBound = 0;
-            }           
-            if(this.inboundCall==true && this.outboundCall==true){
-              this.inOutBound = 1;
             }
-            };
-         }  
-    }
-    );
+            else{
+              this.dataSettingService.current_campaign = 'INBOUND';
+              this.inOutBound = '1';
+              this.inboundCall=true;
+              this.outboundCall=true;
+            }
+          }
+          else if(role.RoleID === current_roleID && role.inbound === true){
+            this.dataSettingService.current_campaign = 'INBOUND';
+            this.inOutBound = '1';
+            this.inboundCall=true;
+          }
+          else{
+              this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.inOutBound = '0';   
+              this.outboundCall=true;
+          }
+        }
+      }
+    })
+    sessionStorage.setItem("current_campaign", this.dataSettingService.current_campaign);
   }
   showDashboard() {
     this.data = this.dataSettingService.Userdata;

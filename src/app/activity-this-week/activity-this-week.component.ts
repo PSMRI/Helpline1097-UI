@@ -3,7 +3,9 @@ import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MdDialog } from '@angular/material';
-
+import { CallServices } from 'app/services/callservices/callservice.service';
+import { ConfirmationDialogsService } from 'app/services/dialog/confirmation.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'activity-this-week',
   templateUrl: './activity-this-week.component.html',
@@ -20,7 +22,7 @@ export class ActivityThisWeekComponent implements OnInit {
 
   constructor(public getCommonData: dataService,
     public notificationService: NotificationService,
-    public dialog: MdDialog) {
+    public dialog: MdDialog, private callService: CallServices, private message: ConfirmationDialogsService, public router: Router) {
 
   }
 
@@ -93,5 +95,26 @@ export class ActivityThisWeekComponent implements OnInit {
       }
     );
   }
+
+agentLoginStatus(){
+  this.callService.switchToOutbound(this.getCommonData.cZentrixAgentID).subscribe((res) => {
+    // if(res.errorMessage.toLowerCase().contains("already in MANUAL mode")){
+    //   this.router.navigate(['/MultiRoleScreenComponent/OutboundCallWorklistsComponent']);
+    // }
+    this.getCommonData.current_campaign = 'OUTBOUND';
+    sessionStorage.setItem("current_campaign", 'OUTBOUND');
+    this.router.navigate(['/MultiRoleScreenComponent/OutboundCallWorklistsComponent']);
+  }, (err) => {
+    let errorText: string;
+    errorText= err.errorMessage;
+    //if (err.errorMessage === "Agent 2016 is already in MANUAL mode")
+    if(errorText.includes("already in MANUAL mode")) {
+      this.router.navigate(['/MultiRoleScreenComponent/OutboundCallWorklistsComponent']);
+  }
+  else
+    this.message.alert(err.errorMessage, 'error');
+  
+  })
+}
 
 }
