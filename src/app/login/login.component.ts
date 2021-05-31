@@ -97,6 +97,7 @@ export class loginContentClass implements OnInit {
   };
 
   successCallback(response: any, userID: any, password: any) {
+    this.dataSettingService.current_campaign=undefined;
     this.loading = false;
     console.log(response);
     this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
@@ -134,6 +135,7 @@ export class loginContentClass implements OnInit {
     // } else {
     //   this.loginResult = 'You do not have previlage to login to application';
     // }
+    this.dataSettingService.setInboundOutboundValue(response);
   };
   errorCallback(error: any) {
     if (error.status) {

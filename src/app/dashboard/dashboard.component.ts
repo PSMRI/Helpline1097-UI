@@ -41,7 +41,8 @@ export class dashboardContentClass implements OnInit {
   compainType: any;
   alertRefresh: number = 1;
   notificationSubscription: Subscription;
-
+  inboundCall: boolean= false;
+  outboundCall: boolean= false;
   agentID: any;
   agentIDExitsFlag: boolean = false;
   public config: ToasterConfig =
@@ -62,10 +63,6 @@ export class dashboardContentClass implements OnInit {
     private toasterService: ToasterService,
     private listnerService: ListnerService, public socketService: SocketService
   ) {
-    this.dataSettingService.inOutCampaign.subscribe((data) => {
-      console.log(data);
-      this.setCampaign(data)
-    });
 
     this.notificationSubscription = this.socketService.getMessages().subscribe((data) => {
       console.log(data);
@@ -104,7 +101,11 @@ export class dashboardContentClass implements OnInit {
   };
 
   ngOnInit() {
-
+    this.dataSettingService.inOutCampaign.subscribe((data) => {
+      console.log(data);
+      // this.setCampaign()
+    });
+    this.setCampaign()
     // this.activeRoute
     //   .queryParams
     //   .subscribe(params => {
@@ -130,6 +131,7 @@ export class dashboardContentClass implements OnInit {
     //   this.dataSettingService.current_role = roleObj;
     //   this.dataSettingService.current_service = userObj.serviceObj;
     this.current_role = this.dataSettingService.current_role.RoleName;
+    
     //   this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
     //     if (response.isAuthenticated === true && response.Status === 'Active') {
     //       this.dataSettingService.Userdata = response;
@@ -175,17 +177,44 @@ export class dashboardContentClass implements OnInit {
     }
 
   }
-  setCampaign(data) {
+  setCampaign() {
     sessionStorage.setItem("current_campaign", "");
-    if (data == '1') {
-      this.dataSettingService.current_campaign = 'INBOUND';
-      this.inOutBound = data;
-    }
-    else if (data == '0') {
-      this.dataSettingService.current_campaign = 'OUTBOUND';
-      this.inOutBound = data;
-      this.router.navigate['MultiRoleScreenComponent/OutboundWorkList'];
-    }
+    this.current_role = this.dataSettingService.current_role.RoleName;
+    let current_roleID=this.dataSettingService.current_role.RoleID;
+    this.dataSettingService.inboundOutbound$.subscribe((response) => {
+      for(let value of response.previlegeObj){
+        for(let role of value.roles){
+          role.outbound === true;
+          if(role.RoleID === current_roleID && role.inbound === true && role.outbound === true){
+            if(this.dataSettingService.current_campaign === 'OUTBOUND'){
+              //this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.inOutBound = '0';
+              this.inboundCall=true;
+              this.outboundCall=true;
+            }
+            else{
+              this.dataSettingService.current_campaign = 'INBOUND';
+              this.inOutBound = '1';
+              this.inboundCall=true;
+              this.outboundCall=true;
+            }
+          }
+          else if(role.RoleID === current_roleID && role.inbound === true){
+            this.dataSettingService.current_campaign = 'INBOUND';
+            this.inOutBound = '1';
+            this.inboundCall=true;
+          }
+          else if(role.RoleID === current_roleID && role.outbound === true){
+              this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.inOutBound = '0';   
+              this.outboundCall=true;
+          }
+          else{
+          console.log("Supervisor role");
+          }
+        }
+      }
+    })
     sessionStorage.setItem("current_campaign", this.dataSettingService.current_campaign);
   }
   showDashboard() {
