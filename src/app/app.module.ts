@@ -302,7 +302,7 @@ import { OutboundCallWorklistsComponent } from './outbound-call-worklists/outbou
             component: SuperAdminComponent
           },
           {
-            path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
+            path: 'RedirectToInnerpageComponent',
             component: InnerpageComponent,
             canActivate: [AuthGuard2],
           },

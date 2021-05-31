@@ -62,6 +62,8 @@ export class dataService {
 	beneficiary_regID_subject=new Subject();
 	checkEverwellResponse :boolean = false;
 	previousFeedback:any;
+	setUniqueCallIDForInBound=false;
+	setUniqueCallIDForOutBound=false;
 };
 
 

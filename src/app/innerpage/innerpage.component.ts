@@ -87,6 +87,7 @@ export class InnerpageComponent implements OnInit {
   eapiID: any;
   everwelleapiId: any;
   everwellSubmitBtn: boolean = false;
+  custdisconnectCallID: any;
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -144,15 +145,11 @@ export class InnerpageComponent implements OnInit {
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    this.router.params.subscribe((params: Params) => {
-      if (params['mobileNumber'] != undefined) {
-        // tslint:disable-next-line:radix
-        this.callerNumber = parseInt(params['mobileNumber']);
-        console.log(' this.callerNumber:' + this.callerNumber);
-        console.log(this.current_service + ':' + this.current_role);
-      }
-      if (params['callCategory'] != undefined) {
-        if (params['callCategory'] === 'OUTBOUND') {
+    if (sessionStorage.getItem("CLI") !== undefined) {​​​​​​​​
+    this.callerNumber = sessionStorage.getItem("CLI");
+        }​​​​​​​​
+    if (sessionStorage.getItem("callCategory") !== undefined) {​​​​​​​
+        if (sessionStorage.getItem("callCategory") === 'OUTBOUND') {
           this.getCommonData.isOutbound = true;
         } else {
           this.getCommonData.isOutbound = false;
@@ -164,7 +161,6 @@ export class InnerpageComponent implements OnInit {
       //     this.benByCallID(callID);
       //   }
       // }
-    });
     this.getCallTypes(this.providerServiceMapId);
     this.language_change = 'english';
     this.getLanguageObject(this.language_change);
@@ -559,6 +555,13 @@ export class InnerpageComponent implements OnInit {
   handleEvent(eventData) {
     console.log('received event ' + eventData);
     const sessionVar = /^\d{10}\.\d{10}$/;
+    if (eventData[0].trim().toLowerCase() === "accept") {
+      this.ticks = 0;
+      this.unsubscribeWrapupTime();
+    } else {
+      // this.ticks = 0;
+      // this.unsubscribeWrapupTime();
+    }
     if (eventData[0] === 'Disconnect') {
 
     } else if (eventData[0] === 'AgentXfer' || eventData[0] === 'CampaignXfer') {
@@ -567,6 +570,7 @@ export class InnerpageComponent implements OnInit {
       // this.transferInProgress = true;
     } else if (eventData[0] === 'CustDisconnect' && !this.transferInProgress
       && (sessionVar.test(eventData[1]) || eventData[1] === '')) {
+        this.custdisconnectCallID = eventData[1];
       this.getAgentStatus();
       console.log("this.isEverwell ",this.isEverwell );
       
@@ -577,6 +581,11 @@ export class InnerpageComponent implements OnInit {
       this._common.everwellCallNotConnected="yes";
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
+    }
+  }
+  unsubscribeWrapupTime() {
+    if (this.wrapupTimerSubscription) {
+      this.wrapupTimerSubscription.unsubscribe();
     }
   }
   closeCall(eventData, remarks, message?: any, wrapupCallID?: any) {    
@@ -645,6 +654,7 @@ export class InnerpageComponent implements OnInit {
       requestObj['agentID'] = this.getCommonData.cZentrixAgentID;
       requestObj['endCall'] = true;
     }
+    if (sessionStorage.getItem("session_id") === this.custdisconnectCallID) {
     this._callServices.closeCall(requestObj).subscribe((response) => {
       if (response) {
         this.remarksMessage.alert(message, 'success');
@@ -663,6 +673,12 @@ export class InnerpageComponent implements OnInit {
     }, (err) => {
       this.remarksMessage.alert(err.status, 'error');
     });
+  }else {
+    console.log(
+      "previous custdisconnect call ID not verified with current call ID",
+      this.custdisconnectCallID
+    );
+  }
   }
   showRemarks(eventData) {
     let remarksGiven;
@@ -698,6 +714,9 @@ export class InnerpageComponent implements OnInit {
       const remarks = 'Call disconnect from customer.';
       
       if (t == this.timeRemaining) {
+        this.wrapupTimerSubscription.unsubscribe();
+        t = 0;
+        this.ticks = 0;
         // this.remarksMessage.close();
         this.closeCall(eventData, remarks, 'Call closed successfully', this.wrapupCallID);
       }

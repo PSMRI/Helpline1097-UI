@@ -75,7 +75,7 @@ export class QualityAuditComponent implements OnInit {
     this.userID = this.commonData.Userdata.userID;
     this.serviceProviderID = this.commonData.serviceProviderID;
     this.providerServiceMapID = this.commonData.current_service.serviceID;
-    this.getFilteredCallList_default();
+    // this.getFilteredCallList_default();
     this.getServiceProviderID();
 
     // this.getServicelines();

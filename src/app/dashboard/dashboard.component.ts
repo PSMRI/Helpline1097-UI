@@ -236,6 +236,11 @@ export class dashboardContentClass implements OnInit {
     } else {
       this.eventSpiltData = event.detail.data.split('|');
     }
+    if (!sessionStorage.getItem('session_id')) {
+      this.handleEvent(this.eventSpiltData);
+  } else if (sessionStorage.getItem('session_id') !== this.eventSpiltData[2]) {  // If session id is different from previous session id then allow the call to drop
+      this.handleEvent(this.eventSpiltData);
+  }
     if (this.eventSpiltData[0].toLowerCase() === 'accept') {
       this.handleEvent(this.eventSpiltData);
     }
@@ -261,8 +266,11 @@ export class dashboardContentClass implements OnInit {
       const checkCallType = /^(INBOUND)|(OUTBOUND)$/i;
 
       if (checkNumber.test(mobileNumber) && sessionVar.test(this.eventSpiltData[2]) && checkCallType.test(this.eventSpiltData[3])) {
-        this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent',
-          this.eventSpiltData[1], this.eventSpiltData[2], this.eventSpiltData[3]]);
+        this.dataSettingService.setUniqueCallIDForInBound = true;
+        sessionStorage.setItem('CLI', this.eventSpiltData[1]);
+      sessionStorage.setItem('session_id', this.eventSpiltData[2]);
+      sessionStorage.setItem('callCategory', this.eventSpiltData[3]);
+        this.router.navigate(['/MultiRoleScreenComponent/RedirectToInnerpageComponent']);
       } else {
         this.message.alert('Invalid call please check');
       }
