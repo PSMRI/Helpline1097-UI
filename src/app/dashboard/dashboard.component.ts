@@ -204,10 +204,13 @@ export class dashboardContentClass implements OnInit {
             this.inOutBound = '1';
             this.inboundCall=true;
           }
-          else{
+          else if(role.RoleID === current_roleID && role.outbound === true){
               this.dataSettingService.current_campaign = 'OUTBOUND';
               this.inOutBound = '0';   
               this.outboundCall=true;
+          }
+          else{
+          console.log("Supervisor role");
           }
         }
       }

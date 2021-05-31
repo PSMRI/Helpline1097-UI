@@ -97,6 +97,7 @@ export class loginContentClass implements OnInit {
   };
 
   successCallback(response: any, userID: any, password: any) {
+    this.dataSettingService.current_campaign=undefined;
     this.loading = false;
     console.log(response);
     this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
