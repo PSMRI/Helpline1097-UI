@@ -102,6 +102,11 @@
                 </md-form-field>
             </div>
 
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+                <a  href="#" (click)="openPDFGuidelines()">{{fileName}}</a>
+                
+            </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
                 <button md-raised-button color="accent"  class="pull-right" (click)="submitFeedback(form.value)"
                     [disabled]="!form.valid">Submit</button>
@@ -212,6 +217,12 @@
                         Mobile Number should be 10-digits</md-error>
                 </md-form-field>
             </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+                <a href="#" (click)="openPDFGuidelines()">{{fileName}}</a>
+                
+            </div>
+
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
                 <!-- <button md-raised-button color="accent" class="pull-left" (click)="enableControls()">Edit</button> -->

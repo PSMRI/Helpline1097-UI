@@ -100,7 +100,9 @@
     display: inline-block;
 }
 
-
+a :active{ 
+    color:blue;
+}
 
 
 
