@@ -48,6 +48,9 @@
                   <li style="cursor: pointer" (click)='show("27")'>
                     <a>Everwell Call Re-Allocation</a>
                   </li>
+                  <li style="cursor: pointer" (click)='show("28")'>
+                    <a>Everwell Guidelines Upload</a>
+                  </li>
                   <li style="cursor: pointer" (click)='show("1")'>
                     <a>Feedback Tracking</a>
                   </li>
@@ -164,8 +167,8 @@
           <app-sms-template *ngSwitchCase="24"></app-sms-template>
           <everwell-allocate *ngSwitchCase="26"></everwell-allocate>
           <everwell-reallocate *ngSwitchCase="27"></everwell-reallocate>
-          
-    
+          <app-everwell-guidelines-upload *ngSwitchCase="28"></app-everwell-guidelines-upload>
+         
         </div>
       </div>
       <!--</div>-->

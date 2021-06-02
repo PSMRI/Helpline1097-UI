@@ -15,6 +15,9 @@ export class NotificationService {
 
     getNotificationTypesURL = this.configService.getCommonBaseURL() + 'notification/getNotificationType';
     getRolesURL = this.configService.getCommonBaseURL() + 'user/getRolesByProviderID';
+    saveEverwellGuidelinesURL=this.configService.get1097BaseURL()+'saveEverwellGuidelines';
+    deleteEverwellGuidelinesURL=this.configService.get1097BaseURL()+'deleteEverwellGuidelines';
+    fetchEverwellGuidelinesURL=this.configService.get1097BaseURL()+'fetchEverwellGuidelines';
     createNotificationURL = this.configService.getCommonBaseURL() + 'notification/createNotification';
     getNotificationsURL = this.configService.getCommonBaseURL() + 'notification/getNotification';
     getSupervisorNotificationsURL = this.configService.getCommonBaseURL() + 'notification/getSupervisorNotification';
@@ -147,4 +150,17 @@ export class NotificationService {
     handleCustomError(error: Response) {
         return Observable.throw(error.json());
     }
+    saveGuidelines(data) {
+        return this.httpIntercepto.post(this.saveEverwellGuidelinesURL, data)
+        .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    deleteGuidelines(data) {
+        return this.httpIntercepto.post(this.deleteEverwellGuidelinesURL, data)
+        .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+    fetchGuidelines(data) {
+        return this.httpIntercepto.post(this.fetchEverwellGuidelinesURL, data)
+        .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
+
 }
