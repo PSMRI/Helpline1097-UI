@@ -96,8 +96,14 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     this.currentDate.setSeconds(0);
     this.currentDate.setMilliseconds(0);
   }
-
+  onCategoryChange()
+  {
+    // this.file=null;
+    // this.fileList=null;
+  }
   go2table() {
+    this.getGuidelines();
+    this.trainingResourceForm.reset();
     this.showTable = true;
     this.showEditForm = false;
     this.showForm = false;
@@ -206,7 +212,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
           console.log("length",response.data.data.length);
          this.trainingResourceForm.reset();
          this.count = '0/300';
-         this.getGuidelines();
+         //this.getGuidelines();
          this.dialogService.alert('File uploaded successfully', 'success');
          }
          else
@@ -264,7 +270,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
       myReader.onloadend = this.onLoadFileCallback.bind(this)
       myReader.readAsDataURL(this.file);
     }
-    else if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
+     if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
       console.log(this.fileList[0].size / 1000 / 1000);
       this.error1 = false;
       this.error2 = false;
@@ -309,40 +315,10 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   }
 
   
-  activate(obj, val) {
-    const object = {
-      'id':obj.id,
-      'guidelineName':obj.guidelineName,
-      'guidelineDesc':obj.guidelineDesc,
-     'fileName': obj.fileName,
-     'fileExtension': obj.fileExtension,
-     'providerServiceMapID': this.providerServiceMapID,
-     'fileContent':obj.fileContent,
-     'createdBy': obj.createdBy,
-     'validFrom': obj.validFrom,
-     'validTill': obj.validTill,
-     'userID': this.userId,
-     'category':obj.category,
-      'modifiedBy': obj.createdBy,
-      'deleted':val
-    }
-
-    console.log('req',object);
-    this.notificationService.saveGuidelines(object)
-      .subscribe((response) => {
-        if (response.data !== undefined) {
-         // this.trainingResources = response.data.data;
-         this.dialogService.alert('Training resource activated successfully', 'success');
-        }
-        //console.log('Training resources', this.trainingResources);
-      },
-      (error) => {
-        console.log(error);
-      });
-  }
-
+ 
   deactivate(obj, val) {
-
+    this.dialogService.confirm('Delete ', 'Do you want to delete the guideline?').subscribe((response) => {
+      if (response) {
     const object = {
       'id':obj.id,
      'providerServiceMapID': this.providerServiceMapID,
@@ -354,32 +330,41 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     this.notificationService.deleteGuidelines(object)
       .subscribe((response) => {
         if (response.data !== undefined) {
-         // this.trainingResources = response.data.data;
-         //this.dialogService.alert(response.data.response, 'success');
-         let deleteRes=response.data.response;
-         let req={
-          "providerServiceMapID":this.providerServiceMapID
-        }
-        //this.showProgressBar=true;
-        this.notificationService.fetchGuidelines(req)
-          .subscribe((response) => {
-            //this.showProgressBar=false;
-            if (response.data.data !== undefined) {
-              this.trainingResources = response.data.data;
-              this.dialogService.alert(deleteRes, 'success');
+          this.dialogService.alertConfirm(response.data.response, 'success')
+          .subscribe(() => {
+            let req={
+              "providerServiceMapID":this.providerServiceMapID
             }
-            console.log('Training resources', this.trainingResources);
-          },
-          (error) => {
-            //this.showProgressBar=false;
-            console.log(error);
+            //this.showProgressBar=true;
+            this.notificationService.fetchGuidelines(req)
+              .subscribe((response) => {
+                //this.showProgressBar=false;
+                if (response.data.data !== undefined) {
+                  this.trainingResources = response.data.data;
+                  //this.dialogService.alert(deleteRes, 'success');
+                }
+                console.log('Training resources', this.trainingResources);
+              },
+              (error) => {
+                //this.showProgressBar=false;
+                console.log(error);
+              });
           });
-        }
-        //console.log('Training resources', this.trainingResources);
-      },
-      (error) => {
-        console.log(error);
-      });
+      }
+     // );
+        },
+        (error) => {
+          console.log(error);
+        });
+      //}
+    //});
+      // (error) => {
+      //   console.log(error);
+      // });
+    // }
+    // });
+  }
+});
   }
 
 
