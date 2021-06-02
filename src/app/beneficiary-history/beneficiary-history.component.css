@@ -7,3 +7,8 @@
 .mat-dialog-container{
   padding:15px !important;
 }
+
+.removeScroll {
+  max-width: 100%;
+  overflow-x: hidden;
+}
