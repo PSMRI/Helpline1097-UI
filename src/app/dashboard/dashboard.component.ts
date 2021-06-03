@@ -178,10 +178,11 @@ export class dashboardContentClass implements OnInit {
 
   }
   setCampaign() {
-    sessionStorage.setItem("current_campaign", "");
+    sessionStorage.removeItem("current_campaign");
     this.current_role = this.dataSettingService.current_role.RoleName;
     let current_roleID=this.dataSettingService.current_role.RoleID;
     this.dataSettingService.inboundOutbound$.subscribe((response) => {
+      if(response !== null){
       for(let value of response.previlegeObj){
         for(let role of value.roles){
           role.outbound === true;
@@ -194,6 +195,7 @@ export class dashboardContentClass implements OnInit {
             }
             else{
               this.dataSettingService.current_campaign = 'INBOUND';
+              sessionStorage.setItem("current_campaign", 'INBOUND');
               this.inOutBound = '1';
               this.inboundCall=true;
               this.outboundCall=true;
@@ -201,21 +203,26 @@ export class dashboardContentClass implements OnInit {
           }
           else if(role.RoleID === current_roleID && role.inbound === true){
             this.dataSettingService.current_campaign = 'INBOUND';
+            sessionStorage.setItem("current_campaign", 'INBOUND');
             this.inOutBound = '1';
             this.inboundCall=true;
           }
           else if(role.RoleID === current_roleID && role.outbound === true){
-              this.dataSettingService.current_campaign = 'OUTBOUND';
-              this.inOutBound = '0';   
-              this.outboundCall=true;
+            this.inOutBound = '0';   
+            this.outboundCall=true;
+            this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
+                sessionStorage.setItem("current_campaign", 'OUTBOUND');
+                console.log("outbound");
+              })
           }
           else{
           console.log("Supervisor role");
           }
         }
       }
-    })
-    sessionStorage.setItem("current_campaign", this.dataSettingService.current_campaign);
+    }
+    })   
   }
   showDashboard() {
     this.data = this.dataSettingService.Userdata;
