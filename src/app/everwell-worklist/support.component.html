@@ -6,8 +6,16 @@
     </button>
 </div>
 
+<div class="overlay" *ngIf="showProgressBar">
+    <div class="overlay-content">
+      <md-spinner></md-spinner>
+    </div>
+  </div>
   
         <md-dialog-content style="min-height:300px" *ngIf='!isfeedbackedit'>
+
+          
+              
         <form #form="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
                 <label class="control-label">Missed Doses: {{everwellBenData.MissedDoses}}</label>

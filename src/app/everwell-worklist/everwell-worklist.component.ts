@@ -464,6 +464,7 @@ export class SupportActionModal {
   isfeedbackedit: boolean = false;
   srcPath: string;
   fileName: any;
+  showProgressBar: boolean=false;
 
  
 
@@ -472,7 +473,7 @@ export class SupportActionModal {
     { }
 
   ngOnInit() {
-   
+    this.getEverwellGuidelines();
     //console.log("Initial value", this.data);
     // this.superadminService.getCommonRegistrationData().subscribe(response => this.showGenderOnCondition(response));
     // this.superadminService.getAllQualifications().subscribe(response => this.getEduQualificationSuccessHandler(response));
@@ -530,7 +531,7 @@ export class SupportActionModal {
       
     );
   }
-  this.getEverwellGuidelines();
+  
   }
 
   preventTyping(e: any) {
@@ -648,22 +649,36 @@ export class SupportActionModal {
   getEverwellGuidelines()
   {
     let req={
-     'adherencePercentage':this.everwellBenData.AdherencePercentage,
-     'providerServiceMapID':this.everwellBenData.providerServiceMapId
+     'adherencePercentage':this._common.outboundEverwellData.AdherencePercentage,
+     'providerServiceMapID':this._common.outboundEverwellData.providerServiceMapId
      
     }
     // let req={};
     // this.fileName="EverwellGuideline";
+    this.showProgressBar = true;
     this.OCRService.getEverwellGuidelinesDetails(req).subscribe(response => 
       {
-        
-        this.srcPath=response.data[0].fileContent;
-        this.fileName=response.data[0].fileName;
       
+        if(response.data.length>0)
+        {
+        
+          this.srcPath=response.data[0].fileContent;
+        this.fileName=response.data[0].fileName;
+        this.showProgressBar = false;
+        
+        }
+        else
+        {
+          this.showProgressBar = false;
+          this.alertService.alert('Everwell Guideline Data is not available','error');
+        }
+      
+     
       
         
       },
     (err)=> {
+      this.showProgressBar = false;
       this.alertService.alert('Error in Fetching Everwell Guideline Data','error');
       console.log('Unable to Fetch Everwell Guideline Data');
     });
