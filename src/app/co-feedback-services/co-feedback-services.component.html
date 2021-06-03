@@ -224,7 +224,7 @@
                     <span>{{count}}</span> -->
         <md-input-container [style.width]="'100%'">
           <textarea required #descVar="ngModel" mdInput placeholder="{{currentlanguage.feedback_service?.feedback_description}}" rows="2"
-            name="feedback" [(ngModel)]="feedbackDescription" maxlength="300" (keyup)="updateCount()"></textarea>
+            name="feedback" [(ngModel)]="feedbackDescription" maxlength="5000" (keyup)="updateCount()"></textarea>
           <md-hint *ngIf="descVar.invalid && (descVar.dirty || descVar.touched)">
             <span class="error_text">Description is required</span>
           </md-hint>
