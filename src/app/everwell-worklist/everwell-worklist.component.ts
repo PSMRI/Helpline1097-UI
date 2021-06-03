@@ -49,6 +49,7 @@ export class EverwellWorklistComponent implements OnInit {
      ) {
   }
   ngOnInit() {
+    
     this._common.sendHeaderStatus.next("");
     const serviceProviderMapID = this._common.current_service.serviceID;
     const userId = this._common.uid;
@@ -461,14 +462,18 @@ export class SupportActionModal {
   dosecolor: string;
   efid: any;
   isfeedbackedit: boolean = false;
+  srcPath: string;
+  fileName: any;
+  showProgressBar: boolean=false;
 
  
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
-  private alertMaessage: ConfirmationDialogsService,public dialogRef: MdDialogRef<SupportActionModal>)
+  private alertMaessage: ConfirmationDialogsService,public dialogRef: MdDialogRef<SupportActionModal>,private OCRService: OutboundReAllocationService,public alertService: ConfirmationDialogsService)
     { }
 
   ngOnInit() {
+    this.getEverwellGuidelines();
     //console.log("Initial value", this.data);
     // this.superadminService.getCommonRegistrationData().subscribe(response => this.showGenderOnCondition(response));
     // this.superadminService.getAllQualifications().subscribe(response => this.getEduQualificationSuccessHandler(response));
@@ -526,6 +531,7 @@ export class SupportActionModal {
       
     );
   }
+  
   }
 
   preventTyping(e: any) {
@@ -640,6 +646,59 @@ export class SupportActionModal {
     this.dosecolor= this.enablecontrols?"":"dosecolor";
   }
 
+  getEverwellGuidelines()
+  {
+    let req={
+     'adherencePercentage':this._common.outboundEverwellData.AdherencePercentage,
+     'providerServiceMapID':this._common.outboundEverwellData.providerServiceMapId
+     
+    }
+    // let req={};
+    // this.fileName="EverwellGuideline";
+    this.showProgressBar = true;
+    this.OCRService.getEverwellGuidelinesDetails(req).subscribe(response => 
+      {
+      
+        if(response.data.length>0)
+        {
+        
+          this.srcPath=response.data[0].fileContent;
+        this.fileName=response.data[0].fileName;
+        this.showProgressBar = false;
+        
+        }
+        else
+        {
+          this.showProgressBar = false;
+          this.alertService.alert('Everwell Guideline Data is not available','error');
+        }
+      
+     
+      
+        
+      },
+    (err)=> {
+      this.showProgressBar = false;
+      this.alertService.alert('Error in Fetching Everwell Guideline Data','error');
+      console.log('Unable to Fetch Everwell Guideline Data');
+    });
+  }
 
+  openPDFGuidelines()
+  { 
+ 
+  let srcFilePath=this.srcPath.replace('data:application/pdf;base64,','');
+  
+    var byteCharacters = atob(srcFilePath);
+    var byteNumbers = new Array(byteCharacters.length);
+    for (var i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    var file = new Blob([byteArray], { type: 'application/pdf;base64' });
+    var fileURL = URL.createObjectURL(file);
+    window.open(fileURL);
+    return false;
+  }
  
 }
