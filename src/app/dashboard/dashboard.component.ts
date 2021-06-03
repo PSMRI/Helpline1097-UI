@@ -195,6 +195,7 @@ export class dashboardContentClass implements OnInit {
             }
             else{
               this.dataSettingService.current_campaign = 'INBOUND';
+              sessionStorage.setItem("current_campaign", 'INBOUND');
               this.inOutBound = '1';
               this.inboundCall=true;
               this.outboundCall=true;
@@ -202,13 +203,18 @@ export class dashboardContentClass implements OnInit {
           }
           else if(role.RoleID === current_roleID && role.inbound === true){
             this.dataSettingService.current_campaign = 'INBOUND';
+            sessionStorage.setItem("current_campaign", 'INBOUND');
             this.inOutBound = '1';
             this.inboundCall=true;
           }
           else if(role.RoleID === current_roleID && role.outbound === true){
-              this.dataSettingService.current_campaign = 'OUTBOUND';
-              this.inOutBound = '0';   
-              this.outboundCall=true;
+            this.inOutBound = '0';   
+            this.outboundCall=true;
+            this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
+                sessionStorage.setItem("current_campaign", 'OUTBOUND');
+                console.log("outbound");
+              })
           }
           else{
           console.log("Supervisor role");
@@ -216,8 +222,7 @@ export class dashboardContentClass implements OnInit {
         }
       }
     }
-    })
-    sessionStorage.setItem("current_campaign", this.dataSettingService.current_campaign);
+    })   
   }
   showDashboard() {
     this.data = this.dataSettingService.Userdata;
