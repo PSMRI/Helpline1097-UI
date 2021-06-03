@@ -102,6 +102,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     // this.fileList=null;
   }
   go2table() {
+    this.file=undefined;
     this.getGuidelines();
     this.trainingResourceForm.reset();
     this.showTable = true;
@@ -214,14 +215,16 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
          this.count = '0/300';
          //this.getGuidelines();
          this.dialogService.alert('File uploaded successfully', 'success');
+         
          }
          else
          this.dialogService.alert(response.data.data, 'error');
-        
+         this.file=undefined;
         }
       },
       (error) => {
         console.log(error);
+        this.file=undefined;
       });
 
     }
