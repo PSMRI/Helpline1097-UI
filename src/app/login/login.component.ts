@@ -27,6 +27,7 @@ export class loginContentClass implements OnInit {
     public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService) {
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
+        if(response !== null)  {
         this.dataSettingService.Userdata = response;
         // this.dataSettingService.userPriveliges = response.Previlege;
         this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
@@ -48,7 +49,7 @@ export class loginContentClass implements OnInit {
         // if (response.isAuthenticated === true && response.Status === 'New') {
         //   this.router.navigate(['/setQuestions']);
         // }
-      }, (err) => {
+      }}, (err) => {
         //  this.alertService.alert(err.errorMessage, 'error');
       });
     }

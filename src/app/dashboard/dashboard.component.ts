@@ -178,10 +178,11 @@ export class dashboardContentClass implements OnInit {
 
   }
   setCampaign() {
-    sessionStorage.setItem("current_campaign", "");
+    sessionStorage.removeItem("current_campaign");
     this.current_role = this.dataSettingService.current_role.RoleName;
     let current_roleID=this.dataSettingService.current_role.RoleID;
     this.dataSettingService.inboundOutbound$.subscribe((response) => {
+      if(response !== null){
       for(let value of response.previlegeObj){
         for(let role of value.roles){
           role.outbound === true;
@@ -214,6 +215,7 @@ export class dashboardContentClass implements OnInit {
           }
         }
       }
+    }
     })
     sessionStorage.setItem("current_campaign", this.dataSettingService.current_campaign);
   }
