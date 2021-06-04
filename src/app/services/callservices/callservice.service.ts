@@ -32,6 +32,7 @@ export class CallServices {
   _servicetypesurl = this._commonURL + "service/servicetypes";
   _outEverwellbouncClose_url = this._commonURL + 'everwellCall/completeOutboundCall/';
   _postEverwellFeedback = this._commonURL + 'everwellCall/saveFeedback/';
+    onceOutbound: boolean = false;
 
   constructor(
     private _http: AuthorizationWrapper,
@@ -40,7 +41,7 @@ export class CallServices {
   ) { }
 
   onlyOutbound = false;
-  
+
   getSubServiceTypes(requestObject: any) {
 
     return this._http.post(this._servicetypesurl, requestObject)

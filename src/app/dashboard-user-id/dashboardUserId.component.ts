@@ -29,7 +29,7 @@ export class DashboardUserIdComponent implements OnInit {
     };
     ngOnInit() {
         this.getAgentStatus()
-        if(this.callService.onlyOutbound){
+        if(this.callService.onlyOutbound && !this.callService.onceOutbound){
             const timer = Observable.interval(5 * 1000);
             this.timerSubscription = timer.subscribe(() => {
                 this.getAgentStatus();
@@ -56,9 +56,10 @@ export class DashboardUserIdComponent implements OnInit {
                 this.status = res.data.stateObj.stateName;
 
                 // switchtooutbound
-                if( this.status != undefined && this.status.toUpperCase() === "FREE"){
+                if( this.status != undefined && this.status.toUpperCase() === "FREE" ){
                     this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
                         sessionStorage.setItem("current_campaign", 'OUTBOUND');
+                        this.callService.onceOutbound = true;
                         this.callService.onlyOutbound = false;
                         this.timerSubscription.unsubscribe();
                         console.log("outbound");
