@@ -293,24 +293,24 @@ export class dashboardContentClass implements OnInit {
     } else {
       this.eventSpiltData = event.detail.data.split('|');
     }
-    if (!sessionStorage.getItem('session_id') && campaign !== "OUTBOUND") {
+    if (!sessionStorage.getItem('session_id') ) {
       this.handleEvent(this.eventSpiltData);
-  } else if (sessionStorage.getItem('session_id') !== this.eventSpiltData[2] && campaign !== "OUTBOUND") {  // If session id is different from previous session id then allow the call to drop
+  } else if (sessionStorage.getItem('session_id') !== this.eventSpiltData[2] ) {  // If session id is different from previous session id then allow the call to drop
       this.handleEvent(this.eventSpiltData);
   }
     if (this.eventSpiltData[0].toLowerCase() === 'accept') {
       // let campaign = sessionStorage.getItem("current_campaign");
-      if(campaign !== "OUTBOUND"){
+      // if(campaign !== "OUTBOUND"){
         this.handleEvent(this.eventSpiltData);
-      }else if (campaign === "OUTBOUND"){
-        this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
-          sessionStorage.setItem("current_campaign", 'OUTBOUND');
-          console.log("outbound");
-        }, (err) => {
-          console.log("agent in not logged in");          
-          sessionStorage.setItem("current_campaign", 'OUTBOUND');
-        })
-      }
+      // }else if (campaign === "OUTBOUND"){
+      //   this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
+      //     sessionStorage.setItem("current_campaign", 'OUTBOUND');
+      //     console.log("outbound");
+      //   }, (err) => {
+      //     console.log("agent in not logged in");          
+      //     sessionStorage.setItem("current_campaign", 'OUTBOUND');
+      //   })
+      // }
         
     }
     //}
