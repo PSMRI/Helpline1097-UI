@@ -49,6 +49,7 @@ export class dashboardContentClass implements OnInit {
     new ToasterConfig({
       timeout: 15000
     });
+  inOutBoundNow: boolean;
 
   constructor(
     public dataSettingService: dataService,
@@ -214,7 +215,13 @@ export class dashboardContentClass implements OnInit {
               this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
                 sessionStorage.setItem("current_campaign", 'OUTBOUND');
                 console.log("outbound");
+              }, (err) => {
+                console.log("agent in not logged in");                
+                sessionStorage.setItem("current_campaign", 'OUTBOUND');
               })
+            if(role.outbound === true && (role.inbound == null || role.inbound === false)){
+              this.callService.onlyOutbound = true;
+            }
           }
           else{
           console.log("Supervisor role");
@@ -228,11 +235,23 @@ export class dashboardContentClass implements OnInit {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
-    this.addListener();
-    this.listenCall = this.renderer.listenGlobal('window', 'message', (event) => {
-      this.listener(event);
-      // Do something with 'event'
-    });
+    let campaign = sessionStorage.getItem("current_campaign");
+    // if(campaign != null && campaign != undefined && campaign !== "OUTBOUND"){
+      this.addListener();
+      this.listenCall = this.renderer.listenGlobal('window', 'message', (event) => {
+        this.listener(event);
+        // Do something with 'event'
+      });
+    // }else{
+    //   this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
+    //     sessionStorage.setItem("current_campaign", 'OUTBOUND');
+    //     console.log("outbound");
+    //   }, (err) => {
+    //     console.log("agent in not logged in");          
+    //     sessionStorage.setItem("current_campaign", 'OUTBOUND');
+    //   })
+    // }
+    
   }
   toggleBar() {
     // if ( this.barMinimized )
@@ -267,18 +286,32 @@ export class dashboardContentClass implements OnInit {
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
     // if (event.origin === 'http://10.201.13.17') {
+      let campaign = sessionStorage.getItem("current_campaign");
+     
     if (event.data) {
       this.eventSpiltData = event.data.split('|');
     } else {
       this.eventSpiltData = event.detail.data.split('|');
     }
-    if (!sessionStorage.getItem('session_id')) {
+    if (!sessionStorage.getItem('session_id') && campaign !== "OUTBOUND") {
       this.handleEvent(this.eventSpiltData);
-  } else if (sessionStorage.getItem('session_id') !== this.eventSpiltData[2]) {  // If session id is different from previous session id then allow the call to drop
+  } else if (sessionStorage.getItem('session_id') !== this.eventSpiltData[2] && campaign !== "OUTBOUND") {  // If session id is different from previous session id then allow the call to drop
       this.handleEvent(this.eventSpiltData);
   }
     if (this.eventSpiltData[0].toLowerCase() === 'accept') {
-      this.handleEvent(this.eventSpiltData);
+      // let campaign = sessionStorage.getItem("current_campaign");
+      if(campaign !== "OUTBOUND"){
+        this.handleEvent(this.eventSpiltData);
+      }else if (campaign === "OUTBOUND"){
+        this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
+          sessionStorage.setItem("current_campaign", 'OUTBOUND');
+          console.log("outbound");
+        }, (err) => {
+          console.log("agent in not logged in");          
+          sessionStorage.setItem("current_campaign", 'OUTBOUND');
+        })
+      }
+        
     }
     //}
 
@@ -414,7 +447,7 @@ export class dashboardContentClass implements OnInit {
   }
 
   ngOnDestroy() {
-    this.listenCall();
+    // this.listenCall();
     this.notificationSubscription.unsubscribe();
   }
   // CODE FOR SIDE NAV

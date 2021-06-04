@@ -39,6 +39,8 @@ export class CallServices {
     private _httpInterceptor: InterceptedHttp
   ) { }
 
+  onlyOutbound = false;
+  
   getSubServiceTypes(requestObject: any) {
 
     return this._http.post(this._servicetypesurl, requestObject)
@@ -147,4 +149,5 @@ export class CallServices {
   handleCustomError(error: Response) {
     return Observable.throw(error.json());
   }
+  
 }
