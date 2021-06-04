@@ -3,6 +3,7 @@ import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ListnerService } from './../services/common/listner.service';
 import { SocketService } from '../services/socketService/socket.service';
+import { CallServices } from 'app/services/callservices/callservice.service';
 
 @Component({
     selector: 'app-service-role-selection',
@@ -15,6 +16,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
     constructor(
         public getCommonData: dataService,
         public router: Router,
+        private callService: CallServices,
         private listnerService: ListnerService, public socketService: SocketService
     ) { }
 
@@ -32,6 +34,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
         let roleName = '';
         let serviceName = service.serviceName;
         let screen = role.serviceRoleScreenMappings[0].screen.screenName;
+        this.callService.onceOutbound = false;
         if (screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
             roleName = 'co';
         } else if (screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {
