@@ -56,7 +56,7 @@ export class DashboardUserIdComponent implements OnInit {
                 this.status = res.data.stateObj.stateName;
 
                 // switchtooutbound
-                if( this.status != undefined && (this.status.toUpperCase() === "FREE" || this.status.toUpperCase() === "READY")){
+                if( this.status != undefined && this.status.toUpperCase() === "FREE"){
                     this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
                         sessionStorage.setItem("current_campaign", 'OUTBOUND');
                         this.callService.onlyOutbound = false;
