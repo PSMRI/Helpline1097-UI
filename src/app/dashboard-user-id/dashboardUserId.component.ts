@@ -29,19 +29,19 @@ export class DashboardUserIdComponent implements OnInit {
     };
     ngOnInit() {
         this.getAgentStatus()
-        if(this.callService.onlyOutbound && !this.callService.onceOutbound){
+        if (this.callService.onlyOutbound && !this.callService.onceOutbound) {
             const timer = Observable.interval(5 * 1000);
             this.timerSubscription = timer.subscribe(() => {
                 this.getAgentStatus();
             });
         }
-        
+
     }
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
             if (res && res.data.stateObj.stateName) {
                 console.log("in agent state", res);
-                
+
                 if (!this.dataSettingService.current_campaign && sessionStorage.getItem("current_campaign")) {
                     this.dataSettingService.current_campaign = sessionStorage.getItem("current_campaign");
                 }
@@ -55,18 +55,31 @@ export class DashboardUserIdComponent implements OnInit {
                 }
                 this.status = res.data.stateObj.stateName;
 
+                console.log("isoutboundValue", this.dataSettingService.isOutBoundSelected);
+                    console.log("outbpoundseletedmanual", this.dataSettingService.outboundSelectedManual);
+                    console.log("outbpoundseletedmanual", this.dataSettingService.onlyOutboundAvailable);
+
                 // switchtooutbound
-                if( this.status != undefined && this.status.toUpperCase() === "FREE" ){
-                    this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
-                        sessionStorage.setItem("current_campaign", 'OUTBOUND');
-                        this.callService.onceOutbound = true;
-                        this.callService.onlyOutbound = false;
+                if (this.status != undefined && this.status.toUpperCase() === "FREE" && this.dataSettingService.onlyOutboundAvailable) {
+                    
+                    if (this.dataSettingService.isOutBoundSelected) {
                         this.timerSubscription.unsubscribe();
-                        console.log("outbound");
-                      }, (err) => {
-                        console.log("agent in not logged in");                        
-                        sessionStorage.setItem("current_campaign", 'OUTBOUND');
-                      })
+                    } else {
+                        this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response) => {
+                            sessionStorage.setItem("current_campaign", 'OUTBOUND');
+                            this.callService.onceOutbound = true;
+                            this.callService.onlyOutbound = false;
+                            this.timerSubscription.unsubscribe();
+                            console.log("outbound");
+                        }, (err) => {
+                            console.log("agent in not logged in");
+                            sessionStorage.setItem("current_campaign", 'OUTBOUND');
+                        })
+                    }
+
+                }
+                if (this.status != undefined && this.status.toUpperCase() === "FREE" && !this.dataSettingService.onlyOutboundAvailable) {
+                    this.timerSubscription.unsubscribe()
                 }
 
                 if (this.status.toUpperCase() === 'INCALL' || this.status.toUpperCase() === 'CLOSURE') {
@@ -75,7 +88,7 @@ export class DashboardUserIdComponent implements OnInit {
                     } else if (sessionStorage.getItem('session_id') !== res.session_id) {  // If session id is different from previous session id then allow the call to drop
                         this.routeToInnerPage(res);
                     }
-                   
+
                 }
                 if (res.data.stateObj.stateType) {
                     this.status += ' (' + res.data.stateObj.stateType + ')';
@@ -88,8 +101,7 @@ export class DashboardUserIdComponent implements OnInit {
             console.log("CZ AGENT NOT LOGGED IN")
         })
     }
-    routeToInnerPage(res)
-    {
+    routeToInnerPage(res) {
         let CLI = res.data.cust_ph_no;
         let session_id = res.data.session_id;
         sessionStorage.setItem('isOnCall', 'yes');
@@ -98,9 +110,9 @@ export class DashboardUserIdComponent implements OnInit {
         this.dataSettingService.setUniqueCallIDForInBound = true;
         this.router.navigate(['/MultiRoleScreenComponent/RedirectToInnerpageComponent']);
     }
-    ngOnDestroy(){
+    ngOnDestroy() {
 
-        if(this.timerSubscription)
+        if (this.timerSubscription)
             this.timerSubscription.unsubscribe();
     }
 }

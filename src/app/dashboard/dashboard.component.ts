@@ -188,8 +188,11 @@ export class dashboardContentClass implements OnInit {
         for(let role of value.roles){
           role.outbound === true;
           if(role.RoleID === current_roleID && role.inbound === true && role.outbound === true){
+            this.dataSettingService.onlyOutboundAvailable = false;
             if(this.dataSettingService.current_campaign === 'OUTBOUND'){
               //this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.dataSettingService.isOutBoundSelected = true;    
+              this.dataSettingService.outboundSelectedManual = false;          
               this.inOutBound = '0';
               this.inboundCall=true;
               this.outboundCall=true;
@@ -197,6 +200,7 @@ export class dashboardContentClass implements OnInit {
             else{
               this.dataSettingService.current_campaign = 'INBOUND';
               sessionStorage.setItem("current_campaign", 'INBOUND');
+              this.dataSettingService.isOutBoundSelected = false;
               this.inOutBound = '1';
               this.inboundCall=true;
               this.outboundCall=true;
@@ -205,15 +209,20 @@ export class dashboardContentClass implements OnInit {
           else if(role.RoleID === current_roleID && role.inbound === true){
             this.dataSettingService.current_campaign = 'INBOUND';
             sessionStorage.setItem("current_campaign", 'INBOUND');
+            this.dataSettingService.isOutBoundSelected = false;
+            this.dataSettingService.outboundSelectedManual = false;
+            this.dataSettingService.onlyOutboundAvailable = false;
             this.inOutBound = '1';
             this.inboundCall=true;
           }
           else if(role.RoleID === current_roleID && role.outbound === true){
             this.inOutBound = '0';   
             this.outboundCall=true;
+            this.dataSettingService.onlyOutboundAvailable = true;
             this.dataSettingService.current_campaign = 'OUTBOUND';
               this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
                 sessionStorage.setItem("current_campaign", 'OUTBOUND');
+                this.dataSettingService.isOutBoundSelected = true;
                 console.log("outbound");
               }, (err) => {
                 console.log("agent in not logged in");                
@@ -381,6 +390,8 @@ export class dashboardContentClass implements OnInit {
         if (response) {
           this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'INBOUND';
+            this.dataSettingService.isOutBoundSelected = false;
+            this.dataSettingService.outboundSelectedManual = false;
             sessionStorage.setItem("current_campaign", 'INBOUND');
           }, (err) => {
             this.message.alert(err.errorMessage, 'error');
@@ -396,6 +407,8 @@ export class dashboardContentClass implements OnInit {
         if (response) {
           this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'OUTBOUND';
+            this.dataSettingService.isOutBoundSelected = true;
+            this.dataSettingService.outboundSelectedManual = true;
             sessionStorage.setItem("current_campaign", 'OUTBOUND');
           }, (err) => {
             this.message.alert(err.errorMessage, 'error');

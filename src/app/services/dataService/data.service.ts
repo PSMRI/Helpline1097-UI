@@ -69,6 +69,9 @@ export class dataService {
 	inboundOutbound = new BehaviorSubject(null);
 	inboundOutbound$ = this.inboundOutbound.asObservable();
 	callTypes: any;
+  isOutBoundSelected: boolean = false;
+  outboundSelectedManual: boolean = false;
+  onlyOutboundAvailable: boolean = false;
 	setInboundOutboundValue(response) {
 		//this.callTypes=1;
 		this.inboundOutbound.next(response);
