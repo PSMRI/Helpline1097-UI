@@ -21,6 +21,7 @@ import { CommonSmsDialogComponent } from '../common-sms-dialog/common-sms-dialog
 import { SmsTemplateService } from './../services/supervisorServices/sms-template-service.service';
 
 import * as moment from 'moment';
+import { LoaderService } from 'app/services/common/loader.service';
 
 declare var jQuery: any;
 
@@ -156,6 +157,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   //public mobileNumberMask = [ /[^0-9]/, /\d/];
 
+  btnDisabled = false;
   constructor(private _util: RegisterService,
     private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -170,7 +172,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     private outboundService: OutboundService,
     private czentrixService: CzentrixServices,
     private reload_call: ReloadService,
-    private _smsService: SmsTemplateService
+    private _smsService: SmsTemplateService,
+    private loaderService: LoaderService
   ) {
 
     // this.subcriptionOutbound = this.outboundService.getOutboundData()
@@ -365,11 +368,15 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     data.receivedRoleName = this.saved_data.current_role.RoleName;
     /**/
     data.isOutbound = this.saved_data.isOutbound;
-    this._util.startCall(data).subscribe((response) => { this.setBenCall(response) }, (err) => {
+    if( this.saved_data.setUniqueCallIDForInBound===true)
+    {
+    this._util.startCall(data).subscribe((response) => { this.setBenCall(response);
+      this.saved_data.setUniqueCallIDForInBound = false; }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
       console.log('ERROR', err);
 
     });
+  }
     this.alternateNumber1 = "";
     this.alternateNumber2 = "";
     this.alternateNumber3 = "";
@@ -519,6 +526,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.alternateNumber3 = "";
       this.alternateNumber4 = "";
       this.alternateNumber5 = "";
+      this.btnDisabled = false;
     }
   }
 
@@ -631,6 +639,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
    */
 
   registerBeneficiary() {
+    this.btnDisabled = true;
+    this.loaderService.show();
     this.updatedObj = {};
     console.log("vanID/serviceID:" + this.saved_data.current_serviceID);
     this.updatedObj.vanID = this.saved_data.current_serviceID;
@@ -734,8 +744,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.onBenSelect.emit('benService');
       this.showSearchResult = false;
       this.notCalledEarlierLowerPart = false;
-
+      this.loaderService.hide();
     }, (err) => {
+      this.btnDisabled = false;
+      this.loaderService.hide();
       this.alertMaessage.alert(err.status, 'error');
       console.log('ERROR', err);
     });
@@ -909,7 +921,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
 
   populateUserData(benRegData: any) {
-    this.updatebeneficiaryincall(benRegData);
+    let addBenCallID = Object.assign({}, benRegData, {"benCallID": this.saved_data.callData.benCallID})
+    this.updatebeneficiaryincall(addBenCallID);
     const res = this._util.retrieveRegHistory(benRegData.beneficiaryID)
       .subscribe(response => {
         if (response.length > 0) {
@@ -1340,9 +1353,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.notCalledEarlierLowerPart = false;
     } else {
       const dialogRef = this.dialog.open(BeneficiaryHistoryComponent, {
-        height: '70%',
+        // height: '70%',
 
-        width: '80%',
+        // width: '80%',
         disableClose: true,
         data: regHistory.beneficiaryRegID,
       });
@@ -1648,6 +1661,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.BeneficaryForm.resetForm();
     this.notCalledEarlierLowerPart = false;
     this.notCalledEarlier = true;
+    this.btnDisabled = false;
     // let a = null;
     // this.age = "0";
     // this.calculateDOB("0");

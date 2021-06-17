@@ -10,6 +10,7 @@ export class OutboundReAllocationService {
     test = [];
     data: any;
      _baseurl: String = this._config.getCommonBaseURL();
+     _1097baseUrl:String=this._config.get1097BaseURL();
     // _baseurl:String='http://localhost:8080/';
     private _geturl: string = this._baseurl + 'user/getUsersByProviderID';
     private _getRolesURL: string = this._baseurl + 'user/getRolesByProviderID';
@@ -20,7 +21,7 @@ export class OutboundReAllocationService {
     private everwellMoveToBinURL: string = this._baseurl + 'everwellCall/resetOutboundCall';    
     private _getEverwelloutboundCallListURL: string = this._baseurl + 'everwellCall/outboundCallList';
     private getEverwellFeedBackDetailsURL: string = this._baseurl + '/everwellCall/getEverwellfeedbackDetails';
-
+    private getEverwellGuidelinesURL: string = this._1097baseUrl + 'fetchEverwellGuidelines';
     constructor(private _http: AuthorizationWrapper, private _config: ConfigService) {
     }
 
@@ -66,6 +67,12 @@ export class OutboundReAllocationService {
 
     getEverwellFeedBackDetails(data) {
         return this._http.post(this.getEverwellFeedBackDetailsURL, data)
+            .map(this.extractDataSuccess)
+            .catch(this.handleError);
+    }
+
+    getEverwellGuidelinesDetails(data) {
+        return this._http.post(this.getEverwellGuidelinesURL, data)
             .map(this.extractDataSuccess)
             .catch(this.handleError);
     }

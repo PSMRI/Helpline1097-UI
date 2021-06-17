@@ -201,6 +201,7 @@ import { EverwellAllocateRecordsComponent } from './everwell-allocate-records/ev
 import { EverwellOutboundWorklistComponent } from './everwell-outbound-worklist/everwell-outbound-worklist.component';
 import { EverwellWorklistComponent, SupportActionModal } from './everwell-worklist/everwell-worklist.component';
 import { OutboundCallWorklistsComponent } from './outbound-call-worklists/outbound-call-worklists.component';
+import { EverwellGuidelinesUploadComponent } from './everwell-guidelines-upload/everwell-guidelines-upload.component';
 
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
@@ -248,7 +249,8 @@ import { OutboundCallWorklistsComponent } from './outbound-call-worklists/outbou
     EverwellOutboundWorklistComponent,
     EverwellWorklistComponent,
     SupportActionModal,
-    OutboundCallWorklistsComponent
+    OutboundCallWorklistsComponent,
+    EverwellGuidelinesUploadComponent
 
   ],
   imports: [
@@ -302,7 +304,7 @@ import { OutboundCallWorklistsComponent } from './outbound-call-worklists/outbou
             component: SuperAdminComponent
           },
           {
-            path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
+            path: 'RedirectToInnerpageComponent',
             component: InnerpageComponent,
             canActivate: [AuthGuard2],
           },

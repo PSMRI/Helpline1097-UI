@@ -35,7 +35,26 @@ export class ConfirmationDialogsService {
             return dialogRef.afterClosed();
         }
     }
-
+    public alertConfirm(message: string, status: string = 'info', titleAlign: string = 'center',
+    messageAlign: string = 'center', btnOkText: string = 'Ok'): Observable<any> {
+    if (!this.isShown) {
+        let dialogRef: MdDialogRef<CommonDialogComponent>;
+        const config = new MdDialogConfig();
+        // config.viewContainerRef = viewContainerRef;
+        dialogRef = this.dialog.open(CommonDialogComponent, config);
+        dialogRef.componentInstance.message = message;
+        dialogRef.componentInstance.status = status;
+        dialogRef.componentInstance.btnOkText = btnOkText;
+        dialogRef.componentInstance.confirmAlert = false;
+        dialogRef.componentInstance.alert = true;
+        dialogRef.afterClosed().subscribe(res => {
+            this.isShown = false;
+        }
+        )
+        this.isShown = true;
+        return dialogRef.afterClosed();
+    }
+}
     public confirmWithoutContainer(title: string, message: string, titleAlign: string = 'center',
         messageAlign: string = 'center', btnOkText: string = 'Ok', btnCancelText: string = 'Cancel'): Observable<boolean> {
 

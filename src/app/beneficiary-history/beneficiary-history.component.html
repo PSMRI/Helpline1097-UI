@@ -24,8 +24,8 @@
   <div fxLayout="row"> -->
       <div class="row">
         <div class="col-md-12 col-lg-12">
-          <div class="table-responsive">
-            <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
+          <div class="table-responsive removeScroll">
+            <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
               <thead>
 
                 <tr>
@@ -76,3 +76,6 @@
     </md-dialog-content>
   <!-- </div>
 </div> -->
+<div>
+<button class="pull-right m-a-5" md-raised-button color="primary" (click)="dialogRef.close()">OK</button> 
+</div>

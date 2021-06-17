@@ -155,6 +155,9 @@
                 </span>
                 <!--<span *ngIf="detailsList?.length==0">No Records Found</span>-->
               </div>
+              <div class="t-a-c record-not-found" *ngIf="!(detailsList.length>0)">
+                 No Records
+              </div>
             </div>
           </div>
           <div class="col-xs-2 col-sm-2" *ngIf="showSendSMS">
@@ -183,7 +186,7 @@
                 {{currentlanguage.referral_service?.table_labels?.no_records_found}}
               </td>
             </tr>
-            <tr *ngFor="let referral of md2.data;let i=index " style="cursor: pointer;">
+            <tr *ngFor="let referral of md2.data;let i=index ">
               <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
               <!-- <td>{{referral.instituteDirMapID}}</td> -->
               <td>{{referral.benCallID}}</td>

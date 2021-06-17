@@ -41,13 +41,15 @@ export class dashboardContentClass implements OnInit {
   compainType: any;
   alertRefresh: number = 1;
   notificationSubscription: Subscription;
-
+  inboundCall: boolean= false;
+  outboundCall: boolean= false;
   agentID: any;
   agentIDExitsFlag: boolean = false;
   public config: ToasterConfig =
     new ToasterConfig({
       timeout: 15000
     });
+  inOutBoundNow: boolean;
 
   constructor(
     public dataSettingService: dataService,
@@ -62,10 +64,6 @@ export class dashboardContentClass implements OnInit {
     private toasterService: ToasterService,
     private listnerService: ListnerService, public socketService: SocketService
   ) {
-    this.dataSettingService.inOutCampaign.subscribe((data) => {
-      console.log(data);
-      this.setCampaign(data)
-    });
 
     this.notificationSubscription = this.socketService.getMessages().subscribe((data) => {
       console.log(data);
@@ -104,7 +102,11 @@ export class dashboardContentClass implements OnInit {
   };
 
   ngOnInit() {
-
+    this.dataSettingService.inOutCampaign.subscribe((data) => {
+      console.log(data);
+      // this.setCampaign()
+    });
+    this.setCampaign()
     // this.activeRoute
     //   .queryParams
     //   .subscribe(params => {
@@ -130,6 +132,7 @@ export class dashboardContentClass implements OnInit {
     //   this.dataSettingService.current_role = roleObj;
     //   this.dataSettingService.current_service = userObj.serviceObj;
     this.current_role = this.dataSettingService.current_role.RoleName;
+    
     //   this._loginService.getUserDetailsByID(userObj.userID).subscribe((response) => {
     //     if (response.isAuthenticated === true && response.Status === 'Active') {
     //       this.dataSettingService.Userdata = response;
@@ -175,28 +178,80 @@ export class dashboardContentClass implements OnInit {
     }
 
   }
-  setCampaign(data) {
-    sessionStorage.setItem("current_campaign", "");
-    if (data == '1') {
-      this.dataSettingService.current_campaign = 'INBOUND';
-      this.inOutBound = data;
+  setCampaign() {
+    sessionStorage.removeItem("current_campaign");
+    this.current_role = this.dataSettingService.current_role.RoleName;
+    let current_roleID=this.dataSettingService.current_role.RoleID;
+    this.dataSettingService.inboundOutbound$.subscribe((response) => {
+      if(response !== null){
+      for(let value of response.previlegeObj){
+        for(let role of value.roles){
+          role.outbound === true;
+          if(role.RoleID === current_roleID && role.inbound === true && role.outbound === true){
+            if(this.dataSettingService.current_campaign === 'OUTBOUND'){
+              //this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.inOutBound = '0';
+              this.inboundCall=true;
+              this.outboundCall=true;
+            }
+            else{
+              this.dataSettingService.current_campaign = 'INBOUND';
+              sessionStorage.setItem("current_campaign", 'INBOUND');
+              this.inOutBound = '1';
+              this.inboundCall=true;
+              this.outboundCall=true;
+            }
+          }
+          else if(role.RoleID === current_roleID && role.inbound === true){
+            this.dataSettingService.current_campaign = 'INBOUND';
+            sessionStorage.setItem("current_campaign", 'INBOUND');
+            this.inOutBound = '1';
+            this.inboundCall=true;
+          }
+          else if(role.RoleID === current_roleID && role.outbound === true){
+            this.inOutBound = '0';   
+            this.outboundCall=true;
+            this.dataSettingService.current_campaign = 'OUTBOUND';
+              this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
+                sessionStorage.setItem("current_campaign", 'OUTBOUND');
+                console.log("outbound");
+              }, (err) => {
+                console.log("agent in not logged in");                
+                sessionStorage.setItem("current_campaign", 'OUTBOUND');
+              })
+            if(role.outbound === true && (role.inbound == null || role.inbound === false)){
+              this.callService.onlyOutbound = true;
+            }
+          }
+          else{
+          console.log("Supervisor role");
+          }
+        }
+      }
     }
-    else if (data == '0') {
-      this.dataSettingService.current_campaign = 'OUTBOUND';
-      this.inOutBound = data;
-      this.router.navigate['MultiRoleScreenComponent/OutboundWorkList'];
-    }
-    sessionStorage.setItem("current_campaign", this.dataSettingService.current_campaign);
+    })   
   }
   showDashboard() {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
-    this.addListener();
-    this.listenCall = this.renderer.listenGlobal('window', 'message', (event) => {
-      this.listener(event);
-      // Do something with 'event'
-    });
+    let campaign = sessionStorage.getItem("current_campaign");
+    // if(campaign != null && campaign != undefined && campaign !== "OUTBOUND"){
+      this.addListener();
+      this.listenCall = this.renderer.listenGlobal('window', 'message', (event) => {
+        this.listener(event);
+        // Do something with 'event'
+      });
+    // }else{
+    //   this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
+    //     sessionStorage.setItem("current_campaign", 'OUTBOUND');
+    //     console.log("outbound");
+    //   }, (err) => {
+    //     console.log("agent in not logged in");          
+    //     sessionStorage.setItem("current_campaign", 'OUTBOUND');
+    //   })
+    // }
+    
   }
   toggleBar() {
     // if ( this.barMinimized )
@@ -231,13 +286,32 @@ export class dashboardContentClass implements OnInit {
     // this.eventSpiltData = event.detail.data.split( '|' );
     // spliting czntrix event
     // if (event.origin === 'http://10.201.13.17') {
+      let campaign = sessionStorage.getItem("current_campaign");
+     
     if (event.data) {
       this.eventSpiltData = event.data.split('|');
     } else {
       this.eventSpiltData = event.detail.data.split('|');
     }
-    if (this.eventSpiltData[0].toLowerCase() === 'accept') {
+    if (!sessionStorage.getItem('session_id') ) {
       this.handleEvent(this.eventSpiltData);
+  } else if (sessionStorage.getItem('session_id') !== this.eventSpiltData[2] ) {  // If session id is different from previous session id then allow the call to drop
+      this.handleEvent(this.eventSpiltData);
+  }
+    if (this.eventSpiltData[0].toLowerCase() === 'accept') {
+      // let campaign = sessionStorage.getItem("current_campaign");
+      // if(campaign !== "OUTBOUND"){
+        this.handleEvent(this.eventSpiltData);
+      // }else if (campaign === "OUTBOUND"){
+      //   this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((response)=>{
+      //     sessionStorage.setItem("current_campaign", 'OUTBOUND');
+      //     console.log("outbound");
+      //   }, (err) => {
+      //     console.log("agent in not logged in");          
+      //     sessionStorage.setItem("current_campaign", 'OUTBOUND');
+      //   })
+      // }
+        
     }
     //}
 
@@ -261,8 +335,11 @@ export class dashboardContentClass implements OnInit {
       const checkCallType = /^(INBOUND)|(OUTBOUND)$/i;
 
       if (checkNumber.test(mobileNumber) && sessionVar.test(this.eventSpiltData[2]) && checkCallType.test(this.eventSpiltData[3])) {
-        this.router.navigate(['/MultiRoleScreenComponent/InnerpageComponent',
-          this.eventSpiltData[1], this.eventSpiltData[2], this.eventSpiltData[3]]);
+        this.dataSettingService.setUniqueCallIDForInBound = true;
+        sessionStorage.setItem('CLI', this.eventSpiltData[1]);
+      sessionStorage.setItem('session_id', this.eventSpiltData[2]);
+      sessionStorage.setItem('callCategory', this.eventSpiltData[3]);
+        this.router.navigate(['/MultiRoleScreenComponent/RedirectToInnerpageComponent']);
       } else {
         this.message.alert('Invalid call please check');
       }
@@ -379,7 +456,7 @@ export class dashboardContentClass implements OnInit {
   }
 
   ngOnDestroy() {
-    this.listenCall();
+    // this.listenCall();
     this.notificationSubscription.unsubscribe();
   }
   // CODE FOR SIDE NAV

@@ -4,6 +4,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable()
@@ -62,6 +63,20 @@ export class dataService {
 	beneficiary_regID_subject=new Subject();
 	checkEverwellResponse :boolean = false;
 	previousFeedback:any;
+	setUniqueCallIDForInBound=false;
+	setUniqueCallIDForOutBound=false;
+
+	inboundOutbound = new BehaviorSubject(null);
+	inboundOutbound$ = this.inboundOutbound.asObservable();
+	callTypes: any;
+	setInboundOutboundValue(response) {
+		//this.callTypes=1;
+		this.inboundOutbound.next(response);
+	  }
+	clearInboundOutboundValue() {
+		//this.callTypes=0;
+		this.inboundOutbound.next(0);
+	  }
 };
 
 
