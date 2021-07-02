@@ -32,7 +32,7 @@ export class SexualOrientationReportComponent implements OnInit {
   sexualOrientation: any;
   state: any;
   district: any;
-  endDateVar: Date;
+
 
   constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData,
     private reportsService: ReportsService, private alertService: ConfirmationDialogsService,
@@ -75,7 +75,7 @@ export class SexualOrientationReportComponent implements OnInit {
     this.maxEndDate.setDate(this.today.getDate()-1);
     this.maxEndDate.setHours(23, 59, 59, 0);
 
-    this.endDateVar=this.maxEndDate;
+ 
     
 
 
@@ -119,33 +119,55 @@ export class SexualOrientationReportComponent implements OnInit {
 
   endDateChange() {
 
+ 
     const timeDiff = this.maxEndDate.getTime() - this.start_date.getTime();
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if (diffDays >=30) {
+    if(diffDays>=0)
+    {
+     if (diffDays >= 30) {
       this.maxEndDate = new Date(this.start_date);
-      this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+      this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
       this.maxEndDate.setHours(23, 59, 59, 0);
       this.end_date = this.maxEndDate;
-    }
-    if (diffDays < 30) {
- 
-      const endDateDiff =  this.endDateVar.getTime() - this.maxEndDate.getTime();
+     }
+     if (diffDays < 30) {
+      const endDateDiff =  this.today.getTime() - this.maxEndDate.getTime();
       const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-      if(enddiffDays>=30)
-      {
+      if (enddiffDays >= 30) {
         this.maxEndDate = new Date(this.start_date);
-        this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
         this.maxEndDate.setHours(23, 59, 59, 0);
         this.end_date = this.maxEndDate;
-      }
+      } 
       else{
+      this.maxEndDate = new Date();
       this.maxEndDate.setDate(this.today.getDate()-1);
       this.maxEndDate.setHours(23, 59, 59, 0);
       this.end_date = this.maxEndDate;
-      // this.maxEndDate = this.today;
-      }
-    }
 
+      }
+     }
+   }
+   else
+   {
+    const endDateDiff =  this.today.getTime() - this.start_date.getTime();
+    const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+ 
+    if(enddiffDays>=30)
+    {
+    this.maxEndDate = new Date(this.start_date);
+    this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+    this.maxEndDate.setHours(23, 59, 59, 0);
+    this.end_date = this.maxEndDate;
+    }
+    else
+    {
+      this.maxEndDate = new Date();
+      this.maxEndDate.setDate(this.today.getDate()-1);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.end_date = this.maxEndDate;
+    }
+   }
     //console.log("sd,med", this.start_date, this.maxEndDate);
     // if (this.today.getTime() < this.maxEndDate.getTime()) {
     //   let i = new Date();
