@@ -76,16 +76,16 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     this.today = new Date();
 
 
-    this.end_date = new Date();
-    this.end_date.setDate(this.today.getDate() - 1);
+    // this.end_date = new Date();
+    // this.end_date.setDate(this.today.getDate() - 1);
     // this.end_date.setHours(23);
     // this.end_date.setMinutes(59);
     // this.end_date.setSeconds(59);
     // this.end_date.setMilliseconds(0);
     //this.end_date = new Date();
 
-    this.start_date = new Date();
-    this.start_date.setDate(this.today.getDate() - 7);
+    // this.start_date = new Date();
+    // this.start_date.setDate(this.today.getDate() - 7);
     // this.start_date.setHours(0);
     // this.start_date.setMinutes(0);
     // this.start_date.setSeconds(0);
@@ -255,35 +255,84 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
   }
   endDateChange() {
 
-    if (this.today.getTime() < this.maxEndDate.getTime()) {
-      let i = new Date();
-      i.setDate(this.today.getDate() - 1);
-      this.maxEndDate = i;
-      this.maxEndDate.setHours(23, 59, 59, 0);
-    }
-    else {
+    const timeDiff = this.maxEndDate.getTime() - this.start_date.getTime();
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if(diffDays>=0)
+    {
+     if (diffDays >= 30) {
       this.maxEndDate = new Date(this.start_date);
-      this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+      this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
       this.maxEndDate.setHours(23, 59, 59, 0);
-    }
+      this.end_date = this.maxEndDate;
+     }
+     if (diffDays < 30) {
+      const endDateDiff =  this.today.getTime() - this.maxEndDate.getTime();
+      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+      if (enddiffDays >= 30) {
+        this.maxEndDate = new Date(this.start_date);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+        this.maxEndDate.setHours(23, 59, 59, 0);
+        this.end_date = this.maxEndDate;
+      } 
+      else{
+      this.maxEndDate = new Date();
+      this.maxEndDate.setDate(this.today.getDate()-1);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.end_date = this.maxEndDate;
 
-    var timeDiff = this.end_date.getTime() - this.start_date.getTime();
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if (diffDays > 90) {
-      var tempDate = new Date(this.start_date);
-      tempDate.setMonth(this.start_date.getMonth() + 1);
-      tempDate.setHours(23, 59, 59, 0);
-      this.CallTypeReport.form.patchValue({
-        'end_date': tempDate
-      });
+      }
+     }
+   }
+   else
+   {
+    const endDateDiff =  this.today.getTime() - this.start_date.getTime();
+    const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+ 
+    if(enddiffDays>=30)
+    {
+    this.maxEndDate = new Date(this.start_date);
+    this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+    this.maxEndDate.setHours(23, 59, 59, 0);
+    this.end_date = this.maxEndDate;
     }
-    if (diffDays < 0) {
-      var tempDate = new Date(this.start_date);
-      tempDate.setHours(23, 59, 59, 0);
-      this.CallTypeReport.form.patchValue({
-        'end_date': tempDate
-      });
+    else
+    {
+      this.maxEndDate = new Date();
+      this.maxEndDate.setDate(this.today.getDate()-1);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.end_date = this.maxEndDate;
     }
+   }
+
+    // if (this.today.getTime() < this.maxEndDate.getTime()) {
+    //   let i = new Date();
+    //   i.setDate(this.today.getDate() - 1);
+    //   this.maxEndDate = i;
+    //   this.maxEndDate.setHours(23, 59, 59, 0);
+    // }
+    // else {
+    //   this.maxEndDate = new Date(this.start_date);
+    //   this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+    //   this.maxEndDate.setHours(23, 59, 59, 0);
+    // }
+
+    // var timeDiff = this.end_date.getTime() - this.start_date.getTime();
+    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    // if (diffDays > 90) {
+    //   var tempDate = new Date(this.start_date);
+    //   tempDate.setMonth(this.start_date.getMonth() + 1);
+    //   tempDate.setHours(23, 59, 59, 0);
+    //   this.CallTypeReport.form.patchValue({
+    //     'end_date': tempDate
+    //   });
+    // }
+    // if (diffDays < 0) {
+    //   var tempDate = new Date(this.start_date);
+    //   tempDate.setHours(23, 59, 59, 0);
+    //   this.CallTypeReport.form.patchValue({
+    //     'end_date': tempDate
+    //   });
+    // }
   }
   downloadV2(result: any = []) {
     let criteria: any = [];

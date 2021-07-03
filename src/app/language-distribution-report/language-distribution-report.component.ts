@@ -61,13 +61,13 @@ export class LanguageDistributionReportComponent implements OnInit {
     // this.minStartDate = new Date();
     // this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
     this.today = new Date();
-    this.end_date = new Date();
-    this.end_date.setDate(this.today.getDate() - 1);
-    this.end_date.setHours(23, 59, 59, 0);
+    // this.end_date = new Date();
+    // this.end_date.setDate(this.today.getDate() - 1);
+    // this.end_date.setHours(23, 59, 59, 0);
 
-    this.start_date = new Date();
-    this.start_date.setDate(this.today.getDate() - 7);
-    this.start_date.setHours(0, 0, 0, 0);
+    // this.start_date = new Date();
+    // this.start_date.setDate(this.today.getDate() - 7);
+    // this.start_date.setHours(0, 0, 0, 0);
 
     this.maxStartDate = new Date();
     this.maxStartDate.setDate(this.today.getDate() - 1);
@@ -106,37 +106,85 @@ export class LanguageDistributionReportComponent implements OnInit {
 
   endDateChange() {
 
-    //console.log("sd,med", this.start_date, this.maxEndDate);
-    if (this.today.getTime() < this.maxEndDate.getTime()) {
-      let i = new Date();
-      i.setDate(this.today.getDate() - 1);
-      this.maxEndDate = i;
-      this.maxEndDate.setHours(23, 59, 59, 0);
-      //console.log("sd,med", this.start_date, this.maxEndDate);
-    }
-    else {
+    const timeDiff = this.maxEndDate.getTime() - this.start_date.getTime();
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if(diffDays>=0)
+    {
+     if (diffDays >= 30) {
       this.maxEndDate = new Date(this.start_date);
-      this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+      this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
       this.maxEndDate.setHours(23, 59, 59, 0);
-    }
+      this.end_date = this.maxEndDate;
+     }
+     if (diffDays < 30) {
+      const endDateDiff =  this.today.getTime() - this.maxEndDate.getTime();
+      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+      if (enddiffDays >= 30) {
+        this.maxEndDate = new Date(this.start_date);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+        this.maxEndDate.setHours(23, 59, 59, 0);
+        this.end_date = this.maxEndDate;
+      } 
+      else{
+      this.maxEndDate = new Date();
+      this.maxEndDate.setDate(this.today.getDate()-1);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.end_date = this.maxEndDate;
 
-    var timeDiff = this.end_date.getTime() - this.start_date.getTime();
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if (diffDays > 90) {
-      var tempDate = new Date(this.start_date);
-      tempDate.setMonth(this.start_date.getMonth() + 1);
-      tempDate.setHours(23, 59, 59, 0);
-      this.languageDistributionSearchForm.form.patchValue({
-        'endDate': tempDate
-      });
+      }
+     }
+   }
+   else
+   {
+    const endDateDiff =  this.today.getTime() - this.start_date.getTime();
+    const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+ 
+    if(enddiffDays>=30)
+    {
+    this.maxEndDate = new Date(this.start_date);
+    this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+    this.maxEndDate.setHours(23, 59, 59, 0);
+    this.end_date = this.maxEndDate;
     }
-    if (diffDays < 0) {
-      var tempDate = new Date(this.start_date);
-      tempDate.setHours(23, 59, 59, 0);
-      this.languageDistributionSearchForm.form.patchValue({
-        'endDate': tempDate
-      });
+    else
+    {
+      this.maxEndDate = new Date();
+      this.maxEndDate.setDate(this.today.getDate()-1);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.end_date = this.maxEndDate;
     }
+   }
+    //console.log("sd,med", this.start_date, this.maxEndDate);
+    // if (this.today.getTime() < this.maxEndDate.getTime()) {
+      // let i = new Date();
+      // i.setDate(this.today.getDate() - 1);
+      // this.maxEndDate = i;
+      // this.maxEndDate.setHours(23, 59, 59, 0);
+      //console.log("sd,med", this.start_date, this.maxEndDate);
+    // }
+    // else {
+    //   this.maxEndDate = new Date(this.start_date);
+    //   this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+    //   this.maxEndDate.setHours(23, 59, 59, 0);
+    // }
+
+    // var timeDiff = this.end_date.getTime() - this.start_date.getTime();
+    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    // if (diffDays > 90) {
+    //   var tempDate = new Date(this.start_date);
+    //   tempDate.setMonth(this.start_date.getMonth() + 1);
+    //   tempDate.setHours(23, 59, 59, 0);
+    //   this.languageDistributionSearchForm.form.patchValue({
+    //     'endDate': tempDate
+    //   });
+    // }
+    // if (diffDays < 0) {
+    //   var tempDate = new Date(this.start_date);
+    //   tempDate.setHours(23, 59, 59, 0);
+    //   this.languageDistributionSearchForm.form.patchValue({
+    //     'endDate': tempDate
+    //   });
+    // }
   }
 
   getReports() {
@@ -284,5 +332,9 @@ export class LanguageDistributionReportComponent implements OnInit {
     modifiedHeader = modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
     //console.log(modifiedHeader);
     return modifiedHeader.replace(/I D/g, "ID");
+  }
+  resetWorklist(){
+    this.languageDistributions=[];
+    this.tableFlag = false;
   }
 }

@@ -25,7 +25,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   placeOfWork: any;
   remarks: any;
   isHIVPos = "";
-  beneficiaryRegID: any=this.saved_data.beneficiaryRegID;
+  beneficiaryRegID: any=this.saved_data.benRegId;
   educationQualifications: any = [];
   sexualOrientations: any = [];
   count;
@@ -57,6 +57,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log("benRegId--", this.saved_data);
+    this.beneficiaryRegID = this.saved_data.benRegId;
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe(response => {
         this.SetUserBeneficiaryRegistrationData(response);
@@ -154,10 +156,30 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
 
   updateBeneficiary(values: any) {
     const newOtherData: any = {};
+    if(this.saved_data.benRegId != undefined && this.saved_data.benRegId != null){
+    this.saved_data.beneficiaryData.beneficiaryRegID = this.saved_data.benRegId;
+    values.beneficiaryRegID = this.saved_data.benRegId;
+    }
+    else{
+      this.saved_data.beneficiaryData.beneficiaryRegID = this.saved_data.beneficiaryRegID;
+      values.beneficiaryRegID = this.saved_data.beneficiaryRegID;
+    }
+   
     this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
+    if(this.saved_data.beneficiaryData.i_bendemographics !=undefined
+       && this.saved_data.beneficiaryData.i_bendemographics.occupationID 
+       && this.saved_data.beneficiaryData.i_bendemographics.educationID)
+       {
     this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationIDs; // values.occupation;
     this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationIDs;
     this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
+       }
+       else{
+        this.saved_data.beneficiaryData.i_bendemographics={};
+        this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationIDs; // values.occupation;
+        this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationIDs;
+        this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
+       }
     this.saved_data.beneficiaryData.sexualOrientationID = values.sexualOrientationID;
     this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
     this.saved_data.beneficiaryData.remarks = values.remarks;
