@@ -854,6 +854,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.preferredLanguage = undefined;
 
       this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': response[0].beneficiaryRegID });
+      this.saved_data.benRegId= response[0].beneficiaryRegID;
       this.regHistoryList = response;
       console.log(this.regHistoryList);
       this.showSearchResult = true;
@@ -1031,7 +1032,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.beneficiaryRelations = this.beneficiaryRelations.filter(function (item) {
         return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
+      if (registeredBenData.benPhoneMaps[0] != undefined && registeredBenData.benPhoneMaps[0].benRelationshipType != undefined && registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID != undefined && registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID != null ){
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
+      }
     }
 
     /* do not delete, commented because the district,taluk and village were not populting
@@ -1072,7 +1075,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.updatedObj.maritalStatusID = this.MaritalStatusID;
     // this.updatedObj.parentBenRegID = this.ParentBenRegID;
     // this.updatedObj.altPhoneNo = this.PhoneNo;
+    if(this.updatedObj.benPhoneMaps != undefined && this.updatedObj.benPhoneMaps != null){
     let phones = this.updatedObj.benPhoneMaps.length;
+    }
     // commented on 28 may till * point
 
     // if (this.alternateNumber1 && phones === 1) {
@@ -1158,9 +1163,9 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       this.alertMaessage.alert("Alternate number 2 already exits", 'error');
       return;
     }
-
+        
     for (let j = 1; j < 6; j++) {
-      if (this.updatedObj.benPhoneMaps[j]) {
+      if (this.updatedObj.benPhoneMaps != undefined && this.updatedObj.benPhoneMaps[j]) {
         this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
         this.updatedObj.benPhoneMaps[j].parentBenRegID = this.ParentBenRegID;
         this.updatedObj.benPhoneMaps[j].benificiaryRegID = this.updatedObj.beneficiaryRegID;
@@ -1213,6 +1218,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
           this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
           this.updatedObj.benPhoneMaps[j].deleted = false;
         }
+        if(this.updatedObj.benPhoneMaps[j].createdBy ==undefined ||this.updatedObj.benPhoneMaps[j].createdBy==null)
+        this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
       } else {
         const obj = {};
         obj['parentBenRegID'] = this.ParentBenRegID;
@@ -1236,7 +1243,17 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         obj['modifiedBy'] = this.saved_data.uname;
         obj['createdBy'] = this.saved_data.uname;
         obj['deleted'] = false;
-        this.updatedObj.benPhoneMaps.push(obj);
+        if( this.updatedObj.benPhoneMaps!=undefined)
+        {
+          // if(this.updatedObj.benPhoneMaps[j].createdBy ==undefined ||this.updatedObj.benPhoneMaps[j].createdBy==null)
+          // this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
+          this.updatedObj.benPhoneMaps.push(obj);
+        }
+       
+        else{
+          this.updatedObj.benPhoneMaps={};
+          this.updatedObj.benPhoneMaps.push(obj);
+        }
       }
 
     }
@@ -1270,6 +1287,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     // saving the updated ben data in the in_app_saved data service file
     this.saved_data.beneficiaryData = this.updatedObj;
     // return;
+    if(this.updatedObj.benPhoneMaps && this.updatedObj.benPhoneMaps.length >0)
+    {
+      for(var i=0;i<this.updatedObj.benPhoneMaps.length;i++)
+      {
+        if(this.updatedObj.benPhoneMaps[i].createdBy === undefined || this.updatedObj.benPhoneMaps[i].createdBy===null)
+        this.updatedObj.benPhoneMaps[i].createdBy=this.saved_data.uname;
+      }
+    }
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
       this.updateSuccessHandeler(response)
     }, (err) => {
