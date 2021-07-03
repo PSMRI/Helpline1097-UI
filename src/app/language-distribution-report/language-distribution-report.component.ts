@@ -333,4 +333,8 @@ export class LanguageDistributionReportComponent implements OnInit {
     //console.log(modifiedHeader);
     return modifiedHeader.replace(/I D/g, "ID");
   }
+  resetWorklist(){
+    this.languageDistributions=[];
+    this.tableFlag = false;
+  }
 }

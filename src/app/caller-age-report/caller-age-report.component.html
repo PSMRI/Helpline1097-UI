@@ -60,7 +60,7 @@
           <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none"> -->
 
-            <md-select required placeholder="Select Age Group" [style.width]="'100%'" [(ngModel)]="ageGroup" name="ageGroup">
+            <md-select required placeholder="Select Age Group" [style.width]="'100%'" [(ngModel)]="ageGroup" name="ageGroup" (change)=resetWorklist()>
               <md-option *ngFor="let age of ageGroups" [value]="age.ageGroupValue">
                 {{age.ageGroupDisplay}}
               </md-option>
@@ -88,6 +88,10 @@
           </tr>
         </thead>
         <tbody>
+          <tr *ngIf="count.length === 0">
+            <td class="record-not-found" colspan="4">
+              No Records Found
+            </td></tr>
           <tr *ngFor="let report of md2.data;let i=index ">
             <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
             <td>{{report.groupName=='all'?'Total': report.groupName}}</td>
@@ -100,7 +104,7 @@
             <td colspan="2">
               <md2-pagination></md2-pagination>
             </td>
-            <td class="p-r-0" colspan="2">
+            <td class="p-r-0" colspan="2" *ngIf="count.length > 0">
               <button class="pull-right" md-raised-button color="primary" (click)="downloadV2()">Download Data</button>
             </td>
           </tr>

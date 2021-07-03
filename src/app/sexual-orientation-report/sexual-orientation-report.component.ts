@@ -343,5 +343,8 @@ export class SexualOrientationReportComponent implements OnInit {
     //console.log(modifiedHeader);
     return modifiedHeader.replace(/I D/g, "ID");
   }
-
+  resetWorklist(){
+  this.orientations=[];
+  this.tableFlag = false;
+  }
 }

@@ -266,7 +266,7 @@ export class GenderDistributionReportComponent implements OnInit {
     // this.end_date = form_values.end_date;
     this.gender = form_values.gender;
     // this.state = form_values.state.stateName;
-    this.district = form_values.district;
+    //this.district = form_values.district;
 
 
     this.reportsService.getAllByGender(this.request_array)
@@ -297,10 +297,12 @@ export class GenderDistributionReportComponent implements OnInit {
     this.alertService.alert('Gender distribution report downloaded', 'success');
 
   }
-  downloadV2() {
+  downloadV2(form_values) {
     let criteria: any = [];
     // let state = (this.state ? (this.state.stateName ? this.state.stateName : 'Any') : 'Any');
     // let district = this.district ? this.district : 'Any';
+    this.state = form_values.state ? form_values.state.stateName : 'Any';
+    this.district = form_values.district ? form_values.district : 'Any';
     criteria.push({ 'Filter_Name': 'State', 'value': this.state });
     criteria.push({ 'Filter_Name': 'District', 'value': this.district });
     criteria.push({ 'Filter_Name': 'Gender', 'value': this.gender });
@@ -370,5 +372,9 @@ export class GenderDistributionReportComponent implements OnInit {
     modifiedHeader = modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
     //console.log(modifiedHeader);
     return modifiedHeader.replace(/I D/g, "ID");
+  }
+  resetWorklist(){
+    this.gender_distribution_resultset=[];
+    this.tableFlag = false;
   }
 }

@@ -384,4 +384,8 @@ export class CallerAgeReportComponent implements OnInit {
     //console.log(modifiedHeader);
     return modifiedHeader.replace(/I D/g, "ID");
   }
+  resetWorklist(){
+    this.count=[];
+    this.tableFlag = false;
+  }
 }
