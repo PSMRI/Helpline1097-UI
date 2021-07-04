@@ -267,8 +267,9 @@ export class GenderDistributionReportComponent implements OnInit {
     this.gender = form_values.gender;
     // this.state = form_values.state.stateName;
     //this.district = form_values.district;
-
-
+    if(form_values.state==undefined){
+      this.state = form_values.state ? form_values.state.stateName : 'Any';
+    }
     this.reportsService.getAllByGender(this.request_array)
       .subscribe(response => this.getReportSuccessHandeler(response),
       (err) => {
@@ -299,11 +300,17 @@ export class GenderDistributionReportComponent implements OnInit {
   }
   downloadV2(form_values) {
     let criteria: any = [];
+    let state: any;
     // let state = (this.state ? (this.state.stateName ? this.state.stateName : 'Any') : 'Any');
     // let district = this.district ? this.district : 'Any';
-    this.state = form_values.state ? form_values.state.stateName : 'Any';
+    if(form_values.state==="Any"){
+      state = form_values.state ? form_values.state : 'Any';
+    }
+    else{
+      state = form_values.state ? form_values.state.stateName : 'Any';
+    }
     this.district = form_values.district ? form_values.district : 'Any';
-    criteria.push({ 'Filter_Name': 'State', 'value': this.state });
+    criteria.push({ 'Filter_Name': 'State', 'value': state });
     criteria.push({ 'Filter_Name': 'District', 'value': this.district });
     criteria.push({ 'Filter_Name': 'Gender', 'value': this.gender });
     criteria.push({ 'Filter_Name': 'Start_Date', 'value': this.start_date });
