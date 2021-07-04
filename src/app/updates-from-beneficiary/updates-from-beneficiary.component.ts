@@ -166,20 +166,20 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     }
    
     this.saved_data.beneficiaryData.isHIVPos = values.isHIVPos;
-    if(this.saved_data.beneficiaryData.i_bendemographics !=undefined
-       && this.saved_data.beneficiaryData.i_bendemographics.occupationID 
-       && this.saved_data.beneficiaryData.i_bendemographics.educationID)
-       {
+    // if(this.saved_data.beneficiaryData.i_bendemographics !=undefined
+    //    && this.saved_data.beneficiaryData.i_bendemographics.occupationID 
+    //    && this.saved_data.beneficiaryData.i_bendemographics.educationID)
+    //    {
     this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationIDs; // values.occupation;
     this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationIDs;
     this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
-       }
-       else{
-        this.saved_data.beneficiaryData.i_bendemographics={};
-        this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationIDs; // values.occupation;
-        this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationIDs;
-        this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
-       }
+      //  }
+      //  else{
+      //   this.saved_data.beneficiaryData.i_bendemographics={};
+      //   this.saved_data.beneficiaryData.i_bendemographics.occupationID = values.occupationIDs; // values.occupation;
+      //   this.saved_data.beneficiaryData.i_bendemographics.educationID = values.educationIDs;
+      //   this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
+      //  }
     this.saved_data.beneficiaryData.sexualOrientationID = values.sexualOrientationID;
     this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
     this.saved_data.beneficiaryData.remarks = values.remarks;
