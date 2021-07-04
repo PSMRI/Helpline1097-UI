@@ -273,7 +273,7 @@ export class LanguageDistributionReportComponent implements OnInit {
   }
   exportToxlsx(criteria: any) {
     let headers = ["SlNo", "preferredLanguage", "serviceProvidedRatio", "count"];
-    let wb_name = "Gender Distribution Report";
+    let wb_name = "Language Distribution Report";
     const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
     const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.languageDistributions, { header: headers });
 
