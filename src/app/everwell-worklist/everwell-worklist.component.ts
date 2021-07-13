@@ -435,7 +435,8 @@ export interface month {
 export class SupportActionModal {
   // arrays  
   
-  subcategries:any=["Dose not taken","Dose taken but not reported by technology","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the call","Others"];  
+  //subcategries:any=["Dose not taken","Dose taken but not reported by technology","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the call","Others"];  
+  subcategries:any=["Dose not taken","Dose taken but not reported by technology","Wrong Phone number","Do not disturb for today","Others"];
   category:any=["Support_Action_Call"];
   comments:any;
   dob: any;
@@ -482,7 +483,7 @@ export class SupportActionModal {
    console.log("this._common.everwellCallNotConnected",this._common.everwellCallNotConnected);
    if(this._common.everwellCallNotConnected==="yes")
    {
-    this.subcategries=["Phone not reachable","Phone switched off","Did not receive the call","Wrong Phone number","Others"];  
+    this.subcategries=["Phone not reachable","Phone switched off","Did not receive the call","Others"];  
    }
    this.everwellBenData = this._common.outboundEverwellData;
    this.everwellBenData.currentMonthMissedDoses=this._common.outboundEverwellData.CurrentMonthMissedDoses;
@@ -594,9 +595,9 @@ export class SupportActionModal {
       return false;
     }
     const providerObj = {};
-    if(this.efid != undefined && this.efid != null){
-    providerObj['efid'] = this.efid;
-    }
+    // if(this.efid != undefined && this.efid != null){
+    // providerObj['efid'] = this.efid;
+    // }
     providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
     providerObj['Id']=this.everwellBenData.Id;
     providerObj['providerServiceMapId']=this.everwellBenData.providerServiceMapId;
