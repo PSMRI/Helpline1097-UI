@@ -16,7 +16,8 @@ import { LoaderService } from 'app/services/common/loader.service';
 @Component({
   selector: 'app-everwell-worklist',
   templateUrl: './everwell-worklist.component.html',
-  styleUrls: ['./everwell-worklist.component.css']
+  styleUrls: ['./everwell-worklist.component.css'],
+  providers: [ DatePipe ] 
 })
 export class EverwellWorklistComponent implements OnInit {
   // flags
@@ -48,10 +49,12 @@ export class EverwellWorklistComponent implements OnInit {
   srcPath: string;
   fileName: any;
 
+
+
   constructor(public dialog: MdDialog, private OCRService: OutboundReAllocationService,
      private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService,
      private _util: RegisterService,private alertMaessage: ConfirmationDialogsService,
-     private loaderService: LoaderService
+     private loaderService: LoaderService,public datepipe:DatePipe
      ) {
   }
   ngOnInit() {
@@ -255,6 +258,7 @@ if(result==null)
     curmonth.setDate(curmonth.getDate() - (this.dateIndex+1));
     this.previousDay =curmonth.toLocaleString('en-US',{hour12:false}).split(" ")[0];
     this.previousDay = this.previousDay.substring(0,10);
+    this.previousDay= this.datepipe.transform(new Date(this.previousDay), 'MM/dd/yyyy');
     console.log("prevDay",this.previousDay)
     console.log("dateInd", this.dateIndex)
    let dialogRequestObj={
@@ -451,6 +455,9 @@ if(result==null)
     this.data.Gender = outboundData.Gender;
     this.data.district = outboundData.District;
     this.data.eapiId = outboundData.eapiId;
+    this.data.comments = outboundData.comments;
+    this.data.callCounter = outboundData.callCounter;
+    this.data.lastModDate = outboundData.lastModDate;
 
     const startCallData: any = {};
     startCallData.callID = this._common.callID;
@@ -521,6 +528,7 @@ export class SupportActionModal {
   fileName: any;
   showProgressBar: boolean=false;
 
+
  
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
@@ -528,7 +536,7 @@ export class SupportActionModal {
     { }
 
   ngOnInit() {
-  
+    
     //console.log("Initial value", this.data);
     // this.superadminService.getCommonRegistrationData().subscribe(response => this.showGenderOnCondition(response));
     // this.superadminService.getAllQualifications().subscribe(response => this.getEduQualificationSuccessHandler(response));
@@ -569,13 +577,14 @@ export class SupportActionModal {
          if (ar[i].efid != undefined && ar[i].efid != null) {
            this.efid = ar[i].efid;
          }
+
+       
          this.isfeedbackedit=true;
        }
 
      }
   
-     this.fileName=this.data.fileName;
-     this.srcPath=this.data.srcPath;
+    
    }
   //  this.isFeedbackData= this._common.feedbackData;
   console.log("checkFeedback",this._common.feedbackData)
@@ -588,6 +597,11 @@ export class SupportActionModal {
       
     );
   }
+
+  this.fileName=this.data.fileName;
+  this.srcPath=this.data.srcPath;
+
+
   
   }
 
@@ -635,7 +649,10 @@ export class SupportActionModal {
         if(this.efid != undefined && this.efid != null)
         this.alertMaessage.alert('Feedback updated successfully', 'success');
         else
+        {
+        this._common.updatedFeedbackList.push(item.dob);
         this.alertMaessage.alert('Feedback submitted successfully', 'success');
+        }
         this.dialogRef.close();
         console.log('Feedback updated successfully', response);
       }
@@ -654,6 +671,14 @@ export class SupportActionModal {
     // if(this.efid != undefined && this.efid != null){
     // providerObj['efid'] = this.efid;
     // }
+  
+  
+
+      if (this._common.updatedFeedbackList.some((updatedItem) => updatedItem === item.editdob)) {
+        providerObj['efid'] = this.efid;
+ 
+      }
+
     providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
     providerObj['Id']=this.everwellBenData.Id;
     providerObj['providerServiceMapId']=this.everwellBenData.providerServiceMapId;
@@ -675,6 +700,10 @@ export class SupportActionModal {
       if(response != null && response.savedData != null){        
         this._common.feedbackData.push(providerObj);
         this._common.checkEverwellResponse = true;
+
+        if (!this._common.updatedFeedbackList.some((updatedListItem) => updatedListItem == item.editdob)) {
+          this._common.updatedFeedbackList.push(item.editdob);
+        }
         this.alertMaessage.alert('Feedback updated successfully', 'success');
         this.dialogRef.close();
         console.log('Feedback updated successfully', response);

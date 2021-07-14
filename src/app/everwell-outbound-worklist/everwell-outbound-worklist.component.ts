@@ -49,6 +49,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     this._common.everwellCallNotConnected=null;
     this._common.checkEverwellResponse = false;
     this._common.feedbackData = [];
+    this._common.updatedFeedbackList = [];
     this._common.outboundBenRegID = data.beneficiaryRegId;
     // this._common.beneficiaryID = data.beneficiaryID;
     //  this.onOutboundCall.emit(data); code commented, since routing implemented, calling which was happenning in parent is now here....gursimran 24/5/18
