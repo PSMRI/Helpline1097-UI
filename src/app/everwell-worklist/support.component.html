@@ -6,11 +6,7 @@
     </button>
 </div>
 
-<div class="overlay" *ngIf="showProgressBar">
-    <div class="overlay-content">
-      <md-spinner></md-spinner>
-    </div>
-  </div>
+
   
         <md-dialog-content style="min-height:300px" *ngIf='!isfeedbackedit'>
 
@@ -110,7 +106,8 @@
                 </md-form-field>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+            <div *ngIf="fileName !== null && fileName !== undefined" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+                <label><strong>Guideline Document:</strong> </label>
                 <a  href="#" (click)="openPDFGuidelines()">{{fileName}}</a>
                 
             </div>
@@ -226,7 +223,8 @@
                 </md-form-field>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+            <div *ngIf="fileName !== null && fileName !== undefined" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+                <label><strong>Guideline Document:</strong> </label>
                 <a href="#" (click)="openPDFGuidelines()">{{fileName}}</a>
                 
             </div>

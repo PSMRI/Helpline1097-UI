@@ -55,22 +55,29 @@
                       <th>Mobile Number</th>
                       <th>State</th>
                       <th>District</th>
+                      <th>Comments</th>
+                      <th>Last Call</th>
+                      <th>Call Count</th>
                       <th>Call</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngIf="md2.data.length==0">
-                      <td colspan="5" class="t-a-c record-not-found"> No records found</td>
+                      <td colspan="7" class="t-a-c record-not-found"> No records found</td>
                     </tr>
 
                     <tr *ngFor="let listItem of  md2.data; let i= index">
                       <td>{{(md2.activePage-1)*4+i+1}}</td>
                       <td width=15%>{{listItem.beneficiaryID}}</td>
-                      <td width=20%>{{listItem.FirstName}} {{listItem.LastName}}</td>
+                      <td width=10%>{{listItem.FirstName}} {{listItem.LastName}}</td>
                       <!-- <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td> -->
                       <td width=20%>{{listItem.PrimaryNumber}}</td>
-                      <td width=20%>{{listItem.State}}</td>
-                      <td width=20%>{{listItem.District}}</td>
+                      <td width=10%>{{listItem.State}}</td>
+                      <td width=15%>{{listItem.District}}</td>
+                      <td width=5%>{{(listItem?.comments !== 'NaN' && listItem?.comments !== undefined && listItem?.comments !== null) ? listItem?.comments : 'N/A'}}</td>
+                      <!-- <td width=20%>{{(listItem?.lastModDate !== 'NaN' && listItem?.lastModDate !== undefined && listItem?.lastModDate !== null ? listItem?.lastModDate : N/A)}}</td> -->
+                      <td width=10%>{{listItem.callCounter > 0 ? (listItem?.lastCall !== 'NaN' && listItem.lastCall !== undefined && listItem.lastCall !== null ? listItem?.lastCall : 'N/A') : 'N/A'}}</td>
+                      <td width=25%>{{listItem.callCounter}}</td>
                       <td width=10% height="20px">
                         <a class="pointer">
                           <span (click)="viewHistory(listItem)">
@@ -85,12 +92,12 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="3">
+                      <td colspan="5">
                         <div class="pull-left totalCount" *ngIf="filteredsearchResult.length > 0">
                          Total Count : {{ filteredsearchResult.length }}
                         </div>
                       </td>
-                      <td colspan="3">
+                      <td colspan="5">
                         <md2-pagination class="pull-right"></md2-pagination>
                       </td>                      
                     </tr>                   

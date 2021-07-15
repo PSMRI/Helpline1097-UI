@@ -1,3 +1,9 @@
+<!-- <div class="overlay" *ngIf="showProgressBar">
+  <div class="overlay-content">
+    <md-spinner></md-spinner>
+  </div>
+</div> -->
+
 <div class="container-fluid" *ngIf="showTable">
   <div  class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -6,6 +12,9 @@
     </label>
   </div>
 </div>
+
+
+
 <div  class="row">
   <div class="col-xs-12 col-sm-12">
 
@@ -20,6 +29,9 @@
             <th>Mobile Number</th>
             <th>Gender</th>
             <th>State</th>
+            <th>Comments</th>
+            <th>Last Call</th>
+            <th>Call Count</th>
           </tr>
         </thead>
         <tbody>
@@ -28,10 +40,13 @@
             </tr>
             <tr (click)="editMode(data)" style="cursor: pointer">
               <td width=15%>{{data.beneficiaryID}}</td>
-              <td width=20%>{{data.FirstName}} {{data.LastName}}</td>
+              <td width=10%>{{data.FirstName}} {{data.LastName}}</td>
               <td width=20%>{{data.PrimaryNumber}}</td>
-              <td width=20%>{{data.Gender}}</td>
-              <td width=20%>{{data.state}}</td>
+              <td width=10%>{{data.Gender}}</td>
+              <td width=10%>{{data.state}}</td>
+              <td width=10%>{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
+              <td width=10%>{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
+              <td width=20%>{{data.callCounter}}</td>
             </tr>
         </tbody>
         <tfoot>

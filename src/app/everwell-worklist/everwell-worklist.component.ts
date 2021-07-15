@@ -10,12 +10,14 @@ import { ConfirmationDialogsService } from 'app/services/dialog/confirmation.ser
 import { RegisterService } from '../services/register-services/register-service';
 import { CallServices } from '../services/callservices/callservice.service';
 import { DatePipe } from'@angular/common';
+import { LoaderService } from 'app/services/common/loader.service';
 
 
 @Component({
   selector: 'app-everwell-worklist',
   templateUrl: './everwell-worklist.component.html',
-  styleUrls: ['./everwell-worklist.component.css']
+  styleUrls: ['./everwell-worklist.component.css'],
+  providers: [ DatePipe ] 
 })
 export class EverwellWorklistComponent implements OnInit {
   // flags
@@ -39,13 +41,20 @@ export class EverwellWorklistComponent implements OnInit {
 
   data: any = [];
   previous: number;
-  previousDay: string;
+  previousDay: any;
   ar:any=[];
   dateIndex: number;
   feedbackDetails: any;
+  showProgressBar: boolean=false;
+  srcPath: string;
+  fileName: any;
+
+
+
   constructor(public dialog: MdDialog, private OCRService: OutboundReAllocationService,
      private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService,
-     private _util: RegisterService,private alertMaessage: ConfirmationDialogsService
+     private _util: RegisterService,private alertMaessage: ConfirmationDialogsService,
+     private loaderService: LoaderService,public datepipe:DatePipe
      ) {
   }
   ngOnInit() {
@@ -77,7 +86,50 @@ export class EverwellWorklistComponent implements OnInit {
     }
     console.log("ar",this.ar);
     
+this.getEverwellGuidelines();
+  }
 
+  
+  getEverwellGuidelines()
+  {
+    let req={
+     'adherencePercentage':this._common.outboundEverwellData.AdherencePercentage,
+     'providerServiceMapID':this._common.outboundEverwellData.providerServiceMapId
+     
+    }
+    // let req={};
+    // this.fileName="EverwellGuideline";
+    this.showProgressBar = true;
+    this.loaderService.show();
+    this.OCRService.getEverwellGuidelinesDetails(req).subscribe(response => 
+      {
+      
+        if(response.data.length>0)
+        {
+        
+        this.srcPath=response.data[0].fileContent;
+        this.fileName=response.data[0].fileName;
+        this.showProgressBar = false;
+        this.loaderService.hide();
+        
+        }
+        else
+        {
+          this.showProgressBar = false;
+          this.loaderService.hide();
+          // this.alertService.alert('Everwell Guideline Data is not available','error');
+        }
+      
+     
+      
+        
+      },
+    (err)=> {
+      this.showProgressBar = false;
+      this.loaderService.hide();
+      this.alertService.alert('Error in Fetching Everwell Guideline Data','error');
+      console.log('Unable to Fetch Everwell Guideline Data');
+    });
   }
 
   getFeedBackDetails(){
@@ -206,14 +258,20 @@ if(result==null)
     curmonth.setDate(curmonth.getDate() - (this.dateIndex+1));
     this.previousDay =curmonth.toLocaleString('en-US',{hour12:false}).split(" ")[0];
     this.previousDay = this.previousDay.substring(0,10);
+    this.previousDay= this.datepipe.transform(new Date(this.previousDay), 'MM/dd/yyyy');
     console.log("prevDay",this.previousDay)
     console.log("dateInd", this.dateIndex)
+   let dialogRequestObj={
+     "srcPath": this.srcPath,
+     "fileName":this.fileName,
+     "previousDay":this.previousDay
+   };
 
     let dialog_Ref = this.dialog.open(SupportActionModal, {
       height: '550px',
       width: '700px',
       disableClose: true,
-      data: this.previousDay,
+      data: dialogRequestObj,
       panelClass: 'headerTitle'
     });
     dialog_Ref.afterClosed().subscribe(result => {
@@ -397,6 +455,9 @@ if(result==null)
     this.data.Gender = outboundData.Gender;
     this.data.district = outboundData.District;
     this.data.eapiId = outboundData.eapiId;
+    this.data.comments = outboundData.comments;
+    this.data.callCounter = outboundData.callCounter;
+    this.data.lastCall = outboundData.lastCall;
 
     const startCallData: any = {};
     startCallData.callID = this._common.callID;
@@ -435,7 +496,8 @@ export interface month {
 export class SupportActionModal {
   // arrays  
   
-  subcategries:any=["Dose not taken","Dose taken but not reported by technology","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the call","Others"];  
+  //subcategries:any=["Dose not taken","Dose taken but not reported by technology","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the call","Others"];  
+  subcategries:any=["Dose not taken","Dose taken but not reported by technology","Wrong Phone number","Do not disturb for today","Others"];
   category:any=["Support_Action_Call"];
   comments:any;
   dob: any;
@@ -466,6 +528,7 @@ export class SupportActionModal {
   fileName: any;
   showProgressBar: boolean=false;
 
+
  
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
@@ -473,7 +536,7 @@ export class SupportActionModal {
     { }
 
   ngOnInit() {
-    this.getEverwellGuidelines();
+    
     //console.log("Initial value", this.data);
     // this.superadminService.getCommonRegistrationData().subscribe(response => this.showGenderOnCondition(response));
     // this.superadminService.getAllQualifications().subscribe(response => this.getEduQualificationSuccessHandler(response));
@@ -482,12 +545,12 @@ export class SupportActionModal {
    console.log("this._common.everwellCallNotConnected",this._common.everwellCallNotConnected);
    if(this._common.everwellCallNotConnected==="yes")
    {
-    this.subcategries=["Phone not reachable","Phone switched off","Did not receive the call","Wrong Phone number","Others"];  
+    this.subcategries=["Phone not reachable","Phone switched off","Did not receive the call","Others"];  
    }
    this.everwellBenData = this._common.outboundEverwellData;
    this.everwellBenData.currentMonthMissedDoses=this._common.outboundEverwellData.CurrentMonthMissedDoses;
    console.log('EverWell Ben Data'+ this.everwellBenData);
-   this.dob=this.data;
+   this.dob=this.data.previousDay;
 
    let dateOfAction = new Date(this.dob); 
    console.log("dateAction", dateOfAction);
@@ -514,11 +577,14 @@ export class SupportActionModal {
          if (ar[i].efid != undefined && ar[i].efid != null) {
            this.efid = ar[i].efid;
          }
+
+       
          this.isfeedbackedit=true;
        }
 
      }
   
+    
    }
   //  this.isFeedbackData= this._common.feedbackData;
   console.log("checkFeedback",this._common.feedbackData)
@@ -531,6 +597,11 @@ export class SupportActionModal {
       
     );
   }
+
+  this.fileName=this.data.fileName;
+  this.srcPath=this.data.srcPath;
+
+
   
   }
 
@@ -578,7 +649,10 @@ export class SupportActionModal {
         if(this.efid != undefined && this.efid != null)
         this.alertMaessage.alert('Feedback updated successfully', 'success');
         else
+        {
+        this._common.updatedFeedbackList.push(item.dob);
         this.alertMaessage.alert('Feedback submitted successfully', 'success');
+        }
         this.dialogRef.close();
         console.log('Feedback updated successfully', response);
       }
@@ -594,9 +668,17 @@ export class SupportActionModal {
       return false;
     }
     const providerObj = {};
-    if(this.efid != undefined && this.efid != null){
-    providerObj['efid'] = this.efid;
-    }
+    // if(this.efid != undefined && this.efid != null){
+    // providerObj['efid'] = this.efid;
+    // }
+  
+  
+
+      if (this._common.updatedFeedbackList.some((updatedItem) => updatedItem === item.editdob)) {
+        providerObj['efid'] = this.efid;
+ 
+      }
+
     providerObj['eapiId'] = this._common.outboundEverwellData.eapiId;
     providerObj['Id']=this.everwellBenData.Id;
     providerObj['providerServiceMapId']=this.everwellBenData.providerServiceMapId;
@@ -618,6 +700,10 @@ export class SupportActionModal {
       if(response != null && response.savedData != null){        
         this._common.feedbackData.push(providerObj);
         this._common.checkEverwellResponse = true;
+
+        if (!this._common.updatedFeedbackList.some((updatedListItem) => updatedListItem == item.editdob)) {
+          this._common.updatedFeedbackList.push(item.editdob);
+        }
         this.alertMaessage.alert('Feedback updated successfully', 'success');
         this.dialogRef.close();
         console.log('Feedback updated successfully', response);
@@ -646,43 +732,43 @@ export class SupportActionModal {
     this.dosecolor= this.enablecontrols?"":"dosecolor";
   }
 
-  getEverwellGuidelines()
-  {
-    let req={
-     'adherencePercentage':this._common.outboundEverwellData.AdherencePercentage,
-     'providerServiceMapID':this._common.outboundEverwellData.providerServiceMapId
+  // getEverwellGuidelines()
+  // {
+  //   let req={
+  //    'adherencePercentage':this._common.outboundEverwellData.AdherencePercentage,
+  //    'providerServiceMapID':this._common.outboundEverwellData.providerServiceMapId
      
-    }
-    // let req={};
-    // this.fileName="EverwellGuideline";
-    this.showProgressBar = true;
-    this.OCRService.getEverwellGuidelinesDetails(req).subscribe(response => 
-      {
+  //   }
+  //   // let req={};
+  //   // this.fileName="EverwellGuideline";
+  //   this.showProgressBar = true;
+  //   this.OCRService.getEverwellGuidelinesDetails(req).subscribe(response => 
+  //     {
       
-        if(response.data.length>0)
-        {
+  //       if(response.data.length>0)
+  //       {
         
-          this.srcPath=response.data[0].fileContent;
-        this.fileName=response.data[0].fileName;
-        this.showProgressBar = false;
+  //         this.srcPath=response.data[0].fileContent;
+  //       this.fileName=response.data[0].fileName;
+  //       this.showProgressBar = false;
         
-        }
-        else
-        {
-          this.showProgressBar = false;
-          this.alertService.alert('Everwell Guideline Data is not available','error');
-        }
+  //       }
+  //       else
+  //       {
+  //         this.showProgressBar = false;
+  //         this.alertService.alert('Everwell Guideline Data is not available','error');
+  //       }
       
      
       
         
-      },
-    (err)=> {
-      this.showProgressBar = false;
-      this.alertService.alert('Error in Fetching Everwell Guideline Data','error');
-      console.log('Unable to Fetch Everwell Guideline Data');
-    });
-  }
+  //     },
+  //   (err)=> {
+  //     this.showProgressBar = false;
+  //     this.alertService.alert('Error in Fetching Everwell Guideline Data','error');
+  //     console.log('Unable to Fetch Everwell Guideline Data');
+  //   });
+  // }
 
   openPDFGuidelines()
   { 
