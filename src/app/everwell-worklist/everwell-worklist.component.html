@@ -43,10 +43,10 @@
               <td width=10%>{{data.FirstName}} {{data.LastName}}</td>
               <td width=20%>{{data.PrimaryNumber}}</td>
               <td width=10%>{{data.Gender}}</td>
-              <td width=20%>{{data.state}}</td>
+              <td width=10%>{{data.state}}</td>
               <td width=10%>{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
               <td width=10%>{{data.callCounter > 0 ? (data?.lastModDate !== 'NaN' && data?.lastModDate !== undefined && data?.lastModDate !== null ?  (data?.lastModDate | date:'dd/MM/yyyy HH:mm:ss') : 'N/A') : 'N/A'}}</td>
-              <td width=30%>{{data.callCounter}}</td>
+              <td width=20%>{{data.callCounter}}</td>
             </tr>
         </tbody>
         <tfoot>

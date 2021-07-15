@@ -73,8 +73,8 @@
                       <!-- <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td> -->
                       <td width=20%>{{listItem.PrimaryNumber}}</td>
                       <td width=10%>{{listItem.State}}</td>
-                      <td width=20%>{{listItem.District}}</td>
-                      <td width=10%>{{(listItem?.comments !== 'NaN' && listItem?.comments !== undefined && listItem?.comments !== null) ? listItem?.comments : 'N/A'}}</td>
+                      <td width=15%>{{listItem.District}}</td>
+                      <td width=5%>{{(listItem?.comments !== 'NaN' && listItem?.comments !== undefined && listItem?.comments !== null) ? listItem?.comments : 'N/A'}}</td>
                       <!-- <td width=20%>{{(listItem?.lastModDate !== 'NaN' && listItem?.lastModDate !== undefined && listItem?.lastModDate !== null ? listItem?.lastModDate : N/A)}}</td> -->
                       <td width=10%>{{listItem.callCounter > 0 ? (listItem?.lastModDate !== 'NaN' && listItem.lastModDate !== undefined && listItem.lastModDate !== null ? (listItem?.lastModDate | date:'dd/MM/yyyy HH:mm:ss') : 'N/A') : 'N/A'}}</td>
                       <td width=25%>{{listItem.callCounter}}</td>
