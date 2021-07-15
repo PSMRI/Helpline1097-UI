@@ -225,7 +225,10 @@ export class dashboardContentClass implements OnInit {
                 this.dataSettingService.isOutBoundSelected = true;
                 console.log("outbound");
               }, (err) => {
-                console.log("agent in not logged in");                
+                console.log("agent in not logged in");             
+                if(err.errorMessage === "Agent 4201 is already in MANUAL mode"){
+                  this.dataSettingService.isOutBoundSelected = true;
+                }   
                 sessionStorage.setItem("current_campaign", 'OUTBOUND');
               })
             if(role.outbound === true && (role.inbound == null || role.inbound === false)){

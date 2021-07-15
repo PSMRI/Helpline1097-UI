@@ -457,7 +457,7 @@ if(result==null)
     this.data.eapiId = outboundData.eapiId;
     this.data.comments = outboundData.comments;
     this.data.callCounter = outboundData.callCounter;
-    this.data.lastModDate = outboundData.lastModDate;
+    this.data.lastCall = outboundData.lastCall;
 
     const startCallData: any = {};
     startCallData.callID = this._common.callID;

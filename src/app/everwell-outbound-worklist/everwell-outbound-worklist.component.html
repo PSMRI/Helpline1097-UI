@@ -76,7 +76,7 @@
                       <td width=15%>{{listItem.District}}</td>
                       <td width=5%>{{(listItem?.comments !== 'NaN' && listItem?.comments !== undefined && listItem?.comments !== null) ? listItem?.comments : 'N/A'}}</td>
                       <!-- <td width=20%>{{(listItem?.lastModDate !== 'NaN' && listItem?.lastModDate !== undefined && listItem?.lastModDate !== null ? listItem?.lastModDate : N/A)}}</td> -->
-                      <td width=10%>{{listItem.callCounter > 0 ? (listItem?.lastModDate !== 'NaN' && listItem.lastModDate !== undefined && listItem.lastModDate !== null ? (listItem?.lastModDate | date:'dd/MM/yyyy HH:mm:ss') : 'N/A') : 'N/A'}}</td>
+                      <td width=10%>{{listItem.callCounter > 0 ? (listItem?.lastCall !== 'NaN' && listItem.lastCall !== undefined && listItem.lastCall !== null ? listItem?.lastCall : 'N/A') : 'N/A'}}</td>
                       <td width=25%>{{listItem.callCounter}}</td>
                       <td width=10% height="20px">
                         <a class="pointer">
