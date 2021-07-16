@@ -94,7 +94,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
       this.filteredsearchResult = [];
       this.data.forEach((item) => {
         for (let key in item) {
-          if (key == 'FirstName' || key == 'primaryNumber' || key == 'beneficiaryID') {
+          if (key == 'FirstName' || key == 'PrimaryNumber' || key == 'beneficiaryID') {
             let value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredsearchResult.push(item); break;

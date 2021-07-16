@@ -67,7 +67,7 @@ export class CallServices {
   }
 
   closeEverwellOutBoundCall(clsoutboundcalldata:any) {   
-    return this._httpInterceptor.post(this._outEverwellbouncClose_url, clsoutboundcalldata).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.postEverwell(this._outEverwellbouncClose_url, clsoutboundcalldata).map(this.extractData).catch(this.handleCustomError);
   }
   getCallSummary(values: any) {
     // debugger
