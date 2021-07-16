@@ -45,7 +45,7 @@ export class InnerpageComponent implements OnInit {
   language_change: any;
   beneficiaryRegID: any;
   providerServiceMapId: any;
-  timeRemaining: number = 20;
+  timeRemaining: number = 120;
   ticks: any;
   callStatus: any;
   callTime: boolean = true;
