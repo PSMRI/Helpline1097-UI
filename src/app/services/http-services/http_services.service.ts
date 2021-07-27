@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { InterceptedHttp } from './../../http.interceptor';
+import { BehaviorSubject } from 'rxjs';
+import { ConfigService } from '../config/config.service';
 
 
 /**
@@ -15,8 +17,13 @@ import { InterceptedHttp } from './../../http.interceptor';
 
 @Injectable()
 export class HttpServices {
+  common_url = this._config.getOpenCommonBaseURL();
+  getLanguageListURL = this.common_url + "beneficiary/getLanguageList";
 
-  constructor(private http: Http,private interceptor: InterceptedHttp) { };
+  language: any;
+  appCurrentLanguge = new BehaviorSubject(this.language);
+  currentLangugae$ = this.appCurrentLanguge.asObservable();
+  constructor(private http: Http,private interceptor: InterceptedHttp,private _config: ConfigService) { };
 
   // tslint:disable-next-line:indent
   getData(url: string) {
@@ -62,7 +69,14 @@ export class HttpServices {
       .catch(this.handleGetError);
   }
 
+  fetchLanguageSet() {
+    return this.interceptor.get(this.getLanguageListURL).map((res) => res.json().data);
+  }
 
+  getCurrentLanguage(response) {
+    this.language = response;
+    this.appCurrentLanguge.next(response);
+  }
 };
 
 
