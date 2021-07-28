@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-10 m-t-20">Language Distribution Report</h4>
+      <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.languageDistributionReport}}</h4>
     </label>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-lg-1">
@@ -19,22 +19,22 @@
           <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
         </div> -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
+        <md2-datepicker class="width100" name="startDate" placeholder="{{currentLanguageSet?.startDate}}" (keydown)="blockKey($event)" [(ngModel)]="start_date"
           (change)="endDateChange()" #startDate [max]="maxStartDate" required></md2-datepicker>
-        <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
-        <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">{{currentLanguageSet?.minStartDateIsEndDate30days}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date"
+        <md2-datepicker class="width100" name="endDate" placeholder="{{currentLanguageSet?.endDate}}" (keydown)="blockKey($event)" [(ngModel)]="end_date"
           #endDate [min]="startDate.value" [max]="maxEndDate" required></md2-datepicker>
         <!--             <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span> -->
-        <span class="error_text f-s-10 p-l-10" *ngIf="endDate.errors?.required">End date should be greator than start(max 30 days)</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="endDate.errors?.required">{{currentLanguageSet?.endDateShouldBeGreatorThanStartmax30Days}}</span>
       </div>
 
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none"> -->
-          <md-select class="" placeholder="State" [style.width]="'100%'" ngModel name="state" #state="ngModel" (change)="getDistricts()">
+          <md-select class="" placeholder="{{currentLanguageSet?.state}}" [style.width]="'100%'" ngModel name="state" #state="ngModel" (change)="getDistricts()">
             <md-option *ngFor="let item of states" [value]="item">
               {{item.stateName}}
             </md-option>
@@ -44,7 +44,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none"> -->
-          <md-select class="" placeholder="District" [style.width]="'100%'" ngModel name="district" #district="ngModel">
+          <md-select class="" placeholder="{{currentLanguageSet?.district}}" [style.width]="'100%'" ngModel name="district" #district="ngModel">
             <md-option *ngFor="let item of districts" [value]="item.districtName">
               {{item.districtName}}
             </md-option>
@@ -54,7 +54,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none"> -->
-          <md-select class="" placeholder="Language" [style.width]="'100%'" required ngModel name="language" #language="ngModel" (change)=resetWorklist()>
+          <md-select class="" placeholder="{{currentLanguageSet?.language}}" [style.width]="'100%'" required ngModel name="language" #language="ngModel" (change)=resetWorklist()>
             <!--<md-option value="all">ALL</md-option>-->
             <md-option *ngFor="let item of languages" [value]="item.languageName">
               {{item.languageName}}
@@ -66,9 +66,9 @@
 
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
         <button class="hidden-xs" md-raised-button [disabled]="languageDistributionSearchForm.invalid || ((endDate.value < startDate.value))"
-          color="accent" (click)="getReports()">SEARCH</button>
+          color="accent" (click)="getReports()">{{currentLanguageSet?.search}}</button>
         <button class="visible-xs pull-right" md-raised-button [disabled]="languageDistributionSearchForm.invalid" color="accent"
-          (click)="getReports()">SEARCH</button>
+          (click)="getReports()">{{currentLanguageSet?.search}}</button>
       </div>
     </form>
   </div>
@@ -77,16 +77,16 @@
     <table class="table table-striped " [md2Data]="languageDistributions" #md2="md2DataTable" [rowsPerPage]="6">
       <thead>
         <tr>
-          <th>S.No</th>
-          <th>Language</th>
-          <th>Service Provided Ratio</th>
-          <th>Count</th>
+          <th>{{currentLanguageSet?.s.no}}</th>
+          <th>{{currentLanguageSet?.language}}</th>
+          <th>{{currentLanguageSet?.serviceProvidedRatio}}</th>
+          <th>{{currentLanguageSet?.count}}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngIf="md2.data.length === 0">
           <td class="record-not-found" colspan="4">
-            No Records Found
+            {{currentLanguageSet?.noRecordsFound}}
           </td></tr>
         <tr *ngFor="let item of md2.data; let i = index ">
           <td>{{languageDistributions.indexOf(item)+1}}</td>
@@ -102,7 +102,7 @@
             <md2-pagination></md2-pagination>
           </td>
           <td class="p-r-0" colspan="2" *ngIf="languageDistributions.length > 0">
-            <button class="pull-right" color="primary" md-raised-button (click)="downloadV2()">Download Data</button>
+            <button class="pull-right" color="primary" md-raised-button (click)="downloadV2()">{{currentLanguageSet?.downloadData}}</button>
           </td>
         </tr>
       </tfoot>

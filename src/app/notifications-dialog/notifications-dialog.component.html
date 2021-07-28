@@ -3,7 +3,7 @@
     <button type="button" class="close" md-dialog-close>
       <span class="pull-right">&times;</span>
     </button>
-    <h4 md-dialog-title class="f-s-b m-b-10 m-t-10"> Create Notification</h4>
+    <h4 md-dialog-title class="f-s-b m-b-10 m-t-10">{{currentLanguageSet?.createNotification}}</h4>
   </div>
 </div>
 <div class="row">
@@ -12,7 +12,7 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
           <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none"> -->
-            <md-select class="width100" placeholder="Notification Type" name="notificationType" ngModel #notificationType="ngModel" required>
+            <md-select class="width100" placeholder="{{currentLanguageSet?.notificationType}}" name="notificationType" ngModel #notificationType="ngModel" required>
               <md-option *ngFor="let notification of data.notificationTypes" [value]="notification.notificationTypeID" (click)="checkNotificationType(notification.notificationType)">
                 {{ notification.notificationType }}
               </md-option>
@@ -25,7 +25,7 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 p-b-1-5" *ngIf="show==0 && visibility_Flag">
           <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none"> -->
-            <md-select class="width100" placeholder="Select Roles" [multiple]="true" name="roles" ngModel #roles="ngModel" required>
+            <md-select class="width100" placeholder="{{currentLanguageSet?.selectRoles}}" [multiple]="true" name="roles" ngModel #roles="ngModel" required>
               <md-option *ngFor="let role of data.roleObjArray" [value]="role.RoleID">
                 {{ role.RoleName }}
               </md-option>
@@ -38,7 +38,7 @@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="show==3 && visibility_Flag">
           <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none"> -->
-            <md-select class="width100" placeholder="Offices" [multiple]="true" name="Offices" ngModel [style.width]="'100%'" #office="ngModel" required>
+            <md-select class="width100" placeholder="{{currentLanguageSet?.offices}}" [multiple]="true" name="Offices" ngModel [style.width]="'100%'" #office="ngModel" required>
               <md-option *ngFor="let item of offices" [value]="item.pSAddMapID">
                 {{ item.locationName }}
               </md-option>
@@ -51,7 +51,7 @@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="show==1 && visibility_Flag">
           <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none"> -->
-            <md-select class="width100" placeholder="Language" [multiple]="true" name="Languages" ngModel [style.width]="'100%'" #language="ngModel" required>
+            <md-select class="width100" placeholder="{{currentLanguageSet?.language}}" [multiple]="true" name="Languages" ngModel [style.width]="'100%'" #language="ngModel" required>
               <md-option *ngFor="let item of languages" [value]="item.languageID">
                 {{ item.languageName }}
               </md-option>
@@ -64,7 +64,7 @@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="show==2 && visibility_Flag">
           <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none"> -->
-            <md-select class="width100" placeholder="Users" name="Users" ngModel [style.width]="'100%'" #user="ngModel" required>
+            <md-select class="width100" placeholder="{{currentLanguageSet?.users}}" name="Users" ngModel [style.width]="'100%'" #user="ngModel" required>
               <md-option *ngFor="let item of users" [value]="item.userID">
                 {{ (item.firstName?item.firstName:"")+" "+(item.middleName?item.middleName:"")+" "+(item.lastName?item.lastName:"") }}
               </md-option>
@@ -75,20 +75,20 @@
           </md-input-container> -->
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 p-l-lg-1">
-          <md2-datepicker class="width100" [disabled]="!visibility_Flag" (keydown)="blockey($event)" name="startDate" placeholder="Valid From" [min]="minDate" #startDate="ngModel" ngModel required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+          <md2-datepicker class="width100" [disabled]="!visibility_Flag" (keydown)="blockey($event)" name="startDate" placeholder="{{currentLanguageSet?.validFrom}}" [min]="minDate" #startDate="ngModel" ngModel required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
         </div>
         <div class="clearfix visible-lg"></div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 p-l-lg-1">
-          <md2-datepicker class="width100" [disabled]="!visibility_Flag" (keydown)="blockey($event)" name="endDate" placeholder="Valid Till" [min]="startDate.value" #endDate="ngModel" ngModel required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
+          <md2-datepicker class="width100" [disabled]="!visibility_Flag" (keydown)="blockey($event)" name="endDate" placeholder="{{currentLanguageSet?.validTill}}" [min]="startDate.value" #endDate="ngModel" ngModel required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
           <md-input-container class="width100">
-            <input mdInput placeholder="Notification Subject" name="notificationSubject" ngModel #notificationSubject="ngModel" minlength="5" maxlength="300" required>
+            <input mdInput placeholder="{{currentLanguageSet?.notificationSubject}}" name="notificationSubject" ngModel #notificationSubject="ngModel" minlength="5" maxlength="300" required>
             <md-hint align="start" *ngIf="notificationSubject.errors && notificationSubject.touched">
-              <span class="error_text">Notification Subject is required(min 5 characters)</span>
+              <span class="error_text">{{currentLanguageSet?.notificationSubjectIsRequiredmin5Characters}}</span>
             </md-hint>
             <md-hint align="end">{{notificationSubject.value?.length}}/300</md-hint>
           </md-input-container>
@@ -104,18 +104,18 @@
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
-          <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file" ngModel #uploadfile="ngModel">
+          <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file" ngModel #uploadfile="ngModel">
         </div>
         <!-- <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span> -->
-        <span class="help-block m-l-15" *ngIf="invalid_file_flag">Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)</span>
-        <span class="help-block m-l-15" *ngIf="error2">File Size should not exceed {{maxFileSize}} MB</span>
-        <span class="help-block m-l-15" *ngIf="error3">File Size should be greator than 0</span>
+        <span class="help-block m-l-15" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</span>
+        <span class="help-block m-l-15" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
+        <span class="help-block m-l-15" *ngIf="error3">{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
         <!--<span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>-->
       </form>
     </md-dialog-content>
     <div class="m-b-5">
-      <button md-raised-button class="m-l-5 m-r-15 pull-right" color="primary" [disabled]="!(notificationForm.valid)|| error2|| invalid_file_flag" type="button" (click)="onSubmit()">Submit</button>
-      <button md-raised-button class="m-l-15 m-r-5 pull-right" md-dialog-close>Close</button>
+      <button md-raised-button class="m-l-5 m-r-15 pull-right" color="primary" [disabled]="!(notificationForm.valid)|| error2|| invalid_file_flag" type="button" (click)="onSubmit()">{{currentLanguageSet?.submit}}</button>
+      <button md-raised-button class="m-l-15 m-r-5 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
     </div>
 </div>
     
