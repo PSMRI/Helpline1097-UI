@@ -205,7 +205,7 @@
       "contactPerson": "संपर्क व्यक्ति",
       "answer2": "उत्तर २",
       "timeRemaining": "शेष समय",
-      "startDate&EndDateCanHaveMax15DaysGap": "प्रारंभ तारीख और समाप्ति तारीख में \nअधिकतम 15 दिनों का अंतर हो सकता है",
+      "startDateEndDateCanHaveMax15DaysGap": "प्रारंभ तारीख और समाप्ति तारीख में \nअधिकतम 15 दिनों का अंतर हो सकता है",
       "doseNotTaken": "खुराक नहीं ली गई",
       "login": "लॉग इन करें",
       "languageName": "भाषा का नाम",

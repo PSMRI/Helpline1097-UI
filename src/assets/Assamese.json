@@ -205,7 +205,7 @@
       "contactPerson": "পৰিচয় ব্যক্তি",
       "answer2": "উত্তৰ ২",
       "timeRemaining": "সময় বাকী আছে",
-      "startDate&EndDateCanHaveMax15DaysGap": "আৰম্ভণিৰ তাৰিখ আৰু সমাপ্তিতাৰিখত সৰ্বাধিক 15 দিনৰ ব্যৱধান থাকিব পাৰে",
+      "startDateEndDateCanHaveMax15DaysGap": "আৰম্ভণিৰ তাৰিখ আৰু সমাপ্তিতাৰিখত সৰ্বাধিক 15 দিনৰ ব্যৱধান থাকিব পাৰে",
       "doseNotTaken": "পালি গ্ৰহণ কৰা হোৱা নাই",
       "login": "লগইন",
       "languageName": "ভাষাৰ নাম",

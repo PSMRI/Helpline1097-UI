@@ -205,7 +205,7 @@
       "contactPerson": "Contact Person",
       "answer2": "Answer 2",
       "timeRemaining": "Time Remaining",
-      "startDate&EndDateCanHaveMax15DaysGap": "Start Date & End Date can have max 15 days gap",
+      "startDateEndDateCanHaveMax15DaysGap": "Start Date & End Date can have max 15 days gap",
       "doseNotTaken": "Dose not taken",
       "login": "Login",
       "languageName": "Language Name",

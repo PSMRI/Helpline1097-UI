@@ -16,7 +16,7 @@
           ngModel required [style.width]="'100%'" (change)="setEndDate(endDate.value)"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.endDateIsRequired}}</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value<startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCanNotBeBeforeStartDate}}</span>
-        <span class="error_text f-s-10 p-l-10" *ngIf="(max<endDate.value) && endDate.dirty">{{currentLanguageSet?.startDate&EndDateCanHaveMax15DaysGap}}</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(max<endDate.value) && endDate.dirty">{{currentLanguageSet?.startDateEndDateCanHaveMax15DaysGap}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
@@ -261,7 +261,7 @@
             <tbody *ngFor="let item of counselling_services">
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0">
-                  <strong> {currentLanguageSet?.category}} :</strong>
+                  <strong> {{currentLanguageSet?.category}} :</strong>
                 </td>
                 <td class="col-xs-12 col-sm-3">{{item?.categoryDetails?.categoryName}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0">

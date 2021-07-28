@@ -109,7 +109,7 @@
         <!-- <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span> -->
         <span class="help-block m-l-15" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</span>
         <span class="help-block m-l-15" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
-        <span class="help-block m-l-15" *ngIf="error3">{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
+        <span class="help-block m-l-15" *ngIf="error3">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
         <!--<span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>-->
       </form>
     </md-dialog-content>
