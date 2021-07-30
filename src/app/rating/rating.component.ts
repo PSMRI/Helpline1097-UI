@@ -5,6 +5,9 @@ import { NotificationService } from '../services/notificationService/notificatio
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MdDialog } from '@angular/material';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
+
 
 @Component({
 	selector: 'rating',
@@ -26,14 +29,16 @@ export class RatingComponent implements OnInit {
 
 	userMessages=[];
 	userRatings=[];
+	currentLanguageSet: any;
 
 
 	constructor( private dataService: dataService, public alertService: ConfirmationDialogsService,
 	            private notificationService: NotificationService,
-	            public dialog: MdDialog) { };
+	            public dialog: MdDialog,public HttpServices: HttpServices) { };
 
 	ngOnInit()
 	{
+		this.assignSelectedLanguage();
 		this.providerServiceMapID=this.dataService.current_service.serviceID;
 
 		this.current_userID=this.dataService.uid;
@@ -57,6 +62,14 @@ export class RatingComponent implements OnInit {
 		this.alertService.alert(err.errorMessage,'error');
 	});
 	};
+	ngDoCheck() {
+		this.assignSelectedLanguage();
+	  }
+	  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 
 	getNotificationTypesSuccessHandeler(response)
 	{
