@@ -1,7 +1,7 @@
 <div [ngClass]="{'headerDiv': status=='info', 'successHeaderDiv': status=='success', 'errorHeaderDiv': status=='error'}">
-  <h4 class="popupHeader" *ngIf="status=='info'"><b>Info</b></h4>
-  <h4 class="popupHeader" *ngIf="status=='success'"><b>Success</b></h4>
-  <h4 class="popupHeader" *ngIf="status=='error'"><b>Error</b></h4>
+  <h4 class="popupHeader" *ngIf="status=='info'"><b>{{currentLanguageSet?.info}}</b></h4>
+  <h4 class="popupHeader" *ngIf="status=='success'"><b>{{currentLanguageSet?success}}</b></h4>
+  <h4 class="popupHeader" *ngIf="status=='error'"><b>{{currentLanguageSet?error}</b></h4>
 </div>
 <div class="container-fluid" *ngIf="confirmAlert">
   <h3 md-dialog-title>
@@ -58,7 +58,7 @@
       <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">{{message}}</div>
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
         <button class="pull-right " md-icon-button class="closeBtn " md-dialog-close>
-          <i class="material-icons ">close</i>
+          <i class="material-icons ">{{currentLanguageSet?.close}}</i>
         </button>
       </div>
     </div>
@@ -67,7 +67,7 @@
     <div class="row ">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-btn">
         <md-input-container [style.width]="'100%'">
-          <input mdInput placeholder="Enter Remarks" name="Remarks" #remarksRef>
+          <input mdInput placeholder="{{currentLanguageSet?.enterRemarks}}" name="Remarks" #remarksRef>
         </md-input-container>
       </div>
     </div>
