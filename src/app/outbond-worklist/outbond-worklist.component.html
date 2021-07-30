@@ -15,12 +15,12 @@
                         <i class="fa fa-arrow-left fa-lg" aria-hidden="true" md-tooltip="Dashboard"></i>
                       </li> -->
                       <li>
-                        <h4 class="f-s-b"> Outbound Work List </h4>
+                        <h4 class="f-s-b"> {{currentLanguageSet?.outboundWorkList}} </h4>
                       </li>
                     </ul>
                   </div>
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <button type="button" md-raised-button color="primary" class="pull-right mar-top" (click)="backToDashBoard()">Back to Dashboard</button>
+                    <button type="button" md-raised-button color="primary" class="pull-right mar-top" (click)="backToDashBoard()">{{currentLanguageSet?.backToDashboard}}</button>
                   </div>
                 </div>
               </nav>
@@ -34,17 +34,17 @@
                   <thead>
                     <tr>
                       <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
-                      <th md2SortBy="beneficiary.beneficiaryRegID">Beneficiary ID</th>
-                      <th>Beneficiary Name</th>
-                      <th md2SortBy="prefferedDateTime">Requested Date</th>
-                      <th>Requested Service</th>
-                      <th>Remarks</th>
-                      <th>Call</th>
+                      <th md2SortBy="beneficiary.beneficiaryRegID">{{currentLanguageSet?.beneficiaryId}}</th>
+                      <th>{{currentLanguageSet?.beneficiaryName}}</th>
+                      <th md2SortBy="prefferedDateTime">{{currentLanguageSet?.requestedDate}}</th>
+                      <th>{{currentLanguageSet?.requestedService}}</th>
+                      <th>{{currentLanguageSet?.remarks}}</th>
+                      <th>{{currentLanguageSet?.call}}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngIf="md2.data.length==0">
-                      <td colspan="5" class="t-a-c record-not-found"> No records found</td>
+                      <td colspan="5" class="t-a-c record-not-found"> {{currentLanguageSet?.noRecordsFound}}</td>
                     </tr>
 
                     <tr *ngFor="let listItem of  md2.data">

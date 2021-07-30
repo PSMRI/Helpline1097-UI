@@ -4,6 +4,9 @@ import { dataService } from './../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
+
 
 @Component({
   selector: 'app-outbond-worklist',
@@ -14,11 +17,13 @@ import { CzentrixServices } from './../services/czentrix/czentrix.service';
 export class OutbondWorklistComponent implements OnInit {
   @Output() onOutboundCall: EventEmitter<any> = new EventEmitter<any>();
   data: any = [];
+  currentLanguageSet: any;
   constructor(private cz_service : CzentrixServices, private _outBoundService: CallServices, 
-    public alertService: ConfirmationDialogsService, private _common: dataService, public router: Router) {
+    public alertService: ConfirmationDialogsService, private _common: dataService, public router: Router,public HttpServices: HttpServices) {
   }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this._common.sendHeaderStatus.next("");
     const serviceProviderMapID = this._common.current_service.serviceID;
     const userId = this._common.uid;
@@ -30,6 +35,14 @@ export class OutbondWorklistComponent implements OnInit {
       console.log('error in call history ');
     })
   };
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+  }
 
   AssignData(outboundHistory: any) {
     this.data = outboundHistory;
@@ -41,7 +54,7 @@ export class OutbondWorklistComponent implements OnInit {
     this._common.outboundData = data;
     this.cz_service.manualDialaNumber("", data.beneficiary.benPhoneMaps[0].phoneNo).subscribe((res) => {
       if (res.status.toLowerCase() === 'fail') {
-        this.alertService.alert('Something went wrong in calling', 'error');
+        this.alertService.alert(this.currentLanguageSet.somethingWentWrongInCalling, 'error');
       } else {
         this._common.callerNumber = data.beneficiary.benPhoneMaps[0].phoneNo;
 
