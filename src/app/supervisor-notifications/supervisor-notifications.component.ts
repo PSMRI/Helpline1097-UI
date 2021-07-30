@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { dataService } from '../services/dataService/data.service';
@@ -7,12 +7,14 @@ import { NotificationsDialogComponent } from '../notifications-dialog/notificati
 import { MdDialog } from '@angular/material';
 import { EditNotificationsComponent } from '../edit-notifications/edit-notifications.component';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 @Component({
   selector: 'app-supervisor-notifications',
   templateUrl: './supervisor-notifications.component.html',
   styleUrls: ['./supervisor-notifications.component.css']
 })
-export class SupervisorNotificationsComponent implements OnInit {
+export class SupervisorNotificationsComponent implements OnInit, DoCheck {
   serviceProviderID:any;
   providerServiceMapID: any;
   serviceID:any;
@@ -34,9 +36,11 @@ export class SupervisorNotificationsComponent implements OnInit {
   visibility_Flag:boolean=true;
 
   @ViewChild('showNotificationForm') showNotificationForm: NgForm;
+  currentLanguageSet: any;
 
   constructor(private notificationService: NotificationService,
-              private alertMessage: ConfirmationDialogsService, public commonDataService: dataService, public dialog: MdDialog) { }
+              private alertMessage: ConfirmationDialogsService, public commonDataService: dataService, public dialog: MdDialog,
+              private httpServices: HttpServices) { }
 
   ngOnInit() {
     this.minDate = new Date();
@@ -73,7 +77,7 @@ export class SupervisorNotificationsComponent implements OnInit {
     this.alertMessage.alert(err.errorMessage,'error');
 
   });
-
+  this.assignSelectedLanguage();
   }
 
   notification_type:any;
@@ -374,5 +378,12 @@ export class SupervisorNotificationsComponent implements OnInit {
       return false;
     }
   }
-
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	}
 }

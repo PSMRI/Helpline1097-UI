@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-    <h4 class="modal-title">Version Details</h4>
+    <h4 class="modal-title">{{currentLanguageSet?.versionDetails}}</h4>
   </div>
   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
     <button md-button class="pull-right p-r-0" [md-dialog-close]="true">
@@ -14,7 +14,7 @@
       <thead>
         <tr>
           <th width="20%"></th>
-          <th width="40%">API</th>
+          <th width="40%">{{currentLanguageSet?.api}}</th>
           <th width="40%">UI</th>
         </tr>
       </thead>
