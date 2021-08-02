@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { DashboardHttpServices } from '../http-service/http-service.service';
 import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MdDialog } from '@angular/material';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
     selector: 'app-training-resources',
     templateUrl: './training-resources.component.html',
     styleUrls: ['./training-resources.component.css']
 })
-export class TrainingResourcesComponent implements OnInit {
+export class TrainingResourcesComponent implements OnInit, DoCheck {
 
     role: any;
     service: any;
@@ -19,7 +21,9 @@ export class TrainingResourcesComponent implements OnInit {
     kmConfig: any;
     kmfiles: any;
     kmPostData: any;
-    constructor(private dashboardHttpServices: DashboardHttpServices, public alertService: ConfirmationDialogsService, private dataService: dataService, private notificationService: NotificationService, public dialog: MdDialog) { }
+    currentLanguageSet: any;
+    constructor(private dashboardHttpServices: DashboardHttpServices, public alertService: ConfirmationDialogsService, private dataService: dataService, private notificationService: NotificationService, public dialog: MdDialog,
+        private httpServices: HttpServices) { }
 
 
     ngOnInit() {
@@ -65,7 +69,7 @@ export class TrainingResourcesComponent implements OnInit {
 
                 console.log(err);
             });
-
+            this.assignSelectedLanguage();
 
     }
 
@@ -118,4 +122,12 @@ export class TrainingResourcesComponent implements OnInit {
     //     let date = new Date();
     //     return new Date((date.getTime() - 1 * (date.getTimezoneOffset() * 60 * 1000)));
     // }
+    ngDoCheck() {
+        this.assignSelectedLanguage();
+      }
+    assignSelectedLanguage() {
+        const getLanguageJson = new SetLanguageComponent(this.httpServices);
+        getLanguageJson.setLanguage();
+        this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
 }

@@ -7,6 +7,8 @@ import { OutboundCallAllocationService } from '../services/outboundServices/outb
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { OutboundSearchRecordService } from '../services/outboundServices/outbound-search-records.service';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-outbound-allocate-records',
@@ -41,6 +43,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   initialCount: number;
   @ViewChild('allocateRef') input: ElementRef;
   selectedLanguage: any;
+  currentLanguageSet: any;
 
   constructor(
     private _OCAService: OutboundCallAllocationService,
@@ -48,18 +51,28 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
     private fb: FormBuilder,
     private _OSRService: OutboundSearchRecordService,
-    private renderer: Renderer
+    private renderer: Renderer,
+    public HttpServices: HttpServices
   ) {
     this.createForm();
   }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     // this.roles = this.saved_data.userPriveliges[0].roles;
     this.getRoles();
     // this.initialCount = this.outboundCallRequests.length;
     // this.outboundCallRequests = this.outboundCallRequests;
     //  this.getOutboundCall(this.providerServiceMapID);
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
   getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, language?: any, userID?: any) {
@@ -164,7 +177,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     this._OCAService.allocateCallsToAgenta(this.allocateForm.value)
       .subscribe(
       (response) => {
-        this.alertMessage.alert('Call allocated successfully', 'success');
+        this.alertMessage.alert(this.currentLanguageSet.callAllocatedSuccessfully, 'success');
         this.afterAllocate = false;
         let obj = {};
         if (this.outboundCallRequests.startDate) {

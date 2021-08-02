@@ -48,7 +48,7 @@
           </td>
         </tr>
         <tr *ngIf="md2.data.length==0">
-          <td class="text-center" colspan="2"> No {{data.type}} documents found </td>
+          <td class="text-center" colspan="2"> {{currentLanguageSet?.no}} {{data.type}} {{currentLanguageSet?.documentsFound}} </td>
         </tr>
       </tbody>
       <tfoot>

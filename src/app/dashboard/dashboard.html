@@ -58,13 +58,13 @@
         <ul class="leftMenuList">
           <li class="p-t-15" *ngIf="current_role=='Supervisor'" routerLink="/MultiRoleScreenComponent/InnerpageComponent">
             <a class="p-l-m-t-22" #dropdown1>
-              <i data-placement="right" data-toggle="tooltip" class="mdicon material-icons " (click)="hamburgerClick()" aria-hidden="true" title="Activity Area">dashboard</i>
+              <i data-placement="right" data-toggle="tooltip" class="mdicon material-icons " (click)="hamburgerClick()" aria-hidden="true" title="Activity Area">{{currentLanguageSet?.dashboard}}</i>
               <!--** <span>Switch Role</span> -->
             </a>
           </li>
           <li class="p-t-15" (click)="routeToRoleSelection()">
             <a class="p-l-m-t-22" #dropdown2>
-              <i data-placement="right" data-toggle="tooltip" title="Switch Role" class="mdicon material-icons" (click)="hamburgerClick()" aria-hidden="true">compare_arrows</i>
+              <i data-placement="right" data-toggle="tooltip" title="Switch Role" class="mdicon material-icons" (click)="hamburgerClick()" aria-hidden="true">{{currentLanguageSet?.compareArrows}}</i>
               <!--** <span>Switch Role</span> -->
             </a>
           </li>
@@ -79,8 +79,8 @@
           </div>
           <div class="pull-right p-t-10 p-b-10"  *ngIf="current_role.toLowerCase().trim()!=='supervisor'">
             <md-radio-group name=" inOutBound" (change)="campaign(inOutBound)" [(ngModel)]="inOutBound">
-              <md-radio-button color="primary" value='1' *ngIf="inboundCall">Inbound</md-radio-button>
-              <md-radio-button color="primary" value='0' *ngIf="outboundCall">Outbound</md-radio-button>
+              <md-radio-button color="primary" value='1' *ngIf="inboundCall">{{currentLanguageSet?.inbound}}</md-radio-button>
+              <md-radio-button color="primary" value='0' *ngIf="outboundCall">{{currentLanguageSet?.outbound}}</md-radio-button>
             </md-radio-group>
           </div>
           <span class="clearfix"></span>

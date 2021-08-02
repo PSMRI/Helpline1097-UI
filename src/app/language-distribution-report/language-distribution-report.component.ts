@@ -7,6 +7,8 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { LocationService } from '../services/common/location.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as XLSX from 'xlsx';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-language-distribution-report',
@@ -34,12 +36,14 @@ export class LanguageDistributionReportComponent implements OnInit {
   language: any;
 
   @ViewChild('languageDistributionSearchForm') languageDistributionSearchForm: NgForm;
+  currentLanguageSet: any;
 
   constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData,
     private locationService: LocationService, private alertService: ConfirmationDialogsService,
-    private reportsService: ReportsService) { }
+    private reportsService: ReportsService,public HttpServices: HttpServices) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.dataService.current_service.serviceID;
     this.userbeneficiarydata.getUserBeneficaryData(this.providerServiceMapID)
       .subscribe((response) => {
@@ -78,6 +82,14 @@ export class LanguageDistributionReportComponent implements OnInit {
     this.maxEndDate.setHours(23, 59, 59, 0);
     this.providerServiceMapID = this.dataService.current_service.serviceID;
 
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
   blockKey(e: any) {
@@ -258,7 +270,7 @@ export class LanguageDistributionReportComponent implements OnInit {
     let head = Object.keys(this.languageDistributions[0]);
     // console.log(head);
     new Angular2Csv(this.languageDistributions, 'LanguageDistributions Report', { headers: (head) });
-    this.alertService.alert('Language distribution report downloaded', 'success');
+    this.alertService.alert(this.currentLanguageSet.languageDistributionReportDownloaded, 'success');
   }
   downloadV2() {
     let criteria: any = [];
