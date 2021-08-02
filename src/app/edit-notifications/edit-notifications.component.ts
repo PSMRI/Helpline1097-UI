@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { dataService } from '../services/dataService/data.service';
 import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-edit-notifications',
@@ -26,7 +28,9 @@ export class EditNotificationsComponent implements OnInit {
   invalid_file_flag: boolean = false;
 
   @ViewChild('editNotificationForm') editNotificationForm: NgForm;
-  constructor(@Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef < EditNotificationsComponent > , private commonDataService: dataService) {}
+  currentLanguageSet: any;
+  constructor(@Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef < EditNotificationsComponent > , private commonDataService: dataService,
+  private HttpServices:HttpServices) {}
 
   ngOnInit() {
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
@@ -35,6 +39,8 @@ export class EditNotificationsComponent implements OnInit {
     console.log(this.data);
     this.validTill = new Date(this.data.validTill);
     this.validFrom = new Date(this.data.validFrom);
+    this.assignSelectedLanguage();
+
   }
 
   onFileUpload(event) {
@@ -162,4 +168,14 @@ export class EditNotificationsComponent implements OnInit {
       return false;
     }
   }
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

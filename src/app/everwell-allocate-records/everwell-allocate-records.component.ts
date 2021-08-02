@@ -7,6 +7,8 @@ import { OutboundCallAllocationService } from '../services/outboundServices/outb
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { OutboundSearchRecordService } from '../services/outboundServices/outbound-search-records.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-everwell-allocate-records',
@@ -41,6 +43,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   initialCount: number;
   @ViewChild('allocateRef') input: ElementRef;
   selectedLanguage: any;
+  currentLanguageSet: any;
 
   constructor(
     private _OCAService: OutboundCallAllocationService,
@@ -48,7 +51,8 @@ export class EverwellAllocateRecordsComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
     private fb: FormBuilder,
     private _OSRService: OutboundSearchRecordService,
-    private renderer: Renderer
+    private renderer: Renderer,
+    private HttpServices:HttpServices
   ) {
     this.createForm();
   }
@@ -60,6 +64,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
     // this.initialCount = this.outboundCallRequests.length;
     // this.outboundCallRequests = this.outboundCallRequests;
     //  this.getOutboundCall(this.providerServiceMapID);
+    this.assignSelectedLanguage();
   }
 
   getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, agentId?:any,language?: any, isAllocated?:boolean) {  
@@ -164,7 +169,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
     this._OCAService.allocateEverwellCallsToAgenta(this.allocateEverwellForm.value)
       .subscribe(
       (response) => {
-        this.alertMessage.alert('Call allocated successfully', 'success');
+        this.alertMessage.alert(`${this.currentLanguageSet.callAllocatedSuccessfully}`, 'success');
         this.afterAllocate = false;
         let obj = {};
         console.log("outboundCallRequests",this.outboundCallRequests);
@@ -251,6 +256,15 @@ export class EverwellAllocateRecordsComponent implements OnInit {
       endDate, value.assignedUserID,value.langaugeName.langName, false);
     //this.getOutboundCall(serviceProviderMapId, value.assignedUserID, false);
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }
 
 

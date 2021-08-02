@@ -16,6 +16,7 @@ import { ListnerService } from './../services/common/listner.service';
 import { AuthService } from '../services/authentication/auth.service';
 import { RegisterService } from '../services/register-services/register-service';
 import { Subscription } from 'rxjs/Subscription';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 declare const jQuery: any;
 
@@ -189,6 +190,7 @@ export class InnerpageComponent implements OnInit {
     this.getAgentCallDetails();
     this.isEverwell = sessionStorage.getItem("isEverwellCall");
 
+    this.assignSelectedLanguage();
 
   }
   addActiveClass(val: any) {
@@ -372,7 +374,7 @@ export class InnerpageComponent implements OnInit {
   // }
   log_out() {
     if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
-      this.remarksMessage.alert('Cannot logout during active call');
+      this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
     } else {
       sessionStorage.removeItem('isOnCall');
       sessionStorage.removeItem('isEverwellCall');
@@ -410,7 +412,7 @@ export class InnerpageComponent implements OnInit {
       } else {
         if (this.current_role.toLowerCase() !== 'supervisor') {
 
-          this.remarksMessage.alert('Cannot logout during active call');
+          this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
         } else {
           sessionStorage.removeItem('isOnCall');
           sessionStorage.removeItem('isEverwellCall');
@@ -433,7 +435,7 @@ export class InnerpageComponent implements OnInit {
           this.basicrouter.navigate(['']);
         } else {
           // if (this.current_role.toLowerCase() !== 'supervisor') {
-          this.remarksMessage.alert('Cannot logout during active call');
+          this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
           // }
         }
       }, (err) => {
@@ -467,7 +469,7 @@ export class InnerpageComponent implements OnInit {
           this.transferCallID = transferObj[0].callTypeID;
         }
       } else {
-        this.remarksMessage.alert('Failed to get call types');
+        this.remarksMessage.alert(this.currentlanguageSet.failedToGetCallTypes);
       }
 
       // let wrapupObj = response.filter(function (item) {
@@ -515,7 +517,7 @@ export class InnerpageComponent implements OnInit {
           this.disconectCallId = validObj[0].callTypeID;
         }
       } else {
-        this.remarksMessage.alert('Failed to get call types');
+        this.remarksMessage.alert(this.currentlanguageSet.failedToGetCallTypes);
       }
       if (!this.transferCallID) {
         this.transferCallID = this.disconectCallId;
@@ -788,4 +790,13 @@ export class InnerpageComponent implements OnInit {
   finalSubmitBtnCheck(submitBtnStatus){
     this.everwellSubmitBtn = submitBtnStatus;
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentlanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }
