@@ -8,6 +8,8 @@ import { CommunicationService } from './../services/common/communication.service
 import { Subscription } from 'rxjs/Subscription';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { ClearFormService } from './../services/common/clearform.service'
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-closure',
@@ -67,6 +69,7 @@ export class ClosureComponent implements OnInit
   requestedServiceID: number;
   isEverwell: string;
   everwellBeneficiarySelected: boolean;
+  currentLanguageSet: any;
 
   constructor(
     private _callServices: CallServices,
@@ -74,7 +77,8 @@ export class ClosureComponent implements OnInit
     private message: ConfirmationDialogsService,
     private pass_data: CommunicationService,
     private czentrixServices: CzentrixServices,
-    private clearfornData: ClearFormService
+    private clearfornData: ClearFormService,
+    private HttpServices:HttpServices
   ) {
     this.subscription = this.pass_data.getData().subscribe(benData => { this.outBoundCloseCall(benData) });
     this.subscription = this.clearfornData.clearFormGetter().subscribe(data => { this.clearForm(data) });
@@ -136,6 +140,8 @@ export class ClosureComponent implements OnInit
       })
     this.beneficiarySelected = false;
     this.getSubServiceTypes(requestObject);
+    this.assignSelectedLanguage();
+
   }
 
   getSubServiceTypes(requestObject: any) {
@@ -552,4 +558,13 @@ export class ClosureComponent implements OnInit
   setBenRegID(data) {
     this.beneficiaryRegID = data.beneficiaryRegID;
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

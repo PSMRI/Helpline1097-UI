@@ -152,7 +152,7 @@
       "feedbackDetails": "Feedback Details",
       "publish": "publish",
       "results": "Results :",
-      "s.no.": "S.No.",
+      "sno.": "S.No.",
       "username": "Username",
       "invalidCallPleaseCheck": "Invalid call please check",
       "validTill": "Valid Till",
@@ -169,7 +169,7 @@
       "noRecordsFound": "No records found",
       "lastName:": "Last Name :",
       "everwellCallRe-allocation": "Everwell Call Re-Allocation",
-      "selectSub-category": "Select Sub-Category",
+      "selectSubcategory": "Select Sub-Category",
       "enterContactNo.": "Enter Contact No.",
       "callReports": "Call Reports",
       "action": "Action",
@@ -569,6 +569,37 @@
       "templateName": "Template Name",
       "category": "Category",
       "startDateIsRequired": "Start Date is required",
-      "callTime": "Call Time"
+      "callTime": "Call Time",
+
+    "_commentsStarting":"BA20178105 new keywords adding start here",
+      "calldetails": "Call Details",
+      "feedbackQuestion": "How did you come to know about our services?",
+      "followupQuestion": "Is Follow-Up Required?",
+      "preferredDate": "Preferred Date (dd/mm/yyyy)",
+      "followUpReason": "Follow-up Reason",
+      "tableLabels": {
+        "tableHeading": "Services Availed During The Call",
+        "sno": "S.No.",
+        "call_id": "Call ID",
+        "information": "Information",
+        "counselling": "Counselling",
+        "referral": "Referral",
+        "feedback": "Feedback",
+        "serviceName": "Service Name",
+        "count": "Count"
+      },
+      "submitContinue": "Submit & Continue",
+      "submitClose": "Submit & Close",
+      "pageHeading": "Information Services",
+      "taluk": "Taluk",
+
+
+
+
+
+
+
+
+
     }
   }
