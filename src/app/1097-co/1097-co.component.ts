@@ -89,7 +89,7 @@ export class helpline1097CoComponent implements OnInit {
           }​​​​​​​​
       if (sessionStorage.getItem("session_id") !== undefined) {​​​​​​​
             this.getCommonData.callID =sessionStorage.getItem("session_id");
-           // this.getCommonData.isOutbound = true;
+           
           }
     // this.router.params.subscribe((params: Params) => {
     //   if (params['mobileNumber'] != undefined) {
