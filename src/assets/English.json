@@ -577,20 +577,9 @@
       "followupQuestion": "Is Follow-Up Required?",
       "preferredDate": "Preferred Date (dd/mm/yyyy)",
       "followUpReason": "Follow-up Reason",
-      "tableLabels": {
-        "tableHeading": "Services Availed During The Call",
-        "sno": "S.No.",
-        "call_id": "Call ID",
-        "information": "Information",
-        "counselling": "Counselling",
-        "referral": "Referral",
-        "feedback": "Feedback",
-        "serviceName": "Service Name",
-        "count": "Count"
-      },
+      "tableHeading": "Services Availed During The Call",
       "submitContinue": "Submit & Continue",
       "submitClose": "Submit & Close",
-      "pageHeading": "Information Services",
       "taluk": "Taluk",
  
       "_commentEndsHere":"adding keyword ends here"
