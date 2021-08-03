@@ -57,7 +57,8 @@
               (.msg, .pdf, .png, .jpeg, .jpg, .doc, .docx, .xlsx, .xls, .csv, .txt)
             </span>
             <div class="error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
-              File is required 
+              {{currentLanguageSet?.fileIsRequired}}
+
             </div>
           </div>
         </div>
@@ -81,7 +82,7 @@
         </div> -->
         <!--<div class="">-->
             <div class="col-xs-6 col-sm-6 form-group" *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)">
-                <label>{{currentLanguageSet?.previousUploadedFile:}}<a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
+                <label>{{currentLanguageSet?.previousUploadedFile}}<a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
               </div>
           <div class="col-xs-6 col-sm-6 form-group pull-right">
             <button type="submit" class="pull-right" md-raised-button color="accent" [disabled]="knowledgeForm.invalid||invalid_file_flag">{{currentLanguageSet?.save}}</button>

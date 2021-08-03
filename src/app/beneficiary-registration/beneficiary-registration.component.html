@@ -9,7 +9,7 @@
  -->
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="calledEarlier">
       <h4>
-        <strong>{{currentlanguage.beneficiary_registration?.create_search}}</strong>
+        <strong>{{assignSelectedLanguageValue?.create/searchBeneficiary}}</strong>
       </h4>
       <h5> {{currentlanguage.beneficiary_registration?.call_confirmation_question}}</h5>
       <md-radio-group name="called_earlier" (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">
@@ -66,7 +66,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md-input-container myName [style.width]="'100%'">
-          <input required mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="firstName"
+          <input required mdInput placeholder="{{assignSelectedLanguageValue?.first_name}}" maxlength="25" name="firstName"
             [(ngModel)]="FirstName" #firstN="ngModel">
           <md-hint class="error_text" *ngIf="firstN.invalid && firstN.touched">
 
@@ -109,7 +109,7 @@
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none"> -->
 
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.state}}" [style.width]="'100%'" [(ngModel)]="state"
+        <md-select required placeholder="{{assignSelectedLanguageValue?.selectState}}" [style.width]="'100%'" [(ngModel)]="state"
           name="stateSearch" (change)="GetDistricts(state)" #stateSelectedd="ngModel">
           <md-option *ngFor="let state of states" [value]="state.stateID">
             {{state.stateName}}
@@ -125,7 +125,7 @@
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input mdInput style="display:none"> -->
 
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.district}}" [style.width]="'100%'" [(ngModel)]="district"
+        <md-select required placeholder="{{assignSelectedLanguageValue?.selectDistrict}}" [style.width]="'100%'" [(ngModel)]="district"
           name="districtSearch" (change)="GetTaluks(district)" #citySelectedd="ngModel" (blur)="GetTaluks(district)">
           <md-option *ngFor="let district of districts" [value]="district.districtID">
             {{district.districtName}}
@@ -150,7 +150,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
         <button [disabled]="searchForm.invalid" type="button" md-raised-button color="accent" class="m-r-10 pull-right" value="search"
-          (click)="searchBeneficiary(searchForm.value)">{{currentlanguage.beneficiary_registration?.search}}</button>
+          (click)="searchBeneficiary(searchForm.value)">{{assignSelectedLanguageValue?.search}}</button>
         <!--  <button type="button" md-raised-button color="accent" class="" value="search" (click)="back1()">{{currentlanguage.beneficiary_registration?.back}}</button> -->
       </div>
     </form>
@@ -163,18 +163,18 @@
           <thead>
             <tr>
               <th width=2%>{{currentlanguage.beneficiary_registration?.table_labels?.sno}}</th>
-              <th md2SortBy="beneficiaryID" width=5%>{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_id}}</th>
+              <th md2SortBy="beneficiaryID" width=5%>{{assignSelectedLanguageValue?.beneficiaryId}}</th>
               <th md2SortBy="firstName" width=12%>{{currentlanguage.beneficiary_registration?.table_labels?.fullname}}</th>
               <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.dob}}</th> -->
-              <th width=3%>{{currentlanguage.beneficiary_registration?.table_labels?.age}}</th>
-              <th md2SortBy="m_gender.genderName" width=5%>{{currentlanguage.beneficiary_registration?.table_labels?.gender}}</th>
-              <th md2SortBy="i_bendemographics.m_state.stateName" width=20%>{{currentlanguage.beneficiary_registration?.table_labels?.state}}</th>
-              <th md2SortBy="i_bendemographics.m_district.districtName" width=20%>{{currentlanguage.beneficiary_registration?.table_labels?.district}}</th>
+              <th width=3%>{{assignSelectedLanguageValue?.age}}</th>
+              <th md2SortBy="m_gender.genderName" width=5%>{{assignSelectedLanguageValue?.gender}}</th>
+              <th md2SortBy="i_bendemographics.m_state.stateName" width=20%>{{assignSelectedLanguageValue?.state}}</th>
+              <th md2SortBy="i_bendemographics.m_district.districtName" width=20%>{{assignSelectedLanguageValue?.district}}</th>
               <th width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
               <th width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.village}}</th>
               <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.preferred_language}}</th> -->
               <th width=15%>{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_tagging}}</th>
-              <th width=5%>{{currentlanguage.beneficiary_registration?.table_labels?.action}}</th>
+              <th width=5%>{{assignSelectedLanguageValue?.action}}</th>
             </tr>
           </thead>
           <!-- <tbody *ngIf="regHistoryList?.length==0" class="t-a-c">
@@ -184,7 +184,7 @@
           <tbody *ngIf="md2.data?.length==0">
             <tr>
               <td class="t-a-c record-not-found" colspan="11">
-                {{currentlanguage.beneficiary_registration?.table_labels?.no_records_found}}
+                {{assignSelectedLanguageValue?.noRecordsFound}}
               </td>
             </tr>
           </tbody>
@@ -252,7 +252,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-b-9">
         <md-input-container myName [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.first_name}}" maxlength="25" name="FirstName" [(ngModel)]="FirstName"
+          <input mdInput placeholder="{{assignSelectedLanguageValue?.firstName}}" maxlength="25" name="FirstName" [(ngModel)]="FirstName"
             #first="ngModel">
           <!--           <md-hint [hidden]=first.valid>
 
@@ -387,9 +387,9 @@
       <!-- </form> -->
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10">
         <button *ngIf="isParentBeneficiary" [disabled]="!genderSelected.valid || !ageEvent2.valid || !benRelation.valid" md-raised-button
-          color="primary" class="pull-right font-regular" (click)="captureOtherInfo()">{{currentlanguage.beneficiary_registration?.next}}</button>
+          color="primary" class="pull-right font-regular" (click)="captureOtherInfo()">{{assignSelectedLanguageValue?.next}}</button>
         <button *ngIf="!isParentBeneficiary" [disabled]="!genderSelected.valid || !ageEvent2.valid || !benRelation.valid" md-raised-button
-          color="primary" class="pull-right font-regular" (click)="captureOtherInfo()">{{currentlanguage.beneficiary_registration?.next}}</button>
+          color="primary" class="pull-right font-regular" (click)="captureOtherInfo()">{{assignSelectedLanguageValue?.next}}</button>
       </div>
     </div>
     <div class="row bg-white m-t-10" *ngIf="notCalledEarlierLowerPart">
@@ -479,7 +479,7 @@
         <!-- <md-input-container class="hide_underline" [style.width]=" '100%'">
           <input mdInput style="display:none"> -->
 
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.state}}" [style.width]=" '100%'
+        <md-select required placeholder="{{assignSelectedLanguageValue?.selectState}}" [style.width]=" '100%'
                     " [(ngModel)]="state" name="state" (change)="GetDistricts(state)" #stateSelected="ngModel">
           <md-option *ngFor="let benState of states" [value]="benState.stateID">
             {{benState.stateName}}
@@ -502,7 +502,7 @@
         <!-- <md-input-container class="hide_underline" [style.width]=" '100%'">
           <input mdInput style="display:none"> -->
 
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.district}}" [style.width]="
+        <md-select required placeholder="{{assignSelectedLanguageValue?.selectDistrict}}" [style.width]="
                     '100%'" [(ngModel)]="district" name="district" (change)="GetTaluks(district)" #citySelected="ngModel"
           (blur)="GetTaluks(district)">
           <md-option *ngFor="let benDistrict of districts" [value]="benDistrict.districtID">
@@ -583,7 +583,7 @@
       </div> -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}1" maxlength="10" minlength="10"
+          <input mdInput placeholder="{{assignSelectedLanguageValue?.alternateNumber}}1" maxlength="10" minlength="10"
             name="alterNateNumber1" #alt1 #alterNate1="ngModel" [(ngModel)]="alternateNumber1" (keydown)="alternateNumber(1,$event)">
           <!-- [textMask]="{mask: mobileNumberMask, guide: true}"
               pattern="\d{3}\['*']{5}\d{2}" -->
@@ -600,7 +600,7 @@
       </div> -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input mdInput [disabled]="!updationProcess && (alt1.value=='' || alterNate1.invalid || alt1.value == undefined)" placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}2"
+          <input mdInput [disabled]="!updationProcess && (alt1.value=='' || alterNate1.invalid || alt1.value == undefined)" placeholder="{{assignSelectedLanguageValue?.alternateNumber}}2"
             maxlength="10" minlength="10" name="alterNateNumber2" #alt2 #alterNate2="ngModel" [(ngModel)]="alternateNumber2"
             (keydown)="alternateNumber(2,$event)">
           <md-hint class="error_text" *ngIf="alterNate2.invalid">
@@ -619,7 +619,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <md-input-container myMobileNumber [style.width]="'100%'">
           <input mdInput [disabled]="!updationProcess && (alt2.value=='' || alterNate2.invalid  || alt2.value == undefined || alt1.value=='' || alterNate1.invalid  || alt1.value == undefined)"
-            placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}3" maxlength="10" minlength="10" name="alterNateNumbe3"
+            placeholder="{{assignSelectedLanguageValue?.alternateNumber}}3" maxlength="10" minlength="10" name="alterNateNumbe3"
             (keydown)="alternateNumber(3,$event)" #alt3 #alterNate3="ngModel" [(ngModel)]="alternateNumber3">
           <md-hint class="error_text" *ngIf="alterNate3.invalid">
             {{currentlanguage.beneficiary_registration?.mobile_validation}}
@@ -637,7 +637,7 @@
 
         <md-input-container myMobileNumber [style.width]="'100%'">
           <input mdInput [disabled]="!updationProcess && (alt3.value=='' || alterNate3.invalid  || alt3.value == undefined || alt2.value=='' || alterNate2.invalid  || alt2.value == undefined || alt1.value=='' || alterNate1.invalid  || alt1.value == undefined)"
-            placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}4" maxlength="10" minlength="10" name="alterNateNumber4"
+            placeholder="{{assignSelectedLanguageValue?.alternateNumber}}4" maxlength="10" minlength="10" name="alterNateNumber4"
             (keydown)="alternateNumber(4,$event)" #alt4 #alterNate4="ngModel" [(ngModel)]="alternateNumber4">
           <md-hint class="error_text" *ngIf="alterNate4.invalid">
             {{currentlanguage.beneficiary_registration?.mobile_validation}}
@@ -654,7 +654,7 @@
 
         <md-input-container myMobileNumber [style.width]="'100%'">
           <input mdInput [disabled]="!updationProcess && (alt4.value=='' || alterNate4.invalid  || alt4.value == undefined || alt3.value=='' || alterNate3.invalid  || alt3.value == undefined || alt2.value=='' || alterNate2.invalid  || alt2.value == undefined || alt1.value=='' || alterNate1.invalid  || alt1.value == undefined)"
-            [(ngModel)]="alternateNumber5" #alterNate5="ngModel" placeholder="{{currentlanguage.beneficiary_registration?.alternate_number}}5"
+            [(ngModel)]="alternateNumber5" #alterNate5="ngModel" placeholder="{{assignSelectedLanguageValue?.alternateNumber}}5"
             maxlength="10" minlength="10" name="alternateNumber5" (keydown)="alternateNumber(5,$event)">
           <md-hint class="error_text" *ngIf="alterNate5.invalid">
             {{currentlanguage.beneficiary_registration?.mobile_validation}}
@@ -682,18 +682,18 @@
       </div>
 
       <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="!updationProcess">
-        <button md-raised-button color="primary" class="p-l-r-38 font-regular " (click)="capturePrimaryInfo()">{{currentlanguage.beneficiary_registration?.back}}</button>
+        <button md-raised-button color="primary" class="p-l-r-38 font-regular " (click)="capturePrimaryInfo()">{{assignSelectedLanguageValue?.back}}</button>
 
         <button md-raised-button color="accent" [disabled]="BeneficaryForm.invalid || !stateSelected.valid || !citySelected.valid || pin.errors?.minlength || btnDisabled"
           class="pull-right p-l-r-38 font-regular
                 " (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
         <button md-raised-button class="pull-right p-l-r-38 m-l-10 m-r-10 font-regular
-                " (click)="reset()">{{currentlanguage.beneficiary_registration?.clear}}</button>
+                " (click)="reset()">{{assignSelectedLanguageValue?.clear}}</button>
       </div>
       <div class="col-xs-12 col-sm-12 m-b-10" *ngIf="updationProcess">
-        <button md-raised-button color="primary" class="p-l-r-38 font-regular " (click)="editBenPrimaryContent()">{{currentlanguage.beneficiary_registration?.back}}</button>
+        <button md-raised-button color="primary" class="p-l-r-38 font-regular " (click)="editBenPrimaryContent()">{{assignSelectedLanguageValue?.back}}</button>
         <button md-raised-button [disabled]="BeneficaryForm.invalid || pin.errors?.minlength" color="accent" class="pull-right p-l-r-38 font-regular "
-          (click)="updateBeneficiary()">{{currentlanguage.beneficiary_registration?.update}}</button>
+          (click)="updateBeneficiary()">{{assignSelectedLanguageValue?.update}}</button>
       </div>
     </div>
   </form>

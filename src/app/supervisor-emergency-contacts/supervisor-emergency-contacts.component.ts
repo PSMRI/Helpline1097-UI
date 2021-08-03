@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-supervisor-emergency-contacts',
@@ -40,15 +42,18 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
   @ViewChild('emergencyContact') emergencyContactForm: NgForm;
 
   @ViewChild('editEmergencyContact') editEmergencyContactForm: NgForm;
+  currentLanguageSet: any;
 
 
 
   constructor(public notification_service: NotificationService,
     public commonDataService: dataService,
-    public dialogService: ConfirmationDialogsService) { }
+    public dialogService: ConfirmationDialogsService,
+    public httpServices:HttpServices) { }
 
     numberRegex: any;
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.numberRegex = "^[1-9][0-9]*$";
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.Userdata.userName;
@@ -61,6 +66,16 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     this.currentDate.setSeconds(0);
     this.currentDate.setMilliseconds(0);
   }
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+    }
+
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
 
   getAllRoles(providerServiceMapID) {
     this.notification_service.getRoles(this.providerServiceMapID)
@@ -195,7 +210,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       this.notification_service.createEmergencyContacts(array)
         .subscribe(response => {
           console.log(response, 'create success');
-          this.dialogService.alert('Created successfully', 'success');
+          this.dialogService.alert(this.currentLanguageSet.createdSuccessfully, 'success');
           this.emergencyContactForm.reset();
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
           this.tableMode();
@@ -216,7 +231,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
           });
         }, err => {
           console.log('error', err);
-          this.dialogService.alert('Failed to create', 'error');
+          this.dialogService.alert(this.currentLanguageSet.failedToCreate, 'error');
         });
     }
   }
@@ -270,14 +285,14 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       .subscribe(response => {
         if (response.data) {
           console.log(response.data.response, 'edited successfully');
-          this.dialogService.alert('Edited successfully', 'success');
+          this.dialogService.alert(this.currentLanguageSet.editedSuccessfully, 'success');
           this.editEmergencyContactForm.reset();
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
           this.tableMode();
         }
       }, err => { 
         console.log(err, 'edit failed');
-        this.dialogService.alert('Failed to edit', 'error');
+        this.dialogService.alert(this.currentLanguageSet.failedToEdit, 'error');
       });
   }
 
@@ -293,12 +308,12 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       .subscribe(response => {
         if (response.data) {
           console.log(response.data.response, 'ACTIVATED SUCCESSFULLY');
-          this.dialogService.alert('Activated successfully', 'success');
+          this.dialogService.alert(this.currentLanguageSet.activatedSuccessfully, 'success');
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
         }
       }, err => {
         console.log(err, 'ACTIVATION FAILED');
-        this.dialogService.alert('Failed to activate', 'error');
+        this.dialogService.alert(this.currentLanguageSet.failedToActivate, 'error');
       })
   }
 
@@ -314,12 +329,12 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       .subscribe(response => {
         if (response.data) {
           console.log(response.data.response, 'DEACTIVATED SUCCESSFULLY');
-          this.dialogService.alert('Deactivated successfully', 'success');
+          this.dialogService.alert(this.currentLanguageSet.deactivatedSuccessfully, 'success');
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
         }
       }, err => {
         console.log(err, 'DEACTIVATION FAILED');
-        this.dialogService.alert('Failed to deactivate', 'error');
+        this.dialogService.alert(this.currentLanguageSet.failedToDeactivate, 'error');
       })
   }
 

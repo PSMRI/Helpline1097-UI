@@ -1,30 +1,26 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-10 m-t-20">Blacklist A Number</h4>
+      <h4 class="f-s-b m-b-10 m-t-20">{{assignSelectedLanguageValue?.blacklistANumber}}</h4>
     </label>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-    <md-checkbox color="primary" [(ngModel)]="searchByPhone" (change)="getBlackList($event)">Search By Phone Number </md-checkbox>
+    <md-checkbox color="primary" [(ngModel)]="searchByPhone" (change)="getBlackList($event)">{{assignSelectedLanguageValue?.searchByPhoneNumber}}</md-checkbox>
   </div>
-  <!--<div >-->
-  <!--<div class="row">-->
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" [hidden]="!searchByPhone">
     <md-input-container [style.width]="'100%'" myMobileNumber>
-      <input required minlength="5" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
+      <input required minlength="5" maxlength="10" mdInput placeholder="{{assignSelectedLanguageValue?.phoneNumber}}" [(ngModel)]="phoneNumber" #number="ngModel">
       <md-hint *ngIf="!number.valid">
-        <span class="error_text" *ngIf=" number.dirty || number.touched ">Please Enter Phone Number</span>
+        <span class="error_text" *ngIf=" number.dirty || number.touched ">{{assignSelectedLanguageValue?.pleaseEnterPhoneNumber}}</span>
       </md-hint>
     </md-input-container>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-10" [hidden]="!searchByPhone">
-    <button class="hidden-sm hidden-xs" [disabled]="!number.valid" md-raised-button color="accent" (click)="addToBlockList()">Search</button>
-    <button class="visible-sm visible-xs pull-right" [disabled]="!number.valid" md-raised-button color="accent" (click)="addToBlockList()">Search</button>
+    <button class="hidden-sm hidden-xs" [disabled]="!number.valid" md-raised-button color="accent" (click)="addToBlockList()">{{assignSelectedLanguageValue?.search}}</button>
+    <button class="visible-sm visible-xs pull-right" [disabled]="!number.valid" md-raised-button color="accent" (click)="addToBlockList()">{{assignSelectedLanguageValue?.search}}</button>
   </div>
-  <!--</div>-->
-  <!--</div>-->
 </div>
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 p-t-20">
@@ -32,20 +28,19 @@
       <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
         <thead>
           <tr>
-            <th>Phone Number</th>
-            <th md2SortBy="isBlocked">Status</th>
-            <th>Call Count</th>
-            <th>Reason</th>
-            <th>Blocked On</th>
-            <th>Blocked Till</th>
-            <th>Action</th>
+            <th>{{assignSelectedLanguageValue?.phoneNumber}}</th>
+            <th md2SortBy="isBlocked">{{assignSelectedLanguageValue?.status}}</th>
+            <th>{{assignSelectedLanguageValue?.callCount}}</th>
+            <th>{{assignSelectedLanguageValue?.reason}}</th>
+            <th>{{assignSelectedLanguageValue?.blockedOn}}</th>
+            <th>{{assignSelectedLanguageValue?.blockedTill}}</th>
+            <th>{{assignSelectedLanguageValue?.action}}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngIf="md2.data.length < 1">
             <td colspan="7" class="record-not-found">
-              <!-- <img src="assets/images/data_not_found.png" width="400" height="65"> -->
-              No records found
+              {{assignSelectedLanguageValue?.noRecordsFound}}
             </td>
           </tr>
           <tr *ngFor="let blacklist of md2.data">
@@ -58,8 +53,6 @@
             <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockStartDate)|date: 'dd/MM/yyyy hh:mm a'): ''}}</td>
             <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockEndDate)|date: 'dd/MM/yyyy hh:mm a'): ''}}</td>
             <td>
-              <!--<button md-raised-button color="primary" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</button>
-              <button md-raised-button color="primary" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</button>-->
               <a style="cursor:pointer" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</a>
               <a style="cursor:pointer" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</a>
             </td>
@@ -74,34 +67,33 @@
         </tfoot>
       </table>
       <hr class="m-t-10" *ngIf="showRecordings">
-      <h4 class="pull-left" *ngIf="showRecordings">Call Recordings for
+      <h4 class="pull-left" *ngIf="showRecordings">{{assignSelectedLanguageValue?.callRecordingsfor}}
         <b>{{ph_no}}</b>
       </h4>
       <table *ngIf="showRecordings" class="table table-responsive table-striped m-t-10" [md2Data]="recording_data" #md2="md2DataTable"
         [rowsPerPage]="5">
         <thead>
           <tr>
-            <th>Beneficiary ID</th>
-            <th>Beneficiary Name</th>
-            <th>Age</th>
-            <th>Phone Number</th>
-            <th>CallID</th>
-            <th>Call Time</th>
-            <th>AgentID</th>
-            <th>Remarks</th>
-            <th>Audio Recording</th>
+            <th>{{assignSelectedLanguageValue?.beneficiaryId}}</th>
+            <th>{{assignSelectedLanguageValue?.beneficiaryName}}</th>
+            <th>{{assignSelectedLanguageValue?.age}}</th>
+            <th>{{assignSelectedLanguageValue?.phoneNumber}}</th>
+            <th>{{assignSelectedLanguageValue?.callId}}</th>
+            <th>{{assignSelectedLanguageValue?.callTime}}</th>
+            <th>{{assignSelectedLanguageValue?.agentId}}</th>
+            <th>{{assignSelectedLanguageValue?.remarks}}</th>
+            <th>{{assignSelectedLanguageValue?.audioRecording}}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngIf="md2.data.length < 1">
             <td colspan="9" class="record-not-found">
-              No records found
+              {{assignSelectedLanguageValue?.noRecordsFound}}
             </td>
           </tr>
           <tr *ngFor="let item of md2.data">
             <td>{{item?.beneficiaryModel?.beneficiaryID?item.beneficiaryModel.beneficiaryID:'-'}}</td>
             <td>{{item?.beneficiaryModel?.firstName?item.beneficiaryModel.firstName:'-'}} {{item?.beneficiaryModel?.lastName?item.beneficiaryModel.lastName:'-'}}</td>
-            <!-- <td>{{item?.beneficiaryModel?.age?item.beneficiaryModel.age:'-'}}</td> -->
             <td>{{item?.beneficiaryModel?.actualAge?item.beneficiaryModel.actualAge:'-'}} {{item?.beneficiaryModel?.ageUnits?item.beneficiaryModel.ageUnits:'-'}}</td>
             <td>{{item?.phoneNo}}</td>
             <td>{{item?.benCallID}}</td>

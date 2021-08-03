@@ -128,7 +128,7 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <button type="button" class="font-regular mar-right" md-raised-button color="accent" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
-            (click)="GetReferralDetails()">{{currentLanguageSet?..getDetails}}</button>
+            (click)="GetReferralDetails()">{{currentLanguageSet?.getDetails}}</button>
           <button color="primary" md-raised-button (click)="showTable()">{{currentLanguageSet?.back}}</button>
         </div>
         <div class="clearfix"></div>
