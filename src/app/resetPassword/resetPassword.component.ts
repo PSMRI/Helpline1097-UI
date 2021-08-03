@@ -3,6 +3,8 @@ import { loginService } from '../services/loginService/login.service';
 import { Router } from '@angular/router';
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 
 
@@ -15,7 +17,8 @@ import { ConfirmationDialogsService } from '../services/dialog/confirmation.serv
 export class ResetComponent {
 
 	constructor(public loginservice: loginService, public getUserData: dataService, public router: Router,
-		public alertService: ConfirmationDialogsService) { };
+		public alertService: ConfirmationDialogsService,
+		public httpServices:HttpServices) { };
 
 	public response: any;
 	public error: any;
@@ -31,6 +34,22 @@ export class ResetComponent {
 	public userAnswers: any[] = [];
 
 	wrong_answer_msg: any = "";
+	currentLanguageSet:any;
+
+	ngOnInit() {
+		this.assignSelectedLanguage();
+	}
+
+	ngDoCheck() {
+		this.assignSelectedLanguage();
+	  }
+
+	assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
+
 	getQuestions(username: any) {
 		this.getUserData.uname = username;
 
@@ -52,12 +71,12 @@ export class ResetComponent {
 			}
 			else {
 				this.router.navigate(["/"]);
-				this.alertService.alert("Questions not set");
+				this.alertService.alert(this.currentLanguageSet.questionsNotSet);
 			}
 		}
 		else {
 			this.router.navigate(["/"]);
-			this.alertService.alert("User not found.");
+			this.alertService.alert(this.currentLanguageSet.userNotFound);
 		}
 	}
 
@@ -107,7 +126,7 @@ export class ResetComponent {
 			}
 			else {
 				console.log('incorrect answer, please try again');
-				this.wrong_answer_msg = "Incorrect Answer, Please Try Again";
+				this.wrong_answer_msg = this.currentLanguageSet.incorrectAnswerPleaseTryAgain;
 			}
 		}
 	}

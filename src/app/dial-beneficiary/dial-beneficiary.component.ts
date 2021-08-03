@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpServices } from 'app/services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component( {
   selector: 'app-dial-beneficiary',
@@ -7,11 +9,14 @@ import { Component, OnInit } from '@angular/core';
 } )
 export class DialBeneficiaryComponent implements OnInit
 {
+  currentLanguageSet: any;
 
-  constructor() { }
+  constructor(private HttpServices:HttpServices ) { }
 
   ngOnInit ()
   {
+    this.assignSelectedLanguage();
+
   }
 
   resultsFound: boolean = false;
@@ -20,4 +25,13 @@ export class DialBeneficiaryComponent implements OnInit
   {
     this.resultsFound = true;
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

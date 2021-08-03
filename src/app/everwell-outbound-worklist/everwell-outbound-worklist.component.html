@@ -15,12 +15,12 @@
                         <i class="fa fa-arrow-left fa-lg" aria-hidden="true" md-tooltip="Dashboard"></i>
                       </li> -->
                       <li>
-                        <h4 class="f-s-b">Everwell Outbound Work List </h4>
+                        <h4 class="f-s-b">{{currentLanguageSet?.everwellOutboundWorkList}} </h4>
                       </li>
                     </ul>
                   </div>
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <button type="button" md-raised-button color="primary" class="pull-right mar-top" (click)="backToDashBoard()">Back to Dashboard</button>
+                    <button type="button" md-raised-button color="primary" class="pull-right mar-top" (click)="backToDashBoard()">{{currentLanguageSet?.backToDashboard}}</button>
                   </div>
                 </div>
               </nav>
@@ -35,10 +35,10 @@
           <div class="col-xs-8 col-sm-6 col-md-4 pull-right m-t-10 m-b-10" *ngIf="data.length!==0">
             <div class="sw">
               <input type="search" class="search" autocomplete="off" #filterTerm
-                placeholder="In-Table Search" 
+                placeholder="{{currentLanguageSet?.inTableSearch}}" 
                 (keyup)="filterComponentList(filterTerm.value)" />
               <button class="go" (click)="filterComponentList(filterTerm.value)">
-                <i class="material-icons">search</i>
+                <i class="material-icons">{{currentLanguageSet?.search}}</i>
               </button>
             </div>
           </div>
@@ -48,22 +48,22 @@
                 <table id="outbondListTable" class="table table-responsive table-striped table-hover" [md2Data]="filteredsearchResult" #md2="md2DataTable" [rowsPerPage]="4">
                   <thead>
                     <tr>
-                      <th width="4%">S.No.</th>
-                      <th md2SortBy="beneficiaryRegId">Beneficiary ID</th>
-                      <th md2SortBy="firstName">Beneficiary Name</th>
+                      <th width="4%">{{currentLanguageSet?.sno}}</th>
+                      <th md2SortBy="beneficiaryRegId">{{currentLanguageSet?.beneficiaryId}}</th>
+                      <th md2SortBy="firstName">{{currentLanguageSet?.beneficiaryName}}</th>
                       <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
-                      <th>Mobile Number</th>
-                      <th>State</th>
-                      <th>District</th>
-                      <th>Comments</th>
+                      <th>{{currentLanguageSet?.mobileNumber}}</th>
+                      <th>{{currentLanguageSet?.state}}</th>
+                      <th>{{currentLanguageSet?.district}}</th>
+                      <th>{{currentLanguageSet?.comments}}</th>
                       <th>Last Call</th>
                       <th>Call Count</th>
-                      <th>Call</th>
+                      <th>{{currentLanguageSet?.call}}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngIf="md2.data.length==0">
-                      <td colspan="10" class="t-a-c record-not-found"> No records found</td>
+                      <td colspan="10" class="t-a-c record-not-found"> {{currentLanguageSet?.noRecordsFound}}</td>
                     </tr>
 
                     <tr *ngFor="let listItem of  md2.data; let i= index">

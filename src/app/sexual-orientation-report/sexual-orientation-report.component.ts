@@ -7,6 +7,8 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { LocationService } from '../services/common/location.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as XLSX from 'xlsx';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-sexual-orientation-report',
@@ -32,13 +34,16 @@ export class SexualOrientationReportComponent implements OnInit {
   sexualOrientation: any;
   state: any;
   district: any;
+  currentLanguageSet: any;
 
 
   constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData,
     private reportsService: ReportsService, private alertService: ConfirmationDialogsService,
-    private locationService: LocationService) { }
+    private locationService: LocationService,public httpServices:HttpServices
+    ) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.dataService.current_service.serviceID;
     this.userbeneficiarydata.getUserBeneficaryData(this.providerServiceMapID)
       .subscribe((response) => {
@@ -91,6 +96,16 @@ export class SexualOrientationReportComponent implements OnInit {
       return false;
     }
   }
+
+  ngDoCheck() {
+		this.assignSelectedLanguage();
+	  }
+
+	assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 
   getDistricts() {
     this.districts = [];
@@ -267,7 +282,7 @@ export class SexualOrientationReportComponent implements OnInit {
     var head = Object.keys(this.orientations[0]);
     new Angular2Csv(this.orientations, 'Sexual Orientation Report', { headers: (head) });
 
-    this.alertService.alert('Sexual orientation report downloaded', 'success');
+    this.alertService.alert(this.currentLanguageSet.sexualOrientationReportDownloaded, 'success');
 
   }
   downloadV2() {

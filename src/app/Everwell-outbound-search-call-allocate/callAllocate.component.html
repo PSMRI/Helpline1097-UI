@@ -3,29 +3,29 @@
     <!--<div class="">-->
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-10 m-t-20">Everwell Outbound Call Allocation </h4>
+        <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.everwellOutboundCallAllocation}} </h4>
       </label>
     </div>    
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-      <p class="pull-right m-t-10" style="color: #8a8a5c;"> Note: Default calls between today and next seven days</p>
+      <p class="pull-right m-t-10" style="color: #8a8a5c;">{{currentLanguageSet?.noteDefaultCallsBetweenTodayAndNextSevenDays}}</p>
     </div>
     <div class="clearfix"></div>
     <div class="row">
       <form #getOutboundForm="ngForm" autocomplete="off">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" required #startDate="ngModel" ngModel
+          <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="{{currentLanguageSet.validFrom}}" required #startDate="ngModel" ngModel
             [style.width]="'100%'" name="filterStartDate" [(ngModel)]="startOutboundDate"></md2-datepicker>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md2-datepicker name="endDate" (keydown)="blockey($event)" placeholder="Valid Till" required [min]="startDate.value" #endDate="ngModel"
+          <md2-datepicker name="endDate" (keydown)="blockey($event)" placeholder="{{currentLanguageSet.validTill}}" required [min]="startDate.value" #endDate="ngModel"
             ngModel [style.width]="'100%'" name="filterEndDate" [(ngModel)]="endOutboundDate"></md2-datepicker>
           <br>
-          <span class="error-text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
+          <span class="error-text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet.endDateCannotBeBeforeStartDate!}}</span>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
           <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
             <input mdInput style="display:none"> -->
-            <md-select required placeholder="Select Language" [style.width]="'100%'" #language="ngModel" ngModel name="preferredLanguageName"
+            <md-select required placeholder="{{currentLanguageSet.selectLanguage}}" [style.width]="'100%'" #language="ngModel" ngModel name="preferredLanguageName"
               [(ngModel)]="preferredLanguageName">
               <md-option value=undefined> All </md-option>
               <md-option *ngFor="let lang of languages" [value]="lang">
@@ -39,9 +39,9 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-10 m-b-10">
           <button type="button" class="hidden-md hidden-xs" md-raised-button color="accent" [disabled]="startDate.invalid || endDate.invalid || language.invalid"
-            (click)="getUnallocateCall(getOutboundForm.value)">Search</button>
+            (click)="getUnallocateCall(getOutboundForm.value)">{{currentLanguageSet.search}}</button>
           <button type="button" class="visible-md visible-xs pull-right" md-raised-button color="accent" [disabled]="startDate.invalid || endDate.invalid || language.invalid"
-            (click)="getUnallocateCall(getOutboundForm.value)">Search</button>
+            (click)="getUnallocateCall(getOutboundForm.value)">{{currentLanguageSet.search}}</button>
         </div>
       </form>
     </div>
@@ -55,8 +55,8 @@
           <table id="outbondListTable" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>Language Name</th>
-                <th>No.of Records</th>
+                <th>{{currentLanguageSet.languageName}}</th>
+                <th>{{currentLanguageSet.noOfRecords}}</th>
               </tr>
             </thead>
 
@@ -66,7 +66,7 @@
                 <td>{{item?.count}}
                   <button type="button" *ngIf="item.language !== 'All'" [disabled]="(item?.count === 0 )"
                     (click)="allocateCalls(startDate.value,endDate.value,item?.language, $event)" md-raised-button
-                    color="accent" class="md-btn pull-right">Allocate</button>
+                    color="accent" class="md-btn pull-right">{{currentLanguageSet.allocate}}</button>
                 </td>            
               </tr>
             </tbody>

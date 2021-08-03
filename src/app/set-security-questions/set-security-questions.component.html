@@ -2,17 +2,17 @@
   <md-grid-tile>
     <md-card style="width: 600px;height: 600px">
       <md-card-title>
-        <div class="row text-center"> <img src="assets/images/Piramal-logo-login.png" alt="Logo"> </div>
+        <div class="row text-center"> <img src="assets/images/Piramal-logo-login.png" alt="{{currentLanguageSet?.logo}}"> </div>
         <div class="row text-center">
-          <h4 class="font-Medium f-s-24">Account Support</h4>
-          <h5 class="f-s-16 f-c-54">Follow the steps to change/reset the password</h5>
+          <h4 class="font-Medium f-s-24">{{currentLanguageSet?.accountSupport}}</h4>
+          <h5 class="f-s-16 f-c-54">{{currentLanguageSet?.followTheStepsToChangeResetThePassword}}</h5>
         </div>
       </md-card-title>
       <md-card-content>
         <div class="row" *ngIf="questionsection">
           <form #form1="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12">
-              <md-select placeholder="Question 1" [(ngModel)]="question1" name="question1" [style.width]="'100%'" required (change)="filterArrayOne(question1)" (blur)="updateQuestions(question1,0)">
+              <md-select placeholder="{{currentLanguageSet?.questionOne}}" [(ngModel)]="question1" name="question1" [style.width]="'100%'" required (change)="filterArrayOne(question1)" (blur)="updateQuestions(question1,0)">
                 <md-option *ngFor="let question of questions" [value]="question.QuestionID">
                   {{question.Question}}
                 </md-option>
@@ -20,13 +20,13 @@
             </div>
             <div class="col-xs-12 col-sm-12 m-t-10">
               <md-input-container style="width: 100%">
-                <input id="ans1" mdInput placeholder="Answer 1" [(ngModel)]="answer1" name="answer1" required>
+                <input id="ans1" mdInput placeholder="{{currentLanguageSet?.answerOne}}" [(ngModel)]="answer1" name="answer1" required>
               </md-input-container>
             </div>
           </form>
           <form #form2="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 m-t-25">
-              <md-select placeholder="Question 2" [disabled]="!form1.valid" [(ngModel)]="question2" name="question2" [style.width]="'100%'" required (change)="filterArrayTwo(question2)" (blur)="updateQuestions(question2,1)">
+              <md-select placeholder="{{currentLanguageSet?.questionTwo}}" [disabled]="!form1.valid" [(ngModel)]="question2" name="question2" [style.width]="'100%'" required (change)="filterArrayTwo(question2)" (blur)="updateQuestions(question2,1)">
                 <md-option *ngFor="let question of Q_array_one" [value]="question.QuestionID">
                   {{question.Question}}
                 </md-option>
@@ -34,13 +34,13 @@
             </div>
             <div class="col-xs-12 col-sm-12 m-t-10">
               <md-input-container style="width: 100%">
-                <input id="ans2" mdInput [disabled]="!form1.valid" placeholder="Answer 2" [(ngModel)]="answer2" name="answer2" required>
+                <input id="ans2" mdInput [disabled]="!form1.valid" placeholder="{{currentLanguageSet?.answerTwo}}" [(ngModel)]="answer2" name="answer2" required>
               </md-input-container>
             </div>
           </form>
           <form #form3="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 m-t-25">
-              <md-select placeholder="Question 3" [disabled]="!form2.valid" [(ngModel)]="question3" name="question3" [style.width]="'100%'" required (blur)="updateQuestions(question3,2)" (change)="filterArrayThree(question3)">
+              <md-select placeholder="{{currentLanguageSet?.questionThree}}" [disabled]="!form2.valid" [(ngModel)]="question3" name="question3" [style.width]="'100%'" required (blur)="updateQuestions(question3,2)" (change)="filterArrayThree(question3)">
                 <md-option *ngFor="let question of Q_array_two" [value]="question.QuestionID">
                   {{question.Question}}
                 </md-option>
@@ -48,13 +48,13 @@
             </div>
             <div class="col-xs-12 col-sm-12 m-t-10">
               <md-input-container style="width: 100%">
-                <input id="ans3" mdInput placeholder="Answer 3" [disabled]="!form2.valid" [(ngModel)]="answer3" name="answer3" required>
+                <input id="ans3" mdInput placeholder="{{currentLanguageSet?.answerThree}}" [disabled]="!form2.valid" [(ngModel)]="answer3" name="answer3" required>
               </md-input-container>
             </div>
           </form>
           <div class="col-xs-12 col-sm-12">
             <div class="row">
-              <button md-raised-button color="primary" class="full-width largeBtn" [disabled]="!form3.valid" (click)="setSecurityQuestions()">Next</button>
+              <button md-raised-button color="primary" class="full-width largeBtn" [disabled]="!form3.valid" (click)="setSecurityQuestions()">{{currentLanguageSet?.next}}</button>
             </div>
           </div>
         </div>
@@ -63,23 +63,23 @@
             <div class="col-xs-12 col-sm-12">
               <md-input-container style="width: 100%">
                 <md-icon mdPrefix class="mat-icon material-icons" role="img" aria-hidden="true" style="color: gray">lock</md-icon>
-                <input mdInput type="{{dynamictype}}" placeholder="New Password" [pattern]="passwordPattern" [(ngModel)]="newpwd" name="newpwd" required #pass="ngModel" maxlength="12">
-                <md-icon mdSuffix class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" mdTooltip="Show Password" (mousedown)='showPWD()' style="color:gray">visibility</md-icon>
+                <input mdInput type="{{dynamictype}}" placeholder="{{currentLanguageSet?.newPassword}}" [pattern]="passwordPattern" [(ngModel)]="newpwd" name="newpwd" required #pass="ngModel" maxlength="12">
+                <md-icon mdSuffix class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" mdTooltip="{{currentLanguageSet?.showPassword}}" (mousedown)='showPWD()' style="color:gray">visibility</md-icon>
                 <md-hint class="errorText">
-                  <span *ngIf="pass.hasError('pattern')">Enter valid(min:8,max:12,alphanumeric,1 special character,1 UpperCase)</span>
+                  <span *ngIf="pass.hasError('pattern')">{{currentLanguageSet?.enterValidMinMaxAlphaNeumeric}}</span>
                 </md-hint>
               </md-input-container>
             </div>
             <div class="col-xs-12 col-sm-12">
               <md-input-container style="width: 100%">
                 <md-icon mdPrefix class="mat-icon material-icons" role="img" aria-hidden="true" style="color: gray">lock</md-icon>
-                <input mdInput type="{{dynamictype}}" placeholder="Confirm Password" [(ngModel)]="confirmpwd" name="confirmpwd" required>
-                <md-icon mdSuffix class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" mdTooltip="Show Password" (mousedown)='showPWD()' style="color:gray">visibility</md-icon>
+                <input mdInput type="{{dynamictype}}" placeholder="{{currentLanguageSet?.confirmPassword}}" [(ngModel)]="confirmpwd" name="confirmpwd" required>
+                <md-icon mdSuffix class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" mdTooltip="{{currentLanguageSet?.showPassword}}" (mousedown)='showPWD()' style="color:gray">visibility</md-icon>
               </md-input-container>
             </div>
             <div class="col-xs-12 col-sm-12">
               <div class="row">
-                <button md-raised-button color="primary" [disabled]="!passwordForm.valid || pass.hasError('passwordPattern')" class="full-width largeBtn" (click)="updatePassword(newpwd)">Update Password</button>
+                <button md-raised-button color="primary" [disabled]="!passwordForm.valid || pass.hasError('passwordPattern')" class="full-width largeBtn" (click)="updatePassword(newpwd)">{{currentLanguageSet?.updatePassword}}</button>
               </div>
             </div>
           </div>

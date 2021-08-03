@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <h2 md-dialog-title>
     <div class="row">
-      <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">Feedback Response/Request</div>
+      <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">{{currentLanguageSet?.feedbackResponse/request}}</div>
       <div class="col-xs-1 col-sm-1 col-md-4 col-lg-4"></div>
       <div class="pull-right">
         <button md-icon-button class="closeBtn" md-dialog-close>
-          <i class="material-icons">close</i>
+          <i class="material-icons">{{currentLanguageSet?.close}}</i>
         </button>
       </div>
     </div>
@@ -17,10 +17,10 @@
         <table class="table table-responsive table-striped">
           <thead>
             <tr>
-              <th>FeedBack Request ID</th>
-              <th>Comments</th>
-              <th>Email Status</th>
-              <th>Email Status Description</th>
+              <th>{{currentLanguageSet?.feedbackRequestId}}</th>
+              <th>{{currentLanguageSet?.comments}}</th>
+              <th>{{currentLanguageSet?.emailStatus}}</th>
+              <th>{{currentLanguageSet?.emailStatusDescription}}</th>
             </tr>
           </thead>
           <!-- <tbody> -->
@@ -50,29 +50,29 @@
           <tfoot>
           </tfoot>
         </table>
-        <p class="pull-right">Total no of Request : {{totalRecord}} </p>
+        <p class="pull-right">{{currentLanguageSet?.totalNoOfRequest}} : {{totalRecord}} </p>
       </div>
       <div class="col-md-12 col-lg-12">
         <table class="table table-responsive table-striped">
           <thead>
             <tr>
-              <th>FeedBack Request ID</th>
-              <th>Feedback Description</th>
-              <th>Supervisor Comments</th>
-              <th>Response Received</th>
-              <th>Response Attachment</th>
-              <th>Last Feedback Status</th>
-              <th>Email Status</th>
-              <th>Forwarded By</th>
-              <th>Forwarded Date</th>
-              <th>Updated By</th>
-              <th>Updated Date</th>
+              <th>{{currentLanguageSet?.feedbackRequestId}}</th>
+              <th>{{currentLanguageSet?.feedbackDescription}}</th>
+              <th>{{currentLanguageSet?.supervisorComments}}</th>
+              <th>{{currentLanguageSet?.responseReceived}}</th>
+              <th>{{currentLanguageSet?.responseAttachment}}</th>
+              <th>{{currentLanguageSet?.lastFeedbackStatus}}</th>
+              <th>{{currentLanguageSet?.emailStatus}}</th>
+              <th>{{currentLanguageSet?.forwardedBy}}</th>
+              <th>{{currentLanguageSet?.forwardedDate}}</th>
+              <th>{{currentLanguageSet?.updatedBy}}</th>
+              <th>{{currentLanguageSet?.updatedDate}}</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngIf="consolidatedRequests?.length==0">
               <td class="record-not-found" colspan="11">
-                No records found
+                {{currentLanguageSet?.noRecordsFound}}
               </td>
             </tr>
             <tr *ngFor=" let feedBackRequest of consolidatedRequests ">
@@ -100,6 +100,6 @@
     </div>
   </md-dialog-content>
   <div class="pull-right" style="padding:10px;">
-    <button  md-raised-button color="primary" class="closeBtn" md-dialog-close>Close</button>   
+    <button  md-raised-button color="primary" class="closeBtn" md-dialog-close>{{currentLanguageSet?.close}}</button>   
   </div>
 </div>

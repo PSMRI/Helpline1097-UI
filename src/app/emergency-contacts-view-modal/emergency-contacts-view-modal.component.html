@@ -1,9 +1,9 @@
 <div class="headerDiv">
   <md-icon class="mat-icon material-icons pull-right cursorPointer p-t-2 f-c-w closeIcon" mdTooltip="Close" role="img" aria-hidden="true"
     (click)="dialogRef.close()">
-    clear
+    {{currentLanguageSet?.clear}}
   </md-icon>
-  <h4 class="popupHeader">Emergency Contacts</h4>
+  <h4 class="popupHeader">{{currentLanguageSet?.emergencyContacts}}</h4>
 
 </div>
 <md-dialog-content style="min-height:400px">
@@ -12,10 +12,10 @@
       
         <thead *ngIf="md2.data.length!=0">
           <tr>
-            <th md2SortBy="emergContactName">Contact Name</th>
-            <th>Designation</th>
-            <th>Location</th>
-            <th>Contact Number</th>
+            <th md2SortBy="emergContactName">{{currentLanguageSet?.contactName}}</th>
+            <th>{{currentLanguageSet?.designation}}</th>
+            <th>{{currentLanguageSet?.location}}</th>
+            <th> {{currentLanguageSet?.contactNumber}}</th>
           </tr>
         </thead>
         <tbody>

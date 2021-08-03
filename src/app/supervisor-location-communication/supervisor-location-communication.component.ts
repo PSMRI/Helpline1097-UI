@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-supervisor-location-communication',
@@ -37,13 +39,16 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   currentDate: Date = new Date();
 
   @ViewChild('notificationCreationForm') notificationCreationForm: NgForm;
+  currentLanguageSet: any;
 
 
   constructor(public notification_service: NotificationService,
     public commonDataService: dataService,
-    public dialogService: ConfirmationDialogsService) { }
+    public dialogService: ConfirmationDialogsService,
+    public httpServices:HttpServices) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.Userdata.userName;
     this.getServiceProviderID(this.providerServiceMapID);
@@ -59,6 +64,16 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     // this.currentDate.setSeconds(0);
     // this.currentDate.setMilliseconds(0);
   }
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+    }
+
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
 
   blockey(e: any) {
     if (e.keyCode === 9) {
@@ -99,7 +114,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   }
 
   handleError(error) {
-    this.dialogService.alert("Error encountered", 'error');
+    this.dialogService.alert(this.currentLanguageSet.errorEncountered, 'error');
   }
 
   getAllNotificationTypes(providerServiceMapID) {
@@ -111,7 +126,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   getAllNotificationTypesSuccessHandeler(response) {
     console.log("notification types", response);
     if (response.data.length == 0) {
-      this.dialogService.alert("No notification types found. contact admin");
+      this.dialogService.alert(this.currentLanguageSet.noNotificationTypesFoundContactAdmin);
     }
     else {
       for (var k = 0; k < response.data.length; k++) {
@@ -136,7 +151,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
       }
     }
     else {
-      this.dialogService.alert("No work locations found")
+      this.dialogService.alert(this.currentLanguageSet.noWorkLocationsFound)
     }
   }
 
@@ -167,7 +182,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
           this.location_messages = response.data;
         }
         else {
-          this.dialogService.alert("No Location Specific Messages");
+          this.dialogService.alert(this.currentLanguageSet.noLocationSpecificMessages);
         }
       },
       (error) => {
@@ -227,7 +242,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
       .subscribe(response => {
         console.log(response.data, "Location Message created");
         if (response.data.length > 0) {
-          this.dialogService.alert("Location message created successfully", 'success');
+          this.dialogService.alert(this.currentLanguageSet.locationMessageCreatedSuccessfully, 'success');
           this.notificationCreationForm.reset();
           if (startDate.getTime() <= this.currentDate.getTime()) {
             this.notification_service.sendSocketNotification({
@@ -244,7 +259,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.dialogService.alert("Location message creation failed. Contact backend team", 'error');
+        this.dialogService.alert(this.currentLanguageSet.locationMessageCreationFailedContactBackendTeam, 'error');
       });
   }
 
@@ -305,7 +320,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
       this.notification_service.updateNotification(obj).subscribe(response => this.updateSuccess(response), err => this.notificationError(err));
     }
     else {
-      this.dialogService.alert("Valid Till should be a future date than Valid From");
+      this.dialogService.alert(this.currentLanguageSet.validTillShouldBeAFutureDateThanValidFrom);
       this.edate = undefined;
     }
 
@@ -316,7 +331,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     console.log(response.data);
     if (response.data) {
       this.showTable();
-      this.dialogService.alert(this.editType + " edited successfully", 'success');
+      this.dialogService.alert(this.editType + this.currentLanguageSet.editedSuccessfully, 'success');
 
       this.refreshExistingTable(this.location_communication_typeID, this.searchStartDate, this.searchEndDate);
     }
@@ -324,7 +339,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
   notificationError(error) {
     console.log("error", error);
-    this.dialogService.alert("Edit failed. Contact DB team", 'error')
+    this.dialogService.alert(this.currentLanguageSet.editFailedContactDbTeam, 'error')
   }
 
   refreshExistingTable(type, startdate, enddate) {
@@ -354,7 +369,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
           this.location_messages = response.data;
         }
         else {
-          this.dialogService.alert("No Location Messages");
+          this.dialogService.alert(this.currentLanguageSet.noLocationMessages);
         }
       },
       (error) => {

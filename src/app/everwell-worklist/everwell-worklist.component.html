@@ -8,7 +8,7 @@
   <div  class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-10 m-t-20"> Everwell-Worklist </h4>
+      <h4 class="f-s-b m-b-10 m-t-20"> {{currentLanguageSet?.everwellWorklist}}</h4>
     </label>
   </div>
 </div>
@@ -23,20 +23,20 @@
         <thead>
           <tr>
             <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
-            <th>Beneficiary ID</th>
-            <th>Beneficiary Name</th>
+            <th>{{currentLanguageSet?.beneficiaryId}}</th>
+            <th>{{currentLanguageSet?.beneficiaryName}}</th>
             <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
-            <th>Mobile Number</th>
-            <th>Gender</th>
-            <th>State</th>
-            <th>Comments</th>
+            <th>{{currentLanguageSet?.mobileNumber}}</th>
+            <th>{{currentLanguageSet?.gender}}</th>
+            <th>{{currentLanguageSet?.state}}</th>
+            <th>{{currentLanguageSet?.comments}}</th>
             <th>Last Call</th>
             <th>Call Count</th>
           </tr>
         </thead>
         <tbody>
             <tr *ngIf="data?.length > 0">
-              <td colspan="5" class="t-a-c record-not-found"> No records found</td>
+              <td colspan="5" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
             <tr (click)="editMode(data)" style="cursor: pointer">
               <td width=15%>{{data.beneficiaryID}}</td>
@@ -63,14 +63,14 @@
 </div>
 <div class="row" *ngIf="showEditForm">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">Save Patient Feedback</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.savePatientFeedback}}</h4>
   </div>
   <form #editEmergencyContact="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
-        <input mdInput placeholder="Name" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50"
+        <input mdInput placeholder="{{currentLanguageSet?.name}}" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50"
           minlength="3">
-        <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">Enter atleast 3 characters
+        <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">{{currentLanguageSet?.enterAtleast3Characters}}
         </md-hint>
       </md-input-container>
     </div>
@@ -78,8 +78,8 @@
 
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">Back</button>
-    <button md-raised-button color="accent" class="pull-right">Update</button>
+    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">{{currentLanguageSet?.back}}</button>
+    <button md-raised-button color="accent" class="pull-right">{{currentLanguageSet?.update}}</button>
   </div>
 </div>
 
@@ -87,7 +87,7 @@
 
 <div class="main-content" *ngIf="showCalender">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:10px;">
-    <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">Back</button>   
+    <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">{{currentLanguageSet?.back}}</button>   
   </div>
   <div class="container-fluid">
     <div class="clearfix clearFixClass"></div>      
@@ -144,19 +144,19 @@
           <ul class="description">
             <li>
               <div class="manualDose"></div>
-              <p> Dose taken but not reported by technology</p>
+              <p> {{currentLanguageSet?.doseTakenButNotReportedByTechnology}}</p>
             </li>
             <li>
               <div class="missedDose"></div>
-              <p> Dose not taken</p>
+              <p> {{currentLanguageSet?.doseNotTaken}}</p>
             </li>
             <li>
               <div class="restDose"></div>
-              <p> Other Subcategories</p>
+              <p>{{currentLanguageSet?.otherSubcategories}}</p>
             </li>
             <li>
               <div class="others"></div>
-              <p> No Previous Feedback</p>
+              <p> {{currentLanguageSet?.noPreviousFeedback}}</p>
             </li>
 
           </ul>

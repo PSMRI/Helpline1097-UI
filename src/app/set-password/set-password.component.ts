@@ -4,6 +4,7 @@ import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ConfigService } from '../services/config/config.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 
 
@@ -20,6 +21,7 @@ export class SetPasswordComponent implements OnInit {
   dynamictype: any = 'password';
 
   passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
+  currentLanguageSet: any;
 
 
   constructor(
@@ -29,7 +31,18 @@ export class SetPasswordComponent implements OnInit {
     public router: Router, private alertService: ConfirmationDialogsService) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
   }
+
+  ngDoCheck() {
+  this.assignSelectedLanguage();
+   }
+
+assignSelectedLanguage() {
+const getLanguageJson = new SetLanguageComponent(this.http_calls);
+getLanguageJson.setLanguage();
+this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+}
 
 
   showPWD() {
@@ -49,14 +62,14 @@ export class SetPasswordComponent implements OnInit {
         (error: any) => this.errorCallback(error)
         );
     } else {
-      this.alertService.alert('Passwords do not mmatch');
+      this.alertService.alert(this.currentLanguageSet.passwordsDoNotMmatch);
     }
   }
 
   successCallback(response) {
 
     console.log(response);
-    this.alertService.alert('Password changed successfully');
+    this.alertService.alert(this.currentLanguageSet.passwordChangedSuccessfully);
     this.router.navigate(['']);
   }
   errorCallback(response) {

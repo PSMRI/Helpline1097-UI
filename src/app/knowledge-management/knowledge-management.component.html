@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-10 m-t-20"> Knowledge Management </h4>
+        <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.knowledgeManagement}}</h4>
       </label>
     </div>
   </div>
@@ -16,25 +16,25 @@
       <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate autocomplete="off">
         <div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5 form-group">
-            <md-select placeholder="Select Service" [style.width]="'100%'" name="service" formControlName="service" (change)="getCategory($event.value)">
+            <md-select placeholder="{{currentLanguageSet?.categoryIsRequired}}" [style.width]="'100%'" name="service" formControlName="service" (change)="getCategory($event.value)">
               <md-option *ngFor="let service of services" [value]="service.subServiceID">
                 {{service.subServiceName}}
               </md-option>
             </md-select>
             <!-- Validation Field -->
             <div class="error" *ngIf="knowledgeForm.get('service').touched && knowledgeForm.get('service').hasError('required')">
-              Service is required
+               {{currentLanguageSet?.serviceIsRequired}}
             </div>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group p-b-1-5">
-            <md-select placeholder="Select Category" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)">
+            <md-select placeholder="{{currentLanguageSet?.selectCategory}}" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)">
               <md-option *ngFor="let category of categories" [value]="category.categoryID">
                 {{category.categoryName}}
               </md-option>
             </md-select>
             <!-- Validation Field -->
             <div class="error" *ngIf="knowledgeForm.get('category').touched && knowledgeForm.get('category').hasError('required')">
-              Category is required
+              {{currentLanguageSet?.categoryIsRequired}}
             </div>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group p-b-1-5">
@@ -53,11 +53,11 @@
             <input type="hidden" name="fileHidden" formControlName="fileInput" />
             <!-- Validation Field -->
             <span class="error">
-              Supported File Formats
+              {{currentLanguageSet?.supportedFileFormats}}
               (.msg, .pdf, .png, .jpeg, .jpg, .doc, .docx, .xlsx, .xls, .csv, .txt)
             </span>
             <div class="error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
-              File is required
+              File is required 
             </div>
           </div>
         </div>
@@ -81,10 +81,10 @@
         </div> -->
         <!--<div class="">-->
             <div class="col-xs-6 col-sm-6 form-group" *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)">
-                <label>Previous uploaded file: <a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
+                <label>{{currentLanguageSet?.previousUploadedFile}}<a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
               </div>
           <div class="col-xs-6 col-sm-6 form-group pull-right">
-            <button type="submit" class="pull-right" md-raised-button color="accent" [disabled]="knowledgeForm.invalid||invalid_file_flag">Save</button>
+            <button type="submit" class="pull-right" md-raised-button color="accent" [disabled]="knowledgeForm.invalid||invalid_file_flag">{{currentLanguageSet?.save}}</button>
           </div>
         <!--</div>-->
       </form>

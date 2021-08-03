@@ -12,6 +12,8 @@ declare var jQuery: any;
 import { SocketService } from '../services/socketService/socket.service';
 import { ToasterService, ToasterConfig } from 'angular2-toaster';
 import { Subscription } from "rxjs/Subscription";
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'dashboard-component',
@@ -20,6 +22,8 @@ import { Subscription } from "rxjs/Subscription";
 })
 
 export class dashboardContentClass implements OnInit {
+  currentLanguageSet: any;
+
   barMinimized: boolean = true;
   eventSpiltData: any;
   data: any;
@@ -62,7 +66,9 @@ export class dashboardContentClass implements OnInit {
     private renderer: Renderer,
     private callService: CallServices,
     private toasterService: ToasterService,
-    private listnerService: ListnerService, public socketService: SocketService
+    private listnerService: ListnerService, 
+    public socketService: SocketService, 
+    public HttpServices: HttpServices
   ) {
 
     this.notificationSubscription = this.socketService.getMessages().subscribe((data) => {
@@ -102,6 +108,8 @@ export class dashboardContentClass implements OnInit {
   };
 
   ngOnInit() {
+    this.assignSelectedLanguage();
+
     this.dataSettingService.inOutCampaign.subscribe((data) => {
       console.log(data);
       // this.setCampaign()
@@ -167,6 +175,14 @@ export class dashboardContentClass implements OnInit {
     this.dataSettingService.sendHeaderStatus.next(this.current_role + " Dashboard");
 
   }
+ ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
 
   agentIDexists(agentID) {
     console.log(agentID, "AGENT ID IN DASHBOARD");
@@ -353,7 +369,7 @@ export class dashboardContentClass implements OnInit {
       sessionStorage.setItem('callCategory', this.eventSpiltData[3]);
         this.router.navigate(['/MultiRoleScreenComponent/RedirectToInnerpageComponent']);
       } else {
-        this.message.alert('Invalid call please check');
+        this.message.alert(this.currentLanguageSet.invalidCallPleaseCheck);
       }
     }
   }
@@ -389,7 +405,7 @@ export class dashboardContentClass implements OnInit {
   campaign(value) {
     console.log(value);
     if (value === '1') {
-      this.message.confirm('', 'Switch to Inbound?').subscribe((response) => {
+      this.message.confirm('', this.currentLanguageSet.switchToInbound).subscribe((response) => {
         if (response) {
           this.callService.switchToInbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'INBOUND';
@@ -406,7 +422,7 @@ export class dashboardContentClass implements OnInit {
       })
 
     } else if (value === '0') {
-      this.message.confirm('', 'Switch to Outbound?').subscribe((response) => {
+      this.message.confirm('', this.currentLanguageSet.switchToOutbound).subscribe((response) => {
         if (response) {
           this.callService.switchToOutbound(this.dataSettingService.cZentrixAgentID).subscribe((res) => {
             this.dataSettingService.current_campaign = 'OUTBOUND';
