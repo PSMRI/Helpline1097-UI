@@ -6,6 +6,8 @@ import { QualityAuditService } from '../services/supervisorServices/quality-audi
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { NgForm } from '@angular/forms';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 // import * as jsPDF from 'jspdf';
 // declare var jQuery: any;
 
@@ -55,6 +57,7 @@ export class QualityAuditComponent implements OnInit {
  
   recordingArray:any = [];
   apiCall: boolean=true;
+  currentLanguageSet: any;
 
   constructor(
     private configService: ConfigService,
@@ -62,10 +65,11 @@ export class QualityAuditComponent implements OnInit {
     private commonData: dataService,
     private qualityAuditService: QualityAuditService,
     private alertService: ConfirmationDialogsService,
-    public dialog: MdDialog
+    public dialog: MdDialog,public HttpServices: HttpServices
   ) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     var currentDate = new Date();
     this.setMinMaxDate(currentDate);
 
@@ -81,6 +85,14 @@ export class QualityAuditComponent implements OnInit {
     // this.getServicelines();
     // this.getAgents();
     // this.getCallTypes();
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
   resetFlag()
   {
@@ -120,7 +132,7 @@ export class QualityAuditComponent implements OnInit {
         console.log("RecordingArray",this.recordingArray)
       },
       err => {
-        this.alertService.alert("Failed to get the voice file path", 'error');
+        this.alertService.alert(this.currentLanguageSet.failedToGetTheVoiceFilePath, 'error');
             console.log("ERROR", err);
           }
       );
@@ -434,14 +446,24 @@ export class CaseSheetSummaryDialogComponent implements OnInit {
   @Output() hideCaseSheet: EventEmitter<any> = new EventEmitter<any>();
 
   current_date = new Date();
+  currentLanguageSet: any;
   constructor(
     private commondata: dataService,
-    private alertService: ConfirmationDialogsService) {
+    private alertService: ConfirmationDialogsService,public HttpServices: HttpServices) {
 
   }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
 
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
 

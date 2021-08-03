@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as XLSX from 'xlsx';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 
 
@@ -37,13 +39,15 @@ export class GenderDistributionReportComponent implements OnInit {
   district: any;
   gender_distribution_resultset: any = [];
   @ViewChild('genderDistributionSearchForm') genderDistributionSearchForm: NgForm;
+  currentLanguageSet: any;
 
 
   constructor(private dataService: dataService,
     private userbeneficiarydata: UserBeneficiaryData,
     private reportsService: ReportsService,
     private alertService: ConfirmationDialogsService,
-    private _locationService: LocationService) { }
+    private _locationService: LocationService,
+    private HttpServices:HttpServices) { }
 
   ngOnInit() {
     this.providerServiceMapID = this.dataService.current_service.serviceID;
@@ -96,7 +100,7 @@ export class GenderDistributionReportComponent implements OnInit {
       "endTimestamp": ""
     }
     this.providerServiceMapID = this.dataService.current_service.serviceID;
-
+  this.assignSelectedLanguage();
   }
 
 
@@ -295,7 +299,7 @@ export class GenderDistributionReportComponent implements OnInit {
   download_report() {
     var head = Object.keys(this.gender_distribution_resultset[0]);
     new Angular2Csv(this.gender_distribution_resultset, 'Gender Distribution Report', { headers: (head) });
-    this.alertService.alert('Gender distribution report downloaded', 'success');
+    this.alertService.alert(this.currentLanguageSet.genderDistributionReportDownloaded, 'success');
 
   }
   downloadV2(form_values) {
@@ -384,4 +388,14 @@ export class GenderDistributionReportComponent implements OnInit {
     this.gender_distribution_resultset=[];
     this.tableFlag = false;
   }
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

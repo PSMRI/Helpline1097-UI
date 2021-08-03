@@ -39,17 +39,17 @@
 <div class="container-fluid" *ngIf="show">
   <div class="row">
     <md-tab-group [selectedIndex]="0">
-      <md-tab label="{{currentlanguage.co_services?.information_services}}">
-        <app-co-information-services [resetProvideServices]="resetProvideServices"  (informationServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-information-services>
+      <md-tab label="{{currentLanguageSet?.informationServices}}">
+        <app-co-information-services [resetProvideServices]="resetProvideServices"  (informationServiceProvided)="updateServiceProvided()"></app-co-information-services>
       </md-tab>
-      <md-tab label="{{currentlanguage.co_services?.counselling_service}}">
-        <app-co-counselling-services [resetProvideServices]="resetProvideServices"  (counsellingServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-counselling-services>
+      <md-tab label="{{currentLanguageSet?.counsellingServices}}">
+        <app-co-counselling-services [resetProvideServices]="resetProvideServices"  (counsellingServiceProvided)="updateServiceProvided()"></app-co-counselling-services>
       </md-tab>
-      <md-tab label="{{currentlanguage.co_services?.referral_service}}">
-        <app-co-referral-services [resetProvideServices]="resetProvideServices"  (referralServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-referral-services>
+      <md-tab label="{{currentLanguageSet?.referralServices}}">
+        <app-co-referral-services [resetProvideServices]="resetProvideServices"  (referralServiceProvided)="updateServiceProvided()"></app-co-referral-services>
       </md-tab>
-      <md-tab label="{{currentlanguage.co_services?.feedback_service}}">
-        <app-co-feedback-services [resetProvideServices]="resetProvideServices" (feedbackServiceProvided)="updateServiceProvided()" [current_language]="currentlanguage"></app-co-feedback-services>
+      <md-tab label="{{currentLanguageSet?.feedbackSystem}}">
+        <app-co-feedback-services [resetProvideServices]="resetProvideServices" (feedbackServiceProvided)="updateServiceProvided()"></app-co-feedback-services>
       </md-tab>
     </md-tab-group>
   </div>

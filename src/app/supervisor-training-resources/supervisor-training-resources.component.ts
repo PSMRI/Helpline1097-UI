@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HttpServices } from 'app/services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
@@ -10,7 +12,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
   templateUrl: './supervisor-training-resources.component.html',
   styleUrls: ['./supervisor-training-resources.component.css']
 })
-export class SupervisorTrainingResourcesComponent implements OnInit {
+export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
 
   // ngModels
   role: any;
@@ -61,12 +63,14 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
 
   @ViewChild('trainingResources') trainingResourceForm: NgForm;
   @ViewChild('trainingResourcesEditForm') trainingResourceEditForm: NgForm;
+  currentLanguageSet: any;
 
 
 
   constructor(private saved_data: dataService,
     private notificationService: NotificationService,
-    public dialogService: ConfirmationDialogsService) { }
+    public dialogService: ConfirmationDialogsService,
+    private httpServices:HttpServices) { }
 
 
 
@@ -94,6 +98,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     this.currentDate.setMinutes(0);
     this.currentDate.setSeconds(0);
     this.currentDate.setMilliseconds(0);
+    this.assignSelectedLanguage();
   }
 
   go2table() {
@@ -516,4 +521,12 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     console.log('error', error);
     this.dialogService.alert('Failed to update', 'error')
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	}
 }

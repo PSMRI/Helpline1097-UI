@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef, Renderer } from '@angular/core';
 // md2 components
 import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
+import { HttpServices } from 'app/services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
 declare var jQuery: any;
 @Component({
@@ -17,8 +19,10 @@ export class FeedbackStatusComponent implements OnInit {
   totalRecord;
   consolidatedRequests: any;
   feedbackStatusName: any;
+  currentLanguageSet: any;
   constructor(public dialogRef: MdDialogRef<FeedbackStatusComponent>,
-    @Inject(MD_DIALOG_DATA) public feedbackStatusData: any, private renderer: Renderer) { }
+    @Inject(MD_DIALOG_DATA) public feedbackStatusData: any, private renderer: Renderer,
+    private HttpServices:HttpServices) { }
 
   ngOnInit() {
     this.isCollapsedResponse = true;
@@ -32,6 +36,7 @@ export class FeedbackStatusComponent implements OnInit {
     this.totalRecord = this.feedBackRequests.length;
     this.consolidatedRequests = this.feedbackStatusData[dataLength - 1].consolidatedRequests;
     this.feedbackStatusName = this.feedbackStatusData[dataLength - 1].feedbackStatusName;
+    this.assignSelectedLanguage();
 
   }
   showResponse(data: any) {
@@ -49,5 +54,14 @@ export class FeedbackStatusComponent implements OnInit {
   millisToUTCDate(millis) {
     return this.toUTCDate(new Date(millis));
   };
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 
 }
