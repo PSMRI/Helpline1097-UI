@@ -3,7 +3,7 @@
 	 (click)="dialogRef.close()">
 		clear
 	</md-icon>
-	<h4 class="popupHeader">{{heading}} Messages</h4>
+	<h4 class="popupHeader">{{heading}}  {{assignSelectedLanguageValue?.messages}}</h4>
 
 </div>
 <md-dialog-content style="min-height:400px">
@@ -36,9 +36,9 @@
 	</div>
 </md-dialog-content>
 <md-dialog-actions class="pull-right m-r--10 p-b-14">
-	<button md-raised-button color="accent" type="button" class=" m-r-5" (click)="readAll()">Read All</button>
-	<button md-raised-button color="primary" type="button" class=" m-r-5" (click)="unreadAll()">Unread All</button>
-	<button md-raised-button color="primary" type="button" class="" (click)="dialogRef.close()">Close</button>
+	<button md-raised-button color="accent" type="button" class=" m-r-5" (click)="readAll()"> {{assignSelectedLanguageValue?.readAll}}</button>
+	<button md-raised-button color="primary" type="button" class=" m-r-5" (click)="unreadAll()"> {{assignSelectedLanguageValue?.unreadAll}}</button>
+	<button md-raised-button color="primary" type="button" class="" (click)="dialogRef.close()"> {{assignSelectedLanguageValue?.close}}</button>
 
 
 </md-dialog-actions>
