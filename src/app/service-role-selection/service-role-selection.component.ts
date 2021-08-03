@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ListnerService } from './../services/common/listner.service';
 import { SocketService } from '../services/socketService/socket.service';
 import { CallServices } from 'app/services/callservices/callservice.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
     selector: 'app-service-role-selection',
@@ -12,15 +14,18 @@ import { CallServices } from 'app/services/callservices/callservice.service';
 })
 export class ServiceRoleSelectionComponent implements OnInit {
     privleges: any;
+    currentLanguageSet: any;
 
     constructor(
         public getCommonData: dataService,
         public router: Router,
         private callService: CallServices,
-        private listnerService: ListnerService, public socketService: SocketService
+        private listnerService: ListnerService, public socketService: SocketService,
+        public httpServices:HttpServices
     ) { }
 
     ngOnInit() {
+        this.assignSelectedLanguage();  
         this.listnerService.cZentrixSendData({ 'hideBar': true });
         this.getCommonData.sendHeaderStatus.next("Role Selection");
 
@@ -28,6 +33,16 @@ export class ServiceRoleSelectionComponent implements OnInit {
         // this.privleges[3].roles[1].RoleName = 'Supervisor';
 
     }
+
+    ngDoCheck() {
+		this.assignSelectedLanguage();
+	  }
+
+	assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 
     route2dashboard(role: any, service: any) {
         sessionStorage.setItem('apiman_key',service.apimanClientKey);

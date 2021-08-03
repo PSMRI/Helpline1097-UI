@@ -9,15 +9,33 @@ import { InterceptedHttp } from './../../http.interceptor';
 import { ConfigService } from '../config/config.service';
 import { AuthService } from './../../services/authentication/auth.service';
 import 'rxjs/add/operator/toPromise'
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from '../http-services/http_services.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   _baseURL = this._config.getCommonBaseURL();
   _authorisedUser = this._baseURL + 'user/getLoginResponse';
   _deleteToken = this._baseURL + 'user/userLogout';
+  currentLanguageSet: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute, public dataSettingService: dataService, private _http: InterceptedHttp
-    , private _config: ConfigService, private authService: AuthService) { }
+    , private _config: ConfigService, private authService: AuthService,public httpServices:HttpServices) { }
+
+    ngOnInit() {
+      this.assignSelectedLanguage();
+    }
+  
+    ngDoCheck() {
+			this.assignSelectedLanguage();
+		  }
+
+		assignSelectedLanguage() {
+			const getLanguageJson = new SetLanguageComponent(this.httpServices);
+			getLanguageJson.setLanguage();
+			this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+		 
+		 }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const key = sessionStorage.getItem('isOnCall');
     const authkey = localStorage.getItem('authToken');
@@ -50,7 +68,7 @@ export class AuthGuard implements CanActivate {
     if (authkey) {
 
       if (key === 'yes') {
-        alert('Not allowed to go back, Please complete & close the call');
+        alert(this.currentLanguageSet.NotAllowedToGoBackPleaseComplete);
         return false;
       }
       else {

@@ -1,23 +1,23 @@
 <div class="row" *ngIf="showTableFlag">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">SMS Template List</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.smsTemplateList}}</h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
     <table class="table table-striped table-hover" [md2Data]="existing_templates" #md2="md2DataTable" [rowsPerPage]="5">
       <thead>
         <tr>
-          <th width="5%">S.No</th>
-          <th width="25%">Template Name </th>
-          <th width="30%">Template Type</th>
-          <th width="20%">Template</th>
-          <th width="10%">View</th>
-          <th width="10%">Delete</th>
+          <th width="5%">{{currentLanguageSet?.sno}}</th>
+          <th width="25%">{{currentLanguageSet?.templateName}} </th>
+          <th width="30%">{{currentLanguageSet?.templateType}}</th>
+          <th width="20%">{{currentLanguageSet?.template}}</th>
+          <th width="10%">{{currentLanguageSet?.view}}</th>
+          <th width="10%">{{currentLanguageSet?.delete}}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngIf="md2.data?.length==0">
           <td colspan="6" class="record-not-found">
-            No Record Found
+            {{currentLanguageSet?.noRecordFound}}
           </td>
 
         </tr>
@@ -32,8 +32,8 @@
             <md-icon class="mat-icon material-icons cursorPointer" role="img" aria-hidden="true" style="color:gray" (click)="view(item)">visibility</md-icon>
           </td>
           <td>
-              <button *ngIf="!item.deleted" md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="ActivateDeactivate(item,true)">Deactivate</button>
-              <button *ngIf="item.deleted" [disabled]="item.deleted" md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="ActivateDeactivate(item,false)">Deactivated</button>              
+              <button *ngIf="!item.deleted" md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="ActivateDeactivate(item,true)">{{currentLanguageSet?.deactivate}}</button>
+              <button *ngIf="item.deleted" [disabled]="item.deleted" md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="ActivateDeactivate(item,false)">{{currentLanguageSet?.deactivated}}</button>              
           </td>
         </tr>
       </tbody>
@@ -42,7 +42,7 @@
           <md2-pagination></md2-pagination>
         </td>
         <td colspan="3">
-          <button md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="showForm()">Create New SMS Template</button>
+          <button md-raised-button color="primary" class="pull-right m-r-0" type="button" (click)="showForm()">{{currentLanguageSet?.createNewSmsTemplate}}</button>
         </td>
       </tfoot>
     </table>
@@ -50,19 +50,19 @@
 </div>
 <div class="row" *ngIf="!showTableFlag && !viewTemplate">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">Create SMS Template</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.createSmsTemplate}}</h4>
   </div>
 
   <form #smsForm="ngForm" autocomplete="off">
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" myName_space>
       <md-input-container [style.width]="'100%'">
-        <input mdInput required placeholder="Template Name" [readonly]="isReadonly" ngModel name="templateName" maxlength="40">
+        <input mdInput required placeholder="{{currentLanguageSet?.templateName}}" [readonly]="isReadonly" ngModel name="templateName" maxlength="40">
       </md-input-container>
     </div> 
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 p-b-1-5">
     <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
       <input mdInput style="display:none"> -->
-      <md-select [style.width]="'100%'" ngModel required placeholder="SMS Type"
+      <md-select [style.width]="'100%'" ngModel required placeholder="{{currentLanguageSet?.smsType}}"
         name="smsType">
         <md-option *ngFor="let type of SMS_Types" [value]="type.smsTypeID">
           {{type.smsType}}
@@ -76,7 +76,7 @@
 
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
     <md-input-container style="width: 100%">
-      <textarea mdInput rows="5" ngModel required [readonly]="isReadonly" placeholder="SMS Template" minlength="20" maxlength="160" #sms name="smsTemplate"></textarea>
+      <textarea mdInput rows="5" ngModel required [readonly]="isReadonly" placeholder="{{currentLanguageSet?.smsTemplate}}" minlength="20" maxlength="160" #sms name="smsTemplate"></textarea>
       <md-hint align="end">{{sms.value.length?sms.value.length:0}}/160</md-hint>
     </md-input-container>
   </div>
@@ -89,7 +89,7 @@
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 p-b-1-5">
       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none"> -->
-        <md-select [style.width]="'100%'" ngModel placeholder="Select Parameter"
+        <md-select [style.width]="'100%'" ngModel placeholder="{{currentLanguageSet?.selectParameter}}"
           name="parameter" (change)="getSMSparameters()">
           <md-option *ngFor="let parameter of Parameters" [value]="parameter">
             {{parameter}}
@@ -100,7 +100,7 @@
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 p-b-1-5">
       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none"> -->
-        <md-select [style.width]="'100%'" ngModel placeholder="Select Value Type"
+        <md-select [style.width]="'100%'" ngModel placeholder="{{currentLanguageSet?.selectValueType}}"
           name="valueType" (change)="setValuesInDropdown(parameterValueType.value)" #parameterValueType="ngModel">
           <md-option *ngFor="let type of smsParameters" [value]="type">
             {{type.smsParameterType}}
@@ -111,7 +111,7 @@
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
         <input mdInput style="display:none"> -->
-        <md-select [style.width]="'100%'" ngModel placeholder="Select Value"
+        <md-select [style.width]="'100%'" ngModel placeholder="{{currentLanguageSet?.selectValue}}"
           name="value">
           <md-option *ngFor="let val of selectedParameterValues" [value]="val">
             {{val.smsParameterName}}
@@ -120,18 +120,18 @@
       <!-- </md-input-container> -->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-      <button class="m-t-10" md-raised-button color="primary" type="button" (click)="add(smsForm.value)">Add</button>
+      <button class="m-t-10" md-raised-button color="primary" type="button" (click)="add(smsForm.value)">{{currentLanguageSet?.add}}</button>
     </div>        
     <!-- </form> -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 table-responsive" *ngIf="smsParameterMaps.length>0">
       <table class="table table-hover table-striped" [md2Data]="smsParameterMaps" #md2="md2DataTable" [rowsPerPage]="3">
         <thead>
           <tr>
-            <th width="20%">S.No</th>
-            <th width="20%">Parameter</th>
-            <th width="20%">Value Type</th>
-            <th width="20%">Value</th>
-            <th width="20%">Action</th>
+            <th width="20%">{{currentLanguageSet?.sno}}</th>
+            <th width="20%">{{currentLanguageSet?.parameter}}</th>
+            <th width="20%">{{currentLanguageSet?.valueType}}</th>
+            <th width="20%">{{currentLanguageSet?.value}}</th>
+            <th width="20%">{{currentLanguageSet?.action}}</th>
           </tr>
         </thead>
         <tbody>
@@ -143,7 +143,7 @@
             <td>{{item.smsParameterType}}</td>
             <td>{{item.smsParameterValue}}</td>
             <td>
-              <md-icon mdTooltip="remove" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" (click)="remove(item,i)">clear</md-icon>
+              <md-icon mdTooltip="{{currentLanguageSet?.remove}}" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" (click)="remove(item,i)">clear</md-icon>
             </td>
           </tr>
         </tbody>
@@ -158,10 +158,10 @@
   </form>
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-40">
-    <button md-raised-button color="primary" type="button" class="pull-left m-r-10" (click)="showTable()">Back</button>      
-    <button *ngIf="showParameters" md-raised-button color="primary" type="button" class="pull-left m-r-10 m-l-10"  (click)="cancel()">Cancel</button>
-    <button *ngIf="showParameters" md-raised-button color="primary" [disabled]="smsParameterMaps.length!=Parameters_count" type="button" class="pull-right" (click)="saveSMStemplate(smsForm.value)">Submit</button>
-    <button md-raised-button color="primary" type="button" [disabled]="smsForm.invalid" class="pull-right" *ngIf="!showParameters" (click)="extractParameters(sms.value)">Continue</button>      
+    <button md-raised-button color="primary" type="button" class="pull-left m-r-10" (click)="showTable()">{{currentLanguageSet?.back}}</button>      
+    <button *ngIf="showParameters" md-raised-button color="primary" type="button" class="pull-left m-r-10 m-l-10"  (click)="cancel()">{{currentLanguageSet?.cancel}}</button>
+    <button *ngIf="showParameters" md-raised-button color="primary" [disabled]="smsParameterMaps.length!=Parameters_count" type="button" class="pull-right" (click)="saveSMStemplate(smsForm.value)">{{currentLanguageSet?.submit}}</button>
+    <button md-raised-button color="primary" type="button" [disabled]="smsForm.invalid" class="pull-right" *ngIf="!showParameters" (click)="extractParameters(sms.value)">{{currentLanguageSet?.continue}}</button>      
   </div>
 
   
@@ -169,18 +169,18 @@
 
 <div  class="row" [hidden]="!viewTemplate">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">View SMS Template</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.viewSmsTemplate}}</h4>
   </div>
 
   <form #vf="ngForm" autocomplete="off">
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
-        <input mdInput required placeholder="Template Name" ngModel name="templateName" readonly>
+        <input mdInput required placeholder="{{currentLanguageSet?.templateName}}" ngModel name="templateName" readonly>
       </md-input-container>
     </div> 
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
     <md-input-container [style.width]="'100%'">
-      <input mdInput placeholder="SMS Type" ngModel name="smsType" readonly>
+      <input mdInput placeholder="{{currentLanguageSet?.smsType}}" ngModel name="smsType" readonly>
     </md-input-container>
   </div>
   
@@ -189,7 +189,7 @@
 
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
     <md-input-container style="width: 100%">
-      <textarea mdInput rows="5" ngModel required placeholder="SMS Template"  #sms name="smsTemplate" readonly></textarea>
+      <textarea mdInput rows="5" ngModel required placeholder="{{currentLanguageSet?.smsTemplate}}"  #sms name="smsTemplate" readonly></textarea>
       <md-hint align="end">{{sms.value.length?sms.value.length:0}}/160</md-hint>
     </md-input-container>
   </div>
@@ -198,10 +198,10 @@
     <table class="table table-hover table-striped" [md2Data]="viewSMSparameterTable" #md2="md2DataTable" [rowsPerPage]="3">
       <thead>
         <tr>
-          <th width="25%">S.No</th>
-          <th width="25%">Parameter</th>
-          <th width="25%">Value Type</th>
-          <th width="25%">Value</th>
+          <th width="25%">{{currentLanguageSet?.sno}}</th>
+          <th width="25%">{{currentLanguageSet?.parameter}}</th>
+          <th width="25%">{{currentLanguageSet?.valueType}}</th>
+          <th width="25%">{{currentLanguageSet?.value}}</th>
         </tr>
       </thead>
       <tbody>
@@ -220,14 +220,15 @@
           <md2-pagination></md2-pagination>
         </td>
         <td colspan="2">
-          <button md-raised-button color="primary" type="button" class="pull-right m-r-0" (click)="showTable()">Back</button>      
+          <button md-raised-button color="primary" type="button" class="pull-right m-r-0" (click)="showTable()">{{currentLanguageSet?.back}}</button>      
         </td>
       </tfoot>
     </table>
   </div>
   <div class="col-xs-12 col-sm-12" *ngIf="viewSMSparameterTable.length===0">
-    <button md-raised-button color="primary" type="button" class="pull-right m-r-0" (click)="showTable()">Back</button>      
+    <button md-raised-button color="primary" type="button" class="pull-right m-r-0" (click)="showTable()">{{currentLanguageSet?.back}}</button>      
   </div>
   </form>
 </div>
 
+  
