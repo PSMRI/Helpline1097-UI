@@ -44,17 +44,17 @@
     </div>
     <div class="col-xs-12 col-sm-12" *ngIf="tableView">
       <div class="table-responsive m-t-10">
-        <table class="table table-striped" [md2Data]="feedbackList" #md2="md2DataTable" [rowsPerPage]="5">
+        <table class="table table-striped" [md2Data]="feedbackList" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="grievanceList">
           <thead>
             <tr>
-              <th>{{currentLanguageSet?.feedbackId}}</th>
-              <th>{{currentLanguageSet?.feedbackDate}}</th>
-              <th>{{currentLanguageSet?.nameOfBeneficiary}}</th>
-              <th>{{currentLanguageSet?.typeOfFeedback}}</th>
-              <th>{{currentLanguageSet?.feedbackStatus}}</th>
-              <th>{{currentLanguageSet?.emailStatus}}</th>
-              <th>{{currentLanguageSet?.edit}}</th>
-              <th>{{currentLanguageSet?.update}}</th>
+              <th id="feedbackId">{{currentLanguageSet?.feedbackId}}</th>
+              <th id="feedbackDate">{{currentLanguageSet?.feedbackDate}}</th>
+              <th id="nameOfBeneficiary">{{currentLanguageSet?.nameOfBeneficiary}}</th>
+              <th id="typeOfFeedback">{{currentLanguageSet?.typeOfFeedback}}</th>
+              <th id="feedbackStatus">{{currentLanguageSet?.feedbackStatus}}</th>
+              <th id="emailStatus">{{currentLanguageSet?.emailStatus}}</th>
+              <th id="edit">{{currentLanguageSet?.edit}}</th>
+              <th id="update">{{currentLanguageSet?.update}}</th>
             </tr>
           </thead>
           <tbody>
@@ -272,21 +272,21 @@
       </div> -->
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="feedBackRequestsResponse?.length>0">
         <div class="table-responsive">
-          <table class="table table-responsive table-striped" [md2Data]="feedBackRequestsResponse" #md2="md2DataTable" [rowsPerPage]="3">
+          <table class="table table-responsive table-striped" [md2Data]="feedBackRequestsResponse" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="FeedbackReposnseList">
             <thead>
               <tr>
-                <th>{{currentLanguageSet?.sno}}</th>
-                <th>{{currentLanguageSet?.feedbackRequestId}}</th>
-                <th>{{currentLanguageSet?.feedbackDescription}}</th>
-                <th>{{currentLanguageSet?.supervisorComments}}</th>
-                <th>{{currentLanguageSet?.responseReceived}}</th>
-                <th>{{currentLanguageSet?.responseAttachment}}</th>
-                <th>{{currentLanguageSet?.lastFeedbackStatus}}</th>
-                <th>{{currentLanguageSet?.emailStatus}}</th>
-                <th>{{currentLanguageSet?.forwardedBy}}</th>
-                <th>{{currentLanguageSet?.forwardedDate}}</th>
-                <th>{{currentLanguageSet?.updatedBy}}</th>
-                <th>{{currentLanguageSet?.updatedDate}}</th>
+                <th id="sno">{{currentLanguageSet?.sno}}</th>
+                <th id="feedbackRequestId">{{currentLanguageSet?.feedbackRequestId}}</th>
+                <th id="feedbackDescription">{{currentLanguageSet?.feedbackDescription}}</th>
+                <th id="supervisorComments">{{currentLanguageSet?.supervisorComments}}</th>
+                <th id="responseReceived">{{currentLanguageSet?.responseReceived}}</th>
+                <th id="responseAttachment">{{currentLanguageSet?.responseAttachment}}</th>
+                <th id="lastFeedbackStatus">{{currentLanguageSet?.lastFeedbackStatus}}</th>
+                <th id="emailStatus">{{currentLanguageSet?.emailStatus}}</th>
+                <th id="forwardedBy">{{currentLanguageSet?.forwardedBy}}</th>
+                <th id="forwardedDate">{{currentLanguageSet?.forwardedDate}}</th>
+                <th id="updatedBy">{{currentLanguageSet?.updatedBy}}</th>
+                <th id="updatedDate">{{currentLanguageSet?.updatedDate}}</th>
               </tr>
             </thead>
             <tbody>

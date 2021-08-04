@@ -168,10 +168,7 @@ input {
 }
 
 a:focus,
-aF {
-  color: red !important;
-  text-decoration: underline;
-}
+
 
 .bs-wizard {
   /* margin-top: 40px;*/
@@ -1089,7 +1086,6 @@ em {
   background-color: #253746;
   padding-top: 0px;
   text-align: center;
-  padding: 5px 10px;
   /*border-bottom:1px solid #fff;*/
 }
 
@@ -1470,7 +1466,6 @@ em {
   border: none;
   color: #F89b58 !important;
   box-shadow: none;
-  border: none !important;
 }
 
 .starrr {

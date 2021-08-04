@@ -24,17 +24,17 @@
         (click)="getNotifications(searchNotificationForm.value)">{{currentLanguageSet?.search}}</button>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15  table-responsive">
-      <table class="table table-hover table-striped" [md2Data]="location_messages" #md2="md2DataTable" [rowsPerPage]="3">
+      <table class="table table-hover table-striped" [md2Data]="location_messages" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="locationMessagesList">
         <thead>
           <tr>
-            <th>{{currentLanguageSet?.sno}}</th>
-            <th>{{currentLanguageSet?.office}}</th>
-            <th>{{currentLanguageSet?.type}}</th>
-            <th>{{currentLanguageSet?.subject}}</th>
-            <th>{{currentLanguageSet?.description}}</th>
-            <th>{{currentLanguageSet?.validFrom}}</th>
-            <th>{{currentLanguageSet?.validTill}}</th>
-            <th>{{currentLanguageSet?.action}}</th>
+            <th id="sno">{{currentLanguageSet?.sno}}</th>
+            <th id="office">{{currentLanguageSet?.office}}</th>
+            <th id="type">{{currentLanguageSet?.type}}</th>
+            <th id="subject">{{currentLanguageSet?.subject}}</th>
+            <th id="description">{{currentLanguageSet?.description}}</th>
+            <th id="validFrom">{{currentLanguageSet?.validFrom}}</th>
+            <th id="validTill">{{currentLanguageSet?.validTill}}</th>
+            <th id="action">{{currentLanguageSet?.action}}</th>
           </tr>
         </thead>
         <tbody>

@@ -3,15 +3,15 @@
     <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.smsTemplateList}}</h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-    <table class="table table-striped table-hover" [md2Data]="existing_templates" #md2="md2DataTable" [rowsPerPage]="5">
+    <table class="table table-striped table-hover" [md2Data]="existing_templates" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="smsTemplateListItems">
       <thead>
         <tr>
-          <th width="5%">{{currentLanguageSet?.sno}}</th>
-          <th width="25%">{{currentLanguageSet?.templateName}} </th>
-          <th width="30%">{{currentLanguageSet?.templateType}}</th>
-          <th width="20%">{{currentLanguageSet?.template}}</th>
-          <th width="10%">{{currentLanguageSet?.view}}</th>
-          <th width="10%">{{currentLanguageSet?.delete}}</th>
+          <th id="sno" width="5%">{{currentLanguageSet?.sno}}</th>
+          <th id="templateName" width="25%">{{currentLanguageSet?.templateName}} </th>
+          <th id="templateType" width="30%">{{currentLanguageSet?.templateType}}</th>
+          <th id="template" width="20%">{{currentLanguageSet?.template}}</th>
+          <th id="view" width="10%">{{currentLanguageSet?.view}}</th>
+          <th id="delete" width="10%">{{currentLanguageSet?.delete}}</th>
         </tr>
       </thead>
       <tbody>
@@ -23,7 +23,7 @@
         </tr>
         <tr *ngFor="let item of md2.data; let i = index ">
           <td>
-            <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+            <strong>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</strong>
           </td>
           <td>{{item.smsTemplateName}}</td>
           <td>{{item.smsType.smsType}}</td>
@@ -124,20 +124,20 @@
     </div>        
     <!-- </form> -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 table-responsive" *ngIf="smsParameterMaps.length>0">
-      <table class="table table-hover table-striped" [md2Data]="smsParameterMaps" #md2="md2DataTable" [rowsPerPage]="3">
+      <table class="table table-hover table-striped" [md2Data]="smsParameterMaps" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="smsParameterList">
         <thead>
           <tr>
-            <th width="20%">{{currentLanguageSet?.sno}}</th>
-            <th width="20%">{{currentLanguageSet?.parameter}}</th>
-            <th width="20%">{{currentLanguageSet?.valueType}}</th>
-            <th width="20%">{{currentLanguageSet?.value}}</th>
-            <th width="20%">{{currentLanguageSet?.action}}</th>
+            <th id="sno" width="20%">{{currentLanguageSet?.sno}}</th>
+            <th id="parameter" width="20%">{{currentLanguageSet?.parameter}}</th>
+            <th id="valueType" width="20%">{{currentLanguageSet?.valueType}}</th>
+            <th id="value" width="20%">{{currentLanguageSet?.value}}</th>
+            <th id="action" width="20%">{{currentLanguageSet?.action}}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of md2.data; let i = index ">
             <td>
-              <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+              <strong>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</strong>
             </td>
             <td>{{item.smsParameterName}}</td>
             <td>{{item.smsParameterType}}</td>
@@ -195,19 +195,19 @@
   </div>
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 table-responsive" *ngIf="viewSMSparameterTable.length>0">
-    <table class="table table-hover table-striped" [md2Data]="viewSMSparameterTable" #md2="md2DataTable" [rowsPerPage]="3">
+    <table class="table table-hover table-striped" [md2Data]="viewSMSparameterTable" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="viewSmsParameterList">
       <thead>
         <tr>
-          <th width="25%">{{currentLanguageSet?.sno}}</th>
-          <th width="25%">{{currentLanguageSet?.parameter}}</th>
-          <th width="25%">{{currentLanguageSet?.valueType}}</th>
-          <th width="25%">{{currentLanguageSet?.value}}</th>
+          <th id="sno" width="25%">{{currentLanguageSet?.sno}}</th>
+          <th id="parameter" width="25%">{{currentLanguageSet?.parameter}}</th>
+          <th id="valueType" width="25%">{{currentLanguageSet?.valueType}}</th>
+          <th id="value" width="25%">{{currentLanguageSet?.value}}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of md2.data; let i = index ">
           <td>
-            <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+            <strong>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</strong>
           </td>
           <td>{{item.smsParameterName}}</td>
           <td>{{item.smsParameterType}}</td>

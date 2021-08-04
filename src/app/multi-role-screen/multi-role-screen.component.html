@@ -52,7 +52,7 @@
                 <a class="">&nbsp;</a>
               </li> -->
               <li class="help">
-                <i class="fa fa-question-circle helpAlign cursorPointer" alt="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></i>
+                <span class="fa fa-question-circle helpAlign cursorPointer" alt="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></span>
               </li>
               <md-menu #knowAboutUs x-position="before"  class="m-t-40">
                 <md-list class="p-t-0">
@@ -70,7 +70,7 @@
   </div>
   <router-outlet></router-outlet>
   <div (click)="minimizeBar()" *ngIf="hideBar">
-    <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
+    <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()" title="Czentrix Bar"></iframe>
     <!-- <iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar"></iframe> -->
     <!-- <iframe *ngIf="current_role.toLowerCase().trim()!=='supervisor'" [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar"
       [hidden]="barMinimized" (click)="toggleBar()"></iframe> -->

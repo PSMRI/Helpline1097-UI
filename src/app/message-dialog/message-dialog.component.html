@@ -29,7 +29,7 @@
 </div>
 <md-dialog-content>
   <div class="table-responsive ">
-    <table class="table td-m-t-b-5 m-b-0" [md2Data]="docs" #md2="md2DataTable" [rowsPerPage]="3">
+    <table class="table td-m-t-b-5 m-b-0" [md2Data]="docs" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="MessageList">
       <tbody>
         <tr *ngFor="let doc of md2.data;let i=index ">
           <td class="b-l-1 col-xs-1 col-sm-1">{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}.</td>

@@ -21,7 +21,6 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: ;
 	height: 100%;
 	width: 3px;
 	background-color: #1c1c1c;
@@ -121,7 +120,7 @@ i.fa {font-size: 25px;padding: 9px;width: 30px;text-align: center;text-shadow:1p
 .leftMenu{height: 100vh;background-color: #21548b;
 	/*padding-bottom: 100%;
 	 position: fixed; */
-	left: 0;top:0;width: 85px;transition: all ease 1s;overflow: hidden;transition: .5s cubic-bezier(.8, .5, .2, 1.4);box-shadow: 1px 4px 8px 4px rgba(0,0,0,0.3);}
+	left: 0;top:0;width: 85px;transition: all ease 1s;overflow: hidden;box-shadow: 1px 4px 8px 4px rgba(0,0,0,0.3);}
 .hamburger{width: 40px;height: 40px;border-radius: 50%;background-color: #ffc107;float: right;margin-right: 5px;margin-top: 5px;text-align: center;cursor: pointer;box-shadow: 0px 3px 4px rgba(0,0,0,.5);position: relative;transform: rotate(0deg);}
 .hamburger.open{background-color: tomato;transition: all ease .5s;}
 .hamburger:hover {box-shadow: none;transition: all ease .5s;transform: rotate(360deg);}
@@ -132,7 +131,7 @@ i.fa {font-size: 25px;padding: 9px;width: 30px;text-align: center;text-shadow:1p
 /* .open span:nth-child(1){background-color: #fff;transform: rotate(45deg);transition-timing-function 	: ease-in-out;position: absolute;top: 5px;right: 8px;width: 25px;transition: all ease .5s;border-radius: 10px;}
 .open span:nth-child(2){background-color: #fff;transition-timing-function: ease-in-out;margin-top: 18px;opacity: 0;transition: all ease .5s;}
 .open span:nth-child(3){background-color: #fff;transform: rotate(-45deg);transition-timing-function: ease-in-out;margin-top: 0px;position: absolute;top: 18px;right: 8px;width: 25px;transition: all ease .5s;border-radius: 10px;} */
-.openMenu{width: 250px;transition: all ease 1s;overflow: hidden;transition: .5s cubic-bezier(.8, .5, .2, 1.4);}
+.openMenu{width: 250px;transition: all ease 1s;overflow: hidden;}
 .leftMenuList{/*margin-top: 70px;*/list-style: none;padding: 0;}
 .leftMenuList li{width: 250px;line-height: 40px;color: #fff;border-bottom: 1px solid #00bcd6;font-size: 13px;}
 .leftMenuList li:hover{background-color: #00bcd6;transition: all ease .5s;cursor: pointer;}

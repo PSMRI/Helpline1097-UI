@@ -56,11 +56,11 @@
     </div>
     <div class="row c-b p-t-20" *ngIf="onAgentSelected">
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <table class="table table-bordered">
+        <table class="table table-bordered" aria-describedby="reallocateCallsLanguageList">
           <thead>
             <tr>
-              <th width="30%">{{currentLanguageSet?.language}}</th>
-              <th width="70%">{{currentLanguageSet?.noofRecords}}</th>
+              <th id="language" width="30%">{{currentLanguageSet?.language}}</th>
+              <th id="noofRecords" width="70%">{{currentLanguageSet?.noofRecords}}</th>
             </tr>
           </thead>
           <tbody>

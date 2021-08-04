@@ -97,19 +97,19 @@
   <div class="col-xs-12 col-sm-12">
 
     <div class="table-responsive">
-    <table class="table table-hover table-striped" [md2Data]="filteredCallList" #md2="md2DataTable" [rowsPerPage]="4">
+    <table class="table table-hover table-striped" [md2Data]="filteredCallList" #md2="md2DataTable" [rowsPerPage]="4" aria-describedby="qualityAuditList">
       <thead>
         <tr>
-          <th>{{currentLanguageSet?.s.No}}</th>
-          <th>{{currentLanguageSet?.callId}}</th>
-          <th>{{currentLanguageSet?.callDateandTime}}</th>
-          <th>{{currentLanguageSet?.beneficiaryId}}</th>
-          <th>{{currentLanguageSet?.beneficiaryName}}</th>
-          <th>{{currentLanguageSet?.beneficiaryPhoneNo}}</th>
-          <th>{{currentLanguageSet?.callRemarks}}</th>
-          <th>{{currentLanguageSet?.callType}}</th>
-          <th>{{currentLanguageSet?.caseSheet}}</th>
-          <th>{{currentLanguageSet?.voiceRecord}}</th>
+          <th id="sno">{{currentLanguageSet?.s.No}}</th>
+          <th id="callId">{{currentLanguageSet?.callId}}</th>
+          <th id="callDateandTime">{{currentLanguageSet?.callDateandTime}}</th>
+          <th id="beneficiaryId">{{currentLanguageSet?.beneficiaryId}}</th>
+          <th id="beneficiaryName">{{currentLanguageSet?.beneficiaryName}}</th>
+          <th id="beneficiaryPhoneNo">{{currentLanguageSet?.beneficiaryPhoneNo}}</th>
+          <th id="callRemarks">{{currentLanguageSet?.callRemarks}}</th>
+          <th id="callType">{{currentLanguageSet?.callType}}</th>
+          <th id="caseSheet">{{currentLanguageSet?.caseSheet}}</th>
+          <th id="voiceRecord">{{currentLanguageSet?.voiceRecord}}</th>
         </tr>
       </thead>
       <tbody>
@@ -177,7 +177,7 @@
         <span class="caseSheetHeader">{{currentLanguageSet?.beneficiaryDetails}}</span>
       </h4>
       <div class="table-responsive">
-        <table class="table printTable m-b-0">
+        <table class="table printTable m-b-0" aria-describedby="CallDetailsList">
           <tr>
             <td class="col-xs-12 col-sm-3 p-l-0">
               <strong> {{currentLanguageSet?.callId}} :</strong>
@@ -236,7 +236,7 @@
           <span class="">{{currentLanguageSet?.informationService}}</span>
         </h4>
         <div class="table-responsive">
-          <table class="table printTable m-b-0">
+          <table class="table printTable m-b-0" aria-describedby="informationServicesList">
             <tbody *ngFor="let item of information_services">
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0">
@@ -257,7 +257,7 @@
           <span class="">{{currentLanguageSet?.counsellingService}}</span>
         </h4>
         <div class="table-responsive">
-          <table class="table printTable m-b-0">
+          <table class="table printTable m-b-0" aria-describedby="counsellingServicesList">
             <tbody *ngFor="let item of counselling_services">
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0">
@@ -278,7 +278,7 @@
           <span class="">{{currentLanguageSet?.feedbackService}}</span>
         </h4>
         <div class="table-responsive">
-          <table class="table printTable m-b-0">
+          <table class="table printTable m-b-0" aria-describedby="feedbackServicesList">
             <tbody *ngFor="let item of feedback_services">
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0">
@@ -339,7 +339,7 @@
           <span class="">{{currentLanguageSet?.referralService}}</span>
         </h4>
         <div class="table-responsive">
-          <table class="table printTable m-b-0">
+          <table class="table printTable m-b-0" aria-describedby="referralServicesList">
             <tbody *ngFor="let item of refferal_services">
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0">

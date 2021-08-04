@@ -66,13 +66,13 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
-    <table class="table table-striped" [md2Data]="orientations" #md2="md2DataTable">
+    <table class="table table-striped" [md2Data]="orientations" #md2="md2DataTable" aria-describedby="sexualOrientationReportList">
       <thead>
         <tr>
-          <th>{{currentLanguageSet?.sno}}</th>
-          <th>{{currentLanguageSet?.sexualOrientation}}</th>
-          <th>{{currentLanguageSet?.serviceProvidedRatio}}</th>
-          <th>{{currentLanguageSet?.count}}</th>
+          <th id="sno">{{currentLanguageSet?.sno}}</th>
+          <th id="sexualOrientation">{{currentLanguageSet?.sexualOrientation}}</th>
+          <th id="serviceProvidedRatio">{{currentLanguageSet?.serviceProvidedRatio}}</th>
+          <th id="count">{{currentLanguageSet?.count}}</th>
         </tr>
       </thead>
       <tbody>

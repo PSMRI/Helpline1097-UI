@@ -243,7 +243,7 @@
       <span class="caseSheetHeader">{{currentLanguageSet?.beneficiaryDetails}}</span>
     </h4>
     <div class="table-responsive">
-      <table class="table printTable m-b-0">
+      <table class="table printTable m-b-0" aria-describedby="caseSheetSummaryList">
         <tr>
           <td class="col-xs-12 col-sm-3 p-l-0">
             <strong> {{currentLanguageSet?.callId}} :</strong>
@@ -301,7 +301,7 @@
         <span class="">{{currentLanguageSet?.informationService}}</span>
       </h4>
       <div class="table-responsive">
-        <table class="table printTable m-b-0">
+        <table class="table printTable m-b-0" aria-describedby="InformationServicesList">
           <tbody *ngFor="let item of information_services">
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0">
@@ -322,7 +322,7 @@
         <span class="">{{currentLanguageSet?.counsellingService}}</span>
       </h4>
       <div class="table-responsive">
-        <table class="table printTable m-b-0">
+        <table class="table printTable m-b-0" aria-describedby="counsellingServicesList">
           <tbody *ngFor="let item of counselling_services">
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0">
@@ -343,7 +343,7 @@
         <span class="">{{currentLanguageSet?.feedbackService}}</span>
       </h4>
       <div class="table-responsive">
-        <table class="table printTable m-b-0">
+        <table class="table printTable m-b-0" aria-describedby="feedbackServicesList">
           <tbody *ngFor="let item of feedback_services">
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0">
@@ -404,7 +404,7 @@
         <span class="">{{currentLanguageSet?.referralService}}</span>
       </h4>
       <div class="table-responsive">
-        <table class="table printTable m-b-0">
+        <table class="table printTable m-b-0" aria-describedby="referralServicesList">
           <tbody *ngFor="let item of refferal_services">
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0">
