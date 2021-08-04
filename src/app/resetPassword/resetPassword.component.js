@@ -82,7 +82,7 @@ var ResetComponent = (function () {
                 this.showMyQuestion();
             }
             else {
-                alert('will display result shortly');
+                // alert('will display result shortly');
             }
         }
     };

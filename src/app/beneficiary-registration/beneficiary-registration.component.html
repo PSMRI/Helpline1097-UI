@@ -159,22 +159,22 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12" *ngIf="showSearchResult">
       <div class="table-responsive m-t-10">
-        <table class="table table-responsive table-striped" [md2Data]="regHistoryList" #md2="md2DataTable" [rowsPerPage]="3">
+        <table class="table table-responsive table-striped" [md2Data]="regHistoryList" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="beneficiaryDetails">
           <thead>
             <tr>
-              <th width=2%>{{currentlanguage.beneficiary_registration?.table_labels?.sno}}</th>
-              <th md2SortBy="beneficiaryID" width=5%>{{assignSelectedLanguageValue?.beneficiaryId}}</th>
-              <th md2SortBy="firstName" width=12%>{{currentlanguage.beneficiary_registration?.table_labels?.fullname}}</th>
+              <th width=2% id="sno">{{currentlanguage.beneficiary_registration?.table_labels?.sno}}</th>
+              <th md2SortBy="beneficiaryID" width=5% id="beneficiaryID">{{assignSelectedLanguageValue?.beneficiaryId}}</th>
+              <th md2SortBy="firstName" width=12% id="fullname">{{currentlanguage.beneficiary_registration?.table_labels?.fullname}}</th>
               <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.dob}}</th> -->
-              <th width=3%>{{assignSelectedLanguageValue?.age}}</th>
-              <th md2SortBy="m_gender.genderName" width=5%>{{assignSelectedLanguageValue?.gender}}</th>
-              <th md2SortBy="i_bendemographics.m_state.stateName" width=20%>{{assignSelectedLanguageValue?.state}}</th>
-              <th md2SortBy="i_bendemographics.m_district.districtName" width=20%>{{assignSelectedLanguageValue?.district}}</th>
-              <th width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
-              <th width=10%>{{currentlanguage.beneficiary_registration?.table_labels?.village}}</th>
+              <th width=3% id="age">{{assignSelectedLanguageValue?.age}}</th>
+              <th md2SortBy="m_gender.genderName" width=5% id="gender">{{assignSelectedLanguageValue?.gender}}</th>
+              <th md2SortBy="i_bendemographics.m_state.stateName" width=20% id="state">{{assignSelectedLanguageValue?.state}}</th>
+              <th md2SortBy="i_bendemographics.m_district.districtName" width=20% id="district">{{assignSelectedLanguageValue?.district}}</th>
+              <th width=10% id="taluk">{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
+              <th width=10% id="village">{{currentlanguage.beneficiary_registration?.table_labels?.village}}</th>
               <!-- <th class="col-xs-1 col-md-1">{{currentlanguage.beneficiary_registration?.table_labels?.preferred_language}}</th> -->
-              <th width=15%>{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_tagging}}</th>
-              <th width=5%>{{assignSelectedLanguageValue?.action}}</th>
+              <th width=15% id="beneficiaryTagging">{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_tagging}}</th>
+              <th width=5% id="action">{{assignSelectedLanguageValue?.action}}</th>
             </tr>
           </thead>
           <!-- <tbody *ngIf="regHistoryList?.length==0" class="t-a-c">

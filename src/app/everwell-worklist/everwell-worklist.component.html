@@ -19,19 +19,19 @@
   <div class="col-xs-12 col-sm-12">
 
     <div class="table-responsive">
-      <table class="table table-hover table-striped" [md2Data]="data" #md2="md2DataTable">
+      <table class="table table-hover table-striped" [md2Data]="data" #md2="md2DataTable" aria-describedby="languageDetails">
         <thead>
           <tr>
             <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
-            <th>{{currentLanguageSet?.beneficiaryId}}</th>
-            <th>{{currentLanguageSet?.beneficiaryName}}</th>
+            <th id="beneficiaryID">{{currentLanguageSet?.beneficiaryId}}</th>
+            <th id="beneficiaryName">{{currentLanguageSet?.beneficiaryName}}</th>
             <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
-            <th>{{currentLanguageSet?.mobileNumber}}</th>
-            <th>{{currentLanguageSet?.gender}}</th>
-            <th>{{currentLanguageSet?.state}}</th>
-            <th>{{currentLanguageSet?.comments}}</th>
-            <th>Last Call</th>
-            <th>Call Count</th>
+            <th id="mobileNumber">{{currentLanguageSet?.mobileNumber}}</th>
+            <th id="gender">{{currentLanguageSet?.gender}}</th>
+            <th id="state">{{currentLanguageSet?.state}}</th>
+            <th id="comments">{{currentLanguageSet?.comments}}</th>
+            <th id="lastCall">Last Call</th>
+            <th id="callCount">Call Count</th>
           </tr>
         </thead>
         <tbody>
@@ -127,7 +127,7 @@
         <div class="col-xs-12" *ngIf="daysmonth?.length > 0">
           <div *ngFor="let slots of daysmonth">
             <label class="labelwidth"
-              [ngClass]="{'currentMonth': checkcurrent(slots.name)}"><b>{{slots.name}}</b></label><br />
+              [ngClass]="{'currentMonth': checkcurrent(slots.name)}"><strong>{{slots.name}}</strong></label><br />
             <md-chip-list #chipList [selectable]="true" aria-label="Fish selection">
               <md-chip *ngFor="let slot of createRange(slots.days)" 
               [ngClass]="checkColorCode(slot,slots.name,slot)"

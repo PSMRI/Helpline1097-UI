@@ -169,15 +169,15 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
       <!-- <h5><strong>{{currentLanguageSet?.table_heading}}</strong></h5> -->
       <div class="table-responsive">
-        <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
+        <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="referralServiceDetails">
           <thead>
             <tr>
-              <th>{{currentLanguageSet?.sno}}</th>
+              <th id="sno">{{currentLanguageSet?.sno}}</th>
               <!-- <th md2SortBy="instituteDirMapID">{{currentLanguageSet?.institute_directory_map_id}}</th> -->
-              <th md2SortBy="benCallID">{{currentLanguageSet?.callId}}</th>
-              <th md2SortBy="instituteDirectoryMapping.institutionDetails.institutionName">{{currentLanguageSet?.nameOfInstitute}}</th>
-              <th md2SortBy="createdBy">{{currentLanguageSet?.referralProvidedBy}}</th>
-              <th md2SortBy="createdDate">{{currentLanguageSet?.referralProvidedOn}}</th>
+              <th md2SortBy="benCallID" id="callId">{{currentLanguageSet?.callId}}</th>
+              <th md2SortBy="instituteDirectoryMapping.institutionDetails.institutionName" id="instituteName">{{currentLanguageSet?.nameOfInstitute}}</th>
+              <th md2SortBy="createdBy" id="createdBy">{{currentLanguageSet?.referralProvidedBy}}</th>
+              <th md2SortBy="createdDate" id="createdDate">{{currentLanguageSet?.referralProvidedOn}}</th>
             </tr>
           </thead>
           <tbody>

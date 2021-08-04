@@ -30,30 +30,31 @@
           [md2Data]="data"
           #md2="md2DataTable"
           [rowsPerPage]="5"
+          aria-describedby="adminDetails"
         >
           <thead>
             <tr>
-              <th md2SortBy="benCallID">
+              <th md2SortBy="benCallID" id="beneficiaryCallId">
                 {{ assignSelectedLanguageValue?.beneficiaryCallId }}
               </th>
-              <th md2SortBy="createdDate">
+              <th md2SortBy="createdDate" id="callTime">
                 {{ assignSelectedLanguageValue?.callTime }}
               </th>
-              <th md2SortBy="informationServices">
+              <th md2SortBy="informationServices" id="information">
                 {{ assignSelectedLanguageValue?.information }}
               </th>
-              <th md2SortBy="counsellingServices">
+              <th md2SortBy="counsellingServices" id="counselling">
                 {{ assignSelectedLanguageValue?.counselling }}
               </th>
-              <th md2SortBy="referralServices">
+              <th md2SortBy="referralServices" id="referral">
                 {{ assignSelectedLanguageValue?.referral }}
               </th>
-              <th md2SortBy="feedbackServices">
+              <th md2SortBy="feedbackServices" id="feedback">
                 {{ assignSelectedLanguageValue?.feedback }}
               </th>
-              <th>{{ assignSelectedLanguageValue?.callType }}</th>
-              <th>{{ assignSelectedLanguageValue?.callSubtype }}</th>
-              <th>{{ assignSelectedLanguageValue?.remarks }}</th>
+              <th id="callType">{{ assignSelectedLanguageValue?.callType }}</th>
+              <th id="callSubtype">{{ assignSelectedLanguageValue?.callSubtype }}</th>
+              <th id="remarks">{{ assignSelectedLanguageValue?.remarks }}</th>
             </tr>
           </thead>
           <tbody>

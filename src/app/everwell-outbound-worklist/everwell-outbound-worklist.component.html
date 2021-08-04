@@ -38,27 +38,27 @@
                 placeholder="{{currentLanguageSet?.inTableSearch}}" 
                 (keyup)="filterComponentList(filterTerm.value)" />
               <button class="go" (click)="filterComponentList(filterTerm.value)">
-                <i class="material-icons">{{currentLanguageSet?.search}}</i>
+                <span class="material-icons">{{currentLanguageSet?.search}}</span>
               </button>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="table-responsive">
-                <table id="outbondListTable" class="table table-responsive table-striped table-hover" [md2Data]="filteredsearchResult" #md2="md2DataTable" [rowsPerPage]="4">
+                <table id="outbondListTable" class="table table-responsive table-striped table-hover" [md2Data]="filteredsearchResult" #md2="md2DataTable" [rowsPerPage]="4" aria-describedby="outboundListDetails">
                   <thead>
                     <tr>
-                      <th width="4%">{{currentLanguageSet?.sno}}</th>
-                      <th md2SortBy="beneficiaryRegId">{{currentLanguageSet?.beneficiaryId}}</th>
-                      <th md2SortBy="firstName">{{currentLanguageSet?.beneficiaryName}}</th>
+                      <th width="4%" id="sno">{{currentLanguageSet?.sno}}</th>
+                      <th md2SortBy="beneficiaryRegId" id="BeneficiaryID">{{currentLanguageSet?.beneficiaryId}}</th>
+                      <th md2SortBy="firstName" id="beneficiaryName">{{currentLanguageSet?.beneficiaryName}}</th>
                       <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
-                      <th>{{currentLanguageSet?.mobileNumber}}</th>
-                      <th>{{currentLanguageSet?.state}}</th>
-                      <th>{{currentLanguageSet?.district}}</th>
-                      <th>{{currentLanguageSet?.comments}}</th>
-                      <th>Last Call</th>
-                      <th>Call Count</th>
-                      <th>{{currentLanguageSet?.call}}</th>
+                      <th id="mobileNumber">{{currentLanguageSet?.mobileNumber}}</th>
+                      <th id="state">{{currentLanguageSet?.state}}</th>
+                      <th id="district">{{currentLanguageSet?.district}}</th>
+                      <th id="comments">{{currentLanguageSet?.comments}}</th>
+                      <th id="lastCall">Last Call</th>
+                      <th id="callCount">Call Count</th>
+                      <th id="call">{{currentLanguageSet?.call}}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -81,7 +81,7 @@
                       <td width=10% height="20px">
                         <a class="pointer">
                           <span (click)="viewHistory(listItem)">
-                            <img src="assets/images/transferCallIcon.png" md-tooltip="Call Beneficiary" align='center' />
+                            <img src="assets/images/transferCallIcon.png" md-tooltip="Call Beneficiary" alt="transferCallIcon" align='center' />
                           </span>
                         </a>
                         <!-- <button md-icon-button title="call" (click)="viewHistory(listItem)">

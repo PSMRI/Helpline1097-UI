@@ -25,16 +25,16 @@
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 p-t-20">
     <div class="table-responsive">
-      <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5">
+      <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="adminDetails">
         <thead>
           <tr>
-            <th>{{assignSelectedLanguageValue?.phoneNumber}}</th>
-            <th md2SortBy="isBlocked">{{assignSelectedLanguageValue?.status}}</th>
-            <th>{{assignSelectedLanguageValue?.callCount}}</th>
-            <th>{{assignSelectedLanguageValue?.reason}}</th>
-            <th>{{assignSelectedLanguageValue?.blockedOn}}</th>
-            <th>{{assignSelectedLanguageValue?.blockedTill}}</th>
-            <th>{{assignSelectedLanguageValue?.action}}</th>
+            <th id="phoneNumber">{{assignSelectedLanguageValue?.phoneNumber}}</th>
+            <th md2SortBy="isBlocked" id="status">{{assignSelectedLanguageValue?.status}}</th>
+            <th id="callCount">{{assignSelectedLanguageValue?.callCount}}</th>
+            <th id="reason">{{assignSelectedLanguageValue?.reason}}</th>
+            <th id="blockedOn">{{assignSelectedLanguageValue?.blockedOn}}</th>
+            <th id="blockedTill">{{assignSelectedLanguageValue?.blockedTill}}</th>
+            <th id="action">{{assignSelectedLanguageValue?.action}}</th>
           </tr>
         </thead>
         <tbody>
@@ -68,21 +68,21 @@
       </table>
       <hr class="m-t-10" *ngIf="showRecordings">
       <h4 class="pull-left" *ngIf="showRecordings">{{assignSelectedLanguageValue?.callRecordingsfor}}
-        <b>{{ph_no}}</b>
+        <strong>{{ph_no}}</strong>
       </h4>
       <table *ngIf="showRecordings" class="table table-responsive table-striped m-t-10" [md2Data]="recording_data" #md2="md2DataTable"
-        [rowsPerPage]="5">
+        [rowsPerPage]="5" aria-describedby="recordingDetails">
         <thead>
           <tr>
-            <th>{{assignSelectedLanguageValue?.beneficiaryId}}</th>
-            <th>{{assignSelectedLanguageValue?.beneficiaryName}}</th>
-            <th>{{assignSelectedLanguageValue?.age}}</th>
-            <th>{{assignSelectedLanguageValue?.phoneNumber}}</th>
-            <th>{{assignSelectedLanguageValue?.callId}}</th>
-            <th>{{assignSelectedLanguageValue?.callTime}}</th>
-            <th>{{assignSelectedLanguageValue?.agentId}}</th>
-            <th>{{assignSelectedLanguageValue?.remarks}}</th>
-            <th>{{assignSelectedLanguageValue?.audioRecording}}</th>
+            <th id="beneficiaryID">{{assignSelectedLanguageValue?.beneficiaryId}}</th>
+            <th id="beneficiaryName">{{assignSelectedLanguageValue?.beneficiaryName}}</th>
+            <th id="age">{{assignSelectedLanguageValue?.age}}</th>
+            <th id="phoneNumber">{{assignSelectedLanguageValue?.phoneNumber}}</th>
+            <th id="callId">{{assignSelectedLanguageValue?.callId}}</th>
+            <th id="callTime">{{assignSelectedLanguageValue?.callTime}}</th>
+            <th id="agentID">{{assignSelectedLanguageValue?.agentId}}</th>
+            <th id="remarks">{{assignSelectedLanguageValue?.remarks}}</th>
+            <th id="audioRecording">{{assignSelectedLanguageValue?.audioRecording}}</th>
           </tr>
         </thead>
         <tbody>

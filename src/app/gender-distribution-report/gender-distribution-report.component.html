@@ -73,13 +73,13 @@
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
     <!--<div class="col-md-12 col-lg-12">-->
     <div class="table-responsive">
-      <table class="table table-striped " [md2Data]="gender_distribution_resultset" #md2="md2DataTable">
+      <table class="table table-striped " [md2Data]="gender_distribution_resultset" #md2="md2DataTable" aria-describedby="genderDistributionDetails">
         <thead>
           <tr>
-            <th>{{currentLanguageSet?.sno}}</th>
-            <th>{{currentLanguageSet?.genderDistribution}}</th>
-            <th>{{currentLanguageSet?.serviceProvidedRatio}}</th>
-            <th>{{currentLanguageSet?.count}}</th>
+            <th id="sno">{{currentLanguageSet?.sno}}</th>
+            <th id="genderDistribution">{{currentLanguageSet?.genderDistribution}}</th>
+            <th id="serviceProvidedRatio">{{currentLanguageSet?.serviceProvidedRatio}}</th>
+            <th id="count">{{currentLanguageSet?.count}}</th>
           </tr>
         </thead>
         <tbody>

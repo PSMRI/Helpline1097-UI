@@ -44,11 +44,11 @@
     </div>
     <div class="row c-b p-t-20" *ngIf="onAgentSelected">
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <table class="table table-bordered">
+        <table class="table table-bordered" aria-describedby="callDetails">
           <thead>
             <tr>
-              <th width="30%"> {{currentLanguageSet?.language}}</th>
-              <th width="70%"> {{currentLanguageSet?.noOfRecords}}</th>
+              <th width="30%" id="language"> {{currentLanguageSet?.language}}</th>
+              <th width="70%" id="noOfRecords"> {{currentLanguageSet?.noOfRecords}}</th>
             </tr>
           </thead>
           <tbody>

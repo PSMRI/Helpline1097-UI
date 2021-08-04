@@ -8,14 +8,14 @@
 </div>
 <md-dialog-content style="min-height:400px">
   <div class="table-responsive ">
-    <table class="table table-striped td-m-t-b-5 m-b-0" [md2Data]="contacts" #md2="md2DataTable" [rowsPerPage]="5">
+    <table class="table table-striped td-m-t-b-5 m-b-0" [md2Data]="contacts" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="emergencyContactDetails">
       
         <thead *ngIf="md2.data.length!=0">
           <tr>
-            <th md2SortBy="emergContactName">{{currentLanguageSet?.contactName}}</th>
-            <th>{{currentLanguageSet?.designation}}</th>
-            <th>{{currentLanguageSet?.location}}</th>
-            <th> {{currentLanguageSet?.contactNumber}}</th>
+            <th md2SortBy="emergContactName" id="contactName">{{currentLanguageSet?.contactName}}</th>
+            <th id="designation">{{currentLanguageSet?.designation}}</th>
+            <th id="location">{{currentLanguageSet?.location}}</th>
+            <th id="contactNumber"> {{currentLanguageSet?.contactNumber}}</th>
           </tr>
         </thead>
         <tbody>

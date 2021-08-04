@@ -122,11 +122,11 @@
 
         <div class="clearfix"></div>
         <div class="table-responsive">
-          <table class="table table-bordered table-striped">
+          <table class="table table-bordered table-striped" aria-describedby="callSummaryDetails">
             <thead>
               <tr>
-                <th>{{currentLanguageSet?.tableLabels?.serviceName}}</th>
-                <th>{{currentLanguageSet?.tableLabels?.count}}</th>
+                <th id="serviceName">{{currentLanguageSet?.tableLabels?.serviceName}}</th>
+                <th id="count">{{currentLanguageSet?.tableLabels?.count}}</th>
                 <!-- <th>{{currentlanguage?.closure?.table_labels?.counselling}}</th>
               <th>{{currentlanguage?.closure?.table_labels?.referral}}</th>
               <th>{{currentlanguage?.closure?.table_labels?.feedback}}</th> -->
