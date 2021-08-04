@@ -62,15 +62,15 @@
       </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
-      <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
+      <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="callDetails">
         <thead>
           <tr>
-            <th>{{currentLanguageSet?.sno}}</th>
-            <th md2SortBy="benCallID">{{currentLanguageSet?.callId}}</th>
-            <th md2SortBy="categoryDetails.categoryName">{{currentLanguageSet?.category}}</th>
-            <th md2SortBy="subCategoryDetails.subCategoryName">{{currentLanguageSet?.subHyphenCategory}}</th>
-            <th md2SortBy="createdBy">{{currentLanguageSet?.informationProvidedBy}}</th>
-            <th md2SortBy="createdDate">{{currentLanguageSet?.informationProvidedOn}}</th>
+            <th id="sno">{{currentLanguageSet?.sno}}</th>
+            <th md2SortBy="benCallID" id="benCallID">{{currentLanguageSet?.callId}}</th>
+            <th md2SortBy="categoryDetails.categoryName" id="categoryName">{{currentLanguageSet?.category}}</th>
+            <th md2SortBy="subCategoryDetails.subCategoryName" id="subCategoryName">{{currentLanguageSet?.subHyphenCategory}}</th>
+            <th md2SortBy="createdBy" id="createdBy">{{currentLanguageSet?.informationProvidedBy}}</th>
+            <th md2SortBy="createdDate" id="createdDate">{{currentLanguageSet?.informationProvidedOn}}</th>
           </tr>
         </thead>
         <tbody>

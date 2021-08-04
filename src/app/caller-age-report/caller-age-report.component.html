@@ -127,13 +127,13 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
     <div class="table-responsive">
-      <table class="table table-striped" [md2Data]="count" #md2="md2DataTable">
+      <table class="table table-striped" [md2Data]="count" #md2="md2DataTable" aria-describedby="callerDetails">
         <thead>
           <tr>
-            <th>{{ assignSelectedLanguageValue?.sno }}</th>
-            <th>{{ assignSelectedLanguageValue?.ageGroup }}</th>
-            <th>{{ assignSelectedLanguageValue?.serviceProvidedRatio }}</th>
-            <th>{{ assignSelectedLanguageValue?.count }}</th>
+            <th id="sno">{{ assignSelectedLanguageValue?.sno }}</th>
+            <th id="ageGroup">{{ assignSelectedLanguageValue?.ageGroup }}</th>
+            <th id="serviceProvidedRatio">{{ assignSelectedLanguageValue?.serviceProvidedRatio }}</th>
+            <th id="count">{{ assignSelectedLanguageValue?.count }}</th>
           </tr>
         </thead>
         <tbody>

@@ -9,9 +9,9 @@
   <div class="row" *ngIf="showTableCondition">
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-30 m-l-10">
     <md-radio-group class="" [(ngModel)]="searchType" (change)="filterTerm = '';onSearchChange(searchType);">
-      <md-radio-button color="primary" value="FeedbackID" checked="checked" name="FeedbackID"><b>{{currentLanguageSet?.feedbackId}}</b>
+      <md-radio-button color="primary" value="FeedbackID" checked="checked" name="FeedbackID"><strong>{{currentLanguageSet?.feedbackId}}</strong>
       </md-radio-button>
-      <md-radio-button class="m-l-10" color="primary" value="MobileNumber" name="MobileNumber"><b>{{currentLanguageSet?.mobileNumber}}</b>
+      <md-radio-button class="m-l-10" color="primary" value="MobileNumber" name="MobileNumber"><strong>{{currentLanguageSet?.mobileNumber}}</strong>
       </md-radio-button>
     </md-radio-group>
   </div>
@@ -246,20 +246,20 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
       <!-- <h5 class="f-s-b m-b-20"><strong>{{currentlanguage.feedback_service?.table_labels?.table_heading}}</strong></h5> -->
       <div class="table-responsive">
-        <table class="table table-responsive table-striped" [md2Data]="filteredFeedbackList" #md2="md2DataTable" [rowsPerPage]="3">
+        <table class="table table-responsive table-striped" [md2Data]="filteredFeedbackList" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="feedBackDetails">
           <thead>
             <tr>
               <!-- <th width="20">
                             <input type="checkbox" value="">
                           </th> -->
-              <th>S.No.</th>
-              <th md2SortBy="feedbackID">{{currentLanguageSet?.feedbackId}}</th>
-              <th md2SortBy="feedback">{{currentLanguageSet?.description}}</th>
-              <th md2SortBy="severityTypeName">{{currentLanguageSet?.severity}}</th>
-              <th md2SortBy="feedbackTypeName">{{currentLanguageSet?.feedbackType}}</th>
-              <th md2SortBy="createdBy">{{currentLanguageSet?.agent}}</th>
-              <th md2SortBy="feedbackStatus">{{currentLanguageSet?.status}}</th>
-              <th md2SortBy="createdDate">{{currentLanguageSet?.createdDate}}</th>
+              <th id="sno">S.No.</th>
+              <th md2SortBy="feedbackID" id="feedbackID">{{currentLanguageSet?.feedbackId}}</th>
+              <th md2SortBy="feedback" id="feedback">{{currentLanguageSet?.description}}</th>
+              <th md2SortBy="severityTypeName" id="severityTypeName">{{currentLanguageSet?.severity}}</th>
+              <th md2SortBy="feedbackTypeName" id="feedbackTypeName">{{currentLanguageSet?.feedbackType}}</th>
+              <th md2SortBy="createdBy" id="createdBy">{{currentLanguageSet?.agent}}</th>
+              <th md2SortBy="feedbackStatus" id="feedbackStatus">{{currentLanguageSet?.status}}</th>
+              <th md2SortBy="createdDate" id="createdDate">{{currentLanguageSet?.createdDate}}</th>
               <!-- <th>Status</th> -->
               <!-- <th>Action</th> -->
             </tr>

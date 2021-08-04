@@ -5,7 +5,7 @@
       <div class="col-xs-1 col-sm-1 col-md-4 col-lg-4"></div>
       <div class="pull-right">
         <button md-icon-button class="closeBtn" md-dialog-close>
-          <i class="material-icons">{{currentLanguageSet?.close}}</i>
+          <span class="material-icons">{{currentLanguageSet?.close}}</span>
         </button>
       </div>
     </div>
@@ -14,13 +14,13 @@
   <md-dialog-content>
     <div class="row">
       <div class="col-md-12 col-lg-12" *ngIf="false">
-        <table class="table table-responsive table-striped">
+        <table class="table table-responsive table-striped" aria-describedby="feedbackStatusDetails">
           <thead>
             <tr>
-              <th>{{currentLanguageSet?.feedbackRequestId}}</th>
-              <th>{{currentLanguageSet?.comments}}</th>
-              <th>{{currentLanguageSet?.emailStatus}}</th>
-              <th>{{currentLanguageSet?.emailStatusDescription}}</th>
+              <th id="feedbackRequestID">{{currentLanguageSet?.feedbackRequestId}}</th>
+              <th id="comments">{{currentLanguageSet?.comments}}</th>
+              <th id="emailStatus">{{currentLanguageSet?.emailStatus}}</th>
+              <th id="emailStatusDescription">{{currentLanguageSet?.emailStatusDescription}}</th>
             </tr>
           </thead>
           <!-- <tbody> -->
@@ -53,20 +53,20 @@
         <p class="pull-right">{{currentLanguageSet?.totalNoOfRequest}} : {{totalRecord}} </p>
       </div>
       <div class="col-md-12 col-lg-12">
-        <table class="table table-responsive table-striped">
+        <table class="table table-responsive table-striped" aria-describedby="feedbackDetails">
           <thead>
             <tr>
-              <th>{{currentLanguageSet?.feedbackRequestId}}</th>
-              <th>{{currentLanguageSet?.feedbackDescription}}</th>
-              <th>{{currentLanguageSet?.supervisorComments}}</th>
-              <th>{{currentLanguageSet?.responseReceived}}</th>
-              <th>{{currentLanguageSet?.responseAttachment}}</th>
-              <th>{{currentLanguageSet?.lastFeedbackStatus}}</th>
-              <th>{{currentLanguageSet?.emailStatus}}</th>
-              <th>{{currentLanguageSet?.forwardedBy}}</th>
-              <th>{{currentLanguageSet?.forwardedDate}}</th>
-              <th>{{currentLanguageSet?.updatedBy}}</th>
-              <th>{{currentLanguageSet?.updatedDate}}</th>
+              <th id="feedbackRequestID">{{currentLanguageSet?.feedbackRequestId}}</th>
+              <th id="feedbackDescription">{{currentLanguageSet?.feedbackDescription}}</th>
+              <th id="supervisorComments">{{currentLanguageSet?.supervisorComments}}</th>
+              <th id="responseReceived">{{currentLanguageSet?.responseReceived}}</th>
+              <th id="responseAttachment">{{currentLanguageSet?.responseAttachment}}</th>
+              <th id="lastFeedbackStatus">{{currentLanguageSet?.lastFeedbackStatus}}</th>
+              <th id="emailStatus">{{currentLanguageSet?.emailStatus}}</th>
+              <th id="forwardedBy">{{currentLanguageSet?.forwardedBy}}</th>
+              <th id="forwardedDate">{{currentLanguageSet?.forwardedDate}}</th>
+              <th id="updatedBy">{{currentLanguageSet?.updatedBy}}</th>
+              <th id="updatedDate">{{currentLanguageSet?.updatedDate}}</th>
             </tr>
           </thead>
           <tbody>

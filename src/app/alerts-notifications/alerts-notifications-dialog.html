@@ -8,7 +8,7 @@
 </div>
 <md-dialog-content style="min-height:400px">
 	<div class="table-responsive ">
-		<table class="table td-m-t-b-5 m-b-0" [md2Data]="messages" #md2="md2DataTable" [rowsPerPage]="3">
+		<table class="table td-m-t-b-5 m-b-0" [md2Data]="messages" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="alertsDetails">
 			<tbody>
 				<tr *ngFor="let row of md2.data">
 					<td class="b-l-1 col-xs-11 col-sm-11">
@@ -16,13 +16,13 @@
 						<p class="f-c-585857" [ngClass]="(row.notificationState=='unread')?'f-s-b':''">{{row.notification.notificationDesc}}</p>
 					</td>
 					<td valign="middle" class="b-r-1 col-xs-1 col-sm-1">
-						<i class="mdicon material-icons cursorPointer" mdTooltip="Delete" (click)="deleteNotification(row.userNotificationMapID)">delete</i>
+						<span class="mdicon material-icons cursorPointer" mdTooltip="Delete" (click)="deleteNotification(row.userNotificationMapID)">delete</span>
 					</td>
 					<td *ngIf="row.notificationState=='unread'" valign="middle" class="b-r-1 col-xs-1 col-sm-1">
-						<i class="mdicon material-icons cursorPointer" mdTooltip="Read" (click)="readSingle(row.userNotificationMapID)">check</i>
+						<span class="mdicon material-icons cursorPointer" mdTooltip="Read" (click)="readSingle(row.userNotificationMapID)">check</span>
 					</td>
 					<td *ngIf="row.notificationState=='read'" valign="middle" class="b-r-1 col-xs-1 col-sm-1">
-						<i class="mdicon material-icons cursorPointer" mdTooltip="Unread" (click)="unreadSingle(row.userNotificationMapID)">refresh</i>
+						<span class="mdicon material-icons cursorPointer" mdTooltip="Unread" (click)="unreadSingle(row.userNotificationMapID)">refresh</span>
 					</td>
 				</tr>
 				<tr *ngIf="md2.data.length==0">

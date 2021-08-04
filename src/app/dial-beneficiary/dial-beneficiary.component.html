@@ -15,13 +15,13 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12" *ngIf="resultsFound">
     <div class="table-responsive ">
-      <table class="table">
+      <table class="table" aria-describedby="languageDetails">
         <thead>
           <tr>
-            <th>{{currentLanguageSet?.beneficiaryid}}</th>
-            <th> {{currentLanguageSet?.beneficiaryName}}</th>
-            <th>{{currentLanguageSet?.phoneNumber}} </th>
-            <th>{{currentLanguageSet?.action}}</th>
+            <th id="beneficiaryID">{{currentLanguageSet?.beneficiaryid}}</th>
+            <th id="beneficiaryName"> {{currentLanguageSet?.beneficiaryName}}</th>
+            <th id="phoneNumber">{{currentLanguageSet?.phoneNumber}} </th>
+            <th id="action">{{currentLanguageSet?.action}}</th>
           </tr>
         </thead>
         <tbody>
