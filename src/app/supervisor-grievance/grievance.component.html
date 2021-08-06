@@ -18,15 +18,14 @@
         <span class="error_text f-s-10 p-l-10" *ngIf="(feedbackForm2.get('endDate').value < feedbackForm2.get('startDate').value) && feedbackForm2.get('endDate').dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDates}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
+       
           <md-select placeholder="{{currentLanguageSet?.feedbackType}}" [style.width]="'100%'" formControlName="feedbackTypeID" name="feedbackType">
             <md-option value=''>All</md-option>
             <md-option *ngFor="let feedbackType of feedbackTypes" [value]="feedbackType.feedbackTypeID">
               {{feedbackType.feedbackTypeName}}
             </md-option>
           </md-select>
-        <!-- </md-input-container> -->
+      
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
         <md-input-container style="width: 100%">
@@ -138,16 +137,8 @@
               <input mdInput placeholder="{{currentLanguageSet?.severityType}}" id="SeverityTypeName" formControlName="severityTypeName" readonly>
             </md-input-container>
           </div>
-          <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <md-input-container style="width: 100%">
-              <input mdInput placeholder="Complaint Against" id="feedbackAgainst" formControlName="feedbackAgainst" readonly>
-            </md-input-container>
-          </div> -->
-          <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <md-input-container style="width: 100%">
-              <input mdInput placeholder="Nature of complaint" id="natureOfComplaint" formControlName="natureOfComplaint" readonly>
-            </md-input-container>
-          </div> -->
+       
+        
         </div>
         <div class="col-xs-12 col-sm-12">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -199,30 +190,22 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 p-b-1-5">
-            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none"> -->
+           
               <md-select placeholder="{{currentLanguageSet?.feedbackStatus}}" [style.width]="'100%'" formControlName="feedbackStatusID">
                 <md-option *ngFor="let feedbackStatus of feedbackStatuses" [value]="feedbackStatus.feedbackStatusID">
                   {{feedbackStatus.feedbackStatus}}
                 </md-option>
               </md-select>
-              <!-- <md-hint>
-                <span class="error_text"></span>
-              </md-hint>
-            </md-input-container> -->
+             
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 p-b-1-5">
-            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none"> -->
+        
               <md-select placeholder="{{currentLanguageSet?.emailStatus}}" [disabled]="action==='update'" [style.width]="'100%'" formControlName="emailStatusID">
                 <md-option *ngFor="let emailStatus of emailStatuses" [value]="emailStatus.emailStatusID">
                   {{emailStatus.emailStatus}}
                 </md-option>
               </md-select>
-              <!-- <md-hint>
-                <span class="error_text"></span>
-              </md-hint>
-            </md-input-container> -->
+            
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3" *ngIf="action==='update'">
             <label for="upload-file">{{currentLanguageSet?.uploadFileEmail}}</label>
@@ -248,28 +231,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="feedBackRequestsResponse?.length>0">
         <h4 class="f-s-b">{{currentLanguageSet?.feedbackRequestResponse}}</h4>
       </div>
-      <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="feedBackRequestsResponse?.length>0">
-        <table class="table table-responsive table-striped">
-          <thead>
-            <tr>
-              <th>Comments</th>
-              <th>Email Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="active" *ngFor="let feedBackRequest of feedBackRequestsResponse" style="cursor:pointer" (click)="showResponse($event)">
-              <td>{{feedBackRequest?.comments}}</td>
-              <td>{{feedBackRequest?.emailStatus?.emailStatus}}</td>
-            </tr>
-            <tr class="info" *ngFor="let feedBackResponse of feedBackResponses" [collapse]="isCollapsedResponse">
-              <td>{{feedBackResponse.comments}}</td>
-              <td>-</td>
-            </tr>
-          </tbody>
-          <tfoot>
-          </tfoot>
-        </table>
-      </div> -->
+
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="feedBackRequestsResponse?.length>0">
         <div class="table-responsive">
           <table class="table table-responsive table-striped" [md2Data]="feedBackRequestsResponse" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="FeedbackReposnseList">
@@ -297,7 +259,7 @@
               </tr>
               <tr style="cursor: pointer;" *ngFor="let feedback
                         of md2.data;let i=index " (click)="modalData(feedback)">
-                <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
+                <td style="width: 10%;">{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
                 <td>{{feedback.feedbackRequestID}}</td>
                 <td>{{feedback.feedbackSupSummary}}</td>
                 <td>{{feedback.comments}}</td>
@@ -320,9 +282,7 @@
                 <td colspan="12">
                   <md2-pagination></md2-pagination>
                 </td>
-                <!-- <td colspan="3" class="p-r-0">
-                  <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.feedback_service?.create_feedback}}</button>
-                </td> -->
+              
               </tr>
             </tfoot>
           </table>

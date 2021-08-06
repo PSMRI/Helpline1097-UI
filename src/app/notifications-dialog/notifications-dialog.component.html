@@ -10,69 +10,49 @@
   <md-dialog-content class="m-b-10">
       <form #notificationForm="ngForm" autocomplete="off">
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none"> -->
+        
             <md-select class="width100" placeholder="{{currentLanguageSet?.notificationType}}" name="notificationType" ngModel #notificationType="ngModel" required>
               <md-option *ngFor="let notification of data.notificationTypes" [value]="notification.notificationTypeID" (click)="checkNotificationType(notification.notificationType)">
                 {{ notification.notificationType }}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="notificationType.errors && notificationType.touched">
-              <span class="error_text">Select Notification Type</span>
-            </md-hint>
-          </md-input-container> -->
+          
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 p-b-1-5" *ngIf="show==0 && visibility_Flag">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none"> -->
+       
             <md-select class="width100" placeholder="{{currentLanguageSet?.selectRoles}}" [multiple]="true" name="roles" ngModel #roles="ngModel" required>
               <md-option *ngFor="let role of data.roleObjArray" [value]="role.RoleID">
                 {{ role.RoleName }}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="roles.errors && roles.touched">
-              <span class="error_text">Select Roles</span>
-            </md-hint>
-          </md-input-container> -->
+           
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="show==3 && visibility_Flag">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none"> -->
+         
             <md-select class="width100" placeholder="{{currentLanguageSet?.offices}}" [multiple]="true" name="Offices" ngModel [style.width]="'100%'" #office="ngModel" required>
               <md-option *ngFor="let item of offices" [value]="item.pSAddMapID">
                 {{ item.locationName }}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="office.errors && office.touched">
-              <span class="error_text">Select Offices</span>
-            </md-hint>
-          </md-input-container> -->
+          
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="show==1 && visibility_Flag">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none"> -->
+       
             <md-select class="width100" placeholder="{{currentLanguageSet?.language}}" [multiple]="true" name="Languages" ngModel [style.width]="'100%'" #language="ngModel" required>
               <md-option *ngFor="let item of languages" [value]="item.languageID">
                 {{ item.languageName }}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="language.errors && language.touched">
-              <span class="error_text">Select Languages</span>
-            </md-hint>
-          </md-input-container> -->
+          
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="show==2 && visibility_Flag">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none"> -->
+         
             <md-select class="width100" placeholder="{{currentLanguageSet?.users}}" name="Users" ngModel [style.width]="'100%'" #user="ngModel" required>
               <md-option *ngFor="let item of users" [value]="item.userID">
                 {{ (item.firstName?item.firstName:"")+" "+(item.middleName?item.middleName:"")+" "+(item.lastName?item.lastName:"") }}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="user.errors && user.touched">
-              <span class="error_text">Select Users</span>
-            </md-hint>
-          </md-input-container> -->
+         
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 p-l-lg-1">
           <md2-datepicker class="width100" [disabled]="!visibility_Flag" (keydown)="blockey($event)" name="startDate" placeholder="{{currentLanguageSet?.validFrom}}" [min]="minDate" #startDate="ngModel" ngModel required></md2-datepicker>
@@ -106,11 +86,11 @@
           <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
           <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file" ngModel #uploadfile="ngModel">
         </div>
-        <!-- <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span> -->
+     
         <span class="help-block m-l-15" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</span>
         <span class="help-block m-l-15" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
         <span class="help-block m-l-15" *ngIf="error3">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
-        <!--<span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>-->
+      
       </form>
     </md-dialog-content>
     <div class="m-b-5">

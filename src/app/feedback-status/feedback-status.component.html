@@ -23,30 +23,21 @@
               <th id="emailStatusDescription">{{currentLanguageSet?.emailStatusDescription}}</th>
             </tr>
           </thead>
-          <!-- <tbody> -->
 
           <tbody *ngFor="let feedBackRequest of feedBackRequests">
-            <!-- <tbody> -->
             <tr style="cursor:pointer" (click)="showResponse($event)">
               <td>{{feedBackRequest.feedbackRequestID}}</td>
               <td>{{feedBackRequest.comments}}</td>
               <td>{{feedBackRequest.emailStatus?.emailStatus}}</td>
               <td>{{feedBackRequest.emailStatus?.emailStatusDesc}}</td>
             </tr>
-            <!-- <ng-container *ngIf="feedBackResponse.feedbackRequestID==feedBackRequest.feedbackRequestID"> -->
             <tr *ngFor="let feedBackResponse of feedBackResponses" [collapse]="isCollapsedResponse">
               <td>{{feedBackResponse.feedbackRequestID}}</td>
               <td>{{feedBackResponse.comments}}</td>
             </tr>
-            <!-- </ng-container> -->
-            <!-- <tr >
-              <td>feedbackRequestID</td>
-              <td>comments</td>
-              <td>emailStatus</td> 
-              <td>emailStatus</td>
-            </tr> -->
+           
           </tbody>
-          <!-- </tbody> -->
+       
           <tfoot>
           </tfoot>
         </table>

@@ -19,28 +19,25 @@
         <span class="error_text f-s-10 p-l-10" *ngIf="(max<endDate.value) && endDate.dirty">{{currentLanguageSet?.startDateEndDateCanHaveMax15DaysGap}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
+     
           <md-select placeholder="Service Line" [style.width]="'100%'" [(ngModel)]="serviceID" name="ServiceLine" required>
             <md-option *ngFor="let item of servicelines" [value]="item.serviceID">
               {{item.serviceName}}
             </md-option>
           </md-select>
-        <!-- </md-input-container> -->
+       
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
+      
           <md-select placeholder="{{currentLanguageSet?.role}}" [style.width]="'100%'" [(ngModel)]="role" name="Role" (change)="getRoleSpecificAgents(role,roles)">
             <md-option *ngFor="let item of roles" [value]="item.roleName">
               {{item.roleName}}
             </md-option>
           </md-select>
-        <!-- </md-input-container> -->
+       
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
+      
           <md-select placeholder="Inbound/Outbound Call" [style.width]="'100%'" [(ngModel)]="ioc" name="InboundOutbound">
             <md-option value="inbound">
               Inbound
@@ -49,17 +46,16 @@
               Outbound
             </md-option>
           </md-select>
-        <!-- </md-input-container> -->
+        
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
+     
           <md-select placeholder="{{currentLanguageSet?.agent}}" [style.width]="'100%'" [(ngModel)]="agent" name="Agent">
             <md-option *ngFor="let item of agentIDs" [value]="item.agentID">
               {{item.agentID}}
             </md-option>
           </md-select>
-        <!-- </md-input-container> -->
+      
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" myMobileNumber>
         <md-input-container [style.width]="'100%'">
@@ -67,26 +63,24 @@
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
+       
           <md-select placeholder="{{currentLanguageSet?.callType}}" [style.width]="'100%'" name="CallType" [(ngModel)]="callGroupType" (change)="populateCallSubTypes(callGroupType)"
             required>
             <md-option *ngFor="let item of callTypes" [value]="item.callGroupType">
               {{item.callGroupType}}
             </md-option>
           </md-select>
-        <!-- </md-input-container> -->
+       
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
+       
           <md-select placeholder="Call SubType" [style.width]="'100%'" [(ngModel)]="callsubtype" [disabled]="callGroupType==='All'"
             name="CallSubType" required>
             <md-option *ngFor="let item of callSubTypes" [value]="item.callTypeID">
               {{item.callType}}
             </md-option>
           </md-select>
-        <!-- </md-input-container> -->
+    
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <button md-raised-button color="accent" class="m-t-10" (click)="getFilteredCallList(qaForm.value);resetFlag()" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">{{currentLanguageSet?.search}}</button>
@@ -378,6 +372,3 @@
     </div>
       
 </div>
-
-<!--Below line commented on 21 may,2018 for screen revamp, Diamond Khanna  -->
-<!-- <iframe [src]="qualityAuditURL" width="100%" height="700px"></iframe> -->

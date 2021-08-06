@@ -7,16 +7,7 @@
         </div>
         <label id="db_label" class="f-c-w f-s-15 p-t-5 m-l-150">{{label}}</label>
         <div class="pull-right p-t-1">
-          <!-- <ul class="list-inline list-unstyled pull-left m-b-0">
-            <li>
-              <form action="" class="search-form">
-                <div class="form-group has-feedback m-b-0 form-group-custome">
-                  <label for="search" class="sr-only">Search</label>
-                  <input type="text" class="form-control border-radius-20" name="search" id="search" placeholder="search">
-                  <span class="glyphicon glyphicon-search form-control-feedback"></span> </div>
-              </form>
-            </li>
-          </ul> -->
+      
           <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
              <!--Multilingual dropdown-->
              <li>
@@ -48,9 +39,7 @@
                 <md-list-item class="b-t-1-w">ID: {{id}}-{{current_role}}-{{current_service}}</md-list-item>
               </md-list>
               </md-menu>
-              <!-- <li class="help" alt="Help Icon" title="Help">
-                <a class="">&nbsp;</a>
-              </li> -->
+           
               <li class="help">
                 <span class="fa fa-question-circle helpAlign cursorPointer" alt="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></span>
               </li>
@@ -71,9 +60,7 @@
   <router-outlet></router-outlet>
   <div (click)="minimizeBar()" *ngIf="hideBar">
     <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()" title="Czentrix Bar"></iframe>
-    <!-- <iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar"></iframe> -->
-    <!-- <iframe *ngIf="current_role.toLowerCase().trim()!=='supervisor'" [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar"
-      [hidden]="barMinimized" (click)="toggleBar()"></iframe> -->
+ 
   </div>
   <footer class="footer noprint">
     <div class="col-sm-4 col-xs-4">
@@ -87,5 +74,5 @@
       <button *ngIf="(hideBar && (id != undefined || id != null))" md-raised-button type="button" color="primary" class="footer-height pull-right" (click)="toggleBar()">CZentrix</button>
     </div>
   </footer>
-  <!-- <router-outlet name="postLogin_router"></router-outlet> -->
+
 

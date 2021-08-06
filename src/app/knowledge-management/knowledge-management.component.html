@@ -3,7 +3,6 @@
   ** Component Used Bootstrap and Angular Material for design 
   ** Form used Reactive Form Angular 2 
   -->
-<!--<md-card>-->
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
@@ -63,31 +62,14 @@
           </div>
         </div>
         <!--Comment Start Date and End Date here  -->
-        <!-- <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <md2-datepicker #startDateRef placeholder="Start Date" type="datetime" [style.width]="'100%'" formControlName="startDate"
-              [max]="maxDate"></md2-datepicker>
-             Validation Field 
-            <div class="error" *ngIf="knowledgeForm.get('startDate').touched && knowledgeForm.get('startDate').hasError('required')">
-              Start date is required
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <md2-datepicker #endDateRef placeholder="End Date" type="datetime" [style.width]="'100%'" formControlName="endDate" [min]=startDateRef.value></md2-datepicker>
-             Validation Field 
-            <div class="error" *ngIf="knowledgeForm.get('endDate').touched && knowledgeForm.get('endDate').hasError('required')">
-              End date is required
-            </div>
-          </div>
-        </div> -->
-        <!--<div class="">-->
+
             <div class="col-xs-6 col-sm-6 form-group" *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)">
                 <label>{{currentLanguageSet?.previousUploadedFile}}<a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
               </div>
           <div class="col-xs-6 col-sm-6 form-group pull-right">
             <button type="submit" class="pull-right" md-raised-button color="accent" [disabled]="knowledgeForm.invalid||invalid_file_flag">{{currentLanguageSet?.save}}</button>
           </div>
-        <!--</div>-->
+        
       </form>
       <!--Form End  -->
     </div>

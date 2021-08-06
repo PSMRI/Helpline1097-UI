@@ -183,7 +183,7 @@ i.fa {font-size: 25px;padding: 9px;width: 30px;text-align: center;text-shadow:1p
     list-style: square inside url(../assets/images/grayDots.png);
    }
 .border-r-1{
- border-right:1px solid #ccc !important; ;  
+ border-right:1px solid #ccc !important;
 }
 .border-b-1{
 border-bottom:1px solid #ccc !important; 
