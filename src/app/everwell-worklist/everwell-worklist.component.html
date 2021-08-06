@@ -1,8 +1,3 @@
-<!-- <div class="overlay" *ngIf="showProgressBar">
-  <div class="overlay-content">
-    <md-spinner></md-spinner>
-  </div>
-</div> -->
 
 <div class="container-fluid" *ngIf="showTable">
   <div  class="row">
@@ -22,10 +17,10 @@
       <table class="table table-hover table-striped" [md2Data]="data" #md2="md2DataTable" aria-describedby="languageDetails">
         <thead>
           <tr>
-            <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
+           
             <th id="beneficiaryID">{{currentLanguageSet?.beneficiaryId}}</th>
             <th id="beneficiaryName">{{currentLanguageSet?.beneficiaryName}}</th>
-            <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
+          
             <th id="mobileNumber">{{currentLanguageSet?.mobileNumber}}</th>
             <th id="gender">{{currentLanguageSet?.gender}}</th>
             <th id="state">{{currentLanguageSet?.state}}</th>
@@ -39,20 +34,20 @@
               <td colspan="5" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
             <tr (click)="editMode(data)" style="cursor: pointer">
-              <td width=15%>{{data.beneficiaryID}}</td>
-              <td width=10%>{{data.FirstName}} {{data.LastName}}</td>
-              <td width=20%>{{data.PrimaryNumber}}</td>
-              <td width=10%>{{data.Gender}}</td>
-              <td width=10%>{{data.state}}</td>
-              <td width=10%>{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
-              <td width=10%>{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
-              <td width=20%>{{data.callCounter}}</td>
+              <td style="width: 15%;">{{data.beneficiaryID}}</td>
+              <td style="width: 10%;">{{data.FirstName}} {{data.LastName}}</td>
+              <td style="width: 20%;">{{data.PrimaryNumber}}</td>
+              <td style="width: 10%;">{{data.Gender}}</td>
+              <td style="width: 10%;">{{data.state}}</td>
+              <td style="width: 10%;">{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
+              <td style="width: 10%;">{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
+              <td style="width: 20%;">{{data.callCounter}}</td>
             </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="10">
-              <!-- <md2-pagination></md2-pagination> -->
+             
             </td>
           </tr>
         </tfoot>
@@ -94,35 +89,7 @@
    
     <div class="col-md-12">
 
-      <!-- <md-chip-list aria-label="Fish selection" class="matclass">
-        <div *ngFor="let item of daysmonth">
-          <ng-container *ngIf="checkcurrent(item.name)">
-            <label *ngIf="current" class="labelwidth" style="color:green"><b>{{item.name}}</b></label><br />
-            <ng-container *ngFor="let item of createRange(previous-1),let i=index">
-              <md-chip title="" color="accent" selected="true">
-                {{item}}
-              </md-chip>
-            </ng-container>
-            <ng-container >
-              <md-chip title="" color="accent" selected="true" style="background-color: green "
-                (click)="callsupportdialog()">
-                {{previous}}
-              </md-chip>
-            </ng-container>
-            <ng-container *ngFor="let item of currentdaysInactive(item.days),let i=index">
-              <md-chip title="">
-                {{item}}
-              </md-chip>
-            </ng-container>
-          </ng-container>
-          <ng-container *ngIf="!checkcurrent(item.name)">
-            <label *ngIf="!current" class="labelwidth"><b>{{item.name}}</b></label><br />
-            <md-chip *ngFor="let item of createRange(item.days),let i=index" title="">
-              {{item}}
-            </md-chip>
-          </ng-container>
-        </div>
-      </md-chip-list> -->
+     
      <div class="row slots-container m-t-10 m-b-10">
         <div class="col-xs-12" *ngIf="daysmonth?.length > 0">
           <div *ngFor="let slots of daysmonth">

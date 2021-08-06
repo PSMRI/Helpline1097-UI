@@ -8,41 +8,31 @@
     <div [hidden]="!showFormCondition">
       <form id="informationForm" autocomplete="off">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline width100">
-            <input mdInput style="display:none"> -->
+         
             <md-select required placeholder="{{currentLanguageSet?.selectCategory}}" class="width100" [(ngModel)]="symptomCategory"
               name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
               <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
                 {{symptomCategory.categoryName}}
               </md-option>
             </md-select>
-            <!-- <md-hint>
-              <span class="error_text"></span>
-            </md-hint>
-          </md-input-container> -->
+        
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline width100">
-            <input mdInput style="display:none"> -->
+         
             <md-select required placeholder="{{currentLanguageSet?.selectSubCategory}}" class="width100" [(ngModel)]="symptomSubCategory"
               name="symptomSubCategory" #subCategory="ngModel" (change)="EnabledGetDetails()">
               <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
                 {{symptomSubCategory.subCategoryName}}
               </md-option>
             </md-select>
-            <!-- <md-hint>
-              <span class="error_text"></span>
-            </md-hint>
-          </md-input-container> -->
+           
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <button md-raised-button color="accent" class="mar-right" [disabled]="!category.valid || !subCategory.valid ||getDetailsFlag"
             type="button" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentLanguageSet?.getDetails}}</button>
           <button type="button" md-raised-button color="primary" (click)="back()">{{currentLanguageSet?.back}}</button>
         </div>
-        <!-- <div class="col-xs-6 col-sm-6 col-md-2 col-lg-3 m-t-15">
        
-      </div> -->
         <div class="clearfix"></div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
@@ -81,7 +71,7 @@
           </tr>
           <tr *ngFor="let Information of md2.data;let i=index ">
             <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
-            <td width=10%>{{Information.benCallID}}</td>
+            <td style="width: 10%;">{{Information.benCallID}}</td>
             <td>{{Information?.categoryDetails?.categoryName}}</td>
             <td>{{Information?.subCategoryDetails?.subCategoryName}}</td>
             <td>{{Information?.createdBy}}</td>
@@ -101,6 +91,3 @@
       </table>
     </div>
   </div>
-  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-    <button class="btn pull-right" (click)="showForm()">{{currentLanguageSet?.newInformation}}</button>
-  </div> -->

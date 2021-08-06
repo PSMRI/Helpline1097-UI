@@ -24,43 +24,38 @@
             </div>
             <div class="clearfix visible-md visible-lg"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                    <input mdInput style="display:none"> -->
+                
                 <md-select placeholder="{{currentLanguageSet?.category}}" [style.width]="'100%'" [(ngModel)]="category" name="category"
                     required>
                     <md-option *ngFor="let cat of category" [value]="cat">
                         {{cat}}
                     </md-option>
                 </md-select>
-                <!-- </md-input-container> -->
+             
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
-                    <input mdInput style="display:none"> -->
+              
                 <md-select placeholder="{{currentLanguageSet?.subCategory}}" [style.width]="'100%'" [(ngModel)]="gender" name="subcategory"
                     required>
                     <md-option *ngFor="let item of subcategries" [value]="item">
                         {{item}}
                     </md-option>
                 </md-select>
-                <!-- </md-input-container> -->
+               
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                    <input mdInput style="display:none"> -->
+               
                 <md-select placeholder="{{currentLanguageSet?.actiontaken}}" [style.width]="'100%'" [(ngModel)]="actionTaken" name="actionTaken"
                     required>
                     <md-option *ngFor="let action of actionTaken" [value]="action">
                         {{action}}
                     </md-option>
                 </md-select>
-                <!-- </md-input-container> -->
+                
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <!-- <md2-datepicker class="width100" placeholder="Date" [(ngModel)]="dob" name="dob" [min]="mindate"
-                    [max]="maxdate" #dOB="ngModel" (keydown)="preventTyping($event)" required  ></md2-datepicker>
-                <md-hint class="errorText" *ngIf="dOB.errors && dOB.touched">date is required</md-hint> -->
+              
 
                 <md-input-container>
                     <input mdInput placeholder="{{currentLanguageSet?.daeOfAction}}" ngModel name="dob" [(ngModel)]="dob" name="dob"
@@ -72,13 +67,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-                <!-- <md-input-container class="width100">
-                    <input mdInput placeholder="comments" ngModel name="providerAdmin" [(ngModel)]="comments"
-                        name="comments" minlength="2" maxlength="500" #fname="ngModel" required>
-                    <md-hint *ngIf="fname.touched">
-                        <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
-                    </md-hint>
-                </md-input-container> -->
+               
                 <md-input-container>
                     <textarea mdInput rows="2" placeholder="{{currentLanguageSet?.comments}}" ngModel #fname="ngModel"
                         [(ngModel)]="comments" name="comments" required minlength="2" maxlength="500"></textarea>
@@ -143,43 +132,38 @@
             </div>
             <div class="clearfix visible-md visible-lg" style="padding-bottom: 1%;"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                        <input mdInput style="display:none"> -->
+           
                 <md-select placeholder="{{currentLanguageSet?.category}}" [style.width]="'100%'" [(ngModel)]="editcategory" name="editcategory"
                     [disabled]='enablecontrols' required>
                     <md-option *ngFor="let cat of category" [value]="cat">
                         {{cat}}
                     </md-option>
                 </md-select>
-                <!-- </md-input-container> -->
+               
             </div>           
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
-                        <input mdInput style="display:none"> -->
+               
                 <md-select placeholder="{{currentLanguageSet?.subCategory}}" [style.width]="'100%'" [(ngModel)]="editsubcategries" name="editsubcategries" [disabled]='enablecontrols'
                     required>
                     <md-option *ngFor="let item of subcategries" [value]="item">
                         {{item}}
                     </md-option>
                 </md-select>
-                <!-- </md-input-container> -->
+               
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                        <input mdInput style="display:none"> -->
+                
                 <md-select placeholder="{{currentLanguageSet?.actiontaken}}" [style.width]="'100%'" [(ngModel)]="editactionTaken" name="editactionTaken" [disabled]='enablecontrols'
                     required>
                     <md-option *ngFor="let action of actionTaken" [value]="action">
                         {{action}}
                     </md-option>
                 </md-select>
-                <!-- </md-input-container> -->
+                
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <!-- <md2-datepicker class="width100" placeholder="Date" [(ngModel)]="dob" name="dob" [min]="mindate"
-                        [max]="maxdate" #dOB="ngModel" (keydown)="preventTyping($event)" required  ></md2-datepicker>
-                    <md-hint class="errorText" *ngIf="dOB.errors && dOB.touched">date is required</md-hint> -->
+              
 
                 <md-input-container>
                     <input mdInput placeholder="{{currentLanguageSet?.daeOfAction}}" ngModel [(ngModel)]="editdob" name="editdob"
@@ -191,13 +175,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-                <!-- <md-input-container class="width100">
-                        <input mdInput placeholder="comments" ngModel name="providerAdmin" [(ngModel)]="comments"
-                            name="comments" minlength="2" maxlength="500" #fname="ngModel" required>
-                        <md-hint *ngIf="fname.touched">
-                            <span class="errorText" [hidden]="!fname.errors">Enter minimum 2 characters</span>
-                        </md-hint>
-                    </md-input-container> -->
+               
                 <md-input-container>
                     <textarea mdInput rows="2" placeholder="{{currentLanguageSet?.comments}}" ngModel #fname="ngModel" [(ngModel)]="editcomments"
                         name="editcomments" required [disabled]='enablecontrols' minlength="2" maxlength="500"></textarea>
@@ -231,7 +209,7 @@
 
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
-                <!-- <button md-raised-button color="accent" class="pull-left" (click)="enableControls()">Edit</button> -->
+              
                 <button md-raised-button color="accent" class="pull-right" (click)="updateFeedback(editform.value)"
                     [disabled]="!(editform.valid && editform.dirty)">{{currentLanguageSet?.update}}</button>
             </div>

@@ -7,8 +7,7 @@
             <tr>
               <th i18n id="languageName">Language Name</th>
               <th i18n id="languageDesc">Language Desc</th>
-              <!--<th>PropertyFilePath</th>
-              <th>IVRFilePath</th>-->
+              
               <td i18n>Edit</td>
               <td i18n>Delete</td>
             </tr>
@@ -19,8 +18,7 @@
             <tr *ngFor="let user of userslist">
               <td i18n>{{user.LanguageName}}</td>
               <td i18n>{{user.LanguageDesc}}</td>
-              <!--<td>{{user.PropertyFilePath}}</td>
-              <td>{{user.IVRFilePath}}</td>-->
+              
 
               <td><i class="fa fa-pencil fa-lg cursorPointer" aria-hidden="true"></i></td>
               <td><i class="fa fa-trash-o fa-lg cursorPointer" aria-hidden="true"></i></td>
@@ -38,14 +36,7 @@
     <div class="col-xs-12 col-sm-12">
       <h4 i18n>Language Details</h4>
     </div>
-    <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="languageID">Language ID</label>
-
-        <input type="text" class="form-control" placeholder="Enter Language ID"  id="languageID" formControlName="languageID">
-      
-      </div>
-    </div>-->
+   
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">

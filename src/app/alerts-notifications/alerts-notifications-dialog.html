@@ -15,13 +15,13 @@
 						<h4 class="media-heading" [ngClass]="(row.notificationState=='unread')?'f-s-b':''">{{row.notification.notification}}</h4>
 						<p class="f-c-585857" [ngClass]="(row.notificationState=='unread')?'f-s-b':''">{{row.notification.notificationDesc}}</p>
 					</td>
-					<td valign="middle" class="b-r-1 col-xs-1 col-sm-1">
+					<td style="vertical-align: middle;" class="b-r-1 col-xs-1 col-sm-1">
 						<span class="mdicon material-icons cursorPointer" mdTooltip="Delete" (click)="deleteNotification(row.userNotificationMapID)">delete</span>
 					</td>
-					<td *ngIf="row.notificationState=='unread'" valign="middle" class="b-r-1 col-xs-1 col-sm-1">
+					<td *ngIf="row.notificationState=='unread'" style="vertical-align: middle;" class="b-r-1 col-xs-1 col-sm-1">
 						<span class="mdicon material-icons cursorPointer" mdTooltip="Read" (click)="readSingle(row.userNotificationMapID)">check</span>
 					</td>
-					<td *ngIf="row.notificationState=='read'" valign="middle" class="b-r-1 col-xs-1 col-sm-1">
+					<td *ngIf="row.notificationState=='read'" style="vertical-align: middle;" class="b-r-1 col-xs-1 col-sm-1">
 						<span class="mdicon material-icons cursorPointer" mdTooltip="Unread" (click)="unreadSingle(row.userNotificationMapID)">refresh</span>
 					</td>
 				</tr>

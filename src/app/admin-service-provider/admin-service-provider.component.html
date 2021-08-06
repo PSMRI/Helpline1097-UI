@@ -30,19 +30,7 @@
                         <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </table>
 
-                    <!--<div class="btn-toolbar" role="toolbar" style="margin: 0;">
-                        <div class="btn-group">
-                            <label style="margin-top:10px">Page {{currentIndex}}/{{pageNumber}}</label>
-                        </div>
-                        <div class="btn-group pull-right">
-                            <ul class="pagination" >
-                                <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()" href="#">Prev</a></li>
-                                <li *ngFor="let page of pagesIndex"   [ngClass]="{'active': (currentIndex == page)}"> <a (click)="setPage(page)" href="#" >{{page}}</a> </li>
-                                <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a    (click)="nextPage()" href="#">Next</a></li>
-                            </ul>
-                        </div>
-                    </div>-->
-                    <!--<pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+                   
                 </div>
             </div>
         </div>
@@ -53,7 +41,7 @@
         
         <div class="row m-t-10">
             <div class="col-xs-12 col-sm-12">
-                <!--<h4>Provider Details</h4>-->
+                
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
                 <div class="form-group">
@@ -66,7 +54,7 @@
                 <div class="form-group">
                     <label class="control-label" for="validity">Validity</label>
                     <input mdInput [mdDatepicker]="myDatepicker" class="form-control" formControlName="validity">
-              <!--      <div class="calendarIconPosition" ><button mdSuffix [mdDatepickerToggle]="myDatepicker" ></button></div> -->
+             
                 </div> 
                 <md-datepicker #myDatepicker></md-datepicker>
             </div>
@@ -107,31 +95,14 @@
                     <input type="text" class="form-control" placeholder="Enter Address" id="address" formControlName="address">
                 </div>
             </div>
-             <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="logo">Logo</label>
-                    <input type="file" class="form-control" id="logo" formControlName="logoFilePath" (change)="fileEvent($event)" webkit >
-                </div>
-            </div>-->
             
-            <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                <div class="form-group">
-                    <label class="control-label" for="validity">Validity</label>
-                    <input type="text" class="form-control" placeholder="Enter Validity" id="validity" formControlName="validity">
-                    <i class="fa fa-calendar fa-lg pull-right m-t--20 m-r-5" aria-hidden="true"></i>
-                </div>
-            </div>-->
         </div>
         <div class="row m-t-10">
             <div class="col-xs-12 col-sm-12 pull right">
                 <button class="btn cu-green-btn pull-right m-b-10" type="submit" name="save"> Save</button>
             </div>
         </div>
-        <!--<div class="row m-t-10">
-            <div class="col-xs-12 col-sm-12 pull right">
-                <button class="btn cu-green-btn pull-right m-b-10" type="cancel" name="Cancel"> Cancel</button>
-            </div>
-        </div>-->
+       
         
         <div *ngIf="userForm.controls.serviceProviderName.errors">* Service Provider Name is required</div>
     </form>
