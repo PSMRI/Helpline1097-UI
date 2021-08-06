@@ -1,19 +1,16 @@
 <md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="{{currentLanguageSet?.close}}" role="img" aria-hidden="true"
   (click)="dialogReff.close()">clear</md-icon>
 <div class="col-xs-12 col-sm-12">
-  <!-- <md-card >
-      <md-card-content > -->
+ 
   <div class="row">
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h4>{{data.generatedId}}</h4>
-    </div> -->
+   
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <md-checkbox color="primary" name="altNum" [(ngModel)]="altNum">
         {{currentLanguageSet?.alternateNumber}}
       </md-checkbox>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="altNum">
 
-        <!-- <label>{{data.current_language_set.ro.ben_registration.modal_window?.mobile_number}}: <em>*</em></label><input class="form-control" type="text" required minlength="10" maxlength="10" placeholder="{{data.current_language_set.ro.ben_registration.modal_window?.enter_mobile_number}}" name="mobileNumber" (keyup)="mobileNum(mobileNumber)" [(ngModel)]="mobileNumber" #phnNum="ngModel"> -->
+       
         <md-input-container myMobileNumber>
           <input mdInput minlength="10" maxlength="10" (keyup)="mobileNum(mobileNumber)" placeholder="{{currentLanguageSet?.mobileNumber}}"
             required name="mobileNumber" [(ngModel)]="mobileNumber" #phnNum="ngModel">
@@ -34,6 +31,5 @@
       </button>
     </div>
   </div>
-  <!--  </md-card-content>
-  </md-card> -->
+
 </div>

@@ -8,8 +8,7 @@
             <tr>
               <th id="serviceName">Service Name</th>
               <th id="ServiceDesc">Service Desc</th>
-              <!--<th>PropertyFilePath</th>
-              <th>IVRFilePath</th>-->
+              
               <td>Edit</td>
               <td>Delete</td>
             </tr>
@@ -20,8 +19,7 @@
             <tr *ngFor="let user of userslist">
               <td>{{user.ServiceName}}</td>
               <td>{{user.ServiceDesc}}</td>
-              <!--<td>{{user.PropertyFilePath}}</td>
-              <td>{{user.IVRFilePath}}</td>-->
+              
                
               <td><i class="fa fa-pencil fa-lg cursorPointer" aria-hidden="true"></i></td>
               <td><i class="fa fa-trash-o fa-lg cursorPointer" aria-hidden="true"></i></td>
@@ -52,22 +50,7 @@
         <input type="text" class="form-control" placeholder="Enter Service Desc."  id="serviceDesc" formControlName="serviceDesc">
       </div>
     </div>
-    <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="propertyFilePath">PropertyFilePath</label>
-        <input type="text" class="form-control" placeholder="Enter PropertyFilePath"  id="propertyFilePath" formControlName="propertyFilePath">
-         
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="ivrFilePath">IVRFilePath</label>
-        <input type="text" class="form-control" placeholder="Enter IvrFilePath" id="ivrFilePath" formControlName="ivrFilePath">
-      
-
-      </div>
-
-    </div>-->
+    
     <div class="col-xs-12 col-sm-12 pull right m-b-10">
       <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save"> Save</button>
     </div>

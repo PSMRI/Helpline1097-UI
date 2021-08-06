@@ -6,12 +6,12 @@
     <table class="table table-striped table-hover" [md2Data]="trainingResources" id="table" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="everwellGuidelinesDetails">
       <thead>
         <tr>
-          <th id="sno" width="10%">{{currentLanguageSet?.sno}}</th>
-          <th id="name" width="15%">{{currentLanguageSet?.name}} </th>
-          <th id="category" width="15%">{{currentLanguageSet?.category}} </th>
-          <th id="description" width="30%">{{currentLanguageSet?.description}}</th>
-          <th id="attachment" width="15%">{{currentLanguageSet?.attachment}}</th>
-          <th id="action" width="15%">{{currentLanguageSet?.action}}</th>
+          <th id="sno" style="width: 10%;">{{currentLanguageSet?.sno}}</th>
+          <th id="name" style="width: 15%;">{{currentLanguageSet?.name}} </th>
+          <th id="category" style="width: 15%;">{{currentLanguageSet?.category}} </th>
+          <th id="description" style="width: 30%;">{{currentLanguageSet?.description}}</th>
+          <th id="attachment" style="width: 15%;">{{currentLanguageSet?.attachment}}</th>
+          <th id="action" style="width: 15%;">{{currentLanguageSet?.action}}</th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +33,7 @@
           </td>
           <td>
             <span class="mdicon material-icons cursorPointer" id="delete" mdTooltip="Delete" *ngIf="!(row?.deleted)" (click)="deactivate(row,true)">{{currentLanguageSet?.delete}}</span>
-            <!-- <a style="cursor:pointer" *ngIf="row?.deleted" (click)="activate(row,false)">Activate</a> -->
+          
           </td>
         </ng-container>
         </tr>
@@ -83,29 +83,8 @@
           </md-option>
         </md-select>
     </div>
-
-    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <md-input-container [style.width]="'100%'">
-        <input mdInput class="" placeholder="Resource Subject" name="subject" [(ngModel)]="subject" required #resourceSubject="ngModel"
-          maxlength="200" minlength="5">
-        <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">Enter atleast 5 characters</md-hint>
-      </md-input-container>
-    </div> -->
-    <!-- <div class="clearfix  visible-lg"></div>  -->
     
-    <!-- <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-      <md-input-container [style.width]="'100%'">
-        <textarea mdInput class="" rows="3" placeholder="Resource message" name="message" [(ngModel)]="message" required (keyup)="updateCount()"
-          #resourceMessage="ngModel" maxlength="300" minlength="5">
-              </textarea>
-        <md-hint align="start">
-          <span class="error_text pull-left" *ngIf="resourceMessage.invalid && resourceMessage.touched">Enter atleast 5 characters</span>
-        </md-hint>
-        <md-hint align="end">
-          <span class="pull-right" align="end">{{count}}</span>
-        </md-hint>
-      </md-input-container>
-    </div> -->
+    
     <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 m-t-40">
       <label for="upload-file" id="upload_file_label">Upload File(Size limit :{{maxFileSize}}MB) Supported format- .pdf</label>
       <input type="file" accept="*" size="100" [disabled]="trainingResources.invalid" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"

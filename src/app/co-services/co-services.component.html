@@ -1,41 +1,4 @@
-<!-- <div class="col-xs-12 col-sm-12">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12">
-            <div>
-                <ul class="nav navbar-nav animation-nav">
-                    <li id="service1" class="animation-nav-active" (click)="changeService('1')"><a class="f-c-o">Information Services</a> </li>
-                    <li id="service2" (click)="changeService('2')"><a> Counselling Services</a></li>
-                    <li id="service3" (click)="changeService('3')"><a> Referral Services</a></li>
-                    <li id="service4" (click)="changeService('4')"><a> Feedback System</a></li>
-                </ul>
-                <label class="radio-inline">
-                    <input type="radio" name="services" [(ngModel)]="selectedService" value="1" (click)="changeService(selectedService)"> Information Services </label>
-                <label class="radio-inline">
-                    <input type="radio" name="services" [(ngModel)]="selectedService" value="2" (click)="changeService(selectedService)"> Counselling Services </label>
-                <label class="radio-inline">
-                    <input type="radio" name="services" [(ngModel)]="selectedService" value="3" (click)="changeService(selectedService)"> Feedback System </label>
-                <label class="radio-inline">
-                    <input type="radio" name="services" [(ngModel)]="selectedService" value="4" (click)="changeService(selectedService)"> Referral Services </label>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div [ngSwitch]="tab" class="col-xs-12 col-sm-12">
-            <div *ngSwitchCase="1">
-                <app-co-information-services (informationServiceProvided)="updateServiceProvided()"></app-co-information-services>
-            </div>
-            <div *ngSwitchCase="2">
-                <app-co-counselling-services (counsellingServiceProvided)="updateServiceProvided()"></app-co-counselling-services>
-            </div>
-            <div *ngSwitchCase="3">
-                <app-co-referral-services (referralServiceProvided)="updateServiceProvided()"></app-co-referral-services>
-            </div>
-            <div *ngSwitchCase="4">
-                <app-co-feedback-services (feedbackServiceProvided)="updateServiceProvided()"></app-co-feedback-services>
-            </div>
-        </div>
-    </div>
-</div> -->
+
 <div class="container-fluid" *ngIf="show">
   <div class="row">
     <md-tab-group [selectedIndex]="0">
