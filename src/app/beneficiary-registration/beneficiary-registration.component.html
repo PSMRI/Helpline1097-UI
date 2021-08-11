@@ -474,7 +474,7 @@
 
         <button md-raised-button color="accent" [disabled]="BeneficaryForm.invalid || !stateSelected.valid || !citySelected.valid || pin.errors?.minlength || btnDisabled"
           class="pull-right p-l-r-38 font-regular
-                " (click)="registerBeneficiary()">{{currentlanguage.beneficiary_registration?.generate}}</button>
+                " (click)="registerBeneficiary()">{{assignSelectedLanguageValue?.generate}}</button>
         <button md-raised-button class="pull-right p-l-r-38 m-l-10 m-r-10 font-regular
                 " (click)="reset()">{{assignSelectedLanguageValue?.clear}}</button>
       </div>

@@ -579,6 +579,7 @@
       "smsTemplateList":"SMS Template List",
       "pd":"P D",
       "uploadFileEmail":"Upload File/Email",
-      "DE40034072_END":"ENDS Here"
+      "DE40034072_END":"ENDS Here",
+      "generate": "Generate"
     }
 }
