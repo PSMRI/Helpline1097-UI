@@ -22,7 +22,7 @@
 
             </md-input-container>
             <span>
-              <md-icon (click)="deleteInputField(i)" mdSuffix mdTooltip="Delete row" class="mat-icon material-icons" role="img" aria-hidden="true"
+              <md-icon (click)="deleteInputField(i)" mdSuffix mdTooltip="{{currentLanguageSet?.deleteRow}}" class="mat-icon material-icons" role="img" aria-hidden="true"
                 style="cursor: pointer">delete</md-icon>
             </span>
           </ng-container>
@@ -30,7 +30,7 @@
       </ng-container>
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <button md-mini-fab color="primary" class="m-l-10" (click)="addInputField()">
-          <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="Add manually" role="img" aria-hidden="true" style="cursor: pointer">add</md-icon>
+          <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="{{currentLanguageSet?.addManually}}" role="img" aria-hidden="true" style="cursor: pointer">add</md-icon>
         </button>
       </div>
     </form>

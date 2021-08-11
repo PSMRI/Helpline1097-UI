@@ -4,9 +4,9 @@
    
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" *ngIf="calledEarlier">
       <h4>
-        <strong>{{assignSelectedLanguageValue?.create/searchBeneficiary}}</strong>
+        <strong>{{assignSelectedLanguageValue?.create_searchBeneficiary}}</strong>
       </h4>
-      <h5> {{currentlanguage.beneficiary_registration?.call_confirmation_question}}</h5>
+      <h5> {{assignSelectedLanguageValue?.haveYouCalledEarlier}}</h5>
       <md-radio-group name="called_earlier" (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">
         <md-radio-button ngDefaultControl color="primary" [value]=true>Yes</md-radio-button>
         <md-radio-button ngDefaultControl color="primary" [value]=false (click)="BeneficaryForm.reset()">No</md-radio-button>
@@ -18,7 +18,7 @@
       <div class="row m-t-sm-10">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <md-input-container class="form-group-custome m-t--10 pull-right width100 " myMobileNumber>
-            <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.registration_number}}" name="search" maxlength="12"
+            <input mdInput placeholder="{{assignSelectedLanguageValue?.beneficiaryId}}" name="search" maxlength="12"
               minlength="12" [(ngModel)]="registrationNo" #registrationNum="ngModel">
 
           </md-input-container>
@@ -27,12 +27,12 @@
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
           <button md-mini-fab color="primary" (click)="retrieveRegHistory(registrationNo)">
-            <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="Search" role="img" aria-hidden="true" style="cursor: pointer">search</md-icon>
+            <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="{{assignSelectedLanguageValue?.search}}" role="img" aria-hidden="true" style="cursor: pointer">search</md-icon>
           </button>
         </div>
        
         <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 pull-right ">
-          <button [disabled]="disableViewAll" type="button" md-raised-button color="accent" class=" m-r-10" id="retrieve" (click)="retrieveRegHistory('')">Retrieve all</button>
+          <button [disabled]="disableViewAll" type="button" md-raised-button color="accent" class=" m-r-10" id="retrieve" (click)="retrieveRegHistory('')">{{assignSelectedLanguageValue?.retrieveAll}}</button>
 
           <button type="button" md-raised-button color="primary" class="" id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue}}</button>
 
@@ -47,13 +47,13 @@
   </div>
   <div class="row p-t-20" *ngIf="current_campaign == 'OUTBOUND'">
     <div class="col-xs-12 col-sm-12">
-      <h4>Beneficiary Details</h4>
+      <h4>{{assignSelectedLanguageValue?.beneficiaryDetails}}</h4>
     </div>
   </div>
   <div class="row" [collapse]="isAdvancedSearch">
     <form id="benForm" #searchForm="ngForm" autocomplete="off">
       <div class=" col-xs-12 col-sm-12">
-        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.beneficiary_registration?.search_form}}</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">{{assignSelectedLanguageValue?.searchBeneficiary}}</h4>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <md-input-container myName [style.width]="'100%'">
@@ -61,7 +61,7 @@
             [(ngModel)]="FirstName" #firstN="ngModel">
           <md-hint class="error_text" *ngIf="firstN.invalid && firstN.touched">
 
-            {{currentlanguage.beneficiary_registration?.name_validation}}
+            {{assignSelectedLanguageValue?.pleaseEnterAtleastThreeCharacters}}
 
           </md-hint>
         </md-input-container>
@@ -71,7 +71,7 @@
        
 
         <md-input-container myName [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.last_name}}" maxlength="25" name="lastName" [(ngModel)]="LastName">
+          <input mdInput placeholder="{{assignSelectedLanguageValue?.lastNameOrSurname}}" maxlength="25" name="lastName" [(ngModel)]="LastName">
         </md-input-container>
       </div>
 
@@ -79,7 +79,7 @@
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
 
        
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.gender}}" [style.width]="'100%'" [(ngModel)]="gender"
+        <md-select required placeholder="{{assignSelectedLanguageValue?.selectGender}}" [style.width]="'100%'" [(ngModel)]="gender"
           name="gender" #genderSelected1="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
           <md-option *ngFor="let gen of genders" [value]="gen.genderID">
             {{gen.genderName}}
@@ -115,7 +115,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
        
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.taluk}}" [style.width]="'100%'" [(ngModel)]="taluk" name="talukSearch">
+        <md-select placeholder="{{assignSelectedLanguageValue?.taluk}}" [style.width]="'100%'" [(ngModel)]="taluk" name="talukSearch">
           <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
             {{taluk.blockName}}
           </md-option>
@@ -136,18 +136,18 @@
         <table class="table table-responsive table-striped" [md2Data]="regHistoryList" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="beneficiaryDetails">
           <thead>
             <tr>
-              <th style="width: 2%;" id="sno">{{currentlanguage.beneficiary_registration?.table_labels?.sno}}</th>
+              <th style="width: 2%;" id="sno">{{assignSelectedLanguageValue?.sno}}</th>
               <th md2SortBy="beneficiaryID" style="width: 5%;" id="beneficiaryID">{{assignSelectedLanguageValue?.beneficiaryId}}</th>
-              <th md2SortBy="firstName" style="width: 12%;" id="fullname">{{currentlanguage.beneficiary_registration?.table_labels?.fullname}}</th>
+              <th md2SortBy="firstName" style="width: 12%;" id="fullname">{{assignSelectedLanguageValue?.fullName}}</th>
              
               <th style="width: 3%;" id="age">{{assignSelectedLanguageValue?.age}}</th>
               <th md2SortBy="m_gender.genderName" style="width: 5%;" id="gender">{{assignSelectedLanguageValue?.gender}}</th>
               <th md2SortBy="i_bendemographics.m_state.stateName" style="width: 20%;" id="state">{{assignSelectedLanguageValue?.state}}</th>
               <th md2SortBy="i_bendemographics.m_district.districtName" style="width: 20%;" id="district">{{assignSelectedLanguageValue?.district}}</th>
-              <th style="width: 10%;" id="taluk">{{currentlanguage.beneficiary_registration?.table_labels?.taluk}}</th>
-              <th style="width: 10%;" id="village">{{currentlanguage.beneficiary_registration?.table_labels?.village}}</th>
+              <th style="width: 10%;" id="taluk">{{assignSelectedLanguageValue?.taluk}}</th>
+              <th style="width: 10%;" id="village">{{assignSelectedLanguageValue?.village}}</th>
              
-              <th style="width: 15%;" id="beneficiaryTagging">{{currentlanguage.beneficiary_registration?.table_labels?.beneficiary_tagging}}</th>
+              <th style="width: 15%;" id="beneficiaryTagging">{{assignSelectedLanguageValue?.beneficiaryTagging}}</th>
               <th style="width: 5%;" id="action">{{assignSelectedLanguageValue?.action}}</th>
             </tr>
           </thead>
@@ -199,12 +199,12 @@
 
     <div class="row" [hidden]="!notCalledEarlier">
       <div class=" col-xs-12 col-sm-12">
-        <h4 class="f-s-b ">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
+        <h4 class="f-s-b ">{{assignSelectedLanguageValue?.registrationForm}}</h4>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
        
 
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.title}}" [style.width]="'100%'" [(ngModel)]="TitleId"
+        <md-select placeholder="{{assignSelectedLanguageValue?.title}}" [style.width]="'100%'" [(ngModel)]="TitleId"
           name="TitleId" (change)="titleSelected(TitleId)">
           <md-option *ngFor="let title of titles" [value]="title.titleID">
             {{title.titleName}}
@@ -223,14 +223,14 @@
       <div class="clearfix visible-xs visible-sm"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-b-9">
         <md-input-container myName [style.width]="'100%'">
-          <input mdInput placeholder="{{currentlanguage.beneficiary_registration?.last_name}}" maxlength="25" name="LastName" [(ngModel)]="LastName">
+          <input mdInput placeholder="{{assignSelectedLanguageValue?.lastNameOrSurname}}" maxlength="25" name="LastName" [(ngModel)]="LastName">
         </md-input-container>
       </div>
       <div class="clearfix visible-md"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         
 
-        <md-select required placeholder="{{currentlanguage.beneficiary_registration?.gender}}" [style.width]="'100%'" [(ngModel)]="GenderID"
+        <md-select required placeholder="{{assignSelectedLanguageValue?.selectGender}}" [style.width]="'100%'" [(ngModel)]="GenderID"
           name="GenderID" #genderSelected="ngModel" (change)="genderchange(genderSelected.value)" (blur)="genderchange(genderSelected.value)">
           <md-option *ngFor="let gender of genders" [value]="gender.genderID">
             {{gender.genderName}}
@@ -246,19 +246,19 @@
       <!--NEW CODE  -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <div class="form-group">
-          <md2-datepicker (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{currentlanguage.beneficiary_registration?.dob}}"
+          <md2-datepicker (keydown)="blockey($event)" [min]="minDate" [max]="maxDate" [style.width]="'100%'" placeholder="{{assignSelectedLanguageValue?.dob}}"
             name="dateOfBirth" (change)="dobChangeByCalender($event.value)" [(ngModel)]="DOB" #ageEvent2="ngModel"></md2-datepicker>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-b-7">
         <md-input-container myMobileNumber [style.width]="'100%'">
-          <input autocomplete="off" mdInput placeholder="Age" [(ngModel)]="age" (change)="onAgeEntered(age)" min="0" max="150" name="age"
+          <input autocomplete="off" mdInput placeholder="{{assignSelectedLanguageValue?.age}}" [(ngModel)]="age" (change)="onAgeEntered(age)" min="0" max="150" name="age"
             maxlength="3">
         </md-input-container>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         
-        <md-select class="p-t-12" [style.width]="'100%'" (change)="onAgeUnitEntered()" [(ngModel)]="ageUnit" placeholder="Age Unit"
+        <md-select class="p-t-12" [style.width]="'100%'" (change)="onAgeUnitEntered()" [(ngModel)]="ageUnit" placeholder="{{assignSelectedLanguageValue?.ageUnit}}"
           name="ageUnit">
           <md-option value='Days'>Days</md-option>
           <md-option value='Months'>Months</md-option>
@@ -273,7 +273,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
        
 
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.marital_status}}" [style.width]="'100%'" [(ngModel)]="MaritalStatusID"
+        <md-select placeholder="{{assignSelectedLanguageValue?.selectMaritalStatus}}" [style.width]="'100%'" [(ngModel)]="MaritalStatusID"
           name="MaritalStatusID">
           <md-option *ngFor="let maritalstatus of maritalStatuses" [value]="maritalstatus.maritalStatusID">
             {{maritalstatus.status}}
@@ -288,7 +288,7 @@
 
         
 
-        <md-select placeholder="{{currentlanguage.beneficiary_registration?.caste}}" [style.width]=" '100%'
+        <md-select placeholder="{{assignSelectedLanguageValue?.selectCaste}}" [style.width]=" '100%'
                     " [(ngModel)]="caste" name="caste">
           <md-option *ngFor="let caste of communities" [value]="caste.communityID">
             {{caste.communityType}}
@@ -319,17 +319,17 @@
     <div class="row bg-white m-t-10" *ngIf="notCalledEarlierLowerPart">
       
       <div class=" col-xs-12 col-sm-12">
-        <h4 class="f-s-b ">{{currentlanguage.beneficiary_registration?.registration_form}}</h4>
+        <h4 class="f-s-b ">{{assignSelectedLanguageValue?.registrationForm}}</h4>
       </div>
       <div class="row" style="display:none;">
         <div class="form-group">
-          <label class="control-label" for="ParentBenRegID">Parent Reg ID</label>
+          <label class="control-label" for="ParentBenRegID">{{assignSelectedLanguageValue?.parentRegID}}</label>
           <input type="text" class="form-control" value="130" name="ParentBenRegID" [(ngModel)]="ParentBenRegID">
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="display:none;">
         <div class="form-group">
-          <label class="control-label" for="BeneficiaryTypeID">Relationship </label>
+          <label class="control-label" for="BeneficiaryTypeID">{{assignSelectedLanguageValue?.relationship}} </label>
           <input type="text" class="form-control" name="BeneficiaryTypeID" [(ngModel)]="BeneficiaryTypeID">
         </div>
       </div>

@@ -1,5 +1,5 @@
 <div class="headerDiv">
-	<md-icon class="mat-icon material-icons pull-right cursorPointer p-t-2 f-c-w closeIcon" mdTooltip="Close" role="img" aria-hidden="true"
+	<md-icon class="mat-icon material-icons pull-right cursorPointer p-t-2 f-c-w closeIcon" mdTooltip="{{assignSelectedLanguageValue?.close}}" role="img" aria-hidden="true"
 	 (click)="dialogRef.close()">
 		clear
 	</md-icon>
@@ -16,13 +16,13 @@
 						<p class="f-c-585857" [ngClass]="(row.notificationState=='unread')?'f-s-b':''">{{row.notification.notificationDesc}}</p>
 					</td>
 					<td style="vertical-align: middle;" class="b-r-1 col-xs-1 col-sm-1">
-						<span class="mdicon material-icons cursorPointer" mdTooltip="Delete" (click)="deleteNotification(row.userNotificationMapID)">delete</span>
+						<span class="mdicon material-icons cursorPointer" mdTooltip="{{assignSelectedLanguageValue?.delete}}" (click)="deleteNotification(row.userNotificationMapID)">delete</span>
 					</td>
 					<td *ngIf="row.notificationState=='unread'" style="vertical-align: middle;" class="b-r-1 col-xs-1 col-sm-1">
-						<span class="mdicon material-icons cursorPointer" mdTooltip="Read" (click)="readSingle(row.userNotificationMapID)">check</span>
+						<span class="mdicon material-icons cursorPointer" mdTooltip="{{assignSelectedLanguageValue?.read}}" (click)="readSingle(row.userNotificationMapID)">check</span>
 					</td>
 					<td *ngIf="row.notificationState=='read'" style="vertical-align: middle;" class="b-r-1 col-xs-1 col-sm-1">
-						<span class="mdicon material-icons cursorPointer" mdTooltip="Unread" (click)="unreadSingle(row.userNotificationMapID)">refresh</span>
+						<span class="mdicon material-icons cursorPointer" mdTooltip="{{assignSelectedLanguageValue?.unread}}" (click)="unreadSingle(row.userNotificationMapID)">refresh</span>
 					</td>
 				</tr>
 				<tr *ngIf="md2.data.length==0">
