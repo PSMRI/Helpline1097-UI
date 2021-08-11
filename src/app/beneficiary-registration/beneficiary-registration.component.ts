@@ -775,7 +775,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         }
       }, err => {
         console.log(err, 'Error while setting language in CZentrix for Beneficiary');
-        this.alertMaessage.alert('Desired language not set in CZentrix', 'error');
+        this.alertMaessage.alert(this.assignSelectedLanguageValue.desiredLanguageNotSetInCZentrix, 'error');
       });
   }
 
@@ -927,7 +927,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         if (response.length > 0) {
           this.populateRegistrationFormForUpdate(response[0])
         } else {
-          this.alertMaessage.alert('No data found');
+          this.alertMaessage.alert(this.assignSelectedLanguageValue.noDataFound);
         }
 
       }, err => {
@@ -1133,13 +1133,13 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       // debugger;
 
       // alternate number 5 already exists
-      this.alertMaessage.alert("Alternate number 5 already exits", 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberFiveAlreadyExits, 'error');
       return;
     } else if (this.alternateNumber4 != "" && (this.alternateNumberDisplay4 ? numString.includes(this.alternateNumberDisplay4) : numString.includes(this.alternateNumber4)) && (this.alternateNumberDisplay4 ? numString.indexOf(this.alternateNumberDisplay4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length) : numString.indexOf(this.alternateNumber4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length))) {
       // debugger;
 
       // alternate number 4 already exists
-      this.alertMaessage.alert("Alternate number 4 already exits", 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberFourAlreadyExits, 'error');
       return;
     }
     else if (this.alternateNumber3 != "" && (this.alternateNumberDisplay3 ? numString.includes(this.alternateNumberDisplay3) : numString.includes(this.alternateNumber3)) && (this.alternateNumberDisplay3 ? numString.indexOf(this.alternateNumberDisplay3) < (this.alternateNumber2.length + this.alternateNumber1.length) : numString.indexOf(this.alternateNumber3) < (this.alternateNumber2.length + this.alternateNumber1.length))) {
@@ -1149,7 +1149,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       console.log(numString.includes(this.alternateNumber3));
       console.log(numString.indexOf(this.alternateNumberDisplay3) < 20);
       console.log(numString.indexOf(this.alternateNumber3) < 20);
-      this.alertMaessage.alert("Alternate number 3 already exits", 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberThreeAlreadyExits, 'error');
       return;
     }
     else if (this.alternateNumber2 != "" && (this.alternateNumberDisplay2 ? numString.includes(this.alternateNumberDisplay2) : numString.includes(this.alternateNumber2)) && (this.alternateNumberDisplay2 ? numString.indexOf(this.alternateNumberDisplay2) < (this.alternateNumber1.length) : numString.indexOf(this.alternateNumber2) < (this.alternateNumber1.length))) {
@@ -1158,7 +1158,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       console.log(numString.includes(this.alternateNumberDisplay2));
       console.log(numString.includes(this.alternateNumber2));
       // alternate number 2 already exists
-      this.alertMaessage.alert("Alternate number 2 already exits", 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberTwoAlreadyExits, 'error');
       return;
     }
         
@@ -1335,7 +1335,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
   updateSuccessHandeler(response) {
     if (response) {
-      this.alertMaessage.alert('Beneficiary updated successfully', 'success');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.beneficiaryUpdatedSuccessfully, 'success');
       this.populateUserData(response);
 
       //   this.editAlternate = false;
@@ -1539,7 +1539,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     } else if (dobval == 'Invalid date') {
       this.BeneficaryCreationForm.form.patchValue({ dob: null });
       this.DOB = null;
-      alert('Invalid date entered, please recheck');
+      alert(this.assignSelectedLanguageValue.invalidDateEnteredPleaseRecheck);
     } else {
       this.BeneficaryCreationForm.form.patchValue({ age: null });
     }
@@ -1609,14 +1609,14 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         {
           this.idMaxValue = '14';
           this.patternID = /^\d{4}\d{4}\d{4}$/;
-          this.idErrorText = 'Enter valid Aadhar Ex:XXXXXXXXXXXX';
+          this.idErrorText = this.assignSelectedLanguageValue.addharValidation;
           break;
         }
       case 2:
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Voter ID  Ex:alphanumeric and min 6 letters';
+          this.idErrorText = this.assignSelectedLanguageValue.voterValidation;
           break;
 
         }
@@ -1624,34 +1624,34 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Driving Licence  Ex:alphanumeric';
+          this.idErrorText = this.assignSelectedLanguageValue.drivingValidation;
           break;
         }
       case 4:
         {
           this.idMaxValue = '10';
           this.patternID = /^[A-Za-z0-9]{10}$/;
-          this.idErrorText = 'Enter valid PAN  Ex:alphanumeric ';
+          this.idErrorText = this.assignSelectedLanguageValue.panValidation;
           break;
         }
       case 5:
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Passport No. Ex:alphanumeric';
+          this.idErrorText = this.assignSelectedLanguageValue.passportValidation;
           break;
         }
       case 6:
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Ration No. Ex:alphanumeric';
+          this.idErrorText = this.assignSelectedLanguageValue.rationValidation;
           break;
         }
       default:
         this.idMaxValue = '14';
         this.patternID = /^\d{4}\s\d{4}\s\d{4}$/;
-        this.idErrorText = 'Enter valid Aadhar Ex:XXXX XXXX XXXX';
+        this.idErrorText = this.assignSelectedLanguageValue.validAadhar;
         break;
     }
   }
@@ -1766,7 +1766,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
                   this._smsService.sendSMS(arr)
                     .subscribe(ressponse => {
                       console.log(ressponse, 'SMS Sent');
-                      alert('SMS sent');
+                      alert(this.assignSelectedLanguageValue.smsSent);
                     }, err => {
                       console.log(err, 'SMS not sent Error');
                     })

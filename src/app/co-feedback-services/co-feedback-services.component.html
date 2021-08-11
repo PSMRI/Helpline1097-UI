@@ -18,7 +18,7 @@
         <input mdInput pattern="^[0-9]*$" placeholder="{{searchType}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off">
       </md-input-container> 
     <button md-mini-fab color="primary" class="m-r-5 m-l-5" (click)="filterFeedbackList(filterTerm)" [disabled]="feedbackSearch.invalid">
-      <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="Search" role="img" aria-hidden="true"
+      <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="{{currentLanguageSet?.search}}" role="img" aria-hidden="true"
         style="cursor: pointer">{{currentLanguageSet?.search}}</md-icon>
     </button>
     <button md-raised-button color="accent" [disabled]="viewALL" type="button" class="m-l-10"

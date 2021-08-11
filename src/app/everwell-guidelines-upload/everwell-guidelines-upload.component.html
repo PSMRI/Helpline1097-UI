@@ -32,7 +32,7 @@
               <a (click)="openDoc(row.fileContent)">{{row.fileName}}</a>
           </td>
           <td>
-            <span class="mdicon material-icons cursorPointer" id="delete" mdTooltip="Delete" *ngIf="!(row?.deleted)" (click)="deactivate(row,true)">{{currentLanguageSet?.delete}}</span>
+            <span class="mdicon material-icons cursorPointer" id="delete" mdTooltip="{{currentLanguageSet?.delete}}" *ngIf="!(row?.deleted)" (click)="deactivate(row,true)">{{currentLanguageSet?.delete}}</span>
           
           </td>
         </ng-container>

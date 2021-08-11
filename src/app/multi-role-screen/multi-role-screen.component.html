@@ -25,11 +25,11 @@
             </li>  
                <!--END-Multilingual dropdown-->
             <li style="color: white">{{currentLanguageSet?.welcome}} {{userName}}</li>
-            <li *ngIf="showContacts" class=""><img src="assets/images/callerIcon.png" (click)="showEmergencyContacts()" class="cursorPointer w85" alt="Contacts" mdTooltip="Emergency Contacts"></li>
-            <li *ngIf="showContacts && current_role==='CO'"><img src="assets/images/flagCallIcon.png" class="cursorPointer w85" (click)="agentForceLogout()" alt="ForceLogout" mdTooltip="Force Logout"></li>
+            <li *ngIf="showContacts" class=""><img src="assets/images/callerIcon.png" (click)="showEmergencyContacts()" class="cursorPointer w85" alt="Contacts" mdTooltip="{{currentLanguageSet?.emergencyContacts}}"></li>
+            <li *ngIf="showContacts && current_role==='CO'"><img src="assets/images/flagCallIcon.png" class="cursorPointer w85" (click)="agentForceLogout()" alt="ForceLogout" mdTooltip="{{currentLanguageSet?.forceLogout}}"></li>
            
             <li class="">
-              <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" mdTooltip="User Icon" [mdMenuTriggerFor]="menuNotification">
+              <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" mdTooltip="{{currentLanguageSet?.userIcon}}" [mdMenuTriggerFor]="menuNotification">
             </li>
             <md-menu #menuNotification x-position="before"  class="m-t-40"  >
               <md-list class="p-t-0">
@@ -41,7 +41,7 @@
               </md-menu>
            
               <li class="help">
-                <span class="fa fa-question-circle helpAlign cursorPointer" alt="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></span>
+                <span class="fa fa-question-circle helpAlign cursorPointer" alt="Help" mdTooltip="{{currentLanguageSet?.help}}" [mdMenuTriggerFor]="knowAboutUs"></span>
               </li>
               <md-menu #knowAboutUs x-position="before"  class="m-t-40">
                 <md-list class="p-t-0">
@@ -49,7 +49,7 @@
                   <md-list-item><a target="_blank" href={{licenseURL}}>License Info.</a></md-list-item>
                 </md-list>
                 </md-menu>
-              <li class="logout" (click)="logOut()" alt="Logout Icon" mdTooltip="Logout">
+              <li class="logout" (click)="logOut()" alt="Logout Icon" mdTooltip="{{currentLanguageSet?.logout}}">
                 <a class="">&nbsp;</a>
               </li>
           </ul>
