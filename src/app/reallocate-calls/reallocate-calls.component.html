@@ -1,91 +1,66 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <h4 class="f-s-b m-b-10 m-t-20">Outbound Call Re-Allocation</h4>
+    <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.outboundCallReallocation}}</h4>
     <div class="row">
       <form #reallocationForm="ngForm" autocomplete="off">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none" > -->
-            <md-select class="width100" placeholder="Select Role" name="role" [(ngModel)]="search_role" #role="ngModel" (change)="getAgents(search_role)" required>
+        
+            <md-select class="width100" placeholder="{{currentLanguageSet?.selectRole}}" name="role" [(ngModel)]="search_role" #role="ngModel" (change)="getAgents(search_role)" required>
               <md-option *ngFor="let role of roles" [value]="role.roleID">{{role.roleName}}</md-option>
             </md-select>
             <md-hint *ngIf="role.errors && role.touched">
-              <span class="error_text">Role is required</span>
+              <span class="error_text">{{currentLanguageSet?.roleIsRequired}}</span>
             </md-hint>
-          <!-- </md-input-container> -->
+          
         </div>
-        <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-          <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none" >
-              <md-select class="width100" placeholder="Preferred Language" name="preferredLanguage" [(ngModel)]="searchLanguage" (change)="getAgents(search_role,searchLanguage)" #language="ngModel" required>
-                <md-option *ngFor="let lang of languages" [value]="lang">
-                  {{lang.languageName}}
-                </md-option>
-              </md-select>
-              <md-hint *ngIf="language.errors && language.touched">
-                  <span class="error_text">Select Language</span>
-              </md-hint>
-          </md-input-container>
-        </div> -->
+       
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none" > -->
-            <md-select class="width100" placeholder="Agent Name" name="agentName" [(ngModel)]="searchAgent" #agentname="ngModel" required>
+        
+            <md-select class="width100" placeholder="{{currentLanguageSet?.agentName}}" name="agentName" [(ngModel)]="searchAgent" #agentname="ngModel" required>
               <md-option *ngFor="let user of users" [value]="user" (click)="onSubmit()">{{user.firstName+ " "+user.lastName}}</md-option>
             </md-select>
-            <!-- <md-hint *ngIf="agentname.errors && agentname.touched">
-              <span class="error_text">Select Agent Name</span>
-            </md-hint>
-          </md-input-container> -->
+            
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <!-- <button md-raised-button color="accent" class="m-t-10 m-b-10 c-b hidden-sm hidden-xs" [disabled]="!(reallocationForm.valid)" type="button" (click)="onSubmit()">Submit</button>
-          <button md-raised-button color="accent" class="m-t-10 m-b-10 c-b visible-sm visible-xs pull-right" [disabled]="!(reallocationForm.valid)" type="button" (click)="onSubmit()">Submit</button> -->
+        
         </div>
         <div class="form-group col-lg-2 col-md-2 col-sm-12 col-xs-12" style="display:none">
-          <md2-datepicker class="width100" name="startDate" [min]="startMinDate" placeholder="Start Date" #startDate="ngModel" [(ngModel)]="startDatee" (onClose)="updateMinValue(startDatee)"></md2-datepicker>
-          <!--<span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>-->
+          <md2-datepicker class="width100" name="startDate" [min]="startMinDate" placeholder="{{currentLanguageSet?.startDate}}" #startDate="ngModel" [(ngModel)]="startDatee" (onClose)="updateMinValue(startDatee)"></md2-datepicker>
+        
         </div>
         <div class="form-group col-lg-2 col-md-2 col-sm-12 col-xs-12" style="display:none">
-          <md2-datepicker  class="width100" name="endDate" placeholder="End Date" [min]="endDatee" #endDate="ngModel" [(ngModel)]="endDatee"></md2-datepicker>
-            <!-- <span class="error_text f-s-10 p-l-10" *ngIf="(startDate.touched && startDate.dirty && !endDate.touched && startDate.value) || (startDate.touched && startDate.dirty && !endDate.dirty && startDate.value)">End Date is required</span>
-              <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.touched && startDate.touched">End Date cannot be before Start Date!</span> -->
+          <md2-datepicker  class="width100" name="endDate" placeholder="{{currentLanguageSet?.endDate}}" [min]="endDatee" #endDate="ngModel" [(ngModel)]="endDatee"></md2-datepicker>
+          
             </div>
-            <!--<span class="c-b help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>-->
+          
           </form>
     </div>
     <div class="row c-b p-t-20" *ngIf="onAgentSelected">
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <table class="table table-bordered">
+        <table class="table table-bordered" aria-describedby="reallocateCallsLanguageList">
           <thead>
             <tr>
-              <th width="30%">Language</th>
-              <th width="70%">No.of Records</th>
+              <th id="language" style="width: 30%;">{{currentLanguageSet?.language}}</th>
+              <th id="noofRecords"style="width: 70%;">{{currentLanguageSet?.noofRecords}}</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of totalAgentRecords">
               <td>{{item.language}}</td>
               <td>{{item.count}}
-                <button *ngIf="item.language!='All'" md-raised-button color="primary" type="button" class="md-small pull-right m-r-5" (click)="moveToBin(item.language, $event)">Move To Bin</button>
-                <button *ngIf="item.language!='All'" md-raised-button color="accent" type="button" class="md-small pull-right m-r-5" (click)="allocateCalls(item.language, $event)">Re-Allocate</button>
+                <button *ngIf="item.language!='All'" md-raised-button color="primary" type="button" class="md-small pull-right m-r-5" (click)="moveToBin(item.language, $event)">{{currentLanguageSet?.moveToBin}}</button>
+                <button *ngIf="item.language!='All'" md-raised-button color="accent" type="button" class="md-small pull-right m-r-5" (click)="allocateCalls(item.language, $event)">{{currentLanguageSet?.reallocate}}</button>
               </td>
             </tr>
-              <!-- <tr>
-                <td>{{agentName}}</td>
-                <td>{{totalAgentRecords?.length}}
-                  <button md-raised-button color="primary" type="button" (click)="moveToBin(agentName, totalAgentRecords, $event)" class="md-small pull-right m-r-5" [disabled]="!(totalAgentRecords?.length)">Move To Bin</button>
-                  <button md-raised-button color="primary" type="button" (click)="allocateCalls(agentName, totalAgentRecords, $event)" class="md-small pull-right m-r-5" [disabled]="!(totalAgentRecords?.length)">Re-Allocate</button>
-                </td>
-              </tr> -->
+             
             </tbody>
           </table>
         </div>
       </div>
       <div class="row" *ngIf="showFlag">
-        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >-->
+
           <app-outbound-allocate-records [outboundCallRequests] ="records" (refreshScreen)="reallocationDone()" [reallocationFlag]="showFlag" [filterAgent]="selectedAgent"></app-outbound-allocate-records>     
-        <!--</div>-->
+
       </div>
     </div>
   </div>

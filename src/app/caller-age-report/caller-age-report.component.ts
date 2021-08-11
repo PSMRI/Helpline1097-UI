@@ -1,21 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
-import { dataService } from '../services/dataService/data.service';
-import { LocationService } from '../services/common/location.service';
-import { ReportsService } from '../services/reports-service/reports-service';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
-import { NgForm } from '@angular/forms';
-import * as XLSX from 'xlsx';
-
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { UserBeneficiaryData } from "../services/common/userbeneficiarydata.service";
+import { dataService } from "../services/dataService/data.service";
+import { LocationService } from "../services/common/location.service";
+import { ReportsService } from "../services/reports-service/reports-service";
+import { Angular2Csv } from "angular2-csv/Angular2-csv";
+import { ConfirmationDialogsService } from "./../services/dialog/confirmation.service";
+import { NgForm } from "@angular/forms";
+import * as XLSX from "xlsx";
+import { SetLanguageComponent } from "app/set-language.component";
+import { HttpServices } from "app/services/http-services/http_services.service";
+import { DoCheck } from "@angular/core";
 
 @Component({
-  selector: 'app-caller-age-report',
-  templateUrl: './caller-age-report.component.html',
-  styleUrls: ['./caller-age-report.component.css']
+  selector: "app-caller-age-report",
+  templateUrl: "./caller-age-report.component.html",
+  styleUrls: ["./caller-age-report.component.css"],
 })
-export class CallerAgeReportComponent implements OnInit {
-
+export class CallerAgeReportComponent implements OnInit, DoCheck {
   today: Date;
   start_date: Date;
   end_date: Date;
@@ -33,31 +34,21 @@ export class CallerAgeReportComponent implements OnInit {
   maxStartDate: Date;
   maxEndDate: Date;
 
-  @ViewChild('callerAgeSearchForm') callerAgeSearchForm: NgForm;
+  @ViewChild("callerAgeSearchForm") callerAgeSearchForm: NgForm;
+  assignSelectedLanguageValue: any;
 
-  constructor(private _userBeneficiaryData: UserBeneficiaryData, private saved_data: dataService,
-    private _locationService: LocationService, private reportService: ReportsService,
-    private alertMessage: ConfirmationDialogsService) { }
+  constructor(
+    private _userBeneficiaryData: UserBeneficiaryData,
+    private saved_data: dataService,
+    private _locationService: LocationService,
+    private reportService: ReportsService,
+    private alertMessage: ConfirmationDialogsService,
+    private httpServices: HttpServices
+  ) {}
 
   ngOnInit() {
-    // this.today = new Date();
-    // console.log(this.today);
-    // this.end_date = new Date();
-    // this.end_date.setDate(this.today.getDate() - 1);
-    // this.start_date = new Date();
-    // this.start_date.setDate(this.today.getDate() - 7);
-    // this.minStartDate = new Date();
-    // this.minStartDate.setMonth(this.minStartDate.getMonth() - 1);
-
+    this.assignSelectedLanguage();
     this.today = new Date();
-    // this.end_date = new Date();
-    // this.end_date.setDate(this.today.getDate() - 1);
-    // this.end_date.setHours(23, 59, 59, 0);
-
-    // this.start_date = new Date();
-    // this.start_date.setDate(this.today.getDate() - 7);
-    // this.start_date.setHours(0, 0, 0, 0);
-
     this.maxStartDate = new Date();
     this.maxStartDate.setDate(this.today.getDate() - 1);
     this.maxStartDate.setHours(0, 0, 0, 0);
@@ -67,166 +58,134 @@ export class CallerAgeReportComponent implements OnInit {
     this.maxEndDate.setHours(23, 59, 59, 0);
 
     //call api and initialize data
-    this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
-      .subscribe((response) => {
-        this.SetUserBeneficiaryRegistrationData(response)
-      },
-      (err) => {
-        this.alertMessage.alert(err.errorMessage, 'error');
-
-      });
+    this._userBeneficiaryData
+      .getUserBeneficaryData(this.saved_data.current_service.serviceID)
+      .subscribe(
+        (response) => {
+          this.SetUserBeneficiaryRegistrationData(response);
+        },
+        (err) => {
+          this.alertMessage.alert(err.errorMessage, "error");
+        }
+      );
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.ageGroups = [
       {
-        "ageGroupDisplay": "Below 15",
-        "ageGroupValue": {
-          "minAge": 0,
-          "maxAge": 15
-        }
+        ageGroupDisplay: "Below 15",
+        ageGroupValue: {
+          minAge: 0,
+          maxAge: 15,
+        },
       },
       {
-        "ageGroupDisplay": "15 to 24",
-        "ageGroupValue": {
-          "minAge": 15,
-          "maxAge": 24
-        }
+        ageGroupDisplay: "15 to 24",
+        ageGroupValue: {
+          minAge: 15,
+          maxAge: 24,
+        },
       },
       {
-        "ageGroupDisplay": "24 to 39",
-        "ageGroupValue": {
-          "minAge": 24,
-          "maxAge": 39
-        }
+        ageGroupDisplay: "24 to 39",
+        ageGroupValue: {
+          minAge: 24,
+          maxAge: 39,
+        },
       },
       {
-        "ageGroupDisplay": "40 to 59",
-        "ageGroupValue": {
-          "minAge": 40,
-          "maxAge": 59
-        }
+        ageGroupDisplay: "40 to 59",
+        ageGroupValue: {
+          minAge: 40,
+          maxAge: 59,
+        },
       },
       {
-        "ageGroupDisplay": "Above 59",
-        "ageGroupValue": {
-          "minAge": 59
-        }
+        ageGroupDisplay: "Above 59",
+        ageGroupValue: {
+          minAge: 59,
+        },
       },
       {
-        "ageGroupDisplay": "All",
-        "ageGroupValue": "All"
-      }
-
-    ]
+        ageGroupDisplay: "All",
+        ageGroupValue: "All",
+      },
+    ];
   }
 
   blockKey(e: any) {
     if (e.keyCode === 9) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
   endDateChange() {
-
     const timeDiff = this.maxEndDate.getTime() - this.start_date.getTime();
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if(diffDays>=0)
-    {
-     if (diffDays >= 30) {
-      this.maxEndDate = new Date(this.start_date);
-      this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
-      this.maxEndDate.setHours(23, 59, 59, 0);
-      this.end_date = this.maxEndDate;
-     }
-     if (diffDays < 30) {
-      const endDateDiff =  this.today.getTime() - this.maxEndDate.getTime();
+    if (diffDays >= 0) {
+      if (diffDays >= 30) {
+        this.maxEndDate = new Date(this.start_date);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+        this.maxEndDate.setHours(23, 59, 59, 0);
+        this.end_date = this.maxEndDate;
+      }
+      if (diffDays < 30) {
+        const endDateDiff = this.today.getTime() - this.maxEndDate.getTime();
+        const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+        if (enddiffDays >= 30) {
+          this.maxEndDate = new Date(this.start_date);
+          this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+          this.maxEndDate.setHours(23, 59, 59, 0);
+          this.end_date = this.maxEndDate;
+        } else {
+          this.maxEndDate = new Date();
+          this.maxEndDate.setDate(this.today.getDate() - 1);
+          this.maxEndDate.setHours(23, 59, 59, 0);
+          this.end_date = this.maxEndDate;
+        }
+      }
+    } else {
+      const endDateDiff = this.today.getTime() - this.start_date.getTime();
       const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+
       if (enddiffDays >= 30) {
         this.maxEndDate = new Date(this.start_date);
         this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
         this.maxEndDate.setHours(23, 59, 59, 0);
         this.end_date = this.maxEndDate;
-      } 
-      else{
-      this.maxEndDate = new Date();
-      this.maxEndDate.setDate(this.today.getDate()-1);
-      this.maxEndDate.setHours(23, 59, 59, 0);
-      this.end_date = this.maxEndDate;
-
+      } else {
+        this.maxEndDate = new Date();
+        this.maxEndDate.setDate(this.today.getDate() - 1);
+        this.maxEndDate.setHours(23, 59, 59, 0);
+        this.end_date = this.maxEndDate;
       }
-     }
-   }
-   else
-   {
-    const endDateDiff =  this.today.getTime() - this.start_date.getTime();
-    const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
- 
-    if(enddiffDays>=30)
-    {
-    this.maxEndDate = new Date(this.start_date);
-    this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
-    this.maxEndDate.setHours(23, 59, 59, 0);
-    this.end_date = this.maxEndDate;
     }
-    else
-    {
-      this.maxEndDate = new Date();
-      this.maxEndDate.setDate(this.today.getDate()-1);
-      this.maxEndDate.setHours(23, 59, 59, 0);
-      this.end_date = this.maxEndDate;
-    }
-   }
-
-    //console.log("sd,med", this.start_date, this.maxEndDate);
-    // if (this.today.getTime() < this.maxEndDate.getTime()) {
-    //   let i = new Date();
-    //   i.setDate(this.today.getDate() - 1);
-    //   this.maxEndDate = i;
-    //   this.maxEndDate.setHours(23, 59, 59, 0);
-      //console.log("sd,med", this.start_date, this.maxEndDate);
-    // }
-    // else {
-    //   this.maxEndDate = new Date(this.start_date);
-    //   this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
-    //   this.maxEndDate.setHours(23, 59, 59, 0);
-    // }
-
-    // var timeDiff = this.end_date.getTime() - this.start_date.getTime();
-    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    // if (diffDays > 90) {
-    //   var tempDate = new Date(this.start_date);
-    //   tempDate.setMonth(this.start_date.getMonth() + 1);
-    //   tempDate.setHours(23, 59, 59, 0);
-    //   this.callerAgeSearchForm.form.patchValue({
-    //     'endDate': tempDate
-    //   });
-    // }
-    // if (diffDays < 0) {
-    //   var tempDate = new Date(this.start_date);
-    //   tempDate.setHours(23, 59, 59, 0);
-    //   this.callerAgeSearchForm.form.patchValue({
-    //     'endDate': tempDate
-    //   });
-    // }
-  }// 1Dec by Gursimran
+  }
 
   getReports(value) {
     let noOfGroups = value.ageGroup.length;
     let array = [];
     let obj = {};
-    let start_date = new Date((value.startDate) - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
-    let end_date = new Date((value.endDate) - 1 * (value.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    let start_date =
+      new Date(
+        value.startDate - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)
+      )
+        .toJSON()
+        .slice(0, 10) + "T00:00:00.000Z";
+    let end_date =
+      new Date(
+        value.endDate - 1 * (value.endDate.getTimezoneOffset() * 60 * 1000)
+      )
+        .toJSON()
+        .slice(0, 10) + "T23:59:59.999Z";
     let state;
     if (this.state) {
-
       state = this.state.stateName;
     }
     // else {
     //   state = "";
     // }
-    let district = undefined
+    let district = undefined;
     if (this.district) {
       district = this.district;
     }
@@ -234,29 +193,28 @@ export class CallerAgeReportComponent implements OnInit {
     if (this.ageGroup == "All") {
       for (let i = 0; i < this.ageGroups.length - 1; i++) {
         obj = {
-          "providerServiceMapID": this.providerServiceMapID,
-          "maxAge": this.ageGroups[i].ageGroupValue.maxAge,
-          "minAge": this.ageGroups[i].ageGroupValue.minAge,
-          "startTimestamp": start_date,
-          "endTimestamp": end_date,
-          "state": state,
+          providerServiceMapID: this.providerServiceMapID,
+          maxAge: this.ageGroups[i].ageGroupValue.maxAge,
+          minAge: this.ageGroups[i].ageGroupValue.minAge,
+          startTimestamp: start_date,
+          endTimestamp: end_date,
+          state: state,
           //"beneficiaryDistrict": value.district ? value.district : ""
-          "district": district
-        }
+          district: district,
+        };
         array.push(obj);
       }
-    }
-    else {
+    } else {
       obj = {
-        "providerServiceMapID": this.providerServiceMapID,
-        "maxAge": value.ageGroup.maxAge,
-        "minAge": value.ageGroup.minAge,
-        "startTimestamp": start_date,
-        "endTimestamp": end_date,
-        "state": state,
+        providerServiceMapID: this.providerServiceMapID,
+        maxAge: value.ageGroup.maxAge,
+        minAge: value.ageGroup.minAge,
+        startTimestamp: start_date,
+        endTimestamp: end_date,
+        state: state,
         //"beneficiaryDistrict": value.district ? value.district : ""
-        "district": district
-      }
+        district: district,
+      };
       array.push(obj);
     }
     this.start_date = value.startDate;
@@ -264,12 +222,15 @@ export class CallerAgeReportComponent implements OnInit {
     this.stateName = state;
     this.district = district;
 
-
     console.log(array);
-    this.reportService.getAllByAgeGroup(array).subscribe((response) => { this.reportSuccessHandle(response) }, (err) => {
-      this.alertMessage.alert(err.errorMessage, 'error');
-
-    });
+    this.reportService.getAllByAgeGroup(array).subscribe(
+      (response) => {
+        this.reportSuccessHandle(response);
+      },
+      (err) => {
+        this.alertMessage.alert(err.errorMessage, "error");
+      }
+    );
   }
   count = [];
   reportSuccessHandle(res) {
@@ -287,11 +248,12 @@ export class CallerAgeReportComponent implements OnInit {
     this.districts = [];
     this.district = undefined;
     if (state) {
-      this._locationService.getDistricts(state.stateID)
-        .subscribe((response) => this.SetDistricts(response), (err) => {
-          this.alertMessage.alert(err.errorMessage, 'error');
-
-        });
+      this._locationService.getDistricts(state.stateID).subscribe(
+        (response) => this.SetDistricts(response),
+        (err) => {
+          this.alertMessage.alert(err.errorMessage, "error");
+        }
+      );
     }
   }
   SetDistricts(response: any) {
@@ -299,45 +261,56 @@ export class CallerAgeReportComponent implements OnInit {
   }
   download() {
     var options = {
-
       showLabels: true,
-      showTitle: true
-
+      showTitle: true,
     };
 
     let head = Object.keys(this.count[0]);
     console.log(head);
-    new Angular2Csv(this.count, 'AgeGroup Report', { headers: (head) });
-    this.alertMessage.alert('AgeGroup report downloaded', 'success');
-
+    new Angular2Csv(this.count, "AgeGroup Report", { headers: head });
+    this.alertMessage.alert("AgeGroup report downloaded", "success");
   }
   downloadV2() {
     let criteria: any = [];
-    let state = this.state ? (this.state.stateName ? this.state.stateName : 'Any') : 'Any';
-    let district = this.district ? this.district : 'Any';
-    criteria.push({ 'Filter_Name': 'State', 'value': state });
-    criteria.push({ 'Filter_Name': 'District', 'value': district });
-    criteria.push({ 'Filter_Name': 'Caller_Age_Group', 'value': this.ageGroup });
-    criteria.push({ 'Filter_Name': 'Start_Date', 'value': this.start_date });
-    criteria.push({ 'Filter_Name': 'End_Date', 'value': this.end_date });
+    let state = this.state
+      ? this.state.stateName
+        ? this.state.stateName
+        : "Any"
+      : "Any";
+    let district = this.district ? this.district : "Any";
+    criteria.push({ Filter_Name: "State", value: state });
+    criteria.push({ Filter_Name: "District", value: district });
+    criteria.push({ Filter_Name: "Caller_Age_Group", value: this.ageGroup });
+    criteria.push({ Filter_Name: "Start_Date", value: this.start_date });
+    criteria.push({ Filter_Name: "End_Date", value: this.end_date });
     this.exportToxlsx(criteria);
   }
   exportToxlsx(criteria: any) {
-    let headers = ["SlNo", "groupName", "minAge", "maxAge", "serviceProvidedRatio", "count"];
+    let headers = [
+      "SlNo",
+      "groupName",
+      "minAge",
+      "maxAge",
+      "serviceProvidedRatio",
+      "count",
+    ];
     let wb_name = "Caller Age Group Report";
-    const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
-    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.count, { header: headers });
+    const criteria_worksheet: XLSX.WorkSheet =
+      XLSX.utils.json_to_sheet(criteria);
+    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+      this.count,
+      { header: headers }
+    );
 
     // below code added to modify the headers ---XXXXXXXXXXXXXX----- 5/7/18 gursimran
 
-    let i = 65;    // starting from 65 since it is the ASCII code of 'A'.
+    let i = 65; // starting from 65 since it is the ASCII code of 'A'.
     let count = 0;
     while (i < headers.length + 65) {
       let j;
       if (count > 0) {
-        j = i - (26 * count);
-      }
-      else {
+        j = i - 26 * count;
+      } else {
         j = i;
       }
       let cellPosition = String.fromCharCode(j);
@@ -345,32 +318,39 @@ export class CallerAgeReportComponent implements OnInit {
       if (count == 0) {
         finalCellName = cellPosition + "1";
         // console.log(finalCellName);
-      }
-      else {
+      } else {
         let newcellPosition = String.fromCharCode(64 + count);
         finalCellName = newcellPosition + cellPosition + "1";
         // console.log(finalCellName);
       }
       let newName = this.modifyHeader(headers, i);
-      delete report_worksheet[finalCellName].w; report_worksheet[finalCellName].v = newName;
+      delete report_worksheet[finalCellName].w;
+      report_worksheet[finalCellName].v = newName;
       i++;
-      if (i == 91 + (count * 26)) {
+      if (i == 91 + count * 26) {
         // i = 65;
         count++;
       }
     }
     // --------end--------
 
-    const workbook: XLSX.WorkBook = { Sheets: { 'Report': report_worksheet, 'Criteria': criteria_worksheet }, SheetNames: ['Criteria', 'Report'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: "array" });
-    let blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Report: report_worksheet, Criteria: criteria_worksheet },
+      SheetNames: ["Criteria", "Report"],
+    };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    let blob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
     if (navigator.msSaveBlob) {
       navigator.msSaveBlob(blob, wb_name);
-    }
-    else {
+    } else {
       var link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.setAttribute('visibility', 'hidden');
+      link.setAttribute("visibility", "hidden");
       link.download = wb_name.replace(/ /g, "_") + ".xlsx";
       document.body.appendChild(link);
       link.click();
@@ -379,13 +359,29 @@ export class CallerAgeReportComponent implements OnInit {
   }
   modifyHeader(headers, i) {
     let modifiedHeader: String;
-    modifiedHeader = headers[i - 65].toString().replace(/([A-Z])/g, ' $1').trim();
-    modifiedHeader = modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
+    modifiedHeader = headers[i - 65]
+      .toString()
+      .replace(/([A-Z])/g, " $1")
+      .trim();
+    modifiedHeader =
+      modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
     //console.log(modifiedHeader);
     return modifiedHeader.replace(/I D/g, "ID");
   }
-  resetWorklist(){
-    this.count=[];
+  resetWorklist() {
+    this.count = [];
     this.tableFlag = false;
+  }
+  /*
+   * JA354063 - Created on 29-07-2021
+   */
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
   }
 }

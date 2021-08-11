@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs/Subscription';
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
 import { FeedbackService } from 'app/services/supervisorServices/Feedbackservice.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 declare var jQuery: any;
 
 @Component({
@@ -69,6 +71,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   minDate: any;
   dec2014: Date;
   subscription: Subscription;
+  currentLanguageSet: any;
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
     private _locationService: LocationService,
@@ -78,7 +81,8 @@ export class CoFeedbackServicesComponent implements OnInit {
     public dialog: MdDialog,
     private alertMessage: ConfirmationDialogsService,
     private pass_data: CommunicationService,
-    private _feedbackListServices: FeedbackService
+    private _feedbackListServices: FeedbackService,
+    private HttpServices:HttpServices
   ) {
   this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) });
     this._savedData.beneficiary_regID_subject.subscribe(response => {
@@ -123,6 +127,8 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.maxDate = this.today;
     this.dec2014 = new Date(2014, 11, 1, 0, 0, 0);
     this.GetInstitutes();
+    this.assignSelectedLanguage();
+
   }
   tempFlag: any;
 
@@ -443,6 +449,14 @@ export class CoFeedbackServicesComponent implements OnInit {
 		// this._coFeedbackService.getFeedbackHistoryById(this.benficiaryRegId, this.calledServiceID)
 		// 	.subscribe(response => this.setFeedbackHistoryByID(response));
 	}
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }
 

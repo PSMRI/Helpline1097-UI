@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
 import { OutboundReAllocationService } from "../services/outboundServices/outbound-call-reallocation.service";
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-everwell-outbound-worklist',
@@ -16,8 +18,10 @@ export class EverwellOutboundWorklistComponent implements OnInit {
   @Output() onOutboundCall: EventEmitter<any> = new EventEmitter<any>();
   data: any = [];
   filteredsearchResult: any = [];
+  currentLanguageSet: any;
   constructor(private cz_service : CzentrixServices, private _outBoundService: CallServices, private OCRService: OutboundReAllocationService,
-    public alertService: ConfirmationDialogsService, private _common: dataService, public router: Router) {
+    public alertService: ConfirmationDialogsService, private _common: dataService, public router: Router,
+    private HttpServices:HttpServices) {
   }
   
   ngOnInit() {
@@ -37,6 +41,8 @@ export class EverwellOutboundWorklistComponent implements OnInit {
       this.alertService.alert(err.errorMessage,'error');
       console.log('Everwell error in call history ');
     });
+    this.assignSelectedLanguage();
+
   };
 
   AssignData(outboundHistory: any) {
@@ -58,7 +64,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     
     this.cz_service.manualDialaNumber("", data.PrimaryNumber).subscribe((res) => {
       if (res.status.toLowerCase() === 'fail') {
-        this.alertService.alert('Something went wrong in calling', 'error');
+        this.alertService.alert(this.currentLanguageSet.somethingWentWrongInCalling, 'error');
       } else {
         this._common.callerNumber = data.PrimaryNumber;
 
@@ -105,4 +111,14 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     }
 
   }
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

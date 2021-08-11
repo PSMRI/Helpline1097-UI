@@ -1,135 +1,77 @@
-<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5" align="center">
-  <label>
-    <h4>REFERRAL SERVICES</h4>
-  </label>
-</div> -->
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.referral_service?.page_heading}}</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.referralServices}}</h4>
       </label>
     </div>
     <div>
     </div>
-    <!--     <div class="col-xs-12 col-sm-12">
-        <h4>Referral Services</h4>
-    </div> -->
+    
     <div [hidden]="!showFormCondition">
-      <!-- <div class="col-xs-12 col-sm-12">
-      <button class="pull-right btn" (click)="showTable()">All Referrals</button>
-    </div> -->
-      <!-- <form novalidate #form="ngForm"> -->
+     
       <form id="referralForm" autocomplete="off">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
 
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none"> -->
-            <md-select required placeholder="{{currentlanguage.referral_service?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state"
+         
+            <md-select required placeholder="{{currentLanguageSet?.state}}" [style.width]="'100%'" [(ngModel)]="selected_state"
               name="state" #state="ngModel" (change)="GetDistricts(selected_state)">
               <md-option *ngFor="let state of states" [value]="state.stateID">
                 {{state.stateName}}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="(state.invalid && (state.dirty || state.touched))">
-              <span class="error_text">State is required</span>
-            </md-hint>
-          </md-input-container> -->
+           
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
 
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none"> -->
-            <md-select required #district="ngModel" placeholder="{{currentlanguage.referral_service?.district}}" [style.width]="'100%'"
+         
+            <md-select required #district="ngModel" placeholder="{{currentLanguageSet?.district}}" [style.width]="'100%'"
               [(ngModel)]="selected_district" name="district" (change)="GetTaluks(selected_district)">
               <md-option *ngFor="let district of districts" [value]="district.districtID">
                 {{district.districtName}}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="district.invalid && (district.dirty || district.touched)">
-              <span class="error_text">District is required</span>
-            </md-hint>
-          </md-input-container> -->
+           
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
 
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none"> -->
-            <md-select placeholder="{{currentlanguage.referral_service?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+         
+            <md-select placeholder="{{currentLanguageSet?.subDistrictTalukBlock}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
               name="taluk" (change)="GetSDTB(selected_taluk)">
               <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
                 {{taluk.blockName}}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="taluk.invalid && (taluk.dirty || taluk.touched)">
-            <span class="error_text">Taluk is required</span>
-          </md-hint> -->
-          <!-- </md-input-container> -->
+           
         </div>
-        <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> -->
-        <!--             <div class="form-group">
-                <label class="control-label" for="sdt">Sub-District/Talluka/Block</label>
-                <select class="form-control drop-arrow ng-pristine ng-untouched ng-valid ng-empty" name="sdtb" [(ngModel)]="selected_branch"> -->
-        <!--<option *ngFor="let sdtb of sdtbs" value="{{sdtb.blockID}}">
-                        {{sdtb.blockName}}
-                    </option>-->
-        <!--                     <option *ngFor="let sdtb of blocks" value={{sdtb.districtBranchID}}>
-                        {{sdtb.villageName}}
-                    </option>
-                </select>
-            </div> -->
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput class="display_none">
-          <md-select placeholder="{{currentlanguage.referral_service?.village}}" [style.width]="'100%'" [(ngModel)]="selected_branch"
-            name="sdtb" (change)="GetSDTB(selected_taluk)">
-            <md-option *ngFor="let sdtb of blocks" [value]="sdtb.districtBranchID">
-              {{sdtb.villageName}}
-            </md-option>
-          </md-select> -->
-        <!-- <md-hint *ngIf="branch.invalid && (branch.dirty || branch.touched)">
-            <span class="error_text">Branch is required</span>
-          </md-hint> -->
-        <!-- </md-input-container>
-      </div> -->
+      
+      
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-          <!--             <div class="form-group has-label">
-                <label class="control-label" for="whatInformation">What Information do you require?(Directory)</label>
-                <select class="form-control drop-arrow ng-pristine ng-untvillageouched ng-valid ng-empty" name="whatInformation" [(ngModel)]="selected_directory"
-                    (change)="GetSubDirectory(selected_directory)">
-                    <option *ngFor="let directoryItem of directory" value={{directoryItem.instituteDirectoryID}}>{{directoryItem.instituteDirectoryName}}</option>
-                </select>
-            </div> -->
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none"> -->
-            <md-select required #directoryVar="ngModel" placeholder="{{currentlanguage.referral_service?.directory}}" [style.width]="'100%'"
+         
+            <md-select required #directoryVar="ngModel" placeholder="{{currentLanguageSet?.informationRequiredDirectory}}" [style.width]="'100%'"
               [(ngModel)]="selected_directory" name="whatInformation" (change)="GetSubDirectory(selected_directory)">
               <md-option *ngFor="let directoryItem of directory " [value]="directoryItem.instituteDirectoryID">
                 {{directoryItem.instituteDirectoryName}}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="directoryVar.invalid && (directoryVar.dirty || directoryVar.touched)">
-              <span class="error_text">Directory is required</span>
-            </md-hint>
-          </md-input-container> -->
+           
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput class="display_none"> -->
-            <md-select required #subDirectory="ngModel" placeholder="{{currentlanguage.referral_service?.sub_directory}}" [style.width]="'100%'"
+        
+            <md-select required #subDirectory="ngModel" placeholder="{{currentLanguageSet?.subDirectory}}" [style.width]="'100%'"
               [(ngModel)]="selected_sub_directory" name="subDirectory" (change)="GetSubDirectory(selected_directory)">
               <md-option *ngFor="let sub_directoryItem of sub_directory" [value]="sub_directoryItem.instituteSubDirectoryID">
                 {{sub_directoryItem.instituteSubDirectoryName}}
               </md-option>
             </md-select>
-            <!-- <md-hint *ngIf="subDirectory.invalid && (subDirectory.dirty || subDirectory.touched)">
-              <span class="error_text">Sub Directory is required</span>
-            </md-hint>
-          </md-input-container> -->
+            
+            
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <button type="button" class="font-regular mar-right" md-raised-button color="accent" [disabled]="state.invalid || district.invalid || directoryVar.invalid || subDirectory.invalid"
-            (click)="GetReferralDetails()">{{currentlanguage.referral_service?.get_details}}</button>
-          <button color="primary" md-raised-button (click)="showTable()">{{currentlanguage.referral_service?.back}}</button>
+            (click)="GetReferralDetails()">{{currentLanguageSet?.getDetails}}</button>
+          <button color="primary" md-raised-button (click)="showTable()">{{currentLanguageSet?.back}}</button>
         </div>
         <div class="clearfix"></div>
         <div class="col-xs-12 col-sm-12 m-b-20">
@@ -153,42 +95,42 @@
                   <span *ngIf="detail.institutionDetails?.contactPerson3Email">, {{detail.institutionDetails?.contactPerson3Email}}</span>
                   <br/>
                 </span>
-                <!--<span *ngIf="detailsList?.length==0">No Records Found</span>-->
+               
               </div>
               <div class="t-a-c record-not-found" *ngIf="!(detailsList.length>0)">
-                 No Records
+                 {{currentLanguageSet?.noRecords}}
               </div>
             </div>
           </div>
           <div class="col-xs-2 col-sm-2" *ngIf="showSendSMS">
-            <button type="button" md-raised-button [disabled]="!enableSms" color="primary" (click)="sendSMS()" class="pull-left font-regular">{{currentlanguage.referral_service?.send_sms}}</button>
+            <button type="button" md-raised-button [disabled]="!enableSms" color="primary" (click)="sendSMS()" class="pull-left font-regular">{{currentLanguageSet?.sendSms}}</button>
           </div>
         </div>
       </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
-      <!-- <h5><strong>{{currentlanguage.referral_service?.table_labels?.table_heading}}</strong></h5> -->
+     
       <div class="table-responsive">
-        <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
+        <table class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="referralServiceDetails">
           <thead>
             <tr>
-              <th>S.No.</th>
-              <!-- <th md2SortBy="instituteDirMapID">{{currentlanguage.referral_service?.table_labels?.institute_directory_map_id}}</th> -->
-              <th md2SortBy="benCallID">{{currentlanguage.referral_service?.table_labels?.call_id}}</th>
-              <th md2SortBy="instituteDirectoryMapping.institutionDetails.institutionName">{{currentlanguage.referral_service?.table_labels?.institute_name}}</th>
-              <th md2SortBy="createdBy">{{currentlanguage.referral_service?.table_labels?.created_by}}</th>
-              <th md2SortBy="createdDate">{{currentlanguage.referral_service?.table_labels?.created_on}}</th>
+              <th id="sno">{{currentLanguageSet?.sno}}</th>
+              
+              <th md2SortBy="benCallID" id="callId">{{currentLanguageSet?.callId}}</th>
+              <th md2SortBy="instituteDirectoryMapping.institutionDetails.institutionName" id="instituteName">{{currentLanguageSet?.nameOfInstitute}}</th>
+              <th md2SortBy="createdBy" id="createdBy">{{currentLanguageSet?.referralProvidedBy}}</th>
+              <th md2SortBy="createdDate" id="createdDate">{{currentLanguageSet?.referralProvidedOn}}</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length < 1">
               <td class="t-a-c record-not-found" colspan="5">
-                {{currentlanguage.referral_service?.table_labels?.no_records_found}}
+                {{currentLanguageSet?.noRecordsFound}}
               </td>
             </tr>
             <tr *ngFor="let referral of md2.data;let i=index ">
-              <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
-              <!-- <td>{{referral.instituteDirMapID}}</td> -->
+              <td style="width: 10%;">{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
+              
               <td>{{referral.benCallID}}</td>
               <td>{{referral.instituteDirectoryMapping?.institutionDetails?.institutionName}}</td>
               <td>{{referral.createdBy}}</td>
@@ -201,15 +143,12 @@
                 <md2-pagination></md2-pagination>
               </td>
               <td colspan="2" class="p-r-0">
-                <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.referral_service?.new_referral}}</button>
+                <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentLanguageSet?.newReferral}}</button>
               </td>
             </tr>
           </tfoot>
         </table>
       </div>
     </div>
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
-    <button class="btn pull-right" (click)="showForm()">{{currentlanguage.referral_service?.new_referral}}</button>
-  </div> -->
   </div>
 </div>

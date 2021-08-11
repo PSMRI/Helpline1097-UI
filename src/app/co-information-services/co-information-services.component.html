@@ -2,47 +2,37 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.information_service?.page_heading}}</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.informationServices}}</h4>
       </label>
     </div>
     <div [hidden]="!showFormCondition">
       <form id="informationForm" autocomplete="off">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline width100">
-            <input mdInput style="display:none"> -->
-            <md-select required placeholder="{{currentlanguage.information_service?.select_category}}" class="width100" [(ngModel)]="symptomCategory"
+         
+            <md-select required placeholder="{{currentLanguageSet?.selectCategory}}" class="width100" [(ngModel)]="symptomCategory"
               name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
               <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
                 {{symptomCategory.categoryName}}
               </md-option>
             </md-select>
-            <!-- <md-hint>
-              <span class="error_text"></span>
-            </md-hint>
-          </md-input-container> -->
+        
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline width100">
-            <input mdInput style="display:none"> -->
-            <md-select required placeholder="{{currentlanguage.information_service?.select_subcategory}}" class="width100" [(ngModel)]="symptomSubCategory"
+         
+            <md-select required placeholder="{{currentLanguageSet?.selectSubCategory}}" class="width100" [(ngModel)]="symptomSubCategory"
               name="symptomSubCategory" #subCategory="ngModel" (change)="EnabledGetDetails()">
               <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
                 {{symptomSubCategory.subCategoryName}}
               </md-option>
             </md-select>
-            <!-- <md-hint>
-              <span class="error_text"></span>
-            </md-hint>
-          </md-input-container> -->
+           
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <button md-raised-button color="accent" class="mar-right" [disabled]="!category.valid || !subCategory.valid ||getDetailsFlag"
-            type="button" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.information_service?.get_details}}</button>
-          <button type="button" md-raised-button color="primary" (click)="back()">{{currentlanguage.information_service?.back}}</button>
+            type="button" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentLanguageSet?.getDetails}}</button>
+          <button type="button" md-raised-button color="primary" (click)="back()">{{currentLanguageSet?.back}}</button>
         </div>
-        <!-- <div class="col-xs-6 col-sm-6 col-md-2 col-lg-3 m-t-15">
        
-      </div> -->
         <div class="clearfix"></div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
@@ -53,35 +43,35 @@
                   <span class="m-l-10">{{detail?.subCategoryName}}
                     <span *ngIf="detail?.subCategoryDesc">:</span>{{detail?.subCategoryDesc}}</span>
                 </a>
-                <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">No Document Available</span>
+                <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">{{currentLanguageSet?.noDocumentAvailable}}</span>
               </li>
-              <li *ngIf="detailsList?.length==0">No records found</li>
+              <li *ngIf="detailsList?.length==0">{{currentLanguageSet?.noRecordsFound}}</li>
             </ul>
           </div>
         </div>
       </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
-      <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3">
+      <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="callDetails">
         <thead>
           <tr>
-            <th>{{currentlanguage.information_service?.table_labels?.sno}}</th>
-            <th md2SortBy="benCallID">{{currentlanguage.information_service?.table_labels?.beneficiary_call_id}}</th>
-            <th md2SortBy="categoryDetails.categoryName">{{currentlanguage.information_service?.table_labels?.category}}</th>
-            <th md2SortBy="subCategoryDetails.subCategoryName">{{currentlanguage.information_service?.table_labels?.subcategory}}</th>
-            <th md2SortBy="createdBy">{{currentlanguage.information_service?.table_labels?.created_by}}</th>
-            <th md2SortBy="createdDate">{{currentlanguage.information_service?.table_labels?.created_on}}</th>
+            <th id="sno">{{currentLanguageSet?.sno}}</th>
+            <th md2SortBy="benCallID" id="benCallID">{{currentLanguageSet?.callId}}</th>
+            <th md2SortBy="categoryDetails.categoryName" id="categoryName">{{currentLanguageSet?.category}}</th>
+            <th md2SortBy="subCategoryDetails.subCategoryName" id="subCategoryName">{{currentLanguageSet?.subHyphenCategory}}</th>
+            <th md2SortBy="createdBy" id="createdBy">{{currentLanguageSet?.informationProvidedBy}}</th>
+            <th md2SortBy="createdDate" id="createdDate">{{currentLanguageSet?.informationProvidedOn}}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngIf="md2.data.length < 1">
             <td class="t-a-c record-not-found" colspan="6">
-              {{currentlanguage.information_service?.table_labels?.no_records_found}}
+              {{currentLanguageSet?.noRecordsFound}}
             </td>
           </tr>
           <tr *ngFor="let Information of md2.data;let i=index ">
             <td>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
-            <td width=10%>{{Information.benCallID}}</td>
+            <td style="width: 10%;">{{Information.benCallID}}</td>
             <td>{{Information?.categoryDetails?.categoryName}}</td>
             <td>{{Information?.subCategoryDetails?.subCategoryName}}</td>
             <td>{{Information?.createdBy}}</td>
@@ -94,13 +84,10 @@
               <md2-pagination></md2-pagination>
             </td>
             <td colspan="3" class="p-r-0" *ngIf="showTableCondition">
-              <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.information_service?.new_informations}}</button>
+              <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentLanguageSet?.newInformation}}</button>
             </td>
           </tr>
         </tfoot>
       </table>
     </div>
   </div>
-  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-    <button class="btn pull-right" (click)="showForm()">{{currentlanguage.information_service?.new_informations}}</button>
-  </div> -->

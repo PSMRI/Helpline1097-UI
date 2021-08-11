@@ -3,16 +3,16 @@
     <h4 class="f-s-b m-t-20 m-b-20">Training Resources List</h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-    <table class="table table-striped table-hover" [md2Data]="trainingResources" #md2="md2DataTable" [rowsPerPage]="5">
+    <table class="table table-striped table-hover" [md2Data]="trainingResources" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="trainingResourcesList">
       <thead>
         <tr>
-          <th width="10%">S. No</th>
-          <th width="10%">Type </th>
-          <th width="10%">Role</th>
-          <th width="20%">Subject</th>
-          <th width="30%">Description</th>
-          <th width="5%">Attachment</th>
-          <th width="15%">Action</th>
+          <th id="sno" style="width: 10%;">S. No</th>
+          <th id="type" style="width: 10%;">Type </th>
+          <th id="role" style="width: 10%;">Role</th>
+          <th id="subject" style="width: 20%;">Subject</th>
+          <th id="description" style="width: 30%;">Description</th>
+          <th id="attachment" style="width: 5%;">Attachment</th>
+          <th id="action" style="width: 15%;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -23,7 +23,7 @@
         </tr>
         <tr *ngFor="let row of md2.data; let i = index ">
           <td>
-            <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+            <strong>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</strong>
           </td>
           <td>{{row?.notificationType?.notificationType}}</td>
           <td>{{row?.role?.RoleName}}</td>
@@ -60,28 +60,15 @@
   </div>
   <form #trainingResources="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
-      <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
-        <input mdInput class="display_none"> -->
+     
         <md-select multiple placeholder="Select Roles" [style.width]="'100%'" required [(ngModel)]="role" name="roles">
           <md-option *ngFor="let item of roles" [value]="item.roleID">
             {{item.roleName}}
           </md-option>
         </md-select>
-      <!-- </md-input-container> -->
+    
     </div>
-    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" [min]="minStartDate" #start_Date="ngModel"
-        [(ngModel)]="startDate" required [style.width]="'100%'"></md2-datepicker>
-    </div>   -->
-    <!-- <div class="clearfix  visible-lg"></div> -->
-
-    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-30">
-      <md2-datepicker name="endDate" (keydown)="blockey($event)" placeholder="Valid Till" [min]="start_Date?.value" #end_Date="ngModel"
-        [(ngModel)]="endDate" required [style.width]="'100%'"></md2-datepicker>
-      <span class="m-l-10 f-s-10 error_text" *ngIf="(end_Date?.value < start_Date?.value)">End Date cannot be before Start Date!</span>
-    </div>   -->
-    <!-- <div class="clearfix visible-md visible-lg"></div>  -->
-
+   
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
         <input mdInput class="" placeholder="Resource Subject" name="subject" [(ngModel)]="subject" required #resourceSubject="ngModel"
@@ -89,7 +76,7 @@
         <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">Enter atleast 5 characters</md-hint>
       </md-input-container>
     </div>
-    <!-- <div class="clearfix  visible-lg"></div>  -->
+
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
       <md-input-container [style.width]="'100%'">
@@ -140,7 +127,7 @@
         <input mdInput placeholder="Existing Uploaded File" name="uploaded_file" [disabled]="true" [(ngModel)]="uploaded_file" required>
       </md-input-container>
     </div>
-    <!-- <div class="clearfix  visible-lg"></div>  -->
+   
     <div class="clearfix"></div>
 
     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">

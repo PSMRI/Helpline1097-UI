@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef, Renderer, DoCheck } from '@angular/core';
 import { RegisterService } from '../services/register-services/register-service';
 import { UpdateService } from '../services/update-services/update-service';
 import { Router } from '@angular/router';
@@ -22,6 +22,8 @@ import { SmsTemplateService } from './../services/supervisorServices/sms-templat
 
 import * as moment from 'moment';
 import { LoaderService } from 'app/services/common/loader.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 declare var jQuery: any;
 
@@ -31,7 +33,7 @@ declare var jQuery: any;
   styleUrls: ['./beneficiary-registration.component.css'],
 
 })
-export class BeneficiaryRegistrationComponent implements OnInit {
+export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   @Input() current_language: any;
   @Input() onReloadCall: Boolean;
   @Input() onStartNewCall: Boolean;
@@ -158,6 +160,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   //public mobileNumberMask = [ /[^0-9]/, /\d/];
 
   btnDisabled = false;
+  assignSelectedLanguageValue: any;
   constructor(private _util: RegisterService,
     private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -173,7 +176,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     private czentrixService: CzentrixServices,
     private reload_call: ReloadService,
     private _smsService: SmsTemplateService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private httpServices: HttpServices
   ) {
 
     // this.subcriptionOutbound = this.outboundService.getOutboundData()
@@ -201,7 +205,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     }
     // this.agentID = this.saved_data.cZentrixAgentID;
     // this.reloadOutBoundCall(this.current_campaign);
-
+    this.assignSelectedLanguage();
   }
 
   ngOnChanges() {
@@ -1787,4 +1791,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
+  }
 }

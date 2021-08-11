@@ -3,27 +3,27 @@
     <h4 class="f-s-b m-t-20 m-b-20">Everwell Guidelines List</h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-    <table class="table table-striped table-hover" [md2Data]="trainingResources" id="table" #md2="md2DataTable" [rowsPerPage]="5">
+    <table class="table table-striped table-hover" [md2Data]="trainingResources" id="table" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="everwellGuidelinesDetails">
       <thead>
         <tr>
-          <th width="10%">S. No</th>
-          <th width="15%">Name </th>
-          <th width="15%">Category </th>
-          <th width="30%">Description</th>
-          <th width="15%">Attachment</th>
-          <th width="15%">Action</th>
+          <th id="sno" style="width: 10%;">{{currentLanguageSet?.sno}}</th>
+          <th id="name" style="width: 15%;">{{currentLanguageSet?.name}} </th>
+          <th id="category" style="width: 15%;">{{currentLanguageSet?.category}} </th>
+          <th id="description" style="width: 30%;">{{currentLanguageSet?.description}}</th>
+          <th id="attachment" style="width: 15%;">{{currentLanguageSet?.attachment}}</th>
+          <th id="action" style="width: 15%;">{{currentLanguageSet?.action}}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngIf="md2.data?.length==0">
           <td colspan="7" class="record-not-found">
-              No records found
+            {{currentLanguageSet?.noRecordsFound}}
           </td>
         </tr>
         <tr *ngFor="let row of md2.data; let i = index ">
           <ng-container *ngIf="!(row?.deleted)">
           <td>
-            <b>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</b>
+            <strong>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</strong>
           </td>
           <td>{{row?.guidelineName}}</td>
           <td>{{row?.category}}</td>
@@ -32,8 +32,8 @@
               <a (click)="openDoc(row.fileContent)">{{row.fileName}}</a>
           </td>
           <td>
-            <i class="mdicon material-icons cursorPointer" id="delete" mdTooltip="Delete" *ngIf="!(row?.deleted)" (click)="deactivate(row,true)">delete</i>
-            <!-- <a style="cursor:pointer" *ngIf="row?.deleted" (click)="activate(row,false)">Activate</a> -->
+            <span class="mdicon material-icons cursorPointer" id="delete" mdTooltip="Delete" *ngIf="!(row?.deleted)" (click)="deactivate(row,true)">{{currentLanguageSet?.delete}}</span>
+          
           </td>
         </ng-container>
         </tr>
@@ -77,49 +77,28 @@
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
-        <md-select placeholder="Select Category" [style.width]="'100%'" id="category" required [(ngModel)]="category" name="category">
+        <md-select placeholder="{{currentLanguageSet?.selectCategory}}" [style.width]="'100%'" id="category" required [(ngModel)]="category" name="category">
           <md-option *ngFor="let item of Categories" [value]="item">
             {{item}}
           </md-option>
         </md-select>
     </div>
-
-    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <md-input-container [style.width]="'100%'">
-        <input mdInput class="" placeholder="Resource Subject" name="subject" [(ngModel)]="subject" required #resourceSubject="ngModel"
-          maxlength="200" minlength="5">
-        <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">Enter atleast 5 characters</md-hint>
-      </md-input-container>
-    </div> -->
-    <!-- <div class="clearfix  visible-lg"></div>  -->
     
-    <!-- <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-      <md-input-container [style.width]="'100%'">
-        <textarea mdInput class="" rows="3" placeholder="Resource message" name="message" [(ngModel)]="message" required (keyup)="updateCount()"
-          #resourceMessage="ngModel" maxlength="300" minlength="5">
-              </textarea>
-        <md-hint align="start">
-          <span class="error_text pull-left" *ngIf="resourceMessage.invalid && resourceMessage.touched">Enter atleast 5 characters</span>
-        </md-hint>
-        <md-hint align="end">
-          <span class="pull-right" align="end">{{count}}</span>
-        </md-hint>
-      </md-input-container>
-    </div> -->
+    
     <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 m-t-40">
       <label for="upload-file" id="upload_file_label">Upload File(Size limit :{{maxFileSize}}MB) Supported format- .pdf</label>
-      <input type="file" accept="*" size="100" [disabled]="trainingResources.invalid" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file"
+      <input type="file" accept="*" size="100" [disabled]="trainingResources.invalid" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
         ngModel #uploadfile="ngModel">
 
       <span class="f-s-10 error_text" *ngIf="invalid_file_flag">Supported file format is .pdf</span>
       <span class="f-s-10 error_text" *ngIf="error1">File size should not exceed {{maxFileSize}} MB</span>
-      <span class="f-s-10 error_text" *ngIf="error2">File size should be greator than 0</span>
+      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
-    <button id="back" md-raised-button color="primary" class="pull-left" (click)="go2table()">Back</button>
+    <button id="back" md-raised-button color="primary" class="pull-left" (click)="go2table()">{{currentLanguageSet?.back}}</button>
     <button [disabled]="trainingResources.invalid || invalid_file_flag || error1 || error2" id="submit"
-      md-raised-button color="accent" class="pull-right" (click)="createTrainingResource(trainingResources.value)">Submit</button>
+      md-raised-button color="accent" class="pull-right" (click)="createTrainingResource(trainingResources.value)">{{currentLanguageSet?.submit}}</button>
   </div>
 </div>
 

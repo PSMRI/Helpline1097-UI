@@ -13,6 +13,8 @@ import { MdDialog } from '@angular/material';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { FeedbackTypes } from '../services/common/feedbacktypes.service';
 import { request } from 'd3';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'supervisor-grievance',
@@ -58,13 +60,15 @@ export class grievanceComponent implements OnInit {
   userId: any;
   distictID: any;
   tableView= false;
+  currentLanguageSet: any;
   constructor(
     private _feedbackservice: FeedbackService,
     private _saved_data: dataService,
     private _coFeedbackService: CoFeedbackService,
     private dialog: MdDialog,
     private alertMessage: ConfirmationDialogsService,
-    private feedbackService: FeedbackTypes
+    private feedbackService: FeedbackTypes,
+    public httpServices:HttpServices
   ) {
     this.feedbackList;
     this.feedbackresponceList;
@@ -145,6 +149,7 @@ export class grievanceComponent implements OnInit {
   feedbackTypes: any = [];
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     let start = new Date();
     start.setDate(start.getDate()-7);
     start.setHours(0, 0, 0, 0);
@@ -202,6 +207,18 @@ export class grievanceComponent implements OnInit {
     this.maxEndDate.setHours(23, 59, 59, 0);
 
   }
+
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+    }
+
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
+    
   onSubmit() {
     // this.saveNSendEmail(this.feedbackForm.value.feedbackSupSummary)
     // this.action = "view";
@@ -259,7 +276,7 @@ export class grievanceComponent implements OnInit {
 
       this._feedbackservice.updateResponce(bodyString)
         .subscribe((resfeedbackData) => {
-          this.alertMessage.alert('Successfully updated', 'success');
+          this.alertMessage.alert(this.currentLanguageSet.successfullyUpdated, 'success');
           this.showUsers(resfeedbackData)
         }, (err) => {
           this.alertMessage.alert(err.errorMessage, 'error');

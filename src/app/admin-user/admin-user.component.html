@@ -10,12 +10,12 @@
      
     <div class="col-xs-12 col-sm-12">
       <div class="table-responsive m-t-10">
-        <table class="table">
+        <table class="table" aria-describedby="userDetails">
           <thead>
             <tr>
-              <th>{{currentLanguageSet?.firstName}}</th>
-              <th>{{currentLanguageSet?.lastName}}</th>
-              <th>{{currentLanguageSet?.userName}}</th>
+              <th id="firstName">{{currentLanguageSet?.firstName}}</th>
+              <th id="lastName">{{currentLanguageSet?.lastName}}</th>
+              <th id="userName">{{currentLanguageSet?.userName}}</th>
               <td>{{currentLanguageSet?.edit}}</td>
               <td>{{currentLanguageSet?.delete}}</td>
             </tr>
@@ -40,7 +40,7 @@
 <div class="panel-body card p-a-0 bg-white"  >
  
     <div class="col-xs-12 col-sm-12">
-      <!--<h4>User Details</h4>-->
+      
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
@@ -61,12 +61,7 @@
         <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterLastname}}" maxlength="50" id="lastName" formControlName="lastName">
       </div>
     </div>
-    <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="titleID">Title ID</label>
-        <input type="text" class="form-control" placeholder="Enter TitleID"  maxlength="6" id="titlelID" formControlName="titleID">
-      </div>
-    </div>-->
+    
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
         <label class="control-label" for="userName">{{currentLanguageSet?.userName}}</label>
@@ -79,12 +74,7 @@
         <input type="password" class="form-control" placeholder="{{currentLanguageSet?.enterPassword}}"  maxlength="20" id="password" formControlName="password">
         </div>
     </div>
-     <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="statusID">Status ID</label>
-        <input type="text" class="form-control" placeholder="Enter StatusID"  maxlength="6" id="statusID" formControlName="statusID">
-      </div>
-    </div>-->
+    
   <div class="col-xs-12 col-sm-12 pull right m-b-10">
       <button md-raised-button color="primary" class="pull-right p-l-r-38 f-s-18" type="submit" name="save"> {{currentLanguageSet?.save}}</button>
     </div>

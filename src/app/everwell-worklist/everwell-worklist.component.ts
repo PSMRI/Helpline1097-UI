@@ -11,6 +11,8 @@ import { RegisterService } from '../services/register-services/register-service'
 import { CallServices } from '../services/callservices/callservice.service';
 import { DatePipe } from'@angular/common';
 import { LoaderService } from 'app/services/common/loader.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 
 @Component({
@@ -48,13 +50,15 @@ export class EverwellWorklistComponent implements OnInit {
   showProgressBar: boolean=false;
   srcPath: string;
   fileName: any;
+  currentLanguageSet: any;
 
 
 
   constructor(public dialog: MdDialog, private OCRService: OutboundReAllocationService,
      private _common: dataService, public router: Router,public alertService: ConfirmationDialogsService,
      private _util: RegisterService,private alertMaessage: ConfirmationDialogsService,
-     private loaderService: LoaderService,public datepipe:DatePipe
+     private loaderService: LoaderService,public datepipe:DatePipe,
+     private HttpServices:HttpServices
      ) {
   }
   ngOnInit() {
@@ -87,6 +91,8 @@ export class EverwellWorklistComponent implements OnInit {
     console.log("ar",this.ar);
     
 this.getEverwellGuidelines();
+this.assignSelectedLanguage();
+
   }
 
   
@@ -481,7 +487,15 @@ if(result==null)
 setBenCall(response) {
   this._common.callData = response;
 }
+ngDoCheck() {
+  this.assignSelectedLanguage();
+}
 
+assignSelectedLanguage() {
+  const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+  getLanguageJson.setLanguage();
+  this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+  }
 }
 export interface month {
   name: string;
@@ -527,12 +541,14 @@ export class SupportActionModal {
   srcPath: string;
   fileName: any;
   showProgressBar: boolean=false;
+  currentLanguageSet: any;
 
 
  
 
   constructor(@Inject(MD_DIALOG_DATA) public data, public dialog: MdDialog,private _common: dataService, private _callservice:CallServices,public datepipe:DatePipe,
-  private alertMaessage: ConfirmationDialogsService,public dialogRef: MdDialogRef<SupportActionModal>,private OCRService: OutboundReAllocationService,public alertService: ConfirmationDialogsService)
+  private alertMaessage: ConfirmationDialogsService,public dialogRef: MdDialogRef<SupportActionModal>,private OCRService: OutboundReAllocationService,public alertService: ConfirmationDialogsService,
+  private HttpServices:HttpServices)
     { }
 
   ngOnInit() {
@@ -602,7 +618,8 @@ export class SupportActionModal {
   this.srcPath=this.data.srcPath;
 
 
-  
+  this.assignSelectedLanguage();
+
   }
 
   preventTyping(e: any) {
@@ -616,7 +633,7 @@ export class SupportActionModal {
     
     if(!this._common.outboundEverwellData)
     {
-      this.alertMaessage.alert("Please select Beneficiary", 'error');
+      this.alertMaessage.alert(this.currentLanguageSet.pleaseSelectBeneficiary, 'error');
       return false;
     }
     const providerObj = {};
@@ -647,14 +664,14 @@ export class SupportActionModal {
         this._common.feedbackData.push(providerObj);
         this._common.checkEverwellResponse = true;
         if(this.efid != undefined && this.efid != null)
-        this.alertMaessage.alert('Feedback updated successfully', 'success');
+        this.alertMaessage.alert(this.currentLanguageSet.feedbackUpdatedSuccessfully, 'success');
         else
         {
         this._common.updatedFeedbackList.push(item.dob);
-        this.alertMaessage.alert('Feedback submitted successfully', 'success');
+        this.alertMaessage.alert(this.currentLanguageSet.feedbackSubmittedSuccessfully, 'success');
         }
         this.dialogRef.close();
-        console.log('Feedback updated successfully', response);
+        console.log(this.currentLanguageSet.feedbackUpdatedSuccessfully, response);
       }
     }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
@@ -664,7 +681,7 @@ export class SupportActionModal {
   updateFeedback(item){
     if(!this._common.outboundEverwellData)
     {
-      this.alertMaessage.alert("Please select Beneficiary", 'error');
+      this.alertMaessage.alert(this.currentLanguageSet.pleaseSelectBeneficiary, 'error');
       return false;
     }
     const providerObj = {};
@@ -704,9 +721,9 @@ export class SupportActionModal {
         if (!this._common.updatedFeedbackList.some((updatedListItem) => updatedListItem == item.editdob)) {
           this._common.updatedFeedbackList.push(item.editdob);
         }
-        this.alertMaessage.alert('Feedback updated successfully', 'success');
+        this.alertMaessage.alert(this.currentLanguageSet.feedbackUpdatedSuccessfully, 'success');
         this.dialogRef.close();
-        console.log('Feedback updated successfully', response);
+        console.log(this.currentLanguageSet.feedbackUpdatedSuccessfully, response);
       }
     }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
@@ -786,5 +803,14 @@ export class SupportActionModal {
     window.open(fileURL);
     return false;
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
  
 }

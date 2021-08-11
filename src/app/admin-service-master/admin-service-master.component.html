@@ -3,11 +3,11 @@
  <div class="row m-t-10">
     <div class="col-xs-12 col-sm-12">
       <div class="table-responsive m-t-10">
-        <table class="table">
+        <table class="table" aria-describedby="serviceDetails">
           <thead>
             <tr>
-              <th>{{currentLanguageSet?.serviceName}}</th>
-              <th>{{currentLanguageSet?.serviceDesc}}</th>
+              <th id="serviceName">{{currentLanguageSet?.serviceName}}</th>
+              <th id="ServiceDesc">{{currentLanguageSet?.serviceDesc}}</th>
               <!--<th>PropertyFilePath</th>
               <th>IVRFilePath</th>-->
               <td>{{currentLanguageSet?.edit}}</td>
@@ -20,8 +20,7 @@
             <tr *ngFor="let user of userslist">
               <td>{{user.ServiceName}}</td>
               <td>{{user.ServiceDesc}}</td>
-              <!--<td>{{user.PropertyFilePath}}</td>
-              <td>{{user.IVRFilePath}}</td>-->
+              
                
               <td><i class="fa fa-pencil fa-lg cursorPointer" aria-hidden="true"></i></td>
               <td><i class="fa fa-trash-o fa-lg cursorPointer" aria-hidden="true"></i></td>
@@ -52,22 +51,7 @@
         <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterServiceDesc}}"  id="serviceDesc" formControlName="serviceDesc">
       </div>
     </div>
-    <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="propertyFilePath">PropertyFilePath</label>
-        <input type="text" class="form-control" placeholder="Enter PropertyFilePath"  id="propertyFilePath" formControlName="propertyFilePath">
-         
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="ivrFilePath">IVRFilePath</label>
-        <input type="text" class="form-control" placeholder="Enter IvrFilePath" id="ivrFilePath" formControlName="ivrFilePath">
-      
-
-      </div>
-
-    </div>-->
+    
     <div class="col-xs-12 col-sm-12 pull right m-b-10">
       <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save">{{currentLanguageSet?.save}}</button>
     </div>

@@ -15,9 +15,9 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <!-- <li  class="cursorPointer"  routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
-                  <i class="fa fa-arrow-left fa-lg" aria-hidden="true" md-tooltip="Dashboard"></i>
-                </li> -->
+               
+
+
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentLanguageSet?.activities}}
                   <span class="caret"></span>
@@ -29,10 +29,7 @@
                   <li style="cursor: pointer" (click)='show("3")'>
                     <a>{{currentLanguageSet?.blacklistANumber}}</a>
                   </li>
-                  <!-- <li style="cursor: pointer" (click)='show("4")'><a>Dial a Beneficiary</a></li> -->
-                  <!-- <li style="cursor: pointer" (click)='show("6")'>
-                    <a>Notifications</a>
-                  </li> -->
+                  
                   <li style="cursor: pointer" (click)='show("12")'>
                     <a>{{currentLanguageSet?.outboundCallList}}</a>
                   </li>
@@ -134,7 +131,7 @@
 
   <div class="panel-body card p-a-0 bg-white ">
     <div class="container-fluid p-a-0 overflow-y" style="min-height:570px">
-      <!--<div class="row">-->
+     
       <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
         <div>
 
@@ -171,12 +168,12 @@
          
         </div>
       </div>
-      <!--</div>-->
+      
     </div>
   </div>
 </div>
 
 <div [hidden]="true">
-  <iframe [src]="ssoURL" width="100%" height="700px"></iframe>
+  <iframe [src]="ssoURL" width="100%" height="700px" title="Success Handler menu"></iframe>
 
 </div>

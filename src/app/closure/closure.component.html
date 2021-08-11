@@ -2,68 +2,58 @@
   <form id="closeForm" #Form="ngForm" novalidate autocomplete="off">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 m-t-10">
-        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.closure?.call_details}}</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.calldetails}}</h4>
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5">
-            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none"> -->
-              <md-select required placeholder="{{currentlanguage.closure?.calltype}}" [style.width]="'100%'" ngModel name="callType" #callType="ngModel"
+            
+              <md-select required placeholder="{{currentLanguageSet?.callType}}" [style.width]="'100%'" ngModel name="callType" #callType="ngModel"
                 (change)="getCallSubType(callType.value)">
                 <md-option *ngFor="let calltype of calltypes" value="{{calltype.callTypeDesc}}">
                   {{calltype.callTypeDesc}}
                 </md-option>
               </md-select>
-              <!-- <md-hint *ngIf="callType.invalid && (callType.dirty || callType.touched)">
-                <span class="error_text">Call Type is required </span>
-              </md-hint>
-            </md-input-container> -->
+             
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5">
-            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none"> -->
-              <md-select required placeholder="{{currentlanguage.closure?.callSubtype}}" [style.width]="'100%'" [(ngModel)]="callTypeID"
+           
+              <md-select required placeholder="{{currentLanguageSet?.callsubtype}}" [style.width]="'100%'" [(ngModel)]="callTypeID"
                 (change)="sliderVisibility(callTypeID)" name="callTypeID" #subCallType="ngModel">
                 <md-option *ngFor="let callSubtype of callSubTypes" value="{{callSubtype?.callTypeID}},{{callSubtype?.fitToBlock}},{{callSubtype?.fitForFollowUp}}">
                   {{callSubtype.callType}}
                 </md-option>
               </md-select>
-              <!-- <md-hint *ngIf="subCallType.invalid && (subCallType.dirty || subCallType.touched)">
-                <span class="error_text">Sub Call Type is required </span>
-              </md-hint>
-            </md-input-container> -->
+             
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="transferValid">
-            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none"> -->
+           
               <md-select required placeholder="Campaign Names" [style.width]="'100%'" [(ngModel)]="campaignName" name="campaignName" (change)="getCampaignSkills(campaignName)">
                 <md-option *ngFor="let campaigns of campaignNames" value="{{campaigns.campaign_name}}">
                   {{campaigns.campaign_name}}
                 </md-option>
               </md-select>
-            <!-- </md-input-container> -->
+           
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="transferValid">
-            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none"> -->
+           
               <md-select placeholder="Campaign Skills" [style.width]="'100%'" [(ngModel)]="campaignSkill" name="campaignSkill">
                 <md-option *ngFor="let skills of campaignSkills" value="{{skills.skill_name}}">
                   {{skills.skill_name}}
                 </md-option>
               </md-select>
-            <!-- </md-input-container> -->
+           
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <md-input-container style="width: 100%">
-              <input mdInput id="remarks" placeholder="{{currentlanguage.closure?.remarks}}" maxlength="100" name="remarks" [(ngModel)]="remarks">
+              <input mdInput id="remarks" placeholder="{{currentLanguageSet?.remarks}}" maxlength="100" name="remarks" [(ngModel)]="remarks">
             </md-input-container>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showFeedbackRequiredFlag && isEverwell !='yes'">
-            <md-checkbox color="primary" name="isFeedbackRequired" (change)="isFeedbackRequired($event)">{{currentlanguage.closure?.feedback_question}}</md-checkbox>
+            <md-checkbox color="primary" name="isFeedbackRequired" (change)="isFeedbackRequired($event)">{{currentLanguageSet?.feedbackQuestion}}</md-checkbox>
           </div>
           <div class="clearfix"></div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showSlider && isEverwell !='yes'">
-            <md-checkbox ngDefaultControl color="primary" name="isFollowupRequired" [value]=true [(ngModel)]="isFollowupRequired" (change)="isFollow($event)">{{currentlanguage.closure?.followup_question}}</md-checkbox>
-            <!-- <md-slide-toggle ngDefaultControl name="isFollowupRequired" color="primary" (change)="isFollow($event)" [(ngModel)]="isFollowupRequired">{{currentlanguage.closure?.followup_question}}</md-slide-toggle> -->
+            <md-checkbox ngDefaultControl color="primary" name="isFollowupRequired" [value]=true [(ngModel)]="isFollowupRequired" (change)="isFollow($event)">{{currentLanguageSet?.followupQuestion}}</md-checkbox>
+           
           </div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="noOfOutbounds && isFollowUp">
             <p class="error_text">{{noOfOutbounds}} follow up already taken for
@@ -74,83 +64,70 @@
           </div>
           <div class="visible-xs" style="height: 10px ; clear: both;"></div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="isFollowUp">
-            <md2-datepicker required (keydown)="blockey($event)" [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="{{currentlanguage.closure?.preferred_date}}"
+            <md2-datepicker required (keydown)="blockey($event)" [min]="minDate" [style.width]="'100%'" name="prefferedDateTime" placeholder="{{currentLanguageSet?.preferredDate}}"
               [(ngModel)]="preferredDateTime"></md2-datepicker>
           </div>
           <div class="visible-xs" style="height: 10px;clear: both;"></div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngIf="isFollowUp">
             <md-input-container style="width: 100%">
-              <input mdInput placeholder="{{currentlanguage.closure?.follow_up_reason}}" maxlength="200" name="requestedFor" required [(ngModel)]="requestedFor">
+              <input mdInput placeholder="{{currentLanguageSet?.followUpReason}}" maxlength="200" name="requestedFor" required [(ngModel)]="requestedFor">
             </md-input-container>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="isFollowUp">
-            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none"> -->
-              <md-select required placeholder="{{currentlanguage.closure?.language}}" [style.width]="'100%'" [(ngModel)]="preferredLanguageName"
+           
+              <md-select required placeholder="{{currentLanguageSet?.language}}" [style.width]="'100%'" [(ngModel)]="preferredLanguageName"
                 name="preferredLanguageName" #languageName="ngModel">
                 <md-option *ngFor="let lang of languages" [value]="lang.languageName">
                   {{lang.languageName}}
                 </md-option>
               </md-select>
-              <!-- <md-hint *ngIf="languageName.invalid && (languageName.dirty || languageName.touched)">
-                <span class="error_text">Language is required </span>
-              </md-hint>
-            </md-input-container> -->
+            
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="isFollowUp">
-            <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-              <input mdInput style="display:none"> -->
-              <md-select required placeholder="{{currentlanguage.closure?.serviceRequested}}" [style.width]="'100%'" [(ngModel)]="requestedServiceID"
+           
+              <md-select required placeholder="{{currentLanguageSet?.serviceRequested}}" [style.width]="'100%'" [(ngModel)]="requestedServiceID"
                 name="requestedServiceID" #requestedService="ngModel">
                 <md-option *ngFor="let subServiceType of subServiceTypes" [value]="subServiceType.subServiceID">
                   {{subServiceType.subServiceName}}
                 </md-option>
               </md-select>
-              <!-- <md-hint *ngIf="requestedService.invalid && (requestedService.dirty || requestedService.touched)">
-                <span class="error_text">Outbound requested service is required </span>
-              </md-hint>
-            </md-input-container> -->
+            
           </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 m-b-20" *ngIf="isEverwell !='yes'">
 
         <label class="control-label m-t-20 m-b-10" for="callSummary">
-          {{currentlanguage.closure?.table_labels?.table_heading}}
-          <!--({{currentlanguage?.closure?.table_labels?.call_id}} - {{summaryList[0]?.benCallID}})-->
+          {{currentLanguageSet?.tableHeading}}
+          
         </label>
 
         <div class="clearfix"></div>
         <div class="table-responsive">
-          <table class="table table-bordered table-striped">
+          <table class="table table-bordered table-striped" aria-describedby="callSummaryDetails">
             <thead>
               <tr>
-                <th>{{currentlanguage?.closure?.table_labels?.service_name}}</th>
-                <th>{{currentlanguage?.closure?.table_labels?.count}}</th>
-                <!-- <th>{{currentlanguage?.closure?.table_labels?.counselling}}</th>
-              <th>{{currentlanguage?.closure?.table_labels?.referral}}</th>
-              <th>{{currentlanguage?.closure?.table_labels?.feedback}}</th> -->
+                <th id="serviceName">{{currentLanguageSet?.tableLabels?.serviceName}}</th>
+                <th id="count">{{currentLanguageSet?.tableLabels?.count}}</th>
+              
               </tr>
             </thead>
             <tbody>
-              <!-- <tr>
-            <td>{{currentlanguage?.closure?.table_labels?.call_id}}</td>
-            <td>{{summaryList[0].benCallID}}</td>
-          </tr> -->
+             
               <tr>
-                <td>{{currentlanguage?.closure?.table_labels?.information}}</td>
+                <td>{{currentLanguageSet?.information}}</td>
                 <td>{{summaryList[0]?.informationServices}}</td>
               </tr>
               <tr>
-                <td>{{currentlanguage?.closure?.table_labels?.counselling}}</td>
+                <td>{{currentLanguageSet?.counselling}}</td>
                 <td>{{summaryList[0]?.counsellingServices}}</td>
               </tr>
               <tr>
-                <td>{{currentlanguage?.closure?.table_labels?.referral}}</td>
+                <td>{{currentLanguageSet?.referral}}</td>
                 <td>{{summaryList[0]?.referralServices}}</td>
               </tr>
               <tr>
-                <td>{{currentlanguage?.closure?.table_labels?.feedback}}</td>
+                <td>{{currentLanguageSet?.feedback}}</td>
                 <td>{{summaryList[0]?.feedbackServices}}</td>
               </tr>
             </tbody>
@@ -159,16 +136,16 @@
         <div class="clearfix"></div>
         <button *ngIf="this.saved_data?.current_campaign?.toUpperCase() !== 'OUTBOUND'" md-raised-button color="accent" type="submit"
           name="save" value="submitContinue" [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid || Form.invalid || transferValid || callType.value == 'Invalid'"
-          class="font-regular pull-right" (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentlanguage.closure?.submitContinue}}</button>
+          class="font-regular pull-right" (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentLanguageSet?.submitContinue}}</button>
         <button md-raised-button color="accent" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid || Form.invalid || transferValid"
-          class="font-regular pull-right m-r-10" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentlanguage.closure?.submitClose}}</button>
+          class="font-regular pull-right m-r-10" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentLanguageSet?.submitClose}}</button>
         <button md-raised-button color="accent" *ngIf="transferValid" [disabled]="isCallDisconnected || Form.invalid" class="font-regular pull-right m-r-10"
           (click)="transferCall(Form.value)">Transfer</button>
       </div>
       <div class="clearfix" *ngIf="isEverwell ==='yes'"></div>      
       <button md-raised-button color="accent" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid || Form.invalid || transferValid"
-      class="font-regular pull-right m-r-10" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()" *ngIf="isEverwell ==='yes'">{{currentlanguage.closure?.submitClose}}</button>
+      class="font-regular pull-right m-r-10" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()" *ngIf="isEverwell ==='yes'">{{currentLanguageSet?.submitClose}}</button>
     </div>
-    <!-- </div> -->
+   
   </form>
 </div>

@@ -62,15 +62,15 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15" *ngIf="onConfigSubmit">
-    <table class="table table-hover" [md2Data]="notifications" #md2="md2DataTable" [rowsPerPage]="3">
+    <table class="table table-hover" [md2Data]="notifications" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="notificatiosList">
       <thead>
         <tr>
-          <th>S.No</th>
-          <th>Notification Subject</th>
-          <th>Notification Description</th>
-          <th>Valid From</th>
-          <th>Valid Till</th>
-          <th>Edit</th>
+          <th id="sno">S.No</th>
+          <th id="notificationSubject">Notification Subject</th>
+          <th id="notificationDescription">Notification Description</th>
+          <th id="validFrom">Valid From</th>
+          <th id="validTill">Valid Till</th>
+          <th id="edit">Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -80,11 +80,11 @@
           </td>
         </tr>
         <tr *ngFor="let row of md2.data;let i = index ">
-          <td width=10%>{{(md2.activePage-1)*3+i+1}}</td>
-          <td width=20%>{{row.notification}}</td>
-          <td width=30%>{{row.notificationDesc}}</td>
-          <td width=20%>{{row.validFrom|date:'dd/MM/yyyy'}}</td>
-          <td width=20%>{{row.validTill|date:'dd/MM/yyyy'}}</td>
+          <td style="width: 10%;">{{(md2.activePage-1)*3+i+1}}</td>
+          <td style="width: 20%;">{{row.notification}}</td>
+          <td style="width: 30%;">{{row.notificationDesc}}</td>
+          <td style="width: 20%;">{{row.validFrom|date:'dd/MM/yyyy'}}</td>
+          <td style="width: 20%;">{{row.validTill|date:'dd/MM/yyyy'}}</td>
           <td>
             <a (click)="onEditClick(row,$event)">
               <md-icon color="">mode_edit</md-icon>

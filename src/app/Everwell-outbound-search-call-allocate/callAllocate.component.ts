@@ -8,6 +8,8 @@ import { dataService } from '../services/dataService/data.service';
 import { CallServices } from '../services/callservices/callservice.service'
 declare var jQuery: any;
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'everwell-allocate',
@@ -32,12 +34,14 @@ export class CallAllocateComponent implements OnInit {
   preferredLanguageName: any = undefined;
   selectedlang: any;
   selectedlangflag: boolean = false;
+  currentLanguageSet: any;
 
 
   constructor(
     private _OSRService: OutboundSearchRecordService,
     private saved_data: dataService,
-    private _callServices: CallServices, public alertService: ConfirmationDialogsService
+    private _callServices: CallServices, public alertService: ConfirmationDialogsService,
+    private HttpServices:HttpServices
   ) {
 
   }
@@ -53,6 +57,7 @@ export class CallAllocateComponent implements OnInit {
     this.getOutboundCallCount(this.serviceProviderMapID, this.startOutboundDate, this.endOutboundDate);
     this.getLanguages();
     this.showCount = false;
+    this.assignSelectedLanguage();
   }
   assignCount(data: any) {
     this.getOutboundCallCount(data.providerServiceMapId, data.startDate, data.endDate, data.language);
@@ -131,5 +136,13 @@ export class CallAllocateComponent implements OnInit {
       return false;
     }
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

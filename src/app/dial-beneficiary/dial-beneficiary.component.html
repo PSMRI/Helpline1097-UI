@@ -3,25 +3,25 @@
     <div class="col-xs-3 col-sm-3 col-md-3 clearfix"></div>
     <div class="col-xs-6 col-sm-6 col-md-6">
       <md-input-container style="width: 60%">
-        <input required minlength="10" maxlength="10" mdInput placeholder="Phone Number" [(ngModel)]="phoneNumber" #number="ngModel">
+        <input required minlength="10" maxlength="10" mdInput placeholder="{{currentLanguageSet?.phoneNumber}}" [(ngModel)]="phoneNumber" #number="ngModel">
         <md-hint *ngIf="!number.valid">
-          <span class="error_text" *ngIf=" number.dirty || number.touched ">Please enter phone number</span>
+          <span class="error_text" *ngIf=" number.dirty || number.touched ">{{currentLanguageSet?.pleaseEnterPhoneNumber}}</span>
         </md-hint>
-        <md-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true">search</md-icon>
+        <md-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true">{{currentLanguageSet?.search}}</md-icon>
       </md-input-container>
-      <button color="accent" md-raised-button (click)="findBenByPh()" [disabled]="number.invalid">Search</button>
+      <button color="accent" md-raised-button (click)="findBenByPh()" [disabled]="number.invalid">{{currentLanguageSet?.search}}</button>
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 clearfix"></div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12" *ngIf="resultsFound">
     <div class="table-responsive ">
-      <table class="table">
+      <table class="table" aria-describedby="languageDetails">
         <thead>
           <tr>
-            <th>BeneficiaryID</th>
-            <th>Beneficiary Name</th>
-            <th>Phone Number</th>
-            <th>Action</th>
+            <th id="beneficiaryID">{{currentLanguageSet?.beneficiaryid}}</th>
+            <th id="beneficiaryName"> {{currentLanguageSet?.beneficiaryName}}</th>
+            <th id="phoneNumber">{{currentLanguageSet?.phoneNumber}} </th>
+            <th id="action">{{currentLanguageSet?.action}}</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
             <td>Diamond Khanna</td>
             <td>9023650041</td>
             <td style="cursor: pointer;">
-              <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">call</md-icon>
+              <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">{{currentLanguageSet?.call}}</md-icon>
             </td>
           </tr>
           <tr>
@@ -38,7 +38,7 @@
             <td>Vinay Khanna</td>
             <td>9023650041</td>
             <td style="cursor: pointer;">
-              <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">call</md-icon>
+              <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">{{currentLanguageSet?.call}}</md-icon>
             </td>
           </tr>
         </tbody>

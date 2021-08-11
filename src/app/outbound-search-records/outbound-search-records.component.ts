@@ -8,6 +8,8 @@ import { dataService } from '../services/dataService/data.service';
 import { CallServices } from '../services/callservices/callservice.service'
 declare var jQuery: any;
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-outbound-search-records',
@@ -32,17 +34,19 @@ export class OutboundSearchRecordsComponent implements OnInit {
   preferredLanguageName: any = undefined;
   selectedlang: any;
   selectedlangflag: boolean = false;
+  currentLanguageSet: any;
 
 
   constructor(
     private _OSRService: OutboundSearchRecordService,
     private saved_data: dataService,
-    private _callServices: CallServices, public alertService: ConfirmationDialogsService
+    private _callServices: CallServices, public alertService: ConfirmationDialogsService,public HttpServices: HttpServices
   ) {
 
   }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.serviceProviderMapID = this.saved_data.current_service.serviceID;
     this.startOutboundDate = new Date();
     this.endOutboundDate = new Date();
@@ -53,6 +57,14 @@ export class OutboundSearchRecordsComponent implements OnInit {
     this.getOutboundCallCount(this.serviceProviderMapID, this.startOutboundDate, this.endOutboundDate);
     this.getLanguages();
     this.showCount = false;
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
   assignCount(data: any) {
     this.getOutboundCallCount(data.providerServiceMapId, data.startDate, data.endDate, data.language);

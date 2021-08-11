@@ -1,102 +1,156 @@
-<!--<md-card>-->
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-10 m-t-20">Caller Age Report</h4>
+      <h4 class="f-s-b m-b-10 m-t-20">
+        {{ assignSelectedLanguageValue?.callerAgeReport }}
+      </h4>
     </label>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
       <form #callerAgeSearchForm="ngForm" autocomplete="off">
-        <!--               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
-                  #startDate [min]="minStartDate" [max]="endDate.value" required></md2-datepicker>
-                <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
-                <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
-              </div> -->
-        <!--             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date" (change)="endDateChange()"
-                  #endDate [max]="today" required></md2-datepicker>
-                <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
-                <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value)">End Date cannot be before Start Date!</span>
-              </div> -->
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md2-datepicker class="width100" name="startDate" placeholder="Start Date" (keydown)="blockKey($event)" [(ngModel)]="start_date"
-            (change)="endDateChange()" #startDate [max]="maxStartDate" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">Min Start Date is End Date-30days</span>
+          <md2-datepicker
+            class="width100"
+            name="startDate"
+            placeholder="{{ assignSelectedLanguageValue?.startDate }}"
+            (keydown)="blockKey($event)"
+            [(ngModel)]="start_date"
+            (change)="endDateChange()"
+            #startDate
+            [max]="maxStartDate"
+            required
+          ></md2-datepicker>
+          <span
+            class="error_text f-s-10 p-l-10"
+            *ngIf="startDate.touched && startDate.errors?.required"
+            >{{ assignSelectedLanguageValue?.dateIsRequired }}</span
+          >
+          <span
+            class="error_text f-s-10 p-l-10"
+            *ngIf="startDate.touched && startDate.errors?.min"
+            >{{
+              assignSelectedLanguageValue?.minStartDateIsEndDate30days
+            }}</span
+          >
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <md2-datepicker class="width100" name="endDate" placeholder="End Date" (keydown)="blockKey($event)" [(ngModel)]="end_date"
-            #endDate [min]="startDate.value" [max]="maxEndDate" required></md2-datepicker>
-          <!--             <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span> -->
-          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.errors?.required">End date should be greator than start(max 30 days)</span>
+          <md2-datepicker
+            class="width100"
+            name="endDate"
+            placeholder="{{ assignSelectedLanguageValue?.endDate }}"
+            (keydown)="blockKey($event)"
+            [(ngModel)]="end_date"
+            #endDate
+            [min]="startDate.value"
+            [max]="maxEndDate"
+            required
+          ></md2-datepicker>
+
+          <span
+            class="error_text f-s-10 p-l-10"
+            *ngIf="endDate.errors?.required"
+            >{{
+              assignSelectedLanguageValue?.endDateShouldBeGreatorThanStartmax30Days
+            }}</span
+          >
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none"> -->
-
-            <md-select placeholder="Select State" [style.width]="'100%'" [(ngModel)]="state" name="state" (change)="GetDistricts(state)">
-              <md-option *ngFor="let stat of states" [value]="stat">
-                {{stat.stateName}}
-              </md-option>
-            </md-select>
-          <!-- </md-input-container> -->
+          <md-select
+            placeholder="{{ assignSelectedLanguageValue?.selectState }}"
+            [style.width]="'100%'"
+            [(ngModel)]="state"
+            name="state"
+            (change)="GetDistricts(state)"
+          >
+            <md-option *ngFor="let stat of states" [value]="stat">
+              {{ stat.stateName }}
+            </md-option>
+          </md-select>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none"> -->
-
-            <md-select placeholder="Select District" [style.width]="'100%'" [(ngModel)]="district" name="district">
-              <md-option *ngFor="let district of districts" [value]="district.districtName">
-                {{district.districtName}}
-              </md-option>
-            </md-select>
-          <!-- </md-input-container> -->
-
+          <md-select
+            placeholder="{{ assignSelectedLanguageValue?.selectDistrict }}"
+            [style.width]="'100%'"
+            [(ngModel)]="district"
+            name="district"
+          >
+            <md-option
+              *ngFor="let district of districts"
+              [value]="district.districtName"
+            >
+              {{ district.districtName }}
+            </md-option>
+          </md-select>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-          <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-            <input mdInput style="display:none"> -->
-
-            <md-select required placeholder="Select Age Group" [style.width]="'100%'" [(ngModel)]="ageGroup" name="ageGroup" (change)=resetWorklist()>
-              <md-option *ngFor="let age of ageGroups" [value]="age.ageGroupValue">
-                {{age.ageGroupDisplay}}
-              </md-option>
-            </md-select>
-          <!-- </md-input-container> -->
-
+          <md-select
+            required
+            placeholder="{{ assignSelectedLanguageValue?.selectAgeGroup }}"
+            [style.width]="'100%'"
+            [(ngModel)]="ageGroup"
+            name="ageGroup"
+            (change)="resetWorklist()"
+          >
+            <md-option
+              *ngFor="let age of ageGroups"
+              [value]="age.ageGroupValue"
+            >
+              {{ age.ageGroupDisplay }}
+            </md-option>
+          </md-select>
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-          <button class="hidden-xs" md-raised-button [disabled]="callerAgeSearchForm.invalid" color="accent" (click)="getReports(callerAgeSearchForm.value)">SEARCH</button>
-          <button class="visible-xs pull-right" md-raised-button [disabled]="callerAgeSearchForm.invalid" color="accent" (click)="getReports(callerAgeSearchForm.value)">SEARCH</button>
+          <button
+            class="hidden-xs"
+            md-raised-button
+            [disabled]="callerAgeSearchForm.invalid"
+            color="accent"
+            (click)="getReports(callerAgeSearchForm.value)"
+          >
+            {{ assignSelectedLanguageValue?.search }}
+          </button>
+          <button
+            class="visible-xs pull-right"
+            md-raised-button
+            [disabled]="callerAgeSearchForm.invalid"
+            color="accent"
+            (click)="getReports(callerAgeSearchForm.value)"
+          >
+            {{ assignSelectedLanguageValue?.search }}
+          </button>
         </div>
       </form>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
     <div class="table-responsive">
-      <table class="table table-striped " [md2Data]="count" #md2="md2DataTable">
+      <table class="table table-striped" [md2Data]="count" #md2="md2DataTable" aria-describedby="callerDetails">
         <thead>
           <tr>
-            <th>S.No.</th>
-            <th>Age Group</th>
-            <th>Service Provided Ratio</th>
-            <th>Count</th>
+            <th id="sno">{{ assignSelectedLanguageValue?.sno }}</th>
+            <th id="ageGroup">{{ assignSelectedLanguageValue?.ageGroup }}</th>
+            <th id="serviceProvidedRatio">{{ assignSelectedLanguageValue?.serviceProvidedRatio }}</th>
+            <th id="count">{{ assignSelectedLanguageValue?.count }}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngIf="count.length === 0">
             <td class="record-not-found" colspan="4">
-              No Records Found
-            </td></tr>
-          <tr *ngFor="let report of md2.data;let i=index ">
-            <td width=10%>{{(md2.activePage-1)*(md2.rowsPerPage)+(i+1)}}</td>
-            <td>{{report.groupName=='all'?'Total': report.groupName}}</td>
-            <td>{{report.serviceProvidedRatio}}</td>
-            <td>{{report.count}}</td>
+              {{ assignSelectedLanguageValue?.noRecordsFound }}
+            </td>
+          </tr>
+          <tr *ngFor="let report of md2.data; let i = index">
+            <td style="width: 10%;">
+              {{ (md2.activePage - 1) * md2.rowsPerPage + (i + 1) }}
+            </td>
+            <td>
+              {{ report.groupName == "all" ? "Total" : report.groupName }}
+            </td>
+            <td>{{ report.serviceProvidedRatio }}</td>
+            <td>{{ report.count }}</td>
           </tr>
         </tbody>
         <tfoot>
@@ -105,7 +159,14 @@
               <md2-pagination></md2-pagination>
             </td>
             <td class="p-r-0" colspan="2" *ngIf="count.length > 0">
-              <button class="pull-right" md-raised-button color="primary" (click)="downloadV2()">Download Data</button>
+              <button
+                class="pull-right"
+                md-raised-button
+                color="primary"
+                (click)="downloadV2()"
+              >
+                {{ assignSelectedLanguageValue?.downloadData }}
+              </button>
             </td>
           </tr>
         </tfoot>
@@ -113,4 +174,3 @@
     </div>
   </div>
 </div>
-<!--</md-card>-->

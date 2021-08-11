@@ -8,6 +8,8 @@ import { ReportsService } from '../services/reports-service/reports-service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import { NgForm } from '@angular/forms';
 import * as XLSX from 'xlsx';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-supervisor-calltype-reports',
@@ -50,10 +52,12 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
   maxStartDate: Date;
   maxEndDate: Date;
   @ViewChild('CallTypeReport') CallTypeReport: NgForm;
+  currentLanguageSet: any;
 
   constructor(public _SupervisorCallTypeReportService: SupervisorCallTypeReportService, private reportService: ReportsService,
     public commonDataService: dataService, private alertMessage: ConfirmationDialogsService,
-    private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService) {
+    private _userBeneficiaryData: UserBeneficiaryData, private _locationService: LocationService,
+    public httpServices:HttpServices) {
 
     this.tableFlag = false;
     this.today = new Date();
@@ -62,6 +66,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     // this.maxDate = new Date();
     // this.start_date = 
 
@@ -133,12 +138,22 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
     this.showPaginationControls = false;
   }
 
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+    }
+
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
+
   setTableFlag(val, values) {
     this.tableFlag = val;
     this.get_filterCallList(values);
   }
   audioEvent() {
-    this.alertMessage.alert('No audio file uploded');
+    this.alertMessage.alert(this.currentLanguageSet.noAudioFileUploded);
   }
   get_filterCallList(value) {
     let start_date = new Date((value.start_date) - 1 * (value.start_date.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
@@ -208,7 +223,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
 
     }
     else {
-      this.alertMessage.alert('No call type report for searched criteria');
+      this.alertMessage.alert(this.currentLanguageSet.noCallTypeReportForSearchedCriteria);
     }
     return response;
   }

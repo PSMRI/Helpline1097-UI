@@ -3,61 +3,61 @@
     <button type="button" class="close" md-dialog-close>
       <span class="pull-right">&times;</span>
     </button>
-    <h2 md-dialog-title class="f-s-b m-b-10 m-t-10">Edit Notification</h2>
+    <h2 md-dialog-title class="f-s-b m-b-10 m-t-10">{{currentLanguageSet?.editNotification}} </h2>
   </div>
 </div>
 <div class="row">
     <md-dialog-content class="m-b-10">
       <form #editNotificationForm="ngForm" autocomplete="off">
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 c-b p-l-lg-1">
-          <md2-datepicker class="width100" (keydown)="blockey($event)" name="startDate" placeholder="Start Date" #startDate="ngModel" [ngModel]="validFrom" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Date is required</span>
+          <md2-datepicker class="width100" (keydown)="blockey($event)" name="startDate" placeholder="{{currentLanguageSet?.startDate}}" #startDate="ngModel" [ngModel]="validFrom" required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 p-l-lg-1">
-          <md2-datepicker class="width100" (keydown)="blockey($event)" name="endDate" placeholder="End Date" [min]="startDate.value" #endDate="ngModel" [ngModel]="validTill"
+          <md2-datepicker class="width100" (keydown)="blockey($event)" name="endDate" placeholder="{{currentLanguageSet?.endDate}}" [min]="startDate.value" #endDate="ngModel" [ngModel]="validTill"
             required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">Date is required</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate!}}</span>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
           <md-input-container class="width100">
-            <input type="text" mdInput placeholder="Notification Subject" name="notificationSubject" [ngModel]="data.notification" minlength="5" maxlength="300" #notificationSubject="ngModel" required>
+            <input type="text" mdInput placeholder="{{currentLanguageSet?.notificationSubject}}" name="notificationSubject" [ngModel]="data.notification" minlength="5" maxlength="300" #notificationSubject="ngModel" required>
             <md-hint align="start" *ngIf="notificationSubject.errors && notificationSubject.touched">
-              <span class="error_text">Notification Subject is required(Min 5 characters)</span>
+              <span class="error_text">{{currentLanguageSet?.notificationSubjectIsRequired(min5Characters)}}</span>
             </md-hint>
             <md-hint align="end">{{notificationSubject.value?.length}}/300</md-hint>
           </md-input-container>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <md-input-container class="width100">
-            <textarea rows="2" mdInput placeholder="Notification Description" name="notificationDesc" [ngModel]="data.notificationDesc" minlength="5" maxlength="300"
+            <textarea rows="2" mdInput placeholder="{{currentLanguageSet?.notificationDescription}}" name="notificationDesc" [ngModel]="data.notificationDesc" minlength="5" maxlength="300"
               required #notificationDesc="ngModel"></textarea>
             <md-hint align="start" *ngIf="notificationDesc.errors && notificationDesc.touched">
-              <span class="error_text">Notification Description is required(Min 5 characters)</span>
+              <span class="error_text">{{currentLanguageSet?.notificationDescriptionIsRequired(min5Characters)}}</span>
             </md-hint>
             <md-hint align="end">{{notificationDesc.value?.length}}/300</md-hint>
           </md-input-container>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" *ngIf="data?.kmFileManager?.fileName">
           <md-input-container class="width100">
-            <input type="text" mdInput placeholder="UploadedFile" name="uploadedFile" [ngModel]="data.kmFileManager.fileName" disabled
+            <input type="text" mdInput placeholder="{{currentLanguageSet?.uploadedfile}}" name="uploadedFile" [ngModel]="data.kmFileManager.fileName" disabled
               required>
           </md-input-container>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
           <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
-          <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file"
+          <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadedfile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
             ngModel #uploadfile="ngModel">
         </div>
         <span class="help-block m-l-15" *ngIf="invalid_file_flag">Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)</span>
-        <!-- <span class="help-block m-l-15" *ngIf="error1">Please choose a file for upload</span> -->
+       
         <span class="help-block m-l-15" *ngIf="error2">File Size should not exceed {{maxFileSize}} MB</span>
-        <!--<span class="help-block m-l-15" *ngIf="(endDate.value < startDate.value) && endDate.dirty">End Date cannot be before Start Date!</span>-->
+       
       </form>
     </md-dialog-content>
     <div class="m-b-5">
       <button md-raised-button class="m-l-5 m-r-15 pull-right" color="primary" [disabled]="!(editNotificationForm.valid)|| error2 || invalid_file_flag"
-        type="button" (click)="onSubmit()">Save</button>
-      <button md-raised-button class="m-l-15 m-r-5 pull-right" md-dialog-close>Close</button>
+        type="button" (click)="onSubmit()">{{currentLanguageSet?.save}}</button>
+      <button md-raised-button class="m-l-15 m-r-5 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
     </div>
 </div>

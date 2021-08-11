@@ -5,9 +5,11 @@ import { CoReferralService } from './../services/coService/co_referral.service'
 import { Subscription } from 'rxjs/Subscription';
 declare var jQuery: any;
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
-
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
+
 @Component({
   selector: 'app-co-information-services',
   templateUrl: './co-information-services.component.html',
@@ -15,8 +17,8 @@ import { CommunicationService } from './../services/common/communication.service
 })
 export class CoInformationServicesComponent implements OnInit {
 
-  @Input() current_language: any;
-  currentlanguage: any;
+  currentLanguageSet: any;
+
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
   @Input() resetProvideServices: any;
@@ -42,7 +44,9 @@ export class CoInformationServicesComponent implements OnInit {
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
     private _coService: CoReferralService,
-    private pass_data: CommunicationService, public alertService: ConfirmationDialogsService
+    private pass_data: CommunicationService, 
+    public alertService: ConfirmationDialogsService, 
+    public HttpServices: HttpServices
   ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
     this.saved_data.beneficiary_regID_subject.subscribe(response => {
@@ -51,6 +55,7 @@ export class CoInformationServicesComponent implements OnInit {
     // saved_data.myBool$.subscribe((newBool: boolean) => { alert("new val in co info",newBool) });
   }
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
     
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
@@ -58,9 +63,16 @@ export class CoInformationServicesComponent implements OnInit {
     this.GetServiceTypes();
 
   }
+   ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
-    this.setLanguage(this.current_language);
     if (this.resetProvideServices) {
       this.tempFlag = true;
       this.showTableCondition = true;
@@ -69,10 +81,7 @@ export class CoInformationServicesComponent implements OnInit {
       this.showresult = false;
     }
   }
-
-  setLanguage(language) {
-    this.currentlanguage = language;
-  }
+  
   GetServiceTypes() {
     this._coCategoryService.getTypes(this.providerServiceMapID)
       .subscribe(response => this.setServiceTypes(response),

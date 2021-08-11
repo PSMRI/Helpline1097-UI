@@ -9,6 +9,8 @@ import { CoAlternateNumberComponent } from './co-alternate-number/co-alternate-n
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { CommonSmsDialogComponent } from '../common-sms-dialog/common-sms-dialog.component';
 import { SmsTemplateService } from './../services/supervisorServices/sms-template-service.service';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 // Common service to pass Data
 declare var jQuery: any;
@@ -20,8 +22,8 @@ import { CommunicationService } from './../services/common/communication.service
   styleUrls: ['./co-referral-services.component.css']
 })
 export class CoReferralServicesComponent implements OnInit {
-  @Input() current_language: any;
-  currentlanguage: any;
+  currentLanguageSet: any;
+
   @Input() resetProvideServices: any;
 
   @Output() referralServiceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -64,7 +66,8 @@ export class CoReferralServicesComponent implements OnInit {
     private pass_data: CommunicationService,
     private dialog: MdDialog,
     private message: ConfirmationDialogsService,
-    private _smsService: SmsTemplateService
+    private _smsService: SmsTemplateService, 
+    public HttpServices: HttpServices
   ) {
   this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) });
     this.saved_data.beneficiary_regID_subject.subscribe(response => {
@@ -73,6 +76,8 @@ export class CoReferralServicesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
+
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
 
@@ -87,6 +92,14 @@ export class CoReferralServicesComponent implements OnInit {
       });
     this.GetInformationDirectory();
   }
+   ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
   tempFlag: boolean;
   // tslint:disable-next-line:use-life-cycle-interface
 
@@ -94,7 +107,6 @@ export class CoReferralServicesComponent implements OnInit {
     this.beneficiaryRegID = data.beneficiaryRegID;
   }
   ngOnChanges() {
-    this.setLanguage(this.current_language);
     if (this.resetProvideServices) {
       this.tempFlag = true;
 
@@ -106,11 +118,6 @@ export class CoReferralServicesComponent implements OnInit {
 
     }
 
-  }
-
-  setLanguage(language) {
-    this.currentlanguage = language;
-    console.log(language, 'language in referral tak');
   }
 
   GetServiceTypes() {
@@ -144,7 +151,7 @@ export class CoReferralServicesComponent implements OnInit {
       this.data = response;
     }
     else {
-      this.message.alert("No data found")
+      this.message.alert(this.currentLanguageSet.noDataFound)
     }
 
   }
@@ -390,7 +397,7 @@ export class CoReferralServicesComponent implements OnInit {
                     this._smsService.sendSMS(req_arr)
                       .subscribe(ressponse => {
                         console.log(ressponse, 'SMS Sent');
-                        alert('SMS sent');
+                        alert(this.currentLanguageSet.smsSent);
                       }, err => {
                         console.log(err, 'SMS not sent Error');
                       })
