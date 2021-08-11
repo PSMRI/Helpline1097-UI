@@ -630,7 +630,8 @@
       "rationValidation": "Enter valid Ration No. Ex:alphanumeric",
       "validAadhar": "Enter valid Aadhar Ex:XXXX XXXX XXXX",
       "showPassword": "Show Password",
-      "help": "Help"
+      "help": "Help",
+      "searchByPhoneNumber":"Search By Phone Number"
 
       
 

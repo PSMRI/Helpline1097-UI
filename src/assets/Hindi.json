@@ -626,7 +626,8 @@
       "passportValidation": "Enter valid Passport No. Ex:alphanumeric",
       "rationValidation": "Enter valid Ration No. Ex:alphanumeric",
       "validAadhar": "Enter valid Aadhar Ex:XXXX XXXX XXXX",
-      "help": "Help"
+      "help": "Help",
+      "searchByPhoneNumber":"Search By Phone Number"
       
     }
 }
