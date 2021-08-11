@@ -168,15 +168,9 @@
       "errorInPassingData": "Error in passing Data",
       "noRecordsFound": "No records found",
       "lastName:": "Last Name :",
-<<<<<<< HEAD
       "everwellCallRe_allocation": "Everwell Call Re-Allocation",
       "selectSub-category": "Select Sub-Category",
       "enterContactNo_": "Enter Contact No.",
-=======
-      "everwellCallRe-allocation": "Everwell Call Re-Allocation",
-      "selectSubcategory": "Select Sub-Category",
-      "enterContactNo.": "Enter Contact No.",
->>>>>>> ec6d9b722be3b79b8485a22ab9e9f4808adf436b
       "callReports": "Call Reports",
       "action": "Action",
       "messageIsRequired(min5Characters)": "Message is required(min 5 characters)",
@@ -313,11 +307,7 @@
       "noLocationMessages": "No Location Messages",
       "password": "Password",
       "valueType": "Value Type",
-<<<<<<< HEAD
-      "everwellOutboundCallReallocation": "Everwell Outbound Call Re-Allocation",
-=======
       "everwellOutboundCallReAllocation": "Everwell Outbound Call Re-Allocation",
->>>>>>> ec6d9b722be3b79b8485a22ab9e9f4808adf436b
       "english": "English",
       "selectParameter": "Select Parameter",
       "state": "State",
@@ -579,12 +569,6 @@
       "category": "Category",
       "startDateIsRequired": "Start Date is required",
       "callTime": "Call Time",
-<<<<<<< HEAD
-      "configurations":"Configurations",
-      "activityForThisWeek":"Activity for this week",
-      "everwellGuidelinesUpload":"Everwell Guidelines Upload",
-      "communication":"Communication"
-=======
 
     "_commentsStarting":"BA20178105 new keywords adding start here",
       "calldetails": "Call Details",
@@ -607,7 +591,11 @@
       "enterValidPincode": "Enter Valid Pincode",
       "pincode": "Pincode",
       "SelectPanchayatORVillage": "Select Panchayat/Village",
-      "selectTaluk": "Select Taluk"
+      "selectTaluk": "Select Taluk",
+      "configurations":"Configurations",
+      "activityForThisWeek":"Activity for this week",
+      "everwellGuidelinesUpload":"Everwell Guidelines Upload",
+      "communication":"Communication"
 
 
 
@@ -616,6 +604,5 @@
 
 
 
->>>>>>> ec6d9b722be3b79b8485a22ab9e9f4808adf436b
     }
   }

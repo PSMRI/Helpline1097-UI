@@ -589,6 +589,10 @@
       "enterValidPincode": "Enter Valid Pincode",
       "pincode": "Pincode",
       "SelectPanchayatORVillage": "Select Panchayat/Village",
-      "selectTaluk": "Select Taluk"
+      "selectTaluk": "Select Taluk",
+      "configurations":"Configurations",
+      "activityForThisWeek":"Activity for this week",
+      "everwellGuidelinesUpload":"Everwell Guidelines Upload",
+      "communication":"Communication"
     }
 }
