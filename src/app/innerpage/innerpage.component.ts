@@ -60,7 +60,10 @@ export class InnerpageComponent implements OnInit {
   callID: any;
   wrapupTimerSubscription: Subscription;
   ipAddress: any;
-  // eventSpiltData: any;
+  language_file_path: any = "./assets/";
+  currentLanguageSet: any;
+  app_language: any;
+  languageArray: any;
 
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
@@ -70,7 +73,6 @@ export class InnerpageComponent implements OnInit {
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   current_service: any;
   current_role: any;
-  // loginUrl = this._config.getCommonLoginUrl();
   data: any = {};
   ctiHandlerURL: any;
   transferCallID: any;
@@ -89,6 +91,8 @@ export class InnerpageComponent implements OnInit {
   everwelleapiId: any;
   everwellSubmitBtn: boolean = false;
   custdisconnectCallID: any;
+
+
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -191,6 +195,7 @@ export class InnerpageComponent implements OnInit {
     this.isEverwell = sessionStorage.getItem("isEverwellCall");
 
     this.assignSelectedLanguage();
+    this.fetchLanguageSet();
 
   }
   addActiveClass(val: any) {
@@ -380,6 +385,8 @@ export class InnerpageComponent implements OnInit {
       sessionStorage.removeItem('isEverwellCall');
       this.basicrouter.navigate(['']);
       this.authService.removeToken();
+      sessionStorage.removeItem("setLanguage");
+      this.getCommonData.appLanguage="English";
     }
 
   }
@@ -408,6 +415,8 @@ export class InnerpageComponent implements OnInit {
         sessionStorage.removeItem('isOnCall');
         sessionStorage.removeItem('isEverwellCall');
         sessionStorage.removeItem('apiman_key');
+        sessionStorage.removeItem("setLanguage");
+        this.getCommonData.appLanguage="English";
         this.basicrouter.navigate(['']);
       } else {
         if (this.current_role.toLowerCase() !== 'supervisor') {
@@ -416,7 +425,9 @@ export class InnerpageComponent implements OnInit {
         } else {
           sessionStorage.removeItem('isOnCall');
           sessionStorage.removeItem('isEverwellCall');
-          sessionStorage.removeItem('apiman_key');          
+          sessionStorage.removeItem('apiman_key');   
+          sessionStorage.removeItem("setLanguage");
+          this.getCommonData.appLanguage="English";       
           this.basicrouter.navigate(['']);
         }
       }
@@ -432,11 +443,13 @@ export class InnerpageComponent implements OnInit {
         if (res.response.status.toUpperCase() !== 'FAIL') {
           sessionStorage.removeItem('isOnCall');
           sessionStorage.removeItem('isEverwellCall');
+          sessionStorage.removeItem("setLanguage");
+          this.getCommonData.appLanguage="English";
           this.basicrouter.navigate(['']);
         } else {
-          // if (this.current_role.toLowerCase() !== 'supervisor') {
+         
           this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
-          // }
+        
         }
       }, (err) => {
         this.remarksMessage.alert(err.errorMessage);
@@ -444,6 +457,8 @@ export class InnerpageComponent implements OnInit {
     } else {
       sessionStorage.removeItem('isOnCall');
       sessionStorage.removeItem('isEverwellCall');
+      sessionStorage.removeItem("setLanguage");
+      this.getCommonData.appLanguage="English";
       this.basicrouter.navigate(['']);
     }
   }
@@ -798,5 +813,77 @@ export class InnerpageComponent implements OnInit {
 		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
 		getLanguageJson.setLanguage();
 		this.currentlanguageSet = getLanguageJson.currentLanguageObject;
+    this.app_language= this.getCommonData.appLanguage;
 	  }
+
+     /*Methods for multilingual implementation*/
+  fetchLanguageSet() {
+    this.HttpServices.fetchLanguageSet().subscribe((languageRes) => {
+      this.languageArray = languageRes;
+      this.getLanguage();
+    });
+  }
+
+  getLanguage() {
+    if (sessionStorage.getItem("setLanguage") != null) {
+      this.changeLanguage(sessionStorage.getItem("setLanguage"));
+    } else {
+      this.changeLanguage(this.app_language);
+    }
+  }
+
+  changeLanguage(language) {
+    this.HttpServices.getLanguage(
+      this.language_file_path + language + ".json"
+    ).subscribe(
+      (response) => {
+        if (response) {
+          this.languageSuccessHandler(response, language);
+        } else {
+          alert("Language not defined");
+        }
+      },
+      (error) => {
+        alert("We are coming up with this language" + "" + language);
+      }
+    );
+  }
+
+  languageSuccessHandler(response, language) {
+    if (!this.checkForNull(response)) {
+      alert("We are coming up with this language" + " " + language);
+      return;
+    }
+    console.log("language is ", response);
+    this.currentLanguageSet = response[language];
+    sessionStorage.setItem("setLanguage", language);
+    if (this.currentLanguageSet) {
+      this.languageArray.forEach((item) => {
+        if (item.languageName === language) {
+          this.app_language = language;
+          this.getCommonData.appLanguage=language;
+        }
+      });
+    } else {
+      this.app_language = language;
+      this.getCommonData.appLanguage=language;
+    }
+    this.HttpServices.getCurrentLanguage(response[language]);
+  }
+  checkForNull(languageResponse) {
+    return languageResponse !== undefined && languageResponse !== null;
+  }
+
+  setLangugage() {
+    const languageSubscription = this.HttpServices.currentLangugae$.subscribe((languageResponse) => {
+      if (!this.checkForNull(languageResponse)) {
+        return;
+      }
+      this.currentLanguageSet = languageResponse;
+    },
+    (err) => { console.log(err); },
+    () => { console.log('completed')});
+    languageSubscription.unsubscribe();
+  }
+  /*END - Methods for multilingual implementation*/
 }

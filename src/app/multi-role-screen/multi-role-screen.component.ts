@@ -46,7 +46,7 @@ export class MultiRoleScreenComponent implements OnInit {
   commitDetailsPath: any = "assets/git-version.json";
   language_file_path: any = "./assets/";
   currentLanguageSet: any;
-  app_language: any = "English";
+  app_language: any;
   languageArray: any;
   
   constructor(public dataSettingService: dataService, private _config: ConfigService, location: PlatformLocation,
@@ -123,6 +123,7 @@ export class MultiRoleScreenComponent implements OnInit {
 		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
 		getLanguageJson.setLanguage();
 		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    this.app_language=this.dataSettingService.appLanguage;
 	  }
 
   setHeaderName(data) {
@@ -154,6 +155,8 @@ export class MultiRoleScreenComponent implements OnInit {
       if (res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
         sessionStorage.removeItem('isEverwellCall');
+        sessionStorage.removeItem("setLanguage");
+        this.dataSettingService.appLanguage="English";
         this.router.navigate(['']);
         sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
@@ -161,15 +164,19 @@ export class MultiRoleScreenComponent implements OnInit {
       } else {
         sessionStorage.removeItem('isOnCall');
         sessionStorage.removeItem('isEverwellCall');
+        sessionStorage.removeItem("setLanguage");
+        this.dataSettingService.appLanguage="English";
         this.router.navigate(['']);
         sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
 
-        // this.alertMessage.alert('Czentrix Agent Not Logged In');
+      
       }
     }, (err) => {
       sessionStorage.removeItem('isOnCall');
       sessionStorage.removeItem('isEverwellCall');
+      sessionStorage.removeItem("setLanguage");
+      this.dataSettingService.appLanguage="English";
       this.router.navigate(['']);
       this.authService.removeToken();
 
@@ -282,10 +289,12 @@ export class MultiRoleScreenComponent implements OnInit {
       this.languageArray.forEach((item) => {
         if (item.languageName === language) {
           this.app_language = language;
+          this.dataSettingService.appLanguage=language;
         }
       });
     } else {
       this.app_language = language;
+      this.dataSettingService.appLanguage=language;
     }
     this.HttpServices.getCurrentLanguage(response[language]);
   }

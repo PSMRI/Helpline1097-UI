@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter,DoCheck } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { CommunicationService } from './../services/common/communication.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 declare var jQuery: any;
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-co-counselling-services',
@@ -14,7 +16,7 @@ declare var jQuery: any;
   styleUrls: ['./co-counselling-services.component.css'],
   providers: [CoCategoryService]
 })
-export class CoCounsellingServicesComponent implements OnInit {
+export class CoCounsellingServicesComponent implements OnInit, DoCheck {
 
   @Input() current_language: any;
   currentlanguage: any;
@@ -40,12 +42,14 @@ export class CoCounsellingServicesComponent implements OnInit {
   showresult: boolean;
   p = 1;
   tempFlag: any;
+  assignSelectedLanguageValue: any;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
     private _coService: CoReferralService,
     private pass_data: CommunicationService,
-    private alertService: ConfirmationDialogsService
+    private alertService: ConfirmationDialogsService,
+    private httpServices: HttpServices
   ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
     this.saved_data.beneficiary_regID_subject.subscribe(response => {
@@ -54,7 +58,7 @@ export class CoCounsellingServicesComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
   }
@@ -209,4 +213,12 @@ export class CoCounsellingServicesComponent implements OnInit {
   millisToUTCDate(millis) {
     return this.toUTCDate(new Date(millis));
   };
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 }

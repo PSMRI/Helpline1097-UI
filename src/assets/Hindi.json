@@ -579,6 +579,22 @@
       "smsTemplateList":"SMS Template List",
       "pd":"P D",
       "uploadFileEmail":"Upload File/Email",
-      "DE40034072_END":"ENDS Here"
+      "DE40034072_END":"ENDS Here",
+      "counsellingProvidedBy":"Counselling Provided By",
+      "counsellingProvidedOn":"Counselling Provided On",
+      "subCategory":"Sub-Category",
+      "newCounselling":"New Counselling",
+      "generate": "Generate",
+      "pleaseEnterTenigitsNumber": "Please enter 10 digits number",
+      "enterValidPincode": "Enter Valid Pincode",
+      "pincode": "Pincode",
+      "SelectPanchayatORVillage": "Select Panchayat/Village",
+      "selectTaluk": "Select Taluk",
+      "configurations":"Configurations",
+      "activityForThisWeek":"Activity for this week",
+      "everwellGuidelinesUpload":"Everwell Guidelines Upload",
+      "communication":"Communication",
+
+      "searchByPhoneNumber":"Search By Phone Number"
     }
 }

@@ -568,10 +568,8 @@
       "category": "Category",
       "startDateIsRequired": "Start Date is required",
       "callTime": "Call Time",
-      "configurations":"Configurations",
-      "activityForThisWeek":"Activity for this week",
-      "everwellGuidelinesUpload":"Everwell Guidelines Upload",
-      "communication":"Communication",
+
+    "_commentsStarting":"BA20178105 new keywords adding start here",
       "calldetails": "Call Details",
       "feedbackQuestion": "How did you come to know about our services?",
       "followupQuestion": "Is Follow-Up Required?",
@@ -582,7 +580,22 @@
       "submitClose": "Submit & Close",
       "taluk": "Taluk",
  
-      "_commentEndsHere":"adding keyword ends here"
+      "_commentEndsHere":"adding keyword ends here",
+      "counsellingProvidedBy":"Counselling Provided By",
+      "counsellingProvidedOn":"Counselling Provided On",
+      "newCounselling":"New Counselling",
+      "generate": "Generate",
+      "pleaseEnterTenigitsNumber": "Please enter 10 digits number",
+      "enterValidPincode": "Enter Valid Pincode",
+      "pincode": "Pincode",
+      "SelectPanchayatORVillage": "Select Panchayat/Village",
+      "selectTaluk": "Select Taluk",
+      "configurations":"Configurations",
+      "activityForThisWeek":"Activity for this week",
+      "everwellGuidelinesUpload":"Everwell Guidelines Upload",
+      "communication":"Communication",
+
+      "searchByPhoneNumber":"Search By Phone Number"
 
 
 

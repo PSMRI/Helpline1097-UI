@@ -29,12 +29,22 @@
           </li>
         </ul>
         <ul class="list-inline list-unstyled pull-right m-b-0">
-          <li>
-            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4" [(ngModel)]="language_change" (change)="getLanguageObject(language_change)">
-              <option selected="selected " value="english">{{currentLanguageSet?.english}} </option>
-              <option value="kannada"> {{currentLanguageSet?.kannada}}</option>
-            </select>
-          </li>
+        
+             <!--Multilingual dropdown-->
+             <li>
+
+             
+              <span style="color:white;">{{currentLanguageSet?.selectLanguage}}: </span> &nbsp;
+                <select  class="form-control drop-arrow border-radius-20 height-30 width120px pull-right" name="app_language"
+                  [(ngModel)]="app_language" (change)="changeLanguage(app_language)">
+                  <option *ngFor="let language of languageArray" [value]="language.languageName">{{language.languageName}}
+                  </option>
+                  
+      
+      
+                </select>
+            </li>  
+               <!--END-Multilingual dropdown-->
         </ul>
         <ul class="list-inline list-unstyled pull-right m-l-20  m-b-0">
           <li class="m-l-lg-40 m-t-5">

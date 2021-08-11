@@ -73,6 +73,8 @@ export class dataService {
   isOutBoundSelected: boolean = false;
   outboundSelectedManual: boolean = false;
   onlyOutboundAvailable: boolean = false;
+  appLanguage:any="English";
+  
 	setInboundOutboundValue(response) {
 		//this.callTypes=1;
 		this.inboundOutbound.next(response);
