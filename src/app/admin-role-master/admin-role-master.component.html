@@ -5,11 +5,11 @@
         <table class="table">
           <thead>
             <tr>
-              <th i18n>Role Name</th>
-              <th i18n>Role Desc</th>
+              <th i18n>{{currentLanguageSet?.roleName}}</th>
+              <th i18n>{{currentLanguageSet?.roleDesc}}</th>
 
-              <td i18n>Edit</td>
-              <td i18n>Delete</td>
+              <td i18n>{{currentLanguageSet?.edit}}</td>
+              <td i18n>{{currentLanguageSet?.delete}}</td>
             </tr>
           </thead>
           <tbody>
@@ -36,26 +36,26 @@
 
   <div class="">
     <div class="col-xs-12 col-sm-12">
-      <h4 i18n>Role Details</h4>
+      <h4 i18n>{{currentLanguageSet?.roleDetails}}</h4>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="roleName" i18n>Role Name</label>
-        <input type="text" class="form-control" placeholder="Enter Role Name" id="roleName" formControlName="roleName">
+        <label class="control-label" for="roleName" i18n>{{currentLanguageSet?.roleName}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterRoleName}}" id="roleName" formControlName="roleName">
       </div>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="roleDesc" i18n>Role Desc</label>
-        <input type="text" class="form-control" placeholder="Enter Role Desc" id="roleDesc" formControlName="roleDesc">
+        <label class="control-label" for="roleDesc" i18n>{{currentLanguageSet?.roleDesc}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterRoleDesc}}" id="roleDesc" formControlName="roleDesc">
 
       </div>
     </div>
 
     <div class="col-xs-12 col-sm-12 pull right m-b-10">
-      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save" i18n> Save</button>
+      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save" i18n> {{currentLanguageSet?.save}}</button>
     </div>
   </div>
 </form>

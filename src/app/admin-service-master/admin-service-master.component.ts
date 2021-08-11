@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { ServicemasterService } from '../services/adminServices/AdminService/servicemaster.service';
-
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from '../services/http-services/http_services.service';
 @Component({
   selector: 'app-admin-service-master',
   templateUrl: './admin-service-master.component.html',
@@ -15,7 +16,8 @@ export class AdminServiceMasterComponent implements OnInit {
 
  userslist:string[];
  data:any;
- constructor(private _ServicemasterService: ServicemasterService) {
+	currentLanguageSet: any;
+ constructor(private _ServicemasterService: ServicemasterService,private HttpServices:HttpServices) {
    this.userslist;
   }
 userForm = new FormGroup({
@@ -29,10 +31,20 @@ lastModDate:new FormControl('2017-05-26')
 
 });
   ngOnInit() {
+	this.assignSelectedLanguage();
      this._ServicemasterService.getServiceMaster()
 		 	.subscribe(resProviderData => this.providers(resProviderData));
 
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
   onSubmit() {
 	
 		let bodyString = this.userForm.value;

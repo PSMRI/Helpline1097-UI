@@ -5,11 +5,11 @@
         <table class="table">
           <thead>
             <tr>
-              <th i18n>Screen Name</th>
-              <th i18n>Screen Desc</th>
-              <th i18n>Workflow Name</th>
-              <td i18n>Edit</td>
-              <td i18n>Delete</td>
+              <th i18n>{{currentLanguageSet?.screenName}}</th>
+              <th i18n>{{currentLanguageSet?.screenDesc}}</th>
+              <th i18n>{{currentLanguageSet?.workflowName}}</th>
+              <td i18n>{{currentLanguageSet?.edit}}</td>
+              <td i18n>{{currentLanguageSet?.delete}}</td>
             </tr>
           </thead>
           <tbody>
@@ -36,31 +36,31 @@
 
   <div class="">
     <div class="col-xs-12 col-sm-12">
-      <h4 i18n>Screen Details</h4>
+      <h4 i18n>{{currentLanguageSet?.screenDetails}}</h4>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="screenName" i18n>Screen Name</label>
-        <input type="text" class="form-control" placeholder="Enter Screen Name" id="screenName" formControlName="screenName">
+        <label class="control-label" for="screenName" i18n>{{currentLanguageSet?.screenName}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterScreenName}}" id="screenName" formControlName="screenName">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="workflowName" i18n>Workflow Name</label>
-        <input type="text" class="form-control" placeholder="Enter WorkFlow Name Desc." id="workflowName" formControlName="workflowName">
+        <label class="control-label" for="workflowName" i18n>{{currentLanguageSet?.workflowName}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterWorkflowNameDesc}}" id="workflowName" formControlName="workflowName">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="screenDesc" i18n>ScreenDesc</label>
-        <input type="text" class="form-control" placeholder="Enter Screen Desc" id="screenDesc" formControlName="screenDesc">
+        <label class="control-label" for="screenDesc" i18n>{{currentLanguageSet?.screenDesc}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterScreenDesc}}" id="screenDesc" formControlName="screenDesc">
 
       </div>
     </div>
 
     <div class="col-xs-12 col-sm-12 pull right m-b-10">
-      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save" i18n> Save</button>
+      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save" i18n> {{currentLanguageSet?.save}}</button>
     </div>
   </div>
 </form>
