@@ -580,6 +580,15 @@
       "pd":"P D",
       "uploadFileEmail":"Upload File/Email",
       "DE40034072_END":"ENDS Here",
-      "generate": "Generate"
+      "counsellingProvidedBy":"Counselling Provided By",
+      "counsellingProvidedOn":"Counselling Provided On",
+      "subCategory":"Sub-Category",
+      "newCounselling":"New Counselling",
+      "generate": "Generate",
+      "pleaseEnterTenigitsNumber": "Please enter 10 digits number",
+      "enterValidPincode": "Enter Valid Pincode",
+      "pincode": "Pincode",
+      "SelectPanchayatORVillage": "Select Panchayat/Village",
+      "selectTaluk": "Select Taluk"
     }
 }

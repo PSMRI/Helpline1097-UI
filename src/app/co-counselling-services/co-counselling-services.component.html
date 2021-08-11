@@ -2,42 +2,37 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <label class="pull-left">
-        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguage.counselling_service?.page_heading}}</h4>
+        <h4 class="f-s-b m-b-10 m-t-20">{{assignSelectedLanguageValue?.counsellingServices}}</h4>
       </label>
     </div>
   </div>
   <div [hidden]="!showFormCondition" class="row">
     <form id="counsellingForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-      
-          <md-select required placeholder="{{currentlanguage.counselling_service?.select_category}}" [style.width]="'100%'" [(ngModel)]="symptomCategory"
+          <md-select required placeholder="{{assignSelectedLanguageValue?.selectCategory}}" [style.width]="'100%'" [(ngModel)]="symptomCategory"
             name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
             <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
               {{symptomCategory.categoryName}}
             </md-option>
           </md-select>
-         
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-        
-          <md-select required placeholder="{{currentlanguage.counselling_service?.select_subcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory"
+          <md-select required placeholder="{{assignSelectedLanguageValue?.selectSubcategory}}" [style.width]="'100%'" [(ngModel)]="symptomSubCategory"
             name="symptomSubCategory" #subCategory="ngModel" (change)="EnabledGetDetails()">
             <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
               {{symptomSubCategory.subCategoryName}}
             </md-option>
           </md-select>
-         
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-15">
         <button class="mar-right" [disabled]="!category.valid || !subCategory.valid || getDetailsFlag" type="button" md-raised-button
-          color="accent" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentlanguage.counselling_service?.get_details}}</button>
-        <button type="button" md-raised-button color="primary" (click)="back()">{{currentlanguage.counselling_service?.back}}</button>
+          color="accent" (click)="GetSubCategoryDetails(symptomSubCategory)">{{assignSelectedLanguageValue?.getDetails}}</button>
+        <button type="button" md-raised-button color="primary" (click)="back()">{{assignSelectedLanguageValue?.back}}</button>
       </div>
-     
+   
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
-          
           <ul class="m-t-10" [hidden]="!showresult">
             <li *ngFor="let detail of detailsList">
               <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank">
@@ -45,9 +40,9 @@
                 <span class="m-l-10">{{detail?.subCategoryName}}
                   <span *ngIf="detail?.subCategoryDesc">:</span>{{detail?.subCategoryDesc}}</span>
               </a>
-              <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">No Document Available</span>
+              <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">{{assignSelectedLanguageValue?.noDocumentAvailable}}</span>
             </li>
-            <li *ngIf="detailsList?.length==0">No records found</li>
+            <li *ngIf="detailsList?.length==0">  {{assignSelectedLanguageValue?.noRecordsFound}}</li>
           </ul>
         </div>
       </div>
@@ -60,17 +55,17 @@
           <thead>
             <tr>
               <th id="sno">S.No.</th>
-              <th md2SortBy="benCallID" id="benCallID">{{currentlanguage.counselling_service?.table_labels?.beneficiary_call_id}}</th>
-              <th md2SortBy="categoryDetails.categoryName" id="categoryName">{{currentlanguage.counselling_service?.table_labels?.category}}</th>
-              <th md2SortBy="subCategoryDetails.subCategoryName" id="subCategoryName">{{currentlanguage.counselling_service?.table_labels?.subcategory}}</th>
-              <th md2SortBy="createdBy" id="createdBy">{{currentlanguage.counselling_service?.table_labels?.created_by}}</th>
-              <th md2SortBy="createdDate" id="createdDate">{{currentlanguage.counselling_service?.table_labels?.created_on}}</th>
+              <th md2SortBy="benCallID" id="benCallID">{{assignSelectedLanguageValue?.callId}}</th>
+              <th md2SortBy="categoryDetails.categoryName" id="categoryName">{{assignSelectedLanguageValue?.category}}</th>
+              <th md2SortBy="subCategoryDetails.subCategoryName" id="subCategoryName">{{assignSelectedLanguageValue?.subCategory}}</th>
+              <th md2SortBy="createdBy" id="createdBy">{{assignSelectedLanguageValue?.counsellingProvidedBy}}</th>
+              <th md2SortBy="createdDate" id="createdDate">{{assignSelectedLanguageValue?.counsellingProvidedOn}}</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngIf="md2.data.length < 1">
               <td class="t-a-c record-not-found" colspan="6">
-                {{currentlanguage.counselling_service?.table_labels?.no_records_found}}
+                {{assignSelectedLanguageValue?.noRecordsFound}}
               </td>
             </tr>
             <tr *ngFor="let counselling of md2.data;let i=index ">
@@ -88,7 +83,7 @@
                 <md2-pagination></md2-pagination>
               </td>
               <td colspan="3" class="p-r-0">
-                <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentlanguage.counselling_service?.new_counsellings}}</button>
+                <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{assignSelectedLanguageValue?.newCounselling}}</button>
               </td>
             </tr>
           </tfoot>

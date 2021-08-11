@@ -203,19 +203,13 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     } else {
       this.startNewCall();
     }
-    // this.agentID = this.saved_data.cZentrixAgentID;
-    // this.reloadOutBoundCall(this.current_campaign);
+    
     this.assignSelectedLanguage();
   }
 
   ngOnChanges() {
     this.setLanguage(this.current_language);
-    // if (this.onReloadCall) {
-    //   this.reloadCall();
-    // }
-    // if (this.onStartNewCall) {
-    //   this.startNewCall();
-    // }
+    
     this.BeneficaryForm.resetForm();
     this.alternateNumber1 = "";
     this.alternateNumber2 = "";

@@ -583,7 +583,16 @@
       "taluk": "Taluk",
  
       "_commentEndsHere":"adding keyword ends here",
-      "generate": "Generate"
+      "counsellingProvidedBy":"Counselling Provided By",
+      "counsellingProvidedOn":"Counselling Provided On",
+      "subCategory":"Sub-Category",
+      "newCounselling":"New Counselling",
+      "generate": "Generate",
+      "pleaseEnterTenigitsNumber": "Please enter 10 digits number",
+      "enterValidPincode": "Enter Valid Pincode",
+      "pincode": "Pincode",
+      "SelectPanchayatORVillage": "Select Panchayat/Village",
+      "selectTaluk": "Select Taluk"
 
 
 
