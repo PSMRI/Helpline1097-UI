@@ -1,11 +1,11 @@
 
 <div class="successHeaderDiv">
-  <h4 class="popupHeader">Success</h4>
+  <h4 class="popupHeader">{{currentLanguageSet?.success}}</h4>
 </div>
 <md-dialog-content>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <md-select class="p-b-1-5" [style.width]="'70%'" required placeholder="Emails" multiple [(ngModel)]="email" name="email"
+      <md-select class="p-b-1-5" [style.width]="'70%'" required placeholder="{{currentLanguageSet?.emails}}" multiple [(ngModel)]="email" name="email"
         #emailSelected="ngModel">
         <md-option *ngFor="let mail of emails" [value]="mail">
           {{mail}}
@@ -18,7 +18,7 @@
         <div *ngFor="let mail of controll(); let i = index" class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
           <ng-container [formGroupName]="i">
             <md-input-container>
-              <input required mdInput placeholder="Enter email" [pattern]="emailPattern" formControlName="email">
+              <input required mdInput placeholder="{{currentLanguageSet?.enterEmail}}" [pattern]="emailPattern" formControlName="email">
 
             </md-input-container>
             <span>
@@ -38,8 +38,8 @@
 </md-dialog-content>
 
 <md-dialog-actions class="pull-right m-r--10 p-b-14">
-  <button md-raised-button color="primary" class="pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close()">Close</button>
+  <button md-raised-button color="primary" class="pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close()">{{currentLanguageSet?.close}}</button>
   <button [disabled]="emailForm.invalid || emailSelected.invalid" md-raised-button color="accent" class="pull-right font-regular f-s-18  m-t-8 m-r-5"
-    (click)="sendEmail(email,emailForm.value)">Send Email
+    (click)="sendEmail(email,emailForm.value)">{{currentLanguageSet?.sendEmail}}
   </button>
 </md-dialog-actions>

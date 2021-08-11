@@ -6,11 +6,12 @@
         <table class="table" aria-describedby="serviceDetails">
           <thead>
             <tr>
-              <th id="serviceName">Service Name</th>
-              <th id="ServiceDesc">Service Desc</th>
-              
-              <td>Edit</td>
-              <td>Delete</td>
+              <th id="serviceName">{{currentLanguageSet?.serviceName}}</th>
+              <th id="ServiceDesc">{{currentLanguageSet?.serviceDesc}}</th>
+              <!--<th>PropertyFilePath</th>
+              <th>IVRFilePath</th>-->
+              <td>{{currentLanguageSet?.edit}}</td>
+              <td>{{currentLanguageSet?.delete}}</td>
             </tr>
           </thead>
           <tbody>
@@ -35,24 +36,24 @@
 
  <div class="">
   <div class="col-xs-12 col-sm-12">
-      <h4>ServiceMaster Details</h4>
+      <h4>{{currentLanguageSet?.servicemasterDetails}}</h4>
     </div>
    
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="serviceName">ServiceName</label>
-        <input type="text" class="form-control" placeholder="Enter Service Name"  id="serviceName" formControlName="serviceName">
+        <label class="control-label" for="serviceName">{{currentLanguageSet?.servicename}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterServiceName}}"  id="serviceName" formControlName="serviceName">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="serviceDesc">ServiceDesc</label>
-        <input type="text" class="form-control" placeholder="Enter Service Desc."  id="serviceDesc" formControlName="serviceDesc">
+        <label class="control-label" for="serviceDesc">{{currentLanguageSet?.servicedesc}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterServiceDesc}}"  id="serviceDesc" formControlName="serviceDesc">
       </div>
     </div>
     
     <div class="col-xs-12 col-sm-12 pull right m-b-10">
-      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save"> Save</button>
+      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save">{{currentLanguageSet?.save}}</button>
     </div>
  </div>
  </form>

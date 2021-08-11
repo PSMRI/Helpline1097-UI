@@ -5,11 +5,10 @@
         <table class="table" aria-describedby="languageDetails">
           <thead>
             <tr>
-              <th i18n id="languageName">Language Name</th>
-              <th i18n id="languageDesc">Language Desc</th>
-              
-              <td i18n>Edit</td>
-              <td i18n>Delete</td>
+              <th i18n id="languageName">{{currentLanguageSet?.languageName}}</th>
+              <th i18n id="languageDesc">{{currentLanguageSet?.languageDesc}}</th>
+              <td i18n>{{currentLanguageSet?.edit}}</td>
+              <td i18n>{{currentLanguageSet?.delete}}</td>
             </tr>
           </thead>
           <tbody>
@@ -34,42 +33,42 @@
 
   <div class="">
     <div class="col-xs-12 col-sm-12">
-      <h4 i18n>Language Details</h4>
+      <h4 i18n>{{currentLanguageSet?.languageDetails}}</h4>
     </div>
    
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="languageName" i18n>LanguageName</label>
-        <input type="text" class="form-control" placeholder="Enter Language Name" id="languageName" formControlName="languageName">
+        <label class="control-label" for="languageName" i18n>{{currentLanguageSet?.languageName}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterLanguageName}}" id="languageName" formControlName="languageName">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="languageDesc" i18n>Language Desc</label>
-        <input type="text" class="form-control" placeholder="Enter Language Desc." id="languageDesc" formControlName="languageDesc">
+        <label class="control-label" for="languageDesc" i18n>{{currentLanguageSet?.languageDesc}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterLanguageDesc}}" id="languageDesc" formControlName="languageDesc">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
         <label class="control-label" for="propertyFilePath" i18n>
-          PropertyFilePath
+          {{currentLanguageSet?.propertyfilepath}}
           </label>
-        <input type="text" class="form-control" placeholder="Enter PropertyFilePath" id="propertyFilePath" formControlName="propertyFilePath">
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterPropertyfilepath}}" id="propertyFilePath" formControlName="propertyFilePath">
 
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="ivrFilePath" i18n>IVRFilePath</label>
-        <input type="text" class="form-control" placeholder="Enter IvrFilePath" id="ivrFilePath" formControlName="ivrFilePath">
+        <label class="control-label" for="ivrFilePath" i18n>{{currentLanguageSet?.ivrfilepath}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterIvrfilepath}}" id="ivrFilePath" formControlName="ivrFilePath">
 
 
       </div>
 
     </div>
     <div class="col-xs-12 col-sm-12 pull right m-b-10">
-      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save" i18n> Save</button>
+      <button class="btn cu-green-btn pull-right p-l-r-38 f-s-18" type="submit" name="save" i18n> {{currentLanguageSet?.save}}</button>
     </div>
   </div>
 </form>

@@ -1,16 +1,16 @@
 
 
 <div class="panel panel-default m-b-10">
-	<div class="panel-heading p-t-b-3 f-s-16 bg-white">Activity for this week <span class="pull-right"><img src="assets/images/activityIcon.png" alt="Activity"></span></div>
+	<div class="panel-heading p-t-b-3 f-s-16 bg-white">{{currentLanguageSet?.activityForThisWeek}}<span class="pull-right"><img src="assets/images/activityIcon.png" alt="Activity"></span></div>
 	<div class="panel-body">
 		
 		<ul class="dots p-a-0" *ngIf="(role==='CO') && (this.getCommonData.current_campaign == 'OUTBOUND' )">
-			<li><a style="cursor: pointer" (click)="agentLoginStatus()">Outbound Worklist</a></li>
+			<li><a style="cursor: pointer" (click)="agentLoginStatus()">{{currentLanguageSet?.outboundWorklist}}</a></li>
     </ul>
     <div class="row">         
       <div class="col-xs-3 col-sm-3 m-t-10">
         <ul class="dots p-a-0">
-        <li>Training Resource</li>
+        <li>{{currentLanguageSet?.trainingResource}}</li>
         </ul>
       </div>
       <div class="col-xs-9 col-sm-9">
@@ -19,6 +19,6 @@
         </ul>
       </div>         
     </div>
-		<label class="f-s-12 pull-right m-b-0" *ngIf="this.getCommonData.current_campaign != 'OUTBOUND'"><a>More...</a></label>
+		<label class="f-s-12 pull-right m-b-0" *ngIf="this.getCommonData.current_campaign != 'OUTBOUND'"><a>{{currentLanguageSet?.moreWithDot}}</a></label>
 	</div>
 </div>
