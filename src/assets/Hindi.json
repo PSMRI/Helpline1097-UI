@@ -593,6 +593,8 @@
       "configurations":"Configurations",
       "activityForThisWeek":"Activity for this week",
       "everwellGuidelinesUpload":"Everwell Guidelines Upload",
-      "communication":"Communication"
+      "communication":"Communication",
+
+      "searchByPhoneNumber":"Search By Phone Number"
     }
 }
