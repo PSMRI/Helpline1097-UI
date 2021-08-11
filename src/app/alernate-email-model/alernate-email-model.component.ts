@@ -3,7 +3,8 @@ import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { FeedbackService } from '../services/supervisorServices/Feedbackservice.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { NgForm, FormArray, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { HttpServices } from '../services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 @Component({
   selector: 'app-alernate-email-model',
   templateUrl: './alernate-email-model.component.html',
@@ -25,16 +26,26 @@ export class AlernateEmailModelComponent implements OnInit {
   emailForm: FormGroup = new FormGroup({
     emails: new FormArray([])
   });
+  currentLanguageSet: any;
 
   constructor( @Inject(MD_DIALOG_DATA) public data: any, public dialog: MdDialog,
     public dialogReff: MdDialogRef<AlernateEmailModelComponent>,  public feedbackService: FeedbackService, 
-    public fb: FormBuilder, public alertService: ConfirmationDialogsService) {
+    public fb: FormBuilder, public alertService: ConfirmationDialogsService,private HttpServices:HttpServices) {
       this.emailForm = this.fb.group({
         emails: this.fb.array([])
       });
      }
-
+     ngDoCheck() {
+      this.assignSelectedLanguage();
+    }
+  
+    assignSelectedLanguage() {
+      const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+      getLanguageJson.setLanguage();
+      this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+      }
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.feedbackID = this.data.feedbackID;
     let obj = {
       districtID : this.data.districtID

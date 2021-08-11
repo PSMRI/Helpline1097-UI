@@ -3,9 +3,10 @@ import { enableProdMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-
+import { HttpServices } from '../services/http-services/http_services.service';
 import { SPService } from '../services/adminServices/AdminServiceProvider/admin_service_provider.service';
 import { MdMenuTrigger, MdDatepicker } from '@angular/material';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class AdminServiceProviderComponent implements OnInit {
   serviceProviders: string[];
   data: any;
   myDatepicker = '';
-  constructor(private _SPService: SPService) {
+  currentLanguageSet: any;
+  constructor(private _SPService: SPService,private HttpServices:HttpServices) {
     this.serviceProviders;
   }
 
@@ -68,9 +70,19 @@ export class AdminServiceProviderComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this._SPService.getProviders()
       .subscribe(resProviderData => this.providers(resProviderData));
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
   showCreate() {
     this.showCreateFlag = !this.showCreateFlag;
   }
@@ -126,7 +138,7 @@ export class AdminServiceProviderComponent implements OnInit {
 
     this._SPService.deleteProviders(JSON.parse(deleteReq))
       .subscribe(responseProviderDel => this.providers(responseProviderDel));
-    alert('data deleted');
+    alert(this.currentLanguageSet.dataDeleted);
   }
 
   updateSP(SPData) {

@@ -5,7 +5,7 @@ import { dataService } from '../services/dataService/data.service';
 import { HttpServices } from '../services/http-services/http_services.service';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-1097-supervisor',
@@ -18,13 +18,23 @@ export class helpline1097SupervisorComponent implements OnInit {
 
   ssoURL: any;
   isLoggedIn: any;
+  currentLanguageSet: any;
 
   constructor(private configService: ConfigService,
     public sanitizer: DomSanitizer, private saved_data: dataService,
-    private http: Http) {
+    private http: Http,private HttpServices:HttpServices) {
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
   }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.Activity_Number = 3;
 
     this.ssoURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='

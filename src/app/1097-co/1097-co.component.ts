@@ -12,6 +12,8 @@ import { ReloadService } from './../services/common/reload.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
 import { ClearFormService } from './../services/common/clearform.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from "../services/http-services/http_services.service";
 @Component({
   selector: 'app-1097-co',
   templateUrl: './1097-co.component.html',
@@ -45,6 +47,7 @@ export class helpline1097CoComponent implements OnInit {
   @Output() submitBtnCheck : EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancel') cancel;
   submitCheck: boolean;
+  currentLanguageSet: any;
 
   constructor(
     public getCommonData: dataService,
@@ -58,7 +61,7 @@ export class helpline1097CoComponent implements OnInit {
     private outBoundService: OutboundService,
     private reloadCall: ReloadService,
     private czentrixService: CzentrixServices,
-    private ClearForm: ClearFormService
+    private ClearForm: ClearFormService,public HttpServices: HttpServices
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -109,9 +112,18 @@ export class helpline1097CoComponent implements OnInit {
     console.log("submitCheck", this.submitCheck);
     
     console.log('isEverwell'+this.isEverwell);    
+    this.assignSelectedLanguage();
   }
 
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
   /*experiment*/
   // f:boolean=true;
   // toggleVAL()
