@@ -627,7 +627,9 @@
       "rationValidation": "Enter valid Ration No. Ex:alphanumeric",
       "validAadhar": "Enter valid Aadhar Ex:XXXX XXXX XXXX",
       "help": "Help",
-      "searchByPhoneNumber":"Search By Phone Number"
+      "searchByPhoneNumber":"Search By Phone Number",
+      "selectSubCategory":"Select Sub Category"
+
       
     }
 }
