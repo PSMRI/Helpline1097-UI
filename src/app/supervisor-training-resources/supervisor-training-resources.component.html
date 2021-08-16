@@ -92,11 +92,11 @@
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 m-t-40">
-      <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
+      <label for="upload-file">{{currentLanguageSet?.uploadFileSize}} :{{maxFileSize}}MB)</label>
       <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
         ngModel #uploadfile="ngModel">
 
-      <span class="f-s-10 error_text" *ngIf="invalid_file_flag">Supported file formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)</span>
+      <span class="f-s-10 error_text" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</span>
       <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
       <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
     </div>
@@ -144,11 +144,11 @@
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
-      <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
-      <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file"
+      <label for="upload-file">{{currentLanguageSet?.uploadFileSize}} :{{maxFileSize}}MB)</label>
+      <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
         ngModel #uploadfile="ngModel">
 
-      <span class="f-s-10 error_text" *ngIf="invalid_file_flag">Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)</span>
+      <span class="f-s-10 error_text" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</span>
       <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
       <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
     </div>

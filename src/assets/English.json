@@ -57,7 +57,7 @@
       "beneficiaryId:": "Beneficiary ID :",
       "doseTakenButNotReportedByTechnology": "Dose taken but not reported by technology",
       "designation:": "Designation :",
-      "uploadFile(sizeLimit:Mb)": "Upload File(Size limit : MB)",
+      "uploadFileSize": "Upload File(Size limit",
       "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)",
       "sexualOrientation": "Sexual Orientation",
       "informationService": "Information Service",
@@ -647,7 +647,11 @@
       "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?",
       "feedbackCreatedSuccessfullyAndFeedbackIDIs": "Feedback created successfully and Feedback ID is :",
       "errorInFetchingEverwellGuidelineData": "Error in Fetching Everwell Guideline Data",
-      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?"
+      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?",
+      "campaignNames": "Campaign Names",
+      "campaignSkills": "Campaign Skills",
+      "notificationMessage": "Notification Message",
+      "notificationMessageIsRequired": "Notification Message is required(min 5 characters)"
 
 
 

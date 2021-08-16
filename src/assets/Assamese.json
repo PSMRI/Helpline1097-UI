@@ -57,7 +57,7 @@
       "beneficiaryId:": "হিতাধিকাৰী আইডি :",
       "doseTakenButNotReportedByTechnology": "পালি গ্ৰহণ কৰা হৈছে কিন্তু প্ৰযুক্তিৰ দ্বাৰা প্ৰতিবেদিত নহয়",
       "designation:": "পদবী :",
-      "uploadFile(sizeLimit:Mb)": "ফাইল আপলোড কৰক (আকাৰৰ সীমা : এমবি)",
+      "uploadFileSize": "ফাইল আপলোড কৰক (আকাৰৰ সীমা ",
       "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "সমৰ্থিত ফাইল ফৰ্মেট (.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)",
       "sexualOrientation": "যৌন অভিমুখীতা",
       "informationService": "তথ্য সেৱা",
@@ -644,7 +644,11 @@
       "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?",
       "feedbackCreatedSuccessfullyAndFeedbackIDIs": "Feedback created successfully and Feedback ID is :",
       "errorInFetchingEverwellGuidelineData": "Error in Fetching Everwell Guideline Data",
-      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?"
+      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?",
+      "campaignNames": "Campaign Names",
+      "campaignSkills": "Campaign Skills",
+      "notificationMessage": "Notification Message",
+      "notificationMessageIsRequired": "Notification Message is required(min 5 characters)"
 
 
 
