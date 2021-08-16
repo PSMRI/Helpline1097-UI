@@ -326,7 +326,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   
  
   deactivate(obj, val) {
-    this.dialogService.confirm('Delete ', 'Do you want to delete the guideline?').subscribe((response) => {
+    this.dialogService.confirm('Delete ', this.currentLanguageSet.doYouWantToDeleteTheGuideline).subscribe((response) => {
       if (response) {
     const object = {
       'id':obj.id,

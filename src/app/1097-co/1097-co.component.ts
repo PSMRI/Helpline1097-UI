@@ -258,7 +258,7 @@ export class helpline1097CoComponent implements OnInit {
   }
   openDialog() {
 
-    this.dialogService.confirm('Cancel Call ', 'Do you want to cancel?').subscribe((response) => {
+    this.dialogService.confirm('Cancel Call ', this.currentLanguageSet.doYouWantToCancel).subscribe((response) => {
       if (response) {
         this.resetProvideServices = '2';
         // this.reloadCall();
@@ -283,7 +283,7 @@ export class helpline1097CoComponent implements OnInit {
   }
   openEverwellDialog() {
 
-    this.dialogService.confirm('Cancel Call ', 'Do you want to cancel?').subscribe((response) => {
+    this.dialogService.confirm('Cancel Call ', this.currentLanguageSet.doYouWantToCancel).subscribe((response) => {
       if (response) {
         this.resetProvideServices = '2';
         // this.reloadCall();
@@ -308,7 +308,7 @@ export class helpline1097CoComponent implements OnInit {
   }
   openDialogClosure() {
 
-    this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
+    this.dialogService.confirm('Closure ', this.currentLanguageSet.doYouWantToCloseTheCall).subscribe((response) => {
       if (response) {
         this.resetProvideServices = '3';
         jQuery('#myCarousel').carousel(3);
@@ -325,7 +325,7 @@ export class helpline1097CoComponent implements OnInit {
 
   openEverwellDialogClosure() {
 
-    this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
+    this.dialogService.confirm('Closure ', this.currentLanguageSet.doYouWantToCloseTheCall).subscribe((response) => {
       if (response) {
         this.resetProvideServices = '3';
         jQuery('#myCarouselEverwell').carousel(1);

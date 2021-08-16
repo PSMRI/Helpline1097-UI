@@ -133,7 +133,7 @@ this.assignSelectedLanguage();
     (err)=> {
       this.showProgressBar = false;
       this.loaderService.hide();
-      this.alertService.alert('Error in Fetching Everwell Guideline Data','error');
+      this.alertService.alert(this.currentLanguageSet.errorInFetchingEverwellGuidelineData,'error');
       console.log('Unable to Fetch Everwell Guideline Data');
     });
   }

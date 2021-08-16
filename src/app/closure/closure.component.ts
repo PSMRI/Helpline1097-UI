@@ -422,7 +422,7 @@ export class ClosureComponent implements OnInit
           this.message.alert(err.status, 'error');
         });
       } else {
-        this.message.confirm('Continue', 'Providing new service to beneficiary?').subscribe((res) => {
+        this.message.confirm('Continue', this.currentLanguageSet.providingNewServiceToBeneficiary).subscribe((res) => {
           if (res) {
             this._callServices.closeCall(values).subscribe((response) => {
               if (response) {

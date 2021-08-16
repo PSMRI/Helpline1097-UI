@@ -408,7 +408,7 @@
       "emails": "ইমেইলসমূহ",
       "movedToBinSuccessfully": "সফলতাৰে বিনলৈ স্থানান্তৰিত হৈছে",
       "messagesFound": "বাৰ্তা পোৱা গৈছে",
-      "areYouSureYouWantToDelete?": "আপুনি বিলোপ কৰিব বিচৰাটো নিশ্চিতনে?",
+      "areYouSureYouWantToDelete": "আপুনি বিলোপ কৰিব বিচৰাটো নিশ্চিতনে?",
       "validEmail": "বৈধ ইমেইল",
       "selectRole": "ভূমিকা নিৰ্বাচন কৰক",
       "resourceMessage": "সম্পদ বাৰ্তা",
@@ -427,13 +427,13 @@
       "noAlertsOrNotifications": "কোনো সতৰ্কবাৰ্তা বা অধিসূচনা নাই",
       "enterPassword": "পাছৱাৰ্ড প্ৰবিষ্ট কৰক",
       "uploadedfile": "আপলোড কৰা ফাইল",
-      "doYouWantToCancel?": "আপুনি বাতিল কৰিব বিচাৰে নেকি?",
+      "doYouWantToCancel": "আপুনি বাতিল কৰিব বিচাৰে নেকি?",
       "minStartDateIsEndDateDays": "ন্যূনতম আৰম্ভণিতাৰিখ হৈছে অন্তিম তাৰিখ-30 দিন",
       "createdBy": "দ্বাৰা সৃষ্টি কৰা হৈছে",
       "location": "অৱস্থান",
       "documentsFound": "দস্তাবেজ পোৱা গৈছে",
       "userIcon": "ব্যৱহাৰকাৰী আইকন",
-      "doYouWantToCloseTheCall?": "আপুনি কলটো বন্ধ কৰিব বিচাৰে নেকি?",
+      "doYouWantToCloseTheCall": "আপুনি কলটো বন্ধ কৰিব বিচাৰে নেকি?",
       "failedToDeactivate": "নিষ্ক্ৰিয় কৰিবলে ব্যৰ্থ",
       "templateType": "টেমপ্লেটৰ ধৰণ",
       "enterScreenDesc": "স্ক্ৰীণ ডেস্ক প্ৰবিষ্ট কৰক",
@@ -628,7 +628,11 @@
       "validAadhar": "Enter valid Aadhar Ex:XXXX XXXX XXXX",
       "help": "Help",
       "searchByPhoneNumber":"Search By Phone Number",
-      "selectSubCategory":"Select Sub Category"
+      "selectSubCategory":"Select Sub Category",
+      "feedbackCreatedSuccessfullyAndFeedbackIDIs": "Feedback created successfully and Feedback ID is :",
+      "errorInFetchingEverwellGuidelineData": "Error in Fetching Everwell Guideline Data",
+      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?",
+      "doYouWantToDeleteTheGuideline": "Do you want to delete the guideline?"
 
       
     }

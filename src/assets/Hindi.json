@@ -408,7 +408,7 @@
       "emails": "ईमेल",
       "movedToBinSuccessfully": "बिन में सफलतापूर्वक ले जाया गया",
       "messagesFound": "संदेश मिले",
-      "areYouSureYouWantToDelete?": "क्या आप सुनिश्चित हैं कि आप हटाना \nचाहते हैं?",
+      "areYouSureYouWantToDelete": "क्या आप सुनिश्चित हैं कि आप हटाना \nचाहते हैं?",
       "validEmail": "वैध ईमेल",
       "selectRole": "भूमिका चुनें",
       "resourceMessage": "संसाधन संदेश",
@@ -427,13 +427,13 @@
       "noAlertsOrNotifications": "कोई चेतावनी या अधिसूचना नहीं",
       "enterPassword": "पासवर्ड दर्ज करें",
       "uploadedfile": "अपलोड की गई फ़ाइल",
-      "doYouWantToCancel?": "क्या आप रद्द करना चाहते हैं?",
+      "doYouWantToCancel": "क्या आप रद्द करना चाहते हैं?",
       "minStartDateIsEndDateDays": "न्यूनतम प्रारंभ तारीख समाप्ति तारीख -30 दिन\n है",
       "createdBy": "के द्वारा बनाई गई",
       "location": "स्थान",
       "documentsFound": "दस्तावेज मिले",
       "userIcon": "उपयोगकर्ता चिह्न",
-      "doYouWantToCloseTheCall?": "क्या आप कॉल बंद करना चाहते हैं?",
+      "doYouWantToCloseTheCall": "क्या आप कॉल बंद करना चाहते हैं?",
       "failedToDeactivate": "निष्क्रिय करने में विफल",
       "templateType": "टेम्पलेट प्रकार",
       "enterScreenDesc": "स्क्रीन विवरण दर्ज करें",
@@ -628,7 +628,11 @@
       "validAadhar": "Enter valid Aadhar Ex:XXXX XXXX XXXX",
       "help": "Help",
       "searchByPhoneNumber":"Search By Phone Number",
-      "selectSubCategory":"Select Sub Category"
+      "selectSubCategory":"Select Sub Category",
+      "feedbackCreatedSuccessfullyAndFeedbackIDIs": "Feedback created successfully and Feedback ID is :",
+      "errorInFetchingEverwellGuidelineData": "Error in Fetching Everwell Guideline Data",
+      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?",
+      "doYouWantToDeleteTheGuideline": "Do you want to delete the guideline?"
 
       
     }
