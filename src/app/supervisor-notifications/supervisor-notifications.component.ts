@@ -202,7 +202,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
             let dialog = this.dialog.open(MessageDialogComponent, {
               disableClose: true,
               data: {
-                message: "Successfully created notification",
+                message: this.currentLanguageSet.successfullyCreatedNotification,
                 type: "Message"
               }
             });
@@ -340,7 +340,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
         .subscribe((response) => {
           console.log(response);
           if (response.data != {}) {
-            this.alertMessage.alert("Notification edited successfully",'success');
+            this.alertMessage.alert(this.currentLanguageSet.notificationEditedSuccessfully,'success');
             // let dialog = this.dialog.open(MessageDialogComponent, {
             //   disableClose: true,
             //   data: {
