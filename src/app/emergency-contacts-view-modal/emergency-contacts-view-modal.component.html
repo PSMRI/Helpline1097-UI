@@ -26,7 +26,7 @@
           <td>{{row.emergContactNo}}</td>
         </tr>
         <tr *ngIf="md2.data.length==0">
-          <td class="text-center" colspan="2"> No emergency contacts exists </td>
+          <td class="text-center" colspan="2"> {{currentLanguageSet?.noEmergencyContactsExists}} </td>
         </tr>
       </tbody>
       <tfoot>

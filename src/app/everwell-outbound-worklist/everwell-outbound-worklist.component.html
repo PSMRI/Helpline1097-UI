@@ -49,8 +49,8 @@
                       <th id="state">{{currentLanguageSet?.state}}</th>
                       <th id="district">{{currentLanguageSet?.district}}</th>
                       <th id="comments">{{currentLanguageSet?.comments}}</th>
-                      <th id="lastCall">Last Call</th>
-                      <th id="callCount">Call Count</th>
+                      <th id="lastCall">{{currentLanguageSet?.lastCall}}</th>
+                      <th id="callCount">{{currentLanguageSet?.callCount}}</th>
                       <th id="call">{{currentLanguageSet?.call}}</th>
                     </tr>
                   </thead>
@@ -85,7 +85,7 @@
                     <tr>
                       <td colspan="5">
                         <div class="pull-left totalCount" *ngIf="filteredsearchResult.length > 0">
-                         Total Count : {{ filteredsearchResult.length }}
+                         {{currentLanguageSet?.totalCount}} : {{ filteredsearchResult.length }}
                         </div>
                       </td>
                       <td colspan="5">

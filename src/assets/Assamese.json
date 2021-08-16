@@ -653,7 +653,16 @@
       "campaignNames": "Campaign Names",
       "campaignSkills": "Campaign Skills",
       "notificationMessage": "Notification Message",
-      "notificationMessageIsRequired": "Notification Message is required(min 5 characters)"
+      "notificationMessageIsRequired": "Notification Message is required(min 5 characters)",
+      "nuisanceCall": "Nuisance Call",
+      "unblock": "Unblock",
+      "block": "Block",
+      "supportedFileFormatIsPdf": "Supported file format is .pdf",
+      "lastCall": "Last Call",
+      "clickHereForMoreInfo": "Click here for more info",
+      "referTheLinksBelow": "Refer the links below",
+      "referTheLinkBelow": "Refer the link below",
+      "subDistrict": "Sub District"
 
 
 
