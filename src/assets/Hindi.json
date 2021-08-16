@@ -263,7 +263,7 @@
       "feedbackTracking": "प्रतिक्रिया देखना",
       "no": "नहीं ",
       "secondaryMobileNumber": "सेकेंडरी मोबाइल संख्या",
-      "totalNo.OfRecords": "अभिलेखों की कुल संख्या",
+      "totalNoOfRecords": "अभिलेखों की कुल संख्या",
       "otherDetails": "अन्य विवरण",
       "endTimeCannotBeLessThanStartTime": "समाप्ति समय प्रारंभ समय से कम नहीं हो\n सकता",
       "feedbackDate": "प्रतिक्रिया तारीख",
@@ -676,7 +676,10 @@
       "hivQuestion": "Is beneficiary suffering from HIV/AIDS?",
       "hivQuestionCondition": "(Captured only if, caller voluntarily informs)",
       "create_find_beneficiary_mobile": "C/F B",
-      "callStatistics": "Call Statistics"
+      "callStatistics": "Call Statistics",
+      "callDuration": "Call Duration",
+      "breakTime": "Break Time",
+      "freeTime": "Free Time"
 
       
 

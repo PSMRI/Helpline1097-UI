@@ -265,7 +265,7 @@
       "feedbackTracking": "Feedback Tracking",
       "no": "No",
       "secondaryMobileNumber": "Secondary Mobile Number",
-      "totalNo.OfRecords": "Total no. of records",
+      "totalNoOfRecords": "Total no. of records",
       "otherDetails": "Other Details",
       "endTimeCannotBeLessThanStartTime": "End Time cannot be less than Start Time",
       "feedbackDate": "Feedback Date",
@@ -677,7 +677,10 @@
       "callRecordingsfor":"Call Recordings For",
       "audioRecording":"Audio Recording",
       "supportedFormat":"Supported format",
-      "pleaseUploadDocument":"Please upload document"
+      "pleaseUploadDocument":"Please upload document",
+      "callDuration": "Call Duration",
+      "breakTime": "Break Time",
+      "freeTime": "Free Time"
 
 
 

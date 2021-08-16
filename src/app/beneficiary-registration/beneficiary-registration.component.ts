@@ -161,6 +161,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
   btnDisabled = false;
   assignSelectedLanguageValue: any;
+
   constructor(private _util: RegisterService,
     private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -192,6 +193,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   /* Intialization Of value and object has to be written in here */
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.IntializeSessionValues();
     console.log('ageUnit', this.ageUnit);
     this.BeneficaryCreationForm.form.patchValue({
@@ -204,11 +206,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.startNewCall();
     }
     
-    this.assignSelectedLanguage();
+    
   }
 
   ngOnChanges() {
-    this.setLanguage(this.current_language);
+    
     
     this.BeneficaryForm.resetForm();
     this.alternateNumber1 = "";
@@ -218,10 +220,10 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.alternateNumber5 = "";
   }
 
-  setLanguage(language) {
-    this.currentlanguage = language;
-    console.log(language, 'language ben reg tk');
-  }
+  // setLanguage(language) {
+  //   this.currentlanguage = language;
+  //   console.log(language, 'language ben reg tk');
+  // }
 
   IntializeSessionValues() {
     this.today = new Date();
@@ -868,11 +870,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       });
       this.beneficiaryRelationID = undefined;
 
-      this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith+' ' + (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
+      this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
         + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
       console.log('relationship with', this.regHistoryList[0].firstName, this.regHistoryList[0].lastName);
       if (this.regHistoryList[0].firstName != undefined && this.regHistoryList[0].lastname != undefined) {
-        this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith+' ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
+        this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
       }
       this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
       // if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
