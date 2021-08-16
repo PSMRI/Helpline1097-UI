@@ -290,7 +290,6 @@
       "address1": "Address 1",
       "supervisorComments": "Supervisor Comments",
       "doYouReallyWantToKickout": "Do you really want to kickout",
-      "sexual_orientation": "Sexual_Orientation",
       "slno": "SlNo",
       "serviceIsRequired": "Service is required",
       "changePassword": "Change Password",
@@ -644,7 +643,14 @@
       "guidelineDescription":"Guideline Description",
       "PleaseDeleteAnyExistingGuidelinesToContinue":"Please delete any existing guidelines to continue",
       "everwellGuidelines":"Everwell Guidelines",
-      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?"
+      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?",
+      "heading": "Other Details",
+      "occupation": "Occupation",
+      "qualification": "Education Qualification",
+      "workPlace": "Place of Work",
+      "hivQuestion": "Is beneficiary suffering from HIV/AIDS?",
+      "hivQuestionCondition": "(Captured only if, caller voluntarily informs)"
+
 
 
 
