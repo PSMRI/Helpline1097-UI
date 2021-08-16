@@ -57,7 +57,7 @@
       "beneficiaryId:": "Beneficiary ID :",
       "doseTakenButNotReportedByTechnology": "Dose taken but not reported by technology",
       "designation:": "Designation :",
-      "uploadFile(sizeLimit:Mb)": "Upload File(Size limit : MB)",
+      "uploadFileSizeLimitInMb": "Upload File(Size limit ",
       "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)",
       "sexualOrientation": "Sexual Orientation",
       "informationService": "Information Service",
@@ -345,7 +345,7 @@
       "enterFirstnameName": "Enter FirstName Name",
       "callId": "Call ID",
       "subDistrict/Taluk/Block": "Sub District / Taluk / Block",
-      "uploadFile": "Upload file",
+      "uploadFile": "Upload File",
       "enterEmail": "Enter email",
       "otherSubcategories": "Other Subcategories",
       "enterIvrfilepath": "Enter IvrFilePath",
@@ -644,7 +644,13 @@
       "guidelineDescription":"Guideline Description",
       "PleaseDeleteAnyExistingGuidelinesToContinue":"Please delete any existing guidelines to continue",
       "everwellGuidelines":"Everwell Guidelines",
-      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?"
+      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?",
+
+      "callCount":"Call Count",
+      "reason":"Reason",
+      "blockedOn":"Blocked On",
+      "blockedTill":"Blocked Till"
+
 
 
 

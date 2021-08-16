@@ -57,7 +57,7 @@
       "beneficiaryId:": "হিতাধিকাৰী আইডি :",
       "doseTakenButNotReportedByTechnology": "পালি গ্ৰহণ কৰা হৈছে কিন্তু প্ৰযুক্তিৰ দ্বাৰা প্ৰতিবেদিত নহয়",
       "designation:": "পদবী :",
-      "uploadFile(sizeLimit:Mb)": "ফাইল আপলোড কৰক (আকাৰৰ সীমা : এমবি)",
+      "uploadFileSizeLimitInMb": "ফাইল আপলোড কৰক (আকাৰৰ সীমা ",
       "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "সমৰ্থিত ফাইল ফৰ্মেট (.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)",
       "sexualOrientation": "যৌন অভিমুখীতা",
       "informationService": "তথ্য সেৱা",
@@ -641,7 +641,12 @@
       "guidelineDescription":"Guideline Description",
       "PleaseDeleteAnyExistingGuidelinesToContinue":"Please delete any existing guidelines to continue",
       "everwellGuidelines":"Everwell Guidelines",
-      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?"
+      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?",
+
+      "callCount":"Call Count",
+      "reason":"Reason",
+      "blockedOn":"Blocked On",
+      "blockedTill":"Blocked Till"
 
 
 
