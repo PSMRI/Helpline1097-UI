@@ -410,7 +410,7 @@
       "emails": "Emails",
       "movedToBinSuccessfully": "Moved to bin successfully",
       "messagesFound": "messages found",
-      "areYouSureYouWantToDelete?": "Are you sure you want to delete?",
+      "areYouSureYouWantToDelete": "Are you sure you want to delete?",
       "validEmail": "Valid email",
       "selectRole": "Select Role",
       "resourceMessage": "Resource message",
@@ -429,13 +429,13 @@
       "noAlertsOrNotifications": "No Alerts or Notifications",
       "enterPassword": "Enter Password",
       "uploadedfile": "UploadedFile",
-      "doYouWantToCancel?": "Do you want to cancel?",
+      "doYouWantToCancel": "Do you want to cancel?",
       "minStartDateIsEndDate30Days": "Min Start Date is End Date-30days",
       "createdBy": "Created By",
       "location": "Location",
       "documentsFound": "documents found",
       "userIcon": "User Icon",
-      "doYouWantToCloseTheCall?": "Do you want to close the call?",
+      "doYouWantToCloseTheCall": "Do you want to close the call?",
       "failedToDeactivate": "Failed to deactivate",
       "templateType": "Template Type",
       "enterScreenDesc": "Enter Screen Desc",
@@ -649,8 +649,10 @@
       "callCount":"Call Count",
       "reason":"Reason",
       "blockedOn":"Blocked On",
-      "blockedTill":"Blocked Till"
-
+      "blockedTill":"Blocked Till",
+      "feedbackCreatedSuccessfullyAndFeedbackIDIs": "Feedback created successfully and Feedback ID is :",
+      "errorInFetchingEverwellGuidelineData": "Error in Fetching Everwell Guideline Data",
+      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?"
 
 
 

@@ -203,7 +203,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
             );
           } else {
             this.alertService.alert(
-              "No " + messages_type.toLowerCase() + " messages found"
+              this.assignSelectedLanguageValue.no + " " + messages_type.toLowerCase() + " " + this.assignSelectedLanguageValue.messagesFound
             );
           }
         },
@@ -329,7 +329,7 @@ export class AlertsNotificationsDialogComponent {
   deleteNotification(id) {
     console.log(id, "use id and call api, on success re initialize messages");
     this.alertService
-      .confirm("", "Are you sure you want to delete?")
+      .confirm("", this.assignSelectedLanguageValue.areYouSureYouWantToDelete)
       .subscribe((res) => {
         if (res) {
           this.notificationService

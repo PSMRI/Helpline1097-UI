@@ -307,7 +307,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     }];
     this._coFeedbackService.createFeedback(feedbackObj)
       .subscribe((response) => {
-        this.alertMessage.alert('Feedback created successfully and Feedback ID is :' + response.requestID, 'success');
+        this.alertMessage.alert(this.currentLanguageSet.feedbackCreatedSuccessfullyAndFeedbackIDIs + " " + response.requestID, 'success');
         jQuery('#feedbackForm').trigger("reset");
         this.showBeneficiaryFeedbackList();
         this.feedbackServiceProvided.emit();
