@@ -668,7 +668,10 @@
       "qualification": "Education Qualification",
       "workPlace": "Place of Work",
       "hivQuestion": "Is beneficiary suffering from HIV/AIDS?",
-      "hivQuestionCondition": "(Captured only if, caller voluntarily informs)"
+      "hivQuestionCondition": "(Captured only if, caller voluntarily informs)",
+      "create_find_beneficiary_mobile": "C/F B",
+      "callStatistics": "Call Statistics"
+
       
 
 

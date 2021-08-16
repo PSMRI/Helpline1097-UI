@@ -6,7 +6,7 @@
         <div id="one" class="col-xs-2 bs-wizard-step disabled" style="padding:0px; margin:0px;">
           <div *ngIf="!OUT" class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguageSet?.create_searchBeneficiary}}</div>
           <div *ngIf="OUT" class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguageSet?.beneficiaryDetails}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguage.co?.create_find_beneficiary_mobile}}</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguageSet?.create_find_beneficiary_mobile}}</div>
           <!-- progress-bar-disabled   css is added extra in this line to make it grey, remove for green -->
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
@@ -31,7 +31,7 @@
         </div>
         <div id="four" class="col-xs-2 bs-wizard-step disabled">
           <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguageSet?.closure}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguageSet?.cL}}</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguageSet?.cancel}}</div>
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
           </div>
@@ -113,7 +113,7 @@
             <button type="button" id="btnCancel" value="Cancel" md-raised-button class="mar-right" color="primary" data-slide-to="1"
               (click)="openEverwellDialog()" [disabled]="isCancelDisable">{{currentlanguageSet?.cancel}}</button>
             <button type="button" id="btnClosure" value="Close" md-raised-button color="primary" data-slide-to="4" (click)="openEverwellDialogClosure()"
-              [disabled]="isClosureDisable || !submitCheck">{{currentlanguage.co?.closure}}</button>
+              [disabled]="isClosureDisable || !submitCheck">{{currentlanguageSet?.closure}}</button>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
             <button id="next" type="button" md-raised-button color="primary" class="pull-right " href="#myCarouselEverwell" data-slide="next"

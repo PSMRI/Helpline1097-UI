@@ -14,7 +14,7 @@
         <label class="f-c-w f-s-15 p-t-5">{{current_service}} {{current_role}}</label>
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
           <li class="">
-            <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon" [mdMenuTriggerFor]="menuNotification">
+            <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="{{currentLanguageSet?.userIcon}}" [mdMenuTriggerFor]="menuNotification">
           </li>
           <md-menu #menuNotification x-position="before"  class="m-t-40"  >
             <md-list class="p-t-0">
