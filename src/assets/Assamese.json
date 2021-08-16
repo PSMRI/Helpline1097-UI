@@ -668,8 +668,13 @@
       "callRecordingsfor":"Call Recordings For",
       "audioRecording":"Audio Recording",
       "supportedFormat":"Supported format",
-      "pleaseUploadDocument":"Please upload document"
-
+      "pleaseUploadDocument":"Please upload document",
+      "heading": "Other Details",
+      "occupation": "Occupation",
+      "qualification": "Education Qualification",
+      "workPlace": "Place of Work",
+      "hivQuestion": "Is beneficiary suffering from HIV/AIDS?",
+      "hivQuestionCondition": "(Captured only if, caller voluntarily informs)"
 
 
 
