@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-10 m-t-20"> Notifications </h4>
+      <h4 class="f-s-b m-b-10 m-t-20"> {{currentLanguageSet?.notifications}} </h4>
     </label>
   </div>
 </div>
@@ -10,51 +10,51 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <form (ngSubmit)="onSubmitShowForm()" #showNotificationForm="ngForm" autocomplete="off">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5">
-          <md-select placeholder="Notification Type" name="notificationType" ngModel required [style.width]="'100%'">
+          <md-select placeholder="{{currentLanguageSet?.notificationType}}" name="notificationType" ngModel required [style.width]="'100%'">
             <md-option *ngFor="let notification of notificationTypes" [value]="notification.notificationTypeID" (click)="checkNotificationType(notification.notificationType)">
               {{ notification.notificationType }}
             </md-option>
           </md-select>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5" *ngIf="show==0 && visibility_Flag">
-          <md-select placeholder="Select Roles" [multiple]="true" name="roles" ngModel [style.width]="'100%'">
+          <md-select placeholder="{{currentLanguageSet?.selectRoles}}" [multiple]="true" name="roles" ngModel [style.width]="'100%'">
             <md-option *ngFor="let role of roleObjArray" [value]="role.RoleID">
               {{ role.RoleName }}
             </md-option>
           </md-select>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5" *ngIf="show==3 && visibility_Flag">
-          <md-select placeholder="Offices" [multiple]="true" name="Offices" ngModel [style.width]="'100%'" required>
+          <md-select placeholder="{{currentLanguageSet?.offices}}" [multiple]="true" name="Offices" ngModel [style.width]="'100%'" required>
             <md-option *ngFor="let item of offices" [value]="item.pSAddMapID">
               {{ item.locationName }}
             </md-option>
           </md-select>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5" *ngIf="show==1 && visibility_Flag">
-          <md-select placeholder="Language" [multiple]="true" name="Languages" ngModel [style.width]="'100%'" required>
+          <md-select placeholder="{{currentLanguageSet?.language}}" [multiple]="true" name="Languages" ngModel [style.width]="'100%'" required>
             <md-option *ngFor="let item of languages" [value]="item.languageID">
               {{ item.languageName }}
             </md-option>
           </md-select>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5" *ngIf="show==2 && visibility_Flag">
-          <md-select placeholder="Users" name="Users" ngModel [style.width]="'100%'" required>
+          <md-select placeholder="{{currentLanguageSet?.users}}" name="Users" ngModel [style.width]="'100%'" required>
             <md-option *ngFor="let item of users" [value]="item.userID">
               {{ (item.firstName?item.firstName:"")+" "+(item.middleName?item.middleName:"")+" "+(item.lastName?item.lastName:"") }}
             </md-option>
           </md-select>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-          <md2-datepicker name="startDate" [disabled]="!visibility_Flag" (keydown)="blockey($event)" placeholder="Valid From" #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
+          <md2-datepicker name="startDate" [disabled]="!visibility_Flag" (keydown)="blockey($event)" placeholder="{{currentLanguageSet?.validFrom}}" #startDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-          <md2-datepicker name="endDate" [disabled]="!visibility_Flag" (keydown)="blockey($event)" placeholder="Valid Till" [min]="startDate?.value" #endDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
+          <md2-datepicker name="endDate" [disabled]="!visibility_Flag" (keydown)="blockey($event)" placeholder="{{currentLanguageSet?.validTill}}" [min]="startDate?.value" #endDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
           <br>
-          <span class="help-block m-l-15" *ngIf="(endDate?.value < startDate?.value) && endDate.dirty">End Date cannot be before Start Date!</span>
+          <span class="help-block m-l-15" *ngIf="(endDate?.value < startDate?.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 m-b-10">
-          <button class="pull-right" type="button" md-raised-button color="primary" (click)="createNotification()">Create Notification</button>
-          <button class="pull-right m-r-10" md-raised-button color="accent" [disabled]="!(showNotificationForm.valid)" type="submit">Submit</button>
+          <button class="pull-right" type="button" md-raised-button color="primary" (click)="createNotification()">{{currentLanguageSet?.createNotification}}</button>
+          <button class="pull-right m-r-10" md-raised-button color="accent" [disabled]="!(showNotificationForm.valid)" type="submit">{{currentLanguageSet?.submit}}</button>
         </div>
       </form>
     </div>
@@ -65,18 +65,18 @@
     <table class="table table-hover" [md2Data]="notifications" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="notificatiosList">
       <thead>
         <tr>
-          <th id="sno">S.No</th>
-          <th id="notificationSubject">Notification Subject</th>
-          <th id="notificationDescription">Notification Description</th>
-          <th id="validFrom">Valid From</th>
-          <th id="validTill">Valid Till</th>
-          <th id="edit">Edit</th>
+          <th id="sno">{{currentLanguageSet?.sno}}</th>
+          <th id="notificationSubject">{{currentLanguageSet?.notificationSubject}}</th>
+          <th id="notificationDescription">{{currentLanguageSet?.notificationDescription}}</th>
+          <th id="validFrom">{{currentLanguageSet?.validFrom}}</th>
+          <th id="validTill">{{currentLanguageSet?.validTill}}</th>
+          <th id="edit">{{currentLanguageSet?.edit}}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngIf="notifications?.length < 1">
           <td class="t-a-c" colspan="6">
-              No records found
+            {{currentLanguageSet?.noRecordsFound}}
           </td>
         </tr>
         <tr *ngFor="let row of md2.data;let i = index ">
