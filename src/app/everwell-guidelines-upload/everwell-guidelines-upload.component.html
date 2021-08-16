@@ -1,6 +1,6 @@
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">Everwell Guidelines List</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.everwellGuidelinesList}}</h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
     <table class="table table-striped table-hover" [md2Data]="trainingResources" id="table" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="everwellGuidelinesDetails">
@@ -45,7 +45,7 @@
             <md2-pagination></md2-pagination>
           </td>
           <td colspan="3" class="p-r-0">
-            <button md-raised-button color="primary" class="pull-right" id="upload" type="button" (click)="go2form()">Upload Everwell Guidelines</button>
+            <button md-raised-button color="primary" class="pull-right" id="upload" type="button" (click)="go2form()">{{currentLanguageSet?.uploadEverwellGuidelines}}</button>
           </td>
         </tr>
       </tfoot>
@@ -54,24 +54,24 @@
 </div>
 <div class="row" *ngIf="showForm">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">Everwell Guidelines</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.everwellGuidelines}}</h4>
   </div>
   <form #trainingResources="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <md-input-container class="width100">
-        <input [disabled]="!create" type="text" maxlength="100" mdInput placeholder="Guideline Name" name="guideline_name" [(ngModel)]="guideline_name"
+        <input [disabled]="!create" type="text" maxlength="100" mdInput placeholder="{{currentLanguageSet?.guidelineName}}" name="guideline_name" [(ngModel)]="guideline_name"
           #guidelineName="ngModel" id="guideline_name" required>
         <md-hint *ngIf="guidelineName.errors && guidelineName.touched">
-          <span class="error_text">Enter Guideline name</span>
+          <span class="error_text">{{currentLanguageSet?.enterGuidelineName}}</span>
         </md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <md-input-container class="width100">
-        <textarea mdInput rows="1" placeholder="Guideline Description" id="guideline_desc" maxlength="300" name="guideline_description" [(ngModel)]="guideline_description" #schemeDesc="ngModel"
+        <textarea mdInput rows="1" placeholder="{{currentLanguageSet?.guidelineDescription}}" id="guideline_desc" maxlength="300" name="guideline_description" [(ngModel)]="guideline_description" #schemeDesc="ngModel"
           required (keyup)="updateCount2()"></textarea>
         <md-hint *ngIf="schemeDesc.errors && schemeDesc.touched">
-          <span class="error_text">Enter Guideline description</span>
+          <span class="error_text">{{currentLanguageSet?.enterGuidelinedescription}}</span>
         </md-hint>
         <md-hint align="end">{{this.count}}</md-hint>
       </md-input-container>

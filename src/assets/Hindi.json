@@ -305,7 +305,7 @@
       "noLocationMessages": "कोई स्थान संदेश नहीं",
       "password": "पासवर्ड",
       "valueType": "मूल्य प्रकार",
-      "everwellOutboundCallReallocation": "एवरवेल बाहर का कॉल पुन: आवंटन",
+      "everwellOutboundCallReAllocation": "एवरवेल बाहर का कॉल पुन: आवंटन",
       "english": "अंग्रेज़ी",
       "selectParameter": "पैरामीटर चुनें ",
       "state": "राज्य",
@@ -628,7 +628,26 @@
       "validAadhar": "Enter valid Aadhar Ex:XXXX XXXX XXXX",
       "help": "Help",
       "searchByPhoneNumber":"Search By Phone Number",
-      "selectSubCategory":"Select Sub Category"
+      "selectSubCategory":"Select Sub Category",
+      "serviceTypeOneZeroNineSeven":"Service Type 1097",
+      "serviceLine":"Service Line",
+      "inboundOrOutboundCall":"Inbound/Outbound Call",
+      "callSubType":"Call SubType",
+      "everwellGuidelinesList":"Everwell Guidelines List",
+      "uploadEverwellGuidelines":"Upload Everwell Guidelines",
+      "enterGuidelineName":"Enter Guideline name",
+      "enterGuidelinedescription":"Enter Guideline description",
+      "guidelineName":"Guideline Name",
+      "guidelineDescription":"Guideline Description",
+      "PleaseDeleteAnyExistingGuidelinesToContinue":"Please delete any existing guidelines to continue",
+      "everwellGuidelines":"Everwell Guidelines",
+      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?"
+
+
+
+
+
+
 
       
     }

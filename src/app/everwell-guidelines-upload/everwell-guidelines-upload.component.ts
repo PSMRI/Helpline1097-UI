@@ -171,7 +171,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     }
     else
     {
-      this.dialogService.alert('Please delete any existing guidelines to continue', 'info');
+      this.dialogService.alert(this.currentLanguageSet.PleaseDeleteAnyExistingGuidelinesToContinue, 'info');
     }
   }
 
@@ -326,7 +326,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   
  
   deactivate(obj, val) {
-    this.dialogService.confirm('Delete ', 'Do you want to delete the guideline?').subscribe((response) => {
+    this.dialogService.confirm('Delete ', this.currentLanguageSet.doYouWantToDeleteTheGuideline).subscribe((response) => {
       if (response) {
     const object = {
       'id':obj.id,

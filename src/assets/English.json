@@ -522,7 +522,7 @@
       "poweredBy:Wipro": "Powered by: WIPRO",
       "designationName": "Designation Name",
       "category:": "Category :",
-      "noOfRecords": "No.of Records",
+      "noofRecords": "No.of Records",
       "descriptionIsRequired": "Description is required",
       "noDataFound": "No data found",
       "noRolesFound": "No roles found",
@@ -631,7 +631,21 @@
       "help": "Help",
       "searchByPhoneNumber":"Search By Phone Number",
       "smsTemplateList":"SMS Template List",
-      "selectSubCategory":"Select Sub Category"
+      "selectSubCategory":"Select Sub Category",
+      "serviceTypeOneZeroNineSeven":"Service Type 1097",
+      "serviceLine":"Service Line",
+      "inboundOrOutboundCall":"Inbound/Outbound Call",
+      "callSubType":"Call SubType",
+      "everwellGuidelinesList":"Everwell Guidelines List",
+      "uploadEverwellGuidelines":"Upload Everwell Guidelines",
+      "enterGuidelineName":"Enter Guideline name",
+      "enterGuidelinedescription":"Enter Guideline description",
+      "guidelineName":"Guideline Name",
+      "guidelineDescription":"Guideline Description",
+      "PleaseDeleteAnyExistingGuidelinesToContinue":"Please delete any existing guidelines to continue",
+      "everwellGuidelines":"Everwell Guidelines",
+      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?"
+
 
 
       
