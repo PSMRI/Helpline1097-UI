@@ -235,7 +235,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
     }
     else
-    this.dialogService.alert('Please upload document', 'info');
+    this.dialogService.alert(this.currentLanguageSet.pleaseUploadDocument, 'info');
     
 
   }

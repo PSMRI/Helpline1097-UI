@@ -662,7 +662,13 @@
       "clickHereForMoreInfo": "Click here for more info",
       "referTheLinksBelow": "Refer the links below",
       "referTheLinkBelow": "Refer the link below",
-      "subDistrict": "Sub District"
+      "subDistrict": "Sub District",
+      "successfullyUnblocked":"Successfully unblocked",
+      "successfullyBlocked":"Successfully blocked",
+      "callRecordingsfor":"Call Recordings For",
+      "audioRecording":"Audio Recording",
+      "supportedFormat":"Supported format",
+      "pleaseUploadDocument":"Please upload document"
       
 
 
