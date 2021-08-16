@@ -171,7 +171,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     }
     else
     {
-      this.dialogService.alert('Please delete any existing guidelines to continue', 'info');
+      this.dialogService.alert(this.currentLanguageSet.PleaseDeleteAnyExistingGuidelinesToContinue, 'info');
     }
   }
 

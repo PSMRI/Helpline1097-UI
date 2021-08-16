@@ -20,7 +20,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
      
-          <md-select placeholder="Service Line" [style.width]="'100%'" [(ngModel)]="serviceID" name="ServiceLine" required>
+          <md-select placeholder="{{currentLanguageSet?.serviceLine}}" [style.width]="'100%'" [(ngModel)]="serviceID" name="ServiceLine" required>
             <md-option *ngFor="let item of servicelines" [value]="item.serviceID">
               {{item.serviceName}}
             </md-option>
@@ -38,7 +38,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
       
-          <md-select placeholder="Inbound/Outbound Call" [style.width]="'100%'" [(ngModel)]="ioc" name="InboundOutbound">
+          <md-select placeholder="{{currentLanguageSet?.inboundOrOutboundCall}}" [style.width]="'100%'" [(ngModel)]="ioc" name="InboundOutbound">
             <md-option value="inbound">
               Inbound
             </md-option>
@@ -74,7 +74,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
        
-          <md-select placeholder="Call SubType" [style.width]="'100%'" [(ngModel)]="callsubtype" [disabled]="callGroupType==='All'"
+          <md-select placeholder="{{currentLanguageSet?.callSubType}}" [style.width]="'100%'" [(ngModel)]="callsubtype" [disabled]="callGroupType==='All'"
             name="CallSubType" required>
             <md-option *ngFor="let item of callSubTypes" [value]="item.callTypeID">
               {{item.callType}}
@@ -94,7 +94,7 @@
     <table class="table table-hover table-striped" [md2Data]="filteredCallList" #md2="md2DataTable" [rowsPerPage]="4" aria-describedby="qualityAuditList">
       <thead>
         <tr>
-          <th id="sno">{{currentLanguageSet?.s.No}}</th>
+          <th id="sno">{{currentLanguageSet?.sno}}</th>
           <th id="callId">{{currentLanguageSet?.callId}}</th>
           <th id="callDateandTime">{{currentLanguageSet?.callDateandTime}}</th>
           <th id="beneficiaryId">{{currentLanguageSet?.beneficiaryId}}</th>
@@ -155,7 +155,7 @@
       <button md-raised-button color="primary" class="m-t-5 pull-right noprint" (click)="hideCaseSheetFunction()"><span class="noprint">{{currentLanguageSet?.back}}</span></button>
     </div>
     <div class="col-xs-12 col-sm-12 "> 
-      <h4 class="col-xs-12 col-sm-12 m-t-10 ">Service Type 1097
+      <h4 class="col-xs-12 col-sm-12 m-t-10 ">{{currentLanguageSet?.serviceTypeOneZeroNineSeven}}
         <ul class="pull-right list-inline list-unstyled noprint"> 
            <li class="f-s-14 noprint"><a class="noprint" (click)="print()"><i class="fa fa-download cursorPointer noprint" aria-hidden="true"></i>{{currentLanguageSet?.download}}</a></li>  
           <li class="f-s-14">

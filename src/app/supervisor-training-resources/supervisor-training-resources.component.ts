@@ -223,7 +223,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   createTrainingResourceSuccessHandeler(response, values, roomArray, startDate) {
     console.log(response);
     if (response) {
-      this.dialogService.alert('Training resource created successfully', 'success');
+      this.dialogService.alert(this.currentLanguageSet.trainingResourceCreatedSuccessfully, 'success');
       this.trainingResourceForm.reset();
       this.count = '0/300';
 

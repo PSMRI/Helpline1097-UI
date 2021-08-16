@@ -54,7 +54,7 @@
         <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="coDetails">
           <thead>
             <tr>
-              <th id="sno">S.No.</th>
+              <th id="sno">{{assignSelectedLanguageValue?.sno}}</th>
               <th md2SortBy="benCallID" id="benCallID">{{assignSelectedLanguageValue?.callId}}</th>
               <th md2SortBy="categoryDetails.categoryName" id="categoryName">{{assignSelectedLanguageValue?.category}}</th>
               <th md2SortBy="subCategoryDetails.subCategoryName" id="subCategoryName">{{assignSelectedLanguageValue?.subCategory}}</th>

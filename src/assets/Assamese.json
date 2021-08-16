@@ -305,7 +305,7 @@
       "noLocationMessages": "কোনো অৱস্থান বাৰ্তা নাই",
       "password": "পাছৱাৰ্ড",
       "valueType": "মানৰ ধৰণ",
-      "everwellOutboundCallReallocation": "এভাৰৱেল আউটবাউণ্ড কল পুনৰ-আৱণ্টন",
+      "everwellOutboundCallReAllocation": "এভাৰৱেল আউটবাউণ্ড কল পুনৰ-আৱণ্টন",
       "english": "ইংৰাজী",
       "selectParameter": "প্ৰাচল নিৰ্বাচন কৰক",
       "state": "ৰাজ্য",
@@ -629,10 +629,27 @@
       "help": "Help",
       "searchByPhoneNumber":"Search By Phone Number",
       "selectSubCategory":"Select Sub Category",
+      "serviceTypeOneZeroNineSeven":"Service Type 1097",
+      "serviceLine":"Service Line",
+      "inboundOrOutboundCall":"Inbound/Outbound Call",
+      "callSubType":"Call SubType",
+      "everwellGuidelinesList":"Everwell Guidelines List",
+      "uploadEverwellGuidelines":"Upload Everwell Guidelines",
+      "enterGuidelineName":"Enter Guideline name",
+      "enterGuidelinedescription":"Enter Guideline description",
+      "guidelineName":"Guideline Name",
+      "guidelineDescription":"Guideline Description",
+      "PleaseDeleteAnyExistingGuidelinesToContinue":"Please delete any existing guidelines to continue",
+      "everwellGuidelines":"Everwell Guidelines",
+      "doYouWantToDeleteTheGuideline":"Do you want to delete the guideline?",
       "feedbackCreatedSuccessfullyAndFeedbackIDIs": "Feedback created successfully and Feedback ID is :",
       "errorInFetchingEverwellGuidelineData": "Error in Fetching Everwell Guideline Data",
-      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?",
-      "doYouWantToDeleteTheGuideline": "Do you want to delete the guideline?"
+      "providingNewServiceToBeneficiary": "Providing new service to beneficiary?"
+
+
+
+
+
 
       
     }

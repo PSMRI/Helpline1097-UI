@@ -1,24 +1,24 @@
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">Training Resources List</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.trainingResourcesList}}</h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
     <table class="table table-striped table-hover" [md2Data]="trainingResources" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="trainingResourcesList">
       <thead>
         <tr>
-          <th id="sno" style="width: 10%;">S. No</th>
-          <th id="type" style="width: 10%;">Type </th>
-          <th id="role" style="width: 10%;">Role</th>
-          <th id="subject" style="width: 20%;">Subject</th>
-          <th id="description" style="width: 30%;">Description</th>
-          <th id="attachment" style="width: 5%;">Attachment</th>
-          <th id="action" style="width: 15%;">Action</th>
+          <th id="sno" style="width: 10%;">{{currentLanguageSet?.sno}}</th>
+          <th id="type" style="width: 10%;"> {{currentLanguageSet?.type}}</th>
+          <th id="role" style="width: 10%;">{{currentLanguageSet?.role}}</th>
+          <th id="subject" style="width: 20%;">{{currentLanguageSet?.subject}}</th>
+          <th id="description" style="width: 30%;">{{currentLanguageSet?.description}}</th>
+          <th id="attachment" style="width: 5%;">{{currentLanguageSet?.attachment}}</th>
+          <th id="action" style="width: 15%;">{{currentLanguageSet?.action}}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngIf="md2.data?.length==0">
           <td colspan="7" class="record-not-found">
-              No records found
+              {{currentLanguageSet?.noRecordsFound}}
           </td>
         </tr>
         <tr *ngFor="let row of md2.data; let i = index ">
@@ -34,10 +34,10 @@
               aria-hidden="true" style="cursor: pointer">attachment</md-icon></a>
           </td>
           <td>
-            <md-icon mdTooltip="edit" *ngIf="!(row?.deleted)" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer"
+            <md-icon mdTooltip="{{currentLanguageSet?.edit}}" *ngIf="!(row?.deleted)" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer"
               (click)="edit(row)">edit</md-icon>
-            <a style="cursor:pointer" *ngIf="row?.deleted" (click)="activate(row,false)">Activate</a>
-            <a style="cursor:pointer" *ngIf="!(row?.deleted)" (click)="deactivate(row,true)">Deactivate</a>
+            <a style="cursor:pointer" *ngIf="row?.deleted" (click)="activate(row,false)">{{currentLanguageSet?.activate}}</a>
+            <a style="cursor:pointer" *ngIf="!(row?.deleted)" (click)="deactivate(row,true)">{{currentLanguageSet?.deactivate}}</a>
           </td>
         </tr>
       </tbody>
@@ -47,7 +47,7 @@
             <md2-pagination></md2-pagination>
           </td>
           <td colspan="3" class="p-r-0">
-            <button md-raised-button color="primary" class="pull-right" type="button" (click)="go2form()">Create Training Resource</button>
+            <button md-raised-button color="primary" class="pull-right" type="button" (click)="go2form()">{{currentLanguageSet?.createTrainingResource}}</button>
           </td>
         </tr>
       </tfoot>
@@ -56,12 +56,12 @@
 </div>
 <div class="row" *ngIf="showForm">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">Training Resource</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.trainingResource}}</h4>
   </div>
   <form #trainingResources="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
      
-        <md-select multiple placeholder="Select Roles" [style.width]="'100%'" required [(ngModel)]="role" name="roles">
+        <md-select multiple placeholder="{{currentLanguageSet?.selectRoles}}" [style.width]="'100%'" required [(ngModel)]="role" name="roles">
           <md-option *ngFor="let item of roles" [value]="item.roleID">
             {{item.roleName}}
           </md-option>
@@ -71,20 +71,20 @@
    
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
-        <input mdInput class="" placeholder="Resource Subject" name="subject" [(ngModel)]="subject" required #resourceSubject="ngModel"
+        <input mdInput class="" placeholder="{{currentLanguageSet?.resourceSubject}}" name="subject" [(ngModel)]="subject" required #resourceSubject="ngModel"
           maxlength="200" minlength="5">
-        <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">Enter atleast 5 characters</md-hint>
+        <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">{{currentLanguageSet?.enterAtleast5Characters}}</md-hint>
       </md-input-container>
     </div>
 
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
       <md-input-container [style.width]="'100%'">
-        <textarea mdInput class="" rows="3" placeholder="Resource message" name="message" [(ngModel)]="message" required (keyup)="updateCount()"
+        <textarea mdInput class="" rows="3" placeholder="{{currentLanguageSet?.resourceMessage}}" name="message" [(ngModel)]="message" required (keyup)="updateCount()"
           #resourceMessage="ngModel" maxlength="300" minlength="5">
               </textarea>
         <md-hint align="start">
-          <span class="error_text pull-left" *ngIf="resourceMessage.invalid && resourceMessage.touched">Enter atleast 5 characters</span>
+          <span class="error_text pull-left" *ngIf="resourceMessage.invalid && resourceMessage.touched">{{currentLanguageSet?.enterAtleast5Characters}}</span>
         </md-hint>
         <md-hint align="end">
           <span class="pull-right" align="end">{{count}}</span>
@@ -93,38 +93,38 @@
     </div>
     <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 m-t-40">
       <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
-      <input type="file" accept="*" size="100" placeholder="Upload file" id="upload-file" (change)="onFileUpload($event)" name="file"
+      <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
         ngModel #uploadfile="ngModel">
 
       <span class="f-s-10 error_text" *ngIf="invalid_file_flag">Supported file formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)</span>
-      <span class="f-s-10 error_text" *ngIf="error1">File size should not exceed {{maxFileSize}} MB</span>
-      <span class="f-s-10 error_text" *ngIf="error2">File size should be greator than 0</span>
+      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
+      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
-    <button md-raised-button color="primary" class="pull-left" (click)="go2table()">Back</button>
+    <button md-raised-button color="primary" class="pull-left" (click)="go2table()">{{currentLanguageSet?.back}}</button>
     <button [disabled]="trainingResources.invalid || (end_Date?.value < start_Date?.value) || invalid_file_flag || error1 || error2"
-      md-raised-button color="accent" class="pull-right" (click)="createTrainingResource(trainingResources.value)">Submit</button>
+      md-raised-button color="accent" class="pull-right" (click)="createTrainingResource(trainingResources.value)">{{currentLanguageSet?.submit}}</button>
   </div>
 </div>
 
 
 <div class="row" *ngIf="showEditForm">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">Edit Training Resource</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.editTrainingResource}}</h4>
   </div>
   <form #trainingResourcesEditForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
-        <input mdInput placeholder="Resource Subject" name="subject" [(ngModel)]="notification_subject" required #resourceSubject="ngModel"
+        <input mdInput placeholder="{{currentLanguageSet?.resourceSubject}}" name="subject" [(ngModel)]="notification_subject" required #resourceSubject="ngModel"
           maxlength="200" minlength="5">
-        <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">Enter atleast 5 characters</md-hint>
+        <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">{{currentLanguageSet?.enterAtleast5Characters}}</md-hint>
       </md-input-container>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" *ngIf="toBeEditedObject.kmFileManagerID">
       <md-input-container [style.width]="'100%'">
-        <input mdInput placeholder="Existing Uploaded File" name="uploaded_file" [disabled]="true" [(ngModel)]="uploaded_file" required>
+        <input mdInput placeholder="{{currentLanguageSet?.existingUploadedFile}}" name="uploaded_file" [disabled]="true" [(ngModel)]="uploaded_file" required>
       </md-input-container>
     </div>
    
@@ -132,11 +132,11 @@
 
     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
       <md-input-container [style.width]="'100%'">
-        <textarea mdInput class="" rows="3" placeholder="Resource message" name="message" [(ngModel)]="description" required (keyup)="updateCount2()"
+        <textarea mdInput class="" rows="3" placeholder="{{currentLanguageSet?.resourceMessage}}" name="message" [(ngModel)]="description" required (keyup)="updateCount2()"
           #resourceMessage="ngModel" maxlength="300" minlength="5">
               </textarea>
         <md-hint align="start">
-          <span class="error_text pull-left" *ngIf="resourceMessage.invalid && resourceMessage.touched">Enter atleast 5 characters</span>
+          <span class="error_text pull-left" *ngIf="resourceMessage.invalid && resourceMessage.touched">{{currentLanguageSet?.enterAtleast5Characters}}</span>
         </md-hint>
         <md-hint align="end">
           <span class="pull-right">{{count2}}</span>
@@ -149,13 +149,13 @@
         ngModel #uploadfile="ngModel">
 
       <span class="f-s-10 error_text" *ngIf="invalid_file_flag">Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)</span>
-      <span class="f-s-10 error_text" *ngIf="error1">File Size should not exceed {{maxFileSize}} MB</span>
-      <span class="f-s-10 error_text" *ngIf="error2">File Size should be greator than 0</span>
+      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
+      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
-    <button md-raised-button color="primary" class="pull-left" (click)="go2table()">Back</button>
+    <button md-raised-button color="primary" class="pull-left" (click)="go2table()">{{currentLanguageSet?.back}}</button>
     <button [disabled]="trainingResourcesEditForm.invalid || invalid_file_flag || error1 || error2" md-raised-button color="accent"
-      class="pull-right" (click)="editTrainingResource(trainingResourcesEditForm.value)">Update</button>
+      class="pull-right" (click)="editTrainingResource(trainingResourcesEditForm.value)">{{currentLanguageSet?.update}}</button>
   </div>
 </div>
