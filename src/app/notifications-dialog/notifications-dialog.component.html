@@ -83,7 +83,7 @@
           </md-input-container>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <label for="upload-file">Upload File(Size limit :{{maxFileSize}}MB)</label>
+          <label for="upload-file">{{currentLanguageSet?.uploadFileSizeLimitInMb}} :{{maxFileSize}}{{currentLanguageSet?.mb}})</label>
           <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file" ngModel #uploadfile="ngModel">
         </div>
      
