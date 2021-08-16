@@ -63,7 +63,7 @@
                 <md-hint class="errorText" *ngIf="dOB.errors && dOB.touched">date is required</md-hint> -->
 
                 <md-input-container>
-                    <input mdInput placeholder="Date Of Action" ngModel name="dob" [(ngModel)]="dob" name="dob"
+                    <input mdInput placeholder="Date Of Action (dd/MM/yyyy)" ngModel name="dob" [(ngModel)]="dob" name="dob"
                         minlength="2" maxlength="500" #fname="ngModel" readonly required>
                     <md-hint *ngIf="dob.touched">
                         <span class="errorText" [hidden]="!dob.errors">Select Date</span>

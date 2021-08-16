@@ -26,7 +26,7 @@
             <th>Beneficiary ID</th>
             <th>Beneficiary Name</th>
             <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
-            <th>Mobile Number</th>
+            <!-- <th>Mobile Number</th> -->
             <th>Gender</th>
             <th>State</th>
             <th>Comments</th>
@@ -41,12 +41,12 @@
             <tr (click)="editMode(data)" style="cursor: pointer">
               <td width=15%>{{data.beneficiaryID}}</td>
               <td width=10%>{{data.FirstName}} {{data.LastName}}</td>
-              <td width=20%>{{data.PrimaryNumber}}</td>
+              <!-- <td width=20%>{{data.PrimaryNumber}}</td> -->
               <td width=10%>{{data.Gender}}</td>
               <td width=10%>{{data.state}}</td>
               <td width=10%>{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
               <td width=10%>{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
-              <td width=20%>{{data.callCounter}}</td>
+              <td width=10% style="padding-left: 30px;">{{data.callCounter}}</td>
             </tr>
         </tbody>
         <tfoot>
@@ -132,7 +132,7 @@
               <md-chip *ngFor="let slot of createRange(slots.days)" 
               [ngClass]="checkColorCode(slot,slots.name,slot)"
 
-                (click)="checkcurrentMonthDay(slots.name,slot) && callsupportdialog()">
+                (click)="checkcurrentMonthDay(slots.name,slot) && callsupportdialog()" style="cursor: pointer;">
                 {{(slot < 10 ? '0' : '') + slot }}
               </md-chip>
             </md-chip-list>

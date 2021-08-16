@@ -52,7 +52,7 @@
                       <th md2SortBy="beneficiaryRegId">Beneficiary ID</th>
                       <th md2SortBy="firstName">Beneficiary Name</th>
                       <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
-                      <th>Mobile Number</th>
+                      <!-- <th>Mobile Number</th> -->
                       <th>State</th>
                       <th>District</th>
                       <th>Comments</th>
@@ -71,12 +71,12 @@
                       <td width=15%>{{listItem.beneficiaryID}}</td>
                       <td width=10%>{{listItem.FirstName}} {{listItem.LastName}}</td>
                       <!-- <td width=15%>{{listItem.prefferedDateTime?(millisToUTCDate(listItem.prefferedDateTime)|date:'dd/MM/yyyy'):''}}</td> -->
-                      <td width=20%>{{listItem.PrimaryNumber}}</td>
+                      <!-- <td width=20%>{{listItem.PrimaryNumber}}</td> -->
                       <td width=10%>{{listItem.State}}</td>
                       <td width=15%>{{listItem.District}}</td>
                       <td width=5%>{{(listItem?.comments !== 'NaN' && listItem?.comments !== undefined && listItem?.comments !== null) ? listItem?.comments : 'N/A'}}</td>
                       <!-- <td width=20%>{{(listItem?.lastModDate !== 'NaN' && listItem?.lastModDate !== undefined && listItem?.lastModDate !== null ? listItem?.lastModDate : N/A)}}</td> -->
-                      <td width=10%>{{listItem.callCounter > 0 ? (listItem?.lastCall !== 'NaN' && listItem.lastCall !== undefined && listItem.lastCall !== null ? listItem?.lastCall : 'N/A') : 'N/A'}}</td>
+                      <td width=30%>{{listItem.callCounter > 0 ? (listItem?.lastCall !== 'NaN' && listItem.lastCall !== undefined && listItem.lastCall !== null ? listItem?.lastCall : 'N/A') : 'N/A'}}</td>
                       <td width=25%>{{listItem.callCounter}}</td>
                       <td width=10% height="20px">
                         <a class="pointer">
