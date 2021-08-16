@@ -15,11 +15,11 @@
           <td class="b-r-1 col-xs-11 col-sm-11">
             <h4 class="media-heading f-s-b">{{doc.notificationDesc}}</h4>
             <p class="f-c-585857 f-s-b" *ngIf="doc.kmFilePath">
-              <a href="{{doc?.kmFilePath}}" target="_blank">Click here for more info</a>
+              <a href="{{doc?.kmFilePath}}" target="_blank">{{currentLanguageSet?.clickHereForMoreInfo}}</a>
             </p>
             <ul class="list-unstyled" *ngIf="doc.urls.length>0">
-              <li *ngIf="doc.urls.length>1">Refer the links below</li>
-              <li *ngIf="doc.urls.length===1">Refer the link below</li>
+              <li *ngIf="doc.urls.length>1">{{currentLanguageSet?.referTheLinksBelow}}</li>
+              <li *ngIf="doc.urls.length===1">{{currentLanguageSet?.referTheLinkBelow}}</li>
               <li *ngFor="let url of doc.urls">
                 <a target="_blank" href="{{url}}">{{url}}</a>
               </li>

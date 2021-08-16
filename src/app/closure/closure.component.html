@@ -26,7 +26,7 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="transferValid">
            
-              <md-select required placeholder="Campaign Names" [style.width]="'100%'" [(ngModel)]="campaignName" name="campaignName" (change)="getCampaignSkills(campaignName)">
+              <md-select required placeholder="{{currentLanguageSet?.campaignNames}}" [style.width]="'100%'" [(ngModel)]="campaignName" name="campaignName" (change)="getCampaignSkills(campaignName)">
                 <md-option *ngFor="let campaigns of campaignNames" value="{{campaigns.campaign_name}}">
                   {{campaigns.campaign_name}}
                 </md-option>
@@ -35,7 +35,7 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 p-b-1-5" *ngIf="transferValid">
            
-              <md-select placeholder="Campaign Skills" [style.width]="'100%'" [(ngModel)]="campaignSkill" name="campaignSkill">
+              <md-select placeholder="{{currentLanguageSet?.campaignSkills}}" [style.width]="'100%'" [(ngModel)]="campaignSkill" name="campaignSkill">
                 <md-option *ngFor="let skills of campaignSkills" value="{{skills.skill_name}}">
                   {{skills.skill_name}}
                 </md-option>

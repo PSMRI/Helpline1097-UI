@@ -12,10 +12,10 @@
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-4 ">
     <form #feedbackSearch="ngForm">         
       <md-input-container class="m-t-10" style="width: 60%;" *ngIf="searchType === 'FeedbackID'">
-        <input mdInput placeholder="{{searchType}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off">
+        <input mdInput placeholder="{{currentLanguageSet?.feedbackId}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off">
       </md-input-container>        
       <md-input-container class="m-t-10" style="width: 60%;" *ngIf="searchType === 'MobileNumber'">
-        <input mdInput pattern="^[0-9]*$" placeholder="{{searchType}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off">
+        <input mdInput pattern="^[0-9]*$" placeholder="{{currentLanguageSet?.mobileNumber}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off">
       </md-input-container> 
     <button md-mini-fab color="primary" class="m-r-5 m-l-5" (click)="filterFeedbackList(filterTerm)" [disabled]="feedbackSearch.invalid">
       <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="{{currentLanguageSet?.search}}" role="img" aria-hidden="true"
@@ -119,7 +119,7 @@
           <textarea required #descVar="ngModel" mdInput placeholder="{{currentLanguageSet?.feedbackDescription}}" rows="2"
             name="feedback" [(ngModel)]="feedbackDescription" maxlength="5000" (keyup)="updateCount()"></textarea>
           <md-hint *ngIf="descVar.invalid && (descVar.dirty || descVar.touched)">
-            <span class="error_text">Description is required</span>
+            <span class="error_text">{{currentLanguageSet?.descriptionIsRequired}}</span>
           </md-hint>
         </md-input-container>
       </div>
@@ -141,7 +141,7 @@
           <thead>
             <tr>
              
-              <th id="sno">S.No.</th>
+              <th id="sno">{{currentLanguageSet?.sno}}</th>
               <th md2SortBy="feedbackID" id="feedbackID">{{currentLanguageSet?.feedbackId}}</th>
               <th md2SortBy="feedback" id="feedback">{{currentLanguageSet?.description}}</th>
               <th md2SortBy="severityTypeName" id="severityTypeName">{{currentLanguageSet?.severity}}</th>

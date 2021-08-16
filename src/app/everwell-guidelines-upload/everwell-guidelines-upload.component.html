@@ -86,12 +86,12 @@
     
     
     <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 m-t-40">
-      <label for="upload-file" id="upload_file_label">Upload File(Size limit :{{maxFileSize}}MB) Supported format- .pdf</label>
+      <label for="upload-file" id="upload_file_label">{{currentLanguageSet?.uploadFileSizeLimitInMb}} :{{maxFileSize}}{{currentLanguageSet?.mb}}) Supported format- .pdf</label>
       <input type="file" accept="*" size="100" [disabled]="trainingResources.invalid" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
         ngModel #uploadfile="ngModel">
 
-      <span class="f-s-10 error_text" *ngIf="invalid_file_flag">Supported file format is .pdf</span>
-      <span class="f-s-10 error_text" *ngIf="error1">File size should not exceed {{maxFileSize}} MB</span>
+      <span class="f-s-10 error_text" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormatIsPdf}}</span>
+      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
       <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
     </div>
   </form>

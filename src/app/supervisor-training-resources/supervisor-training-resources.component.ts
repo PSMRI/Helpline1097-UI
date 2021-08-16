@@ -128,7 +128,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
           this.getTrainingResources();
         }
         else {
-          this.dialogService.alert('No roles found');
+          this.dialogService.alert(this.currentLanguageSet.noRolesFound);
         }
 
       },
@@ -367,7 +367,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
           console.log('Training resources', this.trainingResources);
         }
         else {
-          this.dialogService.alert('No training resources found');
+          this.dialogService.alert(this.currentLanguageSet.noTrainingResourcesFound);
         }
       },
       (error) => {
@@ -393,13 +393,13 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
     this.notificationService.updateNotification(object)
       .subscribe((response) => {
         if (response.data !== {}) {
-          this.dialogService.alert('Training resource activated successfully', 'success');
+          this.dialogService.alert(this.currentLanguageSet.trainingResourceActivatedSuccessfully, 'success');
           this.getTrainingResources();
         }
       },
       (error) => {
         console.log(error);
-        this.dialogService.alert("Failed to activate", 'error')
+        this.dialogService.alert(this.currentLanguageSet.failedToActivate, 'error')
       });
   }
 
@@ -421,13 +421,13 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
     this.notificationService.updateNotification(object)
       .subscribe((response) => {
         if (response.data !== {}) {
-          this.dialogService.alert('Training resource deactivated successfully', 'success');
+          this.dialogService.alert(this.currentLanguageSet.trainingResourceDeactivatedSuccessfully, 'success');
           this.getTrainingResources();
         }
       },
       (error) => {
         console.log(error);
-        this.dialogService.alert('Failed to deactivate', 'error')
+        this.dialogService.alert(this.currentLanguageSet.failedToDeactivate, 'error')
       });
   }
 
@@ -509,7 +509,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   updateSuccess(response) {
     console.log(response.data);
     if (response.data) {
-      this.dialogService.alert('Training resource updated successfully', 'success');
+      this.dialogService.alert(this.currentLanguageSet.trainingResourceUpdatedSuccessfully, 'success');
       this.trainingResourceEditForm.reset();
       this.count = '0/300';
       this.getTrainingResources();
@@ -519,7 +519,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
 
   notificationError(error) {
     console.log('error', error);
-    this.dialogService.alert('Failed to update', 'error')
+    this.dialogService.alert(this.currentLanguageSet.failedToUpdate, 'error')
   }
   ngDoCheck() {
     this.assignSelectedLanguage();

@@ -49,12 +49,12 @@
             <td style="cursor: pointer">
               <a (click)="getRecording(blacklist)">{{blacklist?.noOfNuisanceCall ? ((blacklist.noOfNuisanceCall>0) ? blacklist.noOfNuisanceCall : 0): 0}}</a>
             </td>
-            <td>Nuisance Call</td>
+            <td>{{assignSelectedLanguageValue?.nuisanceCall}}</td>
             <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockStartDate)|date: 'dd/MM/yyyy hh:mm a'): ''}}</td>
             <td>{{blacklist?.isBlocked ? (millisToUTCDate(blacklist?.blockEndDate)|date: 'dd/MM/yyyy hh:mm a'): ''}}</td>
             <td>
-              <a style="cursor:pointer" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">Unblock</a>
-              <a style="cursor:pointer" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">Block</a>
+              <a style="cursor:pointer" *ngIf="blacklist.isBlocked" (click)="unblock(blacklist.phoneBlockID)">{{assignSelectedLanguageValue?.unblock}}</a>
+              <a style="cursor:pointer" *ngIf="!blacklist.isBlocked" (click)="block(blacklist.phoneBlockID)">{{assignSelectedLanguageValue?.block}}</a>
             </td>
           </tr>
         </tbody>
