@@ -106,7 +106,7 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
     blockObj["is1097"] = true;
     this.callService.UnBlockPhoneNumber(blockObj).subscribe(
       (response) => {
-        this.message.alert("Successfully unblocked", "success");
+        this.message.alert(this.assignSelectedLanguageValue.successfullyUnblocked, "success");
         this.addToBlockList();
         this.recording_data = [];
         this.showRecordings = false;
@@ -122,7 +122,7 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
     blockObj["is1097"] = true;
     this.callService.blockPhoneNumber(blockObj).subscribe(
       (response) => {
-        this.message.alert("Successfully blocked", "success");
+        this.message.alert(this.assignSelectedLanguageValue.successfullyBlocked, "success");
         this.addToBlockList();
         this.recording_data = [];
         this.showRecordings = false;
@@ -158,7 +158,7 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
   getRecordingsSuccessHandeler(response, ph_no) {
     console.log(response, "get RECORDINGS SUCCESS");
     if (response) {
-      this.recording_data = response;
+      this.recording_data = response.workList;
       this.showRecordings = true;
       if (response.length > 0) {
         this.audio_path = response[0].recordingPath;

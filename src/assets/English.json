@@ -541,7 +541,7 @@
       "noRecordFound": "No record found",
       "locationMessages": "Location Messages",
       "actiontaken": "ActionTaken",
-      "attachment": "attachment",
+      "attachment": "Attachment",
       "savePatientFeedback": "Save Patient Feedback",
       "parameter": "Parameter",
       "create_searchBeneficiary": "Create/Search Beneficiary",
@@ -671,7 +671,13 @@
       "referTheLinkBelow": "Refer the link below",
       "subDistrict": "Sub District",
       "create_find_beneficiary_mobile": "C/F B",
-      "callStatistics": "Call Statistics"
+      "callStatistics": "Call Statistics",
+      "successfullyUnblocked":"Successfully unblocked",
+      "successfullyBlocked":"Successfully blocked",
+      "callRecordingsfor":"Call Recordings For",
+      "audioRecording":"Audio Recording",
+      "supportedFormat":"Supported format",
+      "pleaseUploadDocument":"Please upload document"
 
 
 

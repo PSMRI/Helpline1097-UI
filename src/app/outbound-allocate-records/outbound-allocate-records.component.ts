@@ -194,7 +194,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
         // this.getUnallocateCall(this.providerServiceMapID);
       },
       (error) => {
-        this.alertMessage.alert(error.errorMessage, 'error');
+        this.alertMessage.alert(error.status, 'error');
       });
   }
 
