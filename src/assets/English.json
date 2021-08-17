@@ -374,7 +374,7 @@
       "editEmergencyContact": "Edit Emergency Contact",
       "gender:": "Gender :",
       "youDoNotHaveSufficientPrevilageToAccessApplicationRoles": "You do not have sufficient previlage to access application roles",
-      "agentId": "Agent ID :",
+      "agentId": "Agent ID",
       "subCategory": "Sub Category :",
       "enterTotalNewRecords": "Enter Total New Records",
       "enterValid(min:8,max:12,alphanumeric,1SpecialCharacter,1Uppercase)": "Enter valid(min:8,max:12,alphanumeric,1 special character,1 UpperCase)",
