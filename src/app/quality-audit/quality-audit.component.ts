@@ -373,6 +373,7 @@ createPagination(endPage, startPage, pageNo, totalPages) {
     this.agentIDs = this.allAgentIDs;
     this.setTodaydate();
     this.currentDateCallRecordingRequest(this.pageNo);
+    this.getServicelines();
   }
 
 
@@ -430,6 +431,7 @@ createPagination(endPage, startPage, pageNo, totalPages) {
   }
 
   getRoleSpecificAgents(role_name, roles_array) {
+    this.resetWorklistData();
     let roleID = undefined;
 
     for (let i = 0; i < roles_array.length; i++) {
@@ -480,6 +482,7 @@ createPagination(endPage, startPage, pageNo, totalPages) {
   }
 
   populateCallSubTypes(callGroupType) {
+    this.resetWorklistData();
     if (callGroupType.toLowerCase() === 'valid'.toLowerCase()) {
       this.callSubTypes = this.callTypes.filter(function (item) {
         if (item.callGroupType.toLowerCase() === 'valid'.toLowerCase()) {
