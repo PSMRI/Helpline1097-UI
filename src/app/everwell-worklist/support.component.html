@@ -2,7 +2,7 @@
 <div class="row headerTitle title">
     <h4>{{currentLanguageSet?.feedback}}</h4>
     <button class="pull-right exit" [mdDialogClose]="null" md-icon-button>
-        <md-icon class="md-24">{{currentLanguageSet?.close}}</md-icon>
+        <md-icon class="md-24">clear</md-icon>
     </button>
 </div>
 
@@ -14,13 +14,13 @@
               
         <form #form="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label">Missed Doses: {{everwellBenData.MissedDoses}}</label>
+                <label class="control-label">{{currentLanguageSet?.missedDoses}}: {{everwellBenData.MissedDoses}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label">Adherence Percentage: {{everwellBenData.AdherencePercentage}}</label>
+                <label class="control-label">{{currentLanguageSet?.adherencePercentage}}: {{everwellBenData.AdherencePercentage}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label">Current Month Missed Doses: {{everwellBenData.currentMonthMissedDoses}}</label>
+                <label class="control-label">{{currentLanguageSet?.currentMonthMissedDoses}}: {{everwellBenData.currentMonthMissedDoses}}</label>
             </div>
             <div class="clearfix visible-md visible-lg"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
