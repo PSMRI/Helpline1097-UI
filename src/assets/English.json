@@ -23,7 +23,7 @@
       "backToDashboard": "Back to Dashboard",
       "noCallTypeReportForSearchedCriteria": "No call type report for searched criteria",
       "passwordChangedSuccessfully": "Password changed successfully",
-      "preferredLanguage": "Preferred Language:",
+      "preferredLanguage": "Preferred Language :",
       "totalNoOfRequest": "Total no of Request",
       "moveToBin": "Move To Bin",
       "dateIsRequired": "Date is required",
@@ -160,7 +160,7 @@
       "adminCreation": "Admin Creation",
       "noEmergencyContactsExists": "No emergency contacts exists",
       "mobileNumber": "Mobile Number",
-      "save/email": "Save/Email",
+      "saveEmail": "Save/Email",
       "s.No": "S. No",
       "noRecordsAvailable": "No records available.",
       "institutionType": "Institution Type",
@@ -223,7 +223,7 @@
       "informationRequired:": "Information Required:",
       "noteDefaultCallsBetweenTodayAndNextSevenDays": "Note: Default calls between today and next seven days",
       "callBeneficiary": "Call Beneficiary",
-      "feedbackRequest/response": "Feedback Request/Response",
+      "feedbackRequestResponse": "Feedback Request/Response",
       "totalCallsDurations": "Total Calls Durations",
       "feedbackType": "Feedback Type",
       "contactNo": "Contact No",
@@ -402,7 +402,7 @@
       "notificationDescription": "Notification Description",
       "reportName": "Report Name",
       "submit": "Submit",
-      "comments(detailsEnteredWillBeSentAsE-mail)": "Comments(Details entered will be sent as E-mail)",
+      "commentsDetailsEnteredWillBeSentAsEmail": "Comments(Details entered will be sent as E-mail)",
       "description": "Description",
       "update": "Update",
       "notificationType": "Notification Type",
@@ -502,7 +502,7 @@
       "notificationSubject": "Notification Subject",
       "referral": "Referral",
       "errorWhileFetchingKmFilesInDashboard": "Error while fetching KM files in dashboard",
-      "reAllocate": "Re-Allocate",
+      "reallocate": "Re-Allocate",
       "smsSent": "SMS sent",
       "date": "Date",
       "questionsNotSet": "Questions not set",
@@ -682,7 +682,8 @@
       "play":"Play",
       "callDuration": "Call Duration",
       "breakTime": "Break Time",
-      "freeTime": "Free Time"
+      "freeTime": "Free Time",
+      "uploadFileEmail":"Upload File/Email"
 
 
 
