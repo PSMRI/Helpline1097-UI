@@ -91,7 +91,7 @@ export class QualityAuditComponent implements OnInit {
     // this.getFilteredCallList_default();
     this.currentDateCallRecordingRequest(this.pageNo);
     this.getServiceProviderID();
-
+    this.currentDateCallRecordingRequest(this.pageNo);
     // this.getServicelines();
     // this.getAgents();
     // this.getCallTypes();
@@ -180,153 +180,6 @@ export class QualityAuditComponent implements OnInit {
   //     this.max = new Date(date);
   //   }
   // }
-
-  // setEndDate(endDate) {
-  //   this.qaForm.form.patchValue({ 'endDate': new Date(endDate.setHours(23, 59, 59, 0)) });
-  // }
-
-  blockey(e: any) {
-    if (e.keyCode === 9) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  getServiceProviderID() {
-    this.qualityAuditService.getServiceProviderID(this.providerServiceMapID)
-      .subscribe(response => {
-        console.log(response, 'QA serviceproviderID success');
-        this.serviceProviderID = response.serviceProviderID;
-        this.getServicelines();
-      }, err => {
-        console.log(err.errorMessage, 'QA serviceProviderID error');
-      });
-  }
-
-  getServicelines() {
-    this.qualityAuditService.getServices(this.userID)
-      .subscribe(response => {
-        console.log(response, 'QA servicelines success');
-        this.servicelines = response.filter(item => {
-          return item.serviceName === '1097';
-        });
-        this.serviceID = this.servicelines[0].serviceID;
-        this.getRoles();
-      }, err => {
-        console.log(err, 'QA servicelines error');
-        this.alertService.alert(err.errorMessage, 'error');
-      });
-  }
-
-  getRoles() {
-    const obj = {
-      'serviceProviderID': this.serviceProviderID,
-      'serviceID': this.servicelines[0].serviceID,
-      'isNational': this.servicelines[0].isNational
-    }
-
-    this.qualityAuditService.getRoles(obj)
-      .subscribe(response => {
-        console.log(response, 'QA roles success');
-        this.roles = response;
-        this.getAgents();
-      }, err => {
-        console.log(err, 'QA roles error');
-        this.alertService.alert(err.errorMessage, 'error');
-      });
-  }
-
-  getRoleSpecificAgents(role_name, roles_array) {
-    let roleID = undefined;
-
-    for (let i = 0; i < roles_array.length; i++) {
-      if (role_name.toLowerCase() === roles_array[i].roleName.toLowerCase()) {
-        roleID = roles_array[i].roleID;
-        break;
-      }
-    }
-
-    if (roleID != undefined) {
-      this.qualityAuditService.getRoleSpecificAgents(this.providerServiceMapID, roleID)
-        .subscribe(response => {
-          this.agent = undefined;
-          this.agentIDs = response;
-        }, err => {
-          console.log(err, 'Error while fetching role specific agent IDs');
-        });
-    }
-  }
-
-  getAgents() {
-    this.qualityAuditService.getAllAgents(this.providerServiceMapID)
-      .subscribe(response => {
-        console.log(response, 'QA AGENTIDs success');
-        this.agentIDs = response;
-        this.allAgentIDs = response;
-
-        this.getCallTypes();
-      }, err => {
-        console.log(err.errorMessage, 'QA AGENTIDs error');
-      })
-  }
-
-  getCallTypes() {
-    this.qualityAuditService.getCallTypes(this.providerServiceMapID)
-      .subscribe(response => {
-        console.log(response, 'QA calltypes success');
-        this.callTypes = response.filter(function (item) {
-          return item.callGroupType.toLowerCase() === 'valid'.toLowerCase()
-            || item.callGroupType.toLowerCase() === 'invalid'.toLowerCase();
-        });
-
-        const obj = { 'callGroupType': 'All', 'callTypes': [] };
-        this.callTypes.push(obj);
-      }, err => {
-        console.log(err.errorMessage, 'QA calltypes error');
-      });
-  }
-
-  populateCallSubTypes(callGroupType) {
-    if (callGroupType.toLowerCase() === 'valid'.toLowerCase()) {
-      this.callSubTypes = this.callTypes.filter(function (item) {
-        if (item.callGroupType.toLowerCase() === 'valid'.toLowerCase()) {
-          return item.callTypes;
-        }
-      })
-    } else if (callGroupType.toLowerCase() === 'invalid'.toLowerCase()) {
-      this.callSubTypes = this.callTypes.filter(function (item) {
-        if (item.callGroupType.toLowerCase() === 'invalid'.toLowerCase()) {
-          return item.callTypes;
-        }
-      })
-    } else {
-      this.callSubTypes = [];
-    }
-
-
-    if (this.callSubTypes.length > 0) {
-      let arr = [];
-      for (let i = 0; i < this.callSubTypes.length; i++) {
-        arr = this.callSubTypes[i].callTypes;
-      }
-      this.callsubtype = '';
-      this.callSubTypes = arr;
-    }
-  }
-  resetValuesOnchange() {
-    this.resetWorklistData();
-    this.validTill.setHours(23, 59, 59, 0);
-  }
-
-  setPage(pageNo: number, formValues) {
-    this.audioResponse = [];
-    this.recordingArray = [];
-    this.resetFlag();
-    if (pageNo <= this.pageCount && pageNo >= 1) {
-      this.callRecordingRequestFordate(pageNo, formValues);
-    }
-  }
 
   setEndDate() {
     this.resetWorklistData();
@@ -528,11 +381,155 @@ createPagination(endPage, startPage, pageNo, totalPages) {
 
   reset() {
     this.qaForm.resetForm();
-    this.getFilteredCallList_default();
+    //this.getFilteredCallList_default();
     this.agent = undefined;
     this.agentIDs = this.allAgentIDs;
     this.setTodaydate();
     this.currentDateCallRecordingRequest(this.pageNo);
+  }
+
+
+
+  blockey(e: any) {
+    if (e.keyCode === 9) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getServiceProviderID() {
+    this.qualityAuditService.getServiceProviderID(this.providerServiceMapID)
+      .subscribe(response => {
+        console.log(response, 'QA serviceproviderID success');
+        this.serviceProviderID = response.serviceProviderID;
+        this.getServicelines();
+      }, err => {
+        console.log(err.errorMessage, 'QA serviceProviderID error');
+      });
+  }
+
+  getServicelines() {
+    this.qualityAuditService.getServices(this.userID)
+      .subscribe(response => {
+        console.log(response, 'QA servicelines success');
+        this.servicelines = response.filter(item => {
+          return item.serviceName === '1097';
+        });
+        this.serviceID = this.servicelines[0].serviceID;
+        this.getRoles();
+      }, err => {
+        console.log(err, 'QA servicelines error');
+        this.alertService.alert(err.errorMessage, 'error');
+      });
+  }
+
+  getRoles() {
+    const obj = {
+      'serviceProviderID': this.serviceProviderID,
+      'serviceID': this.servicelines[0].serviceID,
+      'isNational': this.servicelines[0].isNational
+    }
+
+    this.qualityAuditService.getRoles(obj)
+      .subscribe(response => {
+        console.log(response, 'QA roles success');
+        this.roles = response;
+        this.getAgents();
+      }, err => {
+        console.log(err, 'QA roles error');
+        this.alertService.alert(err.errorMessage, 'error');
+      });
+  }
+
+  getRoleSpecificAgents(role_name, roles_array) {
+    let roleID = undefined;
+
+    for (let i = 0; i < roles_array.length; i++) {
+      if (role_name.toLowerCase() === roles_array[i].roleName.toLowerCase()) {
+        roleID = roles_array[i].roleID;
+        break;
+      }
+    }
+
+    if (roleID != undefined) {
+      this.qualityAuditService.getRoleSpecificAgents(this.providerServiceMapID, roleID)
+        .subscribe(response => {
+          this.agent = undefined;
+          this.agentIDs = response;
+        }, err => {
+          console.log(err, 'Error while fetching role specific agent IDs');
+        });
+    }
+  }
+
+  getAgents() {
+    this.qualityAuditService.getAllAgents(this.providerServiceMapID)
+      .subscribe(response => {
+        console.log(response, 'QA AGENTIDs success');
+        this.agentIDs = response;
+        this.allAgentIDs = response;
+
+        this.getCallTypes();
+      }, err => {
+        console.log(err.errorMessage, 'QA AGENTIDs error');
+      })
+  }
+
+  getCallTypes() {
+    this.qualityAuditService.getCallTypes(this.providerServiceMapID)
+      .subscribe(response => {
+        console.log(response, 'QA calltypes success');
+        this.callTypes = response.filter(function (item) {
+          return item.callGroupType.toLowerCase() === 'valid'.toLowerCase()
+            || item.callGroupType.toLowerCase() === 'invalid'.toLowerCase();
+        });
+
+        const obj = { 'callGroupType': 'All', 'callTypes': [] };
+        this.callTypes.push(obj);
+      }, err => {
+        console.log(err.errorMessage, 'QA calltypes error');
+      });
+  }
+
+  populateCallSubTypes(callGroupType) {
+    if (callGroupType.toLowerCase() === 'valid'.toLowerCase()) {
+      this.callSubTypes = this.callTypes.filter(function (item) {
+        if (item.callGroupType.toLowerCase() === 'valid'.toLowerCase()) {
+          return item.callTypes;
+        }
+      })
+    } else if (callGroupType.toLowerCase() === 'invalid'.toLowerCase()) {
+      this.callSubTypes = this.callTypes.filter(function (item) {
+        if (item.callGroupType.toLowerCase() === 'invalid'.toLowerCase()) {
+          return item.callTypes;
+        }
+      })
+    } else {
+      this.callSubTypes = [];
+    }
+
+
+    if (this.callSubTypes.length > 0) {
+      let arr = [];
+      for (let i = 0; i < this.callSubTypes.length; i++) {
+        arr = this.callSubTypes[i].callTypes;
+      }
+      this.callsubtype = '';
+      this.callSubTypes = arr;
+    }
+  }
+  resetValuesOnchange() {
+    this.resetWorklistData();
+    this.validTill.setHours(23, 59, 59, 0);
+  }
+  setPage(pageNo: number, formValues) {
+    this.audioResponse = [];
+    this.recordingArray = [];
+    this.resetFlag();
+    if (pageNo <= this.pageCount && pageNo >= 1) {
+      this.callRecordingRequestFordate(pageNo, formValues);
+    }
   }
 
   invokeCaseSheetDialog(benCallID, beneficiaryData) {

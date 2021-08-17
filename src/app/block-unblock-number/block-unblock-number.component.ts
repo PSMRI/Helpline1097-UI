@@ -158,7 +158,7 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
   getRecordingsSuccessHandeler(response, ph_no) {
     console.log(response, "get RECORDINGS SUCCESS");
     if (response) {
-      this.recording_data = response.workList;
+      this.recording_data = response.workList != undefined ? response.workList : null;
       this.showRecordings = true;
       if (response.length > 0) {
         this.audio_path = response[0].recordingPath;
