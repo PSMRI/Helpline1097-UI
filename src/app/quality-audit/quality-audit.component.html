@@ -7,13 +7,13 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <form #qaForm='ngForm' autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="{{currentLanguageSet?.validFrom}}" #startDate="ngModel" ngModel required
-          [style.width]="'100%'" (change)="setMinMaxDate(startDate.value)"></md2-datepicker>
+        <md2-datepicker name="startDate" (keydown)="blockey($event)"  [(ngModel)]="validFrom" placeholder="{{currentLanguageSet?.validFrom}}" #startDate="ngModel" ngModel required
+        [max]="today"  [style.width]="'100%'"   (change)="setEndDate()"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.startDateIsRequired}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="min" [max]="max" placeholder="{{currentLanguageSet?.validTill}}" #endDate="ngModel"
-          ngModel required [style.width]="'100%'" (change)="setEndDate(endDate.value)"></md2-datepicker>
+        <md2-datepicker name="endDate" (keydown)="blockey($event)"  [min]="startDate.value" [max]="maxEndDate"  [(ngModel)]="validTill" placeholder="{{currentLanguageSet?.validTill}}" #endDate="ngModel"
+          ngModel required [style.width]="'100%'"  (change)="resetValuesOnchange()"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.endDateIsRequired}}</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value<startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCanNotBeBeforeStartDate}}</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(max<endDate.value) && endDate.dirty">{{currentLanguageSet?.startDateEndDateCanHaveMax15DaysGap}}</span>
@@ -83,7 +83,7 @@
     
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <button md-raised-button color="accent" class="m-t-10" (click)="getFilteredCallList(qaForm.value);resetFlag()" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">{{currentLanguageSet?.search}}</button>
+        <button md-raised-button color="accent" class="m-t-10" (click)="callRecordingRequestFordate(1,qaForm.value);resetFlag()" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">{{currentLanguageSet?.search}}</button>
         <button md-raised-button color="primary" class="m-t-10" (click)="reset();resetFlag()">{{currentLanguageSet?.reset}}</button>
       </div>
     </form>
@@ -91,7 +91,7 @@
   <div class="col-xs-12 col-sm-12">
 
     <div class="table-responsive">
-    <table class="table table-hover table-striped" [md2Data]="filteredCallList" #md2="md2DataTable" [rowsPerPage]="4" aria-describedby="qualityAuditList">
+    <table class="table table-hover table-striped" [md2Data]="filteredCallList" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="qualityAuditList">
       <thead>
         <tr>
           <th id="sno">{{currentLanguageSet?.sno}}</th>
@@ -113,7 +113,7 @@
           </td>
         </tr>
         <tr *ngFor="let record of  md2.data;let i=index ">
-          <td>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</td>
+          <td>{{filteredCallList.indexOf(record) + 1 }}</td>
           <td>{{record.benCallID?record.benCallID:'-'}}</td>
           <td>{{record.callTime| utcDate| date:'dd/MM/yyyy hh:mm a'}}</td>
           <td>{{record.beneficiaryID?record.beneficiaryID:'-'}}</td>
@@ -126,7 +126,7 @@
           </td>
           <td>
                
-            <img *ngIf="!(dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1))" style="width:30px;height:30px" (click)="check(record.agentID,record.callID,(md2.activePage-1)*(md2.rowsPerPage)+i+1)" src="assets/images/playicon.jpg" alt="Play" title="Play">
+            <img *ngIf="!(dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1))" style="width:30px;height:30px" (click)="check(record.agentID,record.callID,(md2.activePage-1)*(md2.rowsPerPage)+i+1)" src="assets/images/playicon.jpg" alt="Play" title="{{currentLanguageSet?.play}}">
                               
             <audio  *ngIf="dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1)" controls autoplay preload="none">  
               
@@ -140,8 +140,44 @@
       </tbody>
       <tfoot>
         <tr>
+          <td
+            colspan="1"
+            class="m-t-5"
+            *ngIf="pager?.pages && pager?.pages.length"
+          >
+            <label>{{ currentLanguageSet.totalPages }}:</label>
+            {{ pageCount }}
+          </td>
           <td colspan="10">
-            <md2-pagination (click)="resetFlag()"></md2-pagination>
+            <ul
+              *ngIf="pager?.pages && pager?.pages.length"
+              class="pagination pull-right"
+            >
+              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
+                <a (click)="setPage(1, qaForm.value)"> << </a>
+              </li>
+              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
+                <a (click)="setPage(pager.currentPage - 1, qaForm.value)">
+                  <
+                </a>
+              </li>
+              <li
+                *ngFor="let page of pager.pages"
+                [ngClass]="{ active: pager.currentPage === page }"
+              >
+                <a (click)="setPage(page, qaForm.value)">{{ page }}</a>
+              </li>
+              <li
+                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
+              >
+                <a (click)="setPage(pager.currentPage + 1, qaForm.value)">></a>
+              </li>
+              <li
+                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
+              >
+                <a (click)="setPage(pager.totalPages, qaForm.value)">>></a>
+              </li>
+            </ul>
           </td>
         </tr>
       </tfoot>
@@ -178,7 +214,7 @@
             </td>
             <td class="col-xs-12 col-sm-3">{{benData?.benCallID}}</td>
             <td class="col-xs-12 col-sm-3 p-l-0">
-              <strong>{{currentLanguageSet?.agentId}}</strong>
+              <strong>{{currentLanguageSet?.agentId}} :</strong>
             </td>
             <td class="col-xs-12 col-sm-3">{{benData?.agentID}}</td>
           </tr>
