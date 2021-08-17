@@ -78,7 +78,7 @@ export class DashboardUserIdComponent implements OnInit {
                     }
 
                 }
-                if (this.status != undefined && this.status.toUpperCase() === "FREE" && !this.dataSettingService.onlyOutboundAvailable) {
+                if (this.status != undefined && this.status.toUpperCase() === "FREE" && !this.dataSettingService.onlyOutboundAvailable && this.timerSubscription !== undefined) {
                     this.timerSubscription.unsubscribe()
                 }
 

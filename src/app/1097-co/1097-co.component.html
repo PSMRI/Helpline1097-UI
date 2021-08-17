@@ -4,9 +4,9 @@
       <div class=" bs-wizard animate-box" style=" position:relative; z-index:1">
         <!-- 'complete' css is added at bottom line to show green to next line -->
         <div id="one" class="col-xs-2 bs-wizard-step disabled" style="padding:0px; margin:0px;">
-          <div *ngIf="!OUT" class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguageSet?.create_searchBeneficiary}}</div>
-          <div *ngIf="OUT" class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguageSet?.beneficiaryDetails}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguage.co?.create_find_beneficiary_mobile}}</div>
+          <div *ngIf="!OUT" class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentLanguageSet?.create_searchBeneficiary}}</div>
+          <div *ngIf="OUT" class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentLanguageSet?.beneficiaryDetails}}</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentLanguageSet?.create_find_beneficiary_mobile}}</div>
           <!-- progress-bar-disabled   css is added extra in this line to make it grey, remove for green -->
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
@@ -14,24 +14,24 @@
           <a class="bs-wizard-dot cursorPointer active-tab"></a>
         </div>
         <div id="two" class="col-xs-2 bs-wizard-step disabled" *ngIf="isEverwell !='yes'">
-          <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguageSet?.provideServices}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguageSet?.pS}}</div>
+          <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentLanguageSet?.provideServices}}</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentLanguageSet?.pS}}</div>
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
           </div>
           <a class="bs-wizard-dot cursorPointer"></a>
         </div>
         <div id="three" class="col-xs-2 bs-wizard-step disabled" *ngIf="isEverwell !='yes'">
-          <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguageSet?.otherDetails}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguageSet?.oD}}</div>
+          <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentLanguageSet?.otherDetails}}</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentLanguageSet?.oD}}</div>
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
           </div>
           <a class="bs-wizard-dot cursorPointer"></a>
         </div>
         <div id="four" class="col-xs-2 bs-wizard-step disabled">
-          <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentlanguageSet?.closure}}</div>
-          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentlanguageSet?.cL}}</div>
+          <div class="text-center hidden-xs hidden-sm font-Light f-s-14">{{currentLanguageSet?.closure}}</div>
+          <div class="text-center hidden-md hidden-lg visible-xs visible-sm font-Light f-s-14">{{currentLanguageSet?.cL}}</div>
           <div class="progress progress-bar-disabled progress-margin">
             <div class="progress-bar"></div>
           </div>
@@ -93,17 +93,17 @@
         <div class="row">
           <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
             <button [disabled]="disableBack" id="previous" type="button" md-raised-button color="primary" class="pull-left " href="#myCarousel" data-slide="prev"
-              [hidden]="!isPrevious" (click)="prevVisual()">{{currentlanguageSet?.previous}}</button>
+              [hidden]="!isPrevious" (click)="prevVisual()">{{currentLanguageSet?.previous}}</button>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-xs-6 center-btn" style="text-align:center;">
             <button type="button" id="btnCancel" value="Cancel" md-raised-button class="mar-right" color="primary" data-slide-to="1"
-              (click)="openDialog()">{{currentlanguageSet?.cancel}}</button>
+              (click)="openDialog()">{{currentLanguageSet?.cancel}}</button>
             <button type="button" id="btnClosure" value="Close" md-raised-button color="primary" data-slide-to="4" (click)="openDialogClosure()"
-              [disabled]="isClosureDisable">{{currentlanguageSet?.closure}}</button>
+              [disabled]="isClosureDisable">{{currentLanguageSet?.closure}}</button>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
             <button id="next" type="button" md-raised-button color="primary" class="pull-right " href="#myCarousel" data-slide="next"
-              [hidden]="!isNext" (click)="nxtVisual()">{{currentlanguageSet?.next}}</button>
+              [hidden]="!isNext" (click)="nxtVisual()">{{currentLanguageSet?.next}}</button>
           </div>
         </div>
       </div>
@@ -111,13 +111,13 @@
         <div class="row">          
           <div class="col-xs-6 col-sm-6 col-md-6 col-xs-6 center-btn" style="text-align:center;">
             <button type="button" id="btnCancel" value="Cancel" md-raised-button class="mar-right" color="primary" data-slide-to="1"
-              (click)="openEverwellDialog()" [disabled]="isCancelDisable">{{currentlanguageSet?.cancel}}</button>
+              (click)="openEverwellDialog()" [disabled]="isCancelDisable">{{currentLanguageSet?.cancel}}</button>
             <button type="button" id="btnClosure" value="Close" md-raised-button color="primary" data-slide-to="4" (click)="openEverwellDialogClosure()"
-              [disabled]="isClosureDisable || !submitCheck">{{currentlanguage.co?.closure}}</button>
+              [disabled]="isClosureDisable || !submitCheck">{{currentLanguageSet?.closure}}</button>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3 col-xs-3 pull-left">
             <button id="next" type="button" md-raised-button color="primary" class="pull-right " href="#myCarouselEverwell" data-slide="next"
-              [hidden]="!isNext" (click)="nxtVisual()">{{currentlanguageSet?.next}}</button>
+              [hidden]="!isNext" (click)="nxtVisual()">{{currentLanguageSet?.next}}</button>
           </div>
         </div>
       </div>

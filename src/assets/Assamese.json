@@ -263,7 +263,7 @@
       "feedbackTracking": "ফীডবেক ট্ৰেকিং",
       "no": "নহয়",
       "secondaryMobileNumber": "গৌণ ম'বাইল নম্বৰ",
-      "totalNo.OfRecords": "মুঠ ৰেকৰ্ডৰ সংখ্যা",
+      "totalNoOfRecords": "মুঠ ৰেকৰ্ডৰ সংখ্যা",
       "otherDetails": "অন্যান্য বিৱৰণ",
       "endTimeCannotBeLessThanStartTime": "অন্তিম সময় আৰম্ভ ণিৰ সময়তকৈ কম হব নোৱাৰে",
       "feedbackDate": "প্ৰতিক্ৰিয়াৰ তাৰিখ",
@@ -676,7 +676,13 @@
       "hivQuestion": "Is beneficiary suffering from HIV/AIDS?",
       "hivQuestionCondition": "(Captured only if, caller voluntarily informs)",
       "totalPages":"Total Pages",
-      "play":"Play"
+      "play":"Play",
+      "create_find_beneficiary_mobile": "C/F B",
+      "callStatistics": "Call Statistics",
+      "callDuration": "Call Duration",
+      "breakTime": "Break Time",
+      "freeTime": "Free Time"
+
 
 
 

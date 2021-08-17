@@ -265,7 +265,7 @@
       "feedbackTracking": "Feedback Tracking",
       "no": "No",
       "secondaryMobileNumber": "Secondary Mobile Number",
-      "totalNo.OfRecords": "Total no. of records",
+      "totalNoOfRecords": "Total no. of records",
       "otherDetails": "Other Details",
       "endTimeCannotBeLessThanStartTime": "End Time cannot be less than Start Time",
       "feedbackDate": "Feedback Date",
@@ -670,6 +670,8 @@
       "referTheLinksBelow": "Refer the links below",
       "referTheLinkBelow": "Refer the link below",
       "subDistrict": "Sub District",
+      "create_find_beneficiary_mobile": "C/F B",
+      "callStatistics": "Call Statistics",
       "successfullyUnblocked":"Successfully unblocked",
       "successfullyBlocked":"Successfully blocked",
       "callRecordingsfor":"Call Recordings For",
@@ -677,7 +679,10 @@
       "supportedFormat":"Supported format",
       "pleaseUploadDocument":"Please upload document",
       "totalPages":"Total Pages",
-      "play":"Play"
+      "play":"Play",
+      "callDuration": "Call Duration",
+      "breakTime": "Break Time",
+      "freeTime": "Free Time"
 
 
 

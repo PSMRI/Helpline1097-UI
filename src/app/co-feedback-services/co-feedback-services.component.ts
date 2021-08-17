@@ -26,7 +26,7 @@ declare var jQuery: any;
 export class CoFeedbackServicesComponent implements OnInit {
   @Input() current_language: any;
   @Input() resetProvideServices: any;
-  currentlanguage: any;
+  // currentlanguage: any;
 
   @Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('form') form;
@@ -138,8 +138,8 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
-
-    this.setLanguage(this.current_language);
+    this.assignSelectedLanguage();
+    // this.setLanguage(this.current_language);
     if (this.resetProvideServices) {
       this.tempFlag = true;
       this.showTableCondition = true;
@@ -181,10 +181,10 @@ export class CoFeedbackServicesComponent implements OnInit {
       }
     }
   }
-  setLanguage(language) {
-    this.currentlanguage = language;
-    console.log(language, 'language feedback services mein');
-  }
+  // setLanguage(language) {
+  //   this.currentlanguage = language;
+  //   console.log(language, 'language feedback services mein');
+  // }
 
   showBeneficiaryFeedbackList() {
     this.minDate = this._savedData.beneficiaryData.dOB ? new Date(this._savedData.beneficiaryData.dOB) : this.dec2014;
