@@ -19,7 +19,7 @@
       </md-input-container> 
     <button md-mini-fab color="primary" class="m-r-5 m-l-5" (click)="filterFeedbackList(filterTerm)" [disabled]="feedbackSearch.invalid">
       <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="{{currentLanguageSet?.search}}" role="img" aria-hidden="true"
-        style="cursor: pointer">{{currentLanguageSet?.search}}</md-icon>
+        style="cursor: pointer">search</md-icon>
     </button>
     <button md-raised-button color="accent" [disabled]="viewALL" type="button" class="m-l-10"
       (click)="revertFullTable()">{{currentLanguageSet?.clear}}</button>
@@ -57,7 +57,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
        
-          <md-select placeholder="{{currentLanguageSet?.taluk}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
+          <md-select placeholder="{{currentLanguageSet?.subDistrictTalukBlock}}" [style.width]="'100%'" [(ngModel)]="selected_taluk"
             name="taluk" (change)="GetBlocks(selected_taluk)">
             <md-option *ngFor="let taluk of taluks" [value]="taluk.blockID">
               {{taluk.blockName}}

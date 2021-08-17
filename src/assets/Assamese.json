@@ -67,7 +67,7 @@
       "information": "তথ্য",
       "currentMonthMissedDoses": "চলিত মাহৰ অনুপস্থিত পালিসমূহ",
       "validity": "বৈধতা",
-      "switchToOutbound?": "আউটবাউণ্ডলৈ সলনি কৰিব নেকি?",
+      "switchToOutbound": "আউটবাউণ্ডলৈ সলনি কৰিব নেকি?",
       "failedToActivate": "সক্ৰিয় কৰিবলে ব্যৰ্থ",
       "editTrainingResource": "প্ৰশিক্ষণ সম্পদ সম্পাদনা কৰক",
       "register": "পঞ্জীয়ন কৰক",
@@ -187,7 +187,7 @@
       "activityArea": "কাৰ্যকলাপৰ ক্ষেত্ৰ",
       "enterAtleastThreeCharacters": "কমেও 3 টা বৰ্ণ প্ৰবিষ্ট কৰক",
       "noPreviousFeedback": "পূৰ্ববৰ্তী প্ৰতিক্ৰিয়া নাই",
-      "switchToInbound?": "ইনবাউণ্ডলৈ সলনি কৰিব নেকি?",
+      "switchToInbound": "ইনবাউণ্ডলৈ সলনি কৰিব নেকি?",
       "messages": "বাৰ্তাসমূহ",
       "previousUploadedFile": "পূৰ্ববৰ্তী আপলোড কৰা ফাইল:",
       "trainingResourceCreatedSuccessfully": "সফলতাৰে সৃষ্টি কৰা প্ৰশিক্ষণ সম্পদ",
@@ -687,7 +687,16 @@
       "DetailsUpdatedSuccessfully": "Details updated successfully",
       "followupQuestion": "Is Follow-Up Required?",
       "iVRFeedbackRequired": "IVR Feedback Required",
-      "subDistrictTalukBlock": "Sub District / Taluk / Block"
+      "subDistrictTalukBlock": "Sub District / Taluk / Block",
+      "followUpReason": "Follow-up Reason",
+      "preferredDate": "Preferred Date (dd/mm/yyyy)",
+      "tableHeading": "Services Availed During The Call",
+      "submitContinue": "Submit & Continue",
+      "submitClose": "Submit & Close",
+      "callClosedSuccessfully": "Call closed successfully",
+      "callTransferredSuccessfully": "Call transferred successfully",
+      "advancedSearch": "Advanced Search",
+      "searchById": "Search by Id"
 
 
 

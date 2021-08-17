@@ -459,10 +459,10 @@ export class ClosureComponent implements OnInit
   showAlert() {
     sessionStorage.removeItem("isOnCall");
     if (this.transferValid == true) {
-      this.message.alert("Call transferred successfully", 'success');
+      this.message.alert(this.currentLanguageSet.callTransferredSuccessfully, 'success');
     }
     else {
-      this.message.alert('Call closed successfully', 'success');
+      this.message.alert(this.currentLanguageSet.callClosedSuccessfully, 'success');
     }
     // alert('Call closed Successful!!!!');
   }

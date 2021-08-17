@@ -67,7 +67,7 @@
       "information": "Information",
       "currentMonthMissedDoses": "Current Month Missed Doses",
       "validity": "Validity",
-      "switchToOutbound?": "Switch to Outbound?",
+      "switchToOutbound": "Switch to Outbound?",
       "failedToActivate": "Failed to activate",
       "editTrainingResource": "Edit Training Resource",
       "register": "Register",
@@ -189,7 +189,7 @@
       "activityArea": "Activity Area",
       "enterAtleast3Characters": "Enter atleast 3 characters",
       "noPreviousFeedback": "No Previous Feedback",
-      "switchToInbound?": "Switch to Inbound?",
+      "switchToInbound": "Switch to Inbound?",
       "messages": "Messages",
       "previousUploadedFile:": "Previous uploaded file:",
       "trainingResourceCreatedSuccessfully": "Training resource created successfully",
@@ -686,7 +686,11 @@
       "followUpAlreadyTakenFor": "follow up already taken for",
       "DetailsUpdatedSuccessfully": "Details updated successfully",
       "iVRFeedbackRequired": "IVR Feedback Required",
-      "uploadFileEmail":"Upload File/Email"
+      "uploadFileEmail":"Upload File/Email",
+      "callClosedSuccessfully": "Call closed successfully",
+      "callTransferredSuccessfully": "Call transferred successfully",
+      "advancedSearch": "Advanced Search",
+      "searchById": "Search by Id"
 
 
 

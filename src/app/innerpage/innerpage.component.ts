@@ -735,7 +735,7 @@ export class InnerpageComponent implements OnInit {
         t = 0;
         this.ticks = 0;
         // this.remarksMessage.close();
-        this.closeCall(eventData, remarks, 'Call closed successfully', this.wrapupCallID);
+        this.closeCall(eventData, remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
       }
     });
   }

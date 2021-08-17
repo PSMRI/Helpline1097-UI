@@ -67,7 +67,7 @@
       "information": "जानकारी",
       "currentMonthMissedDoses": "वर्तमूल्य माह छूटी हुई खुराक",
       "validity": "वैधता",
-      "switchToOutbound?": "बाहर का स्विच करें?",
+      "switchToOutbound": "बाहर का स्विच करें?",
       "failedToActivate": "सक्रिय करने में विफल",
       "editTrainingResource": "प्रशिक्षण संसाधन संपादित करें",
       "register": "रजिस्टर करें",
@@ -187,7 +187,7 @@
       "activityArea": "गतिविधि क्षेत्र",
       "enterAtleastThreeCharacters": "कम से कम ३ अक्षर दर्ज करें",
       "noPreviousFeedback": "कोई पिछली प्रतिक्रिया नहीं",
-      "switchToInbound?": "भीतर का स्विच करें?",
+      "switchToInbound": "भीतर का स्विच करें?",
       "messages": "संदेशों",
       "previousUploadedFile": "पिछली अपलोड की गई फ़ाइल:",
       "trainingResourceCreatedSuccessfully": "प्रशिक्षण संसाधन सफलतापूर्वक\nबनाया गया",
@@ -687,7 +687,16 @@
       "DetailsUpdatedSuccessfully": "Details updated successfully",
       "followupQuestion": "Is Follow-Up Required?",
       "iVRFeedbackRequired": "IVR Feedback Required",
-      "subDistrictTalukBlock": "Sub District / Taluk / Block"
+      "subDistrictTalukBlock": "Sub District / Taluk / Block",
+      "followUpReason": "Follow-up Reason",
+      "preferredDate": "Preferred Date (dd/mm/yyyy)",
+      "tableHeading": "Services Availed During The Call",
+      "submitContinue": "Submit & Continue",
+      "submitClose": "Submit & Close",
+      "callClosedSuccessfully": "Call closed successfully",
+      "callTransferredSuccessfully": "Call transferred successfully",
+      "advancedSearch": "Advanced Search",
+      "searchById": "Search by Id"
 
       
 
