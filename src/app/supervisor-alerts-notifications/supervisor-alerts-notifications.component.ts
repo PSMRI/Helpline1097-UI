@@ -467,7 +467,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     console.log(response.data);
     if (response.data) {
       this.showTable();
-      this.dialogService.alert(this.editType + this.currentLanguageSet.editedSuccessfully, 'success');
+      this.dialogService.alert(this.editType +' '+ this.currentLanguageSet.editedSuccessfully, 'success');
 
       this.refreshExistingTable(this.searchNotificationType, this.searchStartDate, this.searchEndDate);
     }
