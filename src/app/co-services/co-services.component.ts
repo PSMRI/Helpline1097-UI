@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 declare var jQuery: any;
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-co-services',
@@ -14,12 +16,14 @@ export class CoServicesComponent implements OnInit {
   selectedBenData: any;
   loadComp = false;
   show: boolean = true;
-  constructor() { }
+  currentLanguageSet: any;
+
+  constructor(public HttpServices: HttpServices) { }
 
   selectedService: any;
   tab_value: number = 1;
   ngOnInit() {
-
+    this.assignSelectedLanguage();
     jQuery("#md-tab-label-0-0").addClass("mat-tab-label-active");
   }
 
@@ -44,11 +48,16 @@ export class CoServicesComponent implements OnInit {
   changeService(val) {
     console.log(val, 'value of tab clicked');
     this.tab_value = val;
-    // jQuery( "#service" + val ).parent().find( "li" ).removeClass();
-    // jQuery( "#service" + val ).addClass( "animation-nav-active" );
-
-    // jQuery( "#service" + val ).parent().find( 'a' ).removeClass();
-    // jQuery( "#service" + val + " a" ).addClass( "f-c-o" );
+   
   }
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
 
 }
