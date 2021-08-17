@@ -339,6 +339,10 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
   }
 
   tableMode() {
+    if(this.showForm === true)
+    {
+      this.emergencyContactForm.reset();
+    }
     this.showTable = true;
     this.showForm = false;
     this.showEditForm = false;

@@ -102,6 +102,10 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   }
 
   go2table() {
+    if(this.showForm === true)
+    {
+      this.trainingResourceForm.reset();
+    }
     this.showTable = true;
     this.showEditForm = false;
     this.showForm = false;
@@ -111,7 +115,6 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
     this.showTable = false;
     this.showEditForm = false;
     this.showForm = true;
-    this.trainingResourceForm.reset();
   }
 
   getAllRoles(providerServiceMapID) {
