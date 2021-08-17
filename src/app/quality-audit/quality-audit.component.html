@@ -7,13 +7,13 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <form #qaForm='ngForm' autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="Valid From" #startDate="ngModel" ngModel required
-          [style.width]="'100%'" (change)="setMinMaxDate(startDate.value)"></md2-datepicker>
+          <md2-datepicker name="startDate" (keydown)="blockey($event)"  [(ngModel)]="validFrom" placeholder="Valid From" #startDate="ngModel" ngModel required
+        [max]="today"  [style.width]="'100%'"  (change)="setEndDate()"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">Start Date is required</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="min" [max]="max" placeholder="Valid Till" #endDate="ngModel"
-          ngModel required [style.width]="'100%'" (change)="setEndDate(endDate.value)"></md2-datepicker>
+          <md2-datepicker name="endDate" (keydown)="blockey($event)"  [min]="startDate.value" [max]="maxEndDate"  [(ngModel)]="validTill" placeholder="Valid Till" #endDate="ngModel"
+          ngModel required [style.width]="'100%'"  (change)="resetValuesOnchange()"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">End Date is required</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value<startDate.value) && endDate.dirty">End Date can not be before Start Date</span>
         <span class="error_text f-s-10 p-l-10" *ngIf="(max<endDate.value) && endDate.dirty">Start Date & End Date can have max 15 days gap</span>
@@ -89,7 +89,7 @@
         <!-- </md-input-container> -->
       </div>
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <button md-raised-button color="accent" class="m-t-10" (click)="getFilteredCallList(qaForm.value);resetFlag()" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">Search</button>
+        <button md-raised-button color="accent" class="m-t-10" (click)="callRecordingRequestFordate(1,qaForm.value);resetFlag()" [disabled]="qaForm.invalid || (endDate.value<startDate.value)">Search</button>
         <button md-raised-button color="primary" class="m-t-10" (click)="reset();resetFlag()">Reset</button>
       </div>
     </form>
@@ -142,15 +142,60 @@
               </audio>
             
           </td>
+
         </tr>
       </tbody>
-      <tfoot>
+      <!-- <tfoot>
         <tr>
           <td colspan="10">
             <md2-pagination (click)="resetFlag()"></md2-pagination>
           </td>
         </tr>
+      </tfoot> -->
+      <tfoot *ngIf="md2.data.length > 0">
+        <tr>
+          <td
+            colspan="1"
+            class="m-t-5"
+            *ngIf="pager?.pages && pager?.pages.length"
+          >
+            <label>Total Pages:</label>
+            {{ pageCount }}
+          </td>
+          <td colspan="10">
+            <ul
+              *ngIf="pager?.pages && pager?.pages.length"
+              class="pagination pull-right"
+            >
+              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
+                <a (click)="setPage(1, qaForm.value)"> << </a>
+              </li>
+              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
+                <a (click)="setPage(pager.currentPage - 1, qaForm.value)">
+                  <
+                </a>
+              </li>
+              <li
+                *ngFor="let page of pager.pages"
+                [ngClass]="{ active: pager.currentPage === page }"
+              >
+                <a (click)="setPage(page, qaForm.value)">{{ page }}</a>
+              </li>
+              <li
+                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
+              >
+                <a (click)="setPage(pager.currentPage + 1, qaForm.value)">></a>
+              </li>
+              <li
+                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
+              >
+                <a (click)="setPage(pager.totalPages, qaForm.value)">>></a>
+              </li>
+            </ul>
+          </td>
+        </tr>
       </tfoot>
+
     </table>
   </div>
   </div>

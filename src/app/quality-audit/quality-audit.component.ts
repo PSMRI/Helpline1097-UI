@@ -55,6 +55,15 @@ export class QualityAuditComponent implements OnInit {
  
   recordingArray:any = [];
   apiCall: boolean=true;
+  pageCount: any;
+  pager: any;
+  validFrom: Date;
+  validTill: Date;
+  pageNo: any = 1;
+  pageSize = 5;
+  today: Date;
+  maxEndDate: Date;
+
 
   constructor(
     private configService: ConfigService,
@@ -66,9 +75,10 @@ export class QualityAuditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.setTodaydate();
     var currentDate = new Date();
-    this.setMinMaxDate(currentDate);
-
+    //this.setMinMaxDate(currentDate);
+    
     // let url = this.configService.getTelephonyServerURL() + "adminui.php?voice_logger";
     // console.log("url = " + url);
     // this.qualityAuditURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -77,7 +87,7 @@ export class QualityAuditComponent implements OnInit {
     this.providerServiceMapID = this.commonData.current_service.serviceID;
     // this.getFilteredCallList_default();
     this.getServiceProviderID();
-
+    this.currentDateCallRecordingRequest(this.pageNo);
     // this.getServicelines();
     // this.getAgents();
     // this.getCallTypes();
@@ -158,9 +168,214 @@ export class QualityAuditComponent implements OnInit {
     }
   }
 
-  setEndDate(endDate) {
-    this.qaForm.form.patchValue({ 'endDate': new Date(endDate.setHours(23, 59, 59, 0)) });
+  setEndDate() {
+    this.resetWorklistData();
+    const timeDiff = this.validTill.getTime() - this.validFrom.getTime();
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if (diffDays >= 30) {
+      this.maxEndDate = new Date(this.validFrom);
+      this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.validTill = this.maxEndDate;
+    }
+    if (diffDays < 30) {
+      const endDateDiff =  this.today.getTime() - this.maxEndDate.getTime();
+      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+      if (enddiffDays >= 30) {
+        this.maxEndDate = new Date(this.validFrom);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+        this.maxEndDate.setHours(23, 59, 59, 0);
+        this.validTill = this.maxEndDate;
+      } else {
+        this.today.setHours(23, 59, 59, 0);
+        this.validTill = this.today;
+        this.maxEndDate = this.today;
+      }
+    
+    }
   }
+  resetWorklistData() {
+    this.filteredCallList = [];
+    this.pager = 0;
+  }
+
+  setTodaydate() {
+    this.today = new Date();
+    this.today.setHours(0, 0, 0, 0);
+    this.validFrom = this.today;
+    this.maxEndDate = new Date();
+    this.maxEndDate.setHours(23, 59, 59, 0);
+    this.validTill = this.maxEndDate;
+  }
+
+  currentDateCallRecordingRequest(pageNo) {
+    const requestForCallrecords = {
+      calledServiceID: this.providerServiceMapID,
+      filterStartDate: new Date(
+        this.validFrom.valueOf() -
+          1 * this.validFrom.getTimezoneOffset() * 60 * 1000
+      ),
+      filterEndDate: new Date(
+        this.validTill.valueOf() -
+          1 * this.validTill.getTimezoneOffset() * 60 * 1000
+      ),
+      is1097: false,
+      pageNo: pageNo,
+    };
+    this.getFilteredCallList(requestForCallrecords, pageNo);
+  }
+
+  callRecordingRequestFordate(pageNo, formValues) {
+    this.filteredCallList = [];
+    const requestForCallrecords = {
+      calledServiceID: this.providerServiceMapID,
+      callTypeID: formValues.CallSubType,
+      filterStartDate: new Date(
+        formValues.startDate.valueOf() -
+          1 * formValues.startDate.getTimezoneOffset() * 60 * 1000
+      ),
+      filterEndDate: new Date(
+        formValues.endDate.valueOf() -
+          1 * formValues.endDate.getTimezoneOffset() * 60 * 1000
+      ),
+      receivedRoleName: formValues.Role ? formValues.Role : null,
+      phoneNo: formValues.benPhoneNo ? formValues.benPhoneNo : null,
+      agentID: formValues.Agent ? formValues.Agent : null,
+      inboundOutbound: formValues.InboundOutbound
+        ? formValues.InboundOutbound
+        : null,
+      is1097: false,
+      pageNo: pageNo,
+    };
+    this.getFilteredCallList(requestForCallrecords, pageNo);
+  }
+
+  getFilteredCallList(requestForCallrecords,pageNo) {
+    // console.log('formvalues', formval);
+    // let obj = {
+    //   'calledServiceID': this.providerServiceMapID,
+    //   'callTypeID': formval.CallSubType,
+    //   'filterStartDate': new Date(formval.startDate.valueOf() - 1 * formval.startDate.getTimezoneOffset() * 60 * 1000),
+    //   'filterEndDate': new Date(formval.endDate.valueOf() - 1 * formval.endDate.getTimezoneOffset() * 60 * 1000),
+    //   'receivedRoleName': formval.Role ? formval.Role : undefined,
+    //   'phoneNo': formval.benPhoneNo ? formval.benPhoneNo : undefined,
+    //   'agentID': formval.Agent ? formval.Agent : undefined,
+    //   'inboundOutbound': formval.InboundOutbound ? formval.InboundOutbound : undefined,
+    //   'is1097': true
+    // }
+
+    this.qualityAuditService.getFilteredCallList(requestForCallrecords)
+      .subscribe(response => {
+        if (!this.isWorkListHasData(response)) {
+          console.log("Call recording are not there");
+          return;
+        }
+        this.callAuditingWorklistPerPage(response, pageNo);
+        
+      }, err => {
+        console.log('TABLE DATA FETCHED ERROR', err.status);
+        this.alertService.alert(err.status, 'error');
+        this.filteredCallList = [];
+      });
+  }
+
+  callAuditingWorklistPerPage(recordingsPerpage, pageNo) {
+  
+    this.filteredCallList = recordingsPerpage.workList;
+
+  this.pageCount = recordingsPerpage.totalPages;
+  if (this.pageCount !== 0) {
+    this.pager = this.getPager(pageNo);
+  }
+}
+
+getPager(pageNo) {
+  let startPage: number, endPage: number;
+  const totalPages = this.pageCount;
+  // ensure current page isn't out of range
+  if (pageNo > totalPages) {
+    pageNo = totalPages;
+  }
+  if (totalPages <= 5) {
+    // less than 5 total pages so show all
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    // more than 5 total pages so calculate start and end pages
+    if (pageNo <= 2) {
+      startPage = 1;
+      endPage = 5;
+    } else if (pageNo >= totalPages) {
+      startPage = totalPages - 4;
+      endPage = totalPages;
+    } else {
+      startPage = pageNo - 2;
+      endPage = pageNo + 2;
+    }
+  }
+  return this.createPagination(endPage, startPage, pageNo, totalPages);
+}
+
+createPagination(endPage, startPage, pageNo, totalPages) {
+  // create an array of pages to ng-repeat in the pager control
+  const pages = Array.from(Array(endPage + 1 - startPage).keys()).map(
+    (i) => startPage + i
+  );
+  // return object with all pager properties required by the view
+  return {
+    currentPage: pageNo,
+    totalPages: totalPages,
+    startPage: startPage,
+    endPage: endPage,
+    pages: pages,
+  };
+}
+  isWorkListHasData(response) {
+    return (
+      response !== null &&
+      response !== undefined &&
+      response.workList.length > 0
+    );
+  }
+
+  getFilteredCallList_default() {
+    let date = new Date();
+    let endDate = new Date();
+    endDate.setHours(23, 59, 59, 0);
+
+    date.setDate(date.getDate() - 14);
+    let startDate = new Date(date);
+    startDate.setHours(0, 0, 0, 0);
+
+
+    let obj = {
+      'calledServiceID': this.providerServiceMapID,
+      'filterStartDate': new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
+      'filterEndDate': new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
+      'is1097': true
+    }
+
+    this.qualityAuditService.getFilteredCallList(obj)
+      .subscribe(response => {
+        console.log('TABLE DATA FETCHED first time', response);
+        this.filteredCallList = response;
+      }, err => {
+        console.log('TABLE DATA FETCHED ERROR', err.errorMessage);
+        this.alertService.alert(err.errorMessage, 'error');
+        this.filteredCallList = [];
+      });
+  }
+
+  reset() {
+    this.qaForm.resetForm();
+    //this.getFilteredCallList_default();
+    this.agent = undefined;
+    this.agentIDs = this.allAgentIDs;
+    this.setTodaydate();
+    this.currentDateCallRecordingRequest(this.pageNo);
+  }
+
+
 
   blockey(e: any) {
     if (e.keyCode === 9) {
@@ -292,64 +507,18 @@ export class QualityAuditComponent implements OnInit {
     }
   }
 
-  getFilteredCallList(formval) {
-    console.log('formvalues', formval);
-    let obj = {
-      'calledServiceID': this.providerServiceMapID,
-      'callTypeID': formval.CallSubType,
-      'filterStartDate': new Date(formval.startDate.valueOf() - 1 * formval.startDate.getTimezoneOffset() * 60 * 1000),
-      'filterEndDate': new Date(formval.endDate.valueOf() - 1 * formval.endDate.getTimezoneOffset() * 60 * 1000),
-      'receivedRoleName': formval.Role ? formval.Role : undefined,
-      'phoneNo': formval.benPhoneNo ? formval.benPhoneNo : undefined,
-      'agentID': formval.Agent ? formval.Agent : undefined,
-      'inboundOutbound': formval.InboundOutbound ? formval.InboundOutbound : undefined,
-      'is1097': true
-    }
-
-    this.qualityAuditService.getFilteredCallList(obj)
-      .subscribe(response => {
-        console.log('TABLE DATA FETCHED', response);
-        this.filteredCallList = response;
-      }, err => {
-        console.log('TABLE DATA FETCHED ERROR', err.status);
-        this.alertService.alert(err.status, 'error');
-        this.filteredCallList = [];
-      });
+  resetValuesOnchange() {
+    this.resetWorklistData();
+    this.validTill.setHours(23, 59, 59, 0);
   }
 
-  getFilteredCallList_default() {
-    let date = new Date();
-    let endDate = new Date();
-    endDate.setHours(23, 59, 59, 0);
-
-    date.setDate(date.getDate() - 14);
-    let startDate = new Date(date);
-    startDate.setHours(0, 0, 0, 0);
-
-
-    let obj = {
-      'calledServiceID': this.providerServiceMapID,
-      'filterStartDate': new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
-      'filterEndDate': new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
-      'is1097': true
+  setPage(pageNo: number, formValues) {
+    this.audioResponse = [];
+    this.recordingArray = [];
+    this.resetFlag();
+    if (pageNo <= this.pageCount && pageNo >= 1) {
+      this.callRecordingRequestFordate(pageNo, formValues);
     }
-
-    this.qualityAuditService.getFilteredCallList(obj)
-      .subscribe(response => {
-        console.log('TABLE DATA FETCHED first time', response);
-        this.filteredCallList = response;
-      }, err => {
-        console.log('TABLE DATA FETCHED ERROR', err.errorMessage);
-        this.alertService.alert(err.errorMessage, 'error');
-        this.filteredCallList = [];
-      });
-  }
-
-  reset() {
-    this.qaForm.resetForm();
-    this.getFilteredCallList_default();
-    this.agent = undefined;
-    this.agentIDs = this.allAgentIDs;
   }
 
   invokeCaseSheetDialog(benCallID, beneficiaryData) {
