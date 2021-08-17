@@ -331,7 +331,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     console.log(response.data);
     if (response.data) {
       this.showTable();
-      this.dialogService.alert(this.editType + this.currentLanguageSet.editedSuccessfully, 'success');
+      this.dialogService.alert(this.editType +' '+ this.currentLanguageSet.editedSuccessfully, 'success');
 
       this.refreshExistingTable(this.location_communication_typeID, this.searchStartDate, this.searchEndDate);
     }

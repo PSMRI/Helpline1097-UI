@@ -111,6 +111,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
     this.showTable = false;
     this.showEditForm = false;
     this.showForm = true;
+    this.trainingResourceForm.reset();
   }
 
   getAllRoles(providerServiceMapID) {
