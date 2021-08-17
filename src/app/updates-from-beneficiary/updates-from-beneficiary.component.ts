@@ -208,7 +208,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
   }
 
   showAlert() {
-    this.message.alert('Details updated successfully', 'success');
+    this.message.alert(this.currentLanguageSet.DetailsUpdatedSuccessfully, 'success');
 
     //this.form.reset();
   }

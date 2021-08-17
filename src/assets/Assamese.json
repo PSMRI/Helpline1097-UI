@@ -268,7 +268,7 @@
       "endTimeCannotBeLessThanStartTime": "অন্তিম সময় আৰম্ভ ণিৰ সময়তকৈ কম হব নোৱাৰে",
       "feedbackDate": "প্ৰতিক্ৰিয়াৰ তাৰিখ",
       "addManually": "হাতেৰে যোগ কৰক",
-      "informationRequired(directory)": "প্ৰয়োজনীয় তথ্য (ডাইৰেকটৰি)",
+      "informationRequiredDirectory": "প্ৰয়োজনীয় তথ্য (ডাইৰেকটৰি)",
       "voiceRecord": "ভইচ ৰেকৰ্ড",
       "enterLanguageDesc.": "ভাষা দেশপ্ৰবিষ্ট কৰক।",
       "cannotLogoutDuringActiveCall": "সক্ৰিয় কলৰ সময়ত লগআউট কৰিব নোৱাৰি",
@@ -437,7 +437,7 @@
       "failedToDeactivate": "নিষ্ক্ৰিয় কৰিবলে ব্যৰ্থ",
       "templateType": "টেমপ্লেটৰ ধৰণ",
       "enterScreenDesc": "স্ক্ৰীণ ডেস্ক প্ৰবিষ্ট কৰক",
-      "sub-directory": "উপ-পঞ্জিকা",
+      "subDirectory": "উপ-পঞ্জিকা",
       "outboundCallReallocation": "আউটবাউণ্ড কল পুনৰ-আৱণ্টন",
       "screenDetails": "পৰ্দাৰ বিৱৰণ",
       "beneficiaryHistory": "হিতাধিকাৰীৰ ইতিহাস",
@@ -681,7 +681,13 @@
       "callStatistics": "Call Statistics",
       "callDuration": "Call Duration",
       "breakTime": "Break Time",
-      "freeTime": "Free Time"
+      "freeTime": "Free Time",
+      "followUpAlreadyTakenFor": "follow up already taken for",
+      "feedbackQuestion": "How did you come to know about our services?",
+      "DetailsUpdatedSuccessfully": "Details updated successfully",
+      "followupQuestion": "Is Follow-Up Required?",
+      "iVRFeedbackRequired": "IVR Feedback Required",
+      "subDistrictTalukBlock": "Sub District / Taluk / Block"
 
 
 

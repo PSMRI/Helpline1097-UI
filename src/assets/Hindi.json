@@ -268,7 +268,7 @@
       "endTimeCannotBeLessThanStartTime": "समाप्ति समय प्रारंभ समय से कम नहीं हो\n सकता",
       "feedbackDate": "प्रतिक्रिया तारीख",
       "addManually": "स्वयं से जोड़ें",
-      "informationRequired(directory)": "आवश्यक जानकारी (निर्देशिका)",
+      "informationRequiredDirectory": "आवश्यक जानकारी (निर्देशिका)",
       "voiceRecord": "आवाज रिकॉर्ड",
       "enterLanguageDesc.": "भाषा विवरण दर्ज करें।",
       "cannotLogoutDuringActiveCall": "सक्रिय कॉल के दौरान लॉगआउट नहीं \nकर सकते",
@@ -437,7 +437,7 @@
       "failedToDeactivate": "निष्क्रिय करने में विफल",
       "templateType": "टेम्पलेट प्रकार",
       "enterScreenDesc": "स्क्रीन विवरण दर्ज करें",
-      "sub-directory": "उप-निर्देशिका",
+      "subDirectory": "उप-निर्देशिका",
       "outboundCallReallocation": "बाहर का कॉल पुन: आवंटन",
       "screenDetails": "स्क्रीन विवरण",
       "beneficiaryHistory": "लाभार्थी इतिहास",
@@ -681,7 +681,13 @@
       "callStatistics": "Call Statistics",
       "callDuration": "Call Duration",
       "breakTime": "Break Time",
-      "freeTime": "Free Time"
+      "freeTime": "Free Time",
+      "followUpAlreadyTakenFor": "follow up already taken for",
+      "feedbackQuestion": "How did you come to know about our services?",
+      "DetailsUpdatedSuccessfully": "Details updated successfully",
+      "followupQuestion": "Is Follow-Up Required?",
+      "iVRFeedbackRequired": "IVR Feedback Required",
+      "subDistrictTalukBlock": "Sub District / Taluk / Block"
 
       
 

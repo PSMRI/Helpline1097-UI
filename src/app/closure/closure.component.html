@@ -48,7 +48,7 @@
             </md-input-container>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showFeedbackRequiredFlag && isEverwell !='yes'">
-            <md-checkbox color="primary" name="isFeedbackRequired" (change)="isFeedbackRequired($event)">{{currentLanguageSet?.feedbackQuestion}}</md-checkbox>
+            <md-checkbox color="primary" name="isFeedbackRequired" (change)="isFeedbackRequired($event)">{{currentLanguageSet?.iVRFeedbackRequired}}</md-checkbox>
           </div>
           <div class="clearfix"></div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="showSlider && isEverwell !='yes'">
@@ -56,7 +56,7 @@
            
           </div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" *ngIf="noOfOutbounds && isFollowUp">
-            <p class="error_text">{{noOfOutbounds}} follow up already taken for
+            <p class="error_text">{{noOfOutbounds}} {{currentLanguageSet?.followUpAlreadyTakenFor}}
               <span *ngFor="let b of prefferedDatedTaken;let i=index ">{{millisToUTCDate(b.prefferedDateTime)|date: 'dd/MM/yyyy'}}
                 <span *ngIf="i+1<prefferedDatedTaken.length">,</span>
               </span>
@@ -107,8 +107,8 @@
           <table class="table table-bordered table-striped" aria-describedby="callSummaryDetails">
             <thead>
               <tr>
-                <th id="serviceName">{{currentLanguageSet?.tableLabels?.serviceName}}</th>
-                <th id="count">{{currentLanguageSet?.tableLabels?.count}}</th>
+                <th id="serviceName">{{currentLanguageSet?.serviceName}}</th>
+                <th id="count">{{currentLanguageSet?.count}}</th>
               
               </tr>
             </thead>

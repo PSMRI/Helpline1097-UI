@@ -270,7 +270,7 @@
       "endTimeCannotBeLessThanStartTime": "End Time cannot be less than Start Time",
       "feedbackDate": "Feedback Date",
       "addManually": "Add manually",
-      "informationRequired(directory)": "Information Required (Directory)",
+      "informationRequiredDirectory": "Information Required (Directory)",
       "voiceRecord": "Voice Record",
       "enterLanguageDesc.": "Enter Language Desc.",
       "cannotLogoutDuringActiveCall": "Cannot logout during active call",
@@ -343,7 +343,7 @@
       "trainingResource": "Training Resource",
       "enterFirstnameName": "Enter FirstName Name",
       "callId": "Call ID",
-      "subDistrict/Taluk/Block": "Sub District / Taluk / Block",
+      "subDistrictTalukBlock": "Sub District / Taluk / Block",
       "uploadFile": "Upload File",
       "enterEmail": "Enter email",
       "otherSubcategories": "Other Subcategories",
@@ -438,7 +438,7 @@
       "failedToDeactivate": "Failed to deactivate",
       "templateType": "Template Type",
       "enterScreenDesc": "Enter Screen Desc",
-      "sub-directory": "Sub-Directory",
+      "subDirectory": "Sub-Directory",
       "outboundCallReallocation": "Outbound Call Re-Allocation",
       "screenDetails": "Screen Details",
       "beneficiaryHistory": "Beneficiary History",
@@ -682,7 +682,10 @@
       "play":"Play",
       "callDuration": "Call Duration",
       "breakTime": "Break Time",
-      "freeTime": "Free Time"
+      "freeTime": "Free Time",
+      "followUpAlreadyTakenFor": "follow up already taken for",
+      "DetailsUpdatedSuccessfully": "Details updated successfully",
+      "iVRFeedbackRequired": "IVR Feedback Required"
 
 
 
