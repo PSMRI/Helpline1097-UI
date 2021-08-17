@@ -246,7 +246,7 @@
       "thisQuestionIsAlreadySelected.ChooseUniqueQuestion": "This question is already selected. Choose unique question",
       "allocateRecords": "Allocate Records",
       "closure": "Closure",
-      "address": "Address :",
+      "address": "Address",
       "all": "All",
       "updatedBy": "Updated By",
       "read": "Read",
@@ -675,7 +675,9 @@
       "callRecordingsfor":"Call Recordings For",
       "audioRecording":"Audio Recording",
       "supportedFormat":"Supported format",
-      "pleaseUploadDocument":"Please upload document"
+      "pleaseUploadDocument":"Please upload document",
+      "totalPages":"Total Pages",
+      "play":"Play"
 
 
 

@@ -244,7 +244,7 @@
       "thisQuestionIsAlreadySelectedChooseUniqueQuestion": "এই প্ৰশ্নটো ইতিমধ্যে বাছনি কৰা হৈছে। অনন্য প্ৰশ্ন বাছক",
       "allocateRecords": "ৰেকৰ্ড সমূহ আবন্টন কৰা হ",
       "closure": "বন্ধ কৰা হৈছে",
-      "address": "ঠিকনা:",
+      "address": "ঠিকনা",
       "all": "সকলো",
       "updatedBy": "দ্বাৰা নবিকৰন",
       "read": "পঢ়",
@@ -674,7 +674,9 @@
       "qualification": "Education Qualification",
       "workPlace": "Place of Work",
       "hivQuestion": "Is beneficiary suffering from HIV/AIDS?",
-      "hivQuestionCondition": "(Captured only if, caller voluntarily informs)"
+      "hivQuestionCondition": "(Captured only if, caller voluntarily informs)",
+      "totalPages":"Total Pages",
+      "play":"Play"
 
 
 

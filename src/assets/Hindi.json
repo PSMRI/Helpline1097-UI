@@ -244,7 +244,7 @@
       "thisQuestionIsAlreadySelectedChooseUniqueQuestion": "यह प्रश्न पहले से ही चयनित है। \nअद्वितीय प्रश्न चुनें",
       "allocateRecords": "रिकॉर्ड आवंटित करें",
       "closure": "समापन",
-      "address": "पता:",
+      "address": "पता",
       "all": "सब",
       "updatedBy": "द्वारा अपडेट",
       "read": "पढ़ें",
@@ -674,7 +674,9 @@
       "qualification": "Education Qualification",
       "workPlace": "Place of Work",
       "hivQuestion": "Is beneficiary suffering from HIV/AIDS?",
-      "hivQuestionCondition": "(Captured only if, caller voluntarily informs)"
+      "hivQuestionCondition": "(Captured only if, caller voluntarily informs)",
+      "totalPages":"Total Pages",
+      "play":"Play"
       
 
 
