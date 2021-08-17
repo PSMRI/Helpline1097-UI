@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-dashboard-reports',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardReportsComponent implements OnInit {
 
-  constructor() { }
+  currentLanguageSet: any;
+
+  constructor(public HttpServices: HttpServices) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
   }
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    }
 
 }
