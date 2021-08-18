@@ -34,16 +34,6 @@
               <td colspan="5" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
             <tr (click)="editMode(data)" style="cursor: pointer">
-<<<<<<< HEAD
-              <td style="width: 15%;">{{data.beneficiaryID}}</td>
-              <td style="width: 10%;">{{data.FirstName}} {{data.LastName}}</td>
-              <td style="width: 20%;">{{data.PrimaryNumber}}</td>
-              <td style="width: 10%;">{{data.Gender}}</td>
-              <td style="width: 10%;">{{data.state}}</td>
-              <td style="width: 10%;">{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
-              <td style="width: 10%;">{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
-              <td style="width: 20%;">{{data.callCounter}}</td>
-=======
               <td width=15%>{{data.beneficiaryID}}</td>
               <td width=10%>{{data.FirstName}} {{data.LastName}}</td>
               <!-- <td width=20%>{{data.PrimaryNumber}}</td> -->
@@ -52,7 +42,6 @@
               <td width=10%>{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
               <td width=10%>{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
               <td width=10% style="padding-left: 30px;">{{data.callCounter}}</td>
->>>>>>> 1d5e8c2 (everwell masking changes)
             </tr>
         </tbody>
         <tfoot>

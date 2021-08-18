@@ -366,7 +366,7 @@ export class ClosureComponent implements OnInit
       values.isCompleted = true;
     }
     console.log('close called with ' + values);
-    if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+    if (this.saved_data !== undefined && this.saved_data.current_campaign !== undefined && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
       this.current_campaign = this.saved_data.current_campaign;
       if(this.isEverwell !== 'yes'){
       this._callServices.closeOutBoundCall(this.saved_data.outBoundCallID, true).subscribe((response) => {

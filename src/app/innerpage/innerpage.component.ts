@@ -779,15 +779,8 @@ export class InnerpageComponent implements OnInit {
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe((res) => {
       console.log('CALL DETAILS RESPONSE', res);
-      this.TotalCalls = 'Total Calls : ' + res.data.total_calls;
-      this.TotalTime = 'Total Calls Durations : ' + res.data.total_call_duration;
-      // if (this.callStatus.toLowerCase().trim() === 'closure') {
-      //   this.wrapupTime = true;
-      //   this.callTime = false;
-      // }
-      // if (res.data.stateObj.stateType) {
-      //   this.callStatus += ' (' + res.data.stateObj.stateType + ')';
-      // }
+      this.TotalCalls = this.currentLanguageSet.totalCalls + " : " + res.data.total_calls;
+      this.TotalTime = this.currentLanguageSet.totalCallsDurations + " : " + res.data.total_call_duration;
     }, (err) => {
       if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
         this.remarksMessage.alert(err.errorMessage);

@@ -210,9 +210,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
 
   ngOnChanges() {
-    
-    
-    //this.BeneficaryForm.resetForm();
+        
+    this.BeneficaryForm.resetForm();
     this.alternateNumber1 = "";
     this.alternateNumber2 = "";
     this.alternateNumber3 = "";

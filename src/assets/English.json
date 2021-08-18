@@ -92,7 +92,7 @@
       " ": " ",
       "add": "Add",
       "enterEmailId": "Enter Email ID",
-      "myId:Agent-": "My ID : Agent -",
+      "myIdAgent": "My ID : Agent -",
       "feedbackUpdatedSuccessfully": "Feedback updated successfully",
       "visibility": "visibility",
       "createSmsTemplate": "Create SMS Template",
@@ -694,10 +694,15 @@
       "advancedSearch": "Advanced Search",
       "searchById": "Search by Id",
       "guidelineDocument": "Guideline Document",
+<<<<<<< HEAD
       "selectAgeGroup":"Select Age Group",
       "ageGroup":"Age Group",
       "selectService":"Select Service",
       "subcategoryIsRequired":"Subcategory is required"
+=======
+      "mins": "Mins",
+      "secs": "Sec"
+>>>>>>> 08ebe5c (updated json values for dashboard and registration)
 
 
 
