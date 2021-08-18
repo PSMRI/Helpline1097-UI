@@ -700,15 +700,12 @@
       "searchById": "Search by Id",
       "everwellWorklist": "Everwell-Worklist",
       "guidelineDocument": "Guideline Document",
-<<<<<<< HEAD
       "selectAgeGroup":"Select Age Group",
       "ageGroup":"Age Group",
       "selectService":"সেৱা নিৰ্বাচন কৰক",
-      "subcategoryIsRequired":"Subcategory is required"
-=======
+      "subcategoryIsRequired":"Subcategory is required",
       "mins": "মিনিট",
       "secs": "ছেকেণ্ড"
->>>>>>> 08ebe5c (updated json values for dashboard and registration)
 
 
 
