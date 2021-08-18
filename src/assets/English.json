@@ -191,7 +191,7 @@
       "noPreviousFeedback": "No Previous Feedback",
       "switchToInbound": "Switch to Inbound?",
       "messages": "Messages",
-      "previousUploadedFile:": "Previous uploaded file:",
+      "previousUploadedFile": "Previous uploaded file:",
       "trainingResourceCreatedSuccessfully": "Training resource created successfully",
       "beneficiaryPhoneNo": "Beneficiary Phone No",
       "status": "Status",
@@ -651,6 +651,7 @@
       "workPlace": "Place of Work",
       "hivQuestion": "Is beneficiary suffering from HIV/AIDS?",
       "hivQuestionCondition": "(Captured only if, caller voluntarily informs)",
+      
       "callCount":"Call Count",
       "reason":"Reason",
       "blockedOn":"Blocked On",
@@ -694,7 +695,9 @@
       "searchById": "Search by Id",
       "guidelineDocument": "Guideline Document",
       "selectAgeGroup":"Select Age Group",
-      "ageGroup":"Age Group"
+      "ageGroup":"Age Group",
+      "selectService":"Select Service",
+      "subcategoryIsRequired":"Subcategory is required"
 
 
 
