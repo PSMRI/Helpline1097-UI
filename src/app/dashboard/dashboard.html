@@ -8,13 +8,13 @@
         <ul class="leftMenuList">
           <li class="p-t-15" *ngIf="current_role=='Supervisor'" routerLink="/MultiRoleScreenComponent/InnerpageComponent">
             <a class="p-l-m-t-22" #dropdown1>
-              <i data-placement="right" data-toggle="tooltip" class="mdicon material-icons " (click)="hamburgerClick()" aria-hidden="true" title="{{currentLanguageSet?.activityArea}}">dashboard</i>
+              <i data-placement="right" data-toggle="tooltip" class="mdicon material-icons " (click)="hamburgerClick()" aria-hidden="true" mdTooltip="{{currentLanguageSet?.activityArea}}">dashboard</i>
              
             </a>
           </li>
           <li class="p-t-15" (click)="routeToRoleSelection()">
             <a class="p-l-m-t-22">
-              <i data-placement="right" data-toggle="tooltip" title="{{currentLanguageSet?.switchRole}}" class="mdicon material-icons" (click)="hamburgerClick()" aria-hidden="true">compare_arrows</i>
+              <i data-placement="right" data-toggle="tooltip" mdTooltip="{{currentLanguageSet?.switchRole}}" class="mdicon material-icons" (click)="hamburgerClick()" aria-hidden="true">compare_arrows</i>
               
             </a>
           </li>
