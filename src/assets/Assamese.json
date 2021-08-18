@@ -698,7 +698,9 @@
       "advancedSearch": "Advanced Search",
       "searchById": "Search by Id",
       "everwellWorklist": "Everwell-Worklist",
-      "guidelineDocument": "Guideline Document"
+      "guidelineDocument": "Guideline Document",
+      "selectAgeGroup":"Select Age Group",
+      "ageGroup":"Age Group"
 
 
 

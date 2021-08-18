@@ -692,7 +692,9 @@
       "callTransferredSuccessfully": "Call transferred successfully",
       "advancedSearch": "Advanced Search",
       "searchById": "Search by Id",
-      "guidelineDocument": "Guideline Document"
+      "guidelineDocument": "Guideline Document",
+      "selectAgeGroup":"Select Age Group",
+      "ageGroup":"Age Group"
 
 
 
