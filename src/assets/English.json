@@ -240,6 +240,7 @@
       "officeBulletin": "Office Bulletin",
       "callsubtype": "CallSubType",
       "sub-category": "Sub-Category",
+      "subHyphenCategory": "Sub-Category",
       "download": "Download",
       "mb": "MB",
       "outbound": "Outbound",
