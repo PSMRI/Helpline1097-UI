@@ -91,7 +91,7 @@
               {{assignSelectedLanguageValue?.noRecordsFound}}
             </td>
           </tr>
-          <tr *ngFor="let item of md2.data">
+          <tr *ngFor="let item of md2.data;let i=index ">
             <td>{{item?.beneficiaryModel?.beneficiaryID?item.beneficiaryModel.beneficiaryID:'-'}}</td>
             <td>{{item?.beneficiaryModel?.firstName?item.beneficiaryModel.firstName:'-'}} {{item?.beneficiaryModel?.lastName?item.beneficiaryModel.lastName:'-'}}</td>
             <td>{{item?.beneficiaryModel?.actualAge?item.beneficiaryModel.actualAge:'-'}} {{item?.beneficiaryModel?.ageUnits?item.beneficiaryModel.ageUnits:'-'}}</td>
@@ -101,11 +101,18 @@
             <td>{{item?.agentID}}</td>
             <td>{{item?.remarks?item.remarks:'-'}}</td>
             <td>
-              <audio controls>
-                <source src="{{item?.recordingPath}}" type="audio/ogg">
-                <source src="{{item?.recordingPath}}" type="audio/mpeg">
-              </audio>
+               
+              <img *ngIf="!(dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1))" style="width:30px;height:30px" (click)="check(item.agentID,item.callID,(md2.activePage-1)*(md2.rowsPerPage)+i+1)" src="assets/images/playicon.jpg" alt="Play" title="{{assignSelectedLanguageValue?.play}}">
+                                
+              <audio  *ngIf="dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1)" controls autoplay preload="none">  
+                
+                <source src="{{audioResponse}}" type="audio/ogg">
+                <source src="{{audioResponse}}" type="audio/mpeg">
+                  
+                </audio>
+              
             </td>
+            
           </tr>
         </tbody>
         <tfoot>
