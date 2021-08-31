@@ -10,11 +10,12 @@
       
           <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
              <!--Multilingual dropdown-->
+             <span style="color: white;">{{currentLanguageSet?.selectLanguage}}:</span>
              <li>
 
              
-              <span style="color: white;">{{currentLanguageSet?.selectLanguage}}: </span> &nbsp;
-                <select  class="form-control drop-arrow border-radius-20 height-30 width120px pull-right" name="app_language"
+              
+                <select  class="form-control drop-arrow border-radius-20 height-35 " name="app_language"
                   [(ngModel)]="app_language" (change)="changeLanguage(app_language)">
                   <option *ngFor="let language of languageArray" [value]="language.languageName">{{language.languageName}}
                   </option>

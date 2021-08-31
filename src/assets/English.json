@@ -240,6 +240,7 @@
       "officeBulletin": "Office Bulletin",
       "callsubtype": "CallSubType",
       "sub-category": "Sub-Category",
+      "subHyphenCategory": "Sub-Category",
       "download": "Download",
       "mb": "MB",
       "outbound": "Outbound",
@@ -700,7 +701,8 @@
       "selectService":"Select Service",
       "subcategoryIsRequired":"Subcategory is required",
       "mins": "Mins",
-      "secs": "Sec"
+      "secs": "Sec",
+      "first_name": "First Name"
 
 
 
