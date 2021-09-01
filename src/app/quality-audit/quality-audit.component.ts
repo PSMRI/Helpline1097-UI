@@ -185,33 +185,40 @@ export class QualityAuditComponent implements OnInit {
     this.resetWorklistData();
     const timeDiff = this.validTill.getTime() - this.validFrom.getTime();
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if (diffDays >= 30) {
-      this.maxEndDate = new Date(this.validFrom);
-      this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
-      this.maxEndDate.setHours(23, 59, 59, 0);
-      this.validTill = this.maxEndDate;
-    }
-    if (diffDays < 30) {
-      const endDateDiff =  this.today.getTime() - this.maxEndDate.getTime();
-      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-      if (enddiffDays >= 30) {
+    if (diffDays >= 0) {
+      if (diffDays > 31) {
         this.maxEndDate = new Date(this.validFrom);
-        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
         this.maxEndDate.setHours(23, 59, 59, 0);
         this.validTill = this.maxEndDate;
-      } else {
-        this.today.setHours(23, 59, 59, 0);
-        this.validTill = this.today;
-        this.maxEndDate = this.today;
       }
-    
+      if (diffDays <= 31) {
+        const endDateDiff =  this.today.getTime() - this.validTill.getTime();
+        const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+        this.checkForEndDateDifference(enddiffDays);
+      }
+    } else {
+      const endDateDiff = this.today.getTime() - this.validFrom.getTime();
+      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+      this.checkForEndDateDifference(enddiffDays);
+    }
+  }
+  checkForEndDateDifference(enddiffDays) {
+    if (enddiffDays > 31) {
+      this.maxEndDate = new Date(this.validFrom);
+      this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.validTill = this.maxEndDate;
+    } else {
+      this.today.setHours(23, 59, 59, 0);
+      this.validTill = this.today;
+      this.maxEndDate = this.today;
     }
   }
   resetWorklistData() {
     this.filteredCallList = [];
     this.pager = 0;
   }
-
   setTodaydate() {
     this.today = new Date();
     this.today.setHours(0, 0, 0, 0);
