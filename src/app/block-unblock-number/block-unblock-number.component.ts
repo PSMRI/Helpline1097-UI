@@ -12,6 +12,7 @@ import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "app/services/http-services/http_services.service";
 import { tickStep } from "d3";
 import { DoCheck } from "@angular/core";
+import { QualityAuditService } from "app/services/supervisorServices/quality-audit-service.service";
 
 declare var jQuery: any;
 
@@ -41,11 +42,16 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
   audio_path: any;
   ph_no = "";
   assignSelectedLanguageValue: any;
+  audioResponse: any;
+  dispFlag: any;
+   recordingArray:any = [];
+  apiCall: boolean=true;
   constructor(
     private commonData: dataService,
     private callService: CallServices,
     private message: ConfirmationDialogsService,
-    private httpServices: HttpServices
+    private httpServices: HttpServices,
+    private qualityAuditService: QualityAuditService,
   ) {}
 
   ngOnInit() {
@@ -140,6 +146,7 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
   }
 
   getRecording(obj) {
+    this.dispFlag = 0;
     if (obj) {
       let requestObj = {
         calledServiceID: this.serviceId,
@@ -161,7 +168,7 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
       this.recording_data = response.workList != undefined ? response.workList : null;
       this.showRecordings = true;
       if (response.length > 0) {
-        this.audio_path = response[0].recordingPath;
+        // this.audio_path = response[0].recordingPath;
       }
     }
 
@@ -179,4 +186,55 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
     getLanguageJson.setLanguage();
     this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
   }
+
+  check(agentID,sessionID,index){
+    console.log("AgentID",agentID);
+    console.log("sessionID",sessionID);
+    
+   this.audioResponse=null;
+  
+    if(agentID>0 && sessionID>0 )
+    {
+       if(this.recordingArray.length > 0)
+       {
+      this.recordingArray.forEach(element => {
+        if (sessionID === element.sessionId && agentID === element.agentId) {        
+          this.audioResponse=element.path;
+          this.dispFlag=index;
+          this.apiCall=false;
+
+        }
+      })
+    }
+      if(this.apiCall)
+      {
+     
+  
+    this.qualityAuditService.getAudio(agentID,sessionID).subscribe(response =>
+      {
+        console.log("RESPONSEss", response.response);
+        this.audioResponse = response.response;
+        this.dispFlag=index;
+       
+        console.log("Audio Response1",this.audioResponse)
+        this.recordingArray.push({sessionId:sessionID,agentId:agentID,path:this.audioResponse});
+        console.log("RecordingArray",this.recordingArray)
+      },
+      err => {
+        this.message.alert(this.assignSelectedLanguageValue.failedToGetTheVoiceFilePath, 'error');
+            console.log("ERROR", err);
+          }
+      );
+        
+     }
+
+      else
+     {
+      this.apiCall=true;
+     }
+        
+    }
+    
+  }
+  
 }

@@ -699,7 +699,8 @@
       "selectService":"Select Service",
       "subcategoryIsRequired":"Subcategory is required",
       "mins": "Mins",
-      "secs": "Sec"
+      "secs": "Sec",
+      "first_name": "First Name"
 
 
 

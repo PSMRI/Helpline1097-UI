@@ -95,7 +95,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 m-b-20" *ngIf="isEverwell !='yes'">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 m-b-20" *ngIf="isEverwell !='yes'">
 
         <label class="control-label m-t-20 m-b-10" for="callSummary">
           {{currentLanguageSet?.tableHeading}}
@@ -138,8 +138,8 @@
           name="save" value="submitContinue" [disabled]="isCallDisconnected || callType.invalid || subCallType.invalid || Form.invalid || transferValid || callType.value == 'Invalid'"
           class="font-regular pull-right" (click)="closeCall(Form.value,$event.currentTarget.value)">{{currentLanguageSet?.submitContinue}}</button>
         <button md-raised-button color="accent" type="submit" name="save" value="submitClose" [disabled]="callType.invalid || subCallType.invalid || Form.invalid || transferValid"
-          class="font-regular pull-right m-r-10" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentLanguageSet?.submitClose}}</button>
-        <button md-raised-button color="accent" *ngIf="transferValid" [disabled]="isCallDisconnected || Form.invalid" class="font-regular pull-right m-r-10"
+          class="font-regular pull-right m-r-5" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentLanguageSet?.submitClose}}</button>
+        <button md-raised-button color="accent" *ngIf="transferValid" [disabled]="isCallDisconnected || Form.invalid" class="font-regular pull-right m-r-5"
           (click)="transferCall(Form.value)">Transfer</button>
       </div>
       <div class="clearfix" *ngIf="isEverwell ==='yes'"></div>      

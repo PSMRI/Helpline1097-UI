@@ -109,6 +109,10 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
     this.showTable = true;
     this.showEditForm = false;
     this.showForm = false;
+
+    
+    this.file=undefined;
+    this.count = '0/300';
   }
 
   go2form() {
@@ -227,6 +231,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   createTrainingResourceSuccessHandeler(response, values, roomArray, startDate) {
     console.log(response);
     if (response) {
+      this.file=undefined;
       this.dialogService.alert(this.currentLanguageSet.trainingResourceCreatedSuccessfully, 'success');
       this.trainingResourceForm.reset();
       this.count = '0/300';

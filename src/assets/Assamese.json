@@ -173,7 +173,7 @@
       "callReports": "কল প্ৰতিবেদনসমূহ",
       "action": "কাৰ্য্য",
       "messageIsRequiredMinFiveCharacters": "বাৰ্তাৰ প্ৰয়োজন (নূন্যতম 5 টা বৰ্ণ)",
-      "instituteName": "প্ৰতিষ্ঠানৰ নাম",
+      "instituteName": "প্ৰতিষ্ঠানৰ নাম :",
       "lock": "লক",
       "enterLastname": "অন্তিম নাম প্ৰবিষ্ট কৰক",
       "provideServices": "সেৱাসমূহ প্ৰদান কৰক",
@@ -218,7 +218,7 @@
       "callTypeReport": "কলৰ ধৰণ প্ৰতিবেদন",
       "genderDistribution": "লিংগ বিতৰণ",
       "notificationDescriptionIsRequired(min5Characters)": "অধিসূচনাৰ বিৱৰণ প্ৰয়োজন (ন্যূনতম 5 টা বৰ্ণ)",
-      "informationRequired": "প্ৰয়োজনীয় তথ্য:",
+      "informationRequired": "প্ৰয়োজনীয় তথ্য",
       "noteDefaultCallsBetweenTodayAndNextSevenDays": "টোকা: আজিৰ পৰা পৰৱৰ্তী সাত দিনৰ ভিতৰত ডিফল্ট কল",
       "callBeneficiary": "হিতাধিকাৰীক কল কৰক",
       "feedbackRequestResponse": "মতামত অনুৰোধ/সঁহাৰি",
@@ -702,7 +702,8 @@
       "selectService":"সেৱা নিৰ্বাচন কৰক",
       "subcategoryIsRequired":"Subcategory is required",
       "mins": "মিনিট",
-      "secs": "ছেকেণ্ড"
+      "secs": "ছেকেণ্ড",
+      "first_name": "First Name"
 
 
 

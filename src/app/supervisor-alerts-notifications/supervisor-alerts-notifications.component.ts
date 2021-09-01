@@ -46,7 +46,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   endTime;
 
   @ViewChild('notificationCreationForm') notificationCreationForm: NgForm;
-  @ViewChild('searchNotificationForm') searchNotificationForm: NgForm;
+  @ViewChild('notificationEditingForm') notificationEditingForm: NgForm;
   currentLanguageSet: any;
 
   constructor(public notification_service: NotificationService,
@@ -489,6 +489,15 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   showTable() {
+    if(this.createMode === true)
+    {
+      this.invalidTimeFlag = false;
+      this.notificationCreationForm.reset();
+    }
+    if(this.editMode === true)
+    {
+      this.notificationEditingForm.reset();
+    }
     this.searchMode = true;
     this.editMode = false;
     this.createMode = false;

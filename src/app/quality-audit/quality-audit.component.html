@@ -8,7 +8,7 @@
     <form #qaForm='ngForm' autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md2-datepicker name="startDate" (keydown)="blockey($event)"  [(ngModel)]="validFrom" placeholder="{{currentLanguageSet?.validFrom}}" #startDate="ngModel" ngModel required
-        [max]="today"  [style.width]="'100%'"   (change)="setEndDate()"></md2-datepicker>
+        [max]="today"  [style.width]="'100%'" (change)="setEndDate()"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.startDateIsRequired}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -388,7 +388,7 @@
               </tr>
               <tr>
                 <td class="col-xs-12 col-sm-3 p-l-0">
-                  <strong>{{currentLanguageSet?.incidentDate}} :</strong>
+                  <strong>{{currentLanguageSet?.incidentDate}}</strong>
                 </td>
                 <td class="col-xs-12 col-sm-3">{{item?.serviceAvailDate|utcDate|date:'dd/MM/yyyy'}}</td>
                 <td class="col-xs-12 col-sm-3 p-l-0">

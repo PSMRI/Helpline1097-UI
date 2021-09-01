@@ -15,7 +15,7 @@
         <md2-datepicker class="width100" [md2DatepickerToggle]="endDate" placeholder="{{currentLanguageSet?.endDate}}" name="endDate" formControlName="endDate"
           [min]="feedbackForm2.get('startDate').value" [max]="maxEndDate" required></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="feedbackForm2.get('endDate').touched && feedbackForm2.get('endDate').hasError('required')">{{currentLanguageSet?.dateIsRequired}}</span>
-        <span class="error_text f-s-10 p-l-10" *ngIf="(feedbackForm2.get('endDate').value < feedbackForm2.get('startDate').value) && feedbackForm2.get('endDate').dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDates}}</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(feedbackForm2.get('endDate').value < feedbackForm2.get('startDate').value) && feedbackForm2.get('endDate').dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 p-b-1-5">
        

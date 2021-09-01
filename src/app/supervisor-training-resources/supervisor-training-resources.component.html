@@ -124,7 +124,11 @@
       <md-input-container [style.width]="'100%'">
         <input mdInput placeholder="{{currentLanguageSet?.resourceSubject}}" name="subject" [(ngModel)]="notification_subject" required #resourceSubject="ngModel"
           maxlength="200" minlength="5">
-        <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">{{currentLanguageSet?.enterAtleast5Characters}}</md-hint>
+          <md-hint>
+            <span class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">{{currentLanguageSet?.enterAtleast5Characters}}</span>
+          
+          </md-hint>
+       
       </md-input-container>
     </div>
 
