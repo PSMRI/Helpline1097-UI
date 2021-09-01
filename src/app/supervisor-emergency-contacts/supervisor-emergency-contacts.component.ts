@@ -343,6 +343,13 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     {
       this.emergencyContactForm.reset();
     }
+
+    if(this.showEditForm === true)
+    {
+    this.editEmergencyContactForm.reset();
+   
+    }
+
     this.showTable = true;
     this.showForm = false;
     this.showEditForm = false;

@@ -125,7 +125,7 @@
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="startDate.value" placeholder="{{currentLanguageSet?.validTill}}" #endDate="ngModel"
           ngModel required [style.width]="'100%'" (blur)="validateTime(startDate.value,endDate.value,Stime.value,Etime.value)"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
-        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDates}}</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
           <md-input-container>
@@ -188,7 +188,7 @@
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [(ngModel)]="edate" [min]="eStartDate.value" placeholder="{{currentLanguageSet?.validTill}}"
           #eEndDate="ngModel" required [style.width]="'100%'" ></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="eEndDate.touched && eEndDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
-        <span class="error_text f-s-10 p-l-10" *ngIf="(eEndDate.value < eStartDate.value) && eEndDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDates}}</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(eEndDate.value < eStartDate.value) && eEndDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
           <md-input-container>

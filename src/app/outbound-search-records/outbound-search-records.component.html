@@ -21,7 +21,7 @@
           <md2-datepicker name="endDate" (keydown)="blockey($event)" placeholder="{{currentLanguageSet?.validTill}}" required [min]="startDate.value" #endDate="ngModel"
             ngModel [style.width]="'100%'" name="filterEndDate" [(ngModel)]="endOutboundDate"></md2-datepicker>
           <br>
-          <span class="error-text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
+          <span class="error_text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
          
