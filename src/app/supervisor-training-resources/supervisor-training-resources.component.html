@@ -73,7 +73,13 @@
       <md-input-container [style.width]="'100%'">
         <input mdInput class="" placeholder="{{currentLanguageSet?.resourceSubject}}" name="subject" [(ngModel)]="subject" required #resourceSubject="ngModel"
           maxlength="200" minlength="5">
-        <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">{{currentLanguageSet?.enterAtleast5Characters}}</md-hint>
+        <!-- <md-hint class="error_text" *ngIf="resourceSubject.invalid && resourceSubject.touched">{{currentLanguageSet?.enterAtleast5Characters}}</md-hint> -->
+        <md-hint align="start">
+          <span class="error_text pull-left" *ngIf="resourceSubject.invalid && resourceSubject.touched">{{currentLanguageSet?.enterAtleast5Characters}}</span>
+        </md-hint>
+        <md-hint align="end">
+          <span class="pull-right" align="end">{{count}}</span>
+        </md-hint>
       </md-input-container>
     </div>
 
