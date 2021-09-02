@@ -192,7 +192,7 @@ export class CallReAllocateComponent implements OnInit {
       }).subscribe((response) => {
         console.log(response);
         // movedToBinSuccessfully
-        this.alertService.alert(`${this.currentLanguageSet.movedToBinSuccessfully} *`,'success');
+        this.alertService.alert(this.currentLanguageSet.movedToBinSuccessfully,'success');
         // refreshing after moving to bin
         this.reallocationDone();
       },
