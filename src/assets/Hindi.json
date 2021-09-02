@@ -251,7 +251,7 @@
       "read": "पढ़ें",
       "forwardedDate": "अग्रेषित तारीख",
       "agentName": "प्रतिनिधि का नाम",
-      "feedbackResponse/request": "प्रतिक्रिया उत्तर / अनुरोध",
+      "feedbackResponseAndrequest": "प्रतिक्रिया उत्तर / अनुरोध",
       "failedToUpdate": "अपडेट करने में विफल",
       "allSmsTypesHaveBeenUsedAndAreThoseTemplatesAreActive": "सभी एसएमएस प्रकारों का उपयोग किया \nगया है और क्या वे टेम्पलेट सक्रिय हैं",
       "notificationSubjectIsRequiredmin5Characters": "अधिसूचना विषय आवश्यक है\n (न्यूनतम 5 वर्ण)",

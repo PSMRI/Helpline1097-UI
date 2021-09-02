@@ -57,7 +57,7 @@
       <md-input-container [style.width]="'100%'">
         <input mdInput class="" placeholder="{{currentLanguageSet?.name}}" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50"
           minlength="3">
-        <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">{{currentLanguageSet?.enterAtleastThreeCharacters}}</md-hint>
+        <md-hint  *ngIf="contactName.invalid && contactName.touched"> <span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
@@ -73,14 +73,14 @@
       <md-input-container [style.width]="'100%'" myAddress>
         <input mdInput placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
           minlength="3">
-        <md-hint class="error_text" *ngIf="Location.invalid && Location.touched">{{currentLanguageSet?.enterAtleastThreeCharacters}}</md-hint>
+        <md-hint *ngIf="Location.invalid && Location.touched"> <span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" myMobileNumber>
       <md-input-container [style.width]="'100%'">
         <input mdInput [(ngModel)]="contactNumber" placeholder="{{currentLanguageSet?.mobileNumber}}" [pattern]="numberRegex" required minlength="10" name="contactNumber" maxlength="10"
           #mobileNum="ngModel">
-        <md-hint class="error_text" *ngIf="mobileNum.invalid && mobileNum.touched">{{currentLanguageSet?.enterTenDigitsValidNumber}}</md-hint>
+        <md-hint *ngIf="mobileNum.invalid && mobileNum.touched"> <span class="error_text">{{currentLanguageSet?.enterTenDigitsValidNumber}}</span></md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -134,7 +134,7 @@
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
         <input mdInput placeholder="{{currentLanguageSet?.name}}" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50" minlength="3">
-        <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">{{currentLanguageSet?.enterAtleastThreeCharacters}}</md-hint>
+        <md-hint *ngIf="contactName.invalid && contactName.touched"><span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
@@ -150,14 +150,14 @@
       <md-input-container [style.width]="'100%'" myAddress>
         <input mdInput placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
           minlength="3">
-        <md-hint class="error_text" *ngIf="Location.invalid && Location.touched">{{currentLanguageSet?.enterAtleastThreeCharacters}}</md-hint>
+        <md-hint *ngIf="Location.invalid && Location.touched"><span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
         <input mdInput [(ngModel)]="contactNumber" placeholder="{{currentLanguageSet?.mobileNumber}}" required minlength="10" name="contactNumber" maxlength="10"
           #mobileNum="ngModel">
-        <md-hint class="error_text" *ngIf="mobileNum.invalid && mobileNum.touched">{{currentLanguageSet?.enterTenDigitsMobileNumber}}</md-hint>
+        <md-hint *ngIf="mobileNum.invalid && mobileNum.touched"><span class="error_text">{{currentLanguageSet?.enterTenDigitsMobileNumber}}</span></md-hint>
       </md-input-container>
     </div>
   </form>
