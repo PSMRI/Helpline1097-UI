@@ -5,11 +5,13 @@ import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-supervisor-location-communication',
   templateUrl: './supervisor-location-communication.component.html',
-  styleUrls: ['./supervisor-location-communication.component.css']
+  styleUrls: ['./supervisor-location-communication.component.css'],
+  providers: [DatePipe]
 })
 export class SupervisorLocationCommunicationComponent implements OnInit {
 
@@ -44,7 +46,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
   constructor(public notification_service: NotificationService,
     public commonDataService: dataService,
-    public dialogService: ConfirmationDialogsService,
+    public dialogService: ConfirmationDialogsService,private datePipe:DatePipe,
     public httpServices:HttpServices) { }
 
   ngOnInit() {
@@ -156,12 +158,13 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   }
 
   getNotifications(form_values) {
-    let startDate: Date = new Date(form_values.startDate);
+    let startDate: Date = new Date(form_values.startDate.toLocaleDateString());
     startDate.setHours(0);
     startDate.setMinutes(0);
     startDate.setSeconds(0);
     startDate.setMilliseconds(0)
-
+   // let startDate=this.datePipe.transform(startDate1, 'yyyy-MM-dd');
+    //let startDate=startDate1.toLocaleDateString();
     let endDate: Date = new Date(form_values.endDate);
     endDate.setHours(23);
     endDate.setMinutes(59);
@@ -172,8 +175,8 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
       "providerServiceMapID": this.providerServiceMapID,
       "notificationTypeID": this.location_communication_typeID,
       "workingLocationIDs": this.allOfficeIDs,
-      "validStartDate": startDate,
-      "validEndDate": endDate
+      "validStartDate": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
+      "validEndDate": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000)
     };
 
     this.notification_service.getSupervisorNotifications(obj)
@@ -242,6 +245,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
       .subscribe(response => {
         console.log(response.data, "Location Message created");
         if (response.data.length > 0) {
+          this.refreshExistingTable(this.location_communication_typeID, this.searchStartDate, this.searchEndDate);
           this.dialogService.alert(this.currentLanguageSet.locationMessageCreatedSuccessfully, 'success');
           this.notificationCreationForm.reset();
           if (startDate.getTime() <= this.currentDate.getTime()) {
@@ -255,6 +259,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
                 console.log(error);
               });
           }
+          this.showTable();
         }
       },
       (error) => {
@@ -359,8 +364,8 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
       "providerServiceMapID": this.providerServiceMapID,
       "notificationTypeID": type,
       "workingLocationIDs": this.allOfficeIDs,
-      "validStartDate": startDate,
-      "validEndDate": endDate
+      "validStartDate": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
+      "validEndDate": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000)
     };
 
     this.notification_service.getSupervisorNotifications(obj)

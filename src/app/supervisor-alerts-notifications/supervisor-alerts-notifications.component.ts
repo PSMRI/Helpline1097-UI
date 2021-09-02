@@ -46,6 +46,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   endTime;
 
   @ViewChild('notificationCreationForm') notificationCreationForm: NgForm;
+  @ViewChild('notificationEditingForm') notificationEditingForm: NgForm;
   currentLanguageSet: any;
 
   constructor(public notification_service: NotificationService,
@@ -320,7 +321,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       .subscribe(response => {
         console.log(response, "NOTIFICATION/ALERT CREATED");
         let currentDate = new Date();
-
+        this.refreshExistingTable(this.searchNotificationType, this.searchStartDate, this.searchEndDate);
         if (response.data != undefined && response.data.length > 0) {
           if (response.data[0].notificationTypeID == 18) {
             this.dialogService.alert(this.currentLanguageSet.alertCreatedSuccessfully, 'success');
@@ -352,6 +353,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
                 });
             }
           }
+          this.showTable();
         }
         if (response.statusCode === 5000) {
           this.dialogService.alert(response.status, 'error');
@@ -487,6 +489,15 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   showTable() {
+    if(this.createMode === true)
+    {
+      this.invalidTimeFlag = false;
+      this.notificationCreationForm.reset();
+    }
+    if(this.editMode === true)
+    {
+      this.notificationEditingForm.reset();
+    }
     this.searchMode = true;
     this.editMode = false;
     this.createMode = false;

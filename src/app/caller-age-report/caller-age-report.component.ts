@@ -125,40 +125,32 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
     if (diffDays >= 0) {
       if (diffDays >= 30) {
         this.maxEndDate = new Date(this.start_date);
-        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
         this.maxEndDate.setHours(23, 59, 59, 0);
         this.end_date = this.maxEndDate;
       }
       if (diffDays < 30) {
         const endDateDiff = this.today.getTime() - this.maxEndDate.getTime();
         const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-        if (enddiffDays >= 30) {
-          this.maxEndDate = new Date(this.start_date);
-          this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
-          this.maxEndDate.setHours(23, 59, 59, 0);
-          this.end_date = this.maxEndDate;
-        } else {
-          this.maxEndDate = new Date();
-          this.maxEndDate.setDate(this.today.getDate() - 1);
-          this.maxEndDate.setHours(23, 59, 59, 0);
-          this.end_date = this.maxEndDate;
-        }
+        this.checkForEndDateDifference(enddiffDays);
       }
     } else {
       const endDateDiff = this.today.getTime() - this.start_date.getTime();
       const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-
-      if (enddiffDays >= 30) {
-        this.maxEndDate = new Date(this.start_date);
-        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
-        this.maxEndDate.setHours(23, 59, 59, 0);
-        this.end_date = this.maxEndDate;
-      } else {
-        this.maxEndDate = new Date();
-        this.maxEndDate.setDate(this.today.getDate() - 1);
-        this.maxEndDate.setHours(23, 59, 59, 0);
-        this.end_date = this.maxEndDate;
-      }
+      this.checkForEndDateDifference(enddiffDays);
+    }
+  }
+  checkForEndDateDifference(enddiffDays) {
+    if (enddiffDays >= 30) {
+      this.maxEndDate = new Date(this.start_date);
+      this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.end_date = this.maxEndDate;
+    } else {
+      this.maxEndDate = new Date();
+      this.maxEndDate.setDate(this.today.getDate() - 1);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.end_date = this.maxEndDate;
     }
   }
 

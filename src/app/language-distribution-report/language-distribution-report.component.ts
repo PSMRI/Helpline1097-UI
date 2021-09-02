@@ -1,22 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { dataService } from '../services/dataService/data.service';
-import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
-import { ReportsService } from '../services/reports-service/reports-service';
-import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
-import { LocationService } from '../services/common/location.service';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import * as XLSX from 'xlsx';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { NgForm } from "@angular/forms";
+import { dataService } from "../services/dataService/data.service";
+import { UserBeneficiaryData } from "../services/common/userbeneficiarydata.service";
+import { ReportsService } from "../services/reports-service/reports-service";
+import { ConfirmationDialogsService } from "./../services/dialog/confirmation.service";
+import { LocationService } from "../services/common/location.service";
+import { Angular2Csv } from "angular2-csv/Angular2-csv";
+import * as XLSX from "xlsx";
 import { HttpServices } from "../services/http-services/http_services.service";
-import { SetLanguageComponent } from 'app/set-language.component';
+import { SetLanguageComponent } from "app/set-language.component";
 
 @Component({
-  selector: 'app-language-distribution-report',
-  templateUrl: './language-distribution-report.component.html',
-  styleUrls: ['./language-distribution-report.component.css']
+  selector: "app-language-distribution-report",
+  templateUrl: "./language-distribution-report.component.html",
+  styleUrls: ["./language-distribution-report.component.css"],
 })
 export class LanguageDistributionReportComponent implements OnInit {
-
   today: Date;
   start_date: Date;
   end_date: Date;
@@ -35,53 +34,45 @@ export class LanguageDistributionReportComponent implements OnInit {
   district: any;
   language: any;
 
-  @ViewChild('languageDistributionSearchForm') languageDistributionSearchForm: NgForm;
+  @ViewChild("languageDistributionSearchForm")
+  languageDistributionSearchForm: NgForm;
   currentLanguageSet: any;
 
-  constructor(private dataService: dataService, private userbeneficiarydata: UserBeneficiaryData,
-    private locationService: LocationService, private alertService: ConfirmationDialogsService,
-    private reportsService: ReportsService,public HttpServices: HttpServices) { }
+  constructor(
+    private dataService: dataService,
+    private userbeneficiarydata: UserBeneficiaryData,
+    private locationService: LocationService,
+    private alertService: ConfirmationDialogsService,
+    private reportsService: ReportsService,
+    public HttpServices: HttpServices
+  ) {}
 
   ngOnInit() {
+    this.setTodayDate();
     this.assignSelectedLanguage();
     this.providerServiceMapID = this.dataService.current_service.serviceID;
-    this.userbeneficiarydata.getUserBeneficaryData(this.providerServiceMapID)
+    this.userbeneficiarydata
+      .getUserBeneficaryData(this.providerServiceMapID)
       .subscribe((response) => {
         console.log(response);
-        this.languages = response['m_language'];
+        this.languages = response["m_language"];
         let all = {
-          "languageName": "All"
-        }
+          languageName: "All",
+        };
         this.languages.push(all);
-        this.states = response['states']
-      }), (err) => this.alertService.alert(err.errorMessage);
-
-    // this.today = new Date();
-    // this.today.setDate(this.today.getDate()-1);
-    // console.log(this.today);
-    // this.end_date = new Date(this.today);
-    // this.start_date = new Date();
-    // this.start_date.setDate(this.today.getDate()-7);
-    // this.minStartDate = new Date();
-    // this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
+        this.states = response["states"];
+      }),
+      (err) => this.alertService.alert(err.errorMessage);
+    this.providerServiceMapID = this.dataService.current_service.serviceID;
+  }
+  setTodayDate() {
     this.today = new Date();
-    // this.end_date = new Date();
-    // this.end_date.setDate(this.today.getDate() - 1);
-    // this.end_date.setHours(23, 59, 59, 0);
-
-    // this.start_date = new Date();
-    // this.start_date.setDate(this.today.getDate() - 7);
-    // this.start_date.setHours(0, 0, 0, 0);
-
     this.maxStartDate = new Date();
     this.maxStartDate.setDate(this.today.getDate() - 1);
     this.maxStartDate.setHours(0, 0, 0, 0);
-
     this.maxEndDate = new Date();
     this.maxEndDate.setDate(this.today.getDate() - 1);
     this.maxEndDate.setHours(23, 59, 59, 0);
-    this.providerServiceMapID = this.dataService.current_service.serviceID;
-
   }
   ngDoCheck() {
     this.assignSelectedLanguage();
@@ -95,8 +86,7 @@ export class LanguageDistributionReportComponent implements OnInit {
   blockKey(e: any) {
     if (e.keyCode === 9) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -104,152 +94,145 @@ export class LanguageDistributionReportComponent implements OnInit {
   getDistricts() {
     this.districts = [];
     this.languageDistributionSearchForm.form.patchValue({
-      'district': ''
+      district: "",
     });
-    this.locationService.getDistricts(this.languageDistributionSearchForm.value.state.stateID)
-      .subscribe((response) => {
-        this.districts = response;
-      },
-      (error) => {
-        this.alertService.alert(error.errorMessage);
-        console.log(error);
-      })
+    this.locationService
+      .getDistricts(this.languageDistributionSearchForm.value.state.stateID)
+      .subscribe(
+        (response) => {
+          this.districts = response;
+        },
+        (error) => {
+          this.alertService.alert(error.errorMessage);
+          console.log(error);
+        }
+      );
   }
 
   endDateChange() {
-
     const timeDiff = this.maxEndDate.getTime() - this.start_date.getTime();
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if(diffDays>=0)
-    {
-     if (diffDays >= 30) {
-      this.maxEndDate = new Date(this.start_date);
-      this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
-      this.maxEndDate.setHours(23, 59, 59, 0);
-      this.end_date = this.maxEndDate;
-     }
-     if (diffDays < 30) {
-      const endDateDiff =  this.today.getTime() - this.maxEndDate.getTime();
-      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-      if (enddiffDays >= 30) {
+    if (diffDays >= 0) {
+      if (diffDays >= 30) {
         this.maxEndDate = new Date(this.start_date);
-        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
         this.maxEndDate.setHours(23, 59, 59, 0);
         this.end_date = this.maxEndDate;
-      } 
-      else{
-      this.maxEndDate = new Date();
-      this.maxEndDate.setDate(this.today.getDate()-1);
-      this.maxEndDate.setHours(23, 59, 59, 0);
-      this.end_date = this.maxEndDate;
-
       }
-     }
-   }
-   else
-   {
-    const endDateDiff =  this.today.getTime() - this.start_date.getTime();
-    const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
- 
-    if(enddiffDays>=30)
-    {
-    this.maxEndDate = new Date(this.start_date);
-    this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
-    this.maxEndDate.setHours(23, 59, 59, 0);
-    this.end_date = this.maxEndDate;
+      if (diffDays < 30) {
+        const endDateDiff = this.today.getTime() - this.maxEndDate.getTime();
+        const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+        this.checkForEndDateDifference(enddiffDays);
+      }
+    } else {
+      const endDateDiff = this.today.getTime() - this.start_date.getTime();
+      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+      this.checkForEndDateDifference(enddiffDays);
     }
-    else
-    {
+  }
+  checkForEndDateDifference(enddiffDays) {
+    if (enddiffDays >= 30) {
+      this.maxEndDate = new Date(this.start_date);
+      this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.end_date = this.maxEndDate;
+    } else {
       this.maxEndDate = new Date();
-      this.maxEndDate.setDate(this.today.getDate()-1);
+      this.maxEndDate.setDate(this.today.getDate() - 1);
       this.maxEndDate.setHours(23, 59, 59, 0);
       this.end_date = this.maxEndDate;
     }
-   }
-    //console.log("sd,med", this.start_date, this.maxEndDate);
-    // if (this.today.getTime() < this.maxEndDate.getTime()) {
-      // let i = new Date();
-      // i.setDate(this.today.getDate() - 1);
-      // this.maxEndDate = i;
-      // this.maxEndDate.setHours(23, 59, 59, 0);
-      //console.log("sd,med", this.start_date, this.maxEndDate);
-    // }
-    // else {
-    //   this.maxEndDate = new Date(this.start_date);
-    //   this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
-    //   this.maxEndDate.setHours(23, 59, 59, 0);
-    // }
-
-    // var timeDiff = this.end_date.getTime() - this.start_date.getTime();
-    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    // if (diffDays > 90) {
-    //   var tempDate = new Date(this.start_date);
-    //   tempDate.setMonth(this.start_date.getMonth() + 1);
-    //   tempDate.setHours(23, 59, 59, 0);
-    //   this.languageDistributionSearchForm.form.patchValue({
-    //     'endDate': tempDate
-    //   });
-    // }
-    // if (diffDays < 0) {
-    //   var tempDate = new Date(this.start_date);
-    //   tempDate.setHours(23, 59, 59, 0);
-    //   this.languageDistributionSearchForm.form.patchValue({
-    //     'endDate': tempDate
-    //   });
-    // }
   }
-
   getReports() {
     console.log("values:", this.languageDistributionSearchForm.value);
     this.postData = [];
     if (this.languageDistributionSearchForm.value.language == "All") {
       for (var i = 0; i < this.languages.length - 1; i++) {
         var obj = {
-          "providerServiceMapID": this.providerServiceMapID,
+          providerServiceMapID: this.providerServiceMapID,
 
-          "startTimestamp": new Date((this.languageDistributionSearchForm.value.startDate.getTime() - 1 * (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
-          "endTimestamp": new Date((this.languageDistributionSearchForm.value.endDate.getTime() - 1 * (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
-          "beneficiaryPreferredLanguage": this.languages[i].languageName
+          startTimestamp:
+            new Date(
+              this.languageDistributionSearchForm.value.startDate.getTime() -
+                1 *
+                  (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() *
+                    60 *
+                    1000)
+            )
+              .toJSON()
+              .slice(0, 10) + "T00:00:00.000Z",
+          endTimestamp:
+            new Date(
+              this.languageDistributionSearchForm.value.endDate.getTime() -
+                1 *
+                  (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() *
+                    60 *
+                    1000)
+            )
+              .toJSON()
+              .slice(0, 10) + "T23:59:59.999Z",
+          beneficiaryPreferredLanguage: this.languages[i].languageName,
+        };
+        if (this.languageDistributionSearchForm.value.state != "") {
+          obj["state"] =
+            this.languageDistributionSearchForm.value.state.stateName;
         }
-        if (this.languageDistributionSearchForm.value.state != '') {
-          obj['state'] = this.languageDistributionSearchForm.value.state.stateName;
-        }
-        if (this.languageDistributionSearchForm.value.district != '') {
-          obj['district'] = this.languageDistributionSearchForm.value.district;
+        if (this.languageDistributionSearchForm.value.district != "") {
+          obj["district"] = this.languageDistributionSearchForm.value.district;
         }
         this.postData.push(obj);
       }
-    }
-    else {
-
+    } else {
       //  for(var i=0; i< this.languageDistributionSearchForm.value.language.length;i++){
       var obj = {
-        "providerServiceMapID": this.providerServiceMapID,
+        providerServiceMapID: this.providerServiceMapID,
 
-        "startTimestamp": new Date((this.languageDistributionSearchForm.value.startDate.getTime() - 1 * (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T00:00:00.000Z",
-        "endTimestamp": new Date((this.languageDistributionSearchForm.value.endDate.getTime() - 1 * (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() * 60 * 1000))).toJSON().slice(0, 10) + "T23:59:59.999Z",
-        "beneficiaryPreferredLanguage": this.languageDistributionSearchForm.value.language
+        startTimestamp:
+          new Date(
+            this.languageDistributionSearchForm.value.startDate.getTime() -
+              1 *
+                (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() *
+                  60 *
+                  1000)
+          )
+            .toJSON()
+            .slice(0, 10) + "T00:00:00.000Z",
+        endTimestamp:
+          new Date(
+            this.languageDistributionSearchForm.value.endDate.getTime() -
+              1 *
+                (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() *
+                  60 *
+                  1000)
+          )
+            .toJSON()
+            .slice(0, 10) + "T23:59:59.999Z",
+        beneficiaryPreferredLanguage:
+          this.languageDistributionSearchForm.value.language,
+      };
+      if (this.languageDistributionSearchForm.value.state != "") {
+        obj["state"] =
+          this.languageDistributionSearchForm.value.state.stateName;
       }
-      if (this.languageDistributionSearchForm.value.state != '') {
-        obj['state'] = this.languageDistributionSearchForm.value.state.stateName;
-      }
-      if (this.languageDistributionSearchForm.value.district != '') {
-        obj['district'] = this.languageDistributionSearchForm.value.district;
+      if (this.languageDistributionSearchForm.value.district != "") {
+        obj["district"] = this.languageDistributionSearchForm.value.district;
       }
       this.postData.push(obj);
       //   }
-
-
     }
 
     this.language = this.languageDistributionSearchForm.value.language;
-    this.state = this.languageDistributionSearchForm.value.state.stateName ? this.languageDistributionSearchForm.value.state.stateName : 'Any';
-    this.district = this.languageDistributionSearchForm.value.district ? this.languageDistributionSearchForm.value.district : 'Any';
+    this.state = this.languageDistributionSearchForm.value.state.stateName
+      ? this.languageDistributionSearchForm.value.state.stateName
+      : "Any";
+    this.district = this.languageDistributionSearchForm.value.district
+      ? this.languageDistributionSearchForm.value.district
+      : "Any";
     // this.start_date = this.sexualOrientationSearchForm.value.startDate;
     // this.end_date = this.sexualOrientationSearchForm.value.endDate;
     console.log(this.postData);
-    this.reportsService.getCountsByPreferredLanguage(this.postData)
-      .subscribe((response) => {
+    this.reportsService.getCountsByPreferredLanguage(this.postData).subscribe(
+      (response) => {
         console.log(response);
         this.tableFlag = true;
         this.languageDistributions = response;
@@ -257,48 +240,62 @@ export class LanguageDistributionReportComponent implements OnInit {
       (error) => {
         this.alertService.alert(error.errorMessage);
         console.log(error);
-      })
+      }
+    );
   }
   download() {
     var options = {
-
       showLabels: true,
-      showTitle: true
-
+      showTitle: true,
     };
 
     let head = Object.keys(this.languageDistributions[0]);
     // console.log(head);
-    new Angular2Csv(this.languageDistributions, 'LanguageDistributions Report', { headers: (head) });
-    this.alertService.alert(this.currentLanguageSet.languageDistributionReportDownloaded, 'success');
+    new Angular2Csv(
+      this.languageDistributions,
+      "LanguageDistributions Report",
+      { headers: head }
+    );
+    this.alertService.alert(
+      this.currentLanguageSet.languageDistributionReportDownloaded,
+      "success"
+    );
   }
   downloadV2() {
     let criteria: any = [];
     // let state = (this.state ? (this.state.stateName ? this.state.stateName : 'Any') : 'Any');
     // let district = this.district ? this.district : 'Any';
-    criteria.push({ 'Filter_Name': 'State', 'value': this.state });
-    criteria.push({ 'Filter_Name': 'District', 'value': this.district });
-    criteria.push({ 'Filter_Name': 'Language', 'value': this.language });
-    criteria.push({ 'Filter_Name': 'Start_Date', 'value': this.start_date });
-    criteria.push({ 'Filter_Name': 'End_Date', 'value': this.end_date });
+    criteria.push({ Filter_Name: "State", value: this.state });
+    criteria.push({ Filter_Name: "District", value: this.district });
+    criteria.push({ Filter_Name: "Language", value: this.language });
+    criteria.push({ Filter_Name: "Start_Date", value: this.start_date });
+    criteria.push({ Filter_Name: "End_Date", value: this.end_date });
     this.exportToxlsx(criteria);
   }
   exportToxlsx(criteria: any) {
-    let headers = ["SlNo", "preferredLanguage", "serviceProvidedRatio", "count"];
+    let headers = [
+      "SlNo",
+      "preferredLanguage",
+      "serviceProvidedRatio",
+      "count",
+    ];
     let wb_name = "Language Distribution Report";
-    const criteria_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(criteria);
-    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.languageDistributions, { header: headers });
+    const criteria_worksheet: XLSX.WorkSheet =
+      XLSX.utils.json_to_sheet(criteria);
+    const report_worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+      this.languageDistributions,
+      { header: headers }
+    );
 
     // below code added to modify the headers ---XXXXXXXXXXXXXX----- 5/7/18 gursimran
 
-    let i = 65;    // starting from 65 since it is the ASCII code of 'A'.
+    let i = 65; // starting from 65 since it is the ASCII code of 'A'.
     let count = 0;
     while (i < headers.length + 65) {
       let j;
       if (count > 0) {
-        j = i - (26 * count);
-      }
-      else {
+        j = i - 26 * count;
+      } else {
         j = i;
       }
       let cellPosition = String.fromCharCode(j);
@@ -306,32 +303,39 @@ export class LanguageDistributionReportComponent implements OnInit {
       if (count == 0) {
         finalCellName = cellPosition + "1";
         // console.log(finalCellName);
-      }
-      else {
+      } else {
         let newcellPosition = String.fromCharCode(64 + count);
         finalCellName = newcellPosition + cellPosition + "1";
         // console.log(finalCellName);
       }
       let newName = this.modifyHeader(headers, i);
-      delete report_worksheet[finalCellName].w; report_worksheet[finalCellName].v = newName;
+      delete report_worksheet[finalCellName].w;
+      report_worksheet[finalCellName].v = newName;
       i++;
-      if (i == 91 + (count * 26)) {
+      if (i == 91 + count * 26) {
         // i = 65;
         count++;
       }
     }
     // --------end--------
 
-    const workbook: XLSX.WorkBook = { Sheets: { 'Report': report_worksheet, 'Criteria': criteria_worksheet }, SheetNames: ['Criteria', 'Report'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: "array" });
-    let blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Report: report_worksheet, Criteria: criteria_worksheet },
+      SheetNames: ["Criteria", "Report"],
+    };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    let blob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
     if (navigator.msSaveBlob) {
       navigator.msSaveBlob(blob, wb_name);
-    }
-    else {
+    } else {
       var link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.setAttribute('visibility', 'hidden');
+      link.setAttribute("visibility", "hidden");
       link.download = wb_name.replace(/ /g, "_") + ".xlsx";
       document.body.appendChild(link);
       link.click();
@@ -340,13 +344,17 @@ export class LanguageDistributionReportComponent implements OnInit {
   }
   modifyHeader(headers, i) {
     let modifiedHeader: String;
-    modifiedHeader = headers[i - 65].toString().replace(/([A-Z])/g, ' $1').trim();
-    modifiedHeader = modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
+    modifiedHeader = headers[i - 65]
+      .toString()
+      .replace(/([A-Z])/g, " $1")
+      .trim();
+    modifiedHeader =
+      modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
     //console.log(modifiedHeader);
     return modifiedHeader.replace(/I D/g, "ID");
   }
-  resetWorklist(){
-    this.languageDistributions=[];
+  resetWorklist() {
+    this.languageDistributions = [];
     this.tableFlag = false;
   }
 }

@@ -16,7 +16,7 @@
         <md2-datepicker name="endDate" [min]="startDate.value" (keydown)="blockey($event)" [(ngModel)]="searchEndDate" (change)="edChange(searchEndDate)"
           placeholder="{{currentLanguageSet?.validTill}}" #endDate="ngModel" ngModel required [style.width]="'100%'"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
-        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDates}}</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
       </div>
     </form>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-10">
@@ -95,7 +95,7 @@
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [min]="startDate.value" placeholder="{{currentLanguageSet?.validTill}}" #endDate="ngModel"
           ngModel required [style.width]="'100%'"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
-        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDates}}</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
       </div>
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-10">
@@ -148,7 +148,7 @@
         <md2-datepicker name="endDate" (keydown)="blockey($event)" [(ngModel)]="edate" [min]="startDate.value" placeholder="{{currentLanguageSet?.validTill}}"
           #endDate="ngModel" required [style.width]="'100%'"></md2-datepicker>
         <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
-        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDates}}</span>
+        <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
       </div>
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-10">

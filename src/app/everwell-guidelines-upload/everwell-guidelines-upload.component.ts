@@ -244,7 +244,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
   trainingResourceErrorHandeler(error) {
     console.log(error);
-    this.dialogService.alert(error.json().errorMessage, 'alert');
+    this.dialogService.alert(error.json().errorMessage, 'error');
   }
 
 
