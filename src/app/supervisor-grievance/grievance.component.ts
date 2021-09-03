@@ -190,8 +190,9 @@ export class grievanceComponent implements OnInit {
 
     this._feedbackservice.getEmailStatuses().subscribe(resProviderData => this.emailStatuses = resProviderData);
 
-    this._feedbackservice.getFeedback(requestData)
-      .subscribe(resProviderData => this.providers(resProviderData));
+    // this._feedbackservice.getFeedback(requestData)
+    //   .subscribe(resProviderData => this.providers(resProviderData));
+    this.onSearch();
 
     this.today = new Date();
     this.providerServiceMapID = this._saved_data.current_service.serviceID;
