@@ -4,7 +4,6 @@
       <div class="pull-left">
         <img src="assets/images/smLogo.png" alt="Logo">
       </div>
-      <div class=" p-t-1">
         <ul class="list-inline list-unstyled pull-left m-b-0">
           <li class="m-l-lg-40 m-t-5" *ngIf="checkRole">
             <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green">{{callStatus}}</span>
@@ -12,6 +11,7 @@
           </li>
         </ul>
         <label class="f-c-w f-s-15 p-t-5">{{current_service}} {{current_role}}</label>
+        <div class="pull-right p-t-1">
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
           <li class="">
             <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="{{currentLanguageSet?.userIcon}}" [mdMenuTriggerFor]="menuNotification">
@@ -28,29 +28,22 @@
             <a>&nbsp;</a>
           </li>
         </ul>
-        <ul class="list-inline list-unstyled pull-right m-b-0">
-        
+        <ul class="list-inline list-unstyled topIcon pull-right m-l-20 shawdow m-b-0">
              <!--Multilingual dropdown-->
              <span style="color:white;">{{currentLanguageSet?.selectLanguage}}: </span> &nbsp;
              <li>
-
-             
-             
               <select  class="form-control drop-arrow border-radius-20 height-35 " name="app_language"
               [(ngModel)]="app_language" (change)="changeLanguage(app_language)">
               <option *ngFor="let language of languageArray" [value]="language.languageName">{{language.languageName}}
               </option>
-                  
-      
-      
                 </select>
             </li>  
                <!--END-Multilingual dropdown-->
         </ul>
-        <ul class="list-inline list-unstyled pull-right m-l-20  m-b-0">
+        <ul class="list-inline list-unstyled pull-right m-l-20  m-b-0" *ngIf='checkRole'>
           <li class="m-l-lg-40 m-t-5">
-            <span class="m-l-lg-15 f-s-14 whiteC font-Semibold">{{TotalCalls}}</span>
-            <span class="m-l-lg-15 f-s-14 whiteC font-Semibold">{{TotalTime}}</span>
+            <span class="m-l-lg-20 f-s-15 font-Semibold lightgreen">{{currentLanguageSet?.totalCalls}} : {{TotalCalls}}</span>
+            <span class="m-l-lg-20 f-s-15 font-Semibold lightgreen">{{currentLanguageSet?.totalCallsDurations}} : {{TotalTime}}</span>
           </li>
         </ul>
       </div>
