@@ -10,6 +10,7 @@ import * as XLSX from "xlsx";
 import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "app/services/http-services/http_services.service";
 import { DoCheck } from "@angular/core";
+import * as moment from 'moment';
 
 @Component({
   selector: "app-caller-age-report",
@@ -123,25 +124,23 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
     const timeDiff = this.maxEndDate.getTime() - this.start_date.getTime();
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     if (diffDays >= 0) {
-      if (diffDays >= 30) {
+      if (diffDays > 31) {
         this.maxEndDate = new Date(this.start_date);
         this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
         this.maxEndDate.setHours(23, 59, 59, 0);
         this.end_date = this.maxEndDate;
       }
-      if (diffDays < 30) {
-        const endDateDiff = this.today.getTime() - this.maxEndDate.getTime();
-        const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-        this.checkForEndDateDifference(enddiffDays);
+      if (diffDays <= 31) {
+        this.checkForEndDateDifference();
       }
     } else {
-      const endDateDiff = this.today.getTime() - this.start_date.getTime();
-      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-      this.checkForEndDateDifference(enddiffDays);
+      this.checkForEndDateDifference();
     }
   }
-  checkForEndDateDifference(enddiffDays) {
-    if (enddiffDays >= 30) {
+  checkForEndDateDifference() {
+    const endDateDiff = this.today.getTime() - this.start_date.getTime();
+    const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+    if (enddiffDays > 31) {
       this.maxEndDate = new Date(this.start_date);
       this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
       this.maxEndDate.setHours(23, 59, 59, 0);
@@ -273,8 +272,8 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
     criteria.push({ Filter_Name: "State", value: state });
     criteria.push({ Filter_Name: "District", value: district });
     criteria.push({ Filter_Name: "Caller_Age_Group", value: this.ageGroup });
-    criteria.push({ Filter_Name: "Start_Date", value: this.start_date });
-    criteria.push({ Filter_Name: "End_Date", value: this.end_date });
+    criteria.push({ Filter_Name: "Start_Date", value: moment(this.start_date).format('DD-MM-YYYY')});
+    criteria.push({ Filter_Name: "End_Date", value: moment(this.end_date).format('DD-MM-YYYY') });
     this.exportToxlsx(criteria);
   }
   exportToxlsx(criteria: any) {

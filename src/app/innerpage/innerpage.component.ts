@@ -135,7 +135,7 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
-    
+    this.assignSelectedLanguage();
     this.current_service = this.getCommonData.current_service.serviceName;
     this.current_role = this.getCommonData.current_role.RoleName;
     const obj = { 'innerPage': true };
@@ -194,7 +194,6 @@ export class InnerpageComponent implements OnInit {
     this.getAgentCallDetails();
     this.isEverwell = sessionStorage.getItem("isEverwellCall");
 
-    this.assignSelectedLanguage();
     this.fetchLanguageSet();
 
   }
@@ -779,8 +778,8 @@ export class InnerpageComponent implements OnInit {
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe((res) => {
       console.log('CALL DETAILS RESPONSE', res);
-      this.TotalCalls = this.currentLanguageSet.totalCalls + " : " + res.data.total_calls;
-      this.TotalTime = this.currentLanguageSet.totalCallsDurations + " : " + res.data.total_call_duration;
+      this.TotalCalls = res.data.total_calls;
+      this.TotalTime = res.data.total_call_duration;
     }, (err) => {
       if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
         this.remarksMessage.alert(err.errorMessage);

@@ -193,17 +193,15 @@ export class QualityAuditComponent implements OnInit {
         this.validTill = this.maxEndDate;
       }
       if (diffDays <= 31) {
-        const endDateDiff =  this.today.getTime() - this.validTill.getTime();
-        const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-        this.checkForEndDateDifference(enddiffDays);
+        this.checkForEndDateDifference();
       }
     } else {
-      const endDateDiff = this.today.getTime() - this.validFrom.getTime();
-      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-      this.checkForEndDateDifference(enddiffDays);
+      this.checkForEndDateDifference();
     }
   }
-  checkForEndDateDifference(enddiffDays) {
+  checkForEndDateDifference() {
+    const endDateDiff = this.today.getTime() - this.validFrom.getTime();
+    const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
     if (enddiffDays > 31) {
       this.maxEndDate = new Date(this.validFrom);
       this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
