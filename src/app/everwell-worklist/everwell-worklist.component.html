@@ -1,14 +1,9 @@
-<!-- <div class="overlay" *ngIf="showProgressBar">
-  <div class="overlay-content">
-    <md-spinner></md-spinner>
-  </div>
-</div> -->
 
 <div class="container-fluid" *ngIf="showTable">
   <div  class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <label class="pull-left">
-      <h4 class="f-s-b m-b-10 m-t-20"> Everwell-Worklist </h4>
+      <h4 class="f-s-b m-b-10 m-t-20"> {{currentLanguageSet?.everwellWorklist}}</h4>
     </label>
   </div>
 </div>
@@ -19,24 +14,24 @@
   <div class="col-xs-12 col-sm-12">
 
     <div class="table-responsive">
-      <table class="table table-hover table-striped" [md2Data]="data" #md2="md2DataTable">
+      <table class="table table-hover table-striped" [md2Data]="data" #md2="md2DataTable" aria-describedby="languageDetails">
         <thead>
           <tr>
-            <!-- <th style="width:20%" md2SortBy="phoneNo">Phone No</th> -->
-            <th>Beneficiary ID</th>
-            <th>Beneficiary Name</th>
-            <!-- <th md2SortBy="prefferedDateTime">Requested Date</th> -->
-            <!-- <th>Mobile Number</th> -->
-            <th>Gender</th>
-            <th>State</th>
-            <th>Comments</th>
-            <th>Last Call</th>
-            <th>Call Count</th>
+           
+            <th id="beneficiaryID">{{currentLanguageSet?.beneficiaryId}}</th>
+            <th id="beneficiaryName">{{currentLanguageSet?.beneficiaryName}}</th>
+          
+            <!-- <th id="mobileNumber">{{currentLanguageSet?.mobileNumber}}</th> -->
+            <th id="gender">{{currentLanguageSet?.gender}}</th>
+            <th id="state">{{currentLanguageSet?.state}}</th>
+            <th id="comments">{{currentLanguageSet?.comments}}</th>
+            <th id="lastCall">{{currentLanguageSet?.lastCall}}</th>
+            <th id="callCount">{{currentLanguageSet?.callCount}}</th>
           </tr>
         </thead>
         <tbody>
             <tr *ngIf="data?.length > 0">
-              <td colspan="5" class="t-a-c record-not-found"> No records found</td>
+              <td colspan="5" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
             <tr (click)="editMode(data)" style="cursor: pointer">
               <td width=15%>{{data.beneficiaryID}}</td>
@@ -52,7 +47,7 @@
         <tfoot>
           <tr>
             <td colspan="10">
-              <!-- <md2-pagination></md2-pagination> -->
+             
             </td>
           </tr>
         </tfoot>
@@ -63,14 +58,14 @@
 </div>
 <div class="row" *ngIf="showEditForm">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="f-s-b m-t-20 m-b-20">Save Patient Feedback</h4>
+    <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.savePatientFeedback}}</h4>
   </div>
   <form #editEmergencyContact="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
-        <input mdInput placeholder="Name" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50"
+        <input mdInput placeholder="{{currentLanguageSet?.name}}" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50"
           minlength="3">
-        <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">Enter atleast 3 characters
+        <md-hint class="error_text" *ngIf="contactName.invalid && contactName.touched">{{currentLanguageSet?.enterAtleast3Characters}}
         </md-hint>
       </md-input-container>
     </div>
@@ -78,8 +73,8 @@
 
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">Back</button>
-    <button md-raised-button color="accent" class="pull-right">Update</button>
+    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">{{currentLanguageSet?.back}}</button>
+    <button md-raised-button color="accent" class="pull-right">{{currentLanguageSet?.update}}</button>
   </div>
 </div>
 
@@ -87,47 +82,19 @@
 
 <div class="main-content" *ngIf="showCalender">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:10px;">
-    <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">Back</button>   
+    <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">{{currentLanguageSet?.back}}</button>   
   </div>
   <div class="container-fluid">
     <div class="clearfix clearFixClass"></div>      
    
     <div class="col-md-12">
 
-      <!-- <md-chip-list aria-label="Fish selection" class="matclass">
-        <div *ngFor="let item of daysmonth">
-          <ng-container *ngIf="checkcurrent(item.name)">
-            <label *ngIf="current" class="labelwidth" style="color:green"><b>{{item.name}}</b></label><br />
-            <ng-container *ngFor="let item of createRange(previous-1),let i=index">
-              <md-chip title="" color="accent" selected="true">
-                {{item}}
-              </md-chip>
-            </ng-container>
-            <ng-container >
-              <md-chip title="" color="accent" selected="true" style="background-color: green "
-                (click)="callsupportdialog()">
-                {{previous}}
-              </md-chip>
-            </ng-container>
-            <ng-container *ngFor="let item of currentdaysInactive(item.days),let i=index">
-              <md-chip title="">
-                {{item}}
-              </md-chip>
-            </ng-container>
-          </ng-container>
-          <ng-container *ngIf="!checkcurrent(item.name)">
-            <label *ngIf="!current" class="labelwidth"><b>{{item.name}}</b></label><br />
-            <md-chip *ngFor="let item of createRange(item.days),let i=index" title="">
-              {{item}}
-            </md-chip>
-          </ng-container>
-        </div>
-      </md-chip-list> -->
+     
      <div class="row slots-container m-t-10 m-b-10">
         <div class="col-xs-12" *ngIf="daysmonth?.length > 0">
           <div *ngFor="let slots of daysmonth">
             <label class="labelwidth"
-              [ngClass]="{'currentMonth': checkcurrent(slots.name)}"><b>{{slots.name}}</b></label><br />
+              [ngClass]="{'currentMonth': checkcurrent(slots.name)}"><strong>{{slots.name}}</strong></label><br />
             <md-chip-list #chipList [selectable]="true" aria-label="Fish selection">
               <md-chip *ngFor="let slot of createRange(slots.days)" 
               [ngClass]="checkColorCode(slot,slots.name,slot)"
@@ -144,19 +111,19 @@
           <ul class="description">
             <li>
               <div class="manualDose"></div>
-              <p> Dose taken but not reported by technology</p>
+              <p> {{currentLanguageSet?.doseTakenButNotReportedByTechnology}}</p>
             </li>
             <li>
               <div class="missedDose"></div>
-              <p> Dose not taken</p>
+              <p> {{currentLanguageSet?.doseNotTaken}}</p>
             </li>
             <li>
               <div class="restDose"></div>
-              <p> Other Subcategories</p>
+              <p>{{currentLanguageSet?.otherSubcategories}}</p>
             </li>
             <li>
               <div class="others"></div>
-              <p> No Previous Feedback</p>
+              <p> {{currentLanguageSet?.noPreviousFeedback}}</p>
             </li>
 
           </ul>

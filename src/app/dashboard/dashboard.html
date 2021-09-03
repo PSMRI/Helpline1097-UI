@@ -1,71 +1,21 @@
-<!-- <div class="container-fluid">
-  <div class="row" (click)="minimizeBar()">
-    <dashboard-navigation></dashboard-navigation>
-    <div id="dashboardContent">
-      <div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-          <dashboard-user-id (click)="testEvent()" *ngIf="showDashboardContent"></dashboard-user-id>
-        </div>
-        <div class="col-xs-9 col-sm-8 col-md-4 col-lg-4 p-t-5">
-          <div class="col-xs-9 col-sm-9 col-md-6 col-lg-6">
-            <select class="form-control" name="widget_adder" [(ngModel)]="widget">
-              <option value="0">Select Widget</option>
-              <option value="1">Activity this week</option>
-              <option value="2">Rating</option>
-              <option value="3">Alerts n Notifications</option>
-              <option value="5">News Information</option>
-              <option value="6">Call Statistics</option>
-              <option value="7">Training Resources</option>
-            </select>
-          </div>
-          <div class="col-xs-3 col-sm-3 col-md-6 col-lg-6">
-            <button md-raised-button color="primary" type="button" (click)="addWidget(widget)">Add Widget</button>
-          </div>
-        </div>
-        <div class="col-xs-9 col-sm-4 col-md-4 col-lg-4">
-
-          <div class="pull-right m-a-10 p-t-2" *ngIf="current_role.toLowerCase().trim()!=='supervisor'">
-            <md-radio-group name=" inOutBound" (change)="campaign(inOutBound)" [(ngModel)]="inOutBound">
-              <md-radio-button color="primary" value='1'>Inbound</md-radio-button>
-              <md-radio-button color="primary" value='0'>Outbound</md-radio-button>
-            </md-radio-group>
-          </div>
-
-        </div>
-        <div class="" *ngIf="showDashboardContent">
-
-          <activity-this-week *ngIf="activity_component" (hide_component)="hideComponentHandeler($event)"></activity-this-week>
-          <rating *ngIf="ratings_component" (hide_component)="hideComponentHandeler($event)"></rating>
-          <alerts-notifications *ngIf="alerts_component" (hide_component)="hideComponentHandeler($event)"></alerts-notifications>
-          <news-informations *ngIf="news_component" (hide_component)="hideComponentHandeler($event)"></news-informations>
-          <app-call-statistics *ngIf="call_statistics" (hide_component)="hideComponentHandeler($event)"></app-call-statistics>
-          <app-training-resources *ngIf="training_resources" (hide_component)="hideComponentHandeler($event)"></app-training-resources>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
- -->
-
  
  <toaster-container [toasterconfig]="config"></toaster-container>
  <div class="container-fluid">
   <div class="dashboard-m-t-45">
     <div class="row" (click)="minimizeBar()">
       <div class="leftMenu pull-left width-5" (mouseleave)="hamburgerHoverOut()">
-        <!--** <div [hidden]="true" class="hamburger close"><span></span><span></span><span></span></div>  -->
+       
         <ul class="leftMenuList">
           <li class="p-t-15" *ngIf="current_role=='Supervisor'" routerLink="/MultiRoleScreenComponent/InnerpageComponent">
             <a class="p-l-m-t-22" #dropdown1>
-              <i data-placement="right" data-toggle="tooltip" class="mdicon material-icons " (click)="hamburgerClick()" aria-hidden="true" title="Activity Area">dashboard</i>
-              <!--** <span>Switch Role</span> -->
+              <i data-placement="right" data-toggle="tooltip" class="mdicon material-icons " (click)="hamburgerClick()" aria-hidden="true" mdTooltip="{{currentLanguageSet?.activityArea}}">dashboard</i>
+             
             </a>
           </li>
           <li class="p-t-15" (click)="routeToRoleSelection()">
-            <a class="p-l-m-t-22" #dropdown2>
-              <i data-placement="right" data-toggle="tooltip" title="Switch Role" class="mdicon material-icons" (click)="hamburgerClick()" aria-hidden="true">compare_arrows</i>
-              <!--** <span>Switch Role</span> -->
+            <a class="p-l-m-t-22">
+              <i data-placement="right" data-toggle="tooltip" mdTooltip="{{currentLanguageSet?.switchRole}}" class="mdicon material-icons" (click)="hamburgerClick()" aria-hidden="true">compare_arrows</i>
+              
             </a>
           </li>
         </ul>
@@ -79,8 +29,8 @@
           </div>
           <div class="pull-right p-t-10 p-b-10"  *ngIf="current_role.toLowerCase().trim()!=='supervisor'">
             <md-radio-group name=" inOutBound" (change)="campaign(inOutBound)" [(ngModel)]="inOutBound">
-              <md-radio-button color="primary" value='1' *ngIf="inboundCall">Inbound</md-radio-button>
-              <md-radio-button color="primary" value='0' *ngIf="outboundCall">Outbound</md-radio-button>
+              <md-radio-button color="primary" value='1' *ngIf="inboundCall">{{currentLanguageSet?.inbound}}</md-radio-button>
+              <md-radio-button color="primary" value='0' *ngIf="outboundCall">{{currentLanguageSet?.outbound}}</md-radio-button>
             </md-radio-group>
           </div>
           <span class="clearfix"></span>

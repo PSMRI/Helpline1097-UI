@@ -111,13 +111,13 @@
 								<echo>exec-dir: ${project.build.directory}</echo>
 							</tasks>
 							<executable>npm</executable>
-							<!--<workingDirectory>${basedir}/${ui-base-dir}</workingDirectory> -->
+							
 							<arguments>
 								<argument>install</argument>
 								<!-- use save-dev or save if you understand the consequences, else -->
 								<!-- please leave them alone & add appropriate npm dependencies in 
 									package.json -->
-								<!-- <argument></argument> -->
+								
 							</arguments>
 						</configuration>
 					</execution>
@@ -134,8 +134,8 @@
 								<echo>dist-dir: ${project.build.outputDirectory}</echo>
 							</tasks>
 							<!-- incase working dir is different use below -->
-							<!--<workingDirectory>${basedir}/${ui-base-dir}</workingDirectory> -->
-							<!--<executable>C:\Users\kmuser\AppData\Roaming\npm\ng.cmd</executable> -->
+							
+							
 							<executable>npm</executable>
 							<arguments>
 								<argument>run</argument>
@@ -146,7 +146,7 @@
 				</executions> 
 			</plugin>
 			<!-- use following incase resources from other dirs -->
-			<!--<plugin><artifactId>maven-resources-plugin</artifactId><version>2.6</version><executions><execution><id>copy-resources</id><phase>package</phase><goals><goal>copy-resources</goal></goals><configuration><outputDirectory>${basedir}/target/WEB-INF</outputDirectory><resources><resource><directory>dist</directory><filtering>true</filtering></resource></resources></configuration></execution></executions></plugin> -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>

@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { HttpServices } from 'app/services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-supervisor-alerts-notifications',
@@ -44,10 +46,13 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   endTime;
 
   @ViewChild('notificationCreationForm') notificationCreationForm: NgForm;
+  @ViewChild('notificationEditingForm') notificationEditingForm: NgForm;
+  currentLanguageSet: any;
 
   constructor(public notification_service: NotificationService,
     public commonDataService: dataService,
-    public dialogService: ConfirmationDialogsService) {
+    public dialogService: ConfirmationDialogsService,
+    public httpServices:HttpServices) {
 
     // this.alerts_notifications = [
     //   {
@@ -74,6 +79,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.Userdata.userName;
     this.getServiceProviderID(this.providerServiceMapID);
@@ -90,6 +96,16 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     this.currentDate.setSeconds(0);
     this.currentDate.setMilliseconds(0);
   }
+
+  ngDoCheck() {
+		this.assignSelectedLanguage();
+	  }
+
+	assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 
   sdChange(sd) {
     sd.setHours(0, 0, 0, 0);
@@ -120,7 +136,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   handleError(error) {
-    this.dialogService.alert("Error encountered", 'error');
+    this.dialogService.alert(this.currentLanguageSet.errorEncountered, 'error');
   }
 
   getAllNotificationTypes(providerServiceMapID) {
@@ -132,7 +148,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   getAllNotificationTypesSuccessHandeler(response) {
     console.log('notification types', response);
     if (response.data.length === 0) {
-      this.dialogService.alert('No notification types found. contact admin')
+      this.dialogService.alert(this.currentLanguageSet.noNotificationTypesFoundContactAdmin)
     }
     else {
       this.types = response.data.filter(item => {
@@ -154,7 +170,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
           }
         }
         else {
-          this.dialogService.alert("No roles found")
+          this.dialogService.alert(this.currentLanguageSet.noRolesFound)
         }
 
       },
@@ -177,7 +193,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     console.log(response, "Offices based on role");
     this.notificationCreationForm.form.patchValue({ 'offices': undefined });
     if (response.length == 0) {
-      this.dialogService.alert("No office found with the selected role functional in them")
+      this.dialogService.alert(this.currentLanguageSet.noOfficeFoundWithTheSelectedRoleFunctionalInThem)
     }
     else {
       this.offices = response;
@@ -216,7 +232,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
           this.alerts_notifications = response.data;
         }
         else {
-          this.dialogService.alert("No Alerts or Notifications");
+          this.dialogService.alert(this.currentLanguageSet.noAlertsOrNotifications);
         }
       },
       (error) => {
@@ -305,10 +321,10 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       .subscribe(response => {
         console.log(response, "NOTIFICATION/ALERT CREATED");
         let currentDate = new Date();
-
+        this.refreshExistingTable(this.searchNotificationType, this.searchStartDate, this.searchEndDate);
         if (response.data != undefined && response.data.length > 0) {
           if (response.data[0].notificationTypeID == 18) {
-            this.dialogService.alert("Alert created successfully", 'success');
+            this.dialogService.alert(this.currentLanguageSet.alertCreatedSuccessfully, 'success');
             this.notificationCreationForm.reset();
             if (startDate.getTime() <= currentDate.getTime()) {
               this.notification_service.sendSocketNotification({
@@ -323,7 +339,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
             }
           }
           if (response.data[0].notificationTypeID == 19) {
-            this.dialogService.alert("Notification created successfully", 'success');
+            this.dialogService.alert(this.currentLanguageSet.notificationCreatedSuccessfully, 'success');
             this.notificationCreationForm.reset();
             if (startDate.getTime() <= currentDate.getTime()) {
               this.notification_service.sendSocketNotification({
@@ -337,6 +353,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
                 });
             }
           }
+          this.showTable();
         }
         if (response.statusCode === 5000) {
           this.dialogService.alert(response.status, 'error');
@@ -345,7 +362,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.dialogService.alert("Notification/Alert creation failed. Contact backend team", 'error');
+        this.dialogService.alert(this.currentLanguageSet.notificationAlertCreationFailedContactBackendTeam, 'error');
       });
   }
 
@@ -441,7 +458,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       this.notification_service.updateNotification(obj).subscribe(response => this.updateSuccess(response), err => this.notificationError(err));
     }
     else {
-      this.dialogService.alert("Valid Till should be a future date than Valid From");
+      this.dialogService.alert(this.currentLanguageSet.validTillShouldBeAFutureDateThanValidFrom);
       this.edate = undefined;
     }
 
@@ -452,7 +469,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     console.log(response.data);
     if (response.data) {
       this.showTable();
-      this.dialogService.alert(this.editType + " edited successfully", 'success');
+      this.dialogService.alert(this.editType +' '+ this.currentLanguageSet.editedSuccessfully, 'success');
 
       this.refreshExistingTable(this.searchNotificationType, this.searchStartDate, this.searchEndDate);
     }
@@ -460,7 +477,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
   notificationError(error) {
     console.log("error", error);
-    this.dialogService.alert("Edit failed. Contact DB team", 'error')
+    this.dialogService.alert(this.currentLanguageSet.editFailedContactDbTeam, 'error')
   }
 
   /* ------------- */
@@ -472,6 +489,15 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   showTable() {
+    if(this.createMode === true)
+    {
+      this.invalidTimeFlag = false;
+      this.notificationCreationForm.reset();
+    }
+    if(this.editMode === true)
+    {
+      this.notificationEditingForm.reset();
+    }
     this.searchMode = true;
     this.editMode = false;
     this.createMode = false;
@@ -504,7 +530,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
           this.alerts_notifications = response.data;
         }
         else {
-          this.dialogService.alert("No Alerts or Notifications");
+          this.dialogService.alert(this.currentLanguageSet.noAlertsOrNotifications);
         }
       },
       (error) => {
@@ -521,7 +547,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     if (start_date == end_date) {
       if (start_time != undefined && end_time != undefined) {
         if (start_time > end_time) {
-          this.dialogService.alert("End time can't be less than start time", 'info');
+          this.dialogService.alert(this.currentLanguageSet.endTimeCantBeLessThanStartTime, 'info');
           this.endTime = undefined;
         }
       }

@@ -6,6 +6,8 @@ import { QualityAuditService } from '../services/supervisorServices/quality-audi
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { NgForm } from '@angular/forms';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 // import * as jsPDF from 'jspdf';
 // declare var jQuery: any;
 
@@ -55,6 +57,7 @@ export class QualityAuditComponent implements OnInit {
  
   recordingArray:any = [];
   apiCall: boolean=true;
+  currentLanguageSet: any;
   pageCount: any;
   pager: any;
   validFrom: Date;
@@ -64,21 +67,21 @@ export class QualityAuditComponent implements OnInit {
   today: Date;
   maxEndDate: Date;
 
-
   constructor(
     private configService: ConfigService,
     public sanitizer: DomSanitizer,
     private commonData: dataService,
     private qualityAuditService: QualityAuditService,
     private alertService: ConfirmationDialogsService,
-    public dialog: MdDialog
+    public dialog: MdDialog,public HttpServices: HttpServices
   ) { }
 
   ngOnInit() {
     this.setTodaydate();
+    this.assignSelectedLanguage();
     var currentDate = new Date();
-    //this.setMinMaxDate(currentDate);
-    
+    // this.setMinMaxDate(currentDate);
+
     // let url = this.configService.getTelephonyServerURL() + "adminui.php?voice_logger";
     // console.log("url = " + url);
     // this.qualityAuditURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -86,12 +89,22 @@ export class QualityAuditComponent implements OnInit {
     this.serviceProviderID = this.commonData.serviceProviderID;
     this.providerServiceMapID = this.commonData.current_service.serviceID;
     // this.getFilteredCallList_default();
+    this.currentDateCallRecordingRequest(this.pageNo);
     this.getServiceProviderID();
     this.currentDateCallRecordingRequest(this.pageNo);
     // this.getServicelines();
     // this.getAgents();
     // this.getCallTypes();
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+  }
+  
   resetFlag()
   {
     this.dispFlag=0;
@@ -130,7 +143,7 @@ export class QualityAuditComponent implements OnInit {
         console.log("RecordingArray",this.recordingArray)
       },
       err => {
-        this.alertService.alert("Failed to get the voice file path", 'error');
+        this.alertService.alert(this.currentLanguageSet.failedToGetTheVoiceFilePath, 'error');
             console.log("ERROR", err);
           }
       );
@@ -147,58 +160,63 @@ export class QualityAuditComponent implements OnInit {
   }
 
 
-  setMinMaxDate(startDate) {
-    startDate.setHours(0, 0, 0, 0);
-    this.qaForm.form.patchValue({ 'startDate': new Date(startDate) });
-    // startDate.setHours(0, 0, 0, 0);
-    this.min = new Date(startDate);
+  // setMinMaxDate(startDate) {
+  //   startDate.setHours(0, 0, 0, 0);
+  //   this.qaForm.form.patchValue({ 'startDate': new Date(startDate) });
+  //   // startDate.setHours(0, 0, 0, 0);
+  //   this.min = new Date(startDate);
 
-    var date = new Date();
-    date.setDate(startDate.getDate() + 14);
-    date.setHours(23, 59, 59, 0)
+  //   var date = new Date();
+  //   date.setDate(startDate.getDate() + 14);
+  //   date.setHours(23, 59, 59, 0)
 
 
-    let currentDate = new Date();
-    currentDate.setHours(23, 59, 59, 0);
+  //   let currentDate = new Date();
+  //   currentDate.setHours(23, 59, 59, 0);
 
-    if (date > currentDate) {
-      this.max = new Date(currentDate);
-    } else {
-      this.max = new Date(date);
-    }
-  }
+  //   if (date > currentDate) {
+  //     this.max = new Date(currentDate);
+  //   } else {
+  //     this.max = new Date(date);
+  //   }
+  // }
 
   setEndDate() {
     this.resetWorklistData();
     const timeDiff = this.validTill.getTime() - this.validFrom.getTime();
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if (diffDays >= 30) {
-      this.maxEndDate = new Date(this.validFrom);
-      this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
-      this.maxEndDate.setHours(23, 59, 59, 0);
-      this.validTill = this.maxEndDate;
-    }
-    if (diffDays < 30) {
-      const endDateDiff =  this.today.getTime() - this.maxEndDate.getTime();
-      const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
-      if (enddiffDays >= 30) {
+    if (diffDays >= 0) {
+      if (diffDays > 31) {
         this.maxEndDate = new Date(this.validFrom);
-        this.maxEndDate.setDate(this.maxEndDate.getDate() + 29);
+        this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
         this.maxEndDate.setHours(23, 59, 59, 0);
         this.validTill = this.maxEndDate;
-      } else {
-        this.today.setHours(23, 59, 59, 0);
-        this.validTill = this.today;
-        this.maxEndDate = this.today;
       }
-    
+      if (diffDays <= 31) {
+        this.checkForEndDateDifference();
+      }
+    } else {
+      this.checkForEndDateDifference();
+    }
+  }
+  checkForEndDateDifference() {
+    const endDateDiff = this.today.getTime() - this.validFrom.getTime();
+    const enddiffDays = Math.ceil(endDateDiff / (1000 * 3600 * 24));
+    if (enddiffDays > 31) {
+      this.maxEndDate = new Date(this.validFrom);
+      this.maxEndDate.setDate(this.maxEndDate.getDate() + 30);
+      this.maxEndDate.setHours(23, 59, 59, 0);
+      this.validTill = this.maxEndDate;
+    } else {
+      this.today.setHours(23, 59, 59, 0);
+      this.validTill = this.today;
+      this.maxEndDate = this.today;
     }
   }
   resetWorklistData() {
     this.filteredCallList = [];
     this.pager = 0;
   }
-
   setTodaydate() {
     this.today = new Date();
     this.today.setHours(0, 0, 0, 0);
@@ -509,12 +527,10 @@ createPagination(endPage, startPage, pageNo, totalPages) {
       this.callSubTypes = arr;
     }
   }
-
   resetValuesOnchange() {
     this.resetWorklistData();
     this.validTill.setHours(23, 59, 59, 0);
   }
-
   setPage(pageNo: number, formValues) {
     this.audioResponse = [];
     this.recordingArray = [];
@@ -606,14 +622,24 @@ export class CaseSheetSummaryDialogComponent implements OnInit {
   @Output() hideCaseSheet: EventEmitter<any> = new EventEmitter<any>();
 
   current_date = new Date();
+  currentLanguageSet: any;
   constructor(
     private commondata: dataService,
-    private alertService: ConfirmationDialogsService) {
+    private alertService: ConfirmationDialogsService,public HttpServices: HttpServices) {
 
   }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
 
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
 

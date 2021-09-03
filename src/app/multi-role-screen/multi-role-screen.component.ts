@@ -16,6 +16,7 @@ import { MdDialog } from '@angular/material';
 import { AgentForceLogoutComponent } from '../agent-force-logout/agent-force-logout.component';
 import { HttpServices } from "../services/http-services/http_services.service";
 import { ViewVersionDetailsComponent } from '../view-version-details/view-version-details.component';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-multi-role-screen',
@@ -43,7 +44,11 @@ export class MultiRoleScreenComponent implements OnInit {
   uiVersionDetails: any;
   commitDetails: any;
   commitDetailsPath: any = "assets/git-version.json";
-
+  language_file_path: any = "./assets/";
+  currentLanguageSet: any;
+  app_language: any;
+  languageArray: any;
+  
   constructor(public dataSettingService: dataService, private _config: ConfigService, location: PlatformLocation,
     public router: Router, private authService: AuthService, private _loginService: loginService, private Czentrix: CzentrixServices,
     private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer, private listnerService: ListnerService, private dialog: MdDialog,
@@ -58,6 +63,7 @@ export class MultiRoleScreenComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.dataSettingService.sendHeaderStatus.subscribe((data) => { this.setHeaderName(data) });
 
     this.data = this.dataSettingService.Userdata;
@@ -101,12 +107,25 @@ export class MultiRoleScreenComponent implements OnInit {
     //   location.assign(this.loginUrl);
     //   Cookie.deleteAll();
     // }
+    this.fetchLanguageSet();
   }
   // logOut() {
   //   this.router.navigate([''])
   //   // Cookie.deleteAll();
   //   // location.assign(this.loginUrl);
   // }
+  
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+    this.app_language=this.dataSettingService.appLanguage;
+	  }
+
   setHeaderName(data) {
     this.label = data;
     if (this.label.includes('Dashboard')) {
@@ -136,6 +155,8 @@ export class MultiRoleScreenComponent implements OnInit {
       if (res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
         sessionStorage.removeItem('isEverwellCall');
+        sessionStorage.removeItem("setLanguage");
+        this.dataSettingService.appLanguage="English";
         this.router.navigate(['']);
         sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
@@ -143,15 +164,19 @@ export class MultiRoleScreenComponent implements OnInit {
       } else {
         sessionStorage.removeItem('isOnCall');
         sessionStorage.removeItem('isEverwellCall');
+        sessionStorage.removeItem("setLanguage");
+        this.dataSettingService.appLanguage="English";
         this.router.navigate(['']);
         sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
 
-        // this.alertMessage.alert('Czentrix Agent Not Logged In');
+      
       }
     }, (err) => {
       sessionStorage.removeItem('isOnCall');
       sessionStorage.removeItem('isEverwellCall');
+      sessionStorage.removeItem("setLanguage");
+      this.dataSettingService.appLanguage="English";
       this.router.navigate(['']);
       this.authService.removeToken();
 
@@ -219,4 +244,74 @@ export class MultiRoleScreenComponent implements OnInit {
       }
     })
   }
+  /*Methods for multilingual implementation*/
+  fetchLanguageSet() {
+    this.HttpServices.fetchLanguageSet().subscribe((languageRes) => {
+      this.languageArray = languageRes;
+      this.getLanguage();
+    });
+  }
+
+  getLanguage() {
+    if (sessionStorage.getItem("setLanguage") != null) {
+      this.changeLanguage(sessionStorage.getItem("setLanguage"));
+    } else {
+      this.changeLanguage(this.app_language);
+    }
+  }
+
+  changeLanguage(language) {
+    this.HttpServices.getLanguage(
+      this.language_file_path + language + ".json"
+    ).subscribe(
+      (response) => {
+        if (response) {
+          this.languageSuccessHandler(response, language);
+        } else {
+          alert("Language not defined");
+        }
+      },
+      (error) => {
+        alert("We are coming up with this language" + "" + language);
+      }
+    );
+  }
+
+  languageSuccessHandler(response, language) {
+    if (!this.checkForNull(response)) {
+      alert("We are coming up with this language" + " " + language);
+      return;
+    }
+    console.log("language is ", response);
+    this.currentLanguageSet = response[language];
+    sessionStorage.setItem("setLanguage", language);
+    if (this.currentLanguageSet) {
+      this.languageArray.forEach((item) => {
+        if (item.languageName === language) {
+          this.app_language = language;
+          this.dataSettingService.appLanguage=language;
+        }
+      });
+    } else {
+      this.app_language = language;
+      this.dataSettingService.appLanguage=language;
+    }
+    this.HttpServices.getCurrentLanguage(response[language]);
+  }
+  checkForNull(languageResponse) {
+    return languageResponse !== undefined && languageResponse !== null;
+  }
+
+  setLangugage() {
+    const languageSubscription = this.HttpServices.currentLangugae$.subscribe((languageResponse) => {
+      if (!this.checkForNull(languageResponse)) {
+        return;
+      }
+      this.currentLanguageSet = languageResponse;
+    },
+    (err) => { console.log(err); },
+    () => { console.log('completed')});
+    languageSubscription.unsubscribe();
+  }
+  /*END - Methods for multilingual implementation*/
 }

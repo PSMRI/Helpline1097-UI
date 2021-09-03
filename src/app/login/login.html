@@ -1,14 +1,14 @@
 <md-grid-list cols="1" rowHeight="650px" (mouseup)="hidePWD()">
   <md-grid-tile>
-    <md-card class="loginCard">
-      <md-card-title>
+    <md-card class="cardStyle loginCard">
+      <md-card-title class="cardTitleStyle">
         <div class="btn-center"> <img class="m-l--30" src="assets/images/Swasthya.png" alt="Logo"> </div>
       </md-card-title>
       <md-card-content>
         <form class="form-horizontal cu-form-horizontal-label-left" name="loginForm" (ngSubmit)="f.form.valid && login(userID,password)" #f="ngForm" autocomplete="off">
           <div class="row">
             <div class="col-xs-1 col-md-1 col-sm-1">
-              <i class="mdicon material-icons formIcons">account_box</i>
+              <span class="mdicon material-icons formIcons">account_box</span>
             </div>
             <div class="col-xs-11 col-md-11 col-sm-11">
               <md-input-container class="full-width">
@@ -18,7 +18,7 @@
           </div>
           <div class="row" fxLayoutAlign="start end">
             <div class="col-xs-1 col-md-1 col-sm-1">
-              <i class="mdicon material-icons formIcons">lock</i>
+              <span class="mdicon material-icons formIcons">lock</span>
             </div>
             <div class="col-xs-11 col-md-11 col-sm-11">
               <md-input-container class="full-width">

@@ -12,6 +12,8 @@ import { ReloadService } from './../services/common/reload.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { CollapseDirective } from './../directives/collapse/collapse.directive'
 import { ClearFormService } from './../services/common/clearform.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from "../services/http-services/http_services.service";
 @Component({
   selector: 'app-1097-co',
   templateUrl: './1097-co.component.html',
@@ -45,6 +47,7 @@ export class helpline1097CoComponent implements OnInit {
   @Output() submitBtnCheck : EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancel') cancel;
   submitCheck: boolean;
+  currentLanguageSet: any;
 
   constructor(
     public getCommonData: dataService,
@@ -58,7 +61,7 @@ export class helpline1097CoComponent implements OnInit {
     private outBoundService: OutboundService,
     private reloadCall: ReloadService,
     private czentrixService: CzentrixServices,
-    private ClearForm: ClearFormService
+    private ClearForm: ClearFormService,public HttpServices: HttpServices
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
@@ -89,7 +92,7 @@ export class helpline1097CoComponent implements OnInit {
           }​​​​​​​​
       if (sessionStorage.getItem("session_id") !== undefined) {​​​​​​​
             this.getCommonData.callID =sessionStorage.getItem("session_id");
-           // this.getCommonData.isOutbound = true;
+           
           }
     // this.router.params.subscribe((params: Params) => {
     //   if (params['mobileNumber'] != undefined) {
@@ -109,9 +112,18 @@ export class helpline1097CoComponent implements OnInit {
     console.log("submitCheck", this.submitCheck);
     
     console.log('isEverwell'+this.isEverwell);    
+    this.assignSelectedLanguage();
   }
 
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
   /*experiment*/
   // f:boolean=true;
   // toggleVAL()
@@ -246,7 +258,7 @@ export class helpline1097CoComponent implements OnInit {
   }
   openDialog() {
 
-    this.dialogService.confirm('Cancel Call ', 'Do you want to cancel?').subscribe((response) => {
+    this.dialogService.confirm('Cancel Call ', this.currentLanguageSet.doYouWantToCancel).subscribe((response) => {
       if (response) {
         this.resetProvideServices = '2';
         // this.reloadCall();
@@ -271,7 +283,7 @@ export class helpline1097CoComponent implements OnInit {
   }
   openEverwellDialog() {
 
-    this.dialogService.confirm('Cancel Call ', 'Do you want to cancel?').subscribe((response) => {
+    this.dialogService.confirm('Cancel Call ', this.currentLanguageSet.doYouWantToCancel).subscribe((response) => {
       if (response) {
         this.resetProvideServices = '2';
         // this.reloadCall();
@@ -296,7 +308,7 @@ export class helpline1097CoComponent implements OnInit {
   }
   openDialogClosure() {
 
-    this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
+    this.dialogService.confirm('Closure ', this.currentLanguageSet.doYouWantToCloseTheCall).subscribe((response) => {
       if (response) {
         this.resetProvideServices = '3';
         jQuery('#myCarousel').carousel(3);
@@ -313,7 +325,7 @@ export class helpline1097CoComponent implements OnInit {
 
   openEverwellDialogClosure() {
 
-    this.dialogService.confirm('Closure ', 'Do you want to close the call?').subscribe((response) => {
+    this.dialogService.confirm('Closure ', this.currentLanguageSet.doYouWantToCloseTheCall).subscribe((response) => {
       if (response) {
         this.resetProvideServices = '3';
         jQuery('#myCarouselEverwell').carousel(1);

@@ -4,6 +4,8 @@ import { OutboundReAllocationService } from "../services/outboundServices/outbou
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { CallServices } from '../services/callservices/callservice.service'
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 declare var jQuery: any;
 
@@ -37,10 +39,12 @@ export class CallReAllocateComponent implements OnInit {
   endMinDate: Date;
 
   a: any = [];
+  currentLanguageSet: any;
 
   constructor(private OCRService: OutboundReAllocationService,
     private getCommonData: dataService, private alertService: ConfirmationDialogsService,
-    private _callServices: CallServices
+    private _callServices: CallServices,
+    private HttpServices:HttpServices
   ) { }
 
   ngOnInit() {
@@ -66,7 +70,7 @@ export class CallReAllocateComponent implements OnInit {
     // this.endMinDate=new Date();
     // this.endMinDate.setDate(this.endMinDate.getDate()+7);
     // this.endDatee=this.endMinDate;
-
+    this.assignSelectedLanguage();
   }
 
   updateMinValue(d) {
@@ -127,7 +131,8 @@ export class CallReAllocateComponent implements OnInit {
         console.log(resProviderData, "in component reallocate-calls, post successful response");
         this.totalAgentRecords = resProviderData;
         if (this.totalAgentRecords.length == 0) {
-          this.alertService.alert("No records available.");
+          
+          this.alertService.alert(this.currentLanguageSet.noRecordsAvailable);
         }
         else {
           this.onAgentSelected = true;
@@ -186,7 +191,8 @@ export class CallReAllocateComponent implements OnInit {
         "eapiIds": tempArray
       }).subscribe((response) => {
         console.log(response);
-        this.alertService.alert("Moved to bin successfully",'success');
+        // movedToBinSuccessfully
+        this.alertService.alert(this.currentLanguageSet.movedToBinSuccessfully,'success');
         // refreshing after moving to bin
         this.reallocationDone();
       },
@@ -256,5 +262,13 @@ export class CallReAllocateComponent implements OnInit {
     // debugger;
     this.a = res;
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

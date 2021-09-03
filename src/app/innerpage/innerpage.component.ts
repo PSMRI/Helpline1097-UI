@@ -16,6 +16,7 @@ import { ListnerService } from './../services/common/listner.service';
 import { AuthService } from '../services/authentication/auth.service';
 import { RegisterService } from '../services/register-services/register-service';
 import { Subscription } from 'rxjs/Subscription';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 declare const jQuery: any;
 
@@ -59,7 +60,10 @@ export class InnerpageComponent implements OnInit {
   callID: any;
   wrapupTimerSubscription: Subscription;
   ipAddress: any;
-  // eventSpiltData: any;
+  language_file_path: any = "./assets/";
+  currentLanguageSet: any;
+  app_language: any;
+  languageArray: any;
 
 
   @Output() updateClosureData: EventEmitter<any> = new EventEmitter<any>();
@@ -69,7 +73,6 @@ export class InnerpageComponent implements OnInit {
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
   current_service: any;
   current_role: any;
-  // loginUrl = this._config.getCommonLoginUrl();
   data: any = {};
   ctiHandlerURL: any;
   transferCallID: any;
@@ -88,6 +91,9 @@ export class InnerpageComponent implements OnInit {
   everwelleapiId: any;
   everwellSubmitBtn: boolean = false;
   custdisconnectCallID: any;
+  current_roleID: any;
+
+
   constructor(
     public getCommonData: dataService,
     private _callServices: CallServices,
@@ -130,14 +136,14 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
-    
+    this.assignSelectedLanguage();
     this.current_service = this.getCommonData.current_service.serviceName;
     this.current_role = this.getCommonData.current_role.RoleName;
     const obj = { 'innerPage': true };
     this.listnerService.cZentrixSendData(obj);
     this.data = this.getCommonData.Userdata;
     this.id = this.getCommonData.cZentrixAgentID;
-
+    this.current_roleID=this.getCommonData.current_role.RoleID;
     this.providerServiceMapId = this.getCommonData.current_service.serviceID;
 
     const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.id;
@@ -189,6 +195,7 @@ export class InnerpageComponent implements OnInit {
     this.getAgentCallDetails();
     this.isEverwell = sessionStorage.getItem("isEverwellCall");
 
+    this.fetchLanguageSet();
 
   }
   addActiveClass(val: any) {
@@ -252,7 +259,7 @@ export class InnerpageComponent implements OnInit {
               });
               console.log('**********BENEFICIARY REG ID**********', data.beneficiaryRegID);
               this.getCommonData.beneficiaryRegID = data.beneficiaryRegID;
-              this.selectedBenData.id = 'Ben ID: ' + data.beneficiaryID;
+              this.selectedBenData.id = this.currentlanguageSet.benId + ": " + data.beneficiaryID;
               this.beneficiaryRegID = data.beneficiaryRegID;
               let fname = data.firstName ? data.firstName : "";
               let lname = data.lastName ? data.lastName : "";
@@ -372,12 +379,14 @@ export class InnerpageComponent implements OnInit {
   // }
   log_out() {
     if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
-      this.remarksMessage.alert('Cannot logout during active call');
+      this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
     } else {
       sessionStorage.removeItem('isOnCall');
       sessionStorage.removeItem('isEverwellCall');
       this.basicrouter.navigate(['']);
       this.authService.removeToken();
+      sessionStorage.removeItem("setLanguage");
+      this.getCommonData.appLanguage="English";
     }
 
   }
@@ -406,15 +415,19 @@ export class InnerpageComponent implements OnInit {
         sessionStorage.removeItem('isOnCall');
         sessionStorage.removeItem('isEverwellCall');
         sessionStorage.removeItem('apiman_key');
+        sessionStorage.removeItem("setLanguage");
+        this.getCommonData.appLanguage="English";
         this.basicrouter.navigate(['']);
       } else {
         if (this.current_role.toLowerCase() !== 'supervisor') {
 
-          this.remarksMessage.alert('Cannot logout during active call');
+          this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
         } else {
           sessionStorage.removeItem('isOnCall');
           sessionStorage.removeItem('isEverwellCall');
-          sessionStorage.removeItem('apiman_key');          
+          sessionStorage.removeItem('apiman_key');   
+          sessionStorage.removeItem("setLanguage");
+          this.getCommonData.appLanguage="English";       
           this.basicrouter.navigate(['']);
         }
       }
@@ -430,11 +443,13 @@ export class InnerpageComponent implements OnInit {
         if (res.response.status.toUpperCase() !== 'FAIL') {
           sessionStorage.removeItem('isOnCall');
           sessionStorage.removeItem('isEverwellCall');
+          sessionStorage.removeItem("setLanguage");
+          this.getCommonData.appLanguage="English";
           this.basicrouter.navigate(['']);
         } else {
-          // if (this.current_role.toLowerCase() !== 'supervisor') {
-          this.remarksMessage.alert('Cannot logout during active call');
-          // }
+         
+          this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
+        
         }
       }, (err) => {
         this.remarksMessage.alert(err.errorMessage);
@@ -442,6 +457,8 @@ export class InnerpageComponent implements OnInit {
     } else {
       sessionStorage.removeItem('isOnCall');
       sessionStorage.removeItem('isEverwellCall');
+      sessionStorage.removeItem("setLanguage");
+      this.getCommonData.appLanguage="English";
       this.basicrouter.navigate(['']);
     }
   }
@@ -467,7 +484,7 @@ export class InnerpageComponent implements OnInit {
           this.transferCallID = transferObj[0].callTypeID;
         }
       } else {
-        this.remarksMessage.alert('Failed to get call types');
+        this.remarksMessage.alert(this.currentlanguageSet.failedToGetCallTypes);
       }
 
       // let wrapupObj = response.filter(function (item) {
@@ -515,7 +532,7 @@ export class InnerpageComponent implements OnInit {
           this.disconectCallId = validObj[0].callTypeID;
         }
       } else {
-        this.remarksMessage.alert('Failed to get call types');
+        this.remarksMessage.alert(this.currentlanguageSet.failedToGetCallTypes);
       }
       if (!this.transferCallID) {
         this.transferCallID = this.disconectCallId;
@@ -705,23 +722,57 @@ export class InnerpageComponent implements OnInit {
   }
 
   startCallWraupup(eventData) {
-    this.wrapupTime = true;
-    this.callTime = false;
-    const timer = Observable.timer(2000, 1000);
-    this.wrapupTimerSubscription = timer.subscribe(t => {
-      this.ticks = (this.timeRemaining - t);
-      this.ticks = this.ticks + 's';
-      const remarks = 'Call disconnect from customer.';
+    // this.wrapupTime = true;
+    // this.callTime = false;
+    // const timer = Observable.timer(2000, 1000);
+    // this.wrapupTimerSubscription = timer.subscribe(t => {
+    //   this.ticks = (this.timeRemaining - t);
+    //   this.ticks = this.ticks + 's';
+    //   const remarks = 'Call disconnect from customer.';
       
-      if (t == this.timeRemaining) {
-        this.wrapupTimerSubscription.unsubscribe();
-        t = 0;
-        this.ticks = 0;
-        // this.remarksMessage.close();
-        this.closeCall(eventData, remarks, 'Call closed successfully', this.wrapupCallID);
-      }
-    });
+    //   if (t == this.timeRemaining) {
+    //     this.wrapupTimerSubscription.unsubscribe();
+    //     t = 0;
+    //     this.ticks = 0;
+    //     // this.remarksMessage.close();
+    //     this.closeCall(eventData, remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
+    //   }
+    // });
+    this._callServices.getRoleBasedWrapuptime(this.current_roleID).subscribe(
+			(roleWrapupTime) => {
+			  if (roleWrapupTime.data != undefined && roleWrapupTime.data.isWrapUpTime !=undefined 
+				&& roleWrapupTime.data.WrapUpTime!=undefined && roleWrapupTime.data.isWrapUpTime) {
+				this.roleBasedCallWrapupTime(roleWrapupTime.data.WrapUpTime,eventData);
+			  } else {
+				const time = this.timeRemaining;
+				this.roleBasedCallWrapupTime(time,eventData);
+				console.log('Need to configure wrap up time');
+			  }
+			},
+			(err) => {
+			  const time = this.timeRemaining;
+			  this.roleBasedCallWrapupTime(time,eventData);
+			  console.log('Need to configure wrap up time', err.errorMessage);
+			}
+		  );
   }
+  roleBasedCallWrapupTime(timeRemaining,eventData) {
+		console.log('roleBasedCallWrapupTime', timeRemaining);
+		const timer = Observable.timer(2000, 1000);
+		this.wrapupTimerSubscription = timer.subscribe((t) => {
+		  this.ticks = timeRemaining - t;
+		  console.log('timer t', t);
+		  console.log('ticks', this.ticks);
+		  if (t === timeRemaining) {
+			this.wrapupTimerSubscription.unsubscribe();
+			t = 0;
+			this.ticks = 0;
+			console.log('after re initialize the timer', t);
+      const remarks = 'Call disconnect from customer.';
+			this.closeCall(eventData, remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
+		  }
+		});
+	  }
   disconnectCall() {
     // this.remarksMessage.alert('Call Disconnected From Caller. Please Proceed To Call Closure.');
     this.getCommonData.isCallDisconnected = true;
@@ -762,15 +813,8 @@ export class InnerpageComponent implements OnInit {
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe((res) => {
       console.log('CALL DETAILS RESPONSE', res);
-      this.TotalCalls = 'Total Calls : ' + res.data.total_calls;
-      this.TotalTime = 'Total Calls Durations : ' + res.data.total_call_duration;
-      // if (this.callStatus.toLowerCase().trim() === 'closure') {
-      //   this.wrapupTime = true;
-      //   this.callTime = false;
-      // }
-      // if (res.data.stateObj.stateType) {
-      //   this.callStatus += ' (' + res.data.stateObj.stateType + ')';
-      // }
+      this.TotalCalls = res.data.total_calls;
+      this.TotalTime = res.data.total_call_duration;
     }, (err) => {
       if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
         this.remarksMessage.alert(err.errorMessage);
@@ -788,4 +832,85 @@ export class InnerpageComponent implements OnInit {
   finalSubmitBtnCheck(submitBtnStatus){
     this.everwellSubmitBtn = submitBtnStatus;
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentlanguageSet = getLanguageJson.currentLanguageObject;
+    this.app_language= this.getCommonData.appLanguage;
+	  }
+
+     /*Methods for multilingual implementation*/
+  fetchLanguageSet() {
+    this.HttpServices.fetchLanguageSet().subscribe((languageRes) => {
+      this.languageArray = languageRes;
+      this.getLanguage();
+    });
+  }
+
+  getLanguage() {
+    if (sessionStorage.getItem("setLanguage") != null) {
+      this.changeLanguage(sessionStorage.getItem("setLanguage"));
+    } else {
+      this.changeLanguage(this.app_language);
+    }
+  }
+
+  changeLanguage(language) {
+    this.HttpServices.getLanguage(
+      this.language_file_path + language + ".json"
+    ).subscribe(
+      (response) => {
+        if (response) {
+          this.languageSuccessHandler(response, language);
+        } else {
+          alert("Language not defined");
+        }
+      },
+      (error) => {
+        alert("We are coming up with this language" + "" + language);
+      }
+    );
+  }
+
+  languageSuccessHandler(response, language) {
+    if (!this.checkForNull(response)) {
+      alert("We are coming up with this language" + " " + language);
+      return;
+    }
+    console.log("language is ", response);
+    this.currentLanguageSet = response[language];
+    sessionStorage.setItem("setLanguage", language);
+    if (this.currentLanguageSet) {
+      this.languageArray.forEach((item) => {
+        if (item.languageName === language) {
+          this.app_language = language;
+          this.getCommonData.appLanguage=language;
+        }
+      });
+    } else {
+      this.app_language = language;
+      this.getCommonData.appLanguage=language;
+    }
+    this.HttpServices.getCurrentLanguage(response[language]);
+  }
+  checkForNull(languageResponse) {
+    return languageResponse !== undefined && languageResponse !== null;
+  }
+
+  setLangugage() {
+    const languageSubscription = this.HttpServices.currentLangugae$.subscribe((languageResponse) => {
+      if (!this.checkForNull(languageResponse)) {
+        return;
+      }
+      this.currentLanguageSet = languageResponse;
+    },
+    (err) => { console.log(err); },
+    () => { console.log('completed')});
+    languageSubscription.unsubscribe();
+  }
+  /*END - Methods for multilingual implementation*/
 }

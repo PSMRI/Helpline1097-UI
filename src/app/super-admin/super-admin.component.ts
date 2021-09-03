@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpServices } from 'app/services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-super-admin',
@@ -6,11 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./super-admin.component.css']
 })
 export class SuperAdminComponent implements OnInit {
+	currentLanguageSet: any;
 
-  constructor() { }
+  constructor(public httpServices:HttpServices) { }
 
   ngOnInit() {
+
+	this.assignSelectedLanguage();
   }
+
+  ngDoCheck() {
+	this.assignSelectedLanguage();
+  }
+
+assignSelectedLanguage() {
+	const getLanguageJson = new SetLanguageComponent(this.httpServices);
+	getLanguageJson.setLanguage();
+	this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+  }
+  
 
   show1: boolean = true;
   show2: boolean = false;

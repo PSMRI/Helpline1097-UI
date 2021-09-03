@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HttpServices } from 'app/services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
@@ -10,7 +12,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
   templateUrl: './supervisor-training-resources.component.html',
   styleUrls: ['./supervisor-training-resources.component.css']
 })
-export class SupervisorTrainingResourcesComponent implements OnInit {
+export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
 
   // ngModels
   role: any;
@@ -61,12 +63,14 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
 
   @ViewChild('trainingResources') trainingResourceForm: NgForm;
   @ViewChild('trainingResourcesEditForm') trainingResourceEditForm: NgForm;
+  currentLanguageSet: any;
 
 
 
   constructor(private saved_data: dataService,
     private notificationService: NotificationService,
-    public dialogService: ConfirmationDialogsService) { }
+    public dialogService: ConfirmationDialogsService,
+    private httpServices:HttpServices) { }
 
 
 
@@ -94,12 +98,21 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     this.currentDate.setMinutes(0);
     this.currentDate.setSeconds(0);
     this.currentDate.setMilliseconds(0);
+    this.assignSelectedLanguage();
   }
 
   go2table() {
+    if(this.showForm === true)
+    {
+      this.trainingResourceForm.reset();
+    }
     this.showTable = true;
     this.showEditForm = false;
     this.showForm = false;
+
+    
+    this.file=undefined;
+    this.count = '0/300';
   }
 
   go2form() {
@@ -123,7 +136,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           this.getTrainingResources();
         }
         else {
-          this.dialogService.alert('No roles found');
+          this.dialogService.alert(this.currentLanguageSet.noRolesFound);
         }
 
       },
@@ -218,7 +231,8 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
   createTrainingResourceSuccessHandeler(response, values, roomArray, startDate) {
     console.log(response);
     if (response) {
-      this.dialogService.alert('Training resource created successfully', 'success');
+      this.file=undefined;
+      this.dialogService.alert(this.currentLanguageSet.trainingResourceCreatedSuccessfully, 'success');
       this.trainingResourceForm.reset();
       this.count = '0/300';
 
@@ -239,7 +253,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
 
   trainingResourceErrorHandeler(error) {
     console.log(error);
-    this.dialogService.alert(error.json().errorMessage, 'alert');
+    this.dialogService.alert(error.errorMessage, 'alert');
   }
 
 
@@ -362,7 +376,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
           console.log('Training resources', this.trainingResources);
         }
         else {
-          this.dialogService.alert('No training resources found');
+          this.dialogService.alert(this.currentLanguageSet.noTrainingResourcesFound);
         }
       },
       (error) => {
@@ -388,13 +402,13 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     this.notificationService.updateNotification(object)
       .subscribe((response) => {
         if (response.data !== {}) {
-          this.dialogService.alert('Training resource activated successfully', 'success');
+          this.dialogService.alert(this.currentLanguageSet.trainingResourceActivatedSuccessfully, 'success');
           this.getTrainingResources();
         }
       },
       (error) => {
         console.log(error);
-        this.dialogService.alert("Failed to activate", 'error')
+        this.dialogService.alert(this.currentLanguageSet.failedToActivate, 'error')
       });
   }
 
@@ -416,13 +430,13 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
     this.notificationService.updateNotification(object)
       .subscribe((response) => {
         if (response.data !== {}) {
-          this.dialogService.alert('Training resource deactivated successfully', 'success');
+          this.dialogService.alert(this.currentLanguageSet.trainingResourceDeactivatedSuccessfully, 'success');
           this.getTrainingResources();
         }
       },
       (error) => {
         console.log(error);
-        this.dialogService.alert('Failed to deactivate', 'error')
+        this.dialogService.alert(this.currentLanguageSet.failedToDeactivate, 'error')
       });
   }
 
@@ -504,7 +518,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
   updateSuccess(response) {
     console.log(response.data);
     if (response.data) {
-      this.dialogService.alert('Training resource updated successfully', 'success');
+      this.dialogService.alert(this.currentLanguageSet.trainingResourceUpdatedSuccessfully, 'success');
       this.trainingResourceEditForm.reset();
       this.count = '0/300';
       this.getTrainingResources();
@@ -514,6 +528,14 @@ export class SupervisorTrainingResourcesComponent implements OnInit {
 
   notificationError(error) {
     console.log('error', error);
-    this.dialogService.alert('Failed to update', 'error')
+    this.dialogService.alert(this.currentLanguageSet.failedToUpdate, 'error')
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	}
 }

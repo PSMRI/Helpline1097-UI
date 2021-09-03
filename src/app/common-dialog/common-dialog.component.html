@@ -1,26 +1,20 @@
 <div [ngClass]="{'headerDiv': status=='info', 'successHeaderDiv': status=='success', 'errorHeaderDiv': status=='error'}">
-  <h4 class="popupHeader" *ngIf="status=='info'"><b>Info</b></h4>
-  <h4 class="popupHeader" *ngIf="status=='success'"><b>Success</b></h4>
-  <h4 class="popupHeader" *ngIf="status=='error'"><b>Error</b></h4>
+  <h4 class="popupHeader" *ngIf="status=='info'"><strong>{{currentLanguageSet?.info}}</strong></h4>
+  <h4 class="popupHeader" *ngIf="status=='success'"><strong>{{currentLanguageSet?.success}}</strong></h4>
+  <h4 class="popupHeader" *ngIf="status=='error'"><strong>{{currentLanguageSet?.error}}</strong></h4>
 </div>
 <div class="container-fluid" *ngIf="confirmAlert">
   <h3 md-dialog-title>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-btn">{{message}}</div>
-      <!-- <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 ">
-        <button class="pull-right" md-icon-button class="closeBtn" md-dialog-close>
-          <i class="material-icons">close</i>
-        </button>
-      </div> -->
+     
     </div>
   </h3>
   <md-dialog-content>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div  md-dialog-content>
-          <!-- <div>
-            <h3>{{message}}</h3>
-          </div> -->
+         
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 center-btn m-t-5 m-b-5">
             <button md-raised-button color="primary" (click)="dialogRef.close(true)">{{btnOkText}}</button>
           </div>
@@ -37,11 +31,7 @@
   <h3 md-dialog-title>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">{{message}}</div>
-      <!-- <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
-        <button class="pull-right" md-icon-button class="closeBtn" md-dialog-close>
-          <i class="material-icons">close</i>
-        </button> -->
-      <!-- </div> -->
+    
     </div>
   </h3>
   <md-dialog-content>
@@ -58,7 +48,7 @@
       <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">{{message}}</div>
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
         <button class="pull-right " md-icon-button class="closeBtn " md-dialog-close>
-          <i class="material-icons ">close</i>
+          <span class="material-icons ">{{currentLanguageSet?.close}}</span>
         </button>
       </div>
     </div>
@@ -67,7 +57,7 @@
     <div class="row ">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-btn">
         <md-input-container [style.width]="'100%'">
-          <input mdInput placeholder="Enter Remarks" name="Remarks" #remarksRef>
+          <input mdInput placeholder="{{currentLanguageSet?.enterRemarks}}" name="Remarks" #remarksRef>
         </md-input-container>
       </div>
     </div>

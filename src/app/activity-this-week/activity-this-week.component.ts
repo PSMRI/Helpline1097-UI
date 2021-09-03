@@ -6,6 +6,8 @@ import { MdDialog } from '@angular/material';
 import { CallServices } from 'app/services/callservices/callservice.service';
 import { ConfirmationDialogsService } from 'app/services/dialog/confirmation.service';
 import { Router } from '@angular/router';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from "../services/http-services/http_services.service";
 @Component({
   selector: 'activity-this-week',
   templateUrl: './activity-this-week.component.html',
@@ -19,15 +21,16 @@ export class ActivityThisWeekComponent implements OnInit {
   kmconfig: any = [];
   kmFiles: any = [];
   @Output() hide_component: EventEmitter<any> = new EventEmitter<any>();
+  currentLanguageSet: any;
 
   constructor(public getCommonData: dataService,
-    public notificationService: NotificationService,
+    public notificationService: NotificationService,private HttpServices:HttpServices,
     public dialog: MdDialog, private callService: CallServices, private message: ConfirmationDialogsService, public router: Router) {
 
   }
 
   ngOnInit() {
-
+    this.assignSelectedLanguage();
     this.role = this.getCommonData.current_role.RoleName;
     this.current_roleID = this.getCommonData.current_role.RoleID;
     this.providerServiceMapID = this.getCommonData.current_service.serviceID;
@@ -36,7 +39,15 @@ export class ActivityThisWeekComponent implements OnInit {
     this.getNotificationTypes();
 
   };
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
   close() {
     this.hide_component.emit('1');
   };

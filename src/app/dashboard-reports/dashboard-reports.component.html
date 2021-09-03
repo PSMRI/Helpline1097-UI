@@ -1,13 +1,13 @@
 <div class="panel panel-default m-b-10">
-    <div class="panel-heading p-t-b-3 f-s-16 bg-white">Reports <span class="pull-right"><img src="assets/images/reportsIcon.png" alt="Reports"></span></div>
+    <div class="panel-heading p-t-b-3 f-s-16 bg-white">{{currentLanguageSet?.reports}} <span class="pull-right"><img src="assets/images/reportsIcon.png" alt="Reports"></span></div>
     <div class="panel-body p-t-0">
         <div class="table-responsive" style="min-height: 118.4px">
-            <table class="table table-striped m-b-5 table-td-padding-2">
+            <table class="table table-striped m-b-5 table-td-padding-2" aria-describedby="dashboardDetails">
                 <thead>
                     <tr>
-                        <th>S.No.</th>
-                        <th>Report Name</th>
-                        <th>Date</th>
+                        <th id="sno">{{currentLanguageSet?.sno}}</th>
+                        <th id="reportName">{{currentLanguageSet?.reportName}}</th>
+                        <th id="date">{{currentLanguageSet?.date}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +29,6 @@
                 </tbody>
             </table>
         </div>
-        <label class="f-s-12 pull-right m-b-0"><a>More...</a></label>
+        <label class="f-s-12 pull-right m-b-0"><a>{{currentLanguageSet?.more}}...</a></label>
     </div>
 </div>

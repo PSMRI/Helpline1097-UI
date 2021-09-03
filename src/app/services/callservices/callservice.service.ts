@@ -32,6 +32,7 @@ export class CallServices {
   _servicetypesurl = this._commonURL + "service/servicetypes";
   _outEverwellbouncClose_url = this._commonURL + 'everwellCall/completeOutboundCall/';
   _postEverwellFeedback = this._commonURL + 'everwellCall/saveFeedback/';
+  getWrapupTime = this._commonURL +  'user/role/';
     onceOutbound: boolean = false;
 
   constructor(
@@ -150,5 +151,11 @@ export class CallServices {
   handleCustomError(error: Response) {
     return Observable.throw(error.json());
   }
+
+   //Shubham Shekhar,03-09-2021,Wrapu up configuration
+   getRoleBasedWrapuptime(roleID) {
+    return this._httpInterceptor.get(this.getWrapupTime + roleID)
+    .map((response: Response) => response.json()).catch((error) => Observable.throw(error.json()));
+}
   
 }

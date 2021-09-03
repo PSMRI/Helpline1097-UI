@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ConfigService } from '../services/config/config.service';
 
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 declare let jQuery: any;
 
 
@@ -14,6 +15,7 @@ declare let jQuery: any;
   styleUrls: ['./set-security-questions.component.css']
 })
 export class SetSecurityQuestionsComponent implements OnInit {
+  currentLanguageSet: any;
 
   constructor(
               public getUserData: dataService,
@@ -28,6 +30,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
 passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
 
   ngOnInit() {
+    this.assignSelectedLanguage();
 
     this.http_calls.getData(this.configService.getOpenCommonBaseUrl() + "user/getsecurityquetions")
     .subscribe(
@@ -36,6 +39,17 @@ passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,
                );
 
   }
+
+
+	ngDoCheck() {
+		this.assignSelectedLanguage();
+	  }
+
+	assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.http_calls);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 
   handleSuccess(response) {
     this.questions = response;
@@ -118,7 +132,7 @@ passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,
     else {
       if(this.selectedQuestions.indexOf(selectedques) != position)
       {
-        this.alertService.alert("This question is already selected. Choose unique question");
+        this.alertService.alert(this.currentLanguageSet.thisQuestionIsAlreadySelectedChooseUniqueQuestion);
       }
       else
       {
@@ -215,7 +229,7 @@ setSecurityQuestions() {
   } 
   else 
   {
-    this.alertService.alert("All 3 questions should be different");
+    this.alertService.alert(this.currentLanguageSet.allThreeQuestionsShouldBeDifferent);
   }
 }
 
@@ -233,7 +247,7 @@ updatePassword(new_pwd) {
 
   }
   else {
-    this.alertService.alert("Password doesn't match");
+    this.alertService.alert(this.currentLanguageSet.passwordsDoNotMmatch);
   }
 }
 
@@ -253,7 +267,7 @@ handleQuestionSaveError(response) {
 successCallback(response) {
 
   console.log(response);
-  this.alertService.alert("Password changed successfully",'success');
+  this.alertService.alert(this.currentLanguageSet.passwordChangedSuccessfully,'success');
   this.router.navigate(['']);
 }
 errorCallback(response) {

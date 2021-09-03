@@ -3,53 +3,30 @@
             <div class="col-xs-12 col-sm-12 ">
                 <div class=" bs-wizard animate-box" style=" position:relative; z-index:1">
                     <div class="col-xs-2 bs-wizard-step complete" style="padding:0px; margin:0px;" (click)="changeService('1')">
-                        <div class="text-center hidden-sm font-Light f-s-16">Provider On Board</div>
-                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">P D</div>
+                        <div class="text-center hidden-sm font-Light f-s-16">{{currentLanguageSet?.providerOnBoard}}</div>
+                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">{{currentLanguageSet?.pd}}</div>
                         <div class="progress progress-margin">
                             <div class="progress-bar"></div>
                         </div>
                         <a class="bs-wizard-dot cursorPointer active-tab"></a>
                     </div>
                     <div class="col-xs-2 bs-wizard-step disabled" (click)="changeService('2')">
-                        <div class="text-center hidden-sm font-Light f-s-16">Admin Creation</div>
-                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">A S</div>
+                        <div class="text-center hidden-sm font-Light f-s-16">{{currentLanguageSet?.adminCreation}}</div>
+                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">{{currentLanguageSet?.aS}}</div>
                         <div class="progress progress-bar-disabled progress-margin">
                             <div class="progress-bar"></div>
                         </div>
                         <a class="bs-wizard-dot cursorPointer"></a>
                     </div>
                     <div class="col-xs-2 bs-wizard-step disabled " (click)="changeService('3')">
-                        <div class="text-center hidden-sm font-Light f-s-16">State Services Mapping</div>
-                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">Test 1</div>
+                        <div class="text-center hidden-sm font-Light f-s-16">{{currentLanguageSet?.stateServicesMapping}}</div>
+                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">{{currentLanguageSet?.testOne}}</div>
                         <div class="progress progress-bar-disabled progress-margin">
                             <div class="progress-bar"></div>
                         </div>
                         <a class="bs-wizard-dot cursorPointer"></a>
                     </div>
-                    <!--<div class="col-xs-2 bs-wizard-step disabled" (click)="changeService('4')">
-                        <div class="text-center hidden-sm font-Light f-s-16">Language</div>
-                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">t</div>
-                        <div class="progress progress-margin progress-bar-disabled">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <a class="bs-wizard-dot cursorPointer"></a>
-                    </div>
-                    <div class="col-xs-2 bs-wizard-step disabled" (click)="changeService('5')">
-                        <div class="text-center hidden-sm font-Light f-s-16">Role</div>
-                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">t</div>
-                        <div class="progress progress-margin progress-bar-disabled">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <a class="bs-wizard-dot cursorPointer"></a>
-                    </div>
-                     <div class="col-xs-2 bs-wizard-step disabled" (click)="changeService('6')">
-                        <div class="text-center hidden-sm font-Light f-s-16">Screens</div>
-                        <div class="text-center hidden-md hidden-lg visible-sm font-Light f-s-16">t</div>
-                        <div class="progress progress-margin progress-bar-disabled">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <a class="bs-wizard-dot cursorPointer"></a>
-                    </div>-->
+        
                 </div>
             </div>
         </div>
@@ -59,15 +36,7 @@
                         <app-admin-service-provider *ngIf="show1"></app-admin-service-provider>
                         <app-admin-user *ngIf="show2"> </app-admin-user>
                         <app-admin-service-master *ngIf="show3"></app-admin-service-master>
-                        <!--<app-admin-language-master *ngIf="show4"></app-admin-language-master>
-                        <app-admin-role-master *ngIf="show5"></app-admin-role-master>
-                        <app-admin-screen-master *ngIf="show6"></app-admin-screen-master> -->
-                        <!--<div *ngIf="show5">
-                        	<p>5</p>
-                        </div>-->
-                        <!--<div *ngIf="show6">
-                        	<p>6</p>
-                        </div>-->
+                       
 
                     </div>
                 </div>

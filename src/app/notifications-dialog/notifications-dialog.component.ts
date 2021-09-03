@@ -5,6 +5,8 @@ import { dataService } from '../services/dataService/data.service';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MdDialog, MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
   selector: 'app-notifications-dialog',
@@ -42,10 +44,12 @@ sDate:Date=new Date();
 
   minDate: Date;
   @ViewChild('notificationForm') notificationForm: NgForm;
+  currentLanguageSet: any;
 
-  constructor(private notificationService: NotificationService, public alertService:ConfirmationDialogsService, public commonDataService: dataService, public dialog: MdDialog, @Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<NotificationsDialogComponent>) { }
+  constructor(private notificationService: NotificationService, public alertService:ConfirmationDialogsService, public commonDataService: dataService, public dialog: MdDialog, @Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<NotificationsDialogComponent>,public HttpServices: HttpServices) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.uname;
     this.userId = this.commonDataService.uid;
@@ -60,6 +64,14 @@ sDate:Date=new Date();
   });
 
 
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
   getProviderIDSuccess(response)

@@ -6,6 +6,8 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { CallServices } from 'app/services/callservices/callservice.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
     selector: 'dashboard-user-id',
@@ -16,18 +18,21 @@ export class DashboardUserIdComponent implements OnInit {
     current_role: any;
     status: any;
     timerSubscription: Subscription;
+    assignSelectedLanguageValue: any;
     constructor(
         public dataSettingService: dataService,
         public router: Router,
         private callService: CallServices,
         private Czentrix: CzentrixServices,
-        private message: ConfirmationDialogsService
+        private message: ConfirmationDialogsService,
+        private httpServices: HttpServices
     ) {
         this.current_service = this.dataSettingService.current_service.serviceName;
         this.current_role = this.dataSettingService.current_role.RoleName;
 
     };
     ngOnInit() {
+        this.assignSelectedLanguage();
         this.getAgentStatus()
         if (this.callService.onlyOutbound && !this.callService.onceOutbound) {
             const timer = Observable.interval(5 * 1000);
@@ -36,6 +41,15 @@ export class DashboardUserIdComponent implements OnInit {
             });
         }
 
+    }
+    ngDoCheck() {
+        this.assignSelectedLanguage();
+      }
+    
+     assignSelectedLanguage() {
+      const getLanguageJson = new SetLanguageComponent(this.httpServices);
+      getLanguageJson.setLanguage();
+      this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
     }
     getAgentStatus() {
         this.Czentrix.getAgentStatus().subscribe((res) => {
@@ -78,7 +92,7 @@ export class DashboardUserIdComponent implements OnInit {
                     }
 
                 }
-                if (this.status != undefined && this.status.toUpperCase() === "FREE" && !this.dataSettingService.onlyOutboundAvailable) {
+                if (this.status != undefined && this.status.toUpperCase() === "FREE" && !this.dataSettingService.onlyOutboundAvailable && this.timerSubscription !== undefined) {
                     this.timerSubscription.unsubscribe()
                 }
 

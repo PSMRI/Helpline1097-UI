@@ -1,7 +1,9 @@
-md-card {
+.cardStyle {
     width: 400px;
     margin-left: 10px;
     margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px gray;
   }
   
   .formIcons {
@@ -21,12 +23,8 @@ md-card {
     margin: 10px;
   }
   
-  md-card {
-    border-radius: 5px;
-    box-shadow: 0px 0px 20px gray;
-  }
-  
-  md-card-title {
+
+  .cardTitleStyle {
     text-align: center;
     margin-bottom: 30px;
     font-size: 25px;
@@ -74,18 +72,17 @@ md-card {
   /*for smaller screens*/
   
   @media (min-width: 10px) {
-    md-card {
+    .cardStyle {
       top: 30px;
     }
   }
   
-  @media (min-width: 370px) {}
   
   
   /*for Medium screens*/
   
   @media (min-width: 480px) {
-    md-card {
+    .cardStyle {
       top: 0px;
     }
   }
@@ -94,7 +91,7 @@ md-card {
   /*for large screens*/
   
   @media (min-width: 768px) {
-    md-card {
+    .cardStyle {
       top: 0px;
     }
   }

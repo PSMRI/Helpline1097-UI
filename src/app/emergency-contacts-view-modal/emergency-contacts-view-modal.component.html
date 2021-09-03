@@ -1,21 +1,21 @@
 <div class="headerDiv">
-  <md-icon class="mat-icon material-icons pull-right cursorPointer p-t-2 f-c-w closeIcon" mdTooltip="Close" role="img" aria-hidden="true"
+  <md-icon class="mat-icon material-icons pull-right cursorPointer p-t-2 f-c-w closeIcon" mdTooltip="{{currentLanguageSet?.close}}" role="img" aria-hidden="true"
     (click)="dialogRef.close()">
     clear
   </md-icon>
-  <h4 class="popupHeader">Emergency Contacts</h4>
+  <h4 class="popupHeader">{{currentLanguageSet?.emergencyContacts}}</h4>
 
 </div>
 <md-dialog-content style="min-height:400px">
   <div class="table-responsive ">
-    <table class="table table-striped td-m-t-b-5 m-b-0" [md2Data]="contacts" #md2="md2DataTable" [rowsPerPage]="5">
+    <table class="table table-striped td-m-t-b-5 m-b-0" [md2Data]="contacts" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="emergencyContactDetails">
       
         <thead *ngIf="md2.data.length!=0">
           <tr>
-            <th md2SortBy="emergContactName">Contact Name</th>
-            <th>Designation</th>
-            <th>Location</th>
-            <th>Contact Number</th>
+            <th md2SortBy="emergContactName" id="contactName">{{currentLanguageSet?.contactName}}</th>
+            <th id="designation">{{currentLanguageSet?.designation}}</th>
+            <th id="location">{{currentLanguageSet?.location}}</th>
+            <th id="contactNumber"> {{currentLanguageSet?.contactNumber}}</th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
           <td>{{row.emergContactNo}}</td>
         </tr>
         <tr *ngIf="md2.data.length==0">
-          <td class="text-center" colspan="2"> No emergency contacts exists </td>
+          <td class="text-center" colspan="2"> {{currentLanguageSet?.noEmergencyContactsExists}} </td>
         </tr>
       </tbody>
       <tfoot>
@@ -39,10 +39,3 @@
     </table>
   </div>
 </md-dialog-content>
-<!-- <md-dialog-actions  class="pull-right m-r--10 p-b-14">
-		<button md-raised-button color="accent" type="button" class=" m-r-5" (click)="readAll()">Read All</button>
-	 <button md-raised-button color="primary" type="button" class=" m-r-5" (click)="unreadAll()">Unread All</button>
-		<button md-raised-button color="primary" type="button" class="" (click)="dialogRef.close()">Close</button>
-			
-			
-  </md-dialog-actions> -->

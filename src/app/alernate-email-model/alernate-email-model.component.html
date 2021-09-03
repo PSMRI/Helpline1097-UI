@@ -1,81 +1,11 @@
-<!-- <md-icon class="mat-icon material-icons close-icon pull-right cursorPointer" mdTooltip="Close" role="img" aria-hidden="true" (click)="dialogReff.close('close')">clear</md-icon>
-
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <label>
-          <b>Feedback: </b>{{this.data}}</label>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <md-checkbox style="margin: 0 10px" name="altEmail" color="primary" [(ngModel)]="altEmail">
-          Alternate Email
-        </md-checkbox>
-        <div>
-          <form #emailForm="ngForm" autocomplete="off">
-          <div *ngIf="altEmail">
-            <label>Email :
-              <em>*</em>
-            </label>
-            <input class="form-control" type="text" required minlength="10" placeholder="Enter email address" [pattern]="emailPattern" name="email" [(ngModel)]="email" #emailAdd="ngModel">
-            <div [hidden]="emailAdd.valid">
-              <span class=" error_text" [hidden]="!emailAdd.hasError('required')">Email is required</span>
-              <span class=" error_text" [hidden]="!emailAdd.hasError('pattern')">Please enter valid email</span>
-            </div>
-            
-          </div>
-          </form>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-              <button [disabled]="emailForm.invalid" md-raised-button color="primary" class="font-regular m-t-8" (click)="dialogReff.close(altEmail)">Send Email
-              </button>
-            </div>
-        </div>
-      </div>
-    </div>
-    -->
-
-
-<!-- <div class="successHeaderDiv">
-    <h4 class="popupHeader">Success</h4>
-  </div>
-  <div class="col-xs-12 col-sm-12">
-        <div class="row">
-          
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <h4>{{this.data}}</h4>
-          </div>
-        
-
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <md-checkbox color="primary" name="altEmail" [(ngModel)]="altEmail">
-              Alternate Email
-            </md-checkbox>
-            <div [hidden]="!altEmail">
-              <md-input-container>
-                <input mdInput type="email" required
-                  placeholder="Enter email address" name="email" ngModel [pattern]="emailPattern" #emailAdd="ngModel">
-                  <md-hint *ngIf=" !emailAdd.valid && (  emailAdd.touched)" class="errorText">
-                    Email is required  
-                  </md-hint>
-              </md-input-container>
-            </div>
-          </div>
-          
-          <div class="col-xs-12 col-sm-12">
-              <button md-raised-button color="primary" class="pull-right font-regular   m-t-8" (click)="dialogReff.close()">Close</button>
-              <button md-raised-button color="accent" [disabled]="(altEmail && emailAdd.invalid) || invalid_file_flag" class="pull-right font-regular m-t-8 m-r-5"
-                  (click)="dialogReff.close(altEmail)">Send Email
-              </button>
-          </div>
-        </div>
-    
-  </div> -->
 
 <div class="successHeaderDiv">
-  <h4 class="popupHeader">Success</h4>
+  <h4 class="popupHeader">{{currentLanguageSet?.success}}</h4>
 </div>
 <md-dialog-content>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <md-select class="p-b-1-5" [style.width]="'70%'" required placeholder="Emails" multiple [(ngModel)]="email" name="email"
+      <md-select class="p-b-1-5" [style.width]="'70%'" required placeholder="{{currentLanguageSet?.emails}}" multiple [(ngModel)]="email" name="email"
         #emailSelected="ngModel">
         <md-option *ngFor="let mail of emails" [value]="mail">
           {{mail}}
@@ -88,11 +18,11 @@
         <div *ngFor="let mail of controll(); let i = index" class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
           <ng-container [formGroupName]="i">
             <md-input-container>
-              <input required mdInput placeholder="Enter email" [pattern]="emailPattern" formControlName="email">
+              <input required mdInput placeholder="{{currentLanguageSet?.enterEmail}}" [pattern]="emailPattern" formControlName="email">
 
             </md-input-container>
             <span>
-              <md-icon (click)="deleteInputField(i)" mdSuffix mdTooltip="Delete row" class="mat-icon material-icons" role="img" aria-hidden="true"
+              <md-icon (click)="deleteInputField(i)" mdSuffix mdTooltip="{{currentLanguageSet?.deleteRow}}" class="mat-icon material-icons" role="img" aria-hidden="true"
                 style="cursor: pointer">delete</md-icon>
             </span>
           </ng-container>
@@ -100,7 +30,7 @@
       </ng-container>
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <button md-mini-fab color="primary" class="m-l-10" (click)="addInputField()">
-          <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="Add manually" role="img" aria-hidden="true" style="cursor: pointer">add</md-icon>
+          <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="{{currentLanguageSet?.addManually}}" role="img" aria-hidden="true" style="cursor: pointer">add</md-icon>
         </button>
       </div>
     </form>
@@ -108,8 +38,8 @@
 </md-dialog-content>
 
 <md-dialog-actions class="pull-right m-r--10 p-b-14">
-  <button md-raised-button color="primary" class="pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close()">Close</button>
+  <button md-raised-button color="primary" class="pull-right font-regular f-s-18  m-t-8" (click)="dialogReff.close()">{{currentLanguageSet?.close}}</button>
   <button [disabled]="emailForm.invalid || emailSelected.invalid" md-raised-button color="accent" class="pull-right font-regular f-s-18  m-t-8 m-r-5"
-    (click)="sendEmail(email,emailForm.value)">Send Email
+    (click)="sendEmail(email,emailForm.value)">{{currentLanguageSet?.sendEmail}}
   </button>
 </md-dialog-actions>

@@ -4,6 +4,8 @@ import { dataService } from 'app/services/dataService/data.service';
 import { NotificationService } from 'app/services/notificationService/notification-service';
 import { ConfirmationDialogsService } from 'app/services/dialog/confirmation.service';
 import { LoaderService } from 'app/services/common/loader.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-everwell-guidelines-upload',
@@ -65,13 +67,15 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
 
    @ViewChild('trainingResources') trainingResourceForm: NgForm;
+  currentLanguageSet: any;
   // @ViewChild('trainingResourcesEditForm') trainingResourceEditForm: NgForm;
 
 
 
   constructor(private saved_data: dataService,
     private notificationService: NotificationService,
-    public dialogService: ConfirmationDialogsService,public loaderService:LoaderService) { }
+    public dialogService: ConfirmationDialogsService,public loaderService:LoaderService,
+    private HttpServices:HttpServices) { }
 
 
 
@@ -95,6 +99,8 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     this.currentDate.setMinutes(0);
     this.currentDate.setSeconds(0);
     this.currentDate.setMilliseconds(0);
+    this.assignSelectedLanguage();
+
   }
   onCategoryChange()
   {
@@ -165,7 +171,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     }
     else
     {
-      this.dialogService.alert('Please delete any existing guidelines to continue', 'info');
+      this.dialogService.alert(this.currentLanguageSet.PleaseDeleteAnyExistingGuidelinesToContinue, 'info');
     }
   }
 
@@ -214,7 +220,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
          this.trainingResourceForm.reset();
          this.count = '0/300';
          //this.getGuidelines();
-         this.dialogService.alert('File uploaded successfully', 'success');
+         this.dialogService.alert(this.currentLanguageSet.fileUploadedSuccessfully ,'success');
          
          }
          else
@@ -229,7 +235,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
     }
     else
-    this.dialogService.alert('Please upload document', 'info');
+    this.dialogService.alert(this.currentLanguageSet.pleaseUploadDocument, 'info');
     
 
   }
@@ -238,7 +244,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
   trainingResourceErrorHandeler(error) {
     console.log(error);
-    this.dialogService.alert(error.json().errorMessage, 'alert');
+    this.dialogService.alert(error.json().errorMessage, 'error');
   }
 
 
@@ -320,7 +326,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   
  
   deactivate(obj, val) {
-    this.dialogService.confirm('Delete ', 'Do you want to delete the guideline?').subscribe((response) => {
+    this.dialogService.confirm('Delete ', this.currentLanguageSet.doYouWantToDeleteTheGuideline).subscribe((response) => {
       if (response) {
     const object = {
       'id':obj.id,
@@ -458,6 +464,16 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
   notificationError(error) {
     console.log('error', error);
-    this.dialogService.alert('Failed to update', 'error')
+    this.dialogService.alert(this.currentLanguageSet.failedToUpdate, 'error')
   }
+
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

@@ -7,23 +7,30 @@
         </div>
         <label id="db_label" class="f-c-w f-s-15 p-t-5 m-l-150">{{label}}</label>
         <div class="pull-right p-t-1">
-          <!-- <ul class="list-inline list-unstyled pull-left m-b-0">
-            <li>
-              <form action="" class="search-form">
-                <div class="form-group has-feedback m-b-0 form-group-custome">
-                  <label for="search" class="sr-only">Search</label>
-                  <input type="text" class="form-control border-radius-20" name="search" id="search" placeholder="search">
-                  <span class="glyphicon glyphicon-search form-control-feedback"></span> </div>
-              </form>
-            </li>
-          </ul> -->
+      
           <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
-            <li style="color: white"> Welcome {{userName}}</li>
-            <li *ngIf="showContacts" class=""><img src="assets/images/callerIcon.png" (click)="showEmergencyContacts()" class="cursorPointer w85" alt="Contacts" mdTooltip="Emergency Contacts"></li>
-            <li *ngIf="showContacts && current_role==='CO'"><img src="assets/images/flagCallIcon.png" class="cursorPointer w85" (click)="agentForceLogout()" alt="ForceLogout" mdTooltip="Force Logout"></li>
+             <!--Multilingual dropdown-->
+             <span style="color: white;">{{currentLanguageSet?.selectLanguage}}:</span>
+             <li>
+
+             
+              
+                <select  class="form-control drop-arrow border-radius-20 height-35 " name="app_language"
+                  [(ngModel)]="app_language" (change)="changeLanguage(app_language)">
+                  <option *ngFor="let language of languageArray" [value]="language.languageName">{{language.languageName}}
+                  </option>
+                  
+      
+      
+                </select>
+            </li>  
+               <!--END-Multilingual dropdown-->
+            <li style="color: white">{{currentLanguageSet?.welcome}} {{userName}}</li>
+            <li *ngIf="showContacts" class=""><img src="assets/images/callerIcon.png" (click)="showEmergencyContacts()" class="cursorPointer w85" alt="Contacts" mdTooltip="{{currentLanguageSet?.emergencyContacts}}"></li>
+            <li *ngIf="showContacts && current_role==='CO'"><img src="assets/images/flagCallIcon.png" class="cursorPointer w85" (click)="agentForceLogout()" alt="ForceLogout" mdTooltip="{{currentLanguageSet?.forceLogout}}"></li>
            
             <li class="">
-              <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" mdTooltip="User Icon" [mdMenuTriggerFor]="menuNotification">
+              <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" mdTooltip="{{currentLanguageSet?.userIcon}}" [mdMenuTriggerFor]="menuNotification">
             </li>
             <md-menu #menuNotification x-position="before"  class="m-t-40"  >
               <md-list class="p-t-0">
@@ -33,11 +40,9 @@
                 <md-list-item class="b-t-1-w">ID: {{id}}-{{current_role}}-{{current_service}}</md-list-item>
               </md-list>
               </md-menu>
-              <!-- <li class="help" alt="Help Icon" title="Help">
-                <a class="">&nbsp;</a>
-              </li> -->
+           
               <li class="help">
-                <i class="fa fa-question-circle helpAlign cursorPointer" alt="Help" mdTooltip="Help" [mdMenuTriggerFor]="knowAboutUs"></i>
+                <span class="fa fa-question-circle helpAlign cursorPointer" alt="Help" mdTooltip="{{currentLanguageSet?.help}}" [mdMenuTriggerFor]="knowAboutUs"></span>
               </li>
               <md-menu #knowAboutUs x-position="before"  class="m-t-40">
                 <md-list class="p-t-0">
@@ -45,7 +50,7 @@
                   <md-list-item><a target="_blank" href={{licenseURL}}>License Info.</a></md-list-item>
                 </md-list>
                 </md-menu>
-              <li class="logout" (click)="logOut()" alt="Logout Icon" mdTooltip="Logout">
+              <li class="logout" (click)="logOut()" alt="Logout Icon" mdTooltip="{{currentLanguageSet?.logout}}">
                 <a class="">&nbsp;</a>
               </li>
           </ul>
@@ -55,14 +60,12 @@
   </div>
   <router-outlet></router-outlet>
   <div (click)="minimizeBar()" *ngIf="hideBar">
-    <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
-    <!-- <iframe src="http://10.201.13.17/bar/cti_handler.php" width="230px" height="350px" class="czenrix-bar"></iframe> -->
-    <!-- <iframe *ngIf="current_role.toLowerCase().trim()!=='supervisor'" [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar"
-      [hidden]="barMinimized" (click)="toggleBar()"></iframe> -->
+    <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()" title="Czentrix Bar"></iframe>
+ 
   </div>
   <footer class="footer noprint">
     <div class="col-sm-4 col-xs-4">
-      <span class="footer-text footer-text-height">Powered by: WIPRO</span>
+      <span class="footer-text footer-text-height">{{currentLanguageSet?.poweredByWipro}}</span>
     </div>
     <div class="col-sm-4 col-xs-4">
       <p class="footer-text t-a-c footer-text-height">2017
@@ -72,5 +75,5 @@
       <button *ngIf="(hideBar && (id != undefined || id != null))" md-raised-button type="button" color="primary" class="footer-height pull-right" (click)="toggleBar()">CZentrix</button>
     </div>
   </footer>
-  <!-- <router-outlet name="postLogin_router"></router-outlet> -->
+
 

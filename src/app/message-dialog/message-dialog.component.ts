@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from "../services/http-services/http_services.service";
 
 @Component({
   selector: 'app-message-dialog',
@@ -7,10 +9,12 @@ import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
   styleUrls: ['./message-dialog.component.css']
 })
 export class MessageDialogComponent implements OnInit {
+  currentLanguageSet: any;
 
-  constructor( @Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<MessageDialogComponent>) { }
+  constructor( @Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<MessageDialogComponent>,public HttpServices: HttpServices) { }
   docs: any = [];
   ngOnInit() {
+    this.assignSelectedLanguage();
     console.log(this.data, "DATA ARRAY IN MESSAGE DIALOG WINDOW");
     // this.checkForURL(this.data.message);
     this.docs = this.data.kmdocs;
@@ -18,6 +22,14 @@ export class MessageDialogComponent implements OnInit {
       this.docs[i]['urls'] = this.checkForURL(this.docs[i].notificationDesc)
     }
     console.log('after urls filtering', this.docs);
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
   result = [];

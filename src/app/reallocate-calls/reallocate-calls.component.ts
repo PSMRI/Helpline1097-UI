@@ -3,7 +3,9 @@ import { NgForm } from '@angular/forms';
 import { OutboundReAllocationService } from "../services/outboundServices/outbound-call-reallocation.service";
 import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
-import { CallServices } from '../services/callservices/callservice.service'
+import { CallServices } from '../services/callservices/callservice.service';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 declare var jQuery: any;
 
@@ -37,13 +39,15 @@ export class ReallocateCallsComponent implements OnInit {
   endMinDate: Date;
 
   a: any = [];
+  currentLanguageSet: any;
 
   constructor(private OCRService: OutboundReAllocationService,
     private getCommonData: dataService, private alertService: ConfirmationDialogsService,
-    private _callServices: CallServices
+    private _callServices: CallServices,public HttpServices: HttpServices
   ) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.getCommonData.current_service.serviceID;
     this.getLanguages();
     this.OCRService.getRoles({
@@ -67,6 +71,14 @@ export class ReallocateCallsComponent implements OnInit {
     // this.endMinDate.setDate(this.endMinDate.getDate()+7);
     // this.endDatee=this.endMinDate;
 
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
   updateMinValue(d) {
@@ -127,7 +139,7 @@ export class ReallocateCallsComponent implements OnInit {
         console.log(resProviderData, "in component reallocate-calls, post successful response");
         this.totalAgentRecords = resProviderData;
         if (this.totalAgentRecords.length == 0) {
-          this.alertService.alert("No records available.");
+          this.alertService.alert(this.currentLanguageSet.noRecordsAvailable);
         }
         else {
           this.onAgentSelected = true;
@@ -188,7 +200,7 @@ export class ReallocateCallsComponent implements OnInit {
         "outboundCallReqIDs": tempArray
       }).subscribe((response) => {
         console.log(response);
-        this.alertService.alert("Moved to bin successfully",'success');
+        this.alertService.alert(this.currentLanguageSet.movedToBinSuccessfully,'success');
         // refreshing after moving to bin
         this.reallocationDone();
       },

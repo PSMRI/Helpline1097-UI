@@ -10,6 +10,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdSelectModule } from '@angular/material';
+import { HttpServices } from 'app/services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 
 // services
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service';
@@ -47,9 +49,11 @@ export class KnowledgeManagementComponent implements OnInit {
   public createdBy;
   public subcategoryOBJ;
   public fileControl
+  currentlanguageSet: any;
   constructor(private fb: FormBuilder, private _coCategoryService: CoCategoryService,
     private _dataService: dataService, private _uploadService: UploadServiceService,
-    private message: ConfirmationDialogsService) {
+    private message: ConfirmationDialogsService,
+    private HttpServices:HttpServices) {
     this.createForm();
   }
 
@@ -59,6 +63,7 @@ export class KnowledgeManagementComponent implements OnInit {
     this.userID = this._dataService.uid;
     this.createdBy = this._dataService.uname;
     this.getService();
+    this.assignSelectedLanguage();
   }
 
   // form creation using reactive form form builder
@@ -196,13 +201,21 @@ export class KnowledgeManagementComponent implements OnInit {
   uploadFile(uploadObj: any) {
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
       console.log('KM configuration ', response);
-      this.message.alert('File uploaded successfully', 'success');
+      this.message.alert(this.currentlanguageSet.fileUploadedSuccessfully, 'success');
       this.myInputVariable.nativeElement.value = '';
       this.knowledgeForm.reset(this.knowledgeForm.value);
     }, (err) => {
-      this.message.alert('Failed to upload file', 'error');
+      this.message.alert(this.currentlanguageSet.failedToUploadFile, 'error');
       this.myInputVariable.nativeElement.value = '';
     })
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentlanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 }

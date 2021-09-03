@@ -1,47 +1,45 @@
 <form [formGroup]="allocateEverwellForm" novalidate *ngIf="afterAllocate" autocomplete="off">
   <div class="col-xs-12 col-sm-12 p-b-40">
-    <h4 class="f-s-b m-b-10 m-t-20">Allocate Records</h4>
+    <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.allocateRecords}}</h4>
     <div class="m-t-10 m-b-10">
-      <span class="width100" *ngIf="reallocationFlag">Preferred Language:
+      <span class="width100" *ngIf="reallocationFlag">{{currentLanguageSet?.preferredLanguage}}
         <strong>{{selectedLanguage}}</strong>
       </span>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
-          <md-select [style.width]="'100%'" formControlName="roleID" name="roleID" placeholder="Select Role" (change)="getAgents($event.value)">
+      
+          <md-select [style.width]="'100%'" formControlName="roleID" name="roleID" placeholder="{{currentLanguageSet?.selectRole}}" (change)="getAgents($event.value)">
             <md-option *ngFor="let role of roles" [value]="role.roleID"> {{role.roleName}}</md-option>
           </md-select>
-        <!-- </md-input-container> -->
+        
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 p-b-1-5">
-        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none"> -->
-          <md-select multiple [style.width]="'100%'" formControlName="agentId" name="agentId" (change)="OnSelectChange()" placeholder="Allocate To">
+        
+          <md-select multiple [style.width]="'100%'" formControlName="agentId" name="agentId" (change)="OnSelectChange()" placeholder="{{currentLanguageSet?.allocateTo}}">
             <md-option *ngFor="let user of users" [value]="user.userID"> {{user.firstName+ " "+user.lastName}}</md-option>
           </md-select>
           <md-hint *ngIf="showAgents">
-            <span class="error_text"> No Agents Available for this language</span>
+            <span class="error_text"> {{currentLanguageSet?.noAgentsAvailableForThisLanguage}}</span>
           </md-hint>
-        <!-- </md-input-container> -->
+       
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container [style.width]="'100%'">
-          <input #allocateRef type="number" min="1" mdInput placeholder="Allocate No of Records" id="allocateNo"
+          <input #allocateRef type="number" min="1" mdInput placeholder="{{currentLanguageSet?.allocateNoOfRecords}}" id="allocateNo"
             formControlName="allocateNo" name="allocateNo" (ngModelChange)="validate('allocateNo',$event)" (keydown)="blockKey($event)">
-          <input type="hidden" class="form-control" placeholder="Enter Total New Records" id="outboundCallRequests" formControlName="outboundCallRequests"
+          <input type="hidden" class="form-control" placeholder="{{currentLanguageSet?.enterTotalNewRecords}}" id="outboundCallRequests" formControlName="outboundCallRequests"
             name="outboundCallRequests">
         </md-input-container>
       </div>
-      <!-- <div class="col-xs-12 col-sm-12"> -->
+     
     <div class="col-xs-12 col-sm-6 col-md-12 col-lg-2">
       <button type="button" [disabled]="!allocateEverwellForm.valid" md-raised-button color="primary" class=" font-regular hidden-md hidden-xs m-t-10"
-        (click)="onCreate(allocateEverwellForm.value);allocateEverwellForm.reset()">Allocate</button>
+        (click)="onCreate(allocateEverwellForm.value);allocateEverwellForm.reset()">{{currentLanguageSet?.allocate}}</button>
       <button type="button" [disabled]="!allocateEverwellForm.valid" md-raised-button color="primary" class=" font-regular pull-right visible-md visible-xs"
-        (click)="onCreate(allocateEverwellForm.value);allocateEverwellForm.reset()">Allocate</button>
+        (click)="onCreate(allocateEverwellForm.value);allocateEverwellForm.reset()">{{currentLanguageSet?.allocate}}</button>
     </div>
-  <!-- </div> -->
+
     </div>
   </div>
   

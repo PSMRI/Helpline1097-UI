@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, DoCheck } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UpdateService } from '../services/update-services/update-service';
@@ -8,15 +8,16 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { Subscription } from 'rxjs/Subscription';
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 declare let jQuery: any;
 @Component({
   selector: 'app-updates-from-beneficiary',
   templateUrl: './updates-from-beneficiary.component.html',
   styleUrls: ['./updates-from-beneficiary.component.css']
 })
-export class UpdatesFromBeneficiaryComponent implements OnInit {
+export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
 
-  @Input() current_language: any;
   currentlanguage: any;
   @ViewChild('Form') updateForm;
   occupation: any;
@@ -44,6 +45,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     { name: 'Newspaper', value: 'Newspaper', selected: false, id: 8, disabled: false },
     { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7, disabled: false }
   ];
+  currentLanguageSet: any;
 
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -51,7 +53,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     private fb: FormBuilder,
     private saved_data: dataService,
     private message: ConfirmationDialogsService,
-    private pass_data: CommunicationService) {
+    private pass_data: CommunicationService,
+    private httpServices:HttpServices) {
     this.subscription = this.pass_data.getData().subscribe(benData => { this.getBenData(benData) });
   }
 
@@ -70,11 +73,10 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     // this.PopulateUpdateData();
 
     this.count = '0/300';
-
+    this.assignSelectedLanguage();
   }
 
   ngOnChanges() {
-    this.setLanguage(this.current_language);
 
   }
 
@@ -206,7 +208,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
   }
 
   showAlert() {
-    this.message.alert('Details updated successfully', 'success');
+    this.message.alert(this.currentLanguageSet.DetailsUpdatedSuccessfully, 'success');
 
     //this.form.reset();
   }
@@ -276,4 +278,12 @@ export class UpdatesFromBeneficiaryComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	}
 }

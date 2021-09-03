@@ -2,21 +2,22 @@
  
 
 <div class="col-xs-12 col-sm-12">
-  <h4 class="pull-left f-s-b m-b-30">User Details</h4>
-<button class="btn cu-green-btn pull-right" *ngIf="!showCreateFlag" (click)="showCreate()">Create </button>
+  <h4 class="pull-left f-s-b m-b-30">{{currentLanguageSet?.userDetails}}</h4>
+<button class="btn cu-green-btn pull-right" *ngIf="!showCreateFlag" (click)="showCreate()">
+  {{currentLanguageSet?.create}} </button>
 </div>
    <div class="m-t-10"  *ngIf="!showCreateFlag">
      
     <div class="col-xs-12 col-sm-12">
       <div class="table-responsive m-t-10">
-        <table class="table">
+        <table class="table" aria-describedby="userDetails">
           <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>User Name</th>
-              <td>Edit</td>
-              <td>Delete</td>
+              <th id="firstName">{{currentLanguageSet?.firstName}}</th>
+              <th id="lastName">{{currentLanguageSet?.lastName}}</th>
+              <th id="userName">{{currentLanguageSet?.userName}}</th>
+              <td>{{currentLanguageSet?.edit}}</td>
+              <td>{{currentLanguageSet?.delete}}</td>
             </tr>
           </thead>
           <tbody>
@@ -39,53 +40,43 @@
 <div class="panel-body card p-a-0 bg-white"  >
  
     <div class="col-xs-12 col-sm-12">
-      <!--<h4>User Details</h4>-->
+      
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="firstName">First Name</label>
-        <input type="text" class="form-control" placeholder="Enter FirstName Name" maxlength="50" id="firstName" formControlName="firstName">
+        <label class="control-label" for="firstName">{{currentLanguageSet?.firstName}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterFirstnameName}}" maxlength="50" id="firstName" formControlName="firstName">
       </div>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="middleName">MiddleName</label>
-        <input type="text" class="form-control" placeholder="Enter MiddleName" maxlength="50" id="middleName" formControlName="middleName">
+        <label class="control-label" for="middleName">{{currentLanguageSet?.middleName}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterMiddlename}}" maxlength="50" id="middleName" formControlName="middleName">
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="lastName">LastName</label>
-        <input type="text" class="form-control" placeholder="Enter LastName." maxlength="50" id="lastName" formControlName="lastName">
+        <label class="control-label" for="lastName">{{currentLanguageSet?.lastName}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterLastname}}" maxlength="50" id="lastName" formControlName="lastName">
       </div>
     </div>
-    <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="titleID">Title ID</label>
-        <input type="text" class="form-control" placeholder="Enter TitleID"  maxlength="6" id="titlelID" formControlName="titleID">
-      </div>
-    </div>-->
+    
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="userName">UserName</label>
-        <input type="text" class="form-control" placeholder="Enter UserName"  maxlength="20" id="userName" formControlName="userName" required>
+        <label class="control-label" for="userName">{{currentLanguageSet?.userName}}</label>
+        <input type="text" class="form-control" placeholder="{{currentLanguageSet?.enterUsername}}"  maxlength="20" id="userName" formControlName="userName" required>
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
       <div class="form-group">
-        <label class="control-label" for="password">Password</label>
-        <input type="password" class="form-control" placeholder="Enter Password"  maxlength="20" id="password" formControlName="password">
+        <label class="control-label" for="password">{{currentLanguageSet?.password}}</label>
+        <input type="password" class="form-control" placeholder="{{currentLanguageSet?.enterPassword}}"  maxlength="20" id="password" formControlName="password">
         </div>
     </div>
-     <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-      <div class="form-group">
-        <label class="control-label" for="statusID">Status ID</label>
-        <input type="text" class="form-control" placeholder="Enter StatusID"  maxlength="6" id="statusID" formControlName="statusID">
-      </div>
-    </div>-->
+    
   <div class="col-xs-12 col-sm-12 pull right m-b-10">
-      <button md-raised-button color="primary" class="pull-right p-l-r-38 f-s-18" type="submit" name="save"> Save</button>
+      <button md-raised-button color="primary" class="pull-right p-l-r-38 f-s-18" type="submit" name="save"> {{currentLanguageSet?.save}}</button>
     </div>
     
    </div>  

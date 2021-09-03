@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SPService } from '../services/adminServices/AdminServiceProvider/admin_service_provider.service';
 import { UserService } from '../services/adminServices/AdminUser/user.service';
-
-
+import { HttpServices } from '../services/http-services/http_services.service';
+import { SetLanguageComponent } from 'app/set-language.component';
 @Component({
   selector: 'app-admin-user',
   templateUrl: './admin-user.component.html',
@@ -17,11 +17,20 @@ export class AdminUserComponent implements OnInit {
   	public showCreateFlag=false;
   userslist:string[];
   data:any;
+	currentLanguageSet: any;
   
-constructor(private _UserService: UserService) { 
+constructor(private _UserService: UserService,private HttpServices:HttpServices) { 
   this.userslist;
   }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
+  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 userForm = new FormGroup({
 firstName: new FormControl(),
 middleName:new FormControl(),
@@ -50,6 +59,7 @@ lastModDate:new FormControl('2017-05-26')
 });
 
   ngOnInit() {
+	this.assignSelectedLanguage();
       this._UserService.getUsers()
 	 	.subscribe(resProviderData => this.providers(resProviderData));
   }

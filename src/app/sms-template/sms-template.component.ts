@@ -3,6 +3,8 @@ import { SmsTemplateService } from './../services/supervisorServices/sms-templat
 import { dataService } from '../services/dataService/data.service';
 import { NgForm } from '@angular/forms';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-sms-template',
@@ -36,17 +38,30 @@ export class SmsTemplateComponent implements OnInit {
 
   @ViewChild('smsForm') Smsform1: NgForm;
   @ViewChild('vf') viewform: NgForm;
+  currentLanguageSet: any;
 
 
   constructor(public commonData: dataService,
     public sms_service: SmsTemplateService,
-    public commonDialogService: ConfirmationDialogsService) { }
+    public commonDialogService: ConfirmationDialogsService,
+    public httpServices:HttpServices) { }
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.providerServiceMapID = this.commonData.current_service.serviceID; // check for each module
     this.serviceID = this.commonData.current_serviceID ? this.commonData.current_serviceID : 1; // check for each module
     this.getSMStemplates(this.providerServiceMapID);
   }
+
+  ngDoCheck() {
+		this.assignSelectedLanguage();
+	  }
+
+	assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.httpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 
   getSMStemplates(providerServiceMapID) {
     this.sms_service.getSMStemplates(providerServiceMapID)
@@ -85,7 +100,7 @@ export class SmsTemplateComponent implements OnInit {
 
 
         if (this.SMS_Types.length == 0) {
-          this.commonDialogService.alert('All SMS Types have been used and are those templates are active', 'info');
+          this.commonDialogService.alert(this.currentLanguageSet.allSmsTypesHaveBeenUsedAndAreThoseTemplatesAreActive, 'info');
         }
 
       }, err => {
@@ -110,11 +125,11 @@ export class SmsTemplateComponent implements OnInit {
       .subscribe(response => {
         if (response) {
           if (flag) {
-            this.commonDialogService.alert('Deactivated successfully', 'success');
+            this.commonDialogService.alert(this.currentLanguageSet.deactivatedSuccessfully, 'success');
             this.getSMStemplates(this.providerServiceMapID);
 
           } else {
-            this.commonDialogService.alert('Activated successfully', 'success');
+            this.commonDialogService.alert(this.currentLanguageSet.activatedSuccessfully, 'success');
             this.getSMStemplates(this.providerServiceMapID);
 
           }
@@ -154,7 +169,7 @@ export class SmsTemplateComponent implements OnInit {
       this.isReadonly = true;
       // this.getSMSparameters();
     } else {
-      this.commonDialogService.alert('No parameters identified in sms template', 'info');
+      this.commonDialogService.alert(this.currentLanguageSet.noParametersIdentifiedInSmsTemplate, 'info');
     }
   }
 
@@ -197,7 +212,7 @@ export class SmsTemplateComponent implements OnInit {
       reqObj.smsParameterID != undefined) {
       this.smsParameterMaps.push(reqObj);
     } else {
-      this.commonDialogService.alert('Parameter, Value Type and Value should be selected', 'info');
+      this.commonDialogService.alert(this.currentLanguageSet.parameterValueTypeAndValueShouldBeSelected, 'info');
     }
 
     // removing of the parameters pushed into buffer from the Parameters array and resetting of next two dropdowns
@@ -229,7 +244,7 @@ export class SmsTemplateComponent implements OnInit {
 
     this.sms_service.saveSMStemplate(requestObject)
       .subscribe(res => {
-        this.commonDialogService.alert('Template saved successfully', 'success');
+        this.commonDialogService.alert(this.currentLanguageSet.templateSavedSuccessfully, 'success');
         this.showTable();
       }, err => {
         this.commonDialogService.alert(err.errorMessage, 'error');

@@ -4,21 +4,17 @@
       <div class="pull-left">
         <img src="assets/images/smLogo.png" alt="Logo">
       </div>
-      <div class=" p-t-1">
         <ul class="list-inline list-unstyled pull-left m-b-0">
           <li class="m-l-lg-40 m-t-5" *ngIf="checkRole">
-            <!-- <img src="assets/images/transferCallIcon.png " alt="Caller Icon
-    " title="Caller Icon " /> -->
             <span class="m-l-lg-20 f-s-14 font-Semibold f-c-green">{{callStatus}}</span>
             <span class="m-l-lg-20 f-s-14 whiteC font-Semibold">{{callDuration}}</span>
-            <!-- <span class="m-l-lg-20 f-s-14 whiteC font-Semibold" *ngIf="wrapupTime"> Time Remaining -{{ticks}}</span> -->
           </li>
         </ul>
         <label class="f-c-w f-s-15 p-t-5">{{current_service}} {{current_role}}</label>
+        <div class="pull-right p-t-1">
         <ul class="list-inline list-unstyled topIcon pull-right m-l-20  m-b-0">
-          <!--   <li style="color: white"> Welcome {{data.userName}}</li> -->
           <li class="">
-            <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="User Icon" [mdMenuTriggerFor]="menuNotification">
+            <img src="assets/images/icon-user-active.png" class="cursorPointer" alt="User Icon" title="{{currentLanguageSet?.userIcon}}" [mdMenuTriggerFor]="menuNotification">
           </li>
           <md-menu #menuNotification x-position="before"  class="m-t-40"  >
             <md-list class="p-t-0">
@@ -28,31 +24,28 @@
               <md-list-item class="b-t-1-w">ID:{{id}}-{{current_role}}-{{current_service}}</md-list-item>
             </md-list>
           </md-menu>
-          <!-- <li class="help cursorPointer" *ngIf= routerLink="/MultiRoleScreenComponent/dashboard" title="Home">
-              <md-icon class="material-icons" class="homeIcon" role="img" aria-hidden="true">home</md-icon>
-            </li> -->
-          <li class="logout" title="Logout" (click)="log_out()">
+          <li class="logout" title="{{currentLanguageSet?.logout}}" (click)="log_out()">
             <a>&nbsp;</a>
           </li>
         </ul>
-        <ul class="list-inline list-unstyled pull-right m-b-0">
-          <li>
-            <select class="form-control drop-arrow border-radius-20 height-30 m-b-4" [(ngModel)]="language_change" (change)="getLanguageObject(language_change)">
-              <option selected="selected " value="english">English </option>
-              <option value="kannada">Kannada </option>
-            </select>
-          </li>
+        <ul class="list-inline list-unstyled topIcon pull-right m-l-20 shawdow m-b-0">
+             <!--Multilingual dropdown-->
+             <span style="color:white;">{{currentLanguageSet?.selectLanguage}}: </span> &nbsp;
+             <li>
+              <select  class="form-control drop-arrow border-radius-20 height-35 " name="app_language"
+              [(ngModel)]="app_language" (change)="changeLanguage(app_language)">
+              <option *ngFor="let language of languageArray" [value]="language.languageName">{{language.languageName}}
+              </option>
+                </select>
+            </li>  
+               <!--END-Multilingual dropdown-->
         </ul>
-        <ul class="list-inline list-unstyled pull-right m-l-20  m-b-0">
+        <ul class="list-inline list-unstyled pull-right m-l-20  m-b-0" *ngIf='checkRole'>
           <li class="m-l-lg-40 m-t-5">
-            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold">{{TotalCalls}}</span>
-            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold">{{TotalTime}}</span>
+            <span class="m-l-lg-20 f-s-15 font-Semibold lightgreen">{{currentLanguageSet?.totalCalls}} : {{TotalCalls}}</span>
+            <span class="m-l-lg-20 f-s-15 font-Semibold lightgreen">{{currentLanguageSet?.totalCallsDurations}} : {{TotalTime}}</span>
           </li>
         </ul>
-        <!-- <ul>
-            <li>Total Calls -11 </li> -->
-        <!-- <li>Total Call Duration -</li> -->
-        <!-- </ul> -->
       </div>
     </div>
   </div>
@@ -66,37 +59,12 @@
             <div class="m-t-5">
               <ul class="list-inline list-unstyled pull-left m-b-3 ">
                 <li class="cursorPointer" *ngIf='!checkRole' routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
-                  <i class="fa fa-arrow-left fa-lg " aria-hidden="true "></i>
+                  <span class="fa fa-arrow-left fa-lg " aria-hidden="true "></span>
                 </li>
-                <!--                 <li class="m-l-10 "><img src="assets/images/dashboardIcon.png " alt="Dashboard Icon
-    " title="Dashboard Icon " /></li> -->
-                <!--   <li class="f-s-16 font-Semibold ">My ID : {{current_role}} - {{current_service}}</li> -->
-                <!--<li class="f-s-16 font-Semibold ">My ID : CO0111120</li>-->
-                <!--<li class="f-s-16 font-Semibold ">Service: {{current_service}}</li>
-                                <li class="f-s-16 font-Semibold ">Role: {{current_role}}</li>-->
-                <!--                 <li class="m-l-lg-40 " *ngIf='checkRole'><img src="assets/images/durationIcon.png " alt="Caller Icon
-    " title="Caller Icon " />
-                  <span class="m-l-lg-20 f-s-14 f-c-14508c font-Semibold ">{{callDuration}}</span>
-                </li> -->
-                <!-- <li class="f-s-14 font-regular ">My ID : CO0111120</li> -->
               </ul>
             </div>
-            <!--             <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 " *ngIf='checkRole'>
-              <select class="form-control drop-arrow border-radius-20 height-30 m-b-4 ">
-                <option selected="selected " value="1 ">English </option>
-                <option value="2 ">Kannada </option>
-              </select>
-            </div> -->
             <div>
-              <!--               <div class=" ">
-                <ul class="list-inline list-unstyled pull-right m-t-3 m-b-3 ">
-                  <li class="font-regular "><span class="f-s-14 ">No. Calls :</span><span class="f-s-14
-    f-c-14508c ">20</span> </li>
-                  <li class="font-regular ">Total talk time :<span class="f-s-14 f-c-14508c "> 2 hr:30 min:20 sec</span> </li>
-                </ul>
-              </div> -->
               <ul class="list-unstyled list-inline pull-left  p-a-0 m-b-3 ">
-                <!-- <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li> -->
                 <li *ngIf="zoneName">Zone: {{zoneName}}</li>
                 <li>
                   <span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span>
@@ -112,7 +80,7 @@
                 <li *ngIf="selectedBenData.relation">{{selectedBenData.relation}}</li>
               </ul>
               <ul class="list-unstyled list-inline pull-left  p-a-0 m-b-3 ">
-                <!-- <li><img src="assets/images/callerIcon.png " alt="Caller Icon " title="Caller Icon " /></li> -->
+
                 <li *ngIf="EverwellBeneficiaryRegID">{{EverwellBeneficiaryRegID}}</li>
                 <li *ngIf="everwellFullname">{{everwellFullname}}</li>
                 <!-- <li *ngIf="everwellPrimaryNumber">{{everwellPrimaryNumber}}</li> -->
@@ -120,23 +88,10 @@
                 <li *ngIf="everwellDistrict">{{everwellDistrict}}</li>
                 <li *ngIf="everwellGender">{{everwellGender}}</li>   
               </ul>
-              <span *ngIf="wrapupTime" class="pull-right">Time Remaining :
+              <span *ngIf="wrapupTime" class="pull-right">{{currentLanguageSet?.timeRemaining}}:
                 <strong>{{ticks}}</strong>
               </span>
-              <!-- <ul class="list-unstyled list-inline pull-right m-b-0 "> -->
-              <!--               <li class="text-center "><span><img src="assets/images/transferCallIcon.png " alt="Transfer Icon
-    " title="Transfer Icon "/></span>
-                <br />
-                <span class="f-s-14 ">Transfer Call</span></li> -->
-              <!-- <li class="text-center m-l-lg-40 f-s-9"><span><img src="assets/images/flagCallIcon.png " class="f-s-9" alt="Flag Call
-    Icon " title="Flag Call Icon "/></span>
-                  <br />
-                  <span class="f-s-14 ">Flag Call</span></li> -->
-              <!-- <li class="text-center m-l-lg-40 "><span><img src="assets/images/endCallIcon.png " alt="End Call
-    Icon " title="End Call Icon "/></span>
-              <br />
-              <span class="f-s-14 ">End Call</span></li> -->
-              <!-- </ul> -->
+
             </div>
           </div>
         </div>
@@ -144,21 +99,9 @@
     </div>
     <div class="clearfix "></div>
     <div>
-      <!-- <router-outlet></router-outlet> -->
+     
       <app-1097 *ngIf="current_service==='1097'" (beneficiarySelected)="getSelectedBenDetails($event)" (submitBtnCheck) = "finalSubmitBtnCheck($event)" (everwellBeneficiarySelected)="getEverwellSelectedBenDetails($event)" [current_language]="currentlanguageSet"></app-1097>
     </div>
   </div>
-  <!-- <iframe [src]="ctiHandlerURL" width="230px" height="350px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe> -->
+ 
 </div>
-<!-- <footer class="footer">
-  <div class="col-sm-4 col-xs-4">
-    <span class="footer-text footer-text-height">Powered by: WIPRO</span>
-  </div>
-  <div class="col-sm-4 col-xs-4">
-    <p class="footer-text t-a-c footer-text-height">2017
-      <md-icon color="" class="copyright_icon">copyright</md-icon> PSMRI</p>
-  </div>
-  <div class="col-sm-4 col-xs-4" *ngIf="checkRole">
-    <button md-raised-button type="button" color="primary" class="footer-height pull-right" *ngIf="barMinimized" (click)="toggleBar()">CZentrix</button>
-  </div>
-</footer> -->

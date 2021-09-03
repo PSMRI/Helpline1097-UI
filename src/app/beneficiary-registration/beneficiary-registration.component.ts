@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef, Renderer, DoCheck } from '@angular/core';
 import { RegisterService } from '../services/register-services/register-service';
 import { UpdateService } from '../services/update-services/update-service';
 import { Router } from '@angular/router';
@@ -22,6 +22,8 @@ import { SmsTemplateService } from './../services/supervisorServices/sms-templat
 
 import * as moment from 'moment';
 import { LoaderService } from 'app/services/common/loader.service';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
 
 declare var jQuery: any;
 
@@ -31,7 +33,7 @@ declare var jQuery: any;
   styleUrls: ['./beneficiary-registration.component.css'],
 
 })
-export class BeneficiaryRegistrationComponent implements OnInit {
+export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   @Input() current_language: any;
   @Input() onReloadCall: Boolean;
   @Input() onStartNewCall: Boolean;
@@ -158,6 +160,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   //public mobileNumberMask = [ /[^0-9]/, /\d/];
 
   btnDisabled = false;
+  assignSelectedLanguageValue: any;
+
   constructor(private _util: RegisterService,
     private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData,
@@ -173,7 +177,8 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     private czentrixService: CzentrixServices,
     private reload_call: ReloadService,
     private _smsService: SmsTemplateService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private httpServices: HttpServices
   ) {
 
     // this.subcriptionOutbound = this.outboundService.getOutboundData()
@@ -188,6 +193,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   /* Intialization Of value and object has to be written in here */
 
   ngOnInit() {
+    this.assignSelectedLanguage();
     this.IntializeSessionValues();
     console.log('ageUnit', this.ageUnit);
     this.BeneficaryCreationForm.form.patchValue({
@@ -199,20 +205,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else {
       this.startNewCall();
     }
-    // this.agentID = this.saved_data.cZentrixAgentID;
-    // this.reloadOutBoundCall(this.current_campaign);
-
+    
+    
   }
 
   ngOnChanges() {
-    this.setLanguage(this.current_language);
-    // if (this.onReloadCall) {
-    //   this.reloadCall();
-    // }
-    // if (this.onStartNewCall) {
-    //   this.startNewCall();
-    // }
-    this.BeneficaryForm.resetForm();
+        
+    // this.BeneficaryForm.resetForm();
     this.alternateNumber1 = "";
     this.alternateNumber2 = "";
     this.alternateNumber3 = "";
@@ -220,10 +219,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.alternateNumber5 = "";
   }
 
-  setLanguage(language) {
-    this.currentlanguage = language;
-    console.log(language, 'language ben reg tk');
-  }
+  // setLanguage(language) {
+  //   this.currentlanguage = language;
+  //   console.log(language, 'language ben reg tk');
+  // }
 
   IntializeSessionValues() {
     this.today = new Date();
@@ -240,7 +239,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
-    this.searchValue = 'Advance Search';
+    this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
     this.isAdvancedSearch = true;
     this.advanceBtnHide = true;
     this.spinner = false;
@@ -445,7 +444,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     this.registrationNo = "";
     if (flag) {
       this.calledEarlier = true;
-      this.searchValue = 'Advance Search';
+      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
       // this.showSearchResult = true;
       this.advanceBtnHide = true;
       this.isAdvancedSearch = true;
@@ -465,7 +464,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // jQuery("#BeneficaryForm").trigger("reset");
       this.BeneficaryForm.resetForm();
 
-      this.searchValue = 'Advance Search';
+      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
       this.advanceBtnHide = false;
       // this.isParentBeneficiary = false;
       this.notCalledEarlier = true;
@@ -777,7 +776,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         }
       }, err => {
         console.log(err, 'Error while setting language in CZentrix for Beneficiary');
-        this.alertMaessage.alert('Desired language not set in CZentrix', 'error');
+        this.alertMaessage.alert(this.assignSelectedLanguageValue.desiredLanguageNotSetInCZentrix, 'error');
       });
   }
 
@@ -870,11 +869,11 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       });
       this.beneficiaryRelationID = undefined;
 
-      this.relationshipWith = 'Relationship with  ' + (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
+      this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
         + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
       console.log('relationship with', this.regHistoryList[0].firstName, this.regHistoryList[0].lastName);
       if (this.regHistoryList[0].firstName != undefined && this.regHistoryList[0].lastname != undefined) {
-        this.relationshipWith = 'Relationship with  ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
+        this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
       }
       this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
       // if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
@@ -929,7 +928,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         if (response.length > 0) {
           this.populateRegistrationFormForUpdate(response[0])
         } else {
-          this.alertMaessage.alert('No data found');
+          this.alertMaessage.alert(this.assignSelectedLanguageValue.noDataFound);
         }
 
       }, err => {
@@ -1135,13 +1134,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       // debugger;
 
       // alternate number 5 already exists
-      this.alertMaessage.alert("Alternate number 5 already exits", 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberFiveAlreadyExits, 'error');
       return;
     } else if (this.alternateNumber4 != "" && (this.alternateNumberDisplay4 ? numString.includes(this.alternateNumberDisplay4) : numString.includes(this.alternateNumber4)) && (this.alternateNumberDisplay4 ? numString.indexOf(this.alternateNumberDisplay4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length) : numString.indexOf(this.alternateNumber4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length))) {
       // debugger;
 
       // alternate number 4 already exists
-      this.alertMaessage.alert("Alternate number 4 already exits", 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberFourAlreadyExits, 'error');
       return;
     }
     else if (this.alternateNumber3 != "" && (this.alternateNumberDisplay3 ? numString.includes(this.alternateNumberDisplay3) : numString.includes(this.alternateNumber3)) && (this.alternateNumberDisplay3 ? numString.indexOf(this.alternateNumberDisplay3) < (this.alternateNumber2.length + this.alternateNumber1.length) : numString.indexOf(this.alternateNumber3) < (this.alternateNumber2.length + this.alternateNumber1.length))) {
@@ -1151,7 +1150,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       console.log(numString.includes(this.alternateNumber3));
       console.log(numString.indexOf(this.alternateNumberDisplay3) < 20);
       console.log(numString.indexOf(this.alternateNumber3) < 20);
-      this.alertMaessage.alert("Alternate number 3 already exits", 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberThreeAlreadyExits, 'error');
       return;
     }
     else if (this.alternateNumber2 != "" && (this.alternateNumberDisplay2 ? numString.includes(this.alternateNumberDisplay2) : numString.includes(this.alternateNumber2)) && (this.alternateNumberDisplay2 ? numString.indexOf(this.alternateNumberDisplay2) < (this.alternateNumber1.length) : numString.indexOf(this.alternateNumber2) < (this.alternateNumber1.length))) {
@@ -1160,7 +1159,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
       console.log(numString.includes(this.alternateNumberDisplay2));
       console.log(numString.includes(this.alternateNumber2));
       // alternate number 2 already exists
-      this.alertMaessage.alert("Alternate number 2 already exits", 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberTwoAlreadyExits, 'error');
       return;
     }
         
@@ -1337,7 +1336,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   updateSuccessHandeler(response) {
     if (response) {
-      this.alertMaessage.alert('Beneficiary updated successfully', 'success');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.beneficiaryUpdatedSuccessfully, 'success');
       this.populateUserData(response);
 
       //   this.editAlternate = false;
@@ -1419,7 +1418,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
           this.beneficiaryRelationID = undefined;
           let fname = response[0].firstName ? response[0].firstName : "";
           let lname = response[0].lastName ? response[0].lastName : ""
-          this.relationshipWith = 'Relationship with ' + fname + ' ' + lname;
+          this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith+' '  + fname + ' ' + lname;
         }
 
       }
@@ -1541,7 +1540,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
     } else if (dobval == 'Invalid date') {
       this.BeneficaryCreationForm.form.patchValue({ dob: null });
       this.DOB = null;
-      alert('Invalid date entered, please recheck');
+      alert(this.assignSelectedLanguageValue.invalidDateEnteredPleaseRecheck);
     } else {
       this.BeneficaryCreationForm.form.patchValue({ age: null });
     }
@@ -1564,10 +1563,10 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
     this.isAdvancedSearch = false;
     if (data === 'Search by Id') {
-      this.searchValue = 'Advanced Search';
+      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
       this.calledEarlier = true;
     } else {
-      this.searchValue = 'Search by Id';
+      this.searchValue = this.assignSelectedLanguageValue.searchById;
       this.calledEarlier = false;
       this.showSearchResult = false;
     }
@@ -1575,7 +1574,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
   }
   back1() {
     this.isAdvancedSearch = true;
-    this.searchValue = 'Advanced Search';
+    this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
     this.calledEarlier = true;
     this.showSearchResult = true;
   }
@@ -1591,7 +1590,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         this.regHistoryList = response;
         this.showSearchResult = true;
         this.calledEarlier = true;
-        this.searchValue = 'Advanced Search';
+        this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
         console.log('Response advanced Search', response);
 
       }
@@ -1611,14 +1610,14 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         {
           this.idMaxValue = '14';
           this.patternID = /^\d{4}\d{4}\d{4}$/;
-          this.idErrorText = 'Enter valid Aadhar Ex:XXXXXXXXXXXX';
+          this.idErrorText = this.assignSelectedLanguageValue.addharValidation;
           break;
         }
       case 2:
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Voter ID  Ex:alphanumeric and min 6 letters';
+          this.idErrorText = this.assignSelectedLanguageValue.voterValidation;
           break;
 
         }
@@ -1626,34 +1625,34 @@ export class BeneficiaryRegistrationComponent implements OnInit {
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Driving Licence  Ex:alphanumeric';
+          this.idErrorText = this.assignSelectedLanguageValue.drivingValidation;
           break;
         }
       case 4:
         {
           this.idMaxValue = '10';
           this.patternID = /^[A-Za-z0-9]{10}$/;
-          this.idErrorText = 'Enter valid PAN  Ex:alphanumeric ';
+          this.idErrorText = this.assignSelectedLanguageValue.panValidation;
           break;
         }
       case 5:
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Passport No. Ex:alphanumeric';
+          this.idErrorText = this.assignSelectedLanguageValue.passportValidation;
           break;
         }
       case 6:
         {
           this.idMaxValue = '15';
           this.patternID = /^([A-Za-z]+[0-9]|[0-9]+[A-Za-z])[A-Za-z0-9]*$/;
-          this.idErrorText = 'Enter valid Ration No. Ex:alphanumeric';
+          this.idErrorText = this.assignSelectedLanguageValue.rationValidation;
           break;
         }
       default:
         this.idMaxValue = '14';
         this.patternID = /^\d{4}\s\d{4}\s\d{4}$/;
-        this.idErrorText = 'Enter valid Aadhar Ex:XXXX XXXX XXXX';
+        this.idErrorText = this.assignSelectedLanguageValue.validAadhar;
         break;
     }
   }
@@ -1768,7 +1767,7 @@ export class BeneficiaryRegistrationComponent implements OnInit {
                   this._smsService.sendSMS(arr)
                     .subscribe(ressponse => {
                       console.log(ressponse, 'SMS Sent');
-                      alert('SMS sent');
+                      alert(this.assignSelectedLanguageValue.smsSent);
                     }, err => {
                       console.log(err, 'SMS not sent Error');
                     })
@@ -1787,4 +1786,13 @@ export class BeneficiaryRegistrationComponent implements OnInit {
 
   }
 
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
+
+  assignSelectedLanguage() {
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
+  }
 }

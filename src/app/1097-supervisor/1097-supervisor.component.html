@@ -7,7 +7,7 @@
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
               aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
+              <span class="sr-only">{{currentLanguageSet?.toggleNavigation}}</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -15,115 +15,112 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <!-- <li  class="cursorPointer"  routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">
-                  <i class="fa fa-arrow-left fa-lg" aria-hidden="true" md-tooltip="Dashboard"></i>
-                </li> -->
+               
+
+
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activities
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentLanguageSet?.activities}}
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                   <li style="cursor: pointer" (click)='show("2")'>
-                    <a>Agent Status</a>
+                    <a>{{currentLanguageSet?.agentStatus}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("3")'>
-                    <a>Blacklist a Number</a>
+                    <a>{{currentLanguageSet?.blacklistANumber}}</a>
                   </li>
-                  <!-- <li style="cursor: pointer" (click)='show("4")'><a>Dial a Beneficiary</a></li> -->
-                  <!-- <li style="cursor: pointer" (click)='show("6")'>
-                    <a>Notifications</a>
-                  </li> -->
+                  
                   <li style="cursor: pointer" (click)='show("12")'>
-                    <a>Outbound Call List</a>
+                    <a>{{currentLanguageSet?.outboundCallList}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("13")'>
-                    <a>Outbound Call Re-Allocation</a>
+                    <a>{{currentLanguageSet?.outboundCallReallocation}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("5")'>
-                    <a>Call Auditing</a>
+                    <a>{{currentLanguageSet?.callAuditing}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("26")'>
-                    <a>Everwell Call Allocation</a>
+                    <a>{{currentLanguageSet?.everwellCallAllocation}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("27")'>
-                    <a>Everwell Call Re-Allocation</a>
+                    <a>{{currentLanguageSet?.everwellCallRe_allocation}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("28")'>
-                    <a>Everwell Guidelines Upload</a>
+                    <a>{{currentLanguageSet?.everwellGuidelinesUpload}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("1")'>
-                    <a>Feedback Tracking</a>
+                    <a>{{currentLanguageSet?.feedbackTracking}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("14")'>
-                    <a>Campaign Status</a>
+                    <a>{{currentLanguageSet?.campaignStatus}}</a>
                   </li>
                   <li class="dropdown-submenu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Communication *</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{currentLanguageSet?.communication}} *</a>
                     <ul class="dropdown-menu">
                       <li style="cursor: pointer" (click)='show("19")'>
-                        <a>Alerts & Notifications</a>
+                        <a>{{currentLanguageSet?.alertsAndNotifications}}</a>
                       </li>
                       <li style="cursor: pointer" (click)='show("20")'>
-                        <a>Location Messages</a>
+                        <a>{{currentLanguageSet?.locationMessages}}</a>
                       </li>
                        <li style="cursor: pointer" (click)='show("21")'>
-                        <a>Training Resource</a>
+                        <a>{{currentLanguageSet?.trainingResource}}</a>
                       </li>
                       <li style="cursor: pointer" (click)='show("22")'>
-                        <a>Emergency Contacts</a>
+                        <a>{{currentLanguageSet?.emergencyContacts}}</a>
                       </li> 
                     </ul>
                   </li>
                   <li style="cursor: pointer" (click)='show("23")'>
-                    <a>Force Logout</a>
+                    <a>{{currentLanguageSet?.forceLogout}}</a>
                   </li>
                 </ul>
               </li>
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentLanguageSet?.reports}}
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                   <li style="cursor: pointer" (click)='show("7")'>
-                    <a>Telephony Reports</a>
+                    <a>{{currentLanguageSet?.telephonyReports}}</a>
                   </li>
                   <li class="dropdown-submenu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Call Reports</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{currentLanguageSet?.callReports}}</a>
                     <ul class="dropdown-menu">
                       <li style="cursor: pointer" (click)='show("9")'>
-                        <a>Call Type Report</a>
+                        <a>{{currentLanguageSet?.callTypeReport}}</a>
                       </li>
                       <li style="cursor: pointer" (click)='show("15")'>
-                        <a>Caller Age Report</a>
+                        <a>{{currentLanguageSet?.callerAgeReport}}</a>
                       </li>
                       <li style="cursor: pointer" (click)='show("16")'>
-                        <a>Sexual Orientation Report</a>
+                        <a>{{currentLanguageSet?.sexualOrientationReport}}</a>
                       </li>
                       <li style="cursor: pointer" (click)='show("17")'>
-                        <a>Language Distribution Report</a>
+                        <a>{{currentLanguageSet?.languageDistributionReport}}</a>
                       </li>
                       <li style="cursor: pointer" (click)='show("18")'>
-                        <a>Gender Distribution Report</a>
+                        <a>{{currentLanguageSet?.genderDistributionReport}}</a>
                       </li>
                     </ul>
                   </li>
                 </ul>
               </li>
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configurations
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentLanguageSet?.configurations}}
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                   <li style="cursor: pointer" (click)='show("10")'>
-                    <a>Knowledge Management</a>
+                    <a>{{currentLanguageSet?.knowledgeManagement}}</a>
                   </li>
                   <li style="cursor: pointer" (click)='show("24")'>
-                    <a>SMS Templates</a>
+                    <a>{{currentLanguageSet?.smsTemplates}}</a>
                   </li>
                 </ul>
               </li>
             </ul>
-             <button class="pull-right m-a-5" md-raised-button color="primary" routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">Back To Dashboard</button> 
+             <button class="pull-right m-a-5" md-raised-button color="primary" routerLink='/MultiRoleScreenComponent/dashboard' routerLinkActive="active">{{currentLanguageSet?.backToDashboard}}</button> 
           </div>
         </div>
       </nav>
@@ -134,7 +131,7 @@
 
   <div class="panel-body card p-a-0 bg-white ">
     <div class="container-fluid p-a-0 overflow-y" style="min-height:570px">
-      <!--<div class="row">-->
+     
       <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
         <div>
 
@@ -171,12 +168,12 @@
          
         </div>
       </div>
-      <!--</div>-->
+      
     </div>
   </div>
 </div>
 
 <div [hidden]="true">
-  <iframe [src]="ssoURL" width="100%" height="700px"></iframe>
+  <iframe [src]="ssoURL" width="100%" height="700px" title="Success Handler menu"></iframe>
 
 </div>

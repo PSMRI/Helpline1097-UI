@@ -4,6 +4,8 @@ import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { MdDialog } from '@angular/material';
+import { HttpServices } from "../services/http-services/http_services.service";
+import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
 	selector: 'news-informations',
@@ -20,13 +22,15 @@ export class NewsInformationsComponent implements OnInit {
 	currentDate:any;
 
 	emrMessages=[];
+	currentLanguageSet: any;
 
 
 	constructor(private dataService: dataService,
 	            private notificationService: NotificationService,
-	            public dialog: MdDialog) { };
+	            public dialog: MdDialog,public HttpServices: HttpServices) { };
 
 	ngOnInit() {
+		this.assignSelectedLanguage();
 		this.providerServiceMapID=this.dataService.current_service.serviceID;
 
 		this.currentDate=new Date();
@@ -42,6 +46,14 @@ export class NewsInformationsComponent implements OnInit {
 		this.notificationService.getNotificationTypes(this.providerServiceMapID)
 		.subscribe(response=>this.getNotificationTypesSuccessHandeler(response));
 	};
+	ngDoCheck() {
+		this.assignSelectedLanguage();
+	  }
+	  assignSelectedLanguage() {
+		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+		getLanguageJson.setLanguage();
+		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+	  }
 
 	getNotificationTypesSuccessHandeler(response)
 	{
