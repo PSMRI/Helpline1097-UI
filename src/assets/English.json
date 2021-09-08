@@ -253,7 +253,7 @@
       "read": "Read",
       "forwardedDate": "Forwarded Date",
       "agentName": "Agent Name",
-      "feedbackResponse/request": "Feedback Response/Request",
+      "feedbackResponseAndrequest": "Feedback Response/Request",
       "failedToUpdate": "Failed to update",
       "allSmsTypesHaveBeenUsedAndAreThoseTemplatesAreActive": "All SMS Types have been used and are those templates are active",
       "notificationSubjectIsRequiredmin5Characters": "Notification Subject is required(min 5 characters)",

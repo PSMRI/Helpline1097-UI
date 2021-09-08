@@ -255,6 +255,10 @@ export class CoReferralServicesComponent implements OnInit {
       if (this.detailsList.length > 0) {
         this.showSendSMS = true;
       }
+      else
+      {
+        this.message.alert(this.currentLanguageSet.noDataFound)
+      }
       this.referralServiceProvided.emit();
       this.provideReferralDescription();
     }
@@ -262,17 +266,7 @@ export class CoReferralServicesComponent implements OnInit {
   }
 
   provideReferralDescription() {
-    const refObj = {
-      'state': this.selected_state,
-      'district': this.selected_district,
-      'taluk': this.selected_taluk,
-      'block': this.selected_block,
-      'selected_directory': this.selected_directory,
-      'selected_sub_directory': this.selected_sub_directory,
-      'date': new Date()
-    }
-    // this.tableArray.push(refObj);
-    // this.data.push(refObj);
+    
     this.setBeneficiaryData();
 
   }
