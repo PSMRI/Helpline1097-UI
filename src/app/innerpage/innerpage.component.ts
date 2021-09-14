@@ -259,7 +259,7 @@ export class InnerpageComponent implements OnInit {
               });
               console.log('**********BENEFICIARY REG ID**********', data.beneficiaryRegID);
               this.getCommonData.beneficiaryRegID = data.beneficiaryRegID;
-              this.selectedBenData.id = this.currentlanguageSet.benId + ": " + data.beneficiaryID;
+              this.selectedBenData.id = data.beneficiaryID;
               this.beneficiaryRegID = data.beneficiaryRegID;
               let fname = data.firstName ? data.firstName : "";
               let lname = data.lastName ? data.lastName : "";

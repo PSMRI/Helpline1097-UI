@@ -207,7 +207,7 @@ export class QualityAuditComponent implements OnInit {
         this.validTill.valueOf() -
           1 * this.validTill.getTimezoneOffset() * 60 * 1000
       ),
-      is1097: false,
+      is1097: true,
       pageNo: pageNo,
     };
     this.getFilteredCallList(requestForCallrecords, pageNo);
@@ -232,7 +232,7 @@ export class QualityAuditComponent implements OnInit {
       inboundOutbound: formValues.InboundOutbound
         ? formValues.InboundOutbound
         : null,
-      is1097: false,
+      is1097: true,
       pageNo: pageNo,
     };
     this.getFilteredCallList(requestForCallrecords, pageNo);

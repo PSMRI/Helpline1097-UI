@@ -66,8 +66,8 @@
             <div>
               <ul class="list-unstyled list-inline pull-left  p-a-0 m-b-3 ">
                 <li *ngIf="zoneName">Zone: {{zoneName}}</li>
-                <li>
-                  <span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{selectedBenData.id}}</span>
+                <li *ngIf="selectedBenData.id">
+                  <span class="m-l-lg-20 f-s-16 f-c-0 font-Medium ">{{currentlanguageSet.benId}} : {{selectedBenData.id}}</span>
                 </li>
                 <li *ngIf="selectedBenData.name">{{selectedBenData.name}}</li>
                 <li *ngIf="selectedBenData.mob">{{selectedBenData.mob}}</li>
