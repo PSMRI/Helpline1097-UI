@@ -333,7 +333,7 @@ export class InnerpageComponent implements OnInit {
     this.everwellSelectedBenData = obj;
     let firstName = obj.FirstName ? obj.FirstName : "";
     let lname = obj.LastName ? obj.LastName : "";
-    this.EverwellBeneficiaryRegID = 'Ben ID: ' + obj.beneficiaryID;
+    this.EverwellBeneficiaryRegID = obj.beneficiaryID;
     console.log("innerpage", obj);
     this.everwellFullname = firstName + ' ' + lname;
     this.everwellPrimaryNumber = obj.PrimaryNumber;

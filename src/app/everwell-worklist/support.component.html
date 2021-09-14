@@ -14,13 +14,13 @@
               
         <form #form="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label">{{currentLanguageSet?.missedDoses}}: {{everwellBenData.MissedDoses}}</label>
+                <label class="control-label">{{currentLanguageSet?.missedDoses}} : {{everwellBenData.MissedDoses}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label">{{currentLanguageSet?.adherencePercentage}}: {{everwellBenData.AdherencePercentage}}</label>
+                <label class="control-label">{{currentLanguageSet?.adherencePercentage}} : {{everwellBenData.AdherencePercentage}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label">{{currentLanguageSet?.currentMonthMissedDoses}}: {{everwellBenData.currentMonthMissedDoses}}</label>
+                <label class="control-label">{{currentLanguageSet?.currentMonthMissedDoses}} : {{everwellBenData.currentMonthMissedDoses}}</label>
             </div>
             <div class="clearfix visible-md visible-lg"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
@@ -58,7 +58,7 @@
               
 
                 <md-input-container>
-                    <input mdInput placeholder="{{currentLanguageSet?.daeOfAction}}" ngModel name="dob" [(ngModel)]="dob" name="dob"
+                    <input mdInput placeholder="{{currentLanguageSet?.dateOfAction}}" ngModel name="dob" [(ngModel)]="dob" name="dob"
                         minlength="2" maxlength="500" #fname="ngModel" readonly required>
                     <md-hint *ngIf="dob.touched">
                         <span class="errorText" [hidden]="!dob.errors">{{currentLanguageSet?.selectDate}}</span>
@@ -96,7 +96,7 @@
             </div>
 
             <div *ngIf="fileName !== null && fileName !== undefined" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-                <label><strong>Guideline Document:</strong> </label>
+                <label><strong>{{currentLanguageSet?.guidelineDocument}} :</strong> </label>
                 <a  href="#" (click)="openPDFGuidelines()">{{fileName}}</a>
                 
             </div>
@@ -115,13 +115,13 @@
     <md-dialog-content style="min-height:300px">
         <form #editform="ngForm" autocomplete="off">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Missed Doses: {{everwellBenData?.MissedDoses}}</label>
+                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">{{currentLanguageSet?.missedDoses}} : {{everwellBenData?.MissedDoses}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label pull-right" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Adherence Percentage: {{everwellBenData?.AdherencePercentage}}</label>
+                <label class="control-label pull-right" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">{{currentLanguageSet?.adherencePercentage}} : {{everwellBenData?.AdherencePercentage}}</label>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
-                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">Current Month Missed Doses:
+                <label class="control-label" [ngStyle]="{'color': dosecolor === 'dosecolor'?'':'grey'}">{{currentLanguageSet?.currentMonthMissedDoses}} :
                     {{everwellBenData?.currentMonthMissedDoses}}</label>
             </div>            
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
@@ -166,7 +166,7 @@
               
 
                 <md-input-container>
-                    <input mdInput placeholder="{{currentLanguageSet?.daeOfAction}}" ngModel [(ngModel)]="editdob" name="editdob"
+                    <input mdInput placeholder="{{currentLanguageSet?.dateOfAction}}" ngModel [(ngModel)]="editdob" name="editdob"
                         minlength="2" maxlength="500" #fname="ngModel" readonly required [disabled]='enablecontrols'>
                     <md-hint *ngIf="dob.touched">
                         <span class="errorText" [hidden]="!dob.errors">{{currentLanguageSet?.selectDate}}</span>
@@ -202,7 +202,7 @@
             </div>
 
             <div *ngIf="fileName !== null && fileName !== undefined" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-                <label><strong>Guideline Document:</strong> </label>
+                <label><strong>{{currentLanguageSet?.guidelineDocument}} :</strong> </label>
                 <a href="#" (click)="openPDFGuidelines()">{{fileName}}</a>
                 
             </div>

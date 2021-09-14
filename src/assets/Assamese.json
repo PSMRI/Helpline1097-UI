@@ -470,7 +470,7 @@
       "contactPersonName": "পৰিচয় ব্যক্তিৰ নাম",
       "allocate": "আবন্টন",
       "age": "বয়স",
-      "in-tableSearch": "ইন-টেবল সন্ধান",
+      "inTableSearch": "ইন-টেবল সন্ধান",
       "supervisor-configurationsWorks!": "চুপাৰভাইজাৰ-কনফিগাৰেশ্বনে কাম কৰে!",
       "reset": "ৰিছেট কৰক",
       "servicemasterDetails": "সেৱামাষ্টাৰৰ বিৱৰণ",
@@ -713,7 +713,8 @@
       "genderIsRequired": "Gender is required",
       "sexualityIsRequired": "sexuality is required",
       "languageIsRequired": "Language is required",
-      "ageGroupIsRequired": "Age Group is required"
+      "ageGroupIsRequired": "Age Group is required",
+      "everwellOutboundWorklist":"Everwell Outbound Worklist"
 
 
 
