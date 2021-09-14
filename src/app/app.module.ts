@@ -202,7 +202,7 @@ import { EverwellOutboundWorklistComponent } from './everwell-outbound-worklist/
 import { EverwellWorklistComponent, SupportActionModal } from './everwell-worklist/everwell-worklist.component';
 import { OutboundCallWorklistsComponent } from './outbound-call-worklists/outbound-call-worklists.component';
 import { EverwellGuidelinesUploadComponent } from './everwell-guidelines-upload/everwell-guidelines-upload.component';
-import { SetLanguageComponent } from './set-language.component';
+// import { SetLanguageComponent } from './set-language.component';
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
 
@@ -251,7 +251,7 @@ import { SetLanguageComponent } from './set-language.component';
     SupportActionModal,
     OutboundCallWorklistsComponent,
     EverwellGuidelinesUploadComponent,
-    SetLanguageComponent
+    // SetLanguageComponent
   ],
   imports: [
     BrowserModule,

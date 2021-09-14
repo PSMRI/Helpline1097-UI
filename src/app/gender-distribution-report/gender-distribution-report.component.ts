@@ -51,7 +51,6 @@ export class GenderDistributionReportComponent implements OnInit {
 
   ngOnInit() {
     this.providerServiceMapID = this.dataService.current_service.serviceID;
-
     this.userbeneficiarydata
       .getUserBeneficaryData(this.providerServiceMapID)
       .subscribe((response) => {
@@ -68,27 +67,7 @@ export class GenderDistributionReportComponent implements OnInit {
       (err) => {
         this.alertService.alert(err.errorMessage);
       };
-
-    // this.today = new Date();
-    // this.today.setDate(this.today.getDate()-1);
-
-    // this.end_date = new Date();
-    // this.end_date.setDate(this.end_date.getDate()-1);
-
-    // this.start_date = new Date();
-    // this.start_date.setDate(this.today.getDate()-7);
-
-    // this.minStartDate = new Date();
-    // this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
     this.today = new Date();
-    // this.end_date = new Date();
-    // this.end_date.setDate(this.today.getDate() - 1);
-    // this.end_date.setHours(23, 59, 59, 0);
-
-    // this.start_date = new Date();
-    // this.start_date.setDate(this.today.getDate() - 7);
-    // this.start_date.setHours(0, 0, 0, 0);
-
     this.maxStartDate = new Date();
     this.maxStartDate.setDate(this.today.getDate() - 1);
     this.maxStartDate.setHours(0, 0, 0, 0);

@@ -17,17 +17,17 @@
             (keydown)="blockKey($event)"
             [(ngModel)]="start_date"
             (change)="endDateChange()"
-            #startDate
+            #startDate='ngModel'
             [max]="maxStartDate"
             required
           ></md2-datepicker>
           <span
-            class="error_text f-s-10 p-l-10"
+            class="error_text f-s-10 p-l-50"
             *ngIf="startDate.touched && startDate.errors?.required"
             >{{ assignSelectedLanguageValue?.dateIsRequired }}</span
           >
           <span
-            class="error_text f-s-10 p-l-10"
+            class="error_text f-s-10 p-l-50"
             *ngIf="startDate.touched && startDate.errors?.min"
             >{{
               assignSelectedLanguageValue?.minStartDateIsEndDate30days
@@ -41,17 +41,21 @@
             placeholder="{{ assignSelectedLanguageValue?.endDate }}"
             (keydown)="blockKey($event)"
             [(ngModel)]="end_date"
-            #endDate
+            #endDate='ngModel'
             [min]="startDate.value"
             [max]="maxEndDate"
             required
           ></md2-datepicker>
-
           <span
-            class="error_text f-s-10 p-l-10"
-            *ngIf="endDate.errors?.required"
+          class="error_text f-s-10 p-l-50"
+          *ngIf="endDate.touched && endDate.errors?.required"
+          >{{ assignSelectedLanguageValue?.dateIsRequired }}</span
+        >
+          <span
+            class="error_text f-s-10 p-l-50"
+            *ngIf="endDate.touched && endDate.errors?.min"
             >{{
-              assignSelectedLanguageValue?.endDateShouldBeGreatorThanStartmax30Days
+              assignSelectedLanguageValue?.endDateShouldBeGreatorThanStartMaxThirtyDays
             }}</span
           >
         </div>
@@ -69,6 +73,7 @@
             </md-option>
           </md-select>
         </div>
+        <div class="clearfix visible-md"></div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
           <md-select
             placeholder="{{ assignSelectedLanguageValue?.selectDistrict }}"
@@ -84,6 +89,7 @@
             </md-option>
           </md-select>
         </div>
+        <div class="clearfix visible-lg"></div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
           <md-select
             required
@@ -91,6 +97,7 @@
             [style.width]="'100%'"
             [(ngModel)]="ageGroup"
             name="ageGroup"
+            #_ageGroup='ngModel'
             (change)="resetWorklist()"
           >
             <md-option
@@ -100,6 +107,11 @@
               {{ age.ageGroupDisplay }}
             </md-option>
           </md-select>
+          <span
+          class="error_text f-s-10"
+          *ngIf="_ageGroup.touched && _ageGroup.errors?.required"
+          >{{ assignSelectedLanguageValue?.ageGroupIsRequired }}</span
+        >
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">

@@ -248,17 +248,17 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
           this.refreshExistingTable(this.location_communication_typeID, this.searchStartDate, this.searchEndDate);
           this.dialogService.alert(this.currentLanguageSet.locationMessageCreatedSuccessfully, 'success');
           this.notificationCreationForm.reset();
-          if (startDate.getTime() <= this.currentDate.getTime()) {
-            this.notification_service.sendSocketNotification({
-              "room": roomArray, type: "Location_Message", "message": form_values.message, "subject": form_values.subject
-            })
-              .subscribe((response) => {
-                console.log(response.data);
-              },
-              (error) => {
-                console.log(error);
-              });
-          }
+          // if (startDate.getTime() <= this.currentDate.getTime()) {
+          //   this.notification_service.sendSocketNotification({
+          //     "room": roomArray, type: "Location_Message", "message": form_values.message, "subject": form_values.subject
+          //   })
+          //     .subscribe((response) => {
+          //       console.log(response.data);
+          //     },
+          //     (error) => {
+          //       console.log(error);
+          //     });
+          // }
           this.showTable();
         }
       },
