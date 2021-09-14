@@ -52,6 +52,8 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     public httpServices:HttpServices) { }
 
     numberRegex: any;
+  filteredsearchResult: any;
+
   ngOnInit() {
     this.assignSelectedLanguage();
     this.numberRegex = "^[1-9][0-9]*$";
@@ -137,6 +139,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
         if (response.data) {
           console.log('Supervisor Emergency Contacts success callback', response.data);
           this.emergencyList = response.data;
+          this.filteredsearchResult = response.data;
         }
       }, err => {
         console.log('error', err);
@@ -365,5 +368,23 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     this.showTable = false;
     this.showForm = false;
     this.showEditForm = true;
+  }
+  filterComponentList(searchTerm?: string) {
+    if (!searchTerm) {
+      this.filteredsearchResult = this.emergencyList;
+    } else {
+      this.filteredsearchResult = [];
+      this.emergencyList.forEach((item) => {
+        for (let key in item) {
+          if (key === 'emergContactName' || key === 'emergContactNo' || key === 'location') {
+            let value: string = '' + item[key];
+            if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
+              this.filteredsearchResult.push(item); break;
+            }
+          }
+        }
+      });
+    }
+
   }
 }
