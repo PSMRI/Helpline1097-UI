@@ -60,7 +60,9 @@ export class CallAllocateComponent implements OnInit {
     this.assignSelectedLanguage();
   }
   assignCount(data: any) {
-    this.getOutboundCallCount(data.providerServiceMapId, data.startDate, data.endDate, data.language);
+    let fromDate = new Date((data.startDate) - 1 * (data.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    let toDate= new Date((data.endDate) - 1 * (data.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    this.getOutboundCallCount(data.providerServiceMapId, fromDate, toDate, data.language);
     this.showCount = false;
   }
   getOutboundCallCount(serviceProviderMapID,  startDate?: any, endDate?: any,language?: any) {

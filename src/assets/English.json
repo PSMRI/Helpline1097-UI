@@ -700,7 +700,9 @@
       "subcategoryIsRequired":"Subcategory is required",
       "mins": "Mins",
       "secs": "Sec",
-      "first_name": "First Name"
+      "first_name": "First Name",
+      
+      "userNameRequired":"User Name is required"
 
 
 

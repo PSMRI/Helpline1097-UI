@@ -140,49 +140,8 @@
 
         </tr>
       </tbody>
-      <!-- <tfoot>
-        <tr>
-          <td
-            colspan="1"
-            class="m-t-5"
-            *ngIf="pager?.pages && pager?.pages.length"
-          >
-            <label>{{ currentLanguageSet.totalPages }}:</label>
-            {{ pageCount }}
-          </td>
-          <td colspan="10">
-            <ul
-              *ngIf="pager?.pages && pager?.pages.length"
-              class="pagination pull-right"
-            >
-              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
-                <a (click)="setPage(1, qaForm.value)"> << </a>
-              </li>
-              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
-                <a (click)="setPage(pager.currentPage - 1, qaForm.value)">
-                  <
-                </a>
-              </li>
-              <li
-                *ngFor="let page of pager.pages"
-                [ngClass]="{ active: pager.currentPage === page }"
-              >
-                <a (click)="setPage(page, qaForm.value)">{{ page }}</a>
-              </li>
-              <li
-                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
-              >
-                <a (click)="setPage(pager.currentPage + 1, qaForm.value)">></a>
-              </li>
-              <li
-                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
-              >
-                <a (click)="setPage(pager.totalPages, qaForm.value)">>></a>
-              </li>
-            </ul>
-          </td>
-        </tr>
-      </tfoot> -->
+
+
       <tfoot *ngIf="md2.data.length > 0">
         <tr>
           <td
@@ -190,50 +149,7 @@
             class="m-t-5"
             *ngIf="pager?.pages && pager?.pages.length"
           >
-            <label>Total Pages:</label>
-            {{ pageCount }}
-          </td>
-          <td colspan="10">
-            <ul
-              *ngIf="pager?.pages && pager?.pages.length"
-              class="pagination pull-right"
-            >
-              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
-                <a (click)="setPage(1, qaForm.value)"> << </a>
-              </li>
-              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
-                <a (click)="setPage(pager.currentPage - 1, qaForm.value)">
-                  <
-                </a>
-              </li>
-              <li
-                *ngFor="let page of pager.pages"
-                [ngClass]="{ active: pager.currentPage === page }"
-              >
-                <a (click)="setPage(page, qaForm.value)">{{ page }}</a>
-              </li>
-              <li
-                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
-              >
-                <a (click)="setPage(pager.currentPage + 1, qaForm.value)">></a>
-              </li>
-              <li
-                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
-              >
-                <a (click)="setPage(pager.totalPages, qaForm.value)">>></a>
-              </li>
-            </ul>
-          </td>
-        </tr>
-      </tfoot> -->
-      <tfoot *ngIf="md2.data.length > 0">
-        <tr>
-          <td
-            colspan="1"
-            class="m-t-5"
-            *ngIf="pager?.pages && pager?.pages.length"
-          >
-            <label>Total Pages:</label>
+            <label>{{currentLanguageSet?.totalPages}}:</label>
             {{ pageCount }}
           </td>
           <td colspan="10">
