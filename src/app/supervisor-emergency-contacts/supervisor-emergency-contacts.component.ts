@@ -220,15 +220,15 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
           for(var i =0 ; i < this.roles.length; i++){
             roomArray.push(this.roles[i].roleName);
           }
-          this.notification_service.sendSocketNotification({
-            "room":roomArray, type:"Emergency_Contact", "message":"Emergency Contacts added", "subject": array.length.toString()
-          })
-          .subscribe((response)=>{
-            console.log(response.data);
-          },
-          (error)=>{
-            console.log(error);
-          });
+          // this.notification_service.sendSocketNotification({
+          //   "room":roomArray, type:"Emergency_Contact", "message":"Emergency Contacts added", "subject": array.length.toString()
+          // })
+          // .subscribe((response)=>{
+          //   console.log(response.data);
+          // },
+          // (error)=>{
+          //   console.log(error);
+          // });
         }, err => {
           console.log('error', err);
           this.dialogService.alert(this.currentLanguageSet.failedToCreate, 'error');

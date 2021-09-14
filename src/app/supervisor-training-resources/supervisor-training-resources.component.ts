@@ -237,17 +237,17 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
       this.count = '0/300';
 
       this.getTrainingResources(); // refreshing the table
-      if (startDate.getTime() <= this.currentDate.getTime()) {
-        this.notificationService.sendSocketNotification({
-          "room": roomArray, type: "Training_Resource", "message": values.message, "subject": values.subject
-        })
-          .subscribe((response) => {
-            console.log(response.data);
-          },
-          (error) => {
-            console.log(error);
-          });
-      }
+      // if (startDate.getTime() <= this.currentDate.getTime()) {
+      //   this.notificationService.sendSocketNotification({
+      //     "room": roomArray, type: "Training_Resource", "message": values.message, "subject": values.subject
+      //   })
+      //     .subscribe((response) => {
+      //       console.log(response.data);
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //     });
+      // }
     }
   }
 

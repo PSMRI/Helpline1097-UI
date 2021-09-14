@@ -23,7 +23,7 @@
       "backToDashboard": "ডেশ্বব'ৰ্ডলৈ ঘূৰি যাওক",
       "noCallTypeReportForSearchedCriteria": "সন্ধান কৰা চৰ্তৰ বাবে কোনো কল প্ৰকাৰৰ প্ৰতিবেদন নাই",
       "passwordChangedSuccessfully": "পাছৱাৰ্ড সফলতাৰে সলনি হৈছে",
-      "preferredLanguage": "পছন্দৰ ভাষা :",
+      "preferredLanguage": "পছন্দৰ ভাষা",
       "totalNoOfRequest": "অনুৰোধৰ মুঠ সংখ্যা",
       "moveToBin": "বিনলৈ স্থানান্তৰ কৰক",
       "dateIsRequired": "তাৰিখপ্ৰয়োজন",
@@ -706,8 +706,14 @@
       "first_name": "প্ৰথম নাম",
       "hrs": "ঘণ্টা",
       "kmDocs": "কেএম ডক্স",
-      
-      "userNameRequired":"User Name is required"
+      "userNameRequired":"User Name is required",
+      "min20": "নিম্নতম 20 টা বৰ্ণৰ প্ৰয়োজন",
+      "templateNameIsRequired": "Template Name is required",
+      "smsTypeIsRequired": "SMS Type is required",
+      "genderIsRequired": "Gender is required",
+      "sexualityIsRequired": "sexuality is required",
+      "languageIsRequired": "Language is required",
+      "ageGroupIsRequired": "Age Group is required"
 
 
 

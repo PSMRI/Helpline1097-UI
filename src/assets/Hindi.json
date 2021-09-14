@@ -23,7 +23,7 @@
       "backToDashboard": "सूचना पटल पर वापस जाएं",
       "noCallTypeReportForSearchedCriteria": "खोजेे गए मूल्यदंड के लिए कोई कॉल \nप्रकार विवरण नहीं",
       "passwordChangedSuccessfully": "पासवर्ड सफलतापूर्वक बदला गया",
-      "preferredLanguage": "पसंदीदा भाषा :",
+      "preferredLanguage": "पसंदीदा भाषा",
       "totalNoOfRequest": "अनुरोध की कुल संख्या",
       "moveToBin": "बिन में ले जाएँ",
       "dateIsRequired": "तारीखआवश्यक है",
@@ -469,7 +469,7 @@
       "createFeedback": "प्रतिक्रिया बनाएं",
       "contactPersonName": "संपर्क व्यक्ति का नाम",
       "allocate": "आवंटित करना",
-      "age": "आयु:",
+      "age": "आयु",
       "in-tableSearch": "सूची में ढूंढ़ना",
       "supervisor-configurationsWorks!": "पर्यवेक्षक-विन्यास काम करता है!",
       "reset": "पुनर्स्थापित",
@@ -706,8 +706,14 @@
       "first_name": "पहला नाम",
       "hrs": "बजे",
       "kmDocs": "के० एम० दस्तावेज़ ",
-      
-      "userNameRequired":"User Name is required"
+      "userNameRequired":"User Name is required",
+      "min20": "कम से कम 20 वर्णों की आवश्यकता है",
+      "templateNameIsRequired": "Template Name is required",
+      "smsTypeIsRequired": "SMS Type is required",
+      "genderIsRequired": "Gender is required",
+      "sexualityIsRequired": "sexuality is required",
+      "languageIsRequired": "Language is required",
+      "ageGroupIsRequired": "Age Group is required"
 
       
 

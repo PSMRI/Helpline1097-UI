@@ -326,32 +326,32 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
           if (response.data[0].notificationTypeID == 18) {
             this.dialogService.alert(this.currentLanguageSet.alertCreatedSuccessfully, 'success');
             this.notificationCreationForm.reset();
-            if (startDate.getTime() <= currentDate.getTime()) {
-              this.notification_service.sendSocketNotification({
-                "room": roomArray, type: "Alert", "message": form_values.message, "subject": form_values.subject
-              })
-                .subscribe((res) => {
-                  console.log(res.data);
-                },
-                (error) => {
-                  console.log(error);
-                });
-            }
+            // if (startDate.getTime() <= currentDate.getTime()) {
+            //   this.notification_service.sendSocketNotification({
+            //     "room": roomArray, type: "Alert", "message": form_values.message, "subject": form_values.subject
+            //   })
+            //     .subscribe((res) => {
+            //       console.log(res.data);
+            //     },
+            //     (error) => {
+            //       console.log(error);
+            //     });
+            // }
           }
           if (response.data[0].notificationTypeID == 19) {
             this.dialogService.alert(this.currentLanguageSet.notificationCreatedSuccessfully, 'success');
             this.notificationCreationForm.reset();
-            if (startDate.getTime() <= currentDate.getTime()) {
-              this.notification_service.sendSocketNotification({
-                "room": roomArray, type: "Notification", "message": form_values.message, "subject": form_values.subject
-              })
-                .subscribe((res) => {
-                  console.log(res.data);
-                },
-                (error) => {
-                  console.log(error);
-                });
-            }
+            // if (startDate.getTime() <= currentDate.getTime()) {
+            //   this.notification_service.sendSocketNotification({
+            //     "room": roomArray, type: "Notification", "message": form_values.message, "subject": form_values.subject
+            //   })
+            //     .subscribe((res) => {
+            //       console.log(res.data);
+            //     },
+            //     (error) => {
+            //       console.log(error);
+            //     });
+            // }
           }
           this.showTable();
         }

@@ -619,7 +619,9 @@ color:#545454;
 .p-l-20 {
   padding-left: 20px !important;
 }
-
+.p-l-50 {
+  padding-left: 50px !important;
+}
 .p-l-r-10 {
   padding-left: 10px !important;
   padding-right: 10px !important;
