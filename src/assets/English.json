@@ -570,6 +570,7 @@
 
       "logo":"Logo",
       "enterAnswer": "Enter Answer",
+      "showAnswer":"Show Answer",
       "showPassword": "Show Password",
       "NotAllowedToGoBackPleaseComplete":"Not allowed to go back, Please complete & close the call",
       "pleseWaitForCallToComeOrLogout":"Plese wait for call to come or Logout",
@@ -700,7 +701,9 @@
       "subcategoryIsRequired":"Subcategory is required",
       "mins": "Mins",
       "secs": "Sec",
-      "first_name": "First Name"
+      "first_name": "First Name",
+      "hrs": "Hrs",
+      "kmDocs": "KM Docs"
 
 
 
