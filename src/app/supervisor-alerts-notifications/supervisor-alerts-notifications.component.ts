@@ -504,24 +504,27 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   refreshExistingTable(type, startdate, enddate) {
-    let startDate: Date = new Date(startdate);
-    startDate.setHours(0);
-    startDate.setMinutes(0);
-    startDate.setSeconds(0);
-    startDate.setMilliseconds(0)
+    // let startDate: Date = new Date(startdate);
+    // startDate.setHours(0);
+    // startDate.setMinutes(0);
+    // startDate.setSeconds(0);
+    // startDate.setMilliseconds(0)
 
-    let endDate: Date = new Date(enddate);
-    endDate.setHours(23);
-    endDate.setMinutes(59);
-    endDate.setSeconds(59);
-    endDate.setMilliseconds(0);
+    // let endDate: Date = new Date(enddate);
+    // endDate.setHours(23);
+    // endDate.setMinutes(59);
+    // endDate.setSeconds(59);
+    // endDate.setMilliseconds(0);
+
+    let fromdate = new Date((startdate) - 1 * (startdate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    let toDate= new Date((enddate) - 1 * (enddate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
 
     let obj = {
       "providerServiceMapID": this.providerServiceMapID,
       "notificationTypeID": type,
       "roleIDs": this.allRoleIDs,
-      "validStartDate": startDate,
-      "validEndDate": endDate
+      "validStartDate": fromdate,
+      "validEndDate": toDate
     };
 
     this.notification_service.getSupervisorNotifications(obj)

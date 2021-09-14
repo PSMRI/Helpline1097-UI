@@ -299,7 +299,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5" [hidden]="!isParentBeneficiary">
        
-        <md-select placeholder="{{relationshipWith}}" #benRelation="ngModel" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID"
+        <md-select placeholder="{{assignSelectedLanguageValue?.relationshipWith}} {{relationshipWith}}" #benRelation="ngModel" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID"
           name="beneficiaryRealtionID">
           <md-option *ngFor="let beneficiaryRelation of beneficiaryRelations" [value]="beneficiaryRelation.benRelationshipID">
             {{beneficiaryRelation.benRelationshipType}}

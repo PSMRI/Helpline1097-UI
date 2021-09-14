@@ -212,11 +212,12 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   ngOnChanges() {
         
     // this.BeneficaryForm.resetForm();
-    this.alternateNumber1 = "";
-    this.alternateNumber2 = "";
-    this.alternateNumber3 = "";
-    this.alternateNumber4 = "";
-    this.alternateNumber5 = "";
+
+    // this.alternateNumber1 = "";
+    // this.alternateNumber2 = "";
+    // this.alternateNumber3 = "";
+    // this.alternateNumber4 = "";
+    // this.alternateNumber5 = "";
   }
 
   // setLanguage(language) {
@@ -869,11 +870,14 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       });
       this.beneficiaryRelationID = undefined;
 
-      this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
-        + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
+      // this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
+      //   + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
+      this.relationshipWith = (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
+      + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
       console.log('relationship with', this.regHistoryList[0].firstName, this.regHistoryList[0].lastName);
       if (this.regHistoryList[0].firstName != undefined && this.regHistoryList[0].lastname != undefined) {
-        this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
+        // this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
+        this.relationshipWith = this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
       }
       this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
       // if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
@@ -1418,7 +1422,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           this.beneficiaryRelationID = undefined;
           let fname = response[0].firstName ? response[0].firstName : "";
           let lname = response[0].lastName ? response[0].lastName : ""
-          this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith+' '  + fname + ' ' + lname;
+          // this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith+' '  + fname + ' ' + lname;
+          this.relationshipWith = fname + ' ' + lname;
         }
 
       }
