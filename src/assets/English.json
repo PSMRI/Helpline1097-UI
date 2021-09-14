@@ -703,7 +703,9 @@
       "secs": "Sec",
       "first_name": "First Name",
       "hrs": "Hrs",
-      "kmDocs": "KM Docs"
+      "kmDocs": "KM Docs",
+      
+      "userNameRequired":"User Name is required"
 
 
 

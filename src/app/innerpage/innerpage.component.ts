@@ -91,6 +91,7 @@ export class InnerpageComponent implements OnInit {
   everwelleapiId: any;
   everwellSubmitBtn: boolean = false;
   custdisconnectCallID: any;
+  current_roleID: any;
 
 
   constructor(
@@ -135,14 +136,14 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
-    
+    this.assignSelectedLanguage();
     this.current_service = this.getCommonData.current_service.serviceName;
     this.current_role = this.getCommonData.current_role.RoleName;
     const obj = { 'innerPage': true };
     this.listnerService.cZentrixSendData(obj);
     this.data = this.getCommonData.Userdata;
     this.id = this.getCommonData.cZentrixAgentID;
-
+    this.current_roleID=this.getCommonData.current_role.RoleID;
     this.providerServiceMapId = this.getCommonData.current_service.serviceID;
 
     const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.id;
@@ -194,7 +195,6 @@ export class InnerpageComponent implements OnInit {
     this.getAgentCallDetails();
     this.isEverwell = sessionStorage.getItem("isEverwellCall");
 
-    this.assignSelectedLanguage();
     this.fetchLanguageSet();
 
   }
@@ -722,23 +722,57 @@ export class InnerpageComponent implements OnInit {
   }
 
   startCallWraupup(eventData) {
-    this.wrapupTime = true;
-    this.callTime = false;
-    const timer = Observable.timer(2000, 1000);
-    this.wrapupTimerSubscription = timer.subscribe(t => {
-      this.ticks = (this.timeRemaining - t);
-      this.ticks = this.ticks + 's';
-      const remarks = 'Call disconnect from customer.';
+    // this.wrapupTime = true;
+    // this.callTime = false;
+    // const timer = Observable.timer(2000, 1000);
+    // this.wrapupTimerSubscription = timer.subscribe(t => {
+    //   this.ticks = (this.timeRemaining - t);
+    //   this.ticks = this.ticks + 's';
+    //   const remarks = 'Call disconnect from customer.';
       
-      if (t == this.timeRemaining) {
-        this.wrapupTimerSubscription.unsubscribe();
-        t = 0;
-        this.ticks = 0;
-        // this.remarksMessage.close();
-        this.closeCall(eventData, remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
-      }
-    });
+    //   if (t == this.timeRemaining) {
+    //     this.wrapupTimerSubscription.unsubscribe();
+    //     t = 0;
+    //     this.ticks = 0;
+    //     // this.remarksMessage.close();
+    //     this.closeCall(eventData, remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
+    //   }
+    // });
+    this._callServices.getRoleBasedWrapuptime(this.current_roleID).subscribe(
+			(roleWrapupTime) => {
+			  if (roleWrapupTime.data != undefined && roleWrapupTime.data.isWrapUpTime !=undefined 
+				&& roleWrapupTime.data.WrapUpTime!=undefined && roleWrapupTime.data.isWrapUpTime) {
+				this.roleBasedCallWrapupTime(roleWrapupTime.data.WrapUpTime,eventData);
+			  } else {
+				const time = this.timeRemaining;
+				this.roleBasedCallWrapupTime(time,eventData);
+				console.log('Need to configure wrap up time');
+			  }
+			},
+			(err) => {
+			  const time = this.timeRemaining;
+			  this.roleBasedCallWrapupTime(time,eventData);
+			  console.log('Need to configure wrap up time', err.errorMessage);
+			}
+		  );
   }
+  roleBasedCallWrapupTime(timeRemaining,eventData) {
+		console.log('roleBasedCallWrapupTime', timeRemaining);
+		const timer = Observable.timer(2000, 1000);
+		this.wrapupTimerSubscription = timer.subscribe((t) => {
+		  this.ticks = timeRemaining - t;
+		  console.log('timer t', t);
+		  console.log('ticks', this.ticks);
+		  if (t === timeRemaining) {
+			this.wrapupTimerSubscription.unsubscribe();
+			t = 0;
+			this.ticks = 0;
+			console.log('after re initialize the timer', t);
+      const remarks = 'Call disconnect from customer.';
+			this.closeCall(eventData, remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
+		  }
+		});
+	  }
   disconnectCall() {
     // this.remarksMessage.alert('Call Disconnected From Caller. Please Proceed To Call Closure.');
     this.getCommonData.isCallDisconnected = true;
@@ -779,8 +813,8 @@ export class InnerpageComponent implements OnInit {
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe((res) => {
       console.log('CALL DETAILS RESPONSE', res);
-      this.TotalCalls = this.currentLanguageSet.totalCalls + " : " + res.data.total_calls;
-      this.TotalTime = this.currentLanguageSet.totalCallsDurations + " : " + res.data.total_call_duration;
+      this.TotalCalls = res.data.total_calls;
+      this.TotalTime = res.data.total_call_duration;
     }, (err) => {
       if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
         this.remarksMessage.alert(err.errorMessage);

@@ -15,7 +15,7 @@ export class ForceLogoutComponent implements OnInit {
 
   @ViewChild('flform') flform: NgForm;
   currentLanguageSet: any;
-
+  userNames:any;
   constructor(public alertService: ConfirmationDialogsService,
     public forceLogoutService: ForceLogoutService,
     public commonData: dataService,

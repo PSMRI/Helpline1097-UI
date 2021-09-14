@@ -705,7 +705,9 @@
       "secs": "सेकंड",
       "first_name": "पहला नाम",
       "hrs": "बजे",
-      "kmDocs": "के० एम० दस्तावेज़ "
+      "kmDocs": "के० एम० दस्तावेज़ ",
+      
+      "userNameRequired":"User Name is required"
 
       
 

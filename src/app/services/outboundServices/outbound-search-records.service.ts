@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { InterceptedHttp } from '../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
+import { DatePipe } from '@angular/common';
 @Injectable()
 export class OutboundSearchRecordService {
 
@@ -36,7 +37,9 @@ export class OutboundSearchRecordService {
         }
         return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleError);
     }
+    // private datePipe: DatePipe
     getEverwellUnallocatedCalls(serviceID: any, startDate?: any, endDate?: any, language?: any,agentId?: any) {
+        // endDate = this.datePipe.transform(endDate, 'MM/dd/yyyy');
         const obj = {};
         if (agentId) {
             obj['providerServiceMapId'] = serviceID;

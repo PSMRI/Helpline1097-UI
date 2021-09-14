@@ -705,7 +705,9 @@
       "secs": "ছেকেণ্ড",
       "first_name": "প্ৰথম নাম",
       "hrs": "ঘণ্টা",
-      "kmDocs": "কেএম ডক্স"
+      "kmDocs": "কেএম ডক্স",
+      
+      "userNameRequired":"User Name is required"
 
 
 
