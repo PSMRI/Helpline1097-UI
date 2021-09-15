@@ -1,6 +1,6 @@
-
+<div class="" (click)="minimizeBar()">
   <div class="container-fluid p-a-0" *ngIf="hideHeader">
-    <div class="row header navbar-fixed-top">
+    <div class="header navbar-fixed-top">
       <div class="col-xs-12 col-sm-12">
         <div class="pull-left">
           <img src="assets/images/smLogo.png" alt="Logo" title="Logo">
@@ -59,6 +59,7 @@
     </div>
   </div>
   <router-outlet></router-outlet>
+  </div>
   <div (click)="minimizeBar()" *ngIf="hideBar">
     <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()" title="Czentrix Bar"></iframe>
  
