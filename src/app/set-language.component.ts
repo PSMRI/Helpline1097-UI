@@ -1,16 +1,19 @@
 /*
  * SH20094090 - Created on 27-07-21
  */
-import { Component, DoCheck } from "@angular/core";
+
+import { Component, DoCheck, forwardRef, Inject } from "@angular/core";
 import { HttpServices } from "app/services/http-services/http_services.service";
+
 
 @Component({
   template: "",
 })
 export class SetLanguageComponent  {
   currentLanguageObject: any;
-  constructor(private httpServices: HttpServices) {}
+  constructor(@Inject(forwardRef(() => HttpServices)) public httpServices: HttpServices) {}
 
+  
   // ngDoCheck() {
   //   this.setLanguage();
   // }
