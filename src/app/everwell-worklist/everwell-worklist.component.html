@@ -21,7 +21,7 @@
             <th id="beneficiaryID">{{currentLanguageSet?.beneficiaryId}}</th>
             <th id="beneficiaryName">{{currentLanguageSet?.beneficiaryName}}</th>
           
-            <!-- <th id="mobileNumber">{{currentLanguageSet?.mobileNumber}}</th> -->
+          
             <th id="gender">{{currentLanguageSet?.gender}}</th>
             <th id="state">{{currentLanguageSet?.state}}</th>
             <th id="comments">{{currentLanguageSet?.comments}}</th>
@@ -36,7 +36,7 @@
             <tr (click)="editMode(data)" style="cursor: pointer">
               <td width=15%>{{data.beneficiaryID}}</td>
               <td width=10%>{{data.FirstName}} {{data.LastName}}</td>
-              <!-- <td width=20%>{{data.PrimaryNumber}}</td> -->
+            
               <td width=10%>{{data.Gender}}</td>
               <td width=10%>{{data.state}}</td>
               <td width=10%>{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
