@@ -34,14 +34,14 @@
               <td colspan="5" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
             <tr (click)="editMode(data)" style="cursor: pointer">
-              <td width=15%>{{data.beneficiaryID}}</td>
-              <td width=10%>{{data.FirstName}} {{data.LastName}}</td>
+              <td style="width:15%;">{{data.beneficiaryID}}</td>
+              <td style="width:10%;">{{data.FirstName}} {{data.LastName}}</td>
             
-              <td width=10%>{{data.Gender}}</td>
-              <td width=10%>{{data.state}}</td>
-              <td width=10%>{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
-              <td width=10%>{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
-              <td width=10% style="padding-left: 30px;">{{data.callCounter}}</td>
+              <td style="width:10%;">{{data.Gender}}</td>
+              <td style="width:10%;">{{data.state}}</td>
+              <td style="width:10%;">{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
+              <td style="width:10%;">{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
+              <td  style="padding-left: 30px;width: 10%;">{{data.callCounter}}</td>
             </tr>
         </tbody>
         <tfoot>
