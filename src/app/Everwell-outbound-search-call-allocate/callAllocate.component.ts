@@ -35,7 +35,7 @@ export class CallAllocateComponent implements OnInit {
   selectedlang: any;
   selectedlangflag: boolean = false;
   currentLanguageSet: any;
-
+  enabletableData = false;
 
   constructor(
     private _OSRService: OutboundSearchRecordService,
@@ -76,6 +76,7 @@ export class CallAllocateComponent implements OnInit {
         this._unAllocatedCalls = resProviderData.data;
         // this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
         this.showCount = true;
+        this.enabletableData = true;
         this.selectedlang = language;
       }),(err) => {
         this.alertService.alert(err.errorMessage,'error');
@@ -152,4 +153,7 @@ export class CallAllocateComponent implements OnInit {
 		getLanguageJson.setLanguage();
 		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
 	  }
+    disableTable() {
+      this.enabletableData = false;
+    }
 }
