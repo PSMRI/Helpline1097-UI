@@ -48,8 +48,8 @@
             <tr *ngFor="let item of totalAgentRecords">
               <td>{{item.language}}</td>
               <td>{{item.count}}
-                <button *ngIf="item.language!='All'"  md-raised-button color="primary" type="button" class="md-small pull-right m-r-5" (click)="moveToBin(item.language, $event)">{{currentLanguageSet?.moveToBin}}</button>
-                <button *ngIf="item.language!='All'" md-raised-button color="accent" type="button" class="md-small pull-right m-r-5" (click)="allocateCalls(item.language, $event)">{{currentLanguageSet?.reallocate}}</button>
+                <button *ngIf="item.language!='All'"  md-raised-button color="primary" type="button" class="pull-right m-r-5" (click)="moveToBin(item.language, $event)">{{currentLanguageSet?.moveToBin}}</button>
+                <button *ngIf="item.language!='All'" md-raised-button color="accent" type="button" class="pull-right m-r-5" (click)="allocateCalls(item.language, $event)">{{currentLanguageSet?.reallocate}}</button>
               </td>
             </tr>
              

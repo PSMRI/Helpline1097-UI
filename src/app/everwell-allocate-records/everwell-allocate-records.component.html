@@ -9,14 +9,14 @@
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
       
-          <md-select [style.width]="'100%'" formControlName="roleID" name="roleID" placeholder="{{currentLanguageSet?.selectRole}}" (change)="getAgents($event.value)">
+          <md-select [style.width]="'100%'" formControlName="roleID" name="roleID" placeholder="{{currentLanguageSet?.selectRole}}" (change)="getAgents($event.value)" required>
             <md-option *ngFor="let role of roles" [value]="role.roleID"> {{role.roleName}}</md-option>
           </md-select>
         
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 p-b-1-5">
         
-          <md-select multiple [style.width]="'100%'" formControlName="agentId" name="agentId" (change)="OnSelectChange()" placeholder="{{currentLanguageSet?.allocateTo}}">
+          <md-select multiple [style.width]="'100%'" formControlName="agentId" name="agentId" (change)="OnSelectChange()" placeholder="{{currentLanguageSet?.allocateTo}}" required>
             <md-option *ngFor="let user of users" [value]="user.userID"> {{user.firstName+ " "+user.lastName}}</md-option>
           </md-select>
           <md-hint *ngIf="showAgents">
@@ -27,7 +27,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <md-input-container [style.width]="'100%'">
           <input #allocateRef type="number" min="1" mdInput placeholder="{{currentLanguageSet?.allocateNoOfRecords}}" id="allocateNo"
-            formControlName="allocateNo" name="allocateNo" (ngModelChange)="validate('allocateNo',$event)" (keydown)="blockKey($event)">
+            formControlName="allocateNo" name="allocateNo" (ngModelChange)="validate('allocateNo',$event)" (keydown)="blockKey($event)" required>
           <input type="hidden" class="form-control" placeholder="{{currentLanguageSet?.enterTotalNewRecords}}" id="outboundCallRequests" formControlName="outboundCallRequests"
             name="outboundCallRequests">
         </md-input-container>

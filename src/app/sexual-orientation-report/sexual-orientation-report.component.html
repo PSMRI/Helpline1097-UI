@@ -9,16 +9,20 @@
       <form #sexualOrientationSearchForm="ngForm" autocomplete="off">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <md2-datepicker class="width100" name="startDate" placeholder="{{currentLanguageSet?.startDate}}" (keydown)="blockKey($event)" [(ngModel)]="start_date"
-            (change)="endDateChange()" #startDate [max]="maxStartDate" required></md2-datepicker>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
-          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">{{currentLanguageSet?.minStartDateIsEndDateDays}}</span>
+            (change)="endDateChange()" #startDate='ngModel' [max]="maxStartDate" required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-50" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
+          <span class="error_text f-s-10 p-l-50" *ngIf="startDate.touched && startDate.errors?.min">{{currentLanguageSet?.minStartDateIsEndDateDays}}</span>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <md2-datepicker class="width100" name="endDate" placeholder="{{currentLanguageSet?.endDate}}" (keydown)="blockKey($event)" [(ngModel)]="end_date"
-            #endDate [min]="startDate.value" [max]="maxEndDate" required></md2-datepicker>
-       
+            #endDate='ngModel' [min]="startDate.value" [max]="maxEndDate" required></md2-datepicker>
+            <span
+            class="error_text f-s-10 p-l-50"
+            *ngIf="endDate.touched && endDate.errors?.required"
+            >{{ currentLanguageSet?.dateIsRequired }}</span
+          >
           <span
-          class="error_text f-s-10 p-l-10"
+          class="error_text f-s-10 p-l-50"
           *ngIf="endDate.value < startDate.value && endDate.dirty"
           >{{currentLanguageSet?.endDateCanNotBeBeforeStartDate}}</span
         >
@@ -34,6 +38,7 @@
             </md-select>
         
         </div>
+        <div class="clearfix visible-lg visible-md"></div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
         
             <md-select class=" " placeholder="{{currentLanguageSet?.district}}" [style.width]="'100%'" ngModel name="district" #district="ngModel">
@@ -51,7 +56,11 @@
                 {{item.sexualOrientation}}
               </md-option>
             </md-select>
-        
+            <span
+            class="error_text f-s-10"
+            *ngIf="sexuality.touched && sexuality.errors?.required"
+            >{{ currentLanguageSet?.sexualityIsRequired }}</span
+          >
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
           <button class="hidden-xs" md-raised-button [disabled]="sexualOrientationSearchForm.invalid || ((endDate.value < startDate.value))"

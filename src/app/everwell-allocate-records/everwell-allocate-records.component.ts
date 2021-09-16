@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, ElementRef, Renderer } from '@angular/core';
 import { enableProdMode } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { OutboundCallAllocationService } from '../services/outboundServices/outbound-call-allocation.service';
@@ -68,7 +68,9 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   }
 
   getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, agentId?:any,language?: any, isAllocated?:boolean) {  
-    this._OSRService.getEverwellUnallocatedCalls(serviceProviderMapID,startDate, endDate, language, agentId)
+    let fromdate = new Date((startDate) - 1 * (startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    let toDate= new Date((endDate) - 1 * (endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    this._OSRService.getEverwellUnallocatedCalls(serviceProviderMapID,fromdate, toDate, language, agentId)
       .subscribe(resProviderData => {
         this.initialCount =resProviderData.length;
         this.allocateEverwellForm.controls['outboundCallRequests'].setValue(resProviderData.data);

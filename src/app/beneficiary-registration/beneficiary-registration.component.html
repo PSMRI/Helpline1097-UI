@@ -17,7 +17,7 @@
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 pull-right" *ngIf="calledEarlier">
       <div class="row m-t-sm-10">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <md-input-container class="form-group-custome m-t--15 pull-right" myMobileNumber>
+          <md-input-container class="form-group-custome m-t--15 pull-right" style="line-height: 1.525;" myMobileNumber>
             <input mdInput placeholder="{{assignSelectedLanguageValue?.beneficiaryId}}" name="search" maxlength="12"
               minlength="12" [(ngModel)]="registrationNo" #registrationNum="ngModel">
 
@@ -299,7 +299,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5" [hidden]="!isParentBeneficiary">
        
-        <md-select placeholder="{{relationshipWith}}" #benRelation="ngModel" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID"
+        <md-select placeholder="{{assignSelectedLanguageValue?.relationshipWith}} {{relationshipWith}}" #benRelation="ngModel" [style.width]="'100%'" [(ngModel)]="beneficiaryRelationID"
           name="beneficiaryRealtionID">
           <md-option *ngFor="let beneficiaryRelation of beneficiaryRelations" [value]="beneficiaryRelation.benRelationshipID">
             {{beneficiaryRelation.benRelationshipType}}

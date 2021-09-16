@@ -28,7 +28,7 @@
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="table-responsive">
-                <table id="outbondListTable" class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="4" aria-describedby="OutboundWorkListData">
+                <table id="outbondListTable" class="table table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="4" aria-describedby="OutboundWorkListData">
                   <thead>
                     <tr>
                      
@@ -55,7 +55,7 @@
                       <td style="width: 10%;height: 20px;">
                         <a class="pointer">
                           <span (click)="viewHistory(listItem)">
-                            <img src="assets/images/transferCallIcon.png" alt="transferCallIcon" md-tooltip="Call Beneficiary"  style="text-align:center;" />
+                            <img src="assets/images/transferCallIcon.png" alt="transferCallIcon" md-tooltip="{{currentLanguageSet?.callBeneficiary}}"  style="text-align:center;" />
                           </span>
                         </a>
                      

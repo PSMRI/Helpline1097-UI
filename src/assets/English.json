@@ -23,7 +23,7 @@
       "backToDashboard": "Back to Dashboard",
       "noCallTypeReportForSearchedCriteria": "No call type report for searched criteria",
       "passwordChangedSuccessfully": "Password changed successfully",
-      "preferredLanguage": "Preferred Language :",
+      "preferredLanguage": "Preferred Language",
       "totalNoOfRequest": "Total no of Request",
       "moveToBin": "Move To Bin",
       "dateIsRequired": "Date is required",
@@ -392,7 +392,7 @@
       "toggleNavigation": "Toggle navigation",
       "subcategory": "Subcategory",
       "enterTenDigitsValidNumber": "Enter 10 digits valid number",
-      "endDateShouldBeGreatorThanStartmax30Days": "End date should be greator than start(max 30 days)",
+      "endDateShouldBeGreatorThanStartMaxThirtyDays": "End date should be greator than start(max 30 days)",
       "emergencyContactsAdded": "Emergency Contacts added",
       "locationMessageCreatedSuccessfully": "Location message created successfully",
       "languagename": "LanguageName",
@@ -516,7 +516,7 @@
       "complaintid": "ComplaintID",
       "zone": "Zone",
       "create": "Create",
-      "daeOfAction": "Date Of Action",
+      "dateOfAction": "Date Of Action",
       "poweredBy:Wipro": "Powered by: WIPRO",
       "designationName": "Designation Name",
       "category:": "Category :",
@@ -570,6 +570,7 @@
 
       "logo":"Logo",
       "enterAnswer": "Enter Answer",
+      "showAnswer":"Show Answer",
       "showPassword": "Show Password",
       "NotAllowedToGoBackPleaseComplete":"Not allowed to go back, Please complete & close the call",
       "pleseWaitForCallToComeOrLogout":"Plese wait for call to come or Logout",
@@ -700,7 +701,17 @@
       "subcategoryIsRequired":"Subcategory is required",
       "mins": "Mins",
       "secs": "Sec",
-      "first_name": "First Name"
+      "first_name": "First Name",
+      "hrs": "Hrs",
+      "kmDocs": "KM Docs",
+      "userNameRequired":"User Name is required",
+      "min20": "Minimum 20 characters are required",
+      "templateNameIsRequired": "Template Name is required",
+      "smsTypeIsRequired": "SMS Type is required",
+      "genderIsRequired": "Gender is required",
+      "sexualityIsRequired": "Sexuality is required",
+      "languageIsRequired": "Language is required",
+      "ageGroupIsRequired": "Age Group is required"
 
 
 

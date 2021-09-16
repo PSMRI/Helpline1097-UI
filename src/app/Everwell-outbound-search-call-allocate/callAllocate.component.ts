@@ -35,7 +35,7 @@ export class CallAllocateComponent implements OnInit {
   selectedlang: any;
   selectedlangflag: boolean = false;
   currentLanguageSet: any;
-
+  enabletableData = false;
 
   constructor(
     private _OSRService: OutboundSearchRecordService,
@@ -48,19 +48,26 @@ export class CallAllocateComponent implements OnInit {
 
   ngOnInit() {
     this.serviceProviderMapID = this.saved_data.current_service.serviceID;
+    // this.startOutboundDate = new Date();
+    // this.endOutboundDate = new Date();
+    // this.endOutboundDate.setDate(this.endOutboundDate.getDate() + 7);
+    // this.startOutboundDate.setHours(0,0,0,0);
+    // this.endOutboundDate.setHours(0,0,0,0);
     this.startOutboundDate = new Date();
-    this.endOutboundDate = new Date();
+		let start = new Date((this.startOutboundDate.getTime()) - 1 * (this.startOutboundDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+		this.endOutboundDate = new Date();
     this.endOutboundDate.setDate(this.endOutboundDate.getDate() + 7);
-    this.startOutboundDate.setHours(0,0,0,0);
-    this.endOutboundDate.setHours(0,0,0,0);
+		let end = new Date((this.endOutboundDate.getTime()) - 1 * (this.endOutboundDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.000Z";
     //  this.endOutboundDate.setDate(this.startOutboundDate.getDate() + 7);
-    this.getOutboundCallCount(this.serviceProviderMapID, this.startOutboundDate, this.endOutboundDate);
+    this.getOutboundCallCount(this.serviceProviderMapID, start, end);
     this.getLanguages();
     this.showCount = false;
     this.assignSelectedLanguage();
   }
   assignCount(data: any) {
-    this.getOutboundCallCount(data.providerServiceMapId, data.startDate, data.endDate, data.language);
+    let fromDate = new Date((data.startDate) - 1 * (data.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    let toDate= new Date((data.endDate) - 1 * (data.endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    this.getOutboundCallCount(data.providerServiceMapId, fromDate, toDate, data.language);
     this.showCount = false;
   }
   getOutboundCallCount(serviceProviderMapID,  startDate?: any, endDate?: any,language?: any) {
@@ -69,6 +76,7 @@ export class CallAllocateComponent implements OnInit {
         this._unAllocatedCalls = resProviderData.data;
         // this.tot_unAllocatedCalls = this._unAllocatedCalls.length;
         this.showCount = true;
+        this.enabletableData = true;
         this.selectedlang = language;
       }),(err) => {
         this.alertService.alert(err.errorMessage,'error');
@@ -145,4 +153,7 @@ export class CallAllocateComponent implements OnInit {
 		getLanguageJson.setLanguage();
 		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
 	  }
+    disableTable() {
+      this.enabletableData = false;
+    }
 }

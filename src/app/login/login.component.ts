@@ -124,7 +124,7 @@ export class loginContentClass implements OnInit {
       sessionStorage.removeItem('isEverwellCall');
       localStorage.setItem('authToken', response.key);
       this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
-      this.socketService.reInstantiate();
+      // this.socketService.reInstantiate();
 
     }
     if (response.isAuthenticated === true && response.Status === 'New') {

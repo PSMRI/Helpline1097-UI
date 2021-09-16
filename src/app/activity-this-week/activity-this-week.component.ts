@@ -73,7 +73,7 @@ export class ActivityThisWeekComponent implements OnInit {
       width: '700px',
       disableClose: false,
       data: {
-        type: 'KM Docs',
+        type: this.currentLanguageSet.kmDocs,
         kmdocs: this.kmFiles
       }
     });

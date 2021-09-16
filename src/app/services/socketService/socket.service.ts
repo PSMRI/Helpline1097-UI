@@ -5,9 +5,9 @@ export class SocketService {
     private url: String = "http://10.152.3.99:4000/";
     private socket;
 
-    constructor() {
-        this.socket = io(this.url);
-    }
+    // constructor() {
+    //     this.socket = io(this.url);
+    // }
 
     public sendRoomsArray(data) {
         this.socket.emit('new_user', data);

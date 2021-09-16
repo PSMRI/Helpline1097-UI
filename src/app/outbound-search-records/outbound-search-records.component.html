@@ -15,11 +15,11 @@
       <form #getOutboundForm="ngForm" autocomplete="off">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <md2-datepicker name="startDate" (keydown)="blockey($event)" placeholder="{{currentLanguageSet?.validFrom}}" required #startDate="ngModel" ngModel
-            [style.width]="'100%'" name="filterStartDate" [(ngModel)]="startOutboundDate"></md2-datepicker>
+            [style.width]="'100%'" name="filterStartDate" [(ngModel)]="startOutboundDate" (change)="disableTable()"></md2-datepicker>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <md2-datepicker name="endDate" (keydown)="blockey($event)" placeholder="{{currentLanguageSet?.validTill}}" required [min]="startDate.value" #endDate="ngModel"
-            ngModel [style.width]="'100%'" name="filterEndDate" [(ngModel)]="endOutboundDate"></md2-datepicker>
+            ngModel [style.width]="'100%'" name="filterEndDate" [(ngModel)]="endOutboundDate" (change)="disableTable()"></md2-datepicker>
           <br>
           <span class="error_text" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
         </div>
@@ -45,7 +45,7 @@
     
 
   <div class="clearfix"></div>
-  <div class="row">
+  <div class="row" *ngIf="enabletableData">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 
       <div class="table-responsive">
@@ -62,7 +62,7 @@
               <th id="language">{{item?.language}}</th>
               <td>{{item?.count}}
                 <button type="button" *ngIf="item.language !== 'All'" [disabled]="(item?.count === 0 )" (click)="allocateCalls(startDate.value,endDate.value,item?.language, $event)"
-                  md-raised-button color="accent" class="md-btn pull-right">{{currentLanguageSet?.allocate}}</button>
+                  md-raised-button color="accent" class="pull-right">{{currentLanguageSet?.allocate}}</button>
                   
               </td>
             </tr>

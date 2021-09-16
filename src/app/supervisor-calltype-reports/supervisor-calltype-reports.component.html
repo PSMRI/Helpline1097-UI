@@ -1,103 +1,186 @@
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label class="pull-left">
-        <h4 class="f-s-b m-b-10 m-t-20"> {{currentLanguageSet?.callTypeReport}} </h4>
-      </label>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <div class="row">
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <label class="pull-left">
+      <h4 class="f-s-b m-b-10 m-t-20">
+        {{ currentLanguageSet?.callTypeReport }}
+      </h4>
+    </label>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
       <form #CallTypeReport="ngForm" autocomplete="off">
-
-                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <md2-datepicker class="width100" name="start_date" placeholder="{{currentLanguageSet?.startDate}}" (keydown)="blockey($event)" [(ngModel)]="start_date" (change)="endDateChange()"
-              #startDate [max]="maxStartDate" required></md2-datepicker>
-            <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
-            <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.min">{{currentLanguageSet?.minStartDateIsEndDateDays}}</span>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <md2-datepicker class="width100" name="end_date" placeholder="{{currentLanguageSet?.endDate}}" (keydown)="blockey($event)" [(ngModel)]="end_date" 
-              #endDate [min]="startDate.value" [max]="maxEndDate" required></md2-datepicker>
-
-            <span class="error_text f-s-10 p-l-10" *ngIf="endDate.errors?.required">{{currentLanguageSet?.endDateShouldBeGreatorThanStartMaxThirtyDays}}</span>
-          </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-          
-
-                  <md-select placeholder="{{currentLanguageSet?.selectState}}" [style.width]="'100%'" [(ngModel)]="state"
-                  name="state" (change)="GetDistricts(state)" >
-                  <md-option *ngFor="let stat of states" [value]="stat">
-                    {{stat.stateName}}
-                  </md-option>
-                </md-select>
-            
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-      
-          <md-select  placeholder="{{currentLanguageSet?.selectDistrict}}" [style.width]="'100%'" [(ngModel)]="district"
-          name="districtSearch"   >
-          <md-option *ngFor="let district of districts" [value]="district.districtName">
-            {{district.districtName}}
-          </md-option>
-        </md-select>
-    
-    </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5">
-
-                
-          <md-select placeholder="{{currentLanguageSet?.calltype}}" [style.width]="'100%'" ngModel name="callType" [(ngModel)]="callTypeName" (change)="getCallSubType(callTypeName)">
-            <md-option *ngFor="let calltype of calltypes" value="{{calltype.callTypeDesc}}" >
-              {{calltype.callTypeDesc}}
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <md2-datepicker
+            class="width100"
+            name="start_date"
+            placeholder="{{ currentLanguageSet?.startDate }}"
+            (keydown)="blockey($event)"
+            [(ngModel)]="start_date"
+            (change)="endDateChange()"
+            #startDate="ngModel"
+            [max]="maxStartDate"
+            required
+          ></md2-datepicker>
+          <span
+            class="error_text f-s-10 p-l-50"
+            *ngIf="startDate.touched && startDate.errors?.required"
+            >{{ currentLanguageSet?.dateIsRequired }}</span
+          >
+          <span
+            class="error_text f-s-10 p-l-50"
+            *ngIf="startDate.touched && startDate.errors?.min"
+            >{{ currentLanguageSet?.minStartDateIsEndDateDays }}</span
+          >
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <md2-datepicker
+            class="width100"
+            name="end_date"
+            placeholder="{{ currentLanguageSet?.endDate }}"
+            (keydown)="blockey($event)"
+            [(ngModel)]="end_date"
+            #endDate="ngModel"
+            [min]="startDate.value"
+            [max]="maxEndDate"
+            required
+          ></md2-datepicker>
+          <span
+            class="error_text f-s-10 p-l-50"
+            *ngIf="endDate.touched && endDate.errors?.required"
+            >{{ currentLanguageSet?.dateIsRequired }}</span
+          >
+          <span
+            class="error_text f-s-10 p-l-50"
+            *ngIf="endDate.touched && endDate.errors?.min"
+            >{{
+              currentLanguageSet?.endDateShouldBeGreatorThanStartMaxThirtyDays
+            }}</span
+          >
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5 m-t-5">
+          <md-select
+            placeholder="{{ currentLanguageSet?.selectState }}"
+            [style.width]="'100%'"
+            [(ngModel)]="state"
+            name="state"
+            (change)="GetDistricts(state)"
+          >
+            <md-option *ngFor="let stat of states" [value]="stat">
+              {{ stat.stateName }}
             </md-option>
           </md-select>
-       
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5 ">
-                
-          <md-select placeholder="{{currentLanguageSet?.callsubtype}}" [style.width]="'100%'" [(ngModel)]="callsubTypeID" name="callsubTypeID" #subCallType="ngModel">
-            <md-option *ngFor="let callSubtype of callSubTypes" value="{{callSubtype.callType}}" >
-              {{callSubtype.callType}}
+        <div class="clearfix visible-md"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5 m-t-5">
+          <md-select
+            placeholder="{{ currentLanguageSet?.selectDistrict }}"
+            [style.width]="'100%'"
+            [(ngModel)]="district"
+            name="districtSearch"
+          >
+            <md-option
+              *ngFor="let district of districts"
+              [value]="district.districtName"
+            >
+              {{ district.districtName }}
             </md-option>
           </md-select>
-       
         </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-                    
-            <md-select class=" " placeholder="{{currentLanguageSet?.sexuality}}" [style.width]="'100%'" [(ngModel)]="sexuality"  name="sexuality" >
-            
-              <md-option *ngFor="let item of sexualOrientations" [value]="item.sexualOrientation">
-                {{item.sexualOrientation}}
+        <div class="clearfix visible-lg"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <md-select
+            placeholder="{{ currentLanguageSet?.calltype }}"
+            [style.width]="'100%'"
+            ngModel
+            name="callType"
+            [(ngModel)]="callTypeName"
+            (change)="getCallSubType(callTypeName)"
+          >
+            <md-option
+              *ngFor="let calltype of calltypes"
+              value="{{ calltype.callTypeDesc }}"
+            >
+              {{ calltype.callTypeDesc }}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <md-select
+            placeholder="{{ currentLanguageSet?.callsubtype }}"
+            [style.width]="'100%'"
+            [(ngModel)]="callsubTypeID"
+            name="callsubTypeID"
+            #subCallType="ngModel"
+          >
+            <md-option
+              *ngFor="let callSubtype of callSubTypes"
+              value="{{ callSubtype.callType }}"
+            >
+              {{ callSubtype.callType }}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="clearfix visible-md"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <md-select
+            class=""
+            placeholder="{{ currentLanguageSet?.sexuality }}"
+            [style.width]="'100%'"
+            [(ngModel)]="sexuality"
+            name="sexuality"
+          >
+            <md-option
+              *ngFor="let item of sexualOrientations"
+              [value]="item.sexualOrientation"
+            >
+              {{ item.sexualOrientation }}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+          <md-select
+            class=""
+            placeholder="{{ currentLanguageSet?.gender }}"
+            [style.width]="'100%'"
+            [(ngModel)]="gender"
+            name="gender"
+          >
+            <md-option *ngFor="let item of genders" [value]="item.genderName">
+              {{ item.genderName }}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--20">
+          <md-input-container class="hide_underline" [style.width]="'100%'">
+            <input mdInput style="display: none" />
+            <md-select
+              class=""
+              placeholder="{{ currentLanguageSet?.language }}"
+              [style.width]="'100%'"
+              name="language"
+              [(ngModel)]="language"
+            >
+              <md-option
+                *ngFor="let item of languages"
+                [value]="item.languageName"
+              >
+                {{ item.languageName }}
               </md-option>
             </md-select>
-          
-          </div>
-                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
-                        
-          <md-select class="" placeholder="{{currentLanguageSet?.gender}}" [style.width]="'100%'" [(ngModel)]="gender" name="gender">
-         
-            <md-option *ngFor="let item of genders" [value]="item.genderName">
-              {{item.genderName}}
-            </md-option>
-          </md-select>
-         
+          </md-input-container>
         </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-         <md-input-container class="hide_underline" [style.width]="'100%'">
-          <input mdInput style="display:none">
-          <md-select class="" placeholder="{{currentLanguageSet?.language}}" [style.width]="'100%'" name="language" [(ngModel)]="language">
-          
-            <md-option *ngFor="let item of languages" [value]="item.languageName">
-              {{item.languageName}}
-            </md-option>
-          </md-select>
-        </md-input-container>
-      </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-          <button class="pull-right" [disabled]="CallTypeReport.invalid" md-raised-button color="accent" (click)="setTableFlag(true,CallTypeReport.value)">{{currentLanguageSet?.generateReport}}</button>
+          <button
+            class="pull-left"
+            [disabled]="CallTypeReport.invalid"
+            md-raised-button
+            color="accent"
+            (click)="setTableFlag(true, CallTypeReport.value)"
+          >
+            {{ currentLanguageSet?.generateReport }}
+          </button>
         </div>
       </form>
-      </div>
-      
     </div>
   </div>
-
+</div>

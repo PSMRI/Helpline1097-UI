@@ -45,7 +45,7 @@
                       <th md2SortBy="beneficiaryRegId" id="BeneficiaryID">{{currentLanguageSet?.beneficiaryId}}</th>
                       <th md2SortBy="firstName" id="beneficiaryName">{{currentLanguageSet?.beneficiaryName}}</th>
                     
-                      <!-- <th id="mobileNumber">{{currentLanguageSet?.mobileNumber}}</th> -->
+                     
                       <th id="state">{{currentLanguageSet?.state}}</th>
                       <th id="district">{{currentLanguageSet?.district}}</th>
                       <th id="comments">{{currentLanguageSet?.comments}}</th>
@@ -64,7 +64,7 @@
                       <td style="width: 15%;">{{listItem.beneficiaryID}}</td>
                       <td style="width: 10%;">{{listItem.FirstName}} {{listItem.LastName}}</td>
                      
-                      <!-- <td style="width: 20%;">{{listItem.PrimaryNumber}}</td> -->
+                  
                       <td style="width: 10%;">{{listItem.State}}</td>
                       <td style="width: 15%;">{{listItem.District}}</td>
                       <td style="width: 5%;">{{(listItem?.comments !== 'NaN' && listItem?.comments !== undefined && listItem?.comments !== null) ? listItem?.comments : 'N/A'}}</td>
@@ -74,7 +74,7 @@
                       <td style="width: 10%;height:20px">
                         <a class="pointer">
                           <span (click)="viewHistory(listItem)">
-                            <img src="assets/images/transferCallIcon.png" md-tooltip="Call Beneficiary" alt="transferCallIcon" style="text-align:center" />
+                            <img src="assets/images/transferCallIcon.png" md-tooltip="{{currentLanguageSet?.callBeneficiary}}" alt="transferCallIcon" style="text-align:center" />
                           </span>
                         </a>
                         

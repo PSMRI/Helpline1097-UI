@@ -16,6 +16,7 @@ export class ConfigService {
 
     // private _commonBaseURL: String = `${commonIP}commonapi-v1.0/`;
     private _commonBaseURL: String = `http://10.208.122.38:8080/commonapi-v1.0/`;
+    // private _commonBaseURL: String=`http://localhost:8080/`;
     // private openCommonURL: String = `${commonIP}commonapi-v1.0/`;
     private openCommonURL: String = `http://10.208.122.38:8080/commonapi-v1.0/`;
     private _helpline1097BaseURL: String = `${IP1097}1097api-v1.0/`;
