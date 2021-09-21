@@ -70,7 +70,7 @@
           {{type.smsType}}
         </md-option>
       </md-select>
-      <span class="error_text f-s-10" *ngIf="smsType.touched">{{currentLanguageSet?.smsTypeIsRequired}}</span>
+      <span class="error_text f-s-10" *ngIf="smsType.errors && smsType.touched">{{currentLanguageSet?.smsTypeIsRequired}}</span>
    
   </div>
   
