@@ -200,8 +200,10 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       ageUnit: 'Years'
     })
     this.current_campaign = this.saved_data.current_campaign;
-    if (this.saved_data.current_campaign == 'OUTBOUND') {
-      this.startOutBoundCall(this.saved_data.outboundData);
+    if (this.saved_data.current_campaign === 'OUTBOUND') {
+      if (this.saved_data.outboundData !== undefined && this.saved_data.outboundData !== null) {
+        this.startOutBoundCall(this.saved_data.outboundData);
+      }
     } else {
       this.startNewCall();
     }
@@ -255,14 +257,14 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     data.is1097 = true;
     data.createdBy = this.saved_data.uname;
     data.calledServiceID = this.saved_data.current_service.serviceID;
-    data.phoneNo = outboundData.beneficiary.benPhoneMaps[0].phoneNo;
+    data.phoneNo = outboundData.beneficiary.benPhoneMaps[0].phoneNo ? outboundData.beneficiary.benPhoneMaps[0].phoneNo : null;
     data.agentID = this.saved_data.cZentrixAgentID;
 
     /*added by diamond on asked by Vinay*/
     data.callReceivedUserID = this.saved_data.uid;
     data.receivedRoleName = this.saved_data.current_role.RoleName;
     /**/
-    data.beneficiaryRegID = outboundData.beneficiary.beneficiaryRegID;
+    data.beneficiaryRegID = outboundData.beneficiary.beneficiaryRegID ? outboundData.beneficiary.beneficiaryRegID : null;
     data.isOutbound = this.saved_data.isOutbound;
     this._util.startCall(data).subscribe((response) => {
       this.setBenCall(response);

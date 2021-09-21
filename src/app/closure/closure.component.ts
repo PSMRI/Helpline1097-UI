@@ -527,7 +527,7 @@ export class ClosureComponent implements OnInit
   closeOutboundCall(btnType: any, values: any) {
     this._callServices.closeCall(values).subscribe((response) => {
       if (response) {
-        this.message.alert('Call closed successfully', 'success');
+        this.message.alert(this.currentLanguageSet.callClosedSuccessfully, 'success');
         if (btnType === 'submitClose') {
           this.saved_data.feedbackData = undefined;
           this.callClosed.emit(this.current_campaign);

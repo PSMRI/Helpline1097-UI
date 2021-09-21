@@ -455,7 +455,7 @@
       "beneficiaryDetails": "হিতাধিকাৰীৰ বিৱৰণ",
       "account_box": "account_box",
       "providerName": "প্ৰদানকাৰীৰ নাম",
-      "moreWithDot": "অধিক।।।",
+      "moreWithDot": "অধিক...",
       "successfullyUpdated": "সফলতাৰে আপডেট কৰা হৈছে",
       "roleIsRequired": "ভূমিকাৰ প্ৰয়োজন",
       "(.msg,.pdf,.png,.jpeg,.jpg,.doc,.docx,.xlsx,.xls,.csv,.txt)": "(.msg, .pdf, .png, .jpeg, .jpg, .doc, .docx, .xlsx, .xls, .csv, .txt)",

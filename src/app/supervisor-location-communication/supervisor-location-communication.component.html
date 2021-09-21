@@ -49,8 +49,8 @@
             <td>{{row.notificationType.notificationType}} </td>
             <td>{{row.notification}}</td>
             <td>{{row.notificationDesc}}</td>
-            <td>{{row.validFrom|date:'dd/MM/yyyy'}}</td>
-            <td>{{row.validTill|date:'dd/MM/yyyy'}}</td>
+            <td>{{row.validFrom|utcDate|date:'dd/MM/yyyy'}}</td>
+            <td>{{row.validTill|utcDate|date:'dd/MM/yyyy'}}</td>
             <td>
               <md-icon class="cursorPointer" mdTooltip="{{currentLanguageSet?.edit}}" (click)="edit(row)">mode_edit</md-icon>
             </td>
