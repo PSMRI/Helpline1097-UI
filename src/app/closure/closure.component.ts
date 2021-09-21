@@ -123,6 +123,7 @@ export class ClosureComponent implements OnInit
     this.minDate = this.today;
     this.minDate.setHours(0, 0, 0, 0);
     this.showSlider = false;
+    this.showFeedbackRequiredFlag = false;
     this.current_campaign = this.saved_data.current_campaign;
     if (!this.saved_data.loginIP) {
       this.getIpAddress();
@@ -445,6 +446,7 @@ export class ClosureComponent implements OnInit
               if (response) {
                 this.closureForm.reset();
                 this.showSlider = false;
+                this.showFeedbackRequiredFlag = false;
                 this.isFollowUp = false;
                 this.isFollowupRequired = false;
                 this.showAlert();
@@ -553,6 +555,7 @@ export class ClosureComponent implements OnInit
       this.showSlider = false;
       this.isFollowUp = false;
       this.isFollowupRequired = false;
+      this.showFeedbackRequiredFlag = false;
     }
   }
   blockey(e: any) {
