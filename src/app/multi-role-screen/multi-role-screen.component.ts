@@ -64,7 +64,9 @@ export class MultiRoleScreenComponent implements OnInit {
   }
   ngOnInit() {
     this.assignSelectedLanguage();
-    this.dataSettingService.sendHeaderStatus.subscribe((data) => { this.setHeaderName(data) });
+    this.dataSettingService.sendHeaderStatus.subscribe((data) => { setTimeout(() => {
+      this.setHeaderName(data) 
+    })});
 
     this.data = this.dataSettingService.Userdata;
     this.current_role = (this.dataSettingService.current_role) ? this.dataSettingService.current_role.RoleName : '';
