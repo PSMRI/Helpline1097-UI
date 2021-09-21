@@ -144,10 +144,10 @@
               <th id="sno">{{currentLanguageSet?.sno}}</th>
               <th md2SortBy="feedbackID" id="feedbackID">{{currentLanguageSet?.feedbackId}}</th>
               <th md2SortBy="feedback" id="feedback">{{currentLanguageSet?.description}}</th>
-              <th md2SortBy="severityTypeName" id="severityTypeName">{{currentLanguageSet?.severity}}</th>
-              <th md2SortBy="feedbackTypeName" id="feedbackTypeName">{{currentLanguageSet?.feedbackType}}</th>
+              <th md2SortBy="severity.severityTypeName" id="severityTypeName">{{currentLanguageSet?.severity}}</th>
+              <th md2SortBy="feedbackType.feedbackTypeName" id="feedbackTypeName">{{currentLanguageSet?.feedbackType}}</th>
               <th md2SortBy="createdBy" id="createdBy">{{currentLanguageSet?.agent}}</th>
-              <th md2SortBy="feedbackStatus" id="feedbackStatus">{{currentLanguageSet?.status}}</th>
+              <th md2SortBy="feedbackStatus.feedbackStatus" id="feedbackStatus">{{currentLanguageSet?.status}}</th>
               <th md2SortBy="createdDate" id="createdDate">{{currentLanguageSet?.createdDate}}</th>
             
             </tr>

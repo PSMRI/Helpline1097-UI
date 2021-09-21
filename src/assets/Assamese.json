@@ -87,7 +87,7 @@
       "campaignStatus": "প্ৰচাৰৰ স্থিতি",
       "allocateTo": "আবন্টন",
       "counsellingServices": "পৰামৰ্শ সেৱাসমূহ",
-      "incidentDate": "ঘটনাৰ তাৰিখ :",
+      "incidentDate": "ঘটনাৰ তাৰিখ",
       "info": "তথ্য",
       " ": " ",
       "add": "যোগ কৰক",
@@ -173,7 +173,7 @@
       "callReports": "কল প্ৰতিবেদনসমূহ",
       "action": "কাৰ্য্য",
       "messageIsRequiredMinFiveCharacters": "বাৰ্তাৰ প্ৰয়োজন (নূন্যতম 5 টা বৰ্ণ)",
-      "instituteName": "প্ৰতিষ্ঠানৰ নাম :",
+      "instituteName": "প্ৰতিষ্ঠানৰ নাম",
       "lock": "লক",
       "enterLastname": "অন্তিম নাম প্ৰবিষ্ট কৰক",
       "provideServices": "সেৱাসমূহ প্ৰদান কৰক",
@@ -374,7 +374,7 @@
       "editEmergencyContact": "জৰুৰী কালীন পৰিচয় সম্পাদনা কৰক",
       "youDoNotHaveSufficientPrevilageToAccessApplicationRoles": "এপ্লিকেচন ভূমিকাসমূহ প্ৰাপ্ত কৰিবলৈ আপোনাৰ পৰ্যাপ্ত প্ৰিভিলেজ নাই",
       "agentId": "এজেণ্ট আইডি",
-      "subCategory": "উপ শ্ৰেণী :",
+      "subCategory": "উপ শ্ৰেণী",
       "enterTotalNewRecords": "মুঠ নতুন ৰেকৰ্ড প্ৰবিষ্ট কৰক",
       "enterValidMinMaxAlphaNeumeric": "বৈধ প্ৰবিষ্ট কৰক (ন্যূনতম:8,সৰ্বাধিক:12,আলফানিউমেৰিক,1 বিশেষ বৰ্ণ, 1 আপাৰকেছ)",
       "stateServicesMapping": "ৰাজ্যিক সেৱা মেপিং",
@@ -706,14 +706,14 @@
       "first_name": "প্ৰথম নাম",
       "hrs": "ঘণ্টা",
       "kmDocs": "কেএম ডক্স",
-      "userNameRequired":"User Name is required",
+      "userNameRequired":"ব্যৱহাৰকাৰীৰ নাম প্ৰয়োজন",
       "min20": "নিম্নতম 20 টা বৰ্ণৰ প্ৰয়োজন",
-      "templateNameIsRequired": "Template Name is required",
-      "smsTypeIsRequired": "SMS Type is required",
-      "genderIsRequired": "Gender is required",
-      "sexualityIsRequired": "sexuality is required",
-      "languageIsRequired": "Language is required",
-      "ageGroupIsRequired": "Age Group is required"
+      "templateNameIsRequired": "টেমপ্লেট নাম প্ৰয়োজন",
+      "smsTypeIsRequired": "এছএমএছ প্ৰকাৰৰ প্ৰয়োজন",
+      "genderIsRequired": "লিংগৰ প্ৰয়োজন",
+      "sexualityIsRequired": "যৌনতাৰ প্ৰয়োজন",
+      "languageIsRequired": "ভাষাৰ প্ৰয়োজন",
+      "ageGroupIsRequired": "বয়সগোটৰ প্ৰয়োজন"
 
 
 

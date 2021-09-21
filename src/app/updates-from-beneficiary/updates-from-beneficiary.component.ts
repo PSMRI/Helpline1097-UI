@@ -55,11 +55,13 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
     private message: ConfirmationDialogsService,
     private pass_data: CommunicationService,
     private httpServices:HttpServices) {
-    this.subscription = this.pass_data.getData().subscribe(benData => { this.getBenData(benData) });
+    
   }
 
 
   ngOnInit() {
+    this.assignSelectedLanguage();
+    this.subscription = this.pass_data.getData().subscribe(benData => { this.getBenData(benData) });
     console.log("benRegId--", this.saved_data);
     this.beneficiaryRegID = this.saved_data.benRegId;
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
@@ -71,9 +73,15 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
 
       }
     // this.PopulateUpdateData();
-
-    this.count = '0/300';
-    this.assignSelectedLanguage();
+     if(this.remarks !== undefined && this.remarks !== null && this.remarks.length >= 0)
+     {
+     this.count = this.remarks.length + '/300';
+     }
+     else
+     {
+       this.count = '0/300';
+     }
+    
   }
 
   ngOnChanges() {
