@@ -471,7 +471,7 @@
                 {{ item?.categoryDetails?.categoryName }}
               </td>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.subCategory }} </strong>
+                <strong>{{ currentLanguageSet?.subCategory }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">{{ item?.subCategoryName }}</td>
             </tr>
@@ -497,7 +497,7 @@
                 {{ item?.categoryDetails?.categoryName }}
               </td>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.subCategory }}</strong>
+                <strong>{{ currentLanguageSet?.subCategory }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">{{ item?.subCategoryName }}</td>
             </tr>
@@ -517,7 +517,7 @@
           <tbody *ngFor="let item of feedback_services">
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.state }}:</strong>
+                <strong>{{ currentLanguageSet?.state }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">{{ item?.states?.stateName }}</td>
               <td class="col-xs-12 col-sm-3 p-l-0">
@@ -535,7 +535,7 @@
                 {{ item?.districtBlock?.blockName }}
               </td>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.instituteName }}</strong>
+                <strong>{{ currentLanguageSet?.instituteName }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">-</td>
             </tr>
@@ -547,7 +547,7 @@
                 {{ item?.designation?.designationName }}
               </td>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.typeOfFeedback }}:</strong>
+                <strong>{{ currentLanguageSet?.typeOfFeedback }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">
                 {{ item?.FeedbackTypeID?.feedbackTypeName }}
@@ -555,13 +555,13 @@
             </tr>
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.incidentDate }}</strong>
+                <strong>{{ currentLanguageSet?.incidentDate }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">
                 {{ item?.serviceAvailDate | utcDate | date: "dd/MM/yyyy" }}
               </td>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.severity }}:</strong>
+                <strong>{{ currentLanguageSet?.severity }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">
                 {{ item?.severity?.severityTypeName }}
@@ -569,11 +569,11 @@
             </tr>
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.feedbackDescription }}:</strong>
+                <strong>{{ currentLanguageSet?.feedbackDescription }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">{{ item?.feedback }}</td>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.feedbackId }}:</strong>
+                <strong>{{ currentLanguageSet?.feedbackId }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">{{ item?.feedbackID }}</td>
             </tr>
@@ -593,7 +593,7 @@
           <tbody *ngFor="let item of refferal_services">
             <tr>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.state }}:</strong>
+                <strong>{{ currentLanguageSet?.state }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">
                 {{ item.institutionDetails.states.stateName }}
