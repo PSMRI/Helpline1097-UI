@@ -46,7 +46,7 @@ export class InnerpageComponent implements OnInit {
   language_change: any;
   beneficiaryRegID: any;
   providerServiceMapId: any;
-  timeRemaining: number = 120;
+  timeRemaining: any;
   ticks: any;
   callStatus: any;
   callTime: boolean = true;
@@ -560,9 +560,8 @@ export class InnerpageComponent implements OnInit {
   listener(event) {
     console.log('listener invoked: ' + event);
     console.log('event received' + JSON.stringify(event));
-    if (event.data) {
+    if (event.data !== undefined && event.data !== null && event.data !== "undefined") {
       this.eventSpiltData = event.data.split('|');
-      // alert(event.data);
     } else {
       this.eventSpiltData = event.detail.data.split('|');
     }
@@ -575,17 +574,8 @@ export class InnerpageComponent implements OnInit {
     if (eventData[0].trim().toLowerCase() === "accept") {
       this.ticks = 0;
       this.unsubscribeWrapupTime();
-    } else {
-      // this.ticks = 0;
-      // this.unsubscribeWrapupTime();
-    }
-    if (eventData[0] === 'Disconnect') {
-
-    } else if (eventData[0] === 'AgentXfer' || eventData[0] === 'CampaignXfer') {
-      // this.getAgentStatus();
-      // this.showRemarksNew(eventData);
-      // this.transferInProgress = true;
-    } else if (eventData[0] === 'CustDisconnect' && !this.transferInProgress
+    } 
+    else if (eventData[0] === 'CustDisconnect' && !this.transferInProgress
       && (sessionVar.test(eventData[1]) || eventData[1] === '')) {
         this.custdisconnectCallID = eventData[1];
       this.getAgentStatus();
@@ -722,22 +712,6 @@ export class InnerpageComponent implements OnInit {
   }
 
   startCallWraupup(eventData) {
-    // this.wrapupTime = true;
-    // this.callTime = false;
-    // const timer = Observable.timer(2000, 1000);
-    // this.wrapupTimerSubscription = timer.subscribe(t => {
-    //   this.ticks = (this.timeRemaining - t);
-    //   this.ticks = this.ticks + 's';
-    //   const remarks = 'Call disconnect from customer.';
-      
-    //   if (t == this.timeRemaining) {
-    //     this.wrapupTimerSubscription.unsubscribe();
-    //     t = 0;
-    //     this.ticks = 0;
-    //     // this.remarksMessage.close();
-    //     this.closeCall(eventData, remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
-    //   }
-    // });
     this._callServices.getRoleBasedWrapuptime(this.current_roleID).subscribe(
 			(roleWrapupTime) => {
 			  if (roleWrapupTime.data != undefined && roleWrapupTime.data.isWrapUpTime !=undefined 

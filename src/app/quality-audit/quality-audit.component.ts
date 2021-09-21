@@ -465,7 +465,9 @@ export class QualityAuditComponent implements OnInit {
     if (this.callSubTypes.length > 0) {
       let arr = [];
       for (const callSubType of this.callSubTypes) {
-        arr = this.callSubTypes[callSubType].callTypes;
+        console.log("callSubType", callSubType);
+        arr = callSubType.callTypes;
+        console.log("callSubType after", arr);
       }
       this.callsubtype = "";
       this.callSubTypes = arr;

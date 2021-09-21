@@ -68,8 +68,8 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   }
 
   getOutboundCall(serviceProviderMapID, startDate?: any, endDate?: any, agentId?:any,language?: any, isAllocated?:boolean) {  
-    let fromdate = new Date((startDate) - 1 * (startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
-    let toDate= new Date((endDate) - 1 * (endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    let fromdate = new Date((startDate) - 1 * (startDate.getTimezoneOffset() * 60 * 1000)).toJSON() ? new Date((startDate) - 1 * (startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z" : null;
+    let toDate= new Date((endDate) - 1 * (endDate.getTimezoneOffset() * 60 * 1000)).toJSON() ? new Date((endDate) - 1 * (endDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z" : null;
     this._OSRService.getEverwellUnallocatedCalls(serviceProviderMapID,fromdate, toDate, language, agentId)
       .subscribe(resProviderData => {
         this.initialCount =resProviderData.length;

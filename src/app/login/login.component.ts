@@ -27,10 +27,12 @@ export class loginContentClass implements OnInit {
     public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService) {
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
-        if(response !== null)  {
+        if(response !== null && response !== undefined)  {
         this.dataSettingService.Userdata = response;
         // this.dataSettingService.userPriveliges = response.Previlege;
+        if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
         this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        }
         // if (this.previlageObj.length > 0) {
         this.dataSettingService.userPriveliges = this.previlageObj;
         this.dataSettingService.uid = response.userID;
@@ -61,7 +63,10 @@ export class loginContentClass implements OnInit {
 
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
-        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        if(response !== undefined && response !== null) {
+          if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
+          this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        }
         // if (this.previlageObj.length > 0) {
         this.dataSettingService.Userdata = response;
         // this.dataSettingService.userPriveliges = response.Previlege;
@@ -82,6 +87,7 @@ export class loginContentClass implements OnInit {
         // if (response.isAuthenticated === true && response.Status === 'New') {
         //   this.router.navigate(['/setQuestions']);
         // }
+      }
       }, (err) => {
         //  this.alertService.alert(err.errorMessage, 'error');
       });
@@ -101,13 +107,17 @@ export class loginContentClass implements OnInit {
     this.dataSettingService.current_campaign=undefined;
     this.loading = false;
     console.log(response);
-    this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+    if (response !== undefined && response !== null) {
+      if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+      }
     // if (this.previlageObj.length > 0) {
     this.dataSettingService.Userdata = response;
     // this.dataSettingService.userPriveliges = response.Previlege;
     this.dataSettingService.userPriveliges = this.previlageObj;
     this.dataSettingService.uid = response.userID;
-    this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID;
+    this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID ? 
+    response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID : null;
     console.log("current_serviceID:" + this.dataSettingService.current_serviceID );
     this.dataSettingService.uname = response.userName;
     this.dataSettingService.Userdata.agentID = response.agentID;
@@ -137,6 +147,7 @@ export class loginContentClass implements OnInit {
     //   this.loginResult = 'You do not have previlage to login to application';
     // }
     this.dataSettingService.setInboundOutboundValue(response);
+  }
   };
   errorCallback(error: any) {
     if (error.status) {

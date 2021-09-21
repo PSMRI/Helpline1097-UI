@@ -163,26 +163,19 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   assignSelectedLanguageValue: any;
 
   constructor(private _util: RegisterService,
-    private _router: Router,
     private _userBeneficiaryData: UserBeneficiaryData,
     private _locationService: LocationService,
     private updateBen: UpdateService,
     private saved_data: dataService,
-    private renderer: Renderer,
-    private message: Message,
     public dialog: MdDialog,
     private alertMaessage: ConfirmationDialogsService,
     private pass_data: CommunicationService,
-    private outboundService: OutboundService,
     private czentrixService: CzentrixServices,
     private reload_call: ReloadService,
     private _smsService: SmsTemplateService,
     private loaderService: LoaderService,
     private httpServices: HttpServices
   ) {
-
-    // this.subcriptionOutbound = this.outboundService.getOutboundData()
-    //   .subscribe(benOutboundData => { this.startOutBoundCall(benOutboundData) });
 
     this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
@@ -199,9 +192,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.BeneficaryCreationForm.form.patchValue({
       ageUnit: 'Years'
     })
-    this.current_campaign = this.saved_data.current_campaign;
-    if (this.saved_data.current_campaign == 'OUTBOUND') {
-      this.startOutBoundCall(this.saved_data.outboundData);
+    this.current_campaign = this.saved_data.current_campaign ? this.saved_data.current_campaign : null;
+    if (this.current_campaign === 'OUTBOUND') {
+      if (this.saved_data.outboundData !== undefined && this.saved_data.outboundData !== null) {
+        this.startOutBoundCall(this.saved_data.outboundData);
+      }
     } else {
       this.startNewCall();
     }
@@ -240,7 +235,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
-    this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+    this.searchValue = "Advanced Search";
     this.isAdvancedSearch = true;
     this.advanceBtnHide = true;
     this.spinner = false;
@@ -250,19 +245,20 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
 
   startOutBoundCall(outboundData: any) {
+    if(this.saved_data !== undefined && this.saved_data !== null) {
     const data: any = {};
     data.callID = this.saved_data.callID;
     data.is1097 = true;
     data.createdBy = this.saved_data.uname;
     data.calledServiceID = this.saved_data.current_service.serviceID;
-    data.phoneNo = outboundData.beneficiary.benPhoneMaps[0].phoneNo;
+    data.phoneNo = outboundData.beneficiary.benPhoneMaps[0].phoneNo ? outboundData.beneficiary.benPhoneMaps[0].phoneNo : null;
     data.agentID = this.saved_data.cZentrixAgentID;
 
     /*added by diamond on asked by Vinay*/
     data.callReceivedUserID = this.saved_data.uid;
     data.receivedRoleName = this.saved_data.current_role.RoleName;
     /**/
-    data.beneficiaryRegID = outboundData.beneficiary.beneficiaryRegID;
+    data.beneficiaryRegID = outboundData.beneficiary.beneficiaryRegID ? outboundData.beneficiary.beneficiaryRegID : null;
     data.isOutbound = this.saved_data.isOutbound;
     this._util.startCall(data).subscribe((response) => {
       this.setBenCall(response);
@@ -283,12 +279,13 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     });
   }
+  }
   reloadCampainCall(current_campaign: any) {
     if (current_campaign.compainType.toLowerCase() === 'reloadcall') {
-      if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
         this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
       }
-      if (this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
+      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
         this.reloadCall();
       }
     }
@@ -445,7 +442,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.registrationNo = "";
     if (flag) {
       this.calledEarlier = true;
-      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+      this.searchValue = "Advanced Search";
       // this.showSearchResult = true;
       this.advanceBtnHide = true;
       this.isAdvancedSearch = true;
@@ -465,7 +462,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       // jQuery("#BeneficaryForm").trigger("reset");
       this.BeneficaryForm.resetForm();
 
-      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+      this.searchValue = "Advanced Search";
       this.advanceBtnHide = false;
       // this.isParentBeneficiary = false;
       this.notCalledEarlier = true;
@@ -1246,7 +1243,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         obj['modifiedBy'] = this.saved_data.uname;
         obj['createdBy'] = this.saved_data.uname;
         obj['deleted'] = false;
-        if( this.updatedObj.benPhoneMaps!=undefined)
+        if( this.updatedObj.benPhoneMaps !== undefined)
         {
           // if(this.updatedObj.benPhoneMaps[j].createdBy ==undefined ||this.updatedObj.benPhoneMaps[j].createdBy==null)
           // this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
@@ -1254,7 +1251,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         }
        
         else{
-          this.updatedObj.benPhoneMaps={};
+          this.updatedObj.benPhoneMaps=[];
           this.updatedObj.benPhoneMaps.push(obj);
         }
       }
@@ -1568,10 +1565,10 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     this.isAdvancedSearch = false;
     if (data === 'Search by Id') {
-      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+      this.searchValue = "Advanced Search";
       this.calledEarlier = true;
     } else {
-      this.searchValue = this.assignSelectedLanguageValue.searchById;
+      this.searchValue = "Search by Id";
       this.calledEarlier = false;
       this.showSearchResult = false;
     }
@@ -1579,7 +1576,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
   back1() {
     this.isAdvancedSearch = true;
-    this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+    this.searchValue = "Advanced Search";
     this.calledEarlier = true;
     this.showSearchResult = true;
   }
@@ -1595,7 +1592,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.regHistoryList = response;
         this.showSearchResult = true;
         this.calledEarlier = true;
-        this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+        this.searchValue = "Advanced Search";
         console.log('Response advanced Search', response);
 
       }

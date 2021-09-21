@@ -87,7 +87,7 @@
       "campaignStatus": "Campaign Status",
       "allocateTo": "Allocate To",
       "counsellingServices": "Counselling Services",
-      "incidentDate": "Incident date :",
+      "incidentDate": "Incident date",
       "info": "Info",
       " ": " ",
       "add": "Add",
@@ -375,7 +375,7 @@
       "editEmergencyContact": "Edit Emergency Contact",
       "youDoNotHaveSufficientPrevilageToAccessApplicationRoles": "You do not have sufficient previlage to access application roles",
       "agentId": "Agent ID",
-      "subCategory": "Sub Category :",
+      "subCategory": "Sub Category",
       "enterTotalNewRecords": "Enter Total New Records",
       "enterValid(min:8,max:12,alphanumeric,1SpecialCharacter,1Uppercase)": "Enter valid(min:8,max:12,alphanumeric,1 special character,1 UpperCase)",
       "stateServicesMapping": "State Services Mapping",
@@ -711,7 +711,8 @@
       "genderIsRequired": "Gender is required",
       "sexualityIsRequired": "Sexuality is required",
       "languageIsRequired": "Language is required",
-      "ageGroupIsRequired": "Age Group is required"
+      "ageGroupIsRequired": "Age Group is required",
+      "transfer":"Transfer"
 
 
 

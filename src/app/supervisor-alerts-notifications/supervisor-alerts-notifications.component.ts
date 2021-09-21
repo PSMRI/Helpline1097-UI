@@ -284,11 +284,11 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     let requestArray = [];  //resetting of request array
 
     // checking if locations are selected or not; if yes=> loop through them and create multiple objects and push in request array ; else=> push the single request object
-    if (allOfficeIDs != undefined && allOfficeIDs.length > 0) {
-      for (let x = 0; x < allOfficeIDs.length; x++) {
-        defaultObj['workingLocationID'] = allOfficeIDs[x];
-        requestArray.push(defaultObj);
-      }
+    if (allOfficeIDs !== undefined && allOfficeIDs !== null && allOfficeIDs.length > 0) {
+      allOfficeIDs.forEach((officeID) => {
+        const addedWorkLocation = Object.assign({}, defaultObj, {'workingLocationID': officeID})
+        requestArray.push(addedWorkLocation);
+      });
     }
     else {
       requestArray.push(defaultObj);

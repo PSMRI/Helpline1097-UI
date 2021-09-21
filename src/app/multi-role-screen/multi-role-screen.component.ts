@@ -151,8 +151,8 @@ export class MultiRoleScreenComponent implements OnInit {
     this.router.navigate(['']);
     this.authService.removeToken();
     this.Czentrix.agentLogout(this.dataSettingService.cZentrixAgentID, response).subscribe((res) => {
-
-      if (res.response.status.toUpperCase() !== 'FAIL') {
+      if( res !== undefined && res !== null) {
+      if (res.response !== undefined && res.response.status !== undefined && res.response.status.toUpperCase() !== 'FAIL') {
         sessionStorage.removeItem('isOnCall');
         sessionStorage.removeItem('isEverwellCall');
         sessionStorage.removeItem("setLanguage");
@@ -169,8 +169,7 @@ export class MultiRoleScreenComponent implements OnInit {
         this.router.navigate(['']);
         sessionStorage.removeItem('apiman_key');
         this.authService.removeToken();
-
-      
+      }
       }
     }, (err) => {
       sessionStorage.removeItem('isOnCall');

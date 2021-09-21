@@ -270,14 +270,14 @@
         <tfoot *ngIf="md2.data.length > 0">
           <tr>
             <td
-              colspan="1"
+              colspan="2"
               class="m-t-5"
               *ngIf="pager?.pages && pager?.pages.length"
             >
               <label>{{currentLanguageSet?.totalPages}}:</label>
               {{ pageCount }}
             </td>
-            <td colspan="10">
+            <td colspan="8">
               <ul
                 *ngIf="pager?.pages && pager?.pages.length"
                 class="pagination pull-right"
@@ -613,7 +613,7 @@
                 {{ item.institutionDetails.block.blockName }}
               </td>
               <td class="col-xs-12 col-sm-3 p-l-0">
-                <strong>{{ currentLanguageSet?.informationRequired }}</strong>
+                <strong>{{ currentLanguageSet?.informationRequired }} :</strong>
               </td>
               <td class="col-xs-12 col-sm-3">
                 {{ item.directory.instituteDirectoryName }},{{

@@ -70,6 +70,8 @@ export class ClosureComponent implements OnInit
   isEverwell: string;
   everwellBeneficiarySelected: boolean;
   currentLanguageSet: any;
+  preferredDateTime: any;
+  requestedFor: any;
 
   constructor(
     private _callServices: CallServices,
@@ -121,6 +123,7 @@ export class ClosureComponent implements OnInit
     this.minDate = this.today;
     this.minDate.setHours(0, 0, 0, 0);
     this.showSlider = false;
+    this.showFeedbackRequiredFlag = false;
     this.current_campaign = this.saved_data.current_campaign;
     if (!this.saved_data.loginIP) {
       this.getIpAddress();
@@ -173,9 +176,20 @@ export class ClosureComponent implements OnInit
       this.showSlider = true;
     } else {
       this.showSlider = false;
-      this.isFollowUp = false;
-      this.isFollowupRequired = false;
+      // this.isFollowUp = false;
+      // this.isFollowupRequired = false;
+      this.resetFollowUpRequiredFields();
     }
+  }
+
+  resetFollowUpRequiredFields()
+  {
+     this.isFollowUp = false;
+      this.isFollowupRequired = false;
+      this.preferredDateTime=null;
+      this.requestedFor=null;
+      this.preferredLanguageName=null;
+      this.requestedServiceID=null;
   }
 
   populateCallTypes(response: any) {
@@ -194,6 +208,9 @@ export class ClosureComponent implements OnInit
   }
   }
   getCallSubType(callType: any) {
+    this.showSlider = false;
+   this.resetFollowUpRequiredFields();
+
     if (callType == 'Transfer') {
       this.transferValid = true;
     }
@@ -225,6 +242,7 @@ export class ClosureComponent implements OnInit
     if (callType.toUpperCase() != 'Valid'.toUpperCase()) {
       this.isFeedbackRequiredFlag = false;
       this.showFeedbackRequiredFlag = false;
+   
     }
     // Below variable is used to disable save and continue when call is already disconnected.
     this.isCallDisconnected = this.saved_data.isCallDisconnected;
@@ -428,6 +446,7 @@ export class ClosureComponent implements OnInit
               if (response) {
                 this.closureForm.reset();
                 this.showSlider = false;
+                this.showFeedbackRequiredFlag = false;
                 this.isFollowUp = false;
                 this.isFollowupRequired = false;
                 this.showAlert();
@@ -471,8 +490,7 @@ export class ClosureComponent implements OnInit
       this.isFollowUp = true;
       this.isFollowupRequired = true
     } else {
-      this.isFollowUp = false;
-      this.isFollowupRequired = false;
+      this.resetFollowUpRequiredFields();
     }
 
   }
@@ -511,7 +529,7 @@ export class ClosureComponent implements OnInit
   closeOutboundCall(btnType: any, values: any) {
     this._callServices.closeCall(values).subscribe((response) => {
       if (response) {
-        this.message.alert('Call closed successfully', 'success');
+        this.message.alert(this.currentLanguageSet.callClosedSuccessfully, 'success');
         if (btnType === 'submitClose') {
           this.saved_data.feedbackData = undefined;
           this.callClosed.emit(this.current_campaign);
@@ -537,6 +555,7 @@ export class ClosureComponent implements OnInit
       this.showSlider = false;
       this.isFollowUp = false;
       this.isFollowupRequired = false;
+      this.showFeedbackRequiredFlag = false;
     }
   }
   blockey(e: any) {

@@ -55,11 +55,14 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
     private message: ConfirmationDialogsService,
     private pass_data: CommunicationService,
     private httpServices:HttpServices) {
-    this.subscription = this.pass_data.getData().subscribe(benData => { this.getBenData(benData) });
+    
   }
 
 
   ngOnInit() {
+    this.assignSelectedLanguage();
+    this.count = '0/300';
+    this.subscription = this.pass_data.getData().subscribe(benData => { this.getBenData(benData) });
     console.log("benRegId--", this.saved_data);
     this.beneficiaryRegID = this.saved_data.benRegId;
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
@@ -70,10 +73,6 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
         this.message.alert(err.errorMessage, 'error');
 
       }
-    // this.PopulateUpdateData();
-
-    this.count = '0/300';
-    this.assignSelectedLanguage();
   }
 
   ngOnChanges() {
@@ -84,7 +83,6 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
     this.currentlanguage = language;
     console.log(language, 'language updates frm ben tak');
   }
-
   PopulateUpdateData() {
     if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
       this.beneficiaryRegID = this.saved_data.beneficiaryData.beneficiaryRegID;
@@ -96,8 +94,17 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
       this.remarks = this.saved_data.beneficiaryData.remarks;
       this.cameToKnowFrom = this.saved_data.beneficiaryData.sourceOfInformation ? this.saved_data.beneficiaryData.sourceOfInformation.split(',') : undefined;
       this.populateSourceOfInformation(this.cameToKnowFrom);
-
-
+      this.updateRemarksCount(this.remarks);
+    }
+  }
+  updateRemarksCount(remarks) {
+    if(remarks !== undefined && remarks !== null && remarks.length >= 0)
+    {
+    this.count = remarks.length + '/300';
+    }
+    else
+    {
+      this.count = '0/300';
     }
   }
   PopulateOutBoundData(beneficiaryData: any) {
@@ -113,6 +120,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
       this.remarks = beneficiaryData.remarks;
       this.cameToKnowFrom = beneficiaryData.sourceOfInformation ? beneficiaryData.sourceOfInformation.split(',') : undefined;
       this.populateSourceOfInformation(this.cameToKnowFrom);
+      this.updateRemarksCount(this.remarks);
     }
   }
 
