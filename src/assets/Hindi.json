@@ -713,7 +713,8 @@
       "genderIsRequired": "लिंग आवश्यक है",
       "sexualityIsRequired": "कामुकता की आवश्यकता है",
       "languageIsRequired": "भाषा की आवश्यकता है",
-      "ageGroupIsRequired": "आयु समूह की आवश्यकता है"
+      "ageGroupIsRequired": "आयु समूह की आवश्यकता है",
+      "transfer":"स्थानांतरण"
 
       
 

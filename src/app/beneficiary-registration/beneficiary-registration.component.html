@@ -31,10 +31,10 @@
           </button>
         </div>
        
-        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 pull-right ">
+        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6 pull-right " style="padding: 0px;">
           <button [disabled]="disableViewAll" type="button" md-raised-button color="accent" class=" m-r-10" id="retrieve" (click)="retrieveRegHistory('')">{{assignSelectedLanguageValue?.retrieveAll}}</button>
 
-          <button type="button" md-raised-button color="primary" class="" id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue}}</button>
+          <button type="button" md-raised-button color="primary" class="" id="adSearch" (click)="toggleSearch(searchValue);searchForm.reset()">{{searchValue === 'Advanced Search'? assignSelectedLanguageValue?.advancedSearch : this.assignSelectedLanguageValue.searchById}}</button>
 
         </div>
 

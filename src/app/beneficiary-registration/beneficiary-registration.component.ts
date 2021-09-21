@@ -240,7 +240,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
-    this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+    this.searchValue = "Advanced Search";
     this.isAdvancedSearch = true;
     this.advanceBtnHide = true;
     this.spinner = false;
@@ -445,7 +445,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.registrationNo = "";
     if (flag) {
       this.calledEarlier = true;
-      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+      this.searchValue = "Advanced Search";
       // this.showSearchResult = true;
       this.advanceBtnHide = true;
       this.isAdvancedSearch = true;
@@ -465,7 +465,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       // jQuery("#BeneficaryForm").trigger("reset");
       this.BeneficaryForm.resetForm();
 
-      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+      this.searchValue = "Advanced Search";
       this.advanceBtnHide = false;
       // this.isParentBeneficiary = false;
       this.notCalledEarlier = true;
@@ -1568,10 +1568,10 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     this.isAdvancedSearch = false;
     if (data === 'Search by Id') {
-      this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+      this.searchValue = "Advanced Search";
       this.calledEarlier = true;
     } else {
-      this.searchValue = this.assignSelectedLanguageValue.searchById;
+      this.searchValue = "Search by Id";
       this.calledEarlier = false;
       this.showSearchResult = false;
     }
@@ -1579,7 +1579,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
   back1() {
     this.isAdvancedSearch = true;
-    this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+    this.searchValue = "Advanced Search";
     this.calledEarlier = true;
     this.showSearchResult = true;
   }
@@ -1595,7 +1595,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.regHistoryList = response;
         this.showSearchResult = true;
         this.calledEarlier = true;
-        this.searchValue = this.assignSelectedLanguageValue.advancedSearch;
+        this.searchValue = "Advanced Search";
         console.log('Response advanced Search', response);
 
       }
