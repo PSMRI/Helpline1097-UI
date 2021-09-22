@@ -56,8 +56,8 @@ export class CoFeedbackServicesComponent implements OnInit {
   designations: any = [];
   feedbackTypes: any = [];
   feedbackSeverities: any = [];
-  serviceID: any = -1;
-  subServiceID: any = -1;
+  serviceID: any;
+  subServiceID: any;
   count;
   feedbacksArray: any = [];
   data: any = [];
@@ -298,8 +298,8 @@ export class CoFeedbackServicesComponent implements OnInit {
       'feedback': this.feedbackDescription,
       'beneficiaryRegID': this.beneficiaryRegID,
       'serviceAvailDate': selected_Date,
-      'serviceID': this.serviceID,
-      'subServiceID': this.subServiceID,
+      'serviceID': this.serviceID ? this.serviceID : null,
+      'subServiceID': this.subServiceID ? this.subServiceID : null,
       'userID': this._savedData.uid,
       'createdBy': this.userName,
       'benCallID': this._savedData.callData.benCallID,
