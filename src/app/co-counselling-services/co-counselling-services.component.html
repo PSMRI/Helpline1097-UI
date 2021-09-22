@@ -25,13 +25,13 @@
           </md-select>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-15">
-        <button class="mar-right" [disabled]="!category.valid || !subCategory.valid || getDetailsFlag" type="button" md-raised-button
+        <button class="mar-right" [disabled]="!(category.valid && subCategory.valid && getDetailsFlag===true)" type="button" md-raised-button
           color="accent" (click)="GetSubCategoryDetails(symptomSubCategory)">{{assignSelectedLanguageValue?.getDetails}}</button>
         <button type="button" md-raised-button color="primary" (click)="back()">{{assignSelectedLanguageValue?.back}}</button>
       </div>
    
       <div class="clearfix"></div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="enableFileDetails">
         <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
           <ul class="m-t-10" [hidden]="!showresult">
             <li *ngFor="let detail of detailsList">

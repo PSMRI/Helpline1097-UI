@@ -714,7 +714,8 @@
       "sexualityIsRequired": "कामुकता की आवश्यकता है",
       "languageIsRequired": "भाषा की आवश्यकता है",
       "ageGroupIsRequired": "आयु समूह की आवश्यकता है",
-      "transfer":"स्थानांतरण"
+      "transfer":"स्थानांतरण",
+      "yes": "हाँ"
 
       
 

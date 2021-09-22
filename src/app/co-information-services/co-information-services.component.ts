@@ -40,6 +40,7 @@ export class CoInformationServicesComponent implements OnInit {
   benCallID: any;
   getDetailsFlag: boolean = false;
   tempFlag: any;
+  enableFileDetails: boolean=false;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -128,6 +129,7 @@ export class CoInformationServicesComponent implements OnInit {
   }
 
   GetSubCategories(id: any) {
+    this.symptomSubCategory=null;
     // console.log('symcatid',this.symptomCategory);
     this._coCategoryService.getSubCategories(id)
       .subscribe(response => this.SetSubCategories(response),
@@ -140,9 +142,12 @@ export class CoInformationServicesComponent implements OnInit {
   SetSubCategories(response: any) {
     console.log('success', response);
     this.subCategoryList = response;
+    this.enableFileDetails=false;
+    this.getDetailsFlag = false;
   }
   EnabledGetDetails() {
-    this.getDetailsFlag = false;
+    this.getDetailsFlag = true;
+    this.enableFileDetails=false;
   }
   GetSubCategoryDetails(id: any) {
     this.showresult = true;
@@ -161,6 +166,7 @@ export class CoInformationServicesComponent implements OnInit {
       this.GetInformationHistory();
       this.detailsList = response;
       this.getDetailsFlag = true;
+      this.enableFileDetails=true;
       this.informationServiceProvided.emit();
     }
 

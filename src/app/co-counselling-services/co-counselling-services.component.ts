@@ -43,6 +43,7 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   p = 1;
   tempFlag: any;
   assignSelectedLanguageValue: any;
+  enableFileDetails: boolean=false;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -126,6 +127,7 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   }
 
   GetSubCategories(id: any) {
+    this.symptomSubCategory=null;
     // console.log('symcatid',this.symptomCategory);
     this._coCategoryService.getSubCategories(id)
       .subscribe(response => this.SetSubCategories(response),
@@ -138,7 +140,8 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   SetSubCategories(response: any) {
     console.log('success', response);
     this.subCategoryList = response;
-    // this.getDetailsFlag = false;
+    this.enableFileDetails=false;
+    this.getDetailsFlag = false;
   }
 
   GetSubCategoryDetails(id: any) {
@@ -153,13 +156,15 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
       });
   }
   EnabledGetDetails() {
-    this.getDetailsFlag = false;
+    this.getDetailsFlag = true;
+    this.enableFileDetails=false;
   }
   SetSubCategoryDetails(response: any) {
     if (response) {
       console.log('success', response);
       this.detailsList = response;
       this.getDetailsFlag = true;
+      this.enableFileDetails=true;
       this.counsellingServiceProvided.emit();
       this.GetCounsellingHistory();
     }

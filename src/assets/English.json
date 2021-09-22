@@ -712,7 +712,8 @@
       "sexualityIsRequired": "Sexuality is required",
       "languageIsRequired": "Language is required",
       "ageGroupIsRequired": "Age Group is required",
-      "transfer":"Transfer"
+      "transfer":"Transfer",
+      "yes":"Yes"
 
 
 

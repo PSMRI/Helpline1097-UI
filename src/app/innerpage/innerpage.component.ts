@@ -47,7 +47,7 @@ export class InnerpageComponent implements OnInit {
   beneficiaryRegID: any;
   providerServiceMapId: any;
   timeRemaining: any;
-  ticks: any;
+  ticks=0;
   callStatus: any;
   callTime: boolean = true;
   wrapupTime: boolean = false;

@@ -248,6 +248,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
       //       console.log(error);
       //     });
       // }
+      this.go2table();
     }
   }
 
