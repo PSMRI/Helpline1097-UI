@@ -42,6 +42,7 @@ export class ConfigService {
     // private _localeString = 'en-in';
     // private _loginUrl = 'http://l-185000861.wipro.com:8080/commonui-v1.0';
     // private adminBaseUrl = 'http://l-185000861.wipro.com:8080/adminapi-v1.0/';
+    public defaultWrapupTime: any = 120;
 
     constructor() {
     }

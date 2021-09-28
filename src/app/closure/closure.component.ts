@@ -352,18 +352,23 @@ export class ClosureComponent implements OnInit
         this.message.alert("Error in transfering", "error");
       });
   }
+ 
   closeCall(values: any, btnType: any) {
     this.saved_data.everwellCallNotConnected=null;
-    values.isFeedback = this.isFeedbackRequiredFlag;
-    values.benCallID = this.saved_data.callData.benCallID;
-    values.beneficiaryRegID = this.beneficiaryRegID;
-    values.providerServiceMapID = this.saved_data.current_service.serviceID;
+    if(this.saved_data !== undefined && this.saved_data !== null) {
+    values.benCallID = this.saved_data.callData.benCallID ? this.saved_data.callData.benCallID : null;
+    values.providerServiceMapID = this.saved_data.current_service.serviceID ? this.saved_data.current_service.serviceID : null;
+    values.createdBy = this.saved_data.uname ? this.saved_data.uname : null;
+    values.agentID = this.saved_data.cZentrixAgentID ? this.saved_data.cZentrixAgentID : null;
+    this.current_campaign = this.saved_data.current_campaign ? this.saved_data.current_campaign : null;
+    }
     // values.preferredLanguageName = values.preferredLanguageName.languageName;
     // Gursimran to look at fixing of followupRequired issue
     if (values.isFollowupRequired == undefined) {
       values.isFollowupRequired = false;
     }
-
+    values.isFeedback = this.isFeedbackRequiredFlag;
+    values.beneficiaryRegID = this.beneficiaryRegID ? this.beneficiaryRegID : null;
     if (values.prefferedDateTime) {
       values.requestedServiceID = this.requestedServiceID;
       values.prefferedDateTime = new Date(values.prefferedDateTime);
@@ -372,20 +377,18 @@ export class ClosureComponent implements OnInit
     } else {
       values.preferredDateTime = undefined;
     }
-    values.createdBy = this.saved_data.uname;
+    
     values.fitToBlock = values.callTypeID.split(',')[1];
     values.callTypeID = values.callTypeID.split(',')[0];
-    values.agentID = this.saved_data.cZentrixAgentID;
     values.agentIPAddress = this.ipAddress;
     if (btnType === 'submitClose') {
       values.endCall = true;
     }
-    if (this.saved_data.current_campaign == 'OUTBOUND') {
+    if (this.current_campaign === 'OUTBOUND') {
       values.isCompleted = true;
     }
     console.log('close called with ' + values);
-    if (this.saved_data !== undefined && this.saved_data.current_campaign !== undefined && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
-      this.current_campaign = this.saved_data.current_campaign;
+    if (this.current_campaign !== undefined && this.current_campaign !== null && this.current_campaign.toUpperCase() === 'OUTBOUND') {
       if(this.isEverwell !== 'yes'){
       this._callServices.closeOutBoundCall(this.saved_data.outBoundCallID, true).subscribe((response) => {
         this.closeOutboundCall(btnType, values);
@@ -421,20 +424,7 @@ export class ClosureComponent implements OnInit
         this._callServices.closeCall(values).subscribe((response) => {
           if (response) {
             this.showAlert();
-            // if (btnType === 'submitClose') {
             this.callClosed.emit(this.current_campaign);
-            // } else {
-            //   this.closedContinue.emit();
-            // }
-            // this.pass_data.sendData(this.current_campaign);
-            
-            /* below lines are commented to use old close call API */
-            // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
-            //   console.log('disconnect response', res);
-
-            // }, (err) => {
-
-            // });
           }
         }, (err) => {
           this.message.alert(err.status, 'error');
@@ -450,19 +440,7 @@ export class ClosureComponent implements OnInit
                 this.isFollowUp = false;
                 this.isFollowupRequired = false;
                 this.showAlert();
-                // if (btnType === 'submitClose') {
-                // this.callClosed.emit(this.current_campaign);
-                // } else {
                 this.closedContinue.emit();
-                /* below lines are commented to use old close call API */
-                // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
-                //   console.log('disconnect response', res);
-
-                // }, (err) => {
-
-                // });
-                // }
-                // this.pass_data.sendData(this.current_campaign);
               }
             }, (err) => {
               this.message.alert(err.status, 'error');
