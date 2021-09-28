@@ -375,7 +375,7 @@ export class ClosureComponent implements OnInit
       values.prefferedDateTime
         = new Date((values.prefferedDateTime) - 1 * (values.prefferedDateTime.getTimezoneOffset() * 60 * 1000)).toJSON();
     } else {
-      values.preferredDateTime = undefined;
+      values.preferredDateTime = null;
     }
     
     values.fitToBlock = values.callTypeID.split(',')[1];
@@ -390,7 +390,8 @@ export class ClosureComponent implements OnInit
     console.log('close called with ' + values);
     if (this.current_campaign !== undefined && this.current_campaign !== null && this.current_campaign.toUpperCase() === 'OUTBOUND') {
       if(this.isEverwell !== 'yes'){
-      this._callServices.closeOutBoundCall(this.saved_data.outBoundCallID, true).subscribe((response) => {
+        const outBoundCallID = this.saved_data.outBoundCallID ? this.saved_data.outBoundCallID : null;
+      this._callServices.closeOutBoundCall(outBoundCallID, true).subscribe((response) => {
         this.closeOutboundCall(btnType, values);
       }, (err) => {
         this.message.alert(err.status, 'error');
@@ -420,9 +421,8 @@ export class ClosureComponent implements OnInit
 
     } else {
       if (btnType === 'submitClose') {
-        this.saved_data.everwellCallNotConnected=null;
-        this._callServices.closeCall(values).subscribe((response) => {
-          if (response) {
+        this._callServices.closeCall(values).subscribe((response) => { 
+          if (response !== undefined && response !== null) {
             this.showAlert();
             this.callClosed.emit(this.current_campaign);
           }
@@ -433,7 +433,7 @@ export class ClosureComponent implements OnInit
         this.message.confirm('Continue', this.currentLanguageSet.providingNewServiceToBeneficiary).subscribe((res) => {
           if (res) {
             this._callServices.closeCall(values).subscribe((response) => {
-              if (response) {
+              if (response !== undefined && response !== null) {
                 this.closureForm.reset();
                 this.showSlider = false;
                 this.showFeedbackRequiredFlag = false;
