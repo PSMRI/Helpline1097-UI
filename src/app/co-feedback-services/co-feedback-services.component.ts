@@ -428,15 +428,20 @@ export class CoFeedbackServicesComponent implements OnInit {
     else {
       let object = {
         "phoneNum": this.searchType == 'MobileNumber' ? searchTerm : null,
-        "requestID": this.searchType == 'FeedbackID' ? searchTerm : null
+        "requestID": this.searchType == 'FeedbackID' ? searchTerm : null,
+        "is1097": true
       };
 
       console.log(JSON.stringify(object));
       this.filteredFeedbackList = [];
       
       this._feedbackListServices.getFeedback(object).subscribe((res) => {
-     // this.feedbackService.getFeedbacklist(object).subscribe((res) => {       
-          this.filteredFeedbackList = res;           
+     // this.feedbackService.getFeedbacklist(object).subscribe((res) => { 
+       if(res !== undefined && res !== null) {      
+          this.filteredFeedbackList = res;  
+       }         
+      }, (err) => {
+        console.log("error", err.errorMessage)
       });     
     }
   }

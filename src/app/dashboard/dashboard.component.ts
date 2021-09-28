@@ -1,11 +1,9 @@
 import { Component, OnInit, Renderer } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { DomSanitizer } from "@angular/platform-browser";
 import { dataService } from "../services/dataService/data.service";
 import { ConfigService } from "../services/config/config.service";
 import { ConfirmationDialogsService } from "../services/dialog/confirmation.service";
-// import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { loginService } from "../services/loginService/login.service";
 import { ListnerService } from "./../services/common/listner.service";
 import { CallServices } from "./../services/callservices/callservice.service";
 declare var jQuery: any;
@@ -34,13 +32,11 @@ export class dashboardContentClass implements OnInit {
   activity_component: boolean = true;
   ratings_component: boolean = true;
   alerts_component: boolean = true;
-  // daily_tasks_component: boolean = true;
   news_component: boolean = true;
   call_statistics: boolean = true;
   training_resources: boolean = true;
   widget: any = "0";
   listenCall: any;
-  // loginUrl = this.configService.getCommonLoginUrl();
   compainType: any;
   alertRefresh: number = 1;
   notificationSubscription: Subscription;
@@ -62,7 +58,6 @@ export class dashboardContentClass implements OnInit {
     private message: ConfirmationDialogsService,
     private renderer: Renderer,
     private callService: CallServices,
-    private toasterService: ToasterService,
     private listnerService: ListnerService,
     public socketService: SocketService,
     public HttpServices: HttpServices
@@ -273,21 +268,28 @@ export class dashboardContentClass implements OnInit {
   listener(event) {
     console.log("listener invoked: " + event);
     console.log("event received" + JSON.stringify(event));
-    if (event.data) {
+    if (event.data !== undefined && event.data !== null) {
       this.eventSpiltData = event.data.split("|");
     } else {
       this.eventSpiltData = event.detail.data.split("|");
     }
-    if (!sessionStorage.getItem("session_id")) {
-      this.handleEvent();
-    } else if (
-      sessionStorage.getItem("session_id") !== this.eventSpiltData[2]
+    if (
+      this.eventSpiltData[2] !== undefined &&
+      this.eventSpiltData[2] !== "undefined" &&
+      this.eventSpiltData[2] !== null &&
+      this.eventSpiltData[2] !== ""
     ) {
-      // If session id is different from previous session id then allow the call to drop
-      this.handleEvent();
-    }
-    if (this.eventSpiltData[0].toLowerCase() === "accept") {
-      this.handleEvent();
+      if (!sessionStorage.getItem("session_id")) {
+        this.handleEvent();
+      } else if (
+        sessionStorage.getItem("session_id") !== this.eventSpiltData[2]
+      ) {
+        // If session id is different from previous session id then allow the call to drop
+        this.handleEvent();
+      }
+      if (this.eventSpiltData[0].toLowerCase() === "accept") {
+        this.handleEvent();
+      }
     }
   }
 
@@ -334,7 +336,7 @@ export class dashboardContentClass implements OnInit {
       // document.attachEvent("onmessage", this.listener);
     }
   }
- 
+
   campaign(value) {
     console.log(value);
     if (value === "1") {

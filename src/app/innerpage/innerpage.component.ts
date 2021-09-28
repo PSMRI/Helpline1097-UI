@@ -1,12 +1,11 @@
 import { Component, OnInit, EventEmitter, Input, Output, Renderer } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
-import { Http, Response } from '@angular/http';
-import { ActivatedRoute, Params } from '@angular/router'
+import { Http } from '@angular/http';
+import { ActivatedRoute } from '@angular/router'
 import { ConfigService } from '../services/config/config.service';
 import { HttpServices } from '../services/http-services/http_services.service';
-// import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { CallServices } from '../services/callservices/callservice.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { CzentrixServices } from './../services/czentrix/czentrix.service';
@@ -38,7 +37,6 @@ export class InnerpageComponent implements OnInit {
   counter: number = 0;
   current_campaign: any;
   eventSpiltData: any;
-  wrapUpTimeInSeconds = 120;
   // language change stuff
   languageFilePath: any = 'assets/language.js';
   selectedlanguage: any = '';
@@ -584,7 +582,7 @@ export class InnerpageComponent implements OnInit {
       if(this.isEverwell != "yes"){
         this.disconnectCall();
       }      
-      this.startCallWraupup(eventData);
+      this.startCallWraupup();
       this._common.everwellCallNotConnected="yes";
     } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
@@ -595,9 +593,9 @@ export class InnerpageComponent implements OnInit {
       this.wrapupTimerSubscription.unsubscribe();
     }
   }
-  closeCall(eventData, remarks, message?: any, wrapupCallID?: any) {    
+  closeCall(remarks, message?: any, wrapupCallID?: any) {    
     
-    console.log("wrapup",this.wrapupCallID);
+    console.log("wrapup",this.wrapupCallID); 
     console.log("transferCallID",this.transferCallID);
     console.log("submitting the everwellrsponse", this.everwellSubmitBtn );
     console.log("submitting the everwellrsponse", this.isEverwell  );
@@ -687,7 +685,7 @@ export class InnerpageComponent implements OnInit {
     );
   }
   }
-  showRemarks(eventData) {
+  showRemarks() {
     let remarksGiven;
     remarksGiven = '';
     this.remarksMessage.remarks('Please Enter Remarks').subscribe((response) => {
@@ -696,7 +694,7 @@ export class InnerpageComponent implements OnInit {
       } else {
         remarksGiven = 'call tranfered';
       }
-      this.closeCall(eventData, remarksGiven);
+      this.closeCall(remarksGiven);
     }, (err) => {
       this.remarksMessage.alert(err.errorMessage);
     });
@@ -708,29 +706,30 @@ export class InnerpageComponent implements OnInit {
   showRemarksNew(eventData) {
     let remarksGiven;
     remarksGiven = eventData[0] + ' to ' + eventData[2];
-    this.closeCall(eventData, remarksGiven, 'Call Transfered Successfully');
+    this.closeCall(remarksGiven, 'Call Transfered Successfully');
   }
 
-  startCallWraupup(eventData) {
+  startCallWraupup() {
+    this.wrapupTime = true;
     this._callServices.getRoleBasedWrapuptime(this.current_roleID).subscribe(
 			(roleWrapupTime) => {
 			  if (roleWrapupTime.data != undefined && roleWrapupTime.data.isWrapUpTime !=undefined 
 				&& roleWrapupTime.data.WrapUpTime!=undefined && roleWrapupTime.data.isWrapUpTime) {
-				this.roleBasedCallWrapupTime(roleWrapupTime.data.WrapUpTime,eventData);
+				this.roleBasedCallWrapupTime(roleWrapupTime.data.WrapUpTime);
 			  } else {
-				const time = this.timeRemaining;
-				this.roleBasedCallWrapupTime(time,eventData);
+				const time = this._config.defaultWrapupTime;
+				this.roleBasedCallWrapupTime(time);
 				console.log('Need to configure wrap up time');
 			  }
 			},
 			(err) => {
-			  const time = this.timeRemaining;
-			  this.roleBasedCallWrapupTime(time,eventData);
+			  const time = this._config.defaultWrapupTime;
+			  this.roleBasedCallWrapupTime(time);
 			  console.log('Need to configure wrap up time', err.errorMessage);
 			}
 		  );
   }
-  roleBasedCallWrapupTime(timeRemaining,eventData) {
+  roleBasedCallWrapupTime(timeRemaining) {
 		console.log('roleBasedCallWrapupTime', timeRemaining);
 		const timer = Observable.timer(2000, 1000);
 		this.wrapupTimerSubscription = timer.subscribe((t) => {
@@ -743,7 +742,7 @@ export class InnerpageComponent implements OnInit {
 			this.ticks = 0;
 			console.log('after re initialize the timer', t);
       const remarks = 'Call disconnect from customer.';
-			this.closeCall(eventData, remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
+			this.closeCall(remarks, this.currentLanguageSet.callClosedSuccessfully, this.wrapupCallID);
 		  }
 		});
 	  }

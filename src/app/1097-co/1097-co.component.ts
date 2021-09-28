@@ -390,6 +390,7 @@ export class helpline1097CoComponent implements OnInit {
       this.isPrevious = true;
     }
     if (idx === 2) {
+      this.isClosureDisable = true;
       jQuery('#four').parent().find('a').removeClass('active-tab');
       jQuery('#four').find('a').addClass('active-tab');
       this.isNext = false;

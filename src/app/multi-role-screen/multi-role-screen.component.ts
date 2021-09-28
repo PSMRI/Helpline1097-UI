@@ -58,7 +58,10 @@ export class MultiRoleScreenComponent implements OnInit {
       window.history.forward();
 
     })
-    this.subscription = this.listnerService.cZentrixGetData().subscribe(flag => { this.hideCZentix(flag) }, (err) => {
+    this.subscription = this.listnerService.cZentrixGetData().subscribe(flag => { setTimeout(() => { 
+      this.hideCZentix(flag) 
+    }) 
+  }, (err) => {
       this.alertMessage.alert('Error in passing Data');
     });
   }
