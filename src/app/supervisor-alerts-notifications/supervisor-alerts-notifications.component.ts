@@ -408,11 +408,31 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
     this.notification_subject = toBeEditedOBJ.notification;
     this.description = toBeEditedOBJ.notificationDesc;
-    this.sdate = new Date(toBeEditedOBJ.validFrom);
-    this.edate = new Date(toBeEditedOBJ.validTill);
+    this.sdate = this.transformDatetoUTC(toBeEditedOBJ.validFrom);
+    this.edate = this.transformDatetoUTC(toBeEditedOBJ.validTill);
     this.startTime = toBeEditedOBJ.validFrom.split('T')[1].split(':')[0] + ':' + toBeEditedOBJ.validFrom.split('T')[1].split(':')[1];
     this.endTime = toBeEditedOBJ.validTill.split('T')[1].split(':')[0] + ':' + toBeEditedOBJ.validTill.split('T')[1].split(':')[1];
 
+  }
+
+  transformDatetoUTC(value: string): any {
+
+    if (!value) {
+      return '';
+    }
+
+    const dateValue = new Date(value);
+
+    const dateWithNoTimezone = new Date(
+      dateValue.getUTCFullYear(),
+      dateValue.getUTCMonth(),
+      dateValue.getUTCDate(),
+      dateValue.getUTCHours(),
+      dateValue.getUTCMinutes(),
+      dateValue.getUTCSeconds()
+    );
+   // console.log('UTC FILTER', value, dateWithNoTimezone);
+    return dateWithNoTimezone;
   }
 
   editAlertNotification(form_values) {

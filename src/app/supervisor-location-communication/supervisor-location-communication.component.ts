@@ -288,10 +288,31 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
     this.office_name = toBeEditedOBJ.workingLocation.locationName;
     this.notification_subject = toBeEditedOBJ.notification;
     this.description = toBeEditedOBJ.notificationDesc;
-    this.sdate = new Date(toBeEditedOBJ.validFrom);
-    this.edate = new Date(toBeEditedOBJ.validTill);
+    // this.sdate = new Date(toBeEditedOBJ.validFrom);
+    // this.edate = new Date(toBeEditedOBJ.validTill);
+    
+    this.sdate = this.transformDatetoUTC(toBeEditedOBJ.validFrom);
+    this.edate = this.transformDatetoUTC(toBeEditedOBJ.validTill);
+  }
 
+  transformDatetoUTC(value: string): any {
 
+    if (!value) {
+      return '';
+    }
+
+    const dateValue = new Date(value);
+
+    const dateWithNoTimezone = new Date(
+      dateValue.getUTCFullYear(),
+      dateValue.getUTCMonth(),
+      dateValue.getUTCDate(),
+      dateValue.getUTCHours(),
+      dateValue.getUTCMinutes(),
+      dateValue.getUTCSeconds()
+    );
+   // console.log('UTC FILTER', value, dateWithNoTimezone);
+    return dateWithNoTimezone;
   }
 
   editLocationMessage(form_values) {
