@@ -12,10 +12,10 @@
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-4 ">
     <form #feedbackSearch="ngForm">         
       <md-input-container class="m-t-10" style="width: 60%;" *ngIf="searchType === 'FeedbackID'">
-        <input mdInput placeholder="{{currentLanguageSet?.feedbackId}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off">
+        <input mdInput placeholder="{{currentLanguageSet?.feedbackId}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off" required>
       </md-input-container>        
       <md-input-container class="m-t-10" style="width: 60%;" *ngIf="searchType === 'MobileNumber'" myMobileNumber>
-        <input mdInput pattern="^[0-9]*$" placeholder="{{currentLanguageSet?.mobileNumber}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off">
+        <input mdInput pattern="^[0-9]*$" placeholder="{{currentLanguageSet?.mobileNumber}}" name="search" [(ngModel)]="filterTerm" [minlength]="minLength" [maxlength]="maxLength" #search="ngModel" autocomplete="off" required>
       </md-input-container> 
     <button md-mini-fab color="primary" class="m-r-5 m-l-5" (click)="filterFeedbackList(filterTerm)" [disabled]="feedbackSearch.invalid">
       <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="{{currentLanguageSet?.search}}" role="img" aria-hidden="true"

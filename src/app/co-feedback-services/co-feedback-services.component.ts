@@ -315,7 +315,7 @@ export class CoFeedbackServicesComponent implements OnInit {
       }, (err) => {
         this.selected_doi = undefined;
         console.log('Error in Feedback', err);
-        this.alertMessage.alert(err.status, 'error');
+        this.alertMessage.alert(err.errorMessage, 'error');
       });
   }
   // showtable(response, obj) {
@@ -418,7 +418,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     }
     else {
       this.minLength = 1;
-      this.maxLength = 18;
+      this.maxLength = 30;
     }
   }
 
