@@ -421,6 +421,7 @@ export class ClosureComponent implements OnInit
 
     } else {
       if (btnType === 'submitClose') {
+        if (values.benCallID !== undefined && values.benCallID !== null) {
         this._callServices.closeCall(values).subscribe((response) => { 
           if (response !== undefined && response !== null) {
             this.showAlert();
@@ -429,6 +430,9 @@ export class ClosureComponent implements OnInit
         }, (err) => {
           this.message.alert(err.status, 'error');
         });
+      } else {
+        this.message.alert(this.currentLanguageSet.benCallIDIsNullNotAbleToCloseCall);
+      }
       } else {
         this.message.confirm('Continue', this.currentLanguageSet.providingNewServiceToBeneficiary).subscribe((res) => {
           if (res) {

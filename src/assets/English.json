@@ -713,7 +713,8 @@
       "languageIsRequired": "Language is required",
       "ageGroupIsRequired": "Age Group is required",
       "transfer":"Transfer",
-      "yes":"Yes"
+      "yes":"Yes",
+      "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call"
 
 
 

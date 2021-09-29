@@ -667,13 +667,6 @@ export class InnerpageComponent implements OnInit {
         sessionStorage.removeItem('isEverwellCall');
         this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
         this._common.everwellCallNotConnected = null;
-        // this._callServices.disconnectCall(this.getCommonData.cZentrixAgentID).subscribe((res) => {
-        //   console.log('disconnect response', res);
-
-        // }, (err) => {
-        //   this.remarksMessage.alert(err.errorMessage);
-
-        // });
       }
     }, (err) => {
       this.remarksMessage.alert(err.status, 'error');

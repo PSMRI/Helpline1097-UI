@@ -715,7 +715,8 @@
       "languageIsRequired": "भाषा की आवश्यकता है",
       "ageGroupIsRequired": "आयु समूह की आवश्यकता है",
       "transfer":"स्थानांतरण",
-      "yes": "हाँ"
+      "yes": "हाँ",
+      "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call"
 
       
 
