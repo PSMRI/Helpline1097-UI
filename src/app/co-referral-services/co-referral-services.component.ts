@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service'
 import { LocationService } from "../services/common/location.service";
 import { CoReferralService } from "../services/coService/co_referral.service";
@@ -16,6 +16,7 @@ import { SetLanguageComponent } from 'app/set-language.component';
 declare var jQuery: any;
 
 import { CommunicationService } from './../services/common/communication.service'
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-co-referral-services',
   templateUrl: './co-referral-services.component.html',
@@ -23,7 +24,7 @@ import { CommunicationService } from './../services/common/communication.service
 })
 export class CoReferralServicesComponent implements OnInit {
   currentLanguageSet: any;
-
+@ViewChild('referralForm') referralForm: NgForm;
   @Input() resetProvideServices: any;
 
   @Output() referralServiceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -160,16 +161,18 @@ export class CoReferralServicesComponent implements OnInit {
     this.showFormCondition = true;
     this.showTableCondition = false;
     if (this.tempFlag) {
-      jQuery('#referralForm').trigger("reset");
+      jQuery('#referral').trigger("reset");
       this.tempFlag = false;
     }
 
   }
 
   showTable() {
+    this.referralForm.resetForm();
     this.showFormCondition = false;
     this.showTableCondition = true;
     this.setBeneficiaryData();
+    this.showresult = false;
   }
 
   SetUserBeneficiaryRegistrationData(regData: any) {

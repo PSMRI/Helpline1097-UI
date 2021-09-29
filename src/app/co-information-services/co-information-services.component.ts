@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, ViewChild } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
@@ -9,6 +9,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { CommunicationService } from './../services/common/communication.service'
 import { HttpServices } from "../services/http-services/http_services.service";
 import { SetLanguageComponent } from 'app/set-language.component';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-co-information-services',
@@ -18,7 +19,7 @@ import { SetLanguageComponent } from 'app/set-language.component';
 export class CoInformationServicesComponent implements OnInit {
 
   currentLanguageSet: any;
-
+@ViewChild('informationForm') informationForm: NgForm;
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
   @Input() resetProvideServices: any;
@@ -173,7 +174,7 @@ export class CoInformationServicesComponent implements OnInit {
   }
   showForm() {
     if (this.tempFlag) {
-      jQuery('#informationForm').trigger("reset");
+      jQuery('#information').trigger("reset");
       this.tempFlag = false;
     }
     this.showFormCondition = true;
@@ -181,9 +182,10 @@ export class CoInformationServicesComponent implements OnInit {
   }
   back() {
     this.GetInformationHistory();
+    this.informationForm.resetForm();
     this.showFormCondition = false;
     this.showTableCondition = true;
-
+    this.enableFileDetails = false;
   }
   GetInformationHistory() {
     this._coService.

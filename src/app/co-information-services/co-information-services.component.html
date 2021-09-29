@@ -6,7 +6,7 @@
       </label>
     </div>
     <div [hidden]="!showFormCondition">
-      <form id="informationForm" autocomplete="off">
+      <form id="information" #informationForm='ngForm' autocomplete="off">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 p-b-1-5">
          
             <md-select required placeholder="{{currentLanguageSet?.selectCategory}}" class="width100" [(ngModel)]="symptomCategory"

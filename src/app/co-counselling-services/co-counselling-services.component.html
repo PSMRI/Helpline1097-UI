@@ -7,7 +7,7 @@
     </div>
   </div>
   <div [hidden]="!showFormCondition" class="row">
-    <form id="counsellingForm" autocomplete="off">
+    <form #counsellingForm="ngForm" id="counselling" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
           <md-select required placeholder="{{assignSelectedLanguageValue?.selectCategory}}" [style.width]="'100%'" [(ngModel)]="symptomCategory"
             name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">

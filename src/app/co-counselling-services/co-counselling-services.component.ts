@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter,DoCheck } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter,DoCheck, ViewChild } from '@angular/core';
 import { CoCategoryService } from '../services/coService/co_category_subcategory.service'
 import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
@@ -9,6 +9,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 declare var jQuery: any;
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-co-counselling-services',
@@ -24,6 +25,7 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
 
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
+  @ViewChild ('counsellingForm') counsellingForm: NgForm;
   @Input() resetProvideServices: any;
 
   @Output() counsellingServiceProvided: EventEmitter<any> = new EventEmitter<any>();
@@ -171,7 +173,7 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   }
   showForm() {
     if (this.tempFlag) {
-      jQuery("#counsellingForm").trigger("reset");
+      jQuery("#counselling").trigger("reset");
       this.tempFlag = false;
     }
     this.showFormCondition = true;
@@ -179,9 +181,10 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   }
   back() {
     this.GetCounsellingHistory();
+    this.counsellingForm.resetForm();
     this.showFormCondition = false;
     this.showTableCondition = true;
-
+    this.enableFileDetails = false;
   }
   GetCounsellingHistory() {
     this._coService.getCounsellingsHistoryByID(this.beneficiaryID, this.saved_data.current_service.providerServiceMapID).subscribe((res) => {

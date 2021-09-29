@@ -824,6 +824,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
   retrieveRegHistory(reg_no: any) {
     this.back1();
+    this.regHistoryList = [];
     if (!reg_no || reg_no === '') {
       this.reloadCall();
       this.disableViewAll = true;
@@ -842,15 +843,10 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
 
   handleRegHistorySuccess(response: any) {
-    if (response) {
-      // console.log('KARNE LAGE HAI SET VALUE OF BEN SELECTED');
-      // this.saved_data.beneficiarySelected.next({
-      //   'beneficiarySelected': true
-      // });
+    if (response !== undefined && response !== null) {
       this.state = undefined;
       this.preferredLanguage = undefined;
-
-      this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': response[0].beneficiaryRegID });
+      this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': response[0].beneficiaryRegID ? response[0].beneficiaryRegID : null });
       this.saved_data.benRegId= response[0].beneficiaryRegID;
       this.regHistoryList = response;
       console.log(this.regHistoryList);
@@ -866,25 +862,16 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
       this.beneficiaryRelationID = undefined;
-
-      // this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
-      //   + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
       this.relationshipWith = (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
       + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
       console.log('relationship with', this.regHistoryList[0].firstName, this.regHistoryList[0].lastName);
       if (this.regHistoryList[0].firstName != undefined && this.regHistoryList[0].lastname != undefined) {
-        // this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith + ' ' + this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
         this.relationshipWith = this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
       }
       this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
-      // if (this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID) {
-      // if ((this.regHistoryList[0].benPhoneMaps[0].parentBenRegID !== this.regHistoryList[0].benPhoneMaps[0].benificiaryRegID)) {
       this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID);
       this.peopleCalledEarlier = true;
       this.isParentBeneficiary = true;
-
-      // }
-      // this.selectBeneficiary(this.saved_data.parentBeneficiaryData);
     }
   }
 
