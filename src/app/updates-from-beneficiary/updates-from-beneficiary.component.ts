@@ -112,8 +112,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
       this.beneficiaryRegID = beneficiaryData.beneficiaryRegID ? beneficiaryData.beneficiaryRegID : this.saved_data.beneficiaryRegID;
       // this.updateForm.form.patchValue({ 'occupationIDs': beneficiaryData.i_bendemographics.occupationID });
 
-      this.occupationIDs = beneficiaryData.i_bendemographics.occupationID.toString();
-      this.educationIDs = beneficiaryData.i_bendemographics.educationID.toString();
+      this.occupationIDs = beneficiaryData.i_bendemographics.occupationID ? beneficiaryData.i_bendemographics.occupationID.toString() : null;
+      this.educationIDs = beneficiaryData.i_bendemographics.educationID ? beneficiaryData.i_bendemographics.educationID.toString() : null;
       this.sexualOrientationID = beneficiaryData.sexualOrientationID;
       this.placeOfWork = beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = beneficiaryData.isHIVPos.toLowerCase();

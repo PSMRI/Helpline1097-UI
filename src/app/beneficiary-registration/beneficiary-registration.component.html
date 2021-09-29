@@ -9,7 +9,7 @@
       <h5> {{assignSelectedLanguageValue?.haveYouCalledEarlier}}</h5>
       <md-radio-group name="called_earlier" (change)="calledEarlierCheck($event.value)" [(ngModel)]="calledEarlier">
         <md-radio-button ngDefaultControl color="primary" [value]=true>{{assignSelectedLanguageValue?.yes}}</md-radio-button>
-        <md-radio-button ngDefaultControl color="primary" [value]=false (click)="BeneficaryForm.reset()">{{assignSelectedLanguageValue?.no}}</md-radio-button>
+        <md-radio-button ngDefaultControl color="primary" [value]=false (click)="resetBeneficiaryForm()">{{assignSelectedLanguageValue?.no}}</md-radio-button>
       </md-radio-group>
   
 

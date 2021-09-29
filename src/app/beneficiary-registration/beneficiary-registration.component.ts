@@ -282,10 +282,12 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
   reloadCampainCall(current_campaign: any) {
     if (current_campaign.compainType.toLowerCase() === 'reloadcall') {
-      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined && 
+        this.saved_data.current_campaign !== null && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
         this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
       }
-      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
+      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined && 
+        this.saved_data.current_campaign !== null && this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
         this.reloadCall();
       }
     }
@@ -844,8 +846,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
   handleRegHistorySuccess(response: any) {
     if (response !== undefined && response !== null) {
-      this.state = undefined;
-      this.preferredLanguage = undefined;
+      this.state = null;
+      this.preferredLanguage = null;
       this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': response[0].beneficiaryRegID ? response[0].beneficiaryRegID : null });
       this.saved_data.benRegId= response[0].beneficiaryRegID;
       this.regHistoryList = response;
@@ -1783,5 +1785,9 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     const getLanguageJson = new SetLanguageComponent(this.httpServices);
     getLanguageJson.setLanguage();
     this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
+  }
+  resetBeneficiaryForm() {
+    this.BeneficaryForm.resetForm();
+    this.pincode = null;
   }
 }
