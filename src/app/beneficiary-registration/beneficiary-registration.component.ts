@@ -1562,6 +1562,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.showSearchResult = false;
     }
     this.registrationNo = "";
+    this.districts=[];
+    this.district=undefined;
   }
   back1() {
     this.isAdvancedSearch = true;

@@ -215,6 +215,8 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.districts = [];
     this.taluks = [];
     this.blocks = [];
+    this.selected_district=null;
+    this.selected_taluk=null;
     // this.institutes = [];
     this._locationService.getDistricts(state)
       .subscribe(response => this.SetDistricts(response),
@@ -228,6 +230,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   GetTaluks(district: number) {
     this.taluks = [];
     this.blocks = [];
+    this.selected_taluk=null;
     // this.institutes = [];
     this._locationService.getTaluks(district)
       .subscribe(response => this.SetTaluks(response),

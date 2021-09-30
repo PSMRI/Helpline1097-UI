@@ -195,6 +195,8 @@ export class CoReferralServicesComponent implements OnInit {
     this.districts = [];
     this.taluks = [];
     this.blocks = [];
+    this.selected_district=null;
+    this.selected_taluk=null;
     this._locationService.getDistricts(state)
       .subscribe(response => this.SetDistricts(response),
       (err) => {
@@ -207,6 +209,7 @@ export class CoReferralServicesComponent implements OnInit {
   GetTaluks(district: number) {
     this.taluks = [];
     this.blocks = [];
+    this.selected_taluk=null;
     this._locationService.getTaluks(district)
       .subscribe(response => this.SetTaluks(response),
       (err) => {

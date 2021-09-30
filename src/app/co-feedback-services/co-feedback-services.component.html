@@ -21,7 +21,7 @@
       <md-icon mdSuffix class="mat-icon material-icons" mdTooltip="{{currentLanguageSet?.search}}" role="img" aria-hidden="true"
         style="cursor: pointer">search</md-icon>
     </button>
-    <button md-raised-button color="accent" [disabled]="viewALL" type="button" class="m-l-10"
+    <button md-raised-button color="accent" [disabled]="!(feedbackSearch.dirty && filterTerm)" type="button" class="m-l-10"
       (click)="revertFullTable()">{{currentLanguageSet?.clear}}</button>
     </form>
   </div>
