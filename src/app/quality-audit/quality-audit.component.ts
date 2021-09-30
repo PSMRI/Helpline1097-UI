@@ -281,7 +281,7 @@ export class QualityAuditComponent implements OnInit {
       if (pageNo <= 2) {
         startPage = 1;
         endPage = 5;
-      } else if (pageNo >= totalPages) {
+      } else if (pageNo >= totalPages - 1) {
         startPage = totalPages - 4;
         endPage = totalPages;
       } else {

@@ -5,6 +5,7 @@ import { dataService } from '../services/dataService/data.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
+import { LoaderService } from '../services/common/loader.service';
 
 @Component({
   selector: 'app-supervisor-emergency-contacts',
@@ -49,11 +50,12 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
   constructor(public notification_service: NotificationService,
     public commonDataService: dataService,
     public dialogService: ConfirmationDialogsService,
-    public httpServices:HttpServices) { }
+    public httpServices:HttpServices,
+    private loaderService: LoaderService) { }
 
     numberRegex: any;
   filteredsearchResult: any;
-
+  showProgressBar: Boolean = false;
   ngOnInit() {
     this.assignSelectedLanguage();
     this.numberRegex = "^[1-9][0-9]*$";
@@ -133,7 +135,6 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       'providerServiceMapID': providerServiceMapID,
       'notificationTypeID': notificationTypeID
     }
-
     this.notification_service.getSupervisorEmergencyContacts(obj)
       .subscribe(response => {
         if (response.data) {
@@ -306,7 +307,8 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     else {
       object['deleted'] = value;
     }
-
+    this.dialogService.confirm('info', this.currentLanguageSet.wantToActivate).subscribe((userResponse) => {
+      if (userResponse) {
     this.notification_service.updateEmergencyContacts(object)
       .subscribe(response => {
         if (response.data) {
@@ -318,6 +320,8 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
         console.log(err, 'ACTIVATION FAILED');
         this.dialogService.alert(this.currentLanguageSet.failedToActivate, 'error');
       })
+    }
+  })
   }
 
   deactivate(object, value) {
@@ -327,7 +331,8 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     else {
       object['deleted'] = value;
     }
-
+    this.dialogService.confirm('info', this.currentLanguageSet.wantToDeactivate).subscribe((userResponse) => {
+      if (userResponse) {
     this.notification_service.updateEmergencyContacts(object)
       .subscribe(response => {
         if (response.data) {
@@ -339,8 +344,15 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
         console.log(err, 'DEACTIVATION FAILED');
         this.dialogService.alert(this.currentLanguageSet.failedToDeactivate, 'error');
       })
+    }
+    })
   }
+back() {
+  this.tableMode();
+  this.bufferArray = [];
+  this.filterComponentList(null);
 
+}
   tableMode() {
     if(this.showForm === true)
     {

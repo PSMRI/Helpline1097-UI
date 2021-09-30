@@ -106,7 +106,7 @@
                
               <img *ngIf="!(dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1))" style="width:30px;height:30px" (click)="check(item.agentID,item.callID,(md2.activePage-1)*(md2.rowsPerPage)+i+1)" src="assets/images/playicon.jpg" alt="Play" title="{{assignSelectedLanguageValue?.play}}">
                                 
-              <audio  *ngIf="dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1)" controls autoplay preload="none">  
+              <audio  *ngIf="dispFlag==((md2.activePage-1)*(md2.rowsPerPage)+i+1)" controls preload="none">  
                 
                 <source src="{{audioResponse}}" type="audio/ogg">
                 <source src="{{audioResponse}}" type="audio/mpeg">

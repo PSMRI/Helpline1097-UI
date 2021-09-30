@@ -716,7 +716,9 @@
       "ageGroupIsRequired": "বয়সগোটৰ প্ৰয়োজন",
       "transfer":"স্থানান্তৰ",
       "yes": "হয়",
-      "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call"
+      "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call",
+      "wantToDeactivate": "আপুনি নিষ্ক্ৰিয় কৰিব বিচৰাটো নিশ্চিতনে?",
+      "wantToActivate":"আপুনি সক্ৰিয় কৰিব বিচৰাটো নিশ্চিতনে?"
 
 
 
