@@ -140,6 +140,10 @@ export class NotificationService {
         return this.httpIntercepto.post(this.updateEmergencyContacts_url, data)
             .map((response: Response) => response.json()).catch(this.handleCustomError);
     }
+    updateEmergencyContactsActivateDeactivate(data) {
+        return this.httpIntercepto.postEverwell(this.updateEmergencyContacts_url, data)
+            .map((response: Response) => response.json()).catch(this.handleCustomError);
+    }
     getEmergencyContacts(data) {
         return this.httpIntercepto.post(this.getEmergencyContacts_Url,data)
         .map((response : Response )=> response.json().data).catch(this.handleCustomError);

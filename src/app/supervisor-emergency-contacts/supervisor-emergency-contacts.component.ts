@@ -301,6 +301,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
   }
 
   activate(object, value) {
+    let activateStatus=object.deleted;
     if (object.deleted) {
       object.deleted = value;
     }
@@ -309,7 +310,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     }
     this.dialogService.confirm('info', this.currentLanguageSet.wantToActivate).subscribe((userResponse) => {
       if (userResponse) {
-    this.notification_service.updateEmergencyContacts(object)
+    this.notification_service.updateEmergencyContactsActivateDeactivate(object)
       .subscribe(response => {
         if (response.data) {
           console.log(response.data.response, 'ACTIVATED SUCCESSFULLY');
@@ -319,12 +320,18 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       }, err => {
         console.log(err, 'ACTIVATION FAILED');
         this.dialogService.alert(this.currentLanguageSet.failedToActivate, 'error');
+        object.deleted=activateStatus;
       })
+    }
+    else
+    {
+      object.deleted=activateStatus;
     }
   })
   }
 
   deactivate(object, value) {
+    let deactivateStatus=object.deleted;
     if (object.deleted) {
       object.deleted = value;
     }
@@ -333,7 +340,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     }
     this.dialogService.confirm('info', this.currentLanguageSet.wantToDeactivate).subscribe((userResponse) => {
       if (userResponse) {
-    this.notification_service.updateEmergencyContacts(object)
+    this.notification_service.updateEmergencyContactsActivateDeactivate(object)
       .subscribe(response => {
         if (response.data) {
           console.log(response.data.response, 'DEACTIVATED SUCCESSFULLY');
@@ -343,7 +350,11 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       }, err => {
         console.log(err, 'DEACTIVATION FAILED');
         this.dialogService.alert(this.currentLanguageSet.failedToDeactivate, 'error');
+        object.deleted=deactivateStatus;
       })
+    }
+    else{
+      object.deleted=deactivateStatus;
     }
     })
   }

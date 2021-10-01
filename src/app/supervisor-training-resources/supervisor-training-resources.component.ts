@@ -254,7 +254,8 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
 
   trainingResourceErrorHandeler(error) {
     console.log(error);
-    this.dialogService.alert(error.errorMessage, 'alert');
+    // this.dialogService.alert(this.currentLanguageSet.failedToUploadFile, 'error');
+    this.dialogService.alert(error.errorMessage, 'error');
   }
 
 

@@ -137,7 +137,8 @@ export class InterceptedHttp extends Http {
         if (response.json().statusCode === 200) {
             // this._count = 0;
             return response;
-        } else if (response.json().statusCode === 5002) {
+        }
+         else if (response.json().statusCode === 5002) {
             this.router.navigate(['']);
             // if (this._count == 0) {
             this.message.alert(response.json().errorMessage, 'error');
@@ -146,7 +147,11 @@ export class InterceptedHttp extends Http {
             // this.message.alert(response.json().errorMessage, 'error');
             this.authService.removeToken();
             return Observable.empty();
-        } else {
+        } 
+        else if(response.json().statusCode === 5006) {
+            throw response.json();
+        }
+        else {
             throw response;
         }
     }
