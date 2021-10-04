@@ -36,9 +36,12 @@ export class SmsTemplateComponent implements OnInit {
 
   smsParameterMaps = [];
 
-  @ViewChild('smsForm') Smsform1: NgForm;
+  @ViewChild('smsForm') smsForm: NgForm;
   @ViewChild('vf') viewform: NgForm;
   currentLanguageSet: any;
+  parameterValueType: any;
+  smsParameterValue: any;
+  parameterType: any;
 
 
   constructor(public commonData: dataService,
@@ -207,18 +210,25 @@ export class SmsTemplateComponent implements OnInit {
       'smsParameterID': form_values.value.smsParameterID,
       'smsParameterValue': form_values.value.smsParameterName
     }
-    if (reqObj.smsParameterName != undefined &&
-      reqObj.smsParameterType != undefined &&
-      reqObj.smsParameterID != undefined) {
+    if (reqObj.smsParameterName !== undefined && reqObj.smsParameterName !== null &&
+      reqObj.smsParameterType !== undefined && reqObj.smsParameterType !== null &&
+      reqObj.smsParameterID !== undefined && reqObj.smsParameterID !== null) {
       this.smsParameterMaps.push(reqObj);
     } else {
       this.commonDialogService.alert(this.currentLanguageSet.parameterValueTypeAndValueShouldBeSelected, 'info');
     }
 
     // removing of the parameters pushed into buffer from the Parameters array and resetting of next two dropdowns
-    this.Parameters.splice(this.Parameters.indexOf(form_values.parameter), 1);
     this.smsParameters = [];
     this.selectedParameterValues = [];
+    this.smsForm.value.parameter = null;
+    this.smsForm.value.value.smsParameterType = null;
+    this.smsForm.value.value.smsParameterName = null;
+    this.Parameters.splice(this.Parameters.indexOf(form_values.parameter), 1);
+   if (this.smsParameterMaps.length === 0 && form_values.parameter !== null && form_values.parameter !== undefined) {
+    this.Parameters.push(form_values.parameter);
+    this.getSMSparameters();
+   }
   }
 
   remove(obj, index) {
@@ -228,6 +238,9 @@ export class SmsTemplateComponent implements OnInit {
     this.Parameters.push(obj.smsParameterName);
     this.smsParameters = [];
     this.selectedParameterValues = [];
+    this.smsForm.value.value.smsParameterType = null;
+    this.smsForm.value.value.smsParameterName = null;
+    this.getSMSparameters();
   }
 
   saveSMStemplate(form_values) {

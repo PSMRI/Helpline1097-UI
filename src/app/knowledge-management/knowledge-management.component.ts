@@ -137,7 +137,9 @@ export class KnowledgeManagementComponent implements OnInit {
       documentUploadObj['fileExtension'] = '.' + value.fileInput.split('.')[1];
       documentUploadObj['providerServiceMapID'] = this.providerServiceMapID;
       documentUploadObj['userID'] = this.userID;
-      documentUploadObj['fileContent'] = this.fileContent.split(',')[1];
+      if (this.fileContent !== undefined && this.fileContent !== null && this.fileContent.length > 0){
+        documentUploadObj['fileContent'] = this.fileContent.split(',')[1];
+        }
       documentUploadObj['createdBy'] = this.createdBy;
       documentUploadObj['categoryID'] = value.category;
       documentUploadObj['subCategoryID'] = value.subCategory;
@@ -174,6 +176,7 @@ export class KnowledgeManagementComponent implements OnInit {
 
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;
+    console.log("this.fileContent", this.fileContent);
 
   }
 
