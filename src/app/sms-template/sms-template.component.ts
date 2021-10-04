@@ -180,6 +180,10 @@ export class SmsTemplateComponent implements OnInit {
   getSMSparameters() {
     this.smsParameters = [];
     this.selectedParameterValues = [];
+    if(this.smsForm.value.value !== "" && this.smsForm.value.value !== null && this.smsForm.value.value !== undefined){
+      this.smsForm.value.value.smsParameterType = null;
+      this.smsForm.value.value.smsParameterName = null;
+      }
     this.sms_service.getSMSparameters()
       .subscribe(response => {
         this.smsParameters = response;
