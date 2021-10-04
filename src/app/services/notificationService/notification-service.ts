@@ -129,7 +129,7 @@ export class NotificationService {
             .map((response: Response) => response.json()).catch(this.handleCustomError);
     }
     createEmergencyContacts(data) {
-        return this.httpIntercepto.post(this.createEmergencyContacts_url, data)
+        return this.httpIntercepto.postEverwell(this.createEmergencyContacts_url, data)
             .map((response: Response) => response.json()).catch(this.handleCustomError);
     }
     sendSocketNotification(data) {
@@ -137,7 +137,7 @@ export class NotificationService {
             .map((response: Response) => response.json()).catch(this.handleCustomError);
     }
     updateEmergencyContacts(data) {
-        return this.httpIntercepto.post(this.updateEmergencyContacts_url, data)
+        return this.httpIntercepto.postEverwell(this.updateEmergencyContacts_url, data)
             .map((response: Response) => response.json()).catch(this.handleCustomError);
     }
     updateEmergencyContactsActivateDeactivate(data) {

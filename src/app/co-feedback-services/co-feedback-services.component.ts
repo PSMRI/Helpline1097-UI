@@ -423,6 +423,7 @@ export class CoFeedbackServicesComponent implements OnInit {
       this.minLength = 1;
       this.maxLength = 30;
     }
+    this.filteredFeedbackList= this.data;
   }
 
   filterFeedbackList(searchTerm: string) {
