@@ -202,6 +202,8 @@ export class SmsTemplateComponent implements OnInit {
   }
 
   add(form_values) {
+    if(form_values !== undefined && form_values !== null)
+    {
     let reqObj = {
       'createdBy': this.commonData.uname,
       'modifiedBy': this.commonData.uname,
@@ -210,25 +212,43 @@ export class SmsTemplateComponent implements OnInit {
       'smsParameterID': form_values.value.smsParameterID,
       'smsParameterValue': form_values.value.smsParameterName
     }
+   
     if (reqObj.smsParameterName !== undefined && reqObj.smsParameterName !== null &&
       reqObj.smsParameterType !== undefined && reqObj.smsParameterType !== null &&
       reqObj.smsParameterID !== undefined && reqObj.smsParameterID !== null) {
       this.smsParameterMaps.push(reqObj);
+
+      if(form_values.parameter !== null && form_values.parameter !== undefined && form_values.parameter !== "")
+      {
+          this.Parameters.splice(this.Parameters.indexOf(form_values.parameter), 1);
+      }
     } else {
       this.commonDialogService.alert(this.currentLanguageSet.parameterValueTypeAndValueShouldBeSelected, 'info');
+      if(form_values.parameter !== null && form_values.parameter !== undefined && form_values.parameter !== "")
+     {
+      this.Parameters.splice(this.Parameters.indexOf(form_values.parameter), 1);
+      this.Parameters.push(form_values.parameter);
+      this.getSMSparameters();
+     }
     }
 
     // removing of the parameters pushed into buffer from the Parameters array and resetting of next two dropdowns
     this.smsParameters = [];
     this.selectedParameterValues = [];
-    this.smsForm.value.parameter = null;
+  
+  //  if (this.smsParameterMaps.length === 0 && form_values.parameter !== null && form_values.parameter !== undefined  && form_values.parameter !== "") {
+  //   this.Parameters.push(form_values.parameter);
+  //   this.getSMSparameters();
+  //  }
+   this.smsForm.value.parameter = null;
+   if(this.smsForm.value.value !== "" && this.smsForm.value.value !== null && this.smsForm.value.value !== undefined){
     this.smsForm.value.value.smsParameterType = null;
     this.smsForm.value.value.smsParameterName = null;
-    this.Parameters.splice(this.Parameters.indexOf(form_values.parameter), 1);
-   if (this.smsParameterMaps.length === 0 && form_values.parameter !== null && form_values.parameter !== undefined) {
-    this.Parameters.push(form_values.parameter);
-    this.getSMSparameters();
-   }
+    }
+  }
+  else {
+    this.commonDialogService.alert(this.currentLanguageSet.parameterValueTypeAndValueShouldBeSelected, 'info');
+  }
   }
 
   remove(obj, index) {
@@ -238,6 +258,7 @@ export class SmsTemplateComponent implements OnInit {
     this.Parameters.push(obj.smsParameterName);
     this.smsParameters = [];
     this.selectedParameterValues = [];
+    this.smsForm.value.parameter = null;
     this.smsForm.value.value.smsParameterType = null;
     this.smsForm.value.value.smsParameterName = null;
     this.getSMSparameters();
