@@ -473,7 +473,7 @@ export class InnerpageComponent implements OnInit {
         console.log(item.callGroupType);
         return item.callGroupType.toLowerCase().startsWith('transfer');
       });
-      if (transferObj && transferObj[0].callTypes) {
+      if (transferObj && transferObj[0].callTypes !== undefined && transferObj[0].callTypes !== null) {
         transferObj = transferObj[0].callTypes.filter(function (previousData) {
           console.log("transfer call types " + previousData.callTypeDesc);
           return previousData.callTypeDesc.toLowerCase().startsWith('transfer')
@@ -484,23 +484,6 @@ export class InnerpageComponent implements OnInit {
       } else {
         this.remarksMessage.alert(this.currentlanguageSet.failedToGetCallTypes);
       }
-
-      // let wrapupObj = response.filter(function (item) {
-      //   return item.callGroupType.toLowerCase().startsWith('wrapup');
-      // });
-      // if (wrapupObj.length > 0) {
-      //   if (wrapupObj[0].callTypes) {
-      //     wrapupObj = wrapupObj[0].callTypes.filter(function (item) {
-      //       console.log("wrapup call types " + item.callTypeDesc);
-      //       return item.callTypeDesc.toLowerCase().startsWith('wrapup');
-      //     });
-      //   }
-      //   if (wrapupObj.length > 0) {
-      //     if (wrapupObj[0].callTypeID != undefined) {
-      //       this.wrapupCallID = wrapupObj[0].callTypeID;
-      //     }
-      //   }
-      // }
 
       for (let i = 0; i < response.length; i++) {
         if (response[i].callGroupType.startsWith('Wrapup')) {
@@ -515,13 +498,11 @@ export class InnerpageComponent implements OnInit {
         }
       }
 
-
-
-      let validObj = response.filter(function (item) {
+      let validObj = response.filter((item) => {
         console.log(item.callGroupType);
         return item.callGroupType.toLowerCase().startsWith('valid')
       });
-      if (validObj && validObj[0].callTypes) {
+      if (validObj && validObj[0].callTypes !== undefined && validObj[0].callTypes !== null) {
         validObj = validObj[0].callTypes.filter(function (previousData) {
           console.log("Valid call types " + previousData.callTypeDesc);
           return previousData.callTypeDesc.toLowerCase().startsWith('valid')
@@ -594,11 +575,6 @@ export class InnerpageComponent implements OnInit {
     }
   }
   closeCall(remarks, message?: any, wrapupCallID?: any) {    
-    
-    console.log("wrapup",this.wrapupCallID); 
-    console.log("transferCallID",this.transferCallID);
-    console.log("submitting the everwellrsponse", this.everwellSubmitBtn );
-    console.log("submitting the everwellrsponse", this.isEverwell  );
     if(this.isEverwell != undefined && this.isEverwell === "yes" && this.everwellSubmitBtn ){
       console.log("submitting the everwellrsponse", this.everwellSubmitBtn );
       console.log("submitting the everwellrsponse", this.isEverwell  );

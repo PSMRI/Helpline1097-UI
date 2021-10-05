@@ -232,8 +232,8 @@ export class SmsTemplateComponent implements OnInit {
      {
       this.Parameters.splice(this.Parameters.indexOf(form_values.parameter), 1);
       this.Parameters.push(form_values.parameter);
-      this.getSMSparameters();
      }
+     this.getSMSparameters();
     }
 
     // removing of the parameters pushed into buffer from the Parameters array and resetting of next two dropdowns
