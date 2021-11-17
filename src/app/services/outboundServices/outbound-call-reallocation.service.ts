@@ -22,6 +22,7 @@ export class OutboundReAllocationService {
     private _getEverwelloutboundCallListURL: string = this._baseurl + 'everwellCall/outboundCallList';
     private getEverwellFeedBackDetailsURL: string = this._baseurl + '/everwellCall/getEverwellfeedbackDetails';
     private getEverwellGuidelinesURL: string = this._1097baseUrl + 'fetchEverwellGuidelines';
+    private getbenDetailsOnPhnNoURL: string = this._1097baseUrl + 'everwellCall/outboundCallListWithMobileNumber';
     constructor(private _http: AuthorizationWrapper, private _config: ConfigService) {
     }
 
@@ -106,4 +107,9 @@ export class OutboundReAllocationService {
         return Observable.throw(error.json());
     };
 
+    benDetailsOnPhnNo(data) {
+        return this._http.post(this.getbenDetailsOnPhnNoURL, data)
+        .map(this.extractDataSuccess)
+        .catch(this.handleError);
+    }
 }
