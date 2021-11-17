@@ -51,6 +51,8 @@ export class EverwellWorklistComponent implements OnInit {
   srcPath: string;
   fileName: any;
   currentLanguageSet: any;
+  noInfoDoseDates: Date = new Date();
+  benDetailsList: any;
 
 
 
@@ -92,9 +94,18 @@ export class EverwellWorklistComponent implements OnInit {
     
 this.getEverwellGuidelines();
 this.assignSelectedLanguage();
+this.listBenDetails();
 
   }
 
+  listBenDetails() {
+    const benDetailsReq = { 
+          'providerServiceMapId': this._common.outboundEverwellData.providerServiceMapId,
+          'PrimaryNumber': this._common.outboundEverwellData.PrimaryNumber  }
+    this.OCRService.benDetailsOnPhnNo(benDetailsReq).subscribe(response=>{
+      this.benDetailsList = response
+    }) 
+  }
   
   getEverwellGuidelines()
   {
@@ -146,7 +157,7 @@ this.assignSelectedLanguage();
     this.OCRService.getEverwellFeedBackDetails(req).subscribe(response => 
       {
         console.log('Everwell Call FeedBack Data is', response);
-        this.feedbackDetails=response.feedbackDetails;
+        this.feedbackDetails=response.feedbackDetails.noInfoDoseDates;
        this._common.previousFeedback=this.feedbackDetails;
         console.log('feedBack', this.feedbackDetails);
       },

@@ -19,6 +19,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
   data: any = [];
   filteredsearchResult: any = [];
   currentLanguageSet: any;
+  benDetailsList: any;
   constructor(private cz_service : CzentrixServices, private _outBoundService: CallServices, private OCRService: OutboundReAllocationService,
     public alertService: ConfirmationDialogsService, private _common: dataService, public router: Router,
     private HttpServices:HttpServices) {
@@ -51,7 +52,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     console.log("beneID in worklist", this.filteredsearchResult)
   }
   //   modaldata:any;
-  viewHistory(data: any) {
+  listBenDetailsOnPhnNo(data: any) {
     this._common.everwellCallNotConnected=null;
     this._common.checkEverwellResponse = false;
     this._common.feedbackData = [];
