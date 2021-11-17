@@ -72,7 +72,7 @@ export class ClosureComponent implements OnInit
   currentLanguageSet: any;
   preferredDateTime: any;
   requestedFor: any;
-
+  outboundArry: any = [];
   constructor(
     private _callServices: CallServices,
     public saved_data: dataService,
@@ -398,6 +398,8 @@ export class ClosureComponent implements OnInit
       })
     }
     else{
+      // let familyMembersArray=[];
+      // for (let familyMember in familyMembersArray)   {
       let outboundObj = {};
       outboundObj['eapiId'] = this.saved_data.outboundEverwellData.eapiId;
       outboundObj['assignedUserID'] = this.saved_data.uid;
@@ -410,7 +412,9 @@ export class ClosureComponent implements OnInit
       outboundObj['requestedServiceID'] = null;
       outboundObj['preferredLanguageName'] = "All"
       outboundObj['createdBy'] = this.saved_data.uname;
-
+      // this.outboundArry.push(outboundObj);
+    // }
+      // this._callServices.closeEverwellOutBoundCall(this.outboundArry).subscribe((response) => {
       this._callServices.closeEverwellOutBoundCall(outboundObj).subscribe((response) => {
         this.closeOutboundCall(btnType, values);
       }, (err) => {

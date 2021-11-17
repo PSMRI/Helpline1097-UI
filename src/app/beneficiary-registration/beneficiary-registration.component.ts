@@ -462,7 +462,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     if (!flag) {
 
       // jQuery("#BeneficaryForm").trigger("reset");
-      this.BeneficaryForm.resetForm();
+      // this.BeneficaryForm.resetForm();
 
       this.searchValue = "Advanced Search";
       this.advanceBtnHide = false;
@@ -526,6 +526,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.alternateNumber4 = "";
       this.alternateNumber5 = "";
       this.btnDisabled = false;
+      this.ageUnit="Years";
     }
   }
 
@@ -1791,5 +1792,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   resetBeneficiaryForm() {
     this.BeneficaryForm.resetForm();
     this.pincode = null;
+    this.BeneficaryCreationForm.form.patchValue({
+      ageUnit: 'Years'
+    })
   }
 }
