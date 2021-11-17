@@ -33,8 +33,8 @@ export class CallServices {
   _outEverwellbouncClose_url = this._commonURL + 'everwellCall/completeOutboundCall/';
   _postEverwellFeedback = this._commonURL + 'everwellCall/saveFeedback/';
   getWrapupTime = this._commonURL +  'user/role/';
-    onceOutbound: boolean = false;
-
+  onceOutbound: boolean = false;
+  _everwellCheckAlreadyCalled = this._commonURL + 'everwellCall/checkIfAlreadyCalled';
   constructor(
     private _http: AuthorizationWrapper,
     private _config: ConfigService,
@@ -157,5 +157,10 @@ export class CallServices {
     return this._httpInterceptor.get(this.getWrapupTime + roleID)
     .map((response: Response) => response.json()).catch((error) => Observable.throw(error.json()));
 }
+
+   checkIfAlreadyCalled(obj)
+   {
+    return this._httpInterceptor.post(this._everwellCheckAlreadyCalled, obj).map(this.extractData).catch(this.handleCustomError);
+   }
   
 }

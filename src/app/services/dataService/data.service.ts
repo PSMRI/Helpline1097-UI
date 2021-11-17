@@ -74,6 +74,7 @@ export class dataService {
   outboundSelectedManual: boolean = false;
   onlyOutboundAvailable: boolean = false;
   appLanguage:any="English";
+  everwellFeedbackCallData: any=[];
   
 	setInboundOutboundValue(response) {
 		//this.callTypes=1;

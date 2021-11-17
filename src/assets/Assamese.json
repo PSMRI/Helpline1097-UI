@@ -718,8 +718,8 @@
       "yes": "হয়",
       "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call",
       "wantToDeactivate": "আপুনি নিষ্ক্ৰিয় কৰিব বিচৰাটো নিশ্চিতনে?",
-      "wantToActivate":"আপুনি সক্ৰিয় কৰিব বিচৰাটো নিশ্চিতনে?"
-
+      "wantToActivate":"আপুনি সক্ৰিয় কৰিব বিচৰাটো নিশ্চিতনে?",
+      "callAlreadyCompleted":"Call is already completed by agent"
 
 
 

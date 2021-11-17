@@ -717,7 +717,8 @@
       "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call",
       "parameterValueTypeAndValueShouldBeSelected":"Parameter, Value Type and Value should be selected",
       "wantToDeactivate":"Are you sure you want to Deactivate?",
-      "wantToActivate":"Are you sure you want to Activate?"
+      "wantToActivate":"Are you sure you want to Activate?",
+      "callAlreadyCompleted":"Call is already completed by agent"
 
 
 

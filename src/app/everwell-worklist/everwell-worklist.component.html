@@ -68,19 +68,21 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngIf="benDetailsList?.length > 0">
+            <tr *ngIf="benDetailsList?.length == 0">
               <td colspan="5" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
-            <tr (click)="editMode(benDetailsList)" style="cursor: pointer">
-              <td style="width:15%;">{{benDetailsList.beneficiaryID}}</td>
-              <td style="width:10%;">{{benDetailsList.FirstName}} {{benDetailsList.LastName}}</td>
+            <ng-container *ngIf="benDetailsList?.length >0">
+            <tr *ngFor="let ben of benDetailsList" (click)="editMode(ben)" style="cursor: pointer">
+              <td style="width:15%;">{{ben.beneficiaryID}}</td>
+              <td style="width:10%;">{{ben.FirstName}} {{ben.LastName}}</td>
             
-              <td style="width:10%;">{{benDetailsList.Gender}}</td>
-              <td style="width:10%;">{{benDetailsList.state}}</td>
-              <td style="width:10%;">{{(benDetailsList?.comments !== 'NaN' && benDetailsList?.comments !== undefined && benDetailsList?.comments !== null) ? benDetailsList?.comments : 'N/A'}}</td>
-              <td style="width:10%;">{{benDetailsList.callCounter > 0 ? (benDetailsList?.lastCall !== 'NaN' && benDetailsList?.lastCall !== undefined && benDetailsList?.lastCall !== null ? benDetailsList?.lastCall : 'N/A') : 'N/A'}}</td>
-              <td  style="padding-left: 30px;width: 10%;">{{benDetailsList.callCounter}}</td>
+              <td style="width:10%;">{{ben.Gender}}</td>
+              <td style="width:10%;">{{ben.state}}</td>
+              <td style="width:10%;">{{(ben?.comments !== 'NaN' && ben?.comments !== undefined && ben?.comments !== null) ? ben?.comments : 'N/A'}}</td>
+              <td style="width:10%;">{{ben.callCounter > 0 ? (ben?.lastCall !== 'NaN' && ben?.lastCall !== undefined && ben?.lastCall !== null ? ben?.lastCall : 'N/A') : 'N/A'}}</td>
+              <td  style="padding-left: 30px;width: 10%;">{{ben.callCounter}}</td>
             </tr>
+          </ng-container>
         </tbody>
         <tfoot>
           <md2-pagination></md2-pagination>
@@ -117,8 +119,8 @@
 <div class="main-content" *ngIf="showCalender">
   <!-- <label>No. of missed dose count: {{feedbackDetails.noInfoDoseCount }} </label><br>
   <label>No. of dates missing doses: {{feedbackDetails.noInfoDoseDates | date : "shortDate"}}</label> -->
-  <label>No. of missed dose count: 3 </label><br>
-  <label>No. of dates missing doses: {{feedbackDetails.noInfoDoseDates}}.replace</label>
+  <label>No. of missed dose count: {{_common.outboundEverwellData.NoInfoDoseCount}} </label><br>
+  <label>No. of dates missing doses: {{_common.outboundEverwellData.noInfoDosesDates}}.replace</label>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:10px;">
     <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">{{currentLanguageSet?.back}}</button>   
   </div>

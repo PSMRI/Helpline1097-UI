@@ -58,26 +58,40 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     this._common.feedbackData = [];
     this._common.updatedFeedbackList = [];
     this._common.outboundBenRegID = data.beneficiaryRegId;
+    console.log("data54", data);
+    let req={
+      "eapiId":data.eapiId,
+      "providerServiceMapId":this._common.current_service.serviceID
+    }
     // this._common.beneficiaryID = data.beneficiaryID;
     //  this.onOutboundCall.emit(data); code commented, since routing implemented, calling which was happenning in parent is now here....gursimran 24/5/18
     this._common.outboundEverwellData = data;
     console.log("data54", data);
-    
-    this.cz_service.manualDialaNumber("", data.PrimaryNumber).subscribe((res) => {
-      if (res.status.toLowerCase() === 'fail') {
-        this.alertService.alert(this.currentLanguageSet.somethingWentWrongInCalling, 'error');
-      } else {
-        this._common.callerNumber = data.PrimaryNumber;
-
-    //    this._dataServivce.outboundBenID = data.beneficiary.beneficiaryRegID;
-   //     this._dataServivce.outboundCallReqID = data.outboundCallReqID;
-        sessionStorage.setItem("isOnCall", "yes");
-        sessionStorage.setItem("isEverwellCall", "yes");
-  //      this._dataServivce.isSelf = data.isSelf;
+    this._outBoundService.checkIfAlreadyCalled(req).subscribe((response) => {
+      if(response != null && response.isCompleted != undefined && response.isCompleted != null){
+        console.log(response);
+        if(response.isCompleted == true)
+        this.alertService.alert("Call is already completed by agent");
+        else{
+          this.cz_service.manualDialaNumber("", data.PrimaryNumber).subscribe((res) => {
+            if (res.status.toLowerCase() === 'fail') {
+              this.alertService.alert(this.currentLanguageSet.somethingWentWrongInCalling, 'error');
+            } else {
+              this._common.callerNumber = data.PrimaryNumber;
+      
+          //    this._dataServivce.outboundBenID = data.beneficiary.beneficiaryRegID;
+         //     this._dataServivce.outboundCallReqID = data.outboundCallReqID;
+              sessionStorage.setItem("isOnCall", "yes");
+              sessionStorage.setItem("isEverwellCall", "yes");
+        //      this._dataServivce.isSelf = data.isSelf;
+            }
+          }, (err) => {
+            this.alertService.alert(err.errorMessage);
+          });
+        }
       }
-      console.log('resp', res);
     }, (err) => {
-      this.alertService.alert(err.errorMessage);
+      this.alertService.alert(err.errorMessage, 'error');
     });
   }
   backToDashBoard() {

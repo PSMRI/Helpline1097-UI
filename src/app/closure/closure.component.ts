@@ -399,27 +399,37 @@ export class ClosureComponent implements OnInit
     }
     else{
       // let familyMembersArray=[];
+      if(this.saved_data.everwellFeedbackCallData !=undefined && this.saved_data.everwellFeedbackCallData !=null 
+        && this.saved_data.everwellFeedbackCallData.length >0)
+        {
+          const outboundObj = {};const finalOutboundObj=[];
+          this.saved_data.everwellFeedbackCallData.forEach(element => {
+            outboundObj['eapiId'] = element.eapiId;
+            outboundObj['assignedUserID'] = this.saved_data.uid;
+            outboundObj['isCompleted'] = true;
+            outboundObj['beneficiaryRegId'] = element.beneficiaryRegId;
+            outboundObj['callTypeID'] = values.callTypeID;
+            outboundObj['benCallID'] = values.benCallID;
+            outboundObj['callId'] = values.callID;
+            outboundObj['providerServiceMapId'] = values.providerServiceMapID;
+            outboundObj['requestedServiceID'] = null;
+            outboundObj['preferredLanguageName'] = "All"
+            outboundObj['createdBy'] = this.saved_data.uname;
+            finalOutboundObj.push(outboundObj);
+          });
+          this._callServices.closeEverwellOutBoundCall(finalOutboundObj).subscribe((response) => {
+            this.closeOutboundCall(btnType, values);
+          }, (err) => {
+            this.message.alert(err.status, 'error');
+          })
+        }
       // for (let familyMember in familyMembersArray)   {
-      let outboundObj = {};
-      outboundObj['eapiId'] = this.saved_data.outboundEverwellData.eapiId;
-      outboundObj['assignedUserID'] = this.saved_data.uid;
-      outboundObj['isCompleted'] = true;
-      outboundObj['beneficiaryRegId'] = this.saved_data.outboundEverwellData.beneficiaryRegId;
-      outboundObj['callTypeID'] = values.callTypeID;
-      outboundObj['benCallID'] = values.benCallID;
-      outboundObj['callId'] = this.saved_data.callID;
-      outboundObj['providerServiceMapId'] = values.providerServiceMapID;
-      outboundObj['requestedServiceID'] = null;
-      outboundObj['preferredLanguageName'] = "All"
-      outboundObj['createdBy'] = this.saved_data.uname;
+      // let outboundObj = {};
+     
       // this.outboundArry.push(outboundObj);
     // }
       // this._callServices.closeEverwellOutBoundCall(this.outboundArry).subscribe((response) => {
-      this._callServices.closeEverwellOutBoundCall(outboundObj).subscribe((response) => {
-        this.closeOutboundCall(btnType, values);
-      }, (err) => {
-        this.message.alert(err.status, 'error');
-      })
+      
 
     }    
 

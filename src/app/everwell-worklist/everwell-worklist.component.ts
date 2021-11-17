@@ -52,7 +52,7 @@ export class EverwellWorklistComponent implements OnInit {
   fileName: any;
   currentLanguageSet: any;
   noInfoDoseDates: Date = new Date();
-  benDetailsList: any;
+  benDetailsList: any=[];
 
 
 
@@ -103,7 +103,7 @@ this.listBenDetails();
           'providerServiceMapId': this._common.outboundEverwellData.providerServiceMapId,
           'PrimaryNumber': this._common.outboundEverwellData.PrimaryNumber  }
     this.OCRService.benDetailsOnPhnNo(benDetailsReq).subscribe(response=>{
-      this.benDetailsList = response
+      this.benDetailsList = response;
     }) 
   }
   
@@ -157,7 +157,7 @@ this.listBenDetails();
     this.OCRService.getEverwellFeedBackDetails(req).subscribe(response => 
       {
         console.log('Everwell Call FeedBack Data is', response);
-        this.feedbackDetails=response.feedbackDetails.noInfoDoseDates;
+        this.feedbackDetails=response.feedbackDetails;
        this._common.previousFeedback=this.feedbackDetails;
         console.log('feedBack', this.feedbackDetails);
       },
@@ -205,6 +205,7 @@ if(result==null)
   }
   editMode(benData:any) {
     if(benData){
+      this._common.outboundEverwellData=benData;
     this.showTable = false;
     this.showEditForm = false;
     this.showCalender = true;
@@ -270,6 +271,27 @@ if(result==null)
         m.name.toString() == this.beforemonth2
     );
   }
+  pushArray(ar,value)
+  {
+    let flag=false;
+    if(ar!=null && ar.length >0)
+    {
+      ar.forEach(element => {
+        if(element.eapiId==value.eapiId)
+        {
+          flag=true;
+        }
+      });
+      if(!flag)
+      ar.push(value);
+      return ar;
+    }
+    else
+    {
+      ar.push(value);
+      return ar;
+    }
+  }
   callsupportdialog() {
     var curmonth = new Date();
     curmonth.setDate(curmonth.getDate() - (this.dateIndex+1));
@@ -294,6 +316,21 @@ if(result==null)
     dialog_Ref.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);\
       this.getFeedBackDetails();
+      if(this._common.feedbackData !=undefined && this._common.feedbackData !=null && this._common.feedbackData.length >0)
+      {
+        let ar:any=[];
+        this._common.feedbackData.forEach(val=>{
+          if(this.benDetailsList !=undefined && this.benDetailsList !=null && this.benDetailsList.length >0)
+          {
+            this.benDetailsList.forEach(element => {
+              if(element.Id == val.Id)
+              ar=this.pushArray(ar,element);
+            });
+          }
+        })
+        if(ar !=null && ar.length>0)
+        this._common.everwellFeedbackCallData=ar;
+      }
       this.submitFeedback.emit(this._common.checkEverwellResponse);
       console.log("result1",result);
       if (result === "success") {
