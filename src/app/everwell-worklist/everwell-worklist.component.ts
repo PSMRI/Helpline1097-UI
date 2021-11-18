@@ -206,10 +206,33 @@ if(result==null)
   editMode(benData:any) {
     if(benData){
       this._common.outboundEverwellData=benData;
+      if(this._common.outboundEverwellData.noInfoDosesDates !=undefined && this._common.outboundEverwellData.noInfoDosesDates !=null)
+      this._common.outboundEverwellData.noInfoDosesDates=this._common.outboundEverwellData.noInfoDosesDates.replaceAll('||',',');
     this.showTable = false;
     this.showEditForm = false;
     this.showCalender = true;
-    this.everwellBeneficiarySelected.emit(benData);    
+    this.everwellBeneficiarySelected.emit(benData);
+    this.data.callID = this._common.callID;
+    this.data.is1097 = true;
+    //this.data.createdBy = outboundData.everwelldata.createdBy;
+    this.data.Id = this._common.outboundEverwellData.Id;
+    console.log("ID", this.data);
+    this.data.calledServiceID = this._common.outboundEverwellData.providerServiceMapId;
+    this.data.PrimaryNumber = this._common.outboundEverwellData.PrimaryNumber;
+    this.data.agentID = this._common.outboundEverwellData.agentId;
+    this.data.beneficiaryRegId = this._common.outboundEverwellData.beneficiaryRegId;
+    this.data.beneficiaryID = this._common.outboundEverwellData.beneficiaryID;
+    this.data.FirstName = this._common.outboundEverwellData.FirstName;
+    this.data.LastName = this._common.outboundEverwellData.LastName;
+    this.data.remarks = this._common.outboundEverwellData.comments;
+    this.data.outBoundCallID = this._common.outboundEverwellData.eapiId;
+    this.data.state = this._common.outboundEverwellData.State;
+    this.data.Gender = this._common.outboundEverwellData.Gender;
+    this.data.district = this._common.outboundEverwellData.District;
+    this.data.eapiId = this._common.outboundEverwellData.eapiId;
+    this.data.comments = this._common.outboundEverwellData.comments;
+    this.data.callCounter = this._common.outboundEverwellData.callCounter;
+    this.data.lastCall = this._common.outboundEverwellData.lastCall;    
     this.getFeedBackDetails();
     }
   }

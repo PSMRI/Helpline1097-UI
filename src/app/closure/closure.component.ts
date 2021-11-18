@@ -402,8 +402,9 @@ export class ClosureComponent implements OnInit
       if(this.saved_data.everwellFeedbackCallData !=undefined && this.saved_data.everwellFeedbackCallData !=null 
         && this.saved_data.everwellFeedbackCallData.length >0)
         {
-          const outboundObj = {};const finalOutboundObj=[];
+          let outboundObj = {};let finalOutboundObj=[];
           this.saved_data.everwellFeedbackCallData.forEach(element => {
+            outboundObj = {};
             outboundObj['eapiId'] = element.eapiId;
             outboundObj['assignedUserID'] = this.saved_data.uid;
             outboundObj['isCompleted'] = true;
