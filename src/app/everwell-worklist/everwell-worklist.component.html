@@ -11,11 +11,11 @@
 
 
 <div  class="row">
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
     <div class="table-responsive">
      
-      <table class="table table-hover table-striped" [md2Data]="benDetailsList" #md2="md2DataTable" [rowsPerPage]="5"  aria-describedby="everwellBenDetails">
+      <table class="table table-responsive table-striped table-hover" id="everwellOutbondBufferedListTable" [md2Data]="benDetailsList" #md2="md2DataTable" [rowsPerPage]="4"  aria-describedby="everwellBenDetails">
         <thead>
           <tr>
            
@@ -32,11 +32,11 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngIf="benDetailsList?.length == 0">
-              <td colspan="6" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
+            <tr *ngIf="md2.data?.length == 0">
+              <td colspan="8" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
-            <ng-container *ngIf="benDetailsList?.length >0">
-            <tr *ngFor="let ben of benDetailsList; let i= index" (click)="editMode(ben)" style="cursor: pointer">
+            <!-- <ng-container *ngIf="benDetailsList?.length >0"> -->
+            <tr *ngFor="let ben of md2.data; let i= index" (click)="editMode(ben)" style="cursor: pointer">
               <td >{{ben.beneficiaryID}}</td>
               <td >{{ben.FirstName}} {{ben.LastName}}</td>
             
@@ -48,12 +48,12 @@
               <td *ngIf= "benDetailsList.indexOf(ben)=== 0">Self </td>
               <td *ngIf= "benDetailsList.indexOf(ben)> 0">Others </td>
             </tr>
-          </ng-container>
+          <!-- </ng-container> -->
         </tbody>
         <tfoot>
-          <tr *ngIf= "benDetailsList.length > 0">
+          <tr>
             <td colspan = "8">
-              <md2-pagination></md2-pagination>
+              <md2-pagination class="pull-right"></md2-pagination>
             </td>
           </tr>
         </tfoot>
@@ -90,13 +90,13 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-left: 10px; margin-top: 10px;">
   <label style="float: left;">Everwell missed doses count: </label>
   <label *ngIf="_common.outboundEverwellData.NoInfoDoseCount !== null && _common.outboundEverwellData.NoInfoDoseCount !== undefined"> {{_common.outboundEverwellData.NoInfoDoseCount }} </label>
-  <label *ngIf="_common.outboundEverwellData.NoInfoDoseCount === null || _common.outboundEverwellData.NoInfoDoseCount === undefined"> 0 </label>
+  <label *ngIf="_common.outboundEverwellData.NoInfoDoseCount === null || _common.outboundEverwellData.NoInfoDoseCount === undefined">&nbsp; 0 </label>
   <button md-raised-button color="primary" (click)="tableMode()" class= "backButton">{{currentLanguageSet?.back}}</button></div>
   <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" style="margin-left: 10px;">
   <label>Everwell missed doses dates: </label>
   <span *ngIf= "dosesDatesList.length > 0 ">
   <label *ngFor="let date of dosesDatesList" style="padding-right: 10px;" >
-    <span class="ecllipse" >{{date | date: 'd MMM'}} </span> </label>
+    <span class="ecllipse font-regular" >{{date | date: 'd MMM'}} </span> </label>
   </span>
   <label *ngIf = "dosesDatesList.length === 0 ">N/A</label>
   </div>

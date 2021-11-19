@@ -411,7 +411,7 @@ export class ClosureComponent implements OnInit
             outboundObj['beneficiaryRegId'] = element.beneficiaryRegId;
             outboundObj['callTypeID'] = values.callTypeID;
             outboundObj['benCallID'] = values.benCallID;
-            outboundObj['callId'] = values.callID;
+            outboundObj['callId'] = this.saved_data.callID;
             outboundObj['providerServiceMapId'] = values.providerServiceMapID;
             outboundObj['requestedServiceID'] = null;
             outboundObj['preferredLanguageName'] = "All"
