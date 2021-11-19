@@ -28,14 +28,15 @@
             <th id="comments">{{currentLanguageSet?.comments}}</th>
             <th id="lastCall">{{currentLanguageSet?.lastCall}}</th>
             <th id="callCount">{{currentLanguageSet?.callCount}}</th>
+            <th id="relationship">{{currentLanguageSet?.relationship}}</th>
           </tr>
         </thead>
         <tbody>
             <tr *ngIf="benDetailsList?.length == 0">
-              <td colspan="5" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
+              <td colspan="6" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
             <ng-container *ngIf="benDetailsList?.length >0">
-            <tr *ngFor="let ben of benDetailsList" (click)="editMode(ben)" style="cursor: pointer">
+            <tr *ngFor="let ben of benDetailsList; let i= index" (click)="editMode(ben)" style="cursor: pointer">
               <td style="width:15%;">{{ben.beneficiaryID}}</td>
               <td style="width:10%;">{{ben.FirstName}} {{ben.LastName}}</td>
             
@@ -44,6 +45,7 @@
               <td style="width:10%;">{{(ben?.comments !== 'NaN' && ben?.comments !== undefined && ben?.comments !== null) ? ben?.comments : 'N/A'}}</td>
               <td style="width:10%;">{{ben.callCounter > 0 ? (ben?.lastCall !== 'NaN' && ben?.lastCall !== undefined && ben?.lastCall !== null ? ben?.lastCall : 'N/A') : 'N/A'}}</td>
               <td  style="padding-left: 30px;width: 10%;">{{ben.callCounter}}</td>
+              <td >{{i === 0 ? Self : Others}}</td>
             </tr>
           </ng-container>
         </tbody>
