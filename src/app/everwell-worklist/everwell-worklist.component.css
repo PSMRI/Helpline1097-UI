@@ -131,6 +131,7 @@ a :active{
 
   .backButton {
     float: right;
+    margin-right: 10px;
   }
 
   .ecllipse {
@@ -138,5 +139,5 @@ a :active{
     height: 20px;
     width: 50px;
     border-radius: 10%;
-    padding-right: 10px;
+    text-align: center;
   }

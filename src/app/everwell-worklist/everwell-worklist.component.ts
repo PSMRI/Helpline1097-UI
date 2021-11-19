@@ -212,7 +212,8 @@ if(result==null)
   
   }
   editMode(benData:any) {
-    let datesList: any;
+    let datesList: any= [];
+    this.dosesDatesList = [];
     if(benData){
       this.getEverwellGuidelines(benData);
       this._common.outboundEverwellData=benData;
@@ -222,6 +223,7 @@ if(result==null)
         element = this.formattingDate(element);
         this.dosesDatesList.push(new Date(element));
       });
+      this.dosesDatesList.reverse();
     }  
     this.showTable = false;
     this.showEditForm = false;
