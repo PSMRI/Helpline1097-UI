@@ -14,44 +14,7 @@
   <div class="col-xs-12 col-sm-12">
 
     <div class="table-responsive">
-      <!-- <table class="table table-hover table-striped" [md2Data]="data" #md2="md2DataTable" aria-describedby="languageDetails">
-        <thead>
-          <tr>
-           
-            <th id="beneficiaryID">{{currentLanguageSet?.beneficiaryId}}</th>
-            <th id="beneficiaryName">{{currentLanguageSet?.beneficiaryName}}</th>
-          
-          
-            <th id="gender">{{currentLanguageSet?.gender}}</th>
-            <th id="state">{{currentLanguageSet?.state}}</th>
-            <th id="comments">{{currentLanguageSet?.comments}}</th>
-            <th id="lastCall">{{currentLanguageSet?.lastCall}}</th>
-            <th id="callCount">{{currentLanguageSet?.callCount}}</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngIf="data?.length > 0">
-              <td colspan="5" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
-            </tr>
-            <tr (click)="editMode(data)" style="cursor: pointer">
-              <td style="width:15%;">{{data.beneficiaryID}}</td>
-              <td style="width:10%;">{{data.FirstName}} {{data.LastName}}</td>
-            
-              <td style="width:10%;">{{data.Gender}}</td>
-              <td style="width:10%;">{{data.state}}</td>
-              <td style="width:10%;">{{(data?.comments !== 'NaN' && data?.comments !== undefined && data?.comments !== null) ? data?.comments : 'N/A'}}</td>
-              <td style="width:10%;">{{data.callCounter > 0 ? (data?.lastCall !== 'NaN' && data?.lastCall !== undefined && data?.lastCall !== null ? data?.lastCall : 'N/A') : 'N/A'}}</td>
-              <td  style="padding-left: 30px;width: 10%;">{{data.callCounter}}</td>
-            </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="10">
-             
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
+     
       <table class="table table-hover table-striped" [md2Data]="benDetailsList" #md2="md2DataTable" aria-describedby="everwellBenDetails">
         <thead>
           <tr>

@@ -92,7 +92,7 @@ export class EverwellWorklistComponent implements OnInit {
     }
     console.log("ar",this.ar);
     
-this.getEverwellGuidelines();
+
 this.assignSelectedLanguage();
 this.listBenDetails();
 
@@ -103,15 +103,20 @@ this.listBenDetails();
           'providerServiceMapId': this._common.outboundEverwellData.providerServiceMapId,
           'PrimaryNumber': this._common.outboundEverwellData.PrimaryNumber  }
     this.OCRService.benDetailsOnPhnNo(benDetailsReq).subscribe(response=>{
+    
       this.benDetailsList = response;
-    }) 
+     
+    }, err => {
+      console.log(err);
+      
+    })
   }
   
-  getEverwellGuidelines()
+  getEverwellGuidelines(benData)
   {
     let req={
-     'adherencePercentage':this._common.outboundEverwellData.AdherencePercentage,
-     'providerServiceMapID':this._common.outboundEverwellData.providerServiceMapId
+     'adherencePercentage':benData.AdherencePercentage,
+     'providerServiceMapID':benData.providerServiceMapId
      
     }
     // let req={};
@@ -205,6 +210,7 @@ if(result==null)
   }
   editMode(benData:any) {
     if(benData){
+      this.getEverwellGuidelines(benData);
       this._common.outboundEverwellData=benData;
       if(this._common.outboundEverwellData.noInfoDosesDates !=undefined && this._common.outboundEverwellData.noInfoDosesDates !=null)
       this._common.outboundEverwellData.noInfoDosesDates=this._common.outboundEverwellData.noInfoDosesDates.replaceAll('||',',');
