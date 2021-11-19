@@ -15,6 +15,7 @@ import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
 
 
+
 @Component({
   selector: 'app-everwell-worklist',
   templateUrl: './everwell-worklist.component.html',
@@ -41,6 +42,9 @@ export class EverwellWorklistComponent implements OnInit {
   beforemonth2: string;
   prev: any;
 
+  //Date Array
+  dosesDatesList: any =[];
+
   data: any = [];
   previous: number;
   previousDay: any;
@@ -51,7 +55,6 @@ export class EverwellWorklistComponent implements OnInit {
   srcPath: string;
   fileName: any;
   currentLanguageSet: any;
-  noInfoDoseDates: Date = new Date();
   benDetailsList: any=[];
 
 
@@ -204,10 +207,16 @@ if(result==null)
   
   }
   editMode(benData:any) {
+    let datesList: any;
     if(benData){
       this._common.outboundEverwellData=benData;
-      if(this._common.outboundEverwellData.noInfoDosesDates !=undefined && this._common.outboundEverwellData.noInfoDosesDates !=null)
-      this._common.outboundEverwellData.noInfoDosesDates=this._common.outboundEverwellData.noInfoDosesDates.replaceAll('||',',');
+      if(this._common.outboundEverwellData.noInfoDosesDates !=undefined && this._common.outboundEverwellData.noInfoDosesDates !=null){
+      datesList= this._common.outboundEverwellData.noInfoDosesDates.split('||');
+      datesList.forEach(element => {
+        element = this.formattingDate(element);
+        this.dosesDatesList.push(new Date(element));
+      });
+    }  
     this.showTable = false;
     this.showEditForm = false;
     this.showCalender = true;
@@ -235,6 +244,14 @@ if(result==null)
     this.data.lastCall = this._common.outboundEverwellData.lastCall;    
     this.getFeedBackDetails();
     }
+  }
+
+  formattingDate(day:any) {
+    let stringSplit = day.split('/');
+    let date = stringSplit[1];
+    let month = stringSplit[0];
+    let year = stringSplit[2];
+    return date +'/'+ month +'/'+ year;
   }
   getcurrentmonth() {
     // var curmonth = new Date();

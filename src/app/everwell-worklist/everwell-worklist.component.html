@@ -117,12 +117,15 @@
 
 
 <div class="main-content" *ngIf="showCalender">
-  <!-- <label>No. of missed dose count: {{feedbackDetails.noInfoDoseCount }} </label><br>
-  <label>No. of dates missing doses: {{feedbackDetails.noInfoDoseDates | date : "shortDate"}}</label> -->
-  <label>No. of missed dose count: {{_common.outboundEverwellData.NoInfoDoseCount}} </label><br>
-  <label>No. of dates missing doses: {{_common.outboundEverwellData.noInfoDosesDates}}</label>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:10px;">
-    <button md-raised-button color="primary" class="pull-right" (click)="tableMode()">{{currentLanguageSet?.back}}</button>   
+  <div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-left: 10px; margin-top: 10px;">
+  <label>Everwell missed doses count: {{_common.outboundEverwellData.NoInfoDoseCount}}</label></div>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 backButton" style="padding:10px;">
+  <button md-raised-button color="primary" (click)="tableMode()">{{currentLanguageSet?.back}}</button></div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" style="padding:10px;">
+  <label>Everwell missed doses dates: </label>
+  <label *ngFor="let date of dosesDatesList" class="ecllipse">{{date | date: 'd MMM'}} </label>
   </div>
   <div class="container-fluid">
     <div class="clearfix clearFixClass"></div>      
