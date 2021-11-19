@@ -56,6 +56,8 @@ export class EverwellWorklistComponent implements OnInit {
   fileName: any;
   currentLanguageSet: any;
   benDetailsList: any=[];
+  dispFlag: any;
+  selfBenificary: any;
 
 
 
@@ -106,11 +108,26 @@ this.listBenDetails();
           'providerServiceMapId': this._common.outboundEverwellData.providerServiceMapId,
           'PrimaryNumber': this._common.outboundEverwellData.PrimaryNumber  }
     this.OCRService.benDetailsOnPhnNo(benDetailsReq).subscribe(response=>{
-    
+    if(response !== undefined && response !== null){
       this.benDetailsList = response;
-     
+      this.benDetailsList.filter((everwellSelfEapiId, index) => {
+        if(everwellSelfEapiId.eapiId === this._common.outboundEverwellData.eapiId){
+          this.benDetailsList.splice(index,1);
+          this.benDetailsList.splice(0,0,everwellSelfEapiId);
+        }
+      })
+    }
+      // this.benDetailsList.array.forEach(element => {
+      //   if(element.eapiId == this._common.outboundEverwellData.eapiId){
+      //     this.dispFlag= true;
+      //     this.selfBenificary = element;
+      //   } else {
+      //     this.dispFlag= false;
+      //   }
+      // });
     }, err => {
       console.log(err);
+      this.alertService.alert(err.errorMessage);
       
     })
   }

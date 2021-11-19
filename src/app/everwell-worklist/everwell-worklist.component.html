@@ -51,7 +51,11 @@
           </ng-container>
         </tbody>
         <tfoot>
-          <md2-pagination></md2-pagination>
+          <tr *ngIf= "benDetailsList.length > 0">
+            <td colspan = "8">
+              <md2-pagination></md2-pagination>
+            </td>
+          </tr>
         </tfoot>
       </table>
     </div>
@@ -84,7 +88,9 @@
 
 <div class="main-content" *ngIf="showCalender">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-left: 10px; margin-top: 10px;">
-  <label style="float: left;">Everwell missed doses count: {{_common.outboundEverwellData.NoInfoDoseCount ? _common.outboundEverwellData.NoInfoDoseCount : NA}}</label>
+  <label style="float: left;">Everwell missed doses count: </label>
+  <label *ngIf="_common.outboundEverwellData.NoInfoDoseCount !== null && _common.outboundEverwellData.NoInfoDoseCount !== undefined"> {{_common.outboundEverwellData.NoInfoDoseCount }} </label>
+  <label *ngIf="_common.outboundEverwellData.NoInfoDoseCount === null || _common.outboundEverwellData.NoInfoDoseCount === undefined"> 0 </label>
   <button md-raised-button color="primary" (click)="tableMode()" class= "backButton">{{currentLanguageSet?.back}}</button></div>
   <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" style="margin-left: 10px;">
   <label>Everwell missed doses dates: </label>
@@ -92,7 +98,7 @@
   <label *ngFor="let date of dosesDatesList" style="padding-right: 10px;" >
     <span class="ecllipse" >{{date | date: 'd MMM'}} </span> </label>
   </span>
-  <label *ngIf = "dosesDatesList.length === 0 ">NA</label>
+  <label *ngIf = "dosesDatesList.length === 0 ">N/A</label>
   </div>
   <div class="container-fluid">
     <div class="clearfix clearFixClass"></div>      
