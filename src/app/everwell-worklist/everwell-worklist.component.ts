@@ -13,6 +13,7 @@ import { DatePipe } from'@angular/common';
 import { LoaderService } from 'app/services/common/loader.service';
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -742,8 +743,14 @@ export class SupportActionModal {
       return false;
     }
   }
+  submiEverwellFeedbackSubscription:Subscription;
   submitFeedback(item){
-    
+
+    this._callservice.cacheResponse=null;
+    this._callservice.cacheApiCallTrigger=null;
+    if(this.submiEverwellFeedbackSubscription)
+           this.submiEverwellFeedbackSubscription.unsubscribe();
+
     if(!this._common.outboundEverwellData)
     {
       this.alertMaessage.alert(this.currentLanguageSet.pleaseSelectBeneficiary, 'error');
@@ -769,9 +776,9 @@ export class SupportActionModal {
     if(providerObj['secondaryPhoneNo']=="" || providerObj['secondaryPhoneNo']==undefined){
       providerObj['secondaryPhoneNo']=null;
     }
-    this._callservice.postEverwellFeedback(providerObj).subscribe((response) => {
+    this.submiEverwellFeedbackSubscription=this._callservice.saveEverwellFeedback(providerObj).subscribe((response) => {
       console.log("response",response);
-      if(response != null && response.savedData != null){
+      if(response != null && response != undefined && response.savedData != null && response.savedData != undefined){
         // this._common.feedbackData = providerObj;
         // this.feedbackData = providerObj;    
         this._common.feedbackData.push(providerObj);
@@ -791,7 +798,15 @@ export class SupportActionModal {
       console.log('error in submit Feedback');
     });
   }
+
+  updateEverwellFeedbackSubscription:Subscription;
   updateFeedback(item){
+
+    this._callservice.cacheResponse=null;
+    this._callservice.cacheApiCallTrigger=null;
+    if(this.updateEverwellFeedbackSubscription)
+           this.updateEverwellFeedbackSubscription.unsubscribe();
+
     if(!this._common.outboundEverwellData)
     {
       this.alertMaessage.alert(this.currentLanguageSet.pleaseSelectBeneficiary, 'error');
@@ -825,7 +840,7 @@ export class SupportActionModal {
     if(providerObj['secondaryPhoneNo']=="" || providerObj['secondaryPhoneNo']==undefined){
       providerObj['secondaryPhoneNo']=null;
     }
-    this._callservice.postEverwellFeedback(providerObj).subscribe((response) => {
+    this.updateEverwellFeedbackSubscription=this._callservice.saveEverwellFeedback(providerObj).subscribe((response) => {
       console.log("response",response);
       if(response != null && response.savedData != null){        
         this._common.feedbackData.push(providerObj);
@@ -925,5 +940,17 @@ export class SupportActionModal {
 		getLanguageJson.setLanguage();
 		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
 	  }
- 
+
+  ngOnDestroy()
+  {
+     if(this.submiEverwellFeedbackSubscription)
+     {
+       this.submiEverwellFeedbackSubscription.unsubscribe();
+     }
+
+     if(this.updateEverwellFeedbackSubscription)
+     {
+       this.updateEverwellFeedbackSubscription.unsubscribe();
+     }
+  } 
 }

@@ -35,6 +35,8 @@ export class CallServices {
   getWrapupTime = this._commonURL +  'user/role/';
   onceOutbound: boolean = false;
   _everwellCheckAlreadyCalled = this._commonURL + 'everwellCall/checkIfAlreadyCalled';
+  cacheApiCallTrigger: any;
+  cacheResponse: any;
   constructor(
     private _http: AuthorizationWrapper,
     private _config: ConfigService,
@@ -134,8 +136,32 @@ export class CallServices {
     return this._http.post(this._getBenOutboundListUrl, data).map(this.extractData).catch(this.handleError);
   }
 
+  saveEverwellFeedback(data)
+  {
+    if(this.cacheResponse) {
+      return Observable.of(this.cacheResponse);
+    }else if (this.cacheApiCallTrigger) 
+    {
+      return this.cacheApiCallTrigger;
+    }
+    else
+      {
+        this.cacheApiCallTrigger=this.postEverwellFeedback(data);
+      }
+    return this.cacheApiCallTrigger;
+  }
   postEverwellFeedback(data: any) {   
-    return this._httpInterceptor.post(this._postEverwellFeedback, data).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._postEverwellFeedback, data).map(this.checkForForstApiCallTrigger).catch(this.handleCustomError);
+  }
+  checkForForstApiCallTrigger(response: Response) {
+    if (response.json().data) {
+    this.cacheApiCallTrigger = null;
+    this.cacheResponse = response.json().data;
+    return this.cacheResponse;
+    } else {
+      return Observable.throw(response.json());
+    }
+
   }
   extractData(response: Response) {
     if (response.json().data) {
