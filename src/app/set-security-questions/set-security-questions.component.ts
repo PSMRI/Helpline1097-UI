@@ -3,7 +3,8 @@ import { dataService } from '../services/dataService/data.service';
 import { HttpServices } from '../services/http-services/http_services.service';
 import { Router } from '@angular/router';
 import { ConfigService } from '../services/config/config.service';
-
+import { loginService } from '../services/loginService/login.service';
+import { AuthService } from '../services/authentication/auth.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { SetLanguageComponent } from 'app/set-language.component';
 declare let jQuery: any;
@@ -15,60 +16,44 @@ declare let jQuery: any;
   styleUrls: ['./set-security-questions.component.css']
 })
 export class SetSecurityQuestionsComponent implements OnInit {
-  currentLanguageSet: any;
+
+  passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
 
   constructor(
-              public getUserData: dataService,
-              public http_calls: HttpServices,
-              public router: Router,
-              private configService: ConfigService,
-              private alertService:ConfirmationDialogsService
-              ) {
+    public getUserData: dataService,
+    public http_calls: HttpServices,
+    public router: Router,
+    private configService: ConfigService,
+    private alertService: ConfirmationDialogsService,
+    private authService: AuthService,
+    private loginService: loginService
+  ) {
 
   }
-
-passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
-
-  ngOnInit() {
-    this.assignSelectedLanguage();
-
-    this.http_calls.getData(this.configService.getOpenCommonBaseUrl() + "user/getsecurityquetions")
-    .subscribe(
-               (response: any) => this.handleSuccess(response),
-               (error: any) => this.handleError(error)
-               );
-
-  }
-
-
-	ngDoCheck() {
-		this.assignSelectedLanguage();
-	  }
-
-	assignSelectedLanguage() {
-		const getLanguageJson = new SetLanguageComponent(this.http_calls);
-		getLanguageJson.setLanguage();
-		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
-	  }
 
   handleSuccess(response) {
-    this.questions = response;
-    this.replica_questions=response;
+    this.questions = response.data;
+    this.replica_questions = response.data;
 
-    this.Q_array_one=response;
-    this.Q_array_two=response;
+    this.Q_array_one = response.data;
+    this.Q_array_two = response.data;
     console.log(this.questions);
   }
-  
   handleError(response) {
     console.log('error', this.questions);
   }
 
+  ngOnInit() {
+    this.http_calls.getData(this.configService.getOpenCommonBaseURL() + "user/getsecurityquetions").subscribe(
+      (response: any) => this.handleSuccess(response),
+      (error: any) => this.handleError(error));
+
+  }
 
   uid: any = this.getUserData.uid;
   passwordSection: boolean = false;
   questionsection: boolean = true;
-  uname: any = this.getUserData.uname;
+  uname: any = this.getUserData.Userdata.userName;
 
   switch() {
     this.passwordSection = true;
@@ -76,14 +61,13 @@ passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,
   }
 
 
-  dynamictype:any="password";
-  
+  dynamictype: any = "password";
+
   showPWD() {
     this.dynamictype = 'text';
   }
 
-  hidePWD()
-  {
+  hidePWD() {
     this.dynamictype = 'password';
   }
 
@@ -97,181 +81,171 @@ passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,
   answer2: any = '';
   answer3: any = '';
 
-  questions: any = [];
-  replica_questions:any=[];
-  Q_array_one:any=[];
-  Q_array_two:any=[];
+  questions:Array<any> = [];
+  replica_questions:Array<any> = [];
+  Q_array_one:Array<any> = [];
+  Q_array_two:Array<any> = [];
 
-  selectedQuestions: any = [];
+  selectedQuestions:Array<any> = [];
 
-  updateQuestions(selectedques,position) {
-    console.log("position",position,"Selected Question",selectedques);
-    console.log("before if else block, selected questions",this.selectedQuestions);
+  updateQuestions(selectedques, position) {
+    console.log("position", position, "Selected Question", selectedques);
+    console.log("before if else block, selected questions", this.selectedQuestions);
 
     if (this.selectedQuestions.indexOf(selectedques) == -1) {
-      this.selectedQuestions[position]=selectedques;
-      if(position===0)
-      {
-        this.answer1="";
+      this.selectedQuestions[position] = selectedques;
+      if (position === 0) {
+        this.answer1 = "";
         // jQuery("#ans1").prop("disabled",false);
       }
-      if(position===1)
-      {
-        this.answer2="";
+      if (position === 1) {
+        this.answer2 = "";
         // jQuery("#ans2").prop("disabled",false);
       }
-      if(position===2)
-      {
-        this.answer3="";
+      if (position === 2) {
+        this.answer3 = "";
         // jQuery("#ans3").prop("disabled",false);
       }
 
-      console.log("if block, selected questions",this.selectedQuestions);
+      console.log("if block, selected questions", this.selectedQuestions);
 
     }
     else {
-      if(this.selectedQuestions.indexOf(selectedques) != position)
-      {
-        this.alertService.alert(this.currentLanguageSet.thisQuestionIsAlreadySelectedChooseUniqueQuestion);
+      if (this.selectedQuestions.indexOf(selectedques) != position) {
+        this.alertService.alert("This question is already selected. Choose unique question");
       }
-      else
-      {
+      else {
         // this.alertService.alert("This question is mapped at this position already");
       }
-      console.log("else block, selected questions",this.selectedQuestions);
-      console.log("position else block",position);
-      
+      console.log("else block, selected questions", this.selectedQuestions);
+      console.log("position else block", position);
+
       // this.disableAnswerField(position);
     }
   }
 
-  filterArrayOne(questionID)
-  {
+  filterArrayOne(questionID) {
 
     /*reset the 2nd and 3rd question and answer fields */
-   /* this.question2="";
-    this.answer2="";
-
-    this.question3="";
-    this.answer3="";
-    */
+    /* this.question2="";
+     this.answer2="";
+ 
+     this.question3="";
+     this.answer3="";
+ */
 
     /*filter the primary array based on the selection and feed resultant to Q_array_one*/
-    this.Q_array_one=this.filter_function(questionID,this.Q_array_one);
-    this.Q_array_two=this.filter_function(questionID,this.Q_array_two);
+    this.Q_array_one = this.filter_function(questionID, this.Q_array_one);
+    this.Q_array_two = this.filter_function(questionID, this.Q_array_two);
     // this.questions=this.Q_array_one;
   }
 
-  filterArrayTwo(questionID)
-  {
+  filterArrayTwo(questionID) {
     /*reset the 3rd question and answer field */
     /*this.question3="";
     this.answer3="";
-    */
+*/
     /*filter the Q_array_one based on the selection and feed resultant to Q_array_two*/
-    this.Q_array_two=this.filter_function(questionID,this.Q_array_two);
-    this.questions=this.filter_function(questionID,this.questions);
+    this.Q_array_two = this.filter_function(questionID, this.Q_array_two);
+    this.questions = this.filter_function(questionID, this.questions);
   }
 
-  filterArrayThree(questionID)
-  {
-    this.Q_array_one=this.filter_function(questionID,this.Q_array_one);
-    this.questions=this.filter_function(questionID,this.questions);
+  filterArrayThree(questionID) {
+    this.Q_array_one = this.filter_function(questionID, this.Q_array_one);
+    this.questions = this.filter_function(questionID, this.questions);
   }
 
-  filter_function(questionID,array)
-  {
-    let dummy_array=[];
-    for(let i=0;i<array.length;i++)
-    {
-      if(array[i].QuestionID===questionID){
-       continue;
-     }
-     else{
-      dummy_array.push(array[i]);
+  filter_function(questionID, array) {
+    let dummy_array = [];
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].QuestionID === questionID) {
+        continue;
+      }
+      else {
+        dummy_array.push(array[i]);
+      }
+    }
+    return dummy_array;
+  }
+
+  dataArray: Array<any> = [];
+
+  setSecurityQuestions() {
+    if (this.selectedQuestions.length == 3) {
+      this.dataArray = [
+        {
+          'userID': this.uid,
+          'questionID': this.question1,
+          'answers': this.answer1,
+          'mobileNumber': '1234567890',
+          'createdBy': this.uname
+        },
+        {
+          'userID': this.uid,
+          'questionID': this.question2,
+          'answers': this.answer2,
+          'mobileNumber': '1234567890',
+          'createdBy': this.uname
+        },
+        {
+          'userID': this.uid,
+          'questionID': this.question3,
+          'answers': this.answer3,
+          'mobileNumber': '1234567890',
+          'createdBy': this.uname
+        }];
+
+      console.log("Request Array", this.dataArray);
+      console.log("selected questions", this.selectedQuestions);
+
+      this.switch();
+    }
+    else {
+      this.alertService.alert("All 3 questions should be different. Please check your selected questions");
     }
   }
-  return dummy_array;
-}
 
-dataArray: any = [];
 
-setSecurityQuestions() {
-  if (this.selectedQuestions.length == 3) 
-  {
-    this.dataArray = [
-    {
-      'userID': this.uid,
-      'questionID': this.question1,
-      'answers': this.answer1,
-      'mobileNumber': '1234567890',
-      'createdBy': this.uname
-    },
-    {
-      'userID': this.uid,
-      'questionID': this.question2,
-      'answers': this.answer2,
-      'mobileNumber': '1234567890',
-      'createdBy': this.uname
-    },
-    {
-      'userID': this.uid,
-      'questionID': this.question3,
-      'answers': this.answer3,
-      'mobileNumber': '1234567890',
-      'createdBy': this.uname
-    }];
 
-    console.log("Request Array",this.dataArray);
-    console.log("selected questions",this.selectedQuestions);                                                                                                                         
+  oldpwd: any;
+  newpwd: any;
+  confirmpwd: any;
 
-    this.switch();
-  } 
-  else 
-  {
-    this.alertService.alert(this.currentLanguageSet.allThreeQuestionsShouldBeDifferent);
+  updatePassword(new_pwd) {
+    if (new_pwd === this.confirmpwd) {
+      this.http_calls.postData(this.configService.getOpenCommonBaseURL() + 'user/saveUserSecurityQuesAns', this.dataArray)
+        .subscribe((response: any) => this.handleQuestionSaveSuccess(response, new_pwd),
+        (error: any) => this.handleQuestionSaveError(error));
+
+    }
+    else {
+      this.alertService.alert("Password doesn't match");
+    }
   }
-}
 
 
-
-oldpwd: any;
-newpwd: any;
-confirmpwd: any;
-
-updatePassword(new_pwd) {
-  if (new_pwd === this.confirmpwd) {
-    this.http_calls.postData(this.configService.getOpenCommonBaseUrl() + 'user/saveUserSecurityQuesAns', this.dataArray)
-    .subscribe((response: any) => this.handleQuestionSaveSuccess(response,new_pwd),
-               (error: any) => this.handleQuestionSaveError(error));
+  handleQuestionSaveSuccess(response, new_pwd) {
+    console.log('saved questions', response);
+    this.http_calls.postData(this.configService.getOpenCommonBaseURL() + 'user/setForgetPassword',
+      { 'userName': this.uname, 'password': new_pwd })
+      .subscribe((response: any) => this.successCallback(response),
+      (error: any) => this.errorCallback(error));
 
   }
-  else {
-    this.alertService.alert(this.currentLanguageSet.passwordsDoNotMmatch);
+  handleQuestionSaveError(response) {
+    console.log('question save error', response);
   }
-}
 
+  successCallback(response) {
+    localStorage.removeItem('authToken');
+    console.log(response);
+    this.alertService.alert("Password changed successfully", 'success');
+   
+    this.router.navigate(['']);
+  }
 
-handleQuestionSaveSuccess(response,new_pwd) {
-  console.log('saved questions', response);
-  this.http_calls.postData(this.configService.getOpenCommonBaseUrl() + 'user/setForgetPassword',
-                           { 'userName': this.uname, 'password': new_pwd })
-  .subscribe((response: any) => this.successCallback(response),
-             (error: any) => this.errorCallback(error));
-
-}
-handleQuestionSaveError(response) {
-  console.log('question save error', response);
-}
-
-successCallback(response) {
-
-  console.log(response);
-  this.alertService.alert(this.currentLanguageSet.passwordChangedSuccessfully,'success');
-  this.router.navigate(['']);
-}
-errorCallback(response) {
-  console.log(response);
-}
+  errorCallback(response) {
+    console.log(response);
+  }
 
 }

@@ -4,77 +4,70 @@ import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ConfigService } from '../services/config/config.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
-import { SetLanguageComponent } from 'app/set-language.component';
-
-
-
+import { loginService } from '../services/loginService/login.service';
+import { AuthService } from '../services/authentication/auth.service';
 
 @Component({
-  selector: 'app-set-password',
-  templateUrl: './set-password.component.html',
-  styleUrls: ['./set-password.component.css']
+	selector: 'app-set-password',
+	templateUrl: './set-password.component.html',
+	styleUrls: ['./set-password.component.css']
 })
 export class SetPasswordComponent implements OnInit {
-  newpwd: any;
-  confirmpwd: any;
-  uname: any = this.getUserData.uname;
-  dynamictype: any = 'password';
 
-  passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
-  currentLanguageSet: any;
+	passwordPattern = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
 
+	constructor(
+		public http_calls: HttpServices,
+		public getUserData: dataService,
+		private configService: ConfigService,
+		private authService: AuthService,
+		private loginService: loginService,
+		public router: Router, private alertService: ConfirmationDialogsService) { }
 
-  constructor(
-    public http_calls: HttpServices,
-    public getUserData: dataService,
-    private configService: ConfigService,
-    public router: Router, private alertService: ConfirmationDialogsService) { }
+	ngOnInit() {
+	}
+	
+	newpwd: any;
+	confirmpwd: any;
 
-  ngOnInit() {
-    this.assignSelectedLanguage();
-  }
+	uname: any = this.getUserData.uname;
 
-  ngDoCheck() {
-  this.assignSelectedLanguage();
-   }
+	dynamictype: any = "password";
 
-assignSelectedLanguage() {
-const getLanguageJson = new SetLanguageComponent(this.http_calls);
-getLanguageJson.setLanguage();
-this.currentLanguageSet = getLanguageJson.currentLanguageObject;
-}
+	showPWD() {
+		this.dynamictype = 'text';
+	}
 
+	hidePWD() {
+		this.dynamictype = 'password';
+	}
 
-  showPWD() {
-    this.dynamictype = 'text';
-  }
+	updatePassword(new_pwd) {
+		if (new_pwd === this.confirmpwd) {
+			this.http_calls.postData(this.configService.getOpenCommonBaseURL() + 'user/setForgetPassword',
+				{ 'userName': this.uname, 'password': new_pwd }
+			).subscribe(
+				(response: any) => this.successCallback(response),
+				(error: any) => this.errorCallback(error)
+				);
+		}
+		else {
+			this.alertService.alert('Password does not match', 'error');
+		}
+	}
 
-  hidePWD() {
-    this.dynamictype = 'password';
-  }
+	successCallback(response) {
 
-  updatePassword(new_pwd) {
-    if (new_pwd === this.confirmpwd) {
-      this.http_calls.postData(this.configService.getOpenCommonBaseUrl() + 'user/setForgetPassword',
-        { 'userName': this.uname, 'password': new_pwd }
-      ).subscribe(
-        (response: any) => this.successCallback(response),
-        (error: any) => this.errorCallback(error)
-        );
-    } else {
-      this.alertService.alert(this.currentLanguageSet.passwordsDoNotMmatch);
-    }
-  }
+		console.log(response);
+		this.alertService.alert('Password changed successfully', 'success');
+		
+		
+		this.router.navigate(['']);
+	}
 
-  successCallback(response) {
-
-    console.log(response);
-    this.alertService.alert(this.currentLanguageSet.passwordChangedSuccessfully);
-    this.router.navigate(['']);
-  }
-  errorCallback(response) {
-    console.log(response);
-  }
+	errorCallback(response) {
+		console.log(response);
+	}
 
 
 }
