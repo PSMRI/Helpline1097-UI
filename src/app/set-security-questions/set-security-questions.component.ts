@@ -213,7 +213,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
   updatePassword(new_pwd) {
     if (new_pwd === this.confirmpwd) {
-      this.http_calls.postData(this.configService.getOpenCommonBaseURL() + 'user/saveUserSecurityQuesAns', this.dataArray)
+      this.http_calls.postDataForSecurity(this.configService.getOpenCommonBaseURL() + 'user/saveUserSecurityQuesAns', this.dataArray)
         .subscribe((response: any) => this.handleQuestionSaveSuccess(response, new_pwd),
         (error: any) => this.handleQuestionSaveError(error));
 
@@ -225,11 +225,18 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
 
   handleQuestionSaveSuccess(response, new_pwd) {
+    if(response && response.statusCode == 200 && response.data.transactionId !== undefined && response.data.transactionId !== null) {
     console.log('saved questions', response);
-    this.http_calls.postData(this.configService.getOpenCommonBaseURL() + 'user/setForgetPassword',
-      { 'userName': this.uname, 'password': new_pwd })
+    this.http_calls.postDataForSecurity(this.configService.getOpenCommonBaseURL() + 'user/setForgetPassword',
+      { 'userName': this.uname, 'password': new_pwd, 'transactionId': response.data.transactionId })
       .subscribe((response: any) => this.successCallback(response),
       (error: any) => this.errorCallback(error));
+    }
+    else
+    {
+      this.alertService.alert(response.errorMessage, 'error');
+      
+    }
 
   }
   handleQuestionSaveError(response) {
@@ -247,5 +254,6 @@ export class SetSecurityQuestionsComponent implements OnInit {
   errorCallback(response) {
     console.log(response);
   }
+
 
 }

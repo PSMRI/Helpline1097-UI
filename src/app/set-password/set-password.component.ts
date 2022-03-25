@@ -22,7 +22,8 @@ export class SetPasswordComponent implements OnInit {
 		private configService: ConfigService,
 		private authService: AuthService,
 		private loginService: loginService,
-		public router: Router, private alertService: ConfirmationDialogsService) { }
+		public router: Router, private alertService: ConfirmationDialogsService,
+		public loginservice: loginService) { }
 
 	ngOnInit() {
 	}
@@ -43,12 +44,28 @@ export class SetPasswordComponent implements OnInit {
 	}
 
 	updatePassword(new_pwd) {
+		let transactionId=this.loginservice.transactionId;
 		if (new_pwd === this.confirmpwd) {
-			this.http_calls.postData(this.configService.getOpenCommonBaseURL() + 'user/setForgetPassword',
-				{ 'userName': this.uname, 'password': new_pwd }
+			this.http_calls.postDataForSecurity(this.configService.getOpenCommonBaseURL() + 'user/setForgetPassword',
+			{ 'userName': this.uname, 'password': new_pwd, 'transactionId': transactionId }
 			).subscribe(
-				(response: any) => this.successCallback(response),
-				(error: any) => this.errorCallback(error)
+				(response: any) =>{
+					if (response !== undefined && response !== null && response.statusCode == 200)
+					this.successCallback(response)
+					else
+					{
+						this.alertService.alert(response.errorMessage, 'error');
+					    this.router.navigate(['/resetPassword']);
+					}
+
+				},
+				 (error: any) => {
+					this.alertService.alert(error.errorMessage, 'error');
+					this.router.navigate(['/resetPassword']);
+		
+			   },
+			   this.loginservice.transactionId=undefined
+	   
 				);
 		}
 		else {
