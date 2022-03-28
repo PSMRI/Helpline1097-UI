@@ -32,11 +32,11 @@ export class SetSecurityQuestionsComponent implements OnInit {
   }
 
   handleSuccess(response) {
-    this.questions = response.data;
-    this.replica_questions = response.data;
+    this.questions = response;
+    this.replica_questions = response;
 
-    this.Q_array_one = response.data;
-    this.Q_array_two = response.data;
+    this.Q_array_one = response;
+    this.Q_array_two = response;
     console.log(this.questions);
   }
   handleError(response) {
