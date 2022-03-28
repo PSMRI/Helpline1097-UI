@@ -1,7 +1,7 @@
 <div [ngClass]="{'headerDiv': status=='info', 'successHeaderDiv': status=='success', 'errorHeaderDiv': status=='error'}">
-  <h4 class="popupHeader" *ngIf="status=='info'"><strong>{{currentLanguageSet?.info}}</strong></h4>
-  <h4 class="popupHeader" *ngIf="status=='success'"><strong>{{currentLanguageSet?.success}}</strong></h4>
-  <h4 class="popupHeader" *ngIf="status=='error'"><strong>{{currentLanguageSet?.error}}</strong></h4>
+  <h4 class="popupHeader" *ngIf="status=='info'"><strong>{{(currentLanguageSet !== undefined && currentLanguageSet !== null) ?  currentLanguageSet?.info : 'Info'}}</strong></h4>
+  <h4 class="popupHeader" *ngIf="status=='success'"><strong>{{(currentLanguageSet !== undefined && currentLanguageSet !== null) ?  currentLanguageSet?.status : 'Status'}}</strong></h4>
+  <h4 class="popupHeader" *ngIf="status=='error'"><strong>{{(currentLanguageSet !== undefined && currentLanguageSet !== null) ?  currentLanguageSet?.error : 'Error'}}</strong></h4>
 </div>
 <div class="container-fluid" *ngIf="confirmAlert">
   <h3 md-dialog-title>
