@@ -719,7 +719,9 @@
       "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call",
       "wantToDeactivate": "क्या आप वाकई निष्क्रिय करना चाहते हैं?",
       "wantToActivate":"क्या आप वाकई सक्रिय करना चाहते हैं?",
-      "callAlreadyCompleted":"Call is already completed by agent"
+      "callAlreadyCompleted":"Call is already completed by agent",
+      "pleaseChooseAFileForUpload": "कृपया अपलोड करने के लिए एक फ़ाइल चुनें",
+      "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit"
       
 
 

@@ -61,6 +61,10 @@ export class grievanceComponent implements OnInit {
   distictID: any;
   tableView= false;
   currentLanguageSet: any;
+  fileList: FileList;
+  error1: boolean = false;
+  error2: boolean = false;
+  maxFileSize = 5;
   constructor(
     private _feedbackservice: FeedbackService,
     private _saved_data: dataService,
@@ -278,6 +282,9 @@ export class grievanceComponent implements OnInit {
       this._feedbackservice.updateResponce(bodyString)
         .subscribe((resfeedbackData) => {
           this.alertMessage.alert(this.currentLanguageSet.successfullyUpdated, 'success');
+          this.error1 = false;
+          this.error2 = false;
+          this.invalid_file_flag = false;
           this.showUsers(resfeedbackData)
         }, (err) => {
           this.alertMessage.alert(err.errorMessage, 'error');
@@ -595,26 +602,52 @@ export class grievanceComponent implements OnInit {
 
   readThis(inputValue: any): any {
     console.log('mcnmxcn', inputValue);
+    this.fileList =inputValue.files;
+    if (this.fileList.length == 0) {
+      this.error1 = true;
+      this.error2 = false;
+    }
+    else {
     this.file = inputValue.files[0];
     if (this.file) {
+
+      let fileNameExtension = this.file.name.split(".");
+      let fileName = fileNameExtension[0];
+      if(fileName !== undefined && fileName !== null && fileName !== "")
+      {
       var isvalid = this.checkExtension(this.file);
       console.log(isvalid, 'VALID OR NOT');
       if (isvalid) {
+
+        if ((this.fileList[0].size / 1000 / 1000) > this.maxFileSize) {
+          console.log("File Size" + this.fileList[0].size / 1000 / 1000);
+          this.error2 = true;
+          this.error1 = false;
+        }
+        else {
+          this.error1 = false;
+          this.error2 = false;
         // this.knowledgeForm.controls['fileInput'].setValue(this.file.name);  //commented as no form here; WIP for Future email integration
         const myReader: FileReader = new FileReader();
         // binding event to access the local variable
         myReader.onloadend = this.onLoadFileCallback.bind(this)
         myReader.readAsDataURL(this.file);
         this.invalid_file_flag = false;
+        }
       }
       else {
         this.invalid_file_flag = true;
       }
 
+    }
+    else
+    this.alertMessage.alert(this.currentLanguageSet.invalidFileName, 'error');
+
     } else {
       // this.knowledgeForm.controls['fileInput'].setValue('');  //commented as no form here; WIP for Future email integration
       this.invalid_file_flag = false;
     }
+  }
 
   }
   onLoadFileCallback = (event) => {
@@ -625,6 +658,7 @@ export class grievanceComponent implements OnInit {
     var count = 0;
     console.log('FILE DETAILS', file);
     var array_after_split = file.name.split('.');
+    if(array_after_split.length == 2) {
     var file_extension = array_after_split[array_after_split.length - 1];
     for (let i = 0; i < this.valid_file_extensions.length; i++) {
       if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
@@ -634,6 +668,10 @@ export class grievanceComponent implements OnInit {
     if (count > 0) {
       return true;
     } else {
+      return false;
+    }
+  } else
+    {
       return false;
     }
   }
@@ -651,5 +689,9 @@ export class grievanceComponent implements OnInit {
   backToFeedbackTracking(){
     this.action = 'view';
     this.tableView = true;
+    this.error1 = false;
+    this.error2 = false;
+    this.invalid_file_flag = false;
+    
   }
 }

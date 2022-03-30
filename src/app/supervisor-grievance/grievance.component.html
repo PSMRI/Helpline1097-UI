@@ -208,19 +208,23 @@
             
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3" *ngIf="action==='update'">
-            <label for="upload-file">{{currentLanguageSet?.uploadFileEmail}}</label>
+            <label for="upload-file">{{currentLanguageSet?.uploadFileOrEmailSizeLimit}} :{{maxFileSize}} {{currentLanguageSet?.mb}} )</label>
             <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file">
             <div class="clearfix"></div>
             <md-hint>
               <span class="help-block" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormatsMsgPdf}}</span>
             </md-hint>
+
+            <span class="help-block" *ngIf="error1">{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
+            <div class="clearfix" *ngIf="error1"></div>
+            <span class="help-block" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10" *ngIf="action==='edit'">
             <button md-raised-button color="accent" class="pull-right" type="submit" [disabled]="fb_form.invalid" name="save"> {{currentLanguageSet?.saveEmail}}</button>
             <button md-raised-button color="primary" class="pull-right m-r-10" (click)="backToFeedbackTracking()">{{currentLanguageSet?.back}}</button>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-10" *ngIf="action==='update'">
-            <button md-raised-button color="accent" class="pull-right" type="submit" [disabled]="fb_form.invalid || invalid_file_flag"
+            <button md-raised-button color="accent" class="pull-right" type="submit" [disabled]="fb_form.invalid || invalid_file_flag || error2"
               name="save">{{currentLanguageSet?.update}}</button>
             <button md-raised-button color="primary" class="pull-right m-r-10" (click)="backToFeedbackTracking()">{{currentLanguageSet?.back}}</button>
           </div>
