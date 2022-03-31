@@ -40,7 +40,7 @@ export class KnowledgeManagementComponent implements OnInit {
   invalidFileNameFlag:boolean = false;
   maxFileSize = 5;
   valid_file_extensions = ['msg', 'pdf', 'png', 'jpeg', 'jpg', 'doc', 'docx', 'xlsx', 'xls', 'csv', 'txt'];
-  invalid_file_flag: boolean = true;
+  invalid_file_flag: boolean = false;
 
   // declaring variables
   public categoryID;
@@ -134,11 +134,6 @@ export class KnowledgeManagementComponent implements OnInit {
   }
   // submit event to submit the form
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.file = undefined;
-    this.error1 = false;
-    this.error2 = false;
-    this.invalid_file_flag = false;
-    this.invalidFileNameFlag=false;
     const documentUploadObj = {};
     const documentUploadArray = [];
     if (valid) {
@@ -192,7 +187,7 @@ export class KnowledgeManagementComponent implements OnInit {
           this.error2 = false;
           this.invalid_file_flag = false;
           this.invalidFileNameFlag=false;
-        // this.knowledgeForm.controls['fileInput'].setValue(this.file.name);
+        this.knowledgeForm.controls['fileInput'].setValue(this.file.name);
         const myReader: FileReader = new FileReader();
         // binding event to access the local variable
         myReader.onloadend = this.onLoadFileCallback.bind(this)
@@ -256,14 +251,14 @@ export class KnowledgeManagementComponent implements OnInit {
 
   // Calling service Method to call the services
   uploadFile(uploadObj: any) {
-    this.error1 = false;
-    this.error2 = false;
-    this.invalid_file_flag = false;
-    this.invalidFileNameFlag=false;
-    this.file = undefined;
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
       console.log('KM configuration ', response);
       this.message.alert(this.currentlanguageSet.fileUploadedSuccessfully, 'success');
+      this.file = undefined;
+      this.error1 = false;
+      this.error2 = false;
+      this.invalid_file_flag = false;
+      this.invalidFileNameFlag=false;
       this.myInputVariable.nativeElement.value = '';
       this.knowledgeForm.reset(this.knowledgeForm.value);
     }, (err) => {
