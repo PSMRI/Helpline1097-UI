@@ -58,8 +58,12 @@
       "doseTakenButNotReportedByTechnology": "Dose taken but not reported by technology",
       "designation:": "Designation :",
       "uploadFileSizeLimitInMb": "Upload File(Size limit ",
+      "uploadFilesizeLimit":"Upload File(Size limit",
+      "invalidFileName": "Invalid file name",
       "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)",
+      "supportedFileFormats_msg_pdf_png_jpeg_jpg" : "Supported File Formats(.msg,.pdf,.png,.jpeg,.jpg)",
       "sexualOrientation": "Sexual Orientation",
+      "invalidFileExtensionSupportedFileFormats": "Invalid File Format",
       "informationService": "Information Service",
       "createdDate": "Created Date",
       "institutionName": "Institution Name",
@@ -721,7 +725,7 @@
       "callAlreadyCompleted":"Call is already completed by agent",
       "pleaseChooseAFileForUpload": "Please choose a file for upload",
       "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
-      "invalidFileName":"Invalid file name"
+      "duplicateMobileNumber":"Duplicate Mobile Number"
 
 
 

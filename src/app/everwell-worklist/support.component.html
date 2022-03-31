@@ -69,7 +69,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
                
                 <md-input-container>
-                    <textarea mdInput rows="2" placeholder="{{currentLanguageSet?.comments}}" ngModel #fname="ngModel"
+                    <textarea mdInput allowText = "textAreaValidator" rows="2" placeholder="{{currentLanguageSet?.comments}}" ngModel #fname="ngModel"
                         [(ngModel)]="comments" name="comments" required minlength="2" maxlength="500"></textarea>
                     <md-hint *ngIf="fname.touched">
                         <span class="errorText" [hidden]="!fname.errors">{{currentLanguageSet?.enterMinimum2Characters}}</span>
@@ -177,7 +177,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
                
                 <md-input-container>
-                    <textarea mdInput rows="2" placeholder="{{currentLanguageSet?.comments}}" ngModel #fname="ngModel" [(ngModel)]="editcomments"
+                    <textarea mdInput allowText = "textAreaValidator" rows="2" placeholder="{{currentLanguageSet?.comments}}" ngModel #fname="ngModel" [(ngModel)]="editcomments"
                         name="editcomments" required [disabled]='enablecontrols' minlength="2" maxlength="500"></textarea>
                     <md-hint *ngIf="fname.touched">
                         <span class="errorText" [hidden]="!fname.errors">{{currentLanguageSet?.enterMinimum2Characters}}</span>

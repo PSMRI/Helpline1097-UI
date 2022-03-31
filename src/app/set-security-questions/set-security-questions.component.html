@@ -22,7 +22,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 m-t-10">
               <md-input-container style="width: 100%">
-                <input id="ans1" mdInput placeholder="Answer 1" [(ngModel)]="answer1" name="answer1" required>
+                <input id="ans1" mdInput allowText = "answerValidator" placeholder="Answer 1" [(ngModel)]="answer1" name="answer1" required>
               </md-input-container>
             </div>
           </form>
@@ -36,7 +36,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 m-t-10">
               <md-input-container style="width: 100%">
-                <input id="ans2" mdInput [disabled]="!form1.valid" placeholder="Answer 2" [(ngModel)]="answer2" name="answer2" required>
+                <input id="ans2" mdInput allowText = "answerValidator" [disabled]="!form1.valid" placeholder="Answer 2" [(ngModel)]="answer2" name="answer2" required>
               </md-input-container>
             </div>
           </form>
@@ -50,7 +50,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 m-t-10">
               <md-input-container style="width: 100%">
-                <input id="ans3" mdInput placeholder="Answer 3" [disabled]="!form2.valid" [(ngModel)]="answer3" name="answer3" required>
+                <input id="ans3" mdInput allowText = "answerValidator" placeholder="Answer 3" [disabled]="!form2.valid" [(ngModel)]="answer3" name="answer3" required>
               </md-input-container>
             </div>
           </form>

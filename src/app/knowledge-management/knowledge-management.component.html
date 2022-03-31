@@ -48,18 +48,22 @@
             </div>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
-            <input type="file" class="form-control" #myInput name="file" (change)="changeListener($event)" />
+            <label for="upload-file">{{currentlanguageSet?.uploadFileSizeLimitInMb}} :{{maxFileSize}} {{currentlanguageSet?.mb}})</label>
+            <input type="file" #myInput name="file" (change)="changeListener($event)" />
             <input type="hidden" name="fileHidden" formControlName="fileInput" />
             <!-- Validation Field -->
-            <span class="error">
-              {{currentlanguageSet?.supportedFileFormats}}
-              (.msg, .pdf, .png, .jpeg, .jpg, .doc, .docx, .xlsx, .xls, .csv, .txt)
+            <span class="f-s-b m-b-10 m-t-20" *ngIf="invalid_file_flag">
+              {{currentlanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}<em>*</em>
             </span>
-            <div class="error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
-              {{currentlanguageSet?.fileIsRequired}}
-
-            </div>
-          </div>
+            <!-- <div class="clearfix" *ngIf="invalid_file_flag"> -->
+              <span class="error" *ngIf="error1">{{currentlanguageSet?.pleaseChooseAFileForUpload}}</span>
+              <!-- <div class="clearfix" *ngIf="error1"></div> -->
+              <span class="f-s-b m-b-10 m-t-20" *ngIf="error2">{{currentlanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span></div>
+              <span class="f-s-b m-b-10 m-t-20" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
+                {{currentLanguageSet?.fileIsRequired}}
+              </span>
+              <span class="f-s-b m-b-10 m-t-20" *ngIf="invalidFileNameFlag">{{currentlanguageSet?.invalidFileName}}</span>
+            <!-- </div> -->
         </div>
         <!--Comment Start Date and End Date here  -->
 
@@ -67,7 +71,7 @@
                 <label>{{currentlanguageSet?.previousUploadedFile}}<a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
               </div>
           <div class="col-xs-6 col-sm-6 form-group pull-right">
-            <button type="submit" class="pull-right" md-raised-button color="accent" [disabled]="knowledgeForm.invalid||invalid_file_flag">{{currentlanguageSet?.save}}</button>
+            <button type="submit" class="pull-right" md-raised-button color="accent" [disabled]="knowledgeForm.invalid||invalid_file_flag || error2 || invalidFileNameFlag">{{currentlanguageSet?.save}}</button>
           </div>
         
       </form>

@@ -116,7 +116,7 @@
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
        
         <md-input-container [style.width]="'100%'">
-          <textarea required #descVar="ngModel" mdInput placeholder="{{currentLanguageSet?.feedbackDescription}}" rows="2"
+          <textarea allowText = "textAreaValidator" required #descVar="ngModel" mdInput placeholder="{{currentLanguageSet?.feedbackDescription}}" rows="2"
             name="feedback" [(ngModel)]="feedbackDescription" maxlength="5000" (keyup)="updateCount()"></textarea>
           <md-hint *ngIf="descVar.invalid && (descVar.dirty || descVar.touched)">
             <span class="error_text">{{currentLanguageSet?.descriptionIsRequired}}</span>

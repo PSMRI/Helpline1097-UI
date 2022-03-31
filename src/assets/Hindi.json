@@ -60,6 +60,8 @@
       "uploadFileSizeLimitInMb": "फ़ाइल अपलोड करें (आकार सीमा ",
       "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "समर्थित फ़ाइल प्रारूप (.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)",
       "sexualOrientation": "यौन अभिविन्यास",
+      "invalidFileName": "Invalid file name",
+      "supportedFileFormats_msg_pdf_png_jpeg_jpg" : "Supported File Formats(.msg,.pdf,.png,.jpeg,.jpg)",
       "informationService": "सूचना सेवा",
       "createdDate": "बनाई गई तारीख",
       "institutionName": "संस्था का नाम",
@@ -722,7 +724,7 @@
       "callAlreadyCompleted":"Call is already completed by agent",
       "pleaseChooseAFileForUpload": "कृपया अपलोड करने के लिए एक फ़ाइल चुनें",
       "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
-      "invalidFileName":"Invalid file name"
+      "duplicateMobileNumber":"डुप्लीकेट मोबाइल संख्या"
       
 
 
