@@ -64,6 +64,7 @@ export class grievanceComponent implements OnInit {
   fileList: FileList;
   error1: boolean = false;
   error2: boolean = false;
+  invalidFileNameFlag:boolean = false;
   maxFileSize = 5;
   constructor(
     private _feedbackservice: FeedbackService,
@@ -285,6 +286,7 @@ export class grievanceComponent implements OnInit {
           this.error1 = false;
           this.error2 = false;
           this.invalid_file_flag = false;
+          this.file = undefined;
           this.showUsers(resfeedbackData)
         }, (err) => {
           this.alertMessage.alert(err.errorMessage, 'error');
@@ -601,11 +603,14 @@ export class grievanceComponent implements OnInit {
   }
 
   readThis(inputValue: any): any {
+    this.file = undefined;
     console.log('mcnmxcn', inputValue);
     this.fileList =inputValue.files;
     if (this.fileList.length == 0) {
       this.error1 = true;
       this.error2 = false;
+      this.invalid_file_flag = false;
+      this.invalidFileNameFlag=false;
     }
     else {
     this.file = inputValue.files[0];
@@ -615,6 +620,7 @@ export class grievanceComponent implements OnInit {
       let fileName = fileNameExtension[0];
       if(fileName !== undefined && fileName !== null && fileName !== "")
       {
+       this.invalidFileNameFlag = false;
       var isvalid = this.checkExtension(this.file);
       console.log(isvalid, 'VALID OR NOT');
       if (isvalid) {
@@ -623,10 +629,14 @@ export class grievanceComponent implements OnInit {
           console.log("File Size" + this.fileList[0].size / 1000 / 1000);
           this.error2 = true;
           this.error1 = false;
+          this.invalid_file_flag = false;
+          this.invalidFileNameFlag=false;
         }
         else {
           this.error1 = false;
           this.error2 = false;
+          this.invalid_file_flag = false;
+          this.invalidFileNameFlag=false;
         // this.knowledgeForm.controls['fileInput'].setValue(this.file.name);  //commented as no form here; WIP for Future email integration
         const myReader: FileReader = new FileReader();
         // binding event to access the local variable
@@ -637,11 +647,19 @@ export class grievanceComponent implements OnInit {
       }
       else {
         this.invalid_file_flag = true;
+        this.error1 = false;
+        this.error2 = false;
+        this.invalidFileNameFlag=false;
       }
 
     }
-    else
-    this.alertMessage.alert(this.currentLanguageSet.invalidFileName, 'error');
+    else{
+     this.invalidFileNameFlag=true;
+     this.error1 = false;
+     this.error2 = false;
+     this.invalid_file_flag = false;
+    // this.alertMessage.alert(this.currentLanguageSet.invalidFileName, 'error');
+    }
 
     } else {
       // this.knowledgeForm.controls['fileInput'].setValue('');  //commented as no form here; WIP for Future email integration
@@ -692,6 +710,8 @@ export class grievanceComponent implements OnInit {
     this.error1 = false;
     this.error2 = false;
     this.invalid_file_flag = false;
+    this.invalidFileNameFlag=false;
+    this.file = undefined;
     
   }
 }

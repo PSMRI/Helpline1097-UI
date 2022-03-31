@@ -720,7 +720,8 @@
       "wantToActivate":"Are you sure you want to Activate?",
       "callAlreadyCompleted":"Call is already completed by agent",
       "pleaseChooseAFileForUpload": "Please choose a file for upload",
-      "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit"
+      "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
+      "invalidFileName":"Invalid file name"
 
 
 
