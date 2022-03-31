@@ -47,7 +47,7 @@
       "editFeedback": "प्रतिक्रिया संपादित करें",
       "search": "खोजे",
       "allocateNoOfRecords": "रिकॉर्ड की संख्या आवंटित करें",
-      "supportedFileFormatsMsgPdf": "समर्थित फ़ाइल प्रारूप\n (.msg,.pdf,.doc,.docx,.txt)",
+      "supportedFileFormatsMsgPdf": "समर्थित फ़ाइल प्रारूप (.msg,.pdf,.doc,.docx,.txt)",
       "passwordsDoNotMmatch": "पासवर्ड मेल नहीं खाते",
       "providerDetails": "प्रदाता विवरण",
       "pleaseEnterPhoneNumber": "कृपया फ़ोन संख्या दर्ज करें",
@@ -58,7 +58,7 @@
       "doseTakenButNotReportedByTechnology": "खुराक ली गई लेकिन तकनीक द्वारा विवरण \nनहीं की गई",
       "designation:": "पदनाम:",
       "uploadFileSizeLimitInMb": "फ़ाइल अपलोड करें (आकार सीमा ",
-      "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "समर्थित फ़ाइल प्रारूप (.msg,.pdf,.png,.jpeg,.doc,\n.docx,.xlsx,.xls,.csv,.txt)",
+      "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "समर्थित फ़ाइल प्रारूप (.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)",
       "sexualOrientation": "यौन अभिविन्यास",
       "invalidFileName": "Invalid file name",
       "supportedFileFormats_msg_pdf_png_jpeg_jpg" : "Supported File Formats(.msg,.pdf,.png,.jpeg,.jpg)",
@@ -721,7 +721,10 @@
       "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call",
       "wantToDeactivate": "क्या आप वाकई निष्क्रिय करना चाहते हैं?",
       "wantToActivate":"क्या आप वाकई सक्रिय करना चाहते हैं?",
-      "callAlreadyCompleted":"Call is already completed by agent"
+      "callAlreadyCompleted":"Call is already completed by agent",
+      "pleaseChooseAFileForUpload": "कृपया अपलोड करने के लिए एक फ़ाइल चुनें",
+      "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
+      "invalidFileName":"Invalid file name"
       
 
 

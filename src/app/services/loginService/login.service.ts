@@ -17,8 +17,10 @@ export class loginService {
   _userAuthURL = this.openBaseUrl + 'user/userAuthenticate/';
   _forgotPasswordURL = this.openBaseUrl + 'user/forgetPassword/';
   _getDetailsByID = this._baseURL + 'user/getUserDetails/';
+  _validateQuestionAndAnswers = this._baseURL + 'user/validateSecurityQuestionAndAnswer';
   _authorisedUser = this.openBaseUrl + 'user/getLoginResponse';
   apiVersionUrl = this.base1097URL + "version";
+  transactionId: any;
   constructor(
     private _http: InterceptedHttp,
     private _config: ConfigService
@@ -39,7 +41,7 @@ export class loginService {
   getSecurityQuestions(uname: any): Observable<any> {
 
     return this._http.post(this._forgotPasswordURL, { 'userName': uname })
-      .map(this.extractData)
+      .map(this.extractDataForSecurity)
       .catch(this.handleError);
   };
 
@@ -52,9 +54,27 @@ export class loginService {
     return this._http.get(this.apiVersionUrl)
       .map(res => res.json());
   }
+
+  validateSecurityQuestionAndAnswer(ans: any, uname: any): Observable<any> {
+
+		return this._http.post(this._validateQuestionAndAnswers, { 'SecurityQuesAns':ans,'userName': uname })
+			.map(this.extractDataForSecurity)
+			.catch(this.handleError);
+	};
+
+
+
   private extractData(response: Response) {
     if (response.json().data) {
       return response.json().data;
+    } else {
+      return Observable.throw(response.json());
+    }
+  };
+
+  private extractDataForSecurity(response: Response) {
+    if (response.json().data) {
+      return response.json();
     } else {
       return Observable.throw(response.json());
     }

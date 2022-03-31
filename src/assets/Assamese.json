@@ -721,7 +721,10 @@
       "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call",
       "wantToDeactivate": "আপুনি নিষ্ক্ৰিয় কৰিব বিচৰাটো নিশ্চিতনে?",
       "wantToActivate":"আপুনি সক্ৰিয় কৰিব বিচৰাটো নিশ্চিতনে?",
-      "callAlreadyCompleted":"Call is already completed by agent"
+      "callAlreadyCompleted":"Call is already completed by agent",
+      "pleaseChooseAFileForUpload": "অনুগ্ৰহ কৰি আপলোড ৰ বাবে এটা ফাইল বাছনি কৰক",
+      "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
+      "invalidFileName":"Invalid file name"
 
 
 

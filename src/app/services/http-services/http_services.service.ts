@@ -50,6 +50,15 @@ export class HttpServices {
     }
   }
 
+  handleGetSuccessForSecurity(response: Response) {
+    if (response.json().data) {
+      return response.json();
+    } else {
+      return response.json();
+    }
+  }
+
+
   handleGetError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {
@@ -66,6 +75,12 @@ export class HttpServices {
   postData(url: string, data: any) {
     return this.http.post(url, data)
       .map(this.handleGetSuccess)
+      .catch(this.handleGetError);
+  }
+
+  postDataForSecurity(url: string, data: any) {
+    return this.http.post(url, data)
+      .map(this.handleGetSuccessForSecurity)
       .catch(this.handleGetError);
   }
 
