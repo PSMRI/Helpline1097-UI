@@ -724,7 +724,7 @@
       "callAlreadyCompleted":"Call is already completed by agent",
       "pleaseChooseAFileForUpload": "कृपया अपलोड करने के लिए एक फ़ाइल चुनें",
       "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
-      "invalidFileName":"Invalid file name"
+      "duplicateMobileNumber":"डुप्लीकेट मोबाइल संख्या"
       
 
 

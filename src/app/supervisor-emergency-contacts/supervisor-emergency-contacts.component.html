@@ -81,20 +81,20 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'" myAddress>
-        <input mdInput placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
+        <input mdInput allowText = "textAreaValidator" placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
           minlength="3">
         <md-hint *ngIf="Location.invalid && Location.touched"> <span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" myMobileNumber>
-      <md-input-container [style.width]="'100%'">
+      <md-input-container [style.width]="'100%'" myMobileNumber>
         <input mdInput [(ngModel)]="contactNumber" placeholder="{{currentLanguageSet?.mobileNumber}}" [pattern]="numberRegex" required minlength="10" name="contactNumber" maxlength="10"
           #mobileNum="ngModel">
         <md-hint *ngIf="mobileNum.invalid && mobileNum.touched"> <span class="error_text">{{currentLanguageSet?.enterTenDigitsValidNumber}}</span></md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <button md-raised-button color="primary" class="pull-left" (click)="back()">{{currentLanguageSet?.back}}</button>
+      <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">{{currentLanguageSet?.back}}</button>
       <button md-raised-button color="primary" [disabled]="emergencyContact.invalid" class="pull-right" (click)="push2buffer(emergencyContact.value)">{{currentLanguageSet?.add}}</button>
     </div>
   </form>
@@ -158,13 +158,13 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'" myAddress>
-        <input mdInput placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
+        <input mdInput allowText = "textAreaValidator" placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
           minlength="3">
         <md-hint *ngIf="Location.invalid && Location.touched"><span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <md-input-container [style.width]="'100%'">
+      <md-input-container [style.width]="'100%'" myMobileNumber>
         <input mdInput [(ngModel)]="contactNumber" placeholder="{{currentLanguageSet?.mobileNumber}}" required minlength="10" name="contactNumber" maxlength="10"
           #mobileNum="ngModel">
         <md-hint *ngIf="mobileNum.invalid && mobileNum.touched"><span class="error_text">{{currentLanguageSet?.enterTenDigitsMobileNumber}}</span></md-hint>
@@ -172,7 +172,7 @@
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <button md-raised-button color="primary" class="pull-left" (click)="back()">{{currentLanguageSet?.back}}</button>
+    <button md-raised-button color="primary" class="pull-left" (click)="tableMode()">{{currentLanguageSet?.back}}</button>
     <button [disabled]="editEmergencyContact.invalid" md-raised-button color="accent" class="pull-right" (click)="update(editEmergencyContact.value)">{{currentLanguageSet?.update}}</button>
   </div>
 </div>

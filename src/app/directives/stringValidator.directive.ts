@@ -16,6 +16,8 @@ export class StringValidator {
   smsTemplateValidator = /^[a-zA-Z0-9.,$'"_\-: ]+$/;
   itemNameSearchValidator = /^[a-zA-Z0-9% ]+$/;
   itemNameMasterValidator = /^[a-zA-Z0-9%-.[\]\/() ]+$/;
+  answerValidator = /^[a-zA-Z0-9.,/\- ]+$/;
+  usernameValidator = /^[a-zA-Z0-9]+$/;
 
 
 
@@ -51,6 +53,12 @@ export class StringValidator {
         break;
       case 'itemNameMasterValidator':
         this.result = this.itemNameMasterValidator.test(input);
+        break;
+      case "answerValidator":
+        this.result = this.answerValidator.test(input);
+        break;
+      case "usernameValidator":
+        this.result = this.usernameValidator.test(input);
         break;
       default: this.result = false;
     }

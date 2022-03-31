@@ -86,7 +86,7 @@
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
       <md-input-container [style.width]="'100%'">
-        <textarea mdInput class="" rows="3" placeholder="{{currentLanguageSet?.resourceMessage}}" name="message" [(ngModel)]="message" required (keyup)="updateCount()"
+        <textarea mdInput allowText = "textAreaValidator" class="" rows="3" placeholder="{{currentLanguageSet?.resourceMessage}}" name="message" [(ngModel)]="message" required (keyup)="updateCount()"
           #resourceMessage="ngModel" maxlength="300" minlength="5">
               </textarea>
         <md-hint align="start">
@@ -148,7 +148,7 @@
 
     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
       <md-input-container [style.width]="'100%'">
-        <textarea mdInput class="" rows="3" placeholder="{{currentLanguageSet?.resourceMessage}}" name="message" [(ngModel)]="description" required (keyup)="updateCount2()"
+        <textarea mdInput allowText = "textAreaValidator" class="" rows="3" placeholder="{{currentLanguageSet?.resourceMessage}}" name="message" [(ngModel)]="description" required (keyup)="updateCount2()"
           #resourceMessage="ngModel" maxlength="300" minlength="5">
               </textarea>
         <md-hint align="start">
