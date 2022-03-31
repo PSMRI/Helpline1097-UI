@@ -610,6 +610,8 @@
       "searchBeneficiary": "হিতাধিকাৰীৰ সন্ধান কৰক",
       "retrieveAll": "সকলো উদ্ধাৰ কৰক",
       "haveYouCalledEarlier": "আপুনি আগতে ফোন কৰিছে নেকি?",
+      "supportedFileFormats_msg_pdf_png_jpeg_jpg" : "Supported File Formats(.msg,.pdf,.png,.jpeg,.jpg)",
+      "invalidFileName": "Invalid file name",
       "desiredLanguageNotSetInCZentrix": "চিজেণ্ট্ৰিক্সত বিচৰা ভাষা ছেট কৰা হোৱা নাই",
       "relationshipWith": "সম্পৰ্ক      ",
       "alternateNumberFiveAlreadyExits": "বৈকল্পিক সংখ্যা 5 ইতিমধ্যে প্ৰস্থান কৰিছে",

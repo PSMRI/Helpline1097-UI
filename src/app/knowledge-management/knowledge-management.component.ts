@@ -32,9 +32,13 @@ export class KnowledgeManagementComponent implements OnInit {
   public categories: any = [];
   public subCategories: any = [];
   public services: any = [];
+  fileList: FileList;
+  error1: boolean = false;
+  error2: boolean = false;
   public file: File;
   knowledgeForm: FormGroup;
-
+  invalidFileNameFlag:boolean = false;
+  maxFileSize = 5;
   valid_file_extensions = ['msg', 'pdf', 'png', 'jpeg', 'jpg', 'doc', 'docx', 'xlsx', 'xls', 'csv', 'txt'];
   invalid_file_flag: boolean = true;
 
@@ -130,6 +134,11 @@ export class KnowledgeManagementComponent implements OnInit {
   }
   // submit event to submit the form
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.file = undefined;
+    this.error1 = false;
+    this.error2 = false;
+    this.invalid_file_flag = false;
+    this.invalidFileNameFlag=false;
     const documentUploadObj = {};
     const documentUploadArray = [];
     if (valid) {
@@ -153,26 +162,65 @@ export class KnowledgeManagementComponent implements OnInit {
   }
 
   readThis(inputValue: any): any {
-    this.file = inputValue.files[0];
-    if (this.file) {
+    this.file = undefined;
+    this.fileList = inputValue.files;
+    if (this.fileList.length == 0) {
+      this.error1 = true;
+      this.error2 = false;
+      this.invalid_file_flag = false;
+      this.invalidFileNameFlag=false;
+    } else {
+      this.file = inputValue.files[0];
+      if (this.file) {
+  
+    let fileNameExtension = this.file.name.split(".");
+    let fileName = fileNameExtension[0];
+    if (fileName !== undefined && fileName !== null && fileName !== "") {
+      this.invalidFileNameFlag = false;
       var isvalid = this.checkExtension(this.file);
       console.log(isvalid, "VALID OR NOT");
       if (isvalid) {
-        this.knowledgeForm.controls['fileInput'].setValue(this.file.name);
+        if ((this.fileList[0].size / 1000 / 1000) > this.maxFileSize) {
+          this.error2 = true;
+          // this.error1 = false;
+          this.error1 = false;
+          this.invalid_file_flag = false;
+          this.invalidFileNameFlag=false;
+        }
+        else {
+          this.error1 = false;
+          this.error2 = false;
+          this.invalid_file_flag = false;
+          this.invalidFileNameFlag=false;
+        // this.knowledgeForm.controls['fileInput'].setValue(this.file.name);
         const myReader: FileReader = new FileReader();
         // binding event to access the local variable
         myReader.onloadend = this.onLoadFileCallback.bind(this)
         myReader.readAsDataURL(this.file);
-
         this.invalid_file_flag = false;
       }
-      else {
-        this.invalid_file_flag = true;
-      }
-    } else {
-      this.knowledgeForm.controls['fileInput'].setValue('');
+    }else {
+      this.invalid_file_flag = true;
+      this.error1 = false;
+      this.error2 = false;
+      this.invalidFileNameFlag=false;
+      // this.knowledgeForm.controls['fileInput'].setValue('');
     }
   }
+  else{
+  this.invalidFileNameFlag=true;
+  this.error1 = false;
+  this.error2 = false;
+  this.invalid_file_flag = false;
+  // this.message.alert("invalidFileName", 'error');
+  }
+}else {
+  // this.knowledgeForm.controls['fileInput'].setValue('');  //commented as no form here; WIP for Future email integration
+  this.invalid_file_flag = false;
+}
+}
+
+}
 
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;
@@ -184,6 +232,7 @@ export class KnowledgeManagementComponent implements OnInit {
     var count = 0;
     console.log("FILE DETAILS", file);
     var array_after_split = file.name.split(".");
+    if(array_after_split.length == 2) {
     var file_extension = array_after_split[array_after_split.length - 1];
     for (let i = 0; i < this.valid_file_extensions.length; i++) {
       if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
@@ -197,11 +246,21 @@ export class KnowledgeManagementComponent implements OnInit {
     else {
       return false;
     }
-
   }
+  else
+    {
+      return false;
+    }
+  }
+
 
   // Calling service Method to call the services
   uploadFile(uploadObj: any) {
+    this.error1 = false;
+    this.error2 = false;
+    this.invalid_file_flag = false;
+    this.invalidFileNameFlag=false;
+    this.file = undefined;
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
       console.log('KM configuration ', response);
       this.message.alert(this.currentlanguageSet.fileUploadedSuccessfully, 'success');

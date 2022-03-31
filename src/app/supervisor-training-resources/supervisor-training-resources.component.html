@@ -101,15 +101,20 @@
       <label for="upload-file">{{currentLanguageSet?.uploadFileSizeLimitInMb}} :{{maxFileSize}} {{currentLanguageSet?.mb}})</label>
       <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
         ngModel #uploadfile="ngModel">
-
       <span class="f-s-10 error_text" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</span>
-      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
-      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
+    
+      <!-- <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
+      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span> -->
+      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
+            <div class="f-s-10 error_text" *ngIf="error1"></div>
+            <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
+            <span class="f-s-10 error_text" *ngIf="invalidFileNameFlag">{{currentLanguageSet?.invalidFileName}}</span>
+
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
     <button md-raised-button color="primary" class="pull-left" (click)="go2table()">{{currentLanguageSet?.back}}</button>
-    <button [disabled]="trainingResources.invalid || (end_Date?.value < start_Date?.value) || invalid_file_flag || error1 || error2"
+    <button [disabled]="trainingResources.invalid || (end_Date?.value < start_Date?.value) || invalid_file_flag || error2 || invalidFileNameFlag"
       md-raised-button color="accent" class="pull-right" (click)="createTrainingResource(trainingResources.value)">{{currentLanguageSet?.submit}}</button>
   </div>
 </div>
@@ -153,19 +158,24 @@
         </md-hint>
       </md-input-container>
     </div>
-    <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+    <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 m-t-40">
       <label for="upload-file">{{currentLanguageSet?.uploadFileSizeLimitInMb}} :{{maxFileSize}} {{currentLanguageSet?.mb}})</label>
-      <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
-        ngModel #uploadfile="ngModel">
-
+      <!-- <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
+        ngModel #uploadfile="ngModel"> -->
+        <input type="file" accept="*" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file">
       <span class="f-s-10 error_text" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</span>
-      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
-      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
-    </div>
+      <!-- <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
+      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span> -->
+      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
+            <div class="f-s-10 error_text" *ngIf="error1"></div>
+            <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
+            <span class="f-s-10 error_text" *ngIf="invalidFileNameFlag">{{currentLanguageSet?.invalidFileName}}</span>
+      </div>
+      <div class="clearfix"></div>
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
     <button md-raised-button color="primary" class="pull-left" (click)="go2table()">{{currentLanguageSet?.back}}</button>
-    <button [disabled]="trainingResourcesEditForm.invalid || invalid_file_flag || error1 || error2" md-raised-button color="accent"
+    <button [disabled]="trainingResourcesEditForm.invalid || invalid_file_flag || error2 || invalidFileNameFlag" md-raised-button color="accent"
       class="pull-right" (click)="editTrainingResource(trainingResourcesEditForm.value)">{{currentLanguageSet?.update}}</button>
   </div>
 </div>
