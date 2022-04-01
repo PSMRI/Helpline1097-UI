@@ -47,7 +47,7 @@
       "editFeedback": "Edit Feedback",
       "search": "Search",
       "allocateNoOfRecords": "Allocate No of Records",
-      "supportedFileFormats(.msg,.pdf,.doc,.docx,.txt)": "Supported File Formats(.msg,.pdf,.doc,.docx,.txt)",
+      "supportedFileFormatsMsgPdf": "Supported File Formats(.msg,.pdf,.doc,.docx,.txt)",
       "passwordsDoNotMmatch": "Passwords do not mmatch",
       "providerDetails": "Provider Details",
       "pleaseEnterPhoneNumber": "Please enter phone number",
@@ -58,8 +58,12 @@
       "doseTakenButNotReportedByTechnology": "Dose taken but not reported by technology",
       "designation:": "Designation :",
       "uploadFileSizeLimitInMb": "Upload File(Size limit ",
+      "uploadFilesizeLimit":"Upload File(Size limit",
+      "invalidFileName": "Invalid file name",
       "supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt": "Supported File Formats(.msg,.pdf,.png,.jpeg,.doc,.docx,.xlsx,.xls,.csv,.txt)",
+      "supportedFileFormats_msg_pdf_png_jpeg_jpg" : "Supported File Formats(.msg,.pdf,.png,.jpeg,.jpg)",
       "sexualOrientation": "Sexual Orientation",
+      "invalidFileExtensionSupportedFileFormats": "Invalid File Format",
       "informationService": "Information Service",
       "createdDate": "Created Date",
       "institutionName": "Institution Name",
@@ -114,7 +118,7 @@
       "typeOfFeedback:": "Type of Feedback:",
       "noOfficeFoundWithTheSelectedRoleFunctionalInThem": "No office found with the selected role functional in them",
       "inbound": "Inbound",
-      "fileSizeShouldNotExceed": "File Size should not exceed",
+      "fileSizeShouldNotExceed": "File size should not exceed",
       "youAreOffline.PleaseCheck": "You are offline. Please check",
       "passwordShouldBe8-12CharactersLongAndMustStartWithAnAlphabetAndCanHaveNumbersAlphabetsAnd$%#@!&^*()-+{}[]": "password should be 8-12 characters long and must start with an alphabet and can have numbers alphabets and $%#@!&^*()-+{}[]",
       "supportedFileFormats": "Supported File Formats",
@@ -449,7 +453,7 @@
       "callType": "Call Type",
       "feedback": "Feedback",
       "logout": "Logout",
-      "fileSizeShouldNotExceedMb": "File Size should not exceed  MB",
+      "fileSizeShouldNotExceedMb": "File size should not exceed  MB",
       "emergencyContactList": "Emergency Contact List",
       "enterScreenName": "Enter Screen Name",
       "beneficiaryDetails": "Beneficiary Details",
@@ -718,7 +722,10 @@
       "parameterValueTypeAndValueShouldBeSelected":"Parameter, Value Type and Value should be selected",
       "wantToDeactivate":"Are you sure you want to Deactivate?",
       "wantToActivate":"Are you sure you want to Activate?",
-      "callAlreadyCompleted":"Call is already completed by agent"
+      "callAlreadyCompleted":"Call is already completed by agent",
+      "pleaseChooseAFileForUpload": "Please choose a file for upload",
+      "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
+      "duplicateMobileNumber":"Duplicate Mobile Number"
 
 
 

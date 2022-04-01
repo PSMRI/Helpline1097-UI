@@ -167,6 +167,7 @@ export class KnowledgeManagementComponent implements OnInit {
     } else {
       this.file = inputValue.files[0];
       if (this.file) {
+  
     let fileNameExtension = this.file.name.split(".");
     let fileName = fileNameExtension[0];
     if (fileName !== undefined && fileName !== null && fileName !== "") {

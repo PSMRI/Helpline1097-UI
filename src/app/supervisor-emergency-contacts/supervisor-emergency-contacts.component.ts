@@ -173,6 +173,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       }
       else {
         console.log('Duplicate exists');
+        this.dialogService.alert(this.currentLanguageSet.duplicateMobileNumber, 'info');
         this.emergencyContactForm.reset();
       }
     }
@@ -200,6 +201,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       }
       else {
         console.log('Duplicate exists');
+        this.dialogService.alert(this.currentLanguageSet.duplicateMobileNumber, 'info');
         this.emergencyContactForm.reset();
       }
     }
@@ -360,7 +362,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
   }
 back() {
   this.tableMode();
-  this.bufferArray = [];
+  // this.bufferArray = [];
   this.filterComponentList(null);
 
 }
@@ -368,6 +370,7 @@ back() {
     if(this.showForm === true)
     {
       this.emergencyContactForm.reset();
+      this.bufferArray = [];
     }
 
     if(this.showEditForm === true)

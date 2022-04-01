@@ -56,7 +56,7 @@
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-b-20">
      
         <md-input-container [style.width]="'100%'">
-          <textarea mdInput placeholder="{{currentLanguageSet.remarks}}" rows="1" name="remarks" maxlength="300" [(ngModel)]="remarks"
+          <textarea allowText = "textAreaValidator" mdInput placeholder="{{currentLanguageSet?.remarks}}" rows="1" name="remarks" maxlength="300" [(ngModel)]="remarks"
             maxlength="300" (keyup)="updateCount()"></textarea>
           <md-hint>
             <span>{{count}}</span>

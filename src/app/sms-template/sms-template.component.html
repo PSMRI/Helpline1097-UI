@@ -56,7 +56,7 @@
   <form #smsForm="ngForm" autocomplete="off">
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" myName_space>
       <md-input-container [style.width]="'100%'">
-        <input mdInput required placeholder="{{currentLanguageSet?.templateName}}" [readonly]="isReadonly" ngModel name="templateName" #templateName = 'ngModel' maxlength="40">
+        <input mdInput allowText = "inputFieldValidator" required placeholder="{{currentLanguageSet?.templateName}}" [readonly]="isReadonly" ngModel name="templateName" #templateName = 'ngModel' maxlength="40">
         <md-hint *ngIf="templateName.errors && templateName.touched">
           <span class="error_text">{{currentLanguageSet?.templateNameIsRequired}}</span>
         </md-hint>
@@ -79,7 +79,7 @@
 
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
     <md-input-container style="width: 100%">
-      <textarea mdInput rows="5" ngModel required [readonly]="isReadonly" placeholder="{{currentLanguageSet?.smsTemplate}}" minlength="20" maxlength="160" #smsTemplate='ngModel' name="smsTemplate"></textarea>
+      <textarea mdInput allowText = "smsTemplateValidator" rows="5" ngModel required [readonly]="isReadonly" placeholder="{{currentLanguageSet?.smsTemplate}}" minlength="20" maxlength="160" #smsTemplate='ngModel' name="smsTemplate"></textarea>
       <md-hint *ngIf="smsTemplate?.errors && smsTemplate?.touched">
         <span class="error_text">{{currentLanguageSet?.min20}}</span>
       </md-hint>
@@ -177,7 +177,7 @@
   <form #vf="ngForm" autocomplete="off">
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'">
-        <input mdInput required placeholder="{{currentLanguageSet?.templateName}}" ngModel name="templateName" readonly>
+        <input mdInput allowText = "inputFieldValidator" required placeholder="{{currentLanguageSet?.templateName}}" ngModel name="templateName" readonly>
       </md-input-container>
     </div> 
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
@@ -191,7 +191,7 @@
 
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
     <md-input-container style="width: 100%">
-      <textarea mdInput rows="5" ngModel required placeholder="{{currentLanguageSet?.smsTemplate}}"  #sms name="smsTemplate" readonly></textarea>
+      <textarea mdInput allowText = "smsTemplateValidator" rows="5" ngModel required placeholder="{{currentLanguageSet?.smsTemplate}}"  #sms name="smsTemplate" readonly></textarea>
       <md-hint align="end">{{sms.value.length?sms.value.length:0}}/160</md-hint>
     </md-input-container>
   </div>

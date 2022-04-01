@@ -306,7 +306,6 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
       this.invalid_file_flag = false;
       this.invalidFileNameFlag=false;
     }
-
     else { 
 
     console.log(this.file);

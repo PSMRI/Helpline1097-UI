@@ -285,10 +285,17 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
     // checking if locations are selected or not; if yes=> loop through them and create multiple objects and push in request array ; else=> push the single request object
     if (allOfficeIDs !== undefined && allOfficeIDs !== null && allOfficeIDs.length > 0) {
-      allOfficeIDs.forEach((officeID) => {
-        const addedWorkLocation = Object.assign({}, defaultObj, {'workingLocationID': officeID})
-        requestArray.push(addedWorkLocation);
-      });
+      for (let x = 0; x < allOfficeIDs.length; x++) {
+      let obj = JSON.parse(JSON.stringify(defaultObj));
+      console.log("assigning working location id: " + allOfficeIDs[x]);
+      obj['workingLocationID'] = allOfficeIDs[x];
+      requestArray.push(obj);
+      obj = null;
+      }
+      // allOfficeIDs.forEach((officeID) => {
+      //   const addedWorkLocation = Object.assign({}, defaultObj, {'workingLocationID': officeID})
+      //   requestArray.push(addedWorkLocation);
+      // });
     }
     else {
       requestArray.push(defaultObj);
@@ -320,8 +327,8 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     this.notification_service.createNotification(requestArray)
       .subscribe(response => {
         console.log(response, "NOTIFICATION/ALERT CREATED");
-        let currentDate = new Date();
-        this.refreshExistingTable(this.searchNotificationType, this.searchStartDate, this.searchEndDate);
+        // let currentDate = new Date();
+        // this.refreshExistingTable(this.searchNotificationType, this.searchStartDate, this.searchEndDate);
         if (response.data != undefined && response.data.length > 0) {
           if (response.data[0].notificationTypeID == 18) {
             this.dialogService.alert(this.currentLanguageSet.alertCreatedSuccessfully, 'success');
@@ -353,7 +360,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
             //     });
             // }
           }
-          this.showTable();
+          // this.showTable();
         }
         if (response.statusCode === 5000) {
           this.dialogService.alert(response.status, 'error');
@@ -524,27 +531,27 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   refreshExistingTable(type, startdate, enddate) {
-    // let startDate: Date = new Date(startdate);
-    // startDate.setHours(0);
-    // startDate.setMinutes(0);
-    // startDate.setSeconds(0);
-    // startDate.setMilliseconds(0)
+    let startDate: Date = new Date(startdate);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0)
 
-    // let endDate: Date = new Date(enddate);
-    // endDate.setHours(23);
-    // endDate.setMinutes(59);
-    // endDate.setSeconds(59);
-    // endDate.setMilliseconds(0);
+    let endDate: Date = new Date(enddate);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    endDate.setMilliseconds(0);
 
-    let fromdate = new Date((startdate) - 1 * (startdate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
-    let toDate= new Date((enddate) - 1 * (enddate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
+    // let fromdate = new Date((startdate) - 1 * (startdate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z";
+    // let toDate= new Date((enddate) - 1 * (enddate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T23:59:59.999Z";
 
     let obj = {
       "providerServiceMapID": this.providerServiceMapID,
       "notificationTypeID": type,
       "roleIDs": this.allRoleIDs,
-      "validStartDate": fromdate,
-      "validEndDate": toDate
+      "validStartDate": startDate,
+      "validEndDate": endDate
     };
 
     this.notification_service.getSupervisorNotifications(obj)
