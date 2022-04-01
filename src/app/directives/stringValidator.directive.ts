@@ -13,7 +13,7 @@ export class StringValidator {
   textAreaValidator = /^[a-zA-Z0-9., ]+$/;
   questionnaireValidator = /^[a-zA-Z0-9.,? ]+$/;
   addressValidator = /^[a-zA-Z0-9.,/\-# ]+$/;
-  smsTemplateValidator = /^[a-zA-Z0-9.,$'"_\-: ]+$/;
+  smsTemplateValidator = /^[a-zA-Z0-9.,$\-:;/() ]+$/;
   itemNameSearchValidator = /^[a-zA-Z0-9% ]+$/;
   itemNameMasterValidator = /^[a-zA-Z0-9%-.[\]\/() ]+$/;
   answerValidator = /^[a-zA-Z0-9.,/\- ]+$/;
