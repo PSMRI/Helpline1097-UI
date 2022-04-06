@@ -259,13 +259,13 @@ if(result==null)
     this.data.beneficiaryID = this._common.outboundEverwellData.beneficiaryID;
     this.data.FirstName = this._common.outboundEverwellData.FirstName;
     this.data.LastName = this._common.outboundEverwellData.LastName;
-    this.data.remarks = this._common.outboundEverwellData.comments;
+    this.data.remarks = this._common.outboundEverwellData.comments.trim();
     this.data.outBoundCallID = this._common.outboundEverwellData.eapiId;
     this.data.state = this._common.outboundEverwellData.State;
     this.data.Gender = this._common.outboundEverwellData.Gender;
     this.data.district = this._common.outboundEverwellData.District;
     this.data.eapiId = this._common.outboundEverwellData.eapiId;
-    this.data.comments = this._common.outboundEverwellData.comments;
+    this.data.comments = this._common.outboundEverwellData.comments.trim();
     this.data.callCounter = this._common.outboundEverwellData.callCounter;
     this.data.lastCall = this._common.outboundEverwellData.lastCall;    
     this.getFeedBackDetails();
@@ -569,13 +569,13 @@ if(result==null)
     this.data.beneficiaryID = outboundData.beneficiaryID;
     this.data.FirstName = outboundData.FirstName;
     this.data.LastName = outboundData.LastName;
-    this.data.remarks = outboundData.comments;
+    this.data.remarks = outboundData.comments.trim();
     this.data.outBoundCallID = outboundData.eapiId;
     this.data.state = outboundData.State;
     this.data.Gender = outboundData.Gender;
     this.data.district = outboundData.District;
     this.data.eapiId = outboundData.eapiId;
-    this.data.comments = outboundData.comments;
+    this.data.comments = outboundData.comments.trim();
     this.data.callCounter = outboundData.callCounter;
     this.data.lastCall = outboundData.lastCall;
 
@@ -699,7 +699,7 @@ export class SupportActionModal {
          this.editsubcategries = ar[i].subCategory;
          this.editactionTaken = ar[i].actionTaken;
          this.editdob = this.dob;
-         this.editcomments = ar[i].comments;
+         this.editcomments = ar[i].comments.trim();
          this.addNum = ar[i].secondaryPhoneNo == undefined ? false : true;
          this.editaddMblNum = ar[i].secondaryPhoneNo == undefined ? false : true;
          this.editmblNum = ar[i].secondaryPhoneNo == undefined ? "" : ar[i].secondaryPhoneNo;
@@ -769,7 +769,7 @@ export class SupportActionModal {
     providerObj['subCategory'] = item.subcategory;
     providerObj['AdherencePercentage'] = this.everwellBenData.AdherencePercentage;
     providerObj['actionTaken'] = item.actionTaken[0];
-    providerObj['comments'] = item.comments;
+    providerObj['comments'] = item.comments.trim();
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.dob), 'yyyy-MM-dd');   
     providerObj['secondaryPhoneNo'] = item.mblNum;
     providerObj['createdBy']=this.everwellBenData.createdBy;
@@ -833,7 +833,7 @@ export class SupportActionModal {
     providerObj['subCategory'] = item.editsubcategries;
     providerObj['AdherencePercentage'] = this.everwellBenData.AdherencePercentage;
     providerObj['actionTaken'] = item.editactionTaken;
-    providerObj['comments'] = item.editcomments;
+    providerObj['comments'] = item.editcomments.trim();
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.editdob), 'yyyy-MM-dd');   
     providerObj['secondaryPhoneNo'] = item.mblNum;
     providerObj['createdBy']=this.everwellBenData.createdBy;

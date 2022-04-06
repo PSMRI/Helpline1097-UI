@@ -59,7 +59,7 @@
   <form #trainingResources="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <md-input-container class="width100">
-        <input allowText = "inputFieldValidator" [disabled]="!create" type="text" maxlength="100" mdInput placeholder="{{currentLanguageSet?.guidelineName}}" name="guideline_name" [(ngModel)]="guideline_name"
+        <input inputFieldValidator [disabled]="!create" type="text" maxlength="100" mdInput placeholder="{{currentLanguageSet?.guidelineName}}" name="guideline_name" [(ngModel)]="guideline_name"
           #guidelineName="ngModel" id="guideline_name" required>
         <md-hint *ngIf="guidelineName.errors && guidelineName.touched">
           <span class="error_text">{{currentLanguageSet?.enterGuidelineName}}</span>
@@ -68,7 +68,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <md-input-container class="width100">
-        <textarea mdInput allowText = "textAreaValidator" rows="1" placeholder="{{currentLanguageSet?.guidelineDescription}}" id="guideline_desc" maxlength="300" name="guideline_description" [(ngModel)]="guideline_description" #schemeDesc="ngModel"
+        <textarea mdInput textAreaValidator  rows="1" placeholder="{{currentLanguageSet?.guidelineDescription}}" id="guideline_desc" maxlength="300" name="guideline_description" [(ngModel)]="guideline_description" #schemeDesc="ngModel"
           required (keyup)="updateCount2()"></textarea>
         <md-hint *ngIf="schemeDesc.errors && schemeDesc.touched">
           <span class="error_text">{{currentLanguageSet?.enterGuidelinedescription}}</span>

@@ -273,8 +273,8 @@ export class SmsTemplateComponent implements OnInit {
       'createdBy': this.commonData.uname,
       'providerServiceMapID': this.providerServiceMapID,
       'smsParameterMaps': this.smsParameterMaps,
-      'smsTemplate': form_values.smsTemplate,
-      'smsTemplateName': form_values.templateName,
+      'smsTemplate': form_values.smsTemplate.trim(),
+      'smsTemplateName': form_values.templateName.trim(),
       'smsTypeID': form_values.smsType
     }
 

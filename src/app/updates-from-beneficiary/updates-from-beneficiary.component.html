@@ -49,14 +49,14 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       
         <md-input-container [style.width]="'100%'">
-          <input mdInput placeholder="{{currentLanguageSet?.workPlace}}" maxlength="25" name="placeOfWork" [(ngModel)]="placeOfWork">
+          <input mdInput textAreaValidator  placeholder="{{currentLanguageSet?.workPlace}}" maxlength="25" name="placeOfWork" [(ngModel)]="placeOfWork">
         </md-input-container>
       </div>
       <div class="clearfix visible-lg"></div>
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-b-20">
      
         <md-input-container [style.width]="'100%'">
-          <textarea allowText = "textAreaValidator" mdInput placeholder="{{currentLanguageSet?.remarks}}" rows="1" name="remarks" maxlength="300" [(ngModel)]="remarks"
+          <textarea textAreaValidator  mdInput placeholder="{{currentLanguageSet?.remarks}}" rows="1" name="remarks" maxlength="300" [(ngModel)]="remarks"
             maxlength="300" (keyup)="updateCount()"></textarea>
           <md-hint>
             <span>{{count}}</span>
