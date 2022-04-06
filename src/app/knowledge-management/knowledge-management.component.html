@@ -55,7 +55,7 @@
             <span class="f-s-b m-b-10 m-t-20 error" *ngIf="invalid_file_flag">
               {{currentlanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}<em>*</em>
             </span>
-              <span class="file-upload" *ngIf="error1">{{currentlanguageSet?.pleaseChooseAFileForUpload}}</span>
+              <span class="file-upload" *ngIf="error1">*{{currentlanguageSet?.pleaseChooseAFileForUpload}}</span>
               <span class="f-s-b m-b-10 m-t-20 error" *ngIf="error2">{{currentlanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span></div>
               <span class="f-s-b m-b-10 m-t-20 error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
                 {{currentLanguageSet?.fileIsRequired}}

@@ -215,7 +215,7 @@
               <span class="help-block" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormatsMsgPdf}}</span>
             </md-hint>
 
-            <span class="help-block" *ngIf="error1">{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
+            <span class="help-block" *ngIf="error1">*{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
             <div class="clearfix" *ngIf="error1"></div>
             <span class="help-block" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
             <span class="help-block" *ngIf="invalidFileNameFlag">{{currentLanguageSet?.invalidFileName}}</span>

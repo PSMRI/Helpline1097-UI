@@ -89,15 +89,17 @@
       <label for="upload-file" id="upload_file_label">{{currentLanguageSet?.uploadFileSizeLimitInMb}} :{{maxFileSize}} {{currentLanguageSet?.mb}}) {{currentLanguageSet?.supportedFormat}}- .pdf</label>
       <input type="file" accept="*" size="100" [disabled]="trainingResources.invalid" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file" (change)="onFileUpload($event)" name="file"
         ngModel #uploadfile="ngModel">
+        <div class="clearfix"></div>
+        <span class="error" *ngIf="error1">*{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
 
       <span class="f-s-10 error_text" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormatIsPdf}}</span>
-      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
-      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span>
+      <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
+      <span class="f-s-10 error_text" *ngIf="invalidFileNameFlag">{{currentLanguageSet?.invalidFileName}}</span>
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
     <button id="back" md-raised-button color="primary" class="pull-left" (click)="go2table()">{{currentLanguageSet?.back}}</button>
-    <button [disabled]="trainingResources.invalid || invalid_file_flag || error1 || error2" id="submit"
+    <button [disabled]="trainingResources.invalid || invalid_file_flag || error2 || invalidFileNameFlag" id="submit"
       md-raised-button color="accent" class="pull-right" (click)="createTrainingResource(trainingResources.value)">{{currentLanguageSet?.submit}}</button>
   </div>
 </div>
