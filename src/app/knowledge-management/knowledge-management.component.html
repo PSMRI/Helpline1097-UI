@@ -52,17 +52,15 @@
             <input type="file" #myInput name="file" (change)="changeListener($event)" />
             <input type="hidden" name="fileHidden" formControlName="fileInput" />
             <!-- Validation Field -->
-            <span class="f-s-b m-b-10 m-t-20" *ngIf="invalid_file_flag">
+            <span class="f-s-b m-b-10 m-t-20 error" *ngIf="invalid_file_flag">
               {{currentlanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}<em>*</em>
             </span>
-            <!-- <div class="clearfix" *ngIf="invalid_file_flag"> -->
-              <span class="error" *ngIf="error1">{{currentlanguageSet?.pleaseChooseAFileForUpload}}</span>
-              <!-- <div class="clearfix" *ngIf="error1"></div> -->
-              <span class="f-s-b m-b-10 m-t-20" *ngIf="error2">{{currentlanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span></div>
-              <span class="f-s-b m-b-10 m-t-20" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
+              <span class="file-upload" *ngIf="error1">{{currentlanguageSet?.pleaseChooseAFileForUpload}}</span>
+              <span class="f-s-b m-b-10 m-t-20 error" *ngIf="error2">{{currentlanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span></div>
+              <span class="f-s-b m-b-10 m-t-20 error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
                 {{currentLanguageSet?.fileIsRequired}}
               </span>
-              <span class="f-s-b m-b-10 m-t-20" *ngIf="invalidFileNameFlag">{{currentlanguageSet?.invalidFileName}}</span>
+              <span class="f-s-b m-b-10 m-t-20 error" *ngIf="invalidFileNameFlag">{{currentlanguageSet?.invalidFileName}}</span>
             <!-- </div> -->
         </div>
         <!--Comment Start Date and End Date here  -->
