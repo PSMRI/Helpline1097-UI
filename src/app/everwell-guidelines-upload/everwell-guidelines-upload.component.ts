@@ -32,6 +32,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   invalid_file_flag = false;
   error1 = false;
   error2 = false;
+  invalidFileNameFlag:boolean = false;
 
   // variables
   providerServiceMapID: any;
@@ -263,60 +264,125 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   }
 
   onFileUpload(event) {
+    this.file = undefined;
     this.fileList = event.target.files;
     this.file = event.target.files[0];
     console.log(this.file);
-
-    const validFormat = this.checkExtension(this.file);
-    if (validFormat) {
-      this.invalid_file_flag = false;
-    } else {
-      this.invalid_file_flag = true;
-    }
-
-    if (this.file) {
-      const myReader: FileReader = new FileReader();
-      myReader.onloadend = this.onLoadFileCallback.bind(this)
-      myReader.readAsDataURL(this.file);
-    }
-     if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
-      console.log(this.fileList[0].size / 1000 / 1000);
-      this.error1 = false;
-      this.error2 = false;
-    }
-    else if (this.fileList[0].size / 1000 / 1000 === 0) {
-      console.log(this.fileList[0].size / 1000 / 1000);
-      this.error1 = false;
-      this.error2 = true
-    }
-    else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
-      console.log(this.fileList[0].size / 1000 / 1000);
+    if (this.fileList.length == 0) {
       this.error1 = true;
       this.error2 = false;
+      this.invalid_file_flag = false;
+      this.invalidFileNameFlag=false;
     }
-  }
+    else { 
+      if (this.file){
+        let fileNameExtension = this.file.name.split(".");
+        let fileName = fileNameExtension[0];
+         if(fileName !== undefined && fileName !== null && fileName !== "")
+        {
+         this.invalidFileNameFlag = false;
+         const validFormat = this.checkExtension(this.file);
+         if (validFormat) {
+           if ((this.fileList[0].size / 1000 / 1000) > this.maxFileSize) {
+             this.error2 = true;
+             this.error1 = false;
+             this.invalid_file_flag = false;
+             this.invalidFileNameFlag=false;
+           }
+           else {
+             this.error1 = false;
+             this.error2 = false;
+             this.invalid_file_flag = false;
+             this.invalidFileNameFlag=false;
+             const myReader: FileReader = new FileReader();
+             // binding event to access the local variable
+             myReader.onloadend = this.onLoadFileCallback.bind(this)
+             myReader.readAsDataURL(this.file);
+             this.invalid_file_flag = false;
+           }
+         }
+         else{
+             this.invalid_file_flag = true;
+             this.error1 = false;
+             this.error2 = false;
+             this.invalidFileNameFlag=false;
+           }
+         
+         }
+         else{
+         // this.dialogService.alert("invalidFileName", 'error');
+            this.invalidFileNameFlag=true;
+            this.error1 = false;
+            this.error2 = false;
+            this.invalid_file_flag = false;
+         
+       }
+           }
+       else{
+         this.invalid_file_flag = false;
+       }
+       }   
+         
+       }     
+
+  //   const validFormat = this.checkExtension(this.file);
+  //   if (validFormat) {
+  //     this.invalid_file_flag = false;
+  //   } else {
+  //     this.invalid_file_flag = true;
+  //   }
+
+  //   if (this.file) {
+  //     const myReader: FileReader = new FileReader();
+  //     myReader.onloadend = this.onLoadFileCallback.bind(this)
+  //     myReader.readAsDataURL(this.file);
+  //   }
+  //    if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
+  //     console.log(this.fileList[0].size / 1000 / 1000);
+  //     this.error1 = false;
+  //     this.error2 = false;
+  //   }
+  //   else if (this.fileList[0].size / 1000 / 1000 === 0) {
+  //     console.log(this.fileList[0].size / 1000 / 1000);
+  //     this.error1 = false;
+  //     this.error2 = true
+  //   }
+  //   else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
+  //     console.log(this.fileList[0].size / 1000 / 1000);
+  //     this.error1 = true;
+  //     this.error2 = false;
+  //   }
+  // }
 
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;
   }
 
   checkExtension(file) {
-    let count = 0;
-    console.log('FILE DETAILS', file);
+    var count = 0;
+    console.log("FILE DETAILS", file);
     if (file) {
-      let array_after_split = file.name.split('.');
-      let file_extension = array_after_split[array_after_split.length - 1];
+      var array_after_split = file.name.split(".");
+      if(array_after_split.length == 2) {
+      var file_extension = array_after_split[array_after_split.length - 1];
       for (let i = 0; i < this.valid_file_extensions.length; i++) {
         if (file_extension.toUpperCase() === this.valid_file_extensions[i].toUpperCase()) {
           count = count + 1;
         }
       }
+
       if (count > 0) {
         return true;
+      } else {
+        return false;
       }
+    }
       else {
         return false;
       }
+    
+    
+    
     }
     else {
       return true;

@@ -295,7 +295,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   updateCount2() {
     this.count2 = this.description.length + '/300';
   }
-
+//comment lines
   onFileUpload(event) {
      
     this.fileList = event.target.files;

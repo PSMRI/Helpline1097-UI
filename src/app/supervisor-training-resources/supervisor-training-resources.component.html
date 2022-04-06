@@ -106,7 +106,7 @@
       
       <!-- <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
       <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span> -->
-      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
+      <span class="f-s-b m-t-20 m-b-20" *ngIf="error1">*{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
             <div class="f-s-10 error_text" *ngIf="error1"></div>
             <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
             <span class="f-s-10 error_text" *ngIf="invalidFileNameFlag">{{currentLanguageSet?.invalidFileName}}</span>
@@ -167,7 +167,7 @@
       <span class="f-s-10 error_text" *ngIf="invalid_file_flag">{{currentLanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</span>
       <!-- <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} {{currentLanguageSet?.mb}}</span>
       <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldBeGreatorThan0}}</span> -->
-      <span class="f-s-10 error_text" *ngIf="error1">{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
+      <span class="f-s-b m-t-20 m-b-20" *ngIf="error1">*{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
             <div class="f-s-10 error_text" *ngIf="error1"></div>
             <span class="f-s-10 error_text" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span>
             <span class="f-s-10 error_text" *ngIf="invalidFileNameFlag">{{currentLanguageSet?.invalidFileName}}</span>
