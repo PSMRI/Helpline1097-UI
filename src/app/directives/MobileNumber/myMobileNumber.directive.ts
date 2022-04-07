@@ -50,12 +50,24 @@ export class myMobileNumber {
 	// }
 
 	@HostListener('keypress',['$event']) onKeyPress(ev: any) {
-		var regex = new RegExp(/^[a-zA-Z~!@#$%^&*()_+\-=\[\]{};"`':'\\|,.<>\/? ]*$/);
+		var regex = new RegExp(/^[a-zA-Z~!@#$%^&*()_+\-=\[\]{};'`:"\\|,.<>\/?]*$/);
 		var key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);
 		if (regex.test(key)) {
 			ev.preventDefault();
 		}
 	}
+	 @HostListener("paste", ["$event"]) blockPaste(event: KeyboardEvent) {
+    event.preventDefault();
+  }
+
+  @HostListener("copy", ["$event"]) blockCopy(event: KeyboardEvent) {
+    event.preventDefault();
+  }
+
+  @HostListener("cut", ["$event"]) blockCut(event: KeyboardEvent) {
+    event.preventDefault();
+  }
+
 
 
 }
