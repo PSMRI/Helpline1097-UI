@@ -140,7 +140,7 @@
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-10">
         <md-input-container class="width100">
-          <input mdInput allowText = "textAreaValidator" placeholder="{{currentLanguageSet?.subject}}" name="subject" ngModel #subject="ngModel" minlength="5" maxlength="100" required>
+          <input mdInput textAreaValidator  placeholder="{{currentLanguageSet?.subject}}" name="subject" ngModel #subject="ngModel" minlength="5" maxlength="100" required>
           <md-hint align="start" *ngIf="subject.errors && subject.touched">
             <span class="error_text">{{currentLanguageSet?.subjectIsRequiredMinFiveCharacters}}</span>
           </md-hint>
@@ -150,7 +150,7 @@
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 m-t-10">
         <md-input-container class="width100">
-          <textarea mdInput allowText = "textAreaValidator" rows="2" placeholder="{{currentLanguageSet?.message}}" name="message" ngModel #message="ngModel" minlength="5" maxlength="300"
+          <textarea mdInput textAreaValidator  rows="2" placeholder="{{currentLanguageSet?.message}}" name="message" ngModel #message="ngModel" minlength="5" maxlength="300"
             required></textarea>
           <md-hint align="start" *ngIf="message.errors && message.touched">
             <span class="error_text">{{currentLanguageSet?.messageIsRequiredMinFiveCharacters}}</span>
@@ -199,7 +199,7 @@
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-t-10">
         <md-input-container class="width100">
-          <input mdInput allowText = "textAreaValidator" allowText = "textAreaValidator" placeholder="{{currentLanguageSet?.subject}}" name="subject" [(ngModel)]="notification_subject" ngModel #subject="ngModel" minlength="5"
+          <input mdInput textAreaValidator  textAreaValidator  placeholder="{{currentLanguageSet?.subject}}" name="subject" [(ngModel)]="notification_subject" ngModel #subject="ngModel" minlength="5"
             maxlength="100" required>
           <md-hint align="start" *ngIf="subject.errors && subject.touched">
             <span class="error_text">{{currentLanguageSet?.subjectIsRequiredMinFiveCharacters}}</span>
@@ -210,7 +210,7 @@
       <div class="clearfix"></div>
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 m-t-10">
         <md-input-container class="width100">
-          <textarea mdInput allowText = "textAreaValidator" rows="2" placeholder="{{currentLanguageSet?.message}}" [(ngModel)]="description" name="message" ngModel #message="ngModel" minlength="5"
+          <textarea mdInput textAreaValidator  rows="2" placeholder="{{currentLanguageSet?.message}}" [(ngModel)]="description" name="message" ngModel #message="ngModel" minlength="5"
             maxlength="300" required></textarea>
           <md-hint align="start" *ngIf="message.errors && message.touched">
             <span class="error_text">{{currentLanguageSet?.messageIsRequiredMinFiveCharacters}}</span>

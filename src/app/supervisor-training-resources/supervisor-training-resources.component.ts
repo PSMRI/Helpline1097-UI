@@ -191,8 +191,8 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
       'providerServiceMapID': this.providerServiceMapID,
       'notificationTypeID': this.notificationTypeID,
       'createdBy': this.createdBy,
-      'notification': form_values.subject,
-      'notificationDesc': form_values.message,
+      'notification': form_values.subject.trim(),
+      'notificationDesc': form_values.message.trim(),
       'validFrom': startDate,
       'validTill': endDate,
       'kmFileManager': kmFileManager
@@ -497,7 +497,7 @@ else{
     this.showEditForm = true;
 
     this.toBeEditedObject = object;
-    this.notification_subject = object.notification;
+    this.notification_subject = object.notification.trim();
     if (object.kmFileManager !== undefined) {
       this.uploaded_file = object.kmFileManager.fileName;
     }
@@ -526,8 +526,8 @@ else{
         'notificationTypeID': this.toBeEditedObject.notificationTypeID,
         'notificationID': this.toBeEditedObject.notificationID,
         'roleID': this.toBeEditedObject.roleID,
-        'notification': form_values.subject,
-        'notificationDesc': form_values.message,
+        'notification': form_values.subject.trim(),
+        'notificationDesc': form_values.message.trim(),
         'validFrom': this.toBeEditedObject.validFrom,
         'validTill': this.toBeEditedObject.validTill,
         'deleted': false,
@@ -549,8 +549,8 @@ else{
         'notificationTypeID': this.toBeEditedObject.notificationTypeID,
         'notificationID': this.toBeEditedObject.notificationID,
         'roleID': this.toBeEditedObject.roleID,
-        'notification': form_values.subject,
-        'notificationDesc': form_values.message,
+        'notification': form_values.subject.trim(),
+        'notificationDesc': form_values.message.trim(),
         'validFrom': this.toBeEditedObject.validFrom,
         'validTill': this.toBeEditedObject.validTill,
         'deleted': false,

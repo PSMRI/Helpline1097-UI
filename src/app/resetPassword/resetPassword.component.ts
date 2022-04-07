@@ -108,7 +108,7 @@ export class ResetComponent {
     if (this.counter < 3) {
 			let reqObj = {
 				"questionId": this.questionId[this.counter],
-				"answer": this.answer,
+				"answer": this.answer.trim(),
 			}
   
       this.userFinalAnswers.push(reqObj);

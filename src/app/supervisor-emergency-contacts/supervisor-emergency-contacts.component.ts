@@ -153,8 +153,8 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       'notificationTypeID': this.notificationTypeID,
       'createdBy': this.createdBy,
       'designationID': object.designation.designationID,
-      'emergContactName': object.name,
-      'location': object.location,
+      'emergContactName': object.name.trim(),
+      'location': object.location.trim(),
       'emergContactNo': object.contactNumber,
       'designationName': object.designation.designationName
     }
@@ -276,16 +276,16 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
 
     this.name = object.emergContactName;
     this.designation = object.designation.designationID;
-    this.location = object.location;
-    this.contactNumber = object.emergContactNo;
+    this.location = object.location.trim();
+    this.contactNumber = object.emergContactNo.trim();
 
   }
 
   update(formvalue) {
     this.editData['emergContactName'] = formvalue.name;
     this.editData['designationID'] = formvalue.designation;
-    this.editData['emergContactNo'] = formvalue.contactNumber;
-    this.editData['location'] = formvalue.location;
+    this.editData['emergContactNo'] = formvalue.contactNumber.trim();
+    this.editData['location'] = formvalue.location.trim();
 
     this.notification_service.updateEmergencyContacts(this.editData)
       .subscribe(response => {

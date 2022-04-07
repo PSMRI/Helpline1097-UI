@@ -155,7 +155,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" *ngIf="action==='edit'">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <md-input-container style="width: 100%">
-              <textarea mdInput rows="3"  id="Feedback" placeholder="{{currentLanguageSet?.feedback}}" maxlength="5000" #grievance1  formControlName="feedbackSupSummary"
+              <textarea mdInput textAreaValidator  rows="3"  id="Feedback" placeholder="{{currentLanguageSet?.feedback}}" maxlength="5000" #grievance1  formControlName="feedbackSupSummary"
                 readonly></textarea>
               <md-hint align="end">{{grievance1.value.length?grievance1.value.length:0}}/5000</md-hint>
             </md-input-container>
@@ -164,7 +164,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" *ngIf="action==='update'">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <md-input-container style="width: 100%">
-              <textarea mdInput rows="3"  id="Feedback" placeholder="{{currentLanguageSet?.feedback}}" maxlength="5000" #grievance2  formControlName="feedbackSupSummary"
+              <textarea mdInput textAreaValidator  rows="3"  id="Feedback" placeholder="{{currentLanguageSet?.feedback}}" maxlength="5000" #grievance2  formControlName="feedbackSupSummary"
                 readonly></textarea>
               <md-hint align="end">{{grievance2.value.length?grievance2.value.length:0}}/5000</md-hint>
             </md-input-container>
@@ -173,7 +173,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" *ngIf="action==='edit'">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <md-input-container style="width: 100%">
-              <textarea mdInput rows="3"  id="comments" placeholder="{{currentLanguageSet?.commentsDetailsEnteredWillBeSentAsEmail}}" maxlength="500"
+              <textarea mdInput textAreaValidator   rows="3"  id="comments" placeholder="{{currentLanguageSet?.commentsDetailsEnteredWillBeSentAsEmail}}" maxlength="500"
                 #comment  formControlName="comments" required></textarea>
               <md-hint align="end">{{comment.value.length?comment.value.length:0}}/500</md-hint>
             </md-input-container>
@@ -182,7 +182,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" *ngIf="action==='update'">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <md-input-container style="width: 100%">
-              <textarea mdInput  rows="3"  id="response" placeholder="{{currentLanguageSet?.responseReceived}}" maxlength="500" #response formControlName="comments"
+              <textarea mdInput textAreaValidator   rows="3"  id="response" placeholder="{{currentLanguageSet?.responseReceived}}" maxlength="500" #response formControlName="comments"
                 required></textarea>
               <md-hint align="end">{{response.value.length?response.value.length:0}}/500</md-hint>
             </md-input-container>

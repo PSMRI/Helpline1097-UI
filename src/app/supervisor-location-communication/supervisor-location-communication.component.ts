@@ -228,8 +228,8 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
           "providerServiceMapID": this.providerServiceMapID,
           "notificationTypeID": this.location_communication_typeID,
           "createdBy": this.createdBy,
-          "notification": form_values.subject,
-          "notificationDesc": form_values.message,
+          "notification": form_values.subject.trim(),
+          "notificationDesc": form_values.message.trim(),
           "validFrom": startDate,
           "validTill": endDate,
           "workingLocationID": workingLocationIDs[i]
@@ -286,8 +286,8 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
     this.editType = toBeEditedOBJ.notificationType.notificationType;
     this.office_name = toBeEditedOBJ.workingLocation.locationName;
-    this.notification_subject = toBeEditedOBJ.notification;
-    this.description = toBeEditedOBJ.notificationDesc;
+    this.notification_subject = toBeEditedOBJ.notification.trim();
+    this.description = toBeEditedOBJ.notificationDesc.trim();
     // this.sdate = new Date(toBeEditedOBJ.validFrom);
     // this.edate = new Date(toBeEditedOBJ.validTill);
     
@@ -336,7 +336,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
         "notificationTypeID": this.editRequestObj.notificationTypeID,
         "notificationID": this.editRequestObj.notificationID,
         "notification": form_values.subject,
-        "notificationDesc": form_values.message,
+        "notificationDesc": form_values.message.trim(),
         "validFrom": startDate,
         "validTill": endDate,
         "deleted": this.editRequestObj.deleted,

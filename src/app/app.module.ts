@@ -204,6 +204,13 @@ import { OutboundCallWorklistsComponent } from './outbound-call-worklists/outbou
 import { EverwellGuidelinesUploadComponent } from './everwell-guidelines-upload/everwell-guidelines-upload.component';
 import { SetLanguageComponent } from './set-language.component';
 import { StringValidator } from './directives/stringValidator.directive';
+import { userNameDirective } from './directives/userName/userName.directive';
+import { textareaDirective } from './directives/textarea/textArea.directive';
+import { AnswerDirective } from './directives/answer/answer.directive';
+import { InputAreaDirective } from './directives/Inputfeild/inputFeild.directive';
+import { QuestionnaireDirective } from './directives/questionnaire/questionnaire.directive';
+import { searchIdDirective } from './directives/searchid/searchId.directive';
+import { SmsTemplateDirective } from './directives/smsTemplate/smsTemplate.directive';
 // import { SetLanguageComponent } from './set-language.component';
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
@@ -254,7 +261,14 @@ import { StringValidator } from './directives/stringValidator.directive';
     OutboundCallWorklistsComponent,
     EverwellGuidelinesUploadComponent,
     SetLanguageComponent,
-    StringValidator
+    StringValidator,
+    userNameDirective,
+    textareaDirective,
+    SmsTemplateDirective,
+    searchIdDirective,
+    QuestionnaireDirective,
+    InputAreaDirective,
+    AnswerDirective
   ],
   imports: [
     BrowserModule,

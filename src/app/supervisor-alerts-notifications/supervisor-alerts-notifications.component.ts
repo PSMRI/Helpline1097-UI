@@ -270,8 +270,8 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       "providerServiceMapID": this.providerServiceMapID,
       "notificationTypeID": form_values.notificationType,
       "createdBy": this.createdBy,
-      "notification": form_values.subject,
-      "notificationDesc": form_values.message,
+      "notification": form_values.subject.trim(),
+      "notificationDesc": form_values.message.trim(),
       "validFrom": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
       "validTill": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000)
     };
@@ -413,8 +413,8 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
     this.editType = toBeEditedOBJ.notificationType.notificationType;
 
-    this.notification_subject = toBeEditedOBJ.notification;
-    this.description = toBeEditedOBJ.notificationDesc;
+    this.notification_subject = toBeEditedOBJ.notification.trim();
+    this.description = toBeEditedOBJ.notificationDesc.trim();
     this.sdate = this.transformDatetoUTC(toBeEditedOBJ.validFrom);
     this.edate = this.transformDatetoUTC(toBeEditedOBJ.validTill);
     this.startTime = toBeEditedOBJ.validFrom.split('T')[1].split(':')[0] + ':' + toBeEditedOBJ.validFrom.split('T')[1].split(':')[1];
@@ -474,8 +474,8 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
         "notificationTypeID": this.editRequestObj.notificationTypeID,
         "notificationID": this.editRequestObj.notificationID,
         "roleID": this.editRequestObj.roleID,
-        "notification": form_values.subject,
-        "notificationDesc": form_values.message,
+        "notification": form_values.trim(),
+        "notificationDesc": form_values.message.trim(),
         "validFrom": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
         "validTill": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
         "deleted": this.editRequestObj.deleted,

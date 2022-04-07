@@ -81,7 +81,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'" myAddress>
-        <input mdInput allowText = "textAreaValidator" placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
+        <input mdInput textAreaValidator  placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
           minlength="3">
         <md-hint *ngIf="Location.invalid && Location.touched"> <span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>
@@ -141,9 +141,9 @@
     <h4 class="f-s-b m-t-20 m-b-20">{{currentLanguageSet?.editEmergencyContact}}</h4>
   </div>
   <form #editEmergencyContact="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" myName_space>
       <md-input-container [style.width]="'100%'">
-        <input mdInput placeholder="{{currentLanguageSet?.name}}" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50" minlength="3">
+        <input mdInput textAreaValidator  placeholder="{{currentLanguageSet?.name}}" name="name" [(ngModel)]="name" required #contactName="ngModel" maxlength="50" minlength="3">
         <md-hint *ngIf="contactName.invalid && contactName.touched"><span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>
     </div>
@@ -158,7 +158,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
       <md-input-container [style.width]="'100%'" myAddress>
-        <input mdInput allowText = "textAreaValidator" placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
+        <input mdInput textAreaValidator  placeholder="{{currentLanguageSet?.location}}" name="location" [(ngModel)]="location" required #Location="ngModel" maxlength="90"
           minlength="3">
         <md-hint *ngIf="Location.invalid && Location.touched"><span class="error_text">{{currentLanguageSet?.enterAtleastThreeCharacters}}</span></md-hint>
       </md-input-container>

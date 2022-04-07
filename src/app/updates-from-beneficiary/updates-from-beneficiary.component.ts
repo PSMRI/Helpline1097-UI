@@ -89,9 +89,9 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
       this.occupationIDs = this.saved_data.beneficiaryData.i_bendemographics.occupationID;
       this.educationIDs = this.saved_data.beneficiaryData.i_bendemographics.educationID;
       this.sexualOrientationID = this.saved_data.beneficiaryData.sexualOrientationID;
-      this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
+      this.placeOfWork = this.saved_data.beneficiaryData.placeOfWork.trim(); // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = this.saved_data.beneficiaryData.isHIVPos;
-      this.remarks = this.saved_data.beneficiaryData.remarks;
+      this.remarks = this.saved_data.beneficiaryData.remarks.trim();
       this.cameToKnowFrom = this.saved_data.beneficiaryData.sourceOfInformation ? this.saved_data.beneficiaryData.sourceOfInformation.split(',') : undefined;
       this.populateSourceOfInformation(this.cameToKnowFrom);
       this.updateRemarksCount(this.remarks);
@@ -115,9 +115,9 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
       this.occupationIDs = beneficiaryData.i_bendemographics.occupationID ? beneficiaryData.i_bendemographics.occupationID.toString() : null;
       this.educationIDs = beneficiaryData.i_bendemographics.educationID ? beneficiaryData.i_bendemographics.educationID.toString() : null;
       this.sexualOrientationID = beneficiaryData.sexualOrientationID;
-      this.placeOfWork = beneficiaryData.placeOfWork; // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
+      this.placeOfWork = beneficiaryData.placeOfWork.trim(); // this.saved_data.beneficiaryData.i_bendemographics.placeOfWork;
       this.isHIVPos = beneficiaryData.isHIVPos.toLowerCase();
-      this.remarks = beneficiaryData.remarks;
+      this.remarks = beneficiaryData.remarks.trim();
       this.cameToKnowFrom = beneficiaryData.sourceOfInformation ? beneficiaryData.sourceOfInformation.split(',') : undefined;
       this.populateSourceOfInformation(this.cameToKnowFrom);
       this.updateRemarksCount(this.remarks);
@@ -191,8 +191,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
       //   this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
       //  }
     this.saved_data.beneficiaryData.sexualOrientationID = values.sexualOrientationID;
-    this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork;
-    this.saved_data.beneficiaryData.remarks = values.remarks;
+    this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork.trim();
+    this.saved_data.beneficiaryData.remarks = values.remarks.trim();
     this.saved_data.beneficiaryData.sourceOfInformation = values.cameToKnowFrom ? values.cameToKnowFrom.toString() : undefined;
     this.saved_data.beneficiaryData.is1097 = true;
     this.saved_data.beneficiaryData.changeInSelfDetails = true;
