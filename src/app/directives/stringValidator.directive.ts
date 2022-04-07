@@ -1,11 +1,17 @@
-import { Directive, ElementRef, Attribute, HostListener, Input } from '@angular/core';
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import {
+  Directive,
+  ElementRef,
+  Attribute,
+  HostListener,
+  Input,
+} from "@angular/core";
+import { AbstractControl, ValidatorFn } from "@angular/forms";
 
 @Directive({
-  selector: '[allowText][formControlName],[allowText][formControl],[allowText][ngModel],[allowText]'
+  selector:
+    "[allowText][formControlName],[allowText][formControl],[allowText][ngModel],[allowText]",
 })
 export class StringValidator {
-
   @Input()
   allowText: string;
 
@@ -20,39 +26,36 @@ export class StringValidator {
   usernameValidator = /^[a-zA-Z0-9]+$/;
   searchIdValidator = /^[a-zA-Z0-9/]+$/;
 
-
-
   lastValue = null;
   result: boolean;
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef) {}
 
   validate(input) {
     let patternCode = this.allowText.trim();
 
-    if (input == null || input == '')
-      return false;
+    if (input == null || input == "") return false;
 
     switch (patternCode) {
-      case 'inputFieldValidator':
+      case "inputFieldValidator":
         this.result = this.inputFieldValidator.test(input);
         break;
-      case 'textAreaValidator':
+      case "textAreaValidator":
         this.result = this.textAreaValidator.test(input);
         break;
-      case 'questionnaireValidator':
+      case "questionnaireValidator":
         this.result = this.questionnaireValidator.test(input);
         break;
-      case 'addressValidator':
+      case "addressValidator":
         this.result = this.addressValidator.test(input);
         break;
-      case 'smsTemplateValidator':
+      case "smsTemplateValidator":
         this.result = this.smsTemplateValidator.test(input);
         break;
-      case 'itemNameSearchValidator':
+      case "itemNameSearchValidator":
         this.result = this.itemNameSearchValidator.test(input);
         break;
-      case 'itemNameMasterValidator':
+      case "itemNameMasterValidator":
         this.result = this.itemNameMasterValidator.test(input);
         break;
       case "answerValidator":
@@ -64,25 +67,25 @@ export class StringValidator {
       case "searchIdValidator":
         this.result = this.searchIdValidator.test(input);
         break;
-      default: this.result = false;
+      default:
+        this.result = false;
     }
     return this.result;
   }
 
-
-  @HostListener('input', ['$event'])
+  @HostListener("input", ["$event"])
   onInput(event: any) {
     let val = event.target.value;
     let lastVal = this.lastValue;
     let maxlength = event.target.maxLength;
 
-    if (this.allowText.trim() == 'decimal') {
-      if (val == '') {
-        event.target.value = '';
-      } else if (!(this.validate(val))) {
+    if (this.allowText.trim() == "decimal") {
+      if (val == "") {
+        event.target.value = "";
+      } else if (!this.validate(val)) {
         event.target.value = lastVal;
       }
-    } else if (this.allowText.trim() == 'number') {
+    } else if (this.allowText.trim() == "number") {
       if (event.target.length > 0) {
         this.validateEntry(val, lastVal, maxlength, event);
       } else {
@@ -104,35 +107,39 @@ export class StringValidator {
       event.target.value = lastVal;
     } else {
       if (pasted) {
-        if (!(this.isValidString(val))) event.target.value = lastVal;
+        if (!this.isValidString(val)) event.target.value = lastVal;
+      } else if (!removed) {
+        if (!this.isValidChar(inserted)) event.target.value = lastVal;
       }
-      else if (!removed) {
-        if (!(this.isValidChar(inserted))) event.target.value = lastVal;
-      }
-
     }
   }
   checkForZeroEntry(val, lastVal, maxlength, event) {
-    console.log('val, lastVal, maxlength, event',val, lastVal, maxlength, event);
-    if (val == '0') {
-     event.target.value = '';
-    }else{
-      this.validateEntry(val, lastVal, maxlength, event)
+    console.log(
+      "val, lastVal, maxlength, event",
+      val,
+      lastVal,
+      maxlength,
+      event
+    );
+    if (val == "0") {
+      event.target.value = "";
+    } else {
+      this.validateEntry(val, lastVal, maxlength, event);
     }
   }
 
-  @HostListener('focus', ['$event'])
+  @HostListener("focus", ["$event"])
   onFocus(event: any) {
     let input = event.target.value;
     this.lastValue = input;
   }
 
   findDelta(value, prevValue) {
-    let delta = '';
+    let delta = "";
 
     for (let i = 0; i < value.length; i++) {
-      let str = value.substr(0, i) +
-        value.substr(i + value.length - prevValue.length);
+      let str =
+        value.substr(0, i) + value.substr(i + value.length - prevValue.length);
 
       if (str === prevValue)
         delta = value.substr(i, value.length - prevValue.length);
@@ -147,7 +154,18 @@ export class StringValidator {
 
   isValidString(str) {
     for (let i = 0; i < str.length; i++)
-      if (!(this.isValidChar(str.substr(i, 1)))) return false;
+      if (!this.isValidChar(str.substr(i, 1))) return false;
     return true;
+  }
+  @HostListener("paste", ["$event"]) blockPaste(event: KeyboardEvent) {
+    event.preventDefault();
+  }
+
+  @HostListener("copy", ["$event"]) blockCopy(event: KeyboardEvent) {
+    event.preventDefault();
+  }
+
+  @HostListener("cut", ["$event"]) blockCut(event: KeyboardEvent) {
+    event.preventDefault();
   }
 }
