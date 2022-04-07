@@ -176,21 +176,21 @@ export class SetSecurityQuestionsComponent implements OnInit {
         {
           'userID': this.uid,
           'questionID': this.question1,
-          'answers': this.answer1.trim(),
+          'answers': this.answer1 ? this.answer1.trim() : null,
           'mobileNumber': '1234567890',
           'createdBy': this.uname
         },
         {
           'userID': this.uid,
           'questionID': this.question2,
-          'answers': this.answer2.trim(),
+          'answers': this.answer2 ? this.answer2.trim() : null,
           'mobileNumber': '1234567890',
           'createdBy': this.uname
         },
         {
           'userID': this.uid,
           'questionID': this.question3,
-          'answers': this.answer3.trim(),
+          'answers': this.answer3 ? this.answer3.trim() : null,
           'mobileNumber': '1234567890',
           'createdBy': this.uname
         }];
