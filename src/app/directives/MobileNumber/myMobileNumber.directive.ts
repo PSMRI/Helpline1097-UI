@@ -1,7 +1,7 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from "@angular/core";
 
 @Directive({
-	selector: '[myMobileNumber]'
+  selector: "[myMobileNumber]",
 })
 export class myMobileNumber {
 	constructor(element:ElementRef)

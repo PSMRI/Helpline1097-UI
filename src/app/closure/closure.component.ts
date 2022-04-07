@@ -73,6 +73,7 @@ export class ClosureComponent implements OnInit
   preferredDateTime: any;
   requestedFor: any;
   outboundArry: any = [];
+  doTransfer: Boolean = false;
   constructor(
     private _callServices: CallServices,
     public saved_data: dataService,
@@ -190,6 +191,7 @@ export class ClosureComponent implements OnInit
       this.requestedFor=null;
       this.preferredLanguageName=null;
       this.requestedServiceID=null;
+      this.doTransfer = false;
   }
 
   populateCallTypes(response: any) {
@@ -337,11 +339,18 @@ export class ClosureComponent implements OnInit
   }
 
   transferCall(values) {
+    this.doTransfer = true;
     let obj = {
       "transfer_from": this.saved_data.cZentrixAgentID,
       "transfer_campaign_info": values.campaignName,
       "skill_transfer_flag": values.campaignSkill ? '1' : '0',
-      "skill": values.campaignSkill
+      "skill": values.campaignSkill,
+      'callType': values.callType,
+      'callTypeID': values.callTypeID.split(",")[0],
+      'agentIPAddress': this.ipAddress,
+      'benCallID' : this.saved_data.callData.benCallID ? this.saved_data.callData.benCallID : null
+
+
     }
     this._callServices.transferCall(obj).subscribe(response => {
       delete values.campaignName;
@@ -381,6 +390,7 @@ export class ClosureComponent implements OnInit
     values.fitToBlock = values.callTypeID.split(',')[1];
     values.callTypeID = values.callTypeID.split(',')[0];
     values.agentIPAddress = this.ipAddress;
+    values.isTransfered = this.doTransfer;
     if (btnType === 'submitClose') {
       values.endCall = true;
     }
@@ -458,6 +468,7 @@ export class ClosureComponent implements OnInit
                 this.showFeedbackRequiredFlag = false;
                 this.isFollowUp = false;
                 this.isFollowupRequired = false;
+                this.doTransfer = false;
                 this.showAlert();
                 this.closedContinue.emit();
               }
@@ -553,6 +564,7 @@ export class ClosureComponent implements OnInit
       this.isFollowUp = false;
       this.isFollowupRequired = false;
       this.showFeedbackRequiredFlag = false;
+      this.doTransfer = false;
     }
   }
   blockey(e: any) {
