@@ -379,12 +379,13 @@ export class InnerpageComponent implements OnInit {
     if (this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR') {
       this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
     } else {
-      sessionStorage.removeItem('isOnCall');
-      sessionStorage.removeItem('isEverwellCall');
-      this.basicrouter.navigate(['']);
-      this.authService.removeToken();
-      sessionStorage.removeItem("setLanguage");
-      this.getCommonData.appLanguage="English";
+      this.ipSuccessLogoutHandler(this.getCommonData.loginIP);
+      // sessionStorage.removeItem('isOnCall');
+      // sessionStorage.removeItem('isEverwellCall');
+      // this.basicrouter.navigate(['']);
+      // this.authService.removeToken();
+      // sessionStorage.removeItem("setLanguage");
+      // this.getCommonData.appLanguage="English";
     }
 
   }
@@ -408,42 +409,55 @@ export class InnerpageComponent implements OnInit {
 
   }
   ipSuccessLogoutHandler(response) {
-    this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
-      if (res.response.status.toUpperCase() !== 'FAIL') {
-        sessionStorage.removeItem('isOnCall');
-        sessionStorage.removeItem('isEverwellCall');
-        sessionStorage.removeItem('apiman_key');
-        sessionStorage.removeItem("setLanguage");
-        this.getCommonData.appLanguage="English";
-        this.basicrouter.navigate(['']);
-      } else {
-        if (this.current_role.toLowerCase() !== 'supervisor') {
-
-          this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
-        } else {
+    if (this.current_role.toLowerCase() === "supervisor") {
+      this.Czentrix.userLogout().subscribe(
+        (response) => {
           sessionStorage.removeItem('isOnCall');
           sessionStorage.removeItem('isEverwellCall');
           sessionStorage.removeItem('apiman_key');   
           sessionStorage.removeItem("setLanguage");
-          this.getCommonData.appLanguage="English";       
-          this.basicrouter.navigate(['']);
-        }
-      }
-    }, (err) => {
-      console.log(err.errorMessage, "LOGOUT ERROR");
-      this.remarksMessage.alert(err.errorMessage);
-
-    });
-
-
-    if (this.current_role.toLowerCase() !== 'supervisor') {
-      this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
-        if (res.response.status.toUpperCase() !== 'FAIL') {
-          sessionStorage.removeItem('isOnCall');
-          sessionStorage.removeItem('isEverwellCall');
-          sessionStorage.removeItem("setLanguage");
+          this.authService.removeToken();
           this.getCommonData.appLanguage="English";
           this.basicrouter.navigate(['']);
+          // this.socketService.logOut();
+        },
+        (err) => {
+          sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
+          sessionStorage.removeItem('apiman_key');   
+          sessionStorage.removeItem("setLanguage");
+          this.authService.removeToken();
+          this.getCommonData.appLanguage="English";       
+          this.basicrouter.navigate(['']);
+          // this.socketService.logOut();
+        }
+      );
+    }else{
+
+      this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
+        if (res.response.status.toUpperCase() !== 'FAIL') {
+          this.Czentrix.userLogout().subscribe(
+            (response) => {
+              sessionStorage.removeItem('isOnCall');
+              sessionStorage.removeItem('isEverwellCall');
+              sessionStorage.removeItem('apiman_key');   
+              sessionStorage.removeItem("setLanguage");
+              this.authService.removeToken();
+              this.getCommonData.appLanguage="English";
+              this.basicrouter.navigate(['']);
+              // this.socketService.logOut();
+            },
+            (err) => {
+              sessionStorage.removeItem('isOnCall');
+              sessionStorage.removeItem('isEverwellCall');
+              sessionStorage.removeItem('apiman_key');   
+              sessionStorage.removeItem("setLanguage");
+              this.getCommonData.appLanguage="English"; 
+              this.authService.removeToken();      
+              this.basicrouter.navigate(['']);
+              // this.socketService.logOut();
+            }
+          );
         } else {
          
           this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
@@ -452,13 +466,31 @@ export class InnerpageComponent implements OnInit {
       }, (err) => {
         this.remarksMessage.alert(err.errorMessage);
       });
-    } else {
-      sessionStorage.removeItem('isOnCall');
-      sessionStorage.removeItem('isEverwellCall');
-      sessionStorage.removeItem("setLanguage");
-      this.getCommonData.appLanguage="English";
-      this.basicrouter.navigate(['']);
-    }
+  }
+
+    // if (this.current_role.toLowerCase() !== 'supervisor') {
+    //   this.Czentrix.agentLogout(this.getCommonData.cZentrixAgentID, response).subscribe((res) => {
+    //     if (res.response.status.toUpperCase() !== 'FAIL') {
+    //       sessionStorage.removeItem('isOnCall');
+    //       sessionStorage.removeItem('isEverwellCall');
+    //       sessionStorage.removeItem("setLanguage");
+    //       this.getCommonData.appLanguage="English";
+    //       this.basicrouter.navigate(['']);
+    //     } else {
+         
+    //       this.remarksMessage.alert(this.currentlanguageSet.cannotLogoutDuringActiveCall);
+        
+    //     }
+    //   }, (err) => {
+    //     this.remarksMessage.alert(err.errorMessage);
+    //   });
+    // } else {
+    //   sessionStorage.removeItem('isOnCall');
+    //   sessionStorage.removeItem('isEverwellCall');
+    //   sessionStorage.removeItem("setLanguage");
+    //   this.getCommonData.appLanguage="English";
+    //   this.basicrouter.navigate(['']);
+    // }
   }
   getCallTypes(providerServiceMapID) {
     const requestObject = { 'providerServiceMapID': providerServiceMapID };

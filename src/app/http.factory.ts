@@ -7,7 +7,7 @@
 import { XHRBackend, Http, RequestOptions } from '@angular/http';
 import { InterceptedHttp } from './http.interceptor';
 import { LoaderService } from './services/common/loader.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from './services/authentication/auth.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service';
 

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import { loginService } from '../services/loginService/login.service';
 import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 import { SocketService } from '../services/socketService/socket.service';
+import { Subscription } from 'rxjs';
+import { InterceptedHttp } from 'app/http.interceptor';
 
 
 @Component({
@@ -13,18 +15,19 @@ import { SocketService } from '../services/socketService/socket.service';
   styleUrls: ['./login.component.css']
 })
 
-export class loginContentClass implements OnInit {
+export class loginContentClass implements OnInit, OnDestroy {
   model: any = {};
   userID: any;
   password: any;
   loading = false;
   public loginResult: string;
   dynamictype: any = 'password';
+  logoutUserFromPreviousSessionSubscription: Subscription;
 
   previlageObj: any = [];
 
-  constructor(public loginservice: loginService, public router: Router, public alertService: ConfirmationDialogsService,
-    public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService) {
+  constructor(@Inject(forwardRef(() => loginService))public loginservice: loginService, public router: Router, public alertService: ConfirmationDialogsService,
+    public dataSettingService: dataService, private czentrixServices: CzentrixServices, private httpService: InterceptedHttp) {
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if(response !== null && response !== undefined)  {
@@ -59,8 +62,12 @@ export class loginContentClass implements OnInit {
   };
 
   ngOnInit() {
-
-
+    this.httpService.dologoutUsrFromPreSession(false);
+    this.logoutUserFromPreviousSessionSubscription = this.httpService.logoutUserFromPreviousSessions$.subscribe((logoutUser) => {
+      if(logoutUser) {
+        this.login(true);
+      }
+    })
     if (localStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if(response !== undefined && response !== null) {
@@ -94,16 +101,24 @@ export class loginContentClass implements OnInit {
     }
 
   }
-  login(userId: any, password: any) {
+  login(doLogOut) {
     // this.loading = true;
-    console.log(userId, password);
-    this.loginResult = undefined;
-    this.loginservice.authenticateUser(userId, password).subscribe(
-      (response: any) => this.successCallback(response, userId, password),
-      (error: any) => this.errorCallback(error));
+    // this.loginResult = undefined;
+    this.loginservice.authenticateUser(this.userID, this.password, doLogOut).subscribe(
+  // login(userId: any, password: any) {
+  //   // this.loading = true;
+  //   console.log(userId, password);
+  //   this.loginResult = undefined;
+  //   this.loginservice.authenticateUser(userId, password).subscribe(
+    (response: any) => {
+      if(response !== undefined && response !== null && response.previlegeObj !== undefined && response.previlegeObj !== null) {
+      this.successCallback(response);
+      }
+    },    
+    (error: any) => this.errorCallback(error));
   };
 
-  successCallback(response: any, userID: any, password: any) {
+  successCallback(response: any) {
     this.dataSettingService.current_campaign=undefined;
     this.loading = false;
     console.log(response);
@@ -122,7 +137,7 @@ export class loginContentClass implements OnInit {
     this.dataSettingService.uname = response.userName;
     this.dataSettingService.Userdata.agentID = response.agentID;
     this.dataSettingService.loginIP = response.loginIPAddress;
-    this.getLoginKey(userID, password);
+    // this.getLoginKey(userID, password);
     // console.log( "array" + response.Previlege );
     console.log('array' + this.previlageObj);
 
@@ -176,6 +191,11 @@ export class loginContentClass implements OnInit {
 
   hidePWD() {
     this.dynamictype = 'password';
+  }
+  ngOnDestroy() {
+    if (this.logoutUserFromPreviousSessionSubscription) {
+      this.logoutUserFromPreviousSessionSubscription.unsubscribe();
+    }
   }
 
 }

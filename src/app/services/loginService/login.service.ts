@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { forwardRef, Inject, Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
@@ -32,8 +32,8 @@ export class loginService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-  public authenticateUser(uname: any, pwd: any): Observable<any> {
-    return this._http.post(this._userAuthURL, { 'userName': uname, 'password': pwd })
+  public authenticateUser(uname: any, pwd: any , doLogout: any): Observable<any> {
+    return this._http.post(this._userAuthURL, { 'userName': uname, 'password': pwd , 'doLogout': doLogout})
       .map(this.extractData)
       .catch(this.handleError);
   };

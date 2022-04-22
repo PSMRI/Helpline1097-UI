@@ -153,40 +153,101 @@ export class MultiRoleScreenComponent implements OnInit {
 
   }
   ipSuccessLogoutHandler(response) {
-    this.router.navigate(['']);
-    this.authService.removeToken();
-    this.Czentrix.agentLogout(this.dataSettingService.cZentrixAgentID, response).subscribe((res) => {
-      if( res !== undefined && res !== null) {
-      if (res.response !== undefined && res.response.status !== undefined && res.response.status.toUpperCase() !== 'FAIL') {
-        sessionStorage.removeItem('isOnCall');
-        sessionStorage.removeItem('isEverwellCall');
-        sessionStorage.removeItem("setLanguage");
-        this.dataSettingService.appLanguage="English";
-        this.router.navigate(['']);
-        sessionStorage.removeItem('apiman_key');
-        this.authService.removeToken();
+    // if (this.current_role.toLowerCase() === "supervisor") {
+      this.Czentrix.userLogout().subscribe(
+        (response) => {
+          sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
+          sessionStorage.removeItem('apiman_key');   
+          sessionStorage.removeItem("setLanguage");
+          this.dataSettingService.appLanguage="English";
+          this.authService.removeToken();
+          this.router.navigate(['']);
+          
+          // this.socketService.logOut();
+        },
+        (err) => {
+          sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
+          sessionStorage.removeItem('apiman_key');   
+          sessionStorage.removeItem("setLanguage");
+          this.dataSettingService.appLanguage="English"; 
+          this.authService.removeToken();     
+          this.router.navigate(['']);
+          // this.socketService.logOut();
+        }
+      );
+  //   }else{
 
-      } else {
-        sessionStorage.removeItem('isOnCall');
-        sessionStorage.removeItem('isEverwellCall');
-        sessionStorage.removeItem("setLanguage");
-        this.dataSettingService.appLanguage="English";
-        this.router.navigate(['']);
-        sessionStorage.removeItem('apiman_key');
-        this.authService.removeToken();
-      }
-      }
-    }, (err) => {
-      sessionStorage.removeItem('isOnCall');
-      sessionStorage.removeItem('isEverwellCall');
-      sessionStorage.removeItem("setLanguage");
-      this.dataSettingService.appLanguage="English";
-      this.router.navigate(['']);
-      this.authService.removeToken();
+  //     this.Czentrix.agentLogout(this.dataSettingService.cZentrixAgentID, response).subscribe((res) => {
+  //       if (res.response.status.toUpperCase() !== 'FAIL') {
+  //         this.Czentrix.userLogout().subscribe(
+  //           (response) => {
+  //             sessionStorage.removeItem('isOnCall');
+  //             sessionStorage.removeItem('isEverwellCall');
+  //             sessionStorage.removeItem('apiman_key');   
+  //             sessionStorage.removeItem("setLanguage");
+  //             this.dataSettingService.appLanguage="English";
+  //             this.router.navigate(['']);
+  //             // this.socketService.logOut();
+  //           },
+  //           (err) => {
+  //             sessionStorage.removeItem('isOnCall');
+  //             sessionStorage.removeItem('isEverwellCall');
+  //             sessionStorage.removeItem('apiman_key');   
+  //             sessionStorage.removeItem("setLanguage");
+  //             this.dataSettingService.appLanguage="English";       
+  //             this.router.navigate(['']);
+  //             // this.socketService.logOut();
+  //           }
+  //         );
+  //       } else {
+         
+  //         this.alertMessage.alert(this.currentLanguageSet.cannotLogoutDuringActiveCall);
+        
+  //       }
+  //     }, (err) => {
+  //       this.alertMessage.alert(err.errorMessage);
+  //     });
+  // }
 
-      // this.alertMessage.alert(err.errorMessage,'error');
-    });
+    
   }
+  // ipSuccessLogoutHandler(response) {
+  //   this.router.navigate(['']);
+  //   this.authService.removeToken();
+  //   this.Czentrix.agentLogout(this.dataSettingService.cZentrixAgentID, response).subscribe((res) => {
+  //     if( res !== undefined && res !== null) {
+  //     if (res.response !== undefined && res.response.status !== undefined && res.response.status.toUpperCase() !== 'FAIL') {
+  //       sessionStorage.removeItem('isOnCall');
+  //       sessionStorage.removeItem('isEverwellCall');
+  //       sessionStorage.removeItem("setLanguage");
+  //       this.dataSettingService.appLanguage="English";
+  //       this.router.navigate(['']);
+  //       sessionStorage.removeItem('apiman_key');
+  //       this.authService.removeToken();
+
+  //     } else {
+  //       sessionStorage.removeItem('isOnCall');
+  //       sessionStorage.removeItem('isEverwellCall');
+  //       sessionStorage.removeItem("setLanguage");
+  //       this.dataSettingService.appLanguage="English";
+  //       this.router.navigate(['']);
+  //       sessionStorage.removeItem('apiman_key');
+  //       this.authService.removeToken();
+  //     }
+  //     }
+  //   }, (err) => {
+  //     sessionStorage.removeItem('isOnCall');
+  //     sessionStorage.removeItem('isEverwellCall');
+  //     sessionStorage.removeItem("setLanguage");
+  //     this.dataSettingService.appLanguage="English";
+  //     this.router.navigate(['']);
+  //     this.authService.removeToken();
+
+  //     // this.alertMessage.alert(err.errorMessage,'error');
+  //   });
+  // }
   hideCZentix(flag: any) {
     if (flag.eventCzentrix.hideBar === true) {
       this.hideBar = false;

@@ -4,9 +4,9 @@
 * Advantage : Used to remove the code duplication
 */
 
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { environment } from '../environments/environment';
 import { LoaderService } from './services/common/loader.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -139,13 +139,30 @@ export class InterceptedHttp extends Http {
             return response;
         }
          else if (response.json().statusCode === 5002) {
-            this.router.navigate(['']);
-            // if (this._count == 0) {
-            this.message.alert(response.json().errorMessage, 'error');
-            // this._count = this._count + 1;
-            // }
+            if(response.json().errorMessage === 'You are already logged in,please confirm to logout from other device and login again') {
+                this.message
+                    .confirm('info', response.json().errorMessage)
+                    .subscribe((confirmResponse) => {
+                      if (confirmResponse) {
+                        this.dologoutUsrFromPreSession(true);
+                      }
+                    });
+                }else {
+                    this.router.navigate(['']);
+                    if (this._count == 0) {
+                         this.message.alert(response.json().errorMessage, 'error');
+                         this._count = this._count + 1;
+                         }
+                    this.message.alert(response.json().errorMessage, 'error');
+                    this.authService.removeToken();
+                }
+            // this.router.navigate(['']);
+            // // if (this._count == 0) {
             // this.message.alert(response.json().errorMessage, 'error');
-            this.authService.removeToken();
+            // // this._count = this._count + 1;
+            // // }
+            // // this.message.alert(response.json().errorMessage, 'error');
+            // this.authService.removeToken();
             return Observable.empty();
         } 
         else if(response.json().statusCode === 5006) {
@@ -183,4 +200,12 @@ export class InterceptedHttp extends Http {
             return true;
         }
     }
+    dologout: any;
+    logoutUserFromPreviousSession = new BehaviorSubject(this.dologout);
+     logoutUserFromPreviousSessions$ =
+       this.logoutUserFromPreviousSession.asObservable();
+    dologoutUsrFromPreSession(dologout) {
+        this.dologout = dologout;
+        this.logoutUserFromPreviousSession.next(dologout);
+      }
 }

@@ -35,7 +35,7 @@
             <tr *ngIf="md2.data?.length == 0">
               <td colspan="8" class="t-a-c record-not-found">{{currentLanguageSet?.noRecordsFound}}</td>
             </tr>
-            <!-- <ng-container *ngIf="benDetailsList?.length >0"> -->
+           
             <tr *ngFor="let ben of md2.data; let i= index" (click)="editMode(ben)" style="cursor: pointer">
               <td >{{ben.beneficiaryID}}</td>
               <td >{{ben.FirstName}} {{ben.LastName}}</td>
@@ -48,7 +48,7 @@
               <td *ngIf= "benDetailsList.indexOf(ben)=== 0">Self </td>
               <td *ngIf= "benDetailsList.indexOf(ben)> 0">Others </td>
             </tr>
-          <!-- </ng-container> -->
+         
         </tbody>
         <tfoot>
           <tr>

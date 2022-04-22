@@ -27,6 +27,7 @@ export class CzentrixServices {
   transaction_id: any;
   ip: any;
   _agentLogOut = this.openCommonUrl + 'cti/doAgentLogout';
+  logoutUserUrl = this.openCommonUrl + "user/userLogout";
   phone_num: number;
   constructor(private http: AuthorizationWrapper,
     private _http: Http, private httpInterceptor: InterceptedHttp,
@@ -60,6 +61,17 @@ export class CzentrixServices {
     const loginObj = { 'agent_id': agentId };
     return this.httpInterceptor.post(this._agentLogOut, loginObj).map(this.extractData).catch(this.handleError);
 
+  }
+
+  userLogout() {
+    sessionStorage.clear();
+    // sessionStorage.removeItem("privilege_flag");
+    // sessionStorage.removeItem("session_id");
+    // sessionStorage.removeItem("callTransferred");
+    return this.httpInterceptor
+      .post(this.logoutUserUrl, {})
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   // getOnlineAgents(agentId, ipAddress) {
