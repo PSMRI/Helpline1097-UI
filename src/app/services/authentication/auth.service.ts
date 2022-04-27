@@ -9,13 +9,13 @@ import { InterceptedHttp } from './../../http.interceptor';
 export class AuthService {
 
     public getToken(): string {
-        if (localStorage.getItem('authToken')) {
-            return localStorage.getItem('authToken');
+        if (sessionStorage.getItem('authToken')) {
+            return sessionStorage.getItem('authToken');
         }
     }
     public removeToken() {
         sessionStorage.removeItem('apiman_key');
-        localStorage.removeItem('authToken');
+        sessionStorage.removeItem('authToken');
         sessionStorage.removeItem('apiman_key');
     }
     public isAuthenticated(): boolean {

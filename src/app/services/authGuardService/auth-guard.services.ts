@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate {
 		 }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const key = sessionStorage.getItem('isOnCall');
-    const authkey = localStorage.getItem('authToken');
+    const authkey = sessionStorage.getItem('authToken');
 
     // if (authkey) {
     //   this._http.post(this._authorisedUser, {})

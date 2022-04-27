@@ -25,7 +25,7 @@ export class loginContentClass implements OnInit {
 
   constructor(public loginservice: loginService, public router: Router, public alertService: ConfirmationDialogsService,
     public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService) {
-    if (localStorage.getItem('authToken')) {
+    if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if(response !== null && response !== undefined)  {
         this.dataSettingService.Userdata = response;
@@ -61,7 +61,7 @@ export class loginContentClass implements OnInit {
   ngOnInit() {
 
 
-    if (localStorage.getItem('authToken')) {
+    if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if(response !== undefined && response !== null) {
           if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
@@ -94,14 +94,43 @@ export class loginContentClass implements OnInit {
     }
 
   }
-  login(userId: any, password: any) {
+  login(userId: any, password: any, doLogOut: any) {
     // this.loading = true;
     console.log(userId, password);
     this.loginResult = undefined;
-    this.loginservice.authenticateUser(userId, password).subscribe(
+    this.loginservice.authenticateUser(userId, password, doLogOut).subscribe(
       (response: any) => this.successCallback(response, userId, password),
       (error: any) => this.errorCallback(error));
   };
+
+  loginUser(doLogOut) {
+    this.loginservice
+    .userLogOutFromPreviousSession(this.userID)
+    .subscribe(
+      (userLogOutRes: any) => {
+      if(userLogOutRes && userLogOutRes.response) {
+    this.loginservice
+      .authenticateUser(this.userID, this.password, doLogOut)
+      .subscribe(
+        (response: any) => {
+          if (
+            response !== undefined &&
+            response !== null &&
+            response.previlegeObj !== undefined &&
+            response.previlegeObj !== null
+          ) {
+            this.successCallback(response, this.userID, this.password);
+          }
+        },
+        (error: any) => this.errorCallback(error)
+      );
+      }
+      else
+      {
+            this.alertService.alert(userLogOutRes.errorMessage, 'error');
+      }
+      });
+  }
 
   successCallback(response: any, userID: any, password: any) {
     this.dataSettingService.current_campaign=undefined;
@@ -132,13 +161,13 @@ export class loginContentClass implements OnInit {
       }
       sessionStorage.removeItem('isOnCall');
       sessionStorage.removeItem('isEverwellCall');
-      localStorage.setItem('authToken', response.key);
+      sessionStorage.setItem('authToken', response.key);
       this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
       // this.socketService.reInstantiate();
 
     }
     if (response.isAuthenticated === true && response.Status === 'New') {
-      localStorage.setItem('authToken', response.key);
+      sessionStorage.setItem('authToken', response.key);
       sessionStorage.removeItem('isOnCall');
       sessionStorage.removeItem('isEverwellCall');
       this.router.navigate(['/setQuestions']);
