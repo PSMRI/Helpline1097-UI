@@ -244,7 +244,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
   }
 
   successCallback(response) {
-    localStorage.removeItem('authToken');
+    sessionStorage.removeItem('authToken');
     console.log(response);
     this.alertService.alert("Password changed successfully", 'success');
    
