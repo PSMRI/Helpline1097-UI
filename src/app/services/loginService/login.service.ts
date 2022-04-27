@@ -15,7 +15,7 @@ export class loginService {
   admin = this._config.getAdminBaseUrl();
   base1097URL = this._config.get1097BaseURL();
   _userAuthURL = this.openBaseUrl + 'user/userAuthenticate/';
-  _userLogoutPreviousSessionURL = this.openBaseUrl + 'user/logOutUserFromPreviousSession';
+  _userLogoutPreviousSessionURL = this.openBaseUrl + 'user/logOutUserFromConcurrentSession';
   _forgotPasswordURL = this.openBaseUrl + 'user/forgetPassword/';
   _getDetailsByID = this._baseURL + 'user/getUserDetails/';
   _validateQuestionAndAnswers = this._baseURL + 'user/validateSecurityQuestionAndAnswer';

@@ -27,7 +27,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   previlageObj: any = [];
 
   constructor(public loginservice: loginService, public router: Router, public alertService: ConfirmationDialogsService,
-    public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService) {
+    public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService,   private httpService: InterceptedHttp) {
     if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if(response !== null && response !== undefined)  {
@@ -62,8 +62,15 @@ export class loginContentClass implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
-
-
+    this.httpService.dologoutUsrFromPreSession(false);
+    this.logoutUserFromPreviousSessionSubscription =
+      this.httpService.logoutUserFromPreviousSessions$.subscribe(
+        (logoutUser) => {
+          if (logoutUser) {
+            this.loginUser(true);
+          }
+        }
+      );
     if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if(response !== undefined && response !== null) {
@@ -97,21 +104,31 @@ export class loginContentClass implements OnInit, OnDestroy {
     }
 
   }
-  login(userId: any, password: any, doLogOut: any) {
-    // this.loading = true;
-    console.log(userId, password);
-    this.loginResult = undefined;
-    this.loginservice.authenticateUser(userId, password, doLogOut).subscribe(
-      (response: any) => this.successCallback(response, userId, password),
-      (error: any) => this.errorCallback(error));
-  };
-
+  login(doLogOut) {
+    this.loginservice
+      .authenticateUser(this.userID, this.password, doLogOut)
+      .subscribe(
+        (response: any) => {
+          if (
+            response !== undefined &&
+            response !== null &&
+            response.previlegeObj !== undefined &&
+            response.previlegeObj !== null
+          ) {
+            this.successCallback(response, this.userID, this.password);
+          }
+        },
+        (error: any) => this.errorCallback(error)
+      );
+  }
+//ADID- KA40094929 
+// added new method to force logout the user
   loginUser(doLogOut) {
     this.loginservice
     .userLogOutFromPreviousSession(this.userID)
     .subscribe(
       (userLogOutRes: any) => {
-      if(userLogOutRes && userLogOutRes.response) {
+      if(userLogOutRes && userLogOutRes.data.response) {
     this.loginservice
       .authenticateUser(this.userID, this.password, doLogOut)
       .subscribe(
