@@ -980,7 +980,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       if (i == 4) {
         this.alternateNumberDisplay4 = registeredBenData.benPhoneMaps[i].phoneNo;
         if (this.alternateNumberDisplay4 != "")
-          this.alternateNumber4 = this.alternateNumberDisplay4.substring(0, 3) + 'XXXXX' + this.alternateNumberDisplay4.substring(7, 10);
+          this.alternateNumber4 = this.alternateNumberDisplay4.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay4.substring(7, 10);
       }
       if (i == 5) {
         this.alternateNumberDisplay5 = registeredBenData.benPhoneMaps[i].phoneNo;
