@@ -526,7 +526,7 @@ export class ClosureComponent implements OnInit
     this.czentrixServices.getIpAddress(this.saved_data.Userdata.agentID)
       .subscribe(response => this.ipSuccessHandler(response),
       (err) => {
-        this.message.alert(err.errorMessage, 'error');
+        // this.message.alert(err.errorMessage, 'error');
 
       });
   }

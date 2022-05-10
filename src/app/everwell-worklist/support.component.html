@@ -87,7 +87,7 @@
                     <input 
                     myMobileNumber
                     mdInput
-                    allowText="number" mdInput placeholder="{{currentLanguageSet?.secondaryMobileNumber}}" [(ngModel)]="mblNum" name="mblNum" #mblNum1="ngModel" minlength="10"
+                    placeholder="{{currentLanguageSet?.secondaryMobileNumber}}" [(ngModel)]="mblNum" name="mblNum" #mblNum1="ngModel" minlength="10"
                     maxlength="10"
                     [min]="10"/>
                     <md-error *ngIf="mblNum1.errors?.minlength">

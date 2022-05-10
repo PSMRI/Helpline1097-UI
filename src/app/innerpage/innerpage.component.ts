@@ -399,8 +399,8 @@ export class InnerpageComponent implements OnInit {
         }
       },
         (err) => {
-          console.log(err.errorMessage, "LOGOUT ERROR");
-          this.remarksMessage.alert(err.errorMessage);
+            console.log(err.errorMessage, "LOGOUT ERROR");
+          // this.remarksMessage.alert(err.errorMessage);
 
         });
     } else {
