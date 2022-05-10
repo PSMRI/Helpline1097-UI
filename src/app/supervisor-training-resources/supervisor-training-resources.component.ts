@@ -191,8 +191,8 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
       'providerServiceMapID': this.providerServiceMapID,
       'notificationTypeID': this.notificationTypeID,
       'createdBy': this.createdBy,
-      'notification': form_values.subject.trim(),
-      'notificationDesc': form_values.message.trim(),
+      'notification': (form_values !=undefined && form_values !=null && form_values.subject !=undefined && form_values.subject !=null) ? form_values.subject.trim() :null,
+      'notificationDesc': (form_values !=undefined && form_values !=null && form_values.message !=undefined && form_values.message !=null) ? form_values.message.trim() :null,
       'validFrom': startDate,
       'validTill': endDate,
       'kmFileManager': kmFileManager
@@ -497,7 +497,7 @@ else{
     this.showEditForm = true;
 
     this.toBeEditedObject = object;
-    this.notification_subject = object.notification.trim();
+    this.notification_subject = (object !=undefined && object !=null && object.notification !=undefined && object.notification !=null) ? object.notification.trim() :null;
     if (object.kmFileManager !== undefined) {
       this.uploaded_file = object.kmFileManager.fileName;
     }
@@ -549,8 +549,8 @@ else{
         'notificationTypeID': this.toBeEditedObject.notificationTypeID,
         'notificationID': this.toBeEditedObject.notificationID,
         'roleID': this.toBeEditedObject.roleID,
-        'notification': form_values.subject.trim(),
-        'notificationDesc': form_values.message.trim(),
+        'notification': (form_values !=undefined && form_values !=null && form_values.subject !=undefined && form_values.subject !=null) ? form_values.subject.trim() :null,
+        'notificationDesc': (form_values !=undefined && form_values !=null && form_values.message !=undefined && form_values.message !=null) ? form_values.message.trim() :null,
         'validFrom': this.toBeEditedObject.validFrom,
         'validTill': this.toBeEditedObject.validTill,
         'deleted': false,

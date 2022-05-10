@@ -55,6 +55,7 @@ export class CallReAllocateComponent implements OnInit {
     }).subscribe((response) => {
       this.roles = response;
       this.roles = this.roles.filter((obj) => {
+        if(obj !=undefined && obj !=null && obj.roleName !=undefined && obj.roleName !=null)
         return obj.roleName.trim().toUpperCase() != "PROVIDERADMIN" && obj.roleName.trim().toUpperCase() != "SUPERVISOR";
       });
       console.log("roles:", JSON.stringify(this.roles));
