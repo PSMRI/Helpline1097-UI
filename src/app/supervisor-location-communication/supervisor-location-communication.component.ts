@@ -228,8 +228,8 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
           "providerServiceMapID": this.providerServiceMapID,
           "notificationTypeID": this.location_communication_typeID,
           "createdBy": this.createdBy,
-          "notification": form_values.subject.trim(),
-          "notificationDesc": form_values.message.trim(),
+          "notification": (form_values !=undefined && form_values !=null && form_values.subject !=undefined && form_values.subject !=null) ? form_values.subject.trim() :null,
+          "notificationDesc": (form_values !=undefined && form_values !=null && form_values.message !=undefined && form_values.message !=null) ? form_values.message.trim() :null,
           "validFrom": startDate,
           "validTill": endDate,
           "workingLocationID": workingLocationIDs[i]
@@ -286,8 +286,8 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
     this.editType = toBeEditedOBJ.notificationType.notificationType;
     this.office_name = toBeEditedOBJ.workingLocation.locationName;
-    this.notification_subject = toBeEditedOBJ.notification.trim();
-    this.description = toBeEditedOBJ.notificationDesc.trim();
+    this.notification_subject = (toBeEditedOBJ !=undefined && toBeEditedOBJ !=null && toBeEditedOBJ.notification !=undefined && toBeEditedOBJ.notification !=null) ? toBeEditedOBJ.notification.trim() :null;
+    this.description = (toBeEditedOBJ !=undefined && toBeEditedOBJ !=null && toBeEditedOBJ.notificationDesc !=undefined && toBeEditedOBJ.notificationDesc !=null) ? toBeEditedOBJ.notificationDesc.trim() :null;
     // this.sdate = new Date(toBeEditedOBJ.validFrom);
     // this.edate = new Date(toBeEditedOBJ.validTill);
     
@@ -335,8 +335,8 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
         "providerServiceMapID": this.providerServiceMapID,
         "notificationTypeID": this.editRequestObj.notificationTypeID,
         "notificationID": this.editRequestObj.notificationID,
-        "notification": form_values.subject,
-        "notificationDesc": form_values.message.trim(),
+        "notification": (form_values !=undefined && form_values !=null && form_values.subject !=undefined && form_values.subject !=null) ? form_values.subject.trim() :null,
+        "notificationDesc": (form_values !=undefined && form_values !=null && form_values.message !=undefined && form_values.message !=null) ? form_values.message.trim() :null,
         "validFrom": startDate,
         "validTill": endDate,
         "deleted": this.editRequestObj.deleted,

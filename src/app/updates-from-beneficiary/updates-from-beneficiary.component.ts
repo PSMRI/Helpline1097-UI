@@ -191,8 +191,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
       //   this.saved_data.beneficiaryData.i_bendemographics.beneficiaryRegID = values.beneficiaryRegID;
       //  }
     this.saved_data.beneficiaryData.sexualOrientationID = values.sexualOrientationID;
-    this.saved_data.beneficiaryData.placeOfWork = values.placeOfWork ? values.placeOfWork.trim() : null;
-    this.saved_data.beneficiaryData.remarks = values.remarks ? values.remarks.trim() : null;
+    this.saved_data.beneficiaryData.placeOfWork = (values !=undefined && values !=null && values.placeOfWork !=undefined && values.placeOfWork !=null) ? values.placeOfWork.trim() : null;
+    this.saved_data.beneficiaryData.remarks = (values !=undefined && values !=null && values.remarks !=undefined && values.remarks !=null) ? values.remarks.trim() : null;
     this.saved_data.beneficiaryData.sourceOfInformation = values.cameToKnowFrom ? values.cameToKnowFrom.toString() : undefined;
     this.saved_data.beneficiaryData.is1097 = true;
     this.saved_data.beneficiaryData.changeInSelfDetails = true;

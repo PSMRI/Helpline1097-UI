@@ -270,8 +270,8 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       "providerServiceMapID": this.providerServiceMapID,
       "notificationTypeID": form_values.notificationType,
       "createdBy": this.createdBy,
-      "notification": form_values.subject.trim(),
-      "notificationDesc": form_values.message.trim(),
+      "notification": (form_values !=undefined && form_values !=null && form_values.subject !=undefined && form_values.subject !=null) ? form_values.subject.trim() :null,
+      "notificationDesc": (form_values !=undefined && form_values !=null && form_values.message !=undefined && form_values.message !=null) ? form_values.message.trim() :null,
       "validFrom": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
       "validTill": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000)
     };
@@ -410,11 +410,12 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     this.searchMode = false;
     this.createMode = false;
     this.editMode = true;
-
+    if(toBeEditedOBJ !=undefined && toBeEditedOBJ !=null && toBeEditedOBJ.notificationType !=undefined && toBeEditedOBJ.notificationType !=null
+      && toBeEditedOBJ.notificationType.notificationType !=undefined && toBeEditedOBJ.notificationType.notificationType !=null)
     this.editType = toBeEditedOBJ.notificationType.notificationType;
 
-    this.notification_subject = toBeEditedOBJ.notification.trim();
-    this.description = toBeEditedOBJ.notificationDesc.trim();
+    this.notification_subject = (toBeEditedOBJ !=undefined && toBeEditedOBJ !=null && toBeEditedOBJ.notification !=undefined && toBeEditedOBJ.notification !=null) ? toBeEditedOBJ.notification.trim() : null;
+    this.description = (toBeEditedOBJ !=undefined && toBeEditedOBJ !=null && toBeEditedOBJ.notificationDesc !=undefined && toBeEditedOBJ.notificationDesc !=null) ? toBeEditedOBJ.notificationDesc.trim() :null;
     this.sdate = this.transformDatetoUTC(toBeEditedOBJ.validFrom);
     this.edate = this.transformDatetoUTC(toBeEditedOBJ.validTill);
     this.startTime = toBeEditedOBJ.validFrom.split('T')[1].split(':')[0] + ':' + toBeEditedOBJ.validFrom.split('T')[1].split(':')[1];
@@ -474,8 +475,8 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
         "notificationTypeID": this.editRequestObj.notificationTypeID,
         "notificationID": this.editRequestObj.notificationID,
         "roleID": this.editRequestObj.roleID,
-        "notification": form_values.trim(),
-        "notificationDesc": form_values.message.trim(),
+        "notification": (form_values !=undefined && form_values !=null && form_values.subject !=undefined && form_values.subject !=null) ? form_values.subject.trim() :null,
+        "notificationDesc": (form_values !=undefined && form_values !=null && form_values.message !=undefined && form_values.message !=null) ? form_values.message.trim() :null,
         "validFrom": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
         "validTill": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
         "deleted": this.editRequestObj.deleted,

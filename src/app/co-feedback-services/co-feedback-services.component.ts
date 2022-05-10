@@ -298,7 +298,7 @@ export class CoFeedbackServicesComponent implements OnInit {
       'designationID': this.selected_designation,
       'severityID': this.selected_severity,
       'feedbackTypeID': this.selected_feedbackType,
-      'feedback': this.feedbackDescription ? this.feedbackDescription.trim() : null,
+      'feedback': (this.feedbackDescription !=undefined && this.feedbackDescription != null) ? this.feedbackDescription.trim() : null,
       'beneficiaryRegID': this.beneficiaryRegID,
       'serviceAvailDate': selected_Date,
       'serviceID': this.serviceID ? this.serviceID : null,

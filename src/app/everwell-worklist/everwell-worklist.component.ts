@@ -769,7 +769,7 @@ export class SupportActionModal {
     providerObj['subCategory'] = item.subcategory;
     providerObj['AdherencePercentage'] = this.everwellBenData.AdherencePercentage;
     providerObj['actionTaken'] = item.actionTaken[0];
-    providerObj['comments'] = item.comments ? item.comments.trim(): null,
+    providerObj['comments'] = (item.comments !=undefined && item.comments !=null) ? item.comments.trim(): null,
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.dob), 'yyyy-MM-dd');   
     providerObj['secondaryPhoneNo'] = item.mblNum;
     providerObj['createdBy']=this.everwellBenData.createdBy;
@@ -833,7 +833,7 @@ export class SupportActionModal {
     providerObj['subCategory'] = item.editsubcategries;
     providerObj['AdherencePercentage'] = this.everwellBenData.AdherencePercentage;
     providerObj['actionTaken'] = item.editactionTaken;
-    providerObj['comments'] = item.editcomments ? item.editcomments.trim() : null,
+    providerObj['comments'] = (item.editcomments !=undefined && item.editcomments !=null) ? item.editcomments.trim() : null,
     providerObj['dateOfAction'] = this.datepipe.transform(new Date(item.editdob), 'yyyy-MM-dd');   
     providerObj['secondaryPhoneNo'] = item.mblNum;
     providerObj['createdBy']=this.everwellBenData.createdBy;

@@ -84,6 +84,7 @@ export class KnowledgeManagementComponent implements OnInit {
     this._coCategoryService.getTypes(this.providerServiceMapID)
       .subscribe((response) => {
         this.services = response.filter(function (item) {
+          if(item !=undefined && item !=null && item.subServiceName !=undefined && item.subServiceName !=null)
           return item.subServiceName.trim().toLowerCase() === 'information service'
             || item.subServiceName.trim().toLowerCase() === 'counselling service'
         });

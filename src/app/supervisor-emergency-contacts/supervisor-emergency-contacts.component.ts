@@ -153,8 +153,8 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       'notificationTypeID': this.notificationTypeID,
       'createdBy': this.createdBy,
       'designationID': object.designation.designationID,
-      'emergContactName': object.name.trim(),
-      'location': object.location.trim(),
+      'emergContactName': (object !=undefined && object !=null && object.name !=undefined && object.name !=null) ? object.name.trim() :null,
+      'location': (object !=undefined && object !=null && object.location !=undefined && object.location !=null) ? object.location.trim() :null,
       'emergContactNo': object.contactNumber,
       'designationName': object.designation.designationName
     }
@@ -276,16 +276,16 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
 
     this.name = object.emergContactName;
     this.designation = object.designation.designationID;
-    this.location = object.location.trim();
-    this.contactNumber = object.emergContactNo.trim();
+    this.location =  (object !=undefined && object !=null && object.location !=undefined && object.location !=null) ? object.location.trim() :null;
+    this.contactNumber = (object !=undefined && object !=null && object.emergContactNo !=undefined && object.emergContactNo !=null) ? object.emergContactNo.trim() :null;
 
   }
 
   update(formvalue) {
     this.editData['emergContactName'] = formvalue.name;
     this.editData['designationID'] = formvalue.designation;
-    this.editData['emergContactNo'] = formvalue.contactNumber.trim();
-    this.editData['location'] = formvalue.location.trim();
+    this.editData['emergContactNo'] = (formvalue !=undefined && formvalue !=null && formvalue.contactNumber !=undefined && formvalue.contactNumber !=null) ? formvalue.contactNumber.trim() :null;
+    this.editData['location'] = (formvalue !=undefined && formvalue !=null && formvalue.location !=undefined && formvalue.location !=null) ? formvalue.location.trim() :null;
 
     this.notification_service.updateEmergencyContacts(this.editData)
       .subscribe(response => {

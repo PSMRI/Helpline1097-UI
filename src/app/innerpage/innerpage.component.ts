@@ -656,7 +656,7 @@ export class InnerpageComponent implements OnInit {
     }
     requestObj['callType'] = 'wrapup exceeds';
     requestObj['beneficiaryRegID'] = this.beneficiaryRegID
-    requestObj['remarks'] = remarks ? remarks.trim() : null; 
+    requestObj['remarks'] = (remarks !=undefined && remarks !=null) ? remarks.trim() : null; 
     requestObj['providerServiceMapID'] = this.getCommonData.current_service.serviceID;
     requestObj['createdBy'] = this.getCommonData.uname;
     requestObj['agentID'] = this.getCommonData.cZentrixAgentID;

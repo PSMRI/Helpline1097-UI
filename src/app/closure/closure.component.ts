@@ -200,10 +200,12 @@ export class ClosureComponent implements OnInit
     });
     this.calltypes = calls;
     this.calltypes = calls.filter((item) => {
+      if(item !=undefined && item !=null && item.callTypeDesc !=undefined && item.callTypeDesc !=null)
       return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds';
     })
     if(this.isEverwell === 'yes'){
     this.calltypes = calls.filter((item) => {
+      if(item !=undefined && item !=null && item.callTypeDesc !=undefined && item.callTypeDesc !=null)
        return item.callTypeDesc.toLowerCase().trim() !== 'wrapup exceeds' && item.callTypeDesc.toLowerCase().trim() === 'valid';
   
     })

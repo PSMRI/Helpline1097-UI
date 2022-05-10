@@ -17,7 +17,7 @@ export class DashboardNavigationComponent implements OnInit {
     ngOnInit() {
         if (this.data_service.current_role) {
             this.currentRole = this.data_service.current_role.RoleName;
-            if (this.currentRole.toLowerCase().trim() === 'co') {
+            if (this.currentRole !=undefined && this.currentRole !=null && this.currentRole.toLowerCase().trim() === 'co') {
                 this.leftNavigation = true;
             } else {
                 this.leftNavigation = false;

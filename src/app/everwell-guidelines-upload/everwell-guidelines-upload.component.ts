@@ -198,8 +198,8 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     let kmFileManager = undefined;
     if (this.file !== undefined) {
        defaultObj = {
-         'guidelineName':this.guideline_name.trim(),
-         'guidelineDesc': this.guideline_description ? this.guideline_description.trim() : null,
+         'guidelineName': (this.guideline_name !=undefined && this.guideline_name !=null) ? this.guideline_name.trim() : null,
+         'guidelineDesc': (this.guideline_description !=undefined && this.guideline_description !=null) ? this.guideline_description.trim() : null,
         'fileName': (this.file !== undefined) ? this.file.name : '',
         'fileExtension': (this.file !== undefined) ? '.' + this.file.name.split('.')[1] : '',
         'providerServiceMapID': this.providerServiceMapID,

@@ -50,9 +50,9 @@ export class ServiceRoleSelectionComponent implements OnInit {
         let serviceName = service.serviceName;
         let screen = role.serviceRoleScreenMappings[0].screen.screenName;
         this.callService.onceOutbound = false;
-        if (screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
+        if (screen !=undefined && screen !=null && screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
             roleName = 'co';
-        } else if (screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {
+        } else if (screen !=undefined && screen !=null && screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {
             roleName = 'supervisor';
         } else {
             roleName = '';
@@ -72,7 +72,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
 
 
         // if ( service === '1097' && ( role === 'CO' || role === 'Supervisor' ) )
-        if (serviceName === '1097' && (roleName.toLowerCase().trim() === 'co' || roleName.toLowerCase().trim() === 'supervisor')) {
+        if (serviceName === '1097' && roleName !=undefined && roleName !=null && (roleName.toLowerCase().trim() === 'co' || roleName.toLowerCase().trim() === 'supervisor')) {
             // this is to hide the c-zentrix bar on selection of supervisor
             if (roleName.toLowerCase().trim() === 'supervisor') {
                 this.listnerService.cZentrixSendData({ 'hideBar': true });
@@ -83,9 +83,9 @@ export class ServiceRoleSelectionComponent implements OnInit {
 
             this.getCommonData.current_workingLocationID = role.workingLocationID;
             this.getCommonData.currentCampaignName = role.serviceRoleScreenMappings[0].providerServiceMapping.ctiCampaignName;
-            if (screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
+            if (screen !=undefined && screen !=null && screen.trim().toLowerCase() === 'Registration_Counselling'.trim().toLowerCase()) {
                 this.getCommonData.current_role = { 'RoleName': 'CO', 'RoleID': role.RoleID };
-            } else if (screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {
+            } else if (screen !=undefined && screen !=null && screen.trim().toLowerCase() === 'Supervising'.trim().toLowerCase()) {
                 this.getCommonData.current_role = { 'RoleName': 'Supervisor', 'RoleID': role.RoleID };
             } else {
                 this.getCommonData.current_role = '';
