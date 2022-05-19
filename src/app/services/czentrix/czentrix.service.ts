@@ -64,10 +64,10 @@ export class CzentrixServices {
   }
 
   userLogout() {
-    sessionStorage.clear();
-    // sessionStorage.removeItem("privilege_flag");
-    // sessionStorage.removeItem("session_id");
-    // sessionStorage.removeItem("callTransferred");
+    // sessionStorage.clear();
+    sessionStorage.removeItem("privilege_flag");
+    sessionStorage.removeItem("session_id");
+    sessionStorage.removeItem("callTransferred");
     return this.httpInterceptor
       .post(this.logoutUserUrl, {})
       .map(this.extractData)

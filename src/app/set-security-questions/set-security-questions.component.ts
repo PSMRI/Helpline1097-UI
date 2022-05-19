@@ -7,6 +7,7 @@ import { loginService } from '../services/loginService/login.service';
 import { AuthService } from '../services/authentication/auth.service';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { SetLanguageComponent } from 'app/set-language.component';
+import { CzentrixServices } from 'app/services/czentrix/czentrix.service';
 declare let jQuery: any;
 
 
@@ -26,7 +27,8 @@ export class SetSecurityQuestionsComponent implements OnInit {
     private configService: ConfigService,
     private alertService: ConfirmationDialogsService,
     private authService: AuthService,
-    private loginService: loginService
+    private loginService: loginService,
+    private czentrixService: CzentrixServices
   ) {
 
   }
@@ -244,16 +246,20 @@ export class SetSecurityQuestionsComponent implements OnInit {
   }
 
   successCallback(response) {
-    sessionStorage.removeItem('authToken');
     console.log(response);
     this.alertService.alert("Password changed successfully", 'success');
-   
+    this.czentrixService.userLogout().subscribe(res => this.handleSuccessss(res));
     this.router.navigate(['']);
   }
 
   errorCallback(response) {
     console.log(response);
   }
-
+  handleSuccessss(res) {
+    console.log("redis token removed");
+    if (res !== undefined && res !== null) {
+			this.authService.removeToken();
+		}
+  }
 
 }
