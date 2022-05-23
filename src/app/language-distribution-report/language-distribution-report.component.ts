@@ -10,6 +10,7 @@ import * as XLSX from "xlsx";
 import { HttpServices } from "../services/http-services/http_services.service";
 import { SetLanguageComponent } from "app/set-language.component";
 import * as moment from 'moment';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: "app-language-distribution-report",
@@ -142,105 +143,150 @@ export class LanguageDistributionReportComponent implements OnInit {
       this.end_date = this.maxEndDate;
     }
   }
+  // getReportsOld() {
+  //   console.log("values:", this.languageDistributionSearchForm.value);
+  //   this.postData = [];
+  //   if (this.languageDistributionSearchForm.value.language == "All") {
+  //     for (var i = 0; i < this.languages.length - 1; i++) {
+  //       var obj = {
+  //         providerServiceMapID: this.providerServiceMapID,
+
+  //         startTimestamp:
+  //           new Date(
+  //             this.languageDistributionSearchForm.value.startDate.getTime() -
+  //               1 *
+  //                 (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() *
+  //                   60 *
+  //                   1000)
+  //           )
+  //             .toJSON()
+  //             .slice(0, 10) + "T00:00:00.000Z",
+  //         endTimestamp:
+  //           new Date(
+  //             this.languageDistributionSearchForm.value.endDate.getTime() -
+  //               1 *
+  //                 (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() *
+  //                   60 *
+  //                   1000)
+  //           )
+  //             .toJSON()
+  //             .slice(0, 10) + "T23:59:59.999Z",
+  //         beneficiaryPreferredLanguage: this.languages[i].languageName,
+  //       };
+  //       if (this.languageDistributionSearchForm.value.state != "") {
+  //         obj["state"] =
+  //           this.languageDistributionSearchForm.value.state.stateName;
+  //       }
+  //       if (this.languageDistributionSearchForm.value.district != "") {
+  //         obj["district"] = this.languageDistributionSearchForm.value.district;
+  //       }
+  //       this.postData.push(obj);
+  //     }
+  //   } else {
+  //     //  for(var i=0; i< this.languageDistributionSearchForm.value.language.length;i++){
+  //     var obj = {
+  //       providerServiceMapID: this.providerServiceMapID,
+
+  //       startTimestamp:
+  //         new Date(
+  //           this.languageDistributionSearchForm.value.startDate.getTime() -
+  //             1 *
+  //               (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() *
+  //                 60 *
+  //                 1000)
+  //         )
+  //           .toJSON()
+  //           .slice(0, 10) + "T00:00:00.000Z",
+  //       endTimestamp:
+  //         new Date(
+  //           this.languageDistributionSearchForm.value.endDate.getTime() -
+  //             1 *
+  //               (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() *
+  //                 60 *
+  //                 1000)
+  //         )
+  //           .toJSON()
+  //           .slice(0, 10) + "T23:59:59.999Z",
+  //       beneficiaryPreferredLanguage:
+  //         this.languageDistributionSearchForm.value.language,
+  //     };
+  //     if (this.languageDistributionSearchForm.value.state != "") {
+  //       obj["state"] =
+  //         this.languageDistributionSearchForm.value.state.stateName;
+  //     }
+  //     if (this.languageDistributionSearchForm.value.district != "") {
+  //       obj["district"] = this.languageDistributionSearchForm.value.district;
+  //     }
+  //     this.postData.push(obj);
+  //     //   }
+  //   }
+
+  //   this.language = this.languageDistributionSearchForm.value.language;
+  //   this.state = this.languageDistributionSearchForm.value.state.stateName
+  //     ? this.languageDistributionSearchForm.value.state.stateName
+  //     : "Any";
+  //   this.district = this.languageDistributionSearchForm.value.district
+  //     ? this.languageDistributionSearchForm.value.district
+  //     : "Any";
+  //   // this.start_date = this.sexualOrientationSearchForm.value.startDate;
+  //   // this.end_date = this.sexualOrientationSearchForm.value.endDate;
+  //   console.log(this.postData);
+  //   this.reportsService.getCountsByPreferredLanguage(this.postData).subscribe(
+  //     (response) => {
+  //       console.log(response);
+  //       this.tableFlag = true;
+  //       this.languageDistributions = response;
+  //     },
+  //     (error) => {
+  //       this.alertService.alert(error.errorMessage);
+  //       console.log(error);
+  //     }
+  //   );
+  // }
+
   getReports() {
-    console.log("values:", this.languageDistributionSearchForm.value);
-    this.postData = [];
-    if (this.languageDistributionSearchForm.value.language == "All") {
-      for (var i = 0; i < this.languages.length - 1; i++) {
-        var obj = {
-          providerServiceMapID: this.providerServiceMapID,
 
-          startTimestamp:
-            new Date(
-              this.languageDistributionSearchForm.value.startDate.getTime() -
-                1 *
-                  (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() *
-                    60 *
-                    1000)
-            )
-              .toJSON()
-              .slice(0, 10) + "T00:00:00.000Z",
-          endTimestamp:
-            new Date(
-              this.languageDistributionSearchForm.value.endDate.getTime() -
-                1 *
-                  (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() *
-                    60 *
-                    1000)
-            )
-              .toJSON()
-              .slice(0, 10) + "T23:59:59.999Z",
-          beneficiaryPreferredLanguage: this.languages[i].languageName,
-        };
-        if (this.languageDistributionSearchForm.value.state != "") {
-          obj["state"] =
-            this.languageDistributionSearchForm.value.state.stateName;
-        }
-        if (this.languageDistributionSearchForm.value.district != "") {
-          obj["district"] = this.languageDistributionSearchForm.value.district;
-        }
-        this.postData.push(obj);
-      }
-    } else {
-      //  for(var i=0; i< this.languageDistributionSearchForm.value.language.length;i++){
-      var obj = {
-        providerServiceMapID: this.providerServiceMapID,
+    let startDate: Date = new Date( this.languageDistributionSearchForm.value.startDate);
+    let endDate: Date = new Date(this.languageDistributionSearchForm.value.endDate);
 
-        startTimestamp:
-          new Date(
-            this.languageDistributionSearchForm.value.startDate.getTime() -
-              1 *
-                (this.languageDistributionSearchForm.value.startDate.getTimezoneOffset() *
-                  60 *
-                  1000)
-          )
-            .toJSON()
-            .slice(0, 10) + "T00:00:00.000Z",
-        endTimestamp:
-          new Date(
-            this.languageDistributionSearchForm.value.endDate.getTime() -
-              1 *
-                (this.languageDistributionSearchForm.value.endDate.getTimezoneOffset() *
-                  60 *
-                  1000)
-          )
-            .toJSON()
-            .slice(0, 10) + "T23:59:59.999Z",
-        beneficiaryPreferredLanguage:
-          this.languageDistributionSearchForm.value.language,
-      };
-      if (this.languageDistributionSearchForm.value.state != "") {
-        obj["state"] =
-          this.languageDistributionSearchForm.value.state.stateName;
-      }
-      if (this.languageDistributionSearchForm.value.district != "") {
-        obj["district"] = this.languageDistributionSearchForm.value.district;
-      }
-      this.postData.push(obj);
-      //   }
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0);
+
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    endDate.setMilliseconds(0);
+
+
+    let reqObj = {
+      "startTimestamp": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
+      "endTimestamp": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
+      "providerServiceMapID": this.providerServiceMapID,
+      "beneficiaryPreferredLanguage": this.languageDistributionSearchForm.value.language == "All" ? null : this.languageDistributionSearchForm.value.language,
+      "state": this.languageDistributionSearchForm.value.state.stateName,
+      "district": (this.languageDistributionSearchForm.value.district !== null && this.languageDistributionSearchForm.value.district !== "" ) ? this.languageDistributionSearchForm.value.district : undefined,
+      "fileName": "Language_Distribution_Report"
     }
-
-    this.language = this.languageDistributionSearchForm.value.language;
-    this.state = this.languageDistributionSearchForm.value.state.stateName
-      ? this.languageDistributionSearchForm.value.state.stateName
-      : "Any";
-    this.district = this.languageDistributionSearchForm.value.district
-      ? this.languageDistributionSearchForm.value.district
-      : "Any";
-    // this.start_date = this.sexualOrientationSearchForm.value.startDate;
-    // this.end_date = this.sexualOrientationSearchForm.value.endDate;
-    console.log(this.postData);
-    this.reportsService.getCountsByPreferredLanguage(this.postData).subscribe(
-      (response) => {
-        console.log(response);
-        this.tableFlag = true;
-        this.languageDistributions = response;
-      },
-      (error) => {
-        this.alertService.alert(error.errorMessage);
-        console.log(error);
+  
+    this.reportsService.getCountsByPreferredLanguage(reqObj).subscribe((response) => {
+      if (response) {
+        saveAs(response,  reqObj.fileName+".xlsx");
+        this.alertService.alert(this.currentLanguageSet.languageDistributionReportDownloaded);
+      }else {
+        this.alertService.alert(this.currentLanguageSet.noDataFound);
       }
-    );
+    },
+    (err) => {
+      if(err.status === 500)
+      {
+        this.alertService.alert(this.currentLanguageSet.noDataFound, 'info');
+      }
+      else
+      this.alertService.alert(this.currentLanguageSet.errorWhileFetchingReport, 'error');
+    })
+
   }
   download() {
     var options = {

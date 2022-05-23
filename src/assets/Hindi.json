@@ -724,7 +724,9 @@
       "callAlreadyCompleted":"Call is already completed by agent",
       "pleaseChooseAFileForUpload": "कृपया अपलोड करने के लिए एक फ़ाइल चुनें",
       "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
-      "duplicateMobileNumber":"डुप्लीकेट मोबाइल संख्या"
+      "duplicateMobileNumber":"डुप्लीकेट मोबाइल संख्या",
+      "errorWhileFetchingReport":"Error while fetching report",
+      "downloadReport": "विवरण डाउनलोड करें"
       
 
 
