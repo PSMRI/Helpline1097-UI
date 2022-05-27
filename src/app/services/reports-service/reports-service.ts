@@ -30,27 +30,41 @@ export class ReportsService {
   ) { }
 
   getAllBySexualOrientation(data) {
-    return this.httpInterceptor.post(this.getAllBySexualOrientationURL, data)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http
+    .post(this.getAllBySexualOrientationURL, data, this.options)
+    .map(res => <Blob>res.blob());
+    // return this.httpInterceptor.post(this.getAllBySexualOrientationURL, data)
+    //   .map(this.extractData)
+    //   .catch(this.handleError);
   }
 
   getAllByGender(data) {
-    return this.httpInterceptor.post(this.getAllByGenderURL, data)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http
+    .post(this.getAllByGenderURL, data, this.options)
+    .map(res => <Blob>res.blob());
+    // return this.httpInterceptor.post(this.getAllByGenderURL, data)
+    //   .map(this.extractData)
+    //   .catch(this.handleError);
   }
 
   getAllByAgeGroup(data) {
-    return this.httpInterceptor.post(this.getAllByAgeGroupURL, data)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http
+    .post(this.getAllByAgeGroupURL, data, this.options)
+    .map(res => <Blob>res.blob());
+
+    // return this.httpInterceptor.post(this.getAllByAgeGroupURL, data)
+    //   .map(this.extractData)
+    //   .catch(this.handleError);
   }
 
   getAllReportsByDate(data) {
-    return this.httpInterceptor.post(this.getAllReportsByDateURL, data)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http
+    .post(this.getAllReportsByDateURL, data, this.options)
+    .map(res => <Blob>res.blob());
+
+    // return this.httpInterceptor.post(this.getAllReportsByDateURL, data)
+    //   .map(this.extractData)
+    //   .catch(this.handleError);
   }
 
   getCountsByPreferredLanguage(data) {

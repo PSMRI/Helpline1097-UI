@@ -10,6 +10,8 @@ import * as XLSX from "xlsx";
 import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "app/services/http-services/http_services.service";
 import * as moment from 'moment';
+import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: "app-sexual-orientation-report",
@@ -151,105 +153,50 @@ export class SexualOrientationReportComponent implements OnInit {
       this.end_date = this.maxEndDate;
     }
   }
-  getReports() {
-    console.log("values:", this.sexualOrientationSearchForm.value);
-    this.postData = [];
-    if (this.sexualOrientationSearchForm.value.sexuality == "All") {
-      for (var i = 0; i < this.sexualOrientations.length - 1; i++) {
-        var obj = {
-          providerServiceMapID: this.providerServiceMapID,
-          startTimestamp:
-            new Date(
-              this.sexualOrientationSearchForm.value.startDate.getTime() -
-                1 *
-                  (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() *
-                    60 *
-                    1000)
-            )
-              .toJSON()
-              .slice(0, 10) + "T00:00:00.000Z",
-          endTimestamp:
-            new Date(
-              this.sexualOrientationSearchForm.value.endDate.getTime() -
-                1 *
-                  (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() *
-                    60 *
-                    1000)
-            )
-              .toJSON()
-              .slice(0, 10) + "T23:59:59.999Z",
-          beneficiarySexualOrientation:
-            this.sexualOrientations[i].sexualOrientation,
-        };
-        if (this.sexualOrientationSearchForm.value.state != "") {
-          obj["state"] = this.sexualOrientationSearchForm.value.state.stateName;
-        }
-        if (this.sexualOrientationSearchForm.value.district != "") {
-          obj["district"] = this.sexualOrientationSearchForm.value.district;
-        }
-        this.postData.push(obj);
-      }
-    } else {
-      //  for(var i=0; i< this.sexualOrientationSearchForm.value.sexuality.length;i++){
+    getReports() {
 
-      var obj = {
-        providerServiceMapID: this.providerServiceMapID,
-        startTimestamp:
-          new Date(
-            this.sexualOrientationSearchForm.value.startDate.getTime() -
-              1 *
-                (this.sexualOrientationSearchForm.value.startDate.getTimezoneOffset() *
-                  60 *
-                  1000)
-          )
-            .toJSON()
-            .slice(0, 10) + "T00:00:00.000Z",
-        endTimestamp:
-          new Date(
-            this.sexualOrientationSearchForm.value.endDate.getTime() -
-              1 *
-                (this.sexualOrientationSearchForm.value.endDate.getTimezoneOffset() *
-                  60 *
-                  1000)
-          )
-            .toJSON()
-            .slice(0, 10) + "T23:59:59.999Z",
-        beneficiarySexualOrientation:
-          this.sexualOrientationSearchForm.value.sexuality,
-      };
-      if (this.sexualOrientationSearchForm.value.state != "") {
-        obj["state"] = this.sexualOrientationSearchForm.value.state.stateName;
+      let startDate: Date = new Date( this.sexualOrientationSearchForm.value.startDate);
+      let endDate: Date = new Date(this.sexualOrientationSearchForm.value.endDate);
+  
+      startDate.setHours(0);
+      startDate.setMinutes(0);
+      startDate.setSeconds(0);
+      startDate.setMilliseconds(0);
+  
+      endDate.setHours(23);
+      endDate.setMinutes(59);
+      endDate.setSeconds(59);
+      endDate.setMilliseconds(0);
+  
+  
+      let reqObj = {
+        "startTimestamp": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
+        "endTimestamp": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
+        "providerServiceMapID": this.providerServiceMapID,
+        "beneficiarySexualOrientation": this.sexualOrientationSearchForm.value.sexuality == "All" ? null : this.sexualOrientationSearchForm.value.sexuality,
+        "state": this.sexualOrientationSearchForm.value.state.stateName,
+        "district": (this.sexualOrientationSearchForm.value.district !== null && this.sexualOrientationSearchForm.value.district !== "" ) ? this.sexualOrientationSearchForm.value.district : undefined,
+        "fileName": "Sexual_Orientation_Report"
       }
-      if (this.sexualOrientationSearchForm.value.district != "") {
-        obj["district"] = this.sexualOrientationSearchForm.value.district;
-      }
-      this.postData.push(obj);
-      //  }
-    }
-    this.sexualOrientation = this.sexualOrientationSearchForm.value.sexuality;
-    this.state = this.sexualOrientationSearchForm.value.state.stateName
-      ? this.sexualOrientationSearchForm.value.state.stateName
-      : "Any";
-    this.district = this.sexualOrientationSearchForm.value.district
-      ? this.sexualOrientationSearchForm.value.district
-      : "Any";
-    this.start_date = this.sexualOrientationSearchForm.value.startDate;
-    this.end_date = this.sexualOrientationSearchForm.value.endDate;
-    console.log(this.postData);
-    this.reportsService.getAllBySexualOrientation(this.postData).subscribe(
-      (response) => {
-        console.log(response);
-        this.tableFlag = true;
-        this.orientations = response;
+    
+      this.reportsService.getAllBySexualOrientation(reqObj).subscribe((response) => {
+        if (response) {
+          saveAs(response,  reqObj.fileName+".xlsx");
+          this.alertService.alert(this.currentLanguageSet.sexualOrientationReportDownloaded);
+        }else {
+          this.alertService.alert(this.currentLanguageSet.noDataFound);
+        }
       },
-      (error) => {
-        this.alertService.alert(error.errorMessage, "error");
-
-        console.log(error);
-      }
-    );
-  }
-
+      (err) => {
+        if(err.status === 500)
+        {
+          this.alertService.alert(this.currentLanguageSet.noDataFound, 'info');
+        }
+        else
+        this.alertService.alert(this.currentLanguageSet.errorWhileFetchingReport, 'error');
+      })
+  
+    }    
   download_report() {
     var head = Object.keys(this.orientations[0]);
     new Angular2Csv(this.orientations, "Sexual Orientation Report", {

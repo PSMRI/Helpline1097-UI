@@ -98,7 +98,6 @@
             [(ngModel)]="ageGroup"
             name="ageGroup"
             #_ageGroup='ngModel'
-            (change)="resetWorklist()"
           >
             <md-option
               *ngFor="let age of ageGroups"
@@ -120,24 +119,24 @@
             md-raised-button
             [disabled]="callerAgeSearchForm.invalid"
             color="accent"
-            (click)="getReports(callerAgeSearchForm.value)"
+            (click)="getReports()"
           >
-            {{ assignSelectedLanguageValue?.search }}
+            {{ assignSelectedLanguageValue?.downloadReport }}
           </button>
           <button
             class="visible-xs pull-right"
             md-raised-button
             [disabled]="callerAgeSearchForm.invalid"
             color="accent"
-            (click)="getReports(callerAgeSearchForm.value)"
+            (click)="getReports()"
           >
-            {{ assignSelectedLanguageValue?.search }}
+            {{ assignSelectedLanguageValue?.downloadReport }}
           </button>
         </div>
       </form>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
+  <!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
     <div class="table-responsive">
       <table class="table table-striped" [md2Data]="count" #md2="md2DataTable" aria-describedby="callerDetails">
         <thead>
@@ -184,5 +183,5 @@
         </tfoot>
       </table>
     </div>
-  </div>
+  </div> -->
 </div>

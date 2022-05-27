@@ -146,6 +146,8 @@
       "genderDistributionReportDownloaded": "Gender distribution report downloaded",
       "selectLanguage": "Select Language",
       "displayNames\\Placeholders": "Display Names \\ Placeholders",
+      "callerAgeReportDownloaded":"Caller Age Report Downloaded",
+      "callTypeReportDownloaded": "Call Type Report Downloaded",
       "sexualOrientationReportDownloaded": "Sexual orientation report downloaded",
       "somethingWentWrongInCalling": "Something went wrong in calling",
       "noDataFound,ContactYourAdministrator": "No data found, contact your administrator",
