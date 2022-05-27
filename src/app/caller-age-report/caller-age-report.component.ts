@@ -86,9 +86,9 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
         },
       },
       {
-        ageGroupDisplay: "24 to 39",
+        ageGroupDisplay: "25 to 39",
         ageGroupValue: {
-          minAge: 24,
+          minAge: 25,
           maxAge: 39,
         },
       },
