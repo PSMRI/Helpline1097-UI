@@ -50,7 +50,7 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
          
-            <md-select class=" " required placeholder="{{currentLanguageSet?.sexuality}}" [style.width]="'100%'" ngModel name="sexuality" #sexuality="ngModel" (change)=resetWorklist()>
+            <md-select class=" " required placeholder="{{currentLanguageSet?.sexuality}}" [style.width]="'100%'" ngModel name="sexuality" #sexuality="ngModel">
             
               <md-option *ngFor="let item of sexualOrientations" [value]="item.sexualOrientation">
                 {{item.sexualOrientation}}
@@ -64,13 +64,13 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
           <button class="hidden-xs" md-raised-button [disabled]="sexualOrientationSearchForm.invalid || ((endDate.value < startDate.value))"
-            color="accent" (click)="getReports()">{{currentLanguageSet?.search}}</button>
-          <button class="visible-xs pull-right" md-raised-button [disabled]="sexualOrientationSearchForm.invalid " color="accent" (click)="getReports()">{{currentLanguageSet?.search}}</button>
+            color="accent" (click)="getReports()">{{currentLanguageSet?.downloadReport}}</button>
+          <button class="visible-xs pull-right" md-raised-button [disabled]="sexualOrientationSearchForm.invalid " color="accent" (click)="getReports()">{{currentLanguageSet?.downloadReport}}</button>
         </div>
       </form>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
+  <!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
     <table class="table table-striped" [md2Data]="orientations" #md2="md2DataTable" aria-describedby="sexualOrientationReportList">
       <thead>
         <tr>
@@ -104,5 +104,5 @@
         </tr>
       </tfoot>
     </table>
-  </div>
+  </div> -->
 </div>
