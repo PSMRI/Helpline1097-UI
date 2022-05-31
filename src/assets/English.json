@@ -146,6 +146,8 @@
       "genderDistributionReportDownloaded": "Gender distribution report downloaded",
       "selectLanguage": "Select Language",
       "displayNames\\Placeholders": "Display Names \\ Placeholders",
+      "callerAgeReportDownloaded":"Caller Age Report Downloaded",
+      "callTypeReportDownloaded": "Call Type Report Downloaded",
       "sexualOrientationReportDownloaded": "Sexual orientation report downloaded",
       "somethingWentWrongInCalling": "Something went wrong in calling",
       "noDataFound,ContactYourAdministrator": "No data found, contact your administrator",
@@ -725,7 +727,9 @@
       "callAlreadyCompleted":"Call is already completed by agent",
       "pleaseChooseAFileForUpload": "Please choose a file for upload",
       "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
-      "duplicateMobileNumber":"Duplicate Mobile Number"
+      "duplicateMobileNumber":"Duplicate Mobile Number",
+      "errorWhileFetchingReport":"Error while fetching report",
+      "downloadReport": "Download Report"
 
 
 

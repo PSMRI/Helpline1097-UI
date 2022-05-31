@@ -97,7 +97,6 @@
           ngModel
           name="language"
           #language="ngModel"
-          (change)="resetWorklist()"
         >
           <md-option *ngFor="let item of languages" [value]="item.languageName">
             {{ item.languageName }}
@@ -121,7 +120,7 @@
           color="accent"
           (click)="getReports()"
         >
-          {{ currentLanguageSet?.search }}
+          {{ currentLanguageSet?.downloadReport }}
         </button>
         <button
           class="visible-xs pull-right"
@@ -130,12 +129,12 @@
           color="accent"
           (click)="getReports()"
         >
-          {{ currentLanguageSet?.search }}
+          {{ currentLanguageSet?.downloadReport }}
         </button>
       </div>
     </form>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
+  <!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
     <table
       class="table table-striped"
       [md2Data]="languageDistributions"
@@ -192,5 +191,5 @@
         </tr>
       </tfoot>
     </table>
-  </div>
+  </div> -->
 </div>
