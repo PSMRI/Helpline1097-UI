@@ -265,7 +265,7 @@ export class LanguageDistributionReportComponent implements OnInit {
       "endTimestamp": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
       "providerServiceMapID": this.providerServiceMapID,
       "beneficiaryPreferredLanguage": this.languageDistributionSearchForm.value.language == "All" ? null : this.languageDistributionSearchForm.value.language,
-      "state": this.languageDistributionSearchForm.value.state.stateName,
+      "state": this.languageDistributionSearchForm.value.state !== undefined ? this.languageDistributionSearchForm.value.state.stateName : undefined,
       "district": (this.languageDistributionSearchForm.value.district !== null && this.languageDistributionSearchForm.value.district !== "" ) ? this.languageDistributionSearchForm.value.district : undefined,
       "fileName": "Language_Distribution_Report"
     }

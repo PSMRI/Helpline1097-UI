@@ -175,7 +175,8 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
       "providerServiceMapID": this.providerServiceMapID,
       "maxAge": this.callerAgeSearchForm.value.ageGroup == "All" ? null : this.callerAgeSearchForm.value.ageGroup.maxAge,
       "minAge": this.callerAgeSearchForm.value.ageGroup == "All" ? null : this.callerAgeSearchForm.value.ageGroup.minAge,
-      "state": this.callerAgeSearchForm.value.state.stateName,
+      "callerAgeGroup": ((this.callerAgeSearchForm.value.ageGroup.minAge !== undefined && this.callerAgeSearchForm.value.ageGroup.minAge !== null) && (this.callerAgeSearchForm.value.ageGroup.maxAge !== undefined && this.callerAgeSearchForm.value.ageGroup.maxAge !== null)) ? this.callerAgeSearchForm.value.ageGroup.minAge + " to " + this.callerAgeSearchForm.value.ageGroup.maxAge : "All",
+      "state": this.callerAgeSearchForm.value.state !== undefined ? this.callerAgeSearchForm.value.state.stateName : undefined,      
       "district": (this.callerAgeSearchForm.value.district !== null && this.callerAgeSearchForm.value.district !== "" ) ? this.callerAgeSearchForm.value.district : undefined,
       "fileName": "Caller_Age_Group_Report"
     }

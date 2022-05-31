@@ -163,7 +163,7 @@ export class GenderDistributionReportComponent implements OnInit {
       "endTimestamp": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
       "providerServiceMapID": this.providerServiceMapID,
       "gender": this.genderDistributionSearchForm.value.gender == "All" ? null : this.genderDistributionSearchForm.value.gender,
-      "state": this.genderDistributionSearchForm.value.state.stateName,
+      "state": this.genderDistributionSearchForm.value.state !== undefined ? this.genderDistributionSearchForm.value.state.stateName : undefined,
       "district": (this.genderDistributionSearchForm.value.district !== null && this.genderDistributionSearchForm.value.district !== "" ) ? this.genderDistributionSearchForm.value.district : undefined,
       "fileName": "Gender_Distribution_Report"
     }

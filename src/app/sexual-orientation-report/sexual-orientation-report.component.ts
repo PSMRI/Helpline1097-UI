@@ -174,7 +174,7 @@ export class SexualOrientationReportComponent implements OnInit {
         "endTimestamp": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
         "providerServiceMapID": this.providerServiceMapID,
         "beneficiarySexualOrientation": this.sexualOrientationSearchForm.value.sexuality == "All" ? null : this.sexualOrientationSearchForm.value.sexuality,
-        "state": this.sexualOrientationSearchForm.value.state.stateName,
+        "state": this.sexualOrientationSearchForm.value.state !== undefined ? this.sexualOrientationSearchForm.value.state.stateName : undefined,
         "district": (this.sexualOrientationSearchForm.value.district !== null && this.sexualOrientationSearchForm.value.district !== "" ) ? this.sexualOrientationSearchForm.value.district : undefined,
         "fileName": "Sexual_Orientation_Report"
       }
