@@ -249,7 +249,6 @@ export class SetSecurityQuestionsComponent implements OnInit {
     console.log(response);
     this.alertService.alert("Password changed successfully", 'success');
     this.czentrixService.userLogout().subscribe(res => this.handleSuccessss(res));
-    this.router.navigate(['']);
   }
 
   errorCallback(response) {
@@ -259,6 +258,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
     console.log("redis token removed");
     if (res !== undefined && res !== null) {
 			this.authService.removeToken();
+      this.router.navigate(['']);
 		}
   }
 
