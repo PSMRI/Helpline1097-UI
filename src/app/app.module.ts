@@ -211,6 +211,7 @@ import { InputAreaDirective } from './directives/Inputfeild/inputFeild.directive
 import { QuestionnaireDirective } from './directives/questionnaire/questionnaire.directive';
 import { searchIdDirective } from './directives/searchid/searchId.directive';
 import { SmsTemplateDirective } from './directives/smsTemplate/smsTemplate.directive';
+import { textareaDirectiveWithCopyPaste } from './directives/textarea/textareaDirectiveWithCopyPaste';
 // import { SetLanguageComponent } from './set-language.component';
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
@@ -268,7 +269,8 @@ import { SmsTemplateDirective } from './directives/smsTemplate/smsTemplate.direc
     searchIdDirective,
     QuestionnaireDirective,
     InputAreaDirective,
-    AnswerDirective
+    AnswerDirective,
+    textareaDirectiveWithCopyPaste
   ],
   imports: [
     BrowserModule,
