@@ -169,7 +169,9 @@ export class loginContentClass implements OnInit, OnDestroy {
     response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID : null;
     console.log("current_serviceID:" + this.dataSettingService.current_serviceID );
     this.dataSettingService.uname = response.userName;
-    this.dataSettingService.Userdata.agentID = response.agentID;
+    this.previlageObj.forEach((assignAgentID) => {
+      this.dataSettingService.Userdata.agentID = assignAgentID.agentID;
+    })
     this.dataSettingService.loginIP = response.loginIPAddress;
     // this.getLoginKey(userID, password);
     // console.log( "array" + response.Previlege );

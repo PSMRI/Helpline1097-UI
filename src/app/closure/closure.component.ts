@@ -525,7 +525,7 @@ export class ClosureComponent implements OnInit
     this.subscription.unsubscribe();
   }
   getIpAddress() {
-    this.czentrixServices.getIpAddress(this.saved_data.Userdata.agentID)
+    this.czentrixServices.getIpAddress(this.saved_data.cZentrixAgentID)
       .subscribe(response => this.ipSuccessHandler(response),
       (err) => {
         // this.message.alert(err.errorMessage, 'error');
@@ -534,7 +534,7 @@ export class ClosureComponent implements OnInit
   }
   ipSuccessHandler(response) {
     console.log('fetch ip response: ' + JSON.stringify(response));
-    this.ipAddress = response.response.agent_ip;
+    this.ipAddress = response.data.agent_ip;
   }
   closeOutboundCall(btnType: any, values: any) {
     this._callServices.closeCall(values).subscribe((response) => {
