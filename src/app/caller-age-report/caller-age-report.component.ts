@@ -11,6 +11,7 @@ import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "app/services/http-services/http_services.service";
 import { DoCheck } from "@angular/core";
 import * as moment from 'moment';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: "app-caller-age-report",
@@ -86,9 +87,9 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
         },
       },
       {
-        ageGroupDisplay: "24 to 39",
+        ageGroupDisplay: "25 to 39",
         ageGroupValue: {
-          minAge: 24,
+          minAge: 25,
           maxAge: 39,
         },
       },
@@ -103,6 +104,7 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
         ageGroupDisplay: "Above 59",
         ageGroupValue: {
           minAge: 59,
+          maxAge: 150,
         },
       },
       {
@@ -152,77 +154,123 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
       this.end_date = this.maxEndDate;
     }
   }
+  getReports() {
 
-  getReports(value) {
-    let noOfGroups = value.ageGroup.length;
-    let array = [];
-    let obj = {};
-    let start_date =
-      new Date(
-        value.startDate - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)
-      )
-        .toJSON()
-        .slice(0, 10) + "T00:00:00.000Z";
-    let end_date =
-      new Date(
-        value.endDate - 1 * (value.endDate.getTimezoneOffset() * 60 * 1000)
-      )
-        .toJSON()
-        .slice(0, 10) + "T23:59:59.999Z";
-    let state;
-    if (this.state) {
-      state = this.state.stateName;
-    }
-    // else {
-    //   state = "";
-    // }
-    let district = undefined;
-    if (this.district) {
-      district = this.district;
-    }
+    let startDate: Date = new Date( this.callerAgeSearchForm.value.startDate);
+    let endDate: Date = new Date(this.callerAgeSearchForm.value.endDate);
 
-    if (this.ageGroup == "All") {
-      for (let i = 0; i < this.ageGroups.length - 1; i++) {
-        obj = {
-          providerServiceMapID: this.providerServiceMapID,
-          maxAge: this.ageGroups[i].ageGroupValue.maxAge,
-          minAge: this.ageGroups[i].ageGroupValue.minAge,
-          startTimestamp: start_date,
-          endTimestamp: end_date,
-          state: state,
-          //"beneficiaryDistrict": value.district ? value.district : ""
-          district: district,
-        };
-        array.push(obj);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0);
+
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    endDate.setMilliseconds(0);
+
+
+    let reqObj = {
+      "startTimestamp": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
+      "endTimestamp": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
+      "providerServiceMapID": this.providerServiceMapID,
+      "maxAge": this.callerAgeSearchForm.value.ageGroup == "All" ? null : this.callerAgeSearchForm.value.ageGroup.maxAge,
+      "minAge": this.callerAgeSearchForm.value.ageGroup == "All" ? null : this.callerAgeSearchForm.value.ageGroup.minAge,
+      "callerAgeGroup": ((this.callerAgeSearchForm.value.ageGroup.minAge !== undefined && this.callerAgeSearchForm.value.ageGroup.minAge !== null) || (this.callerAgeSearchForm.value.ageGroup.maxAge !== undefined && this.callerAgeSearchForm.value.ageGroup.maxAge !== null)) ? this.callerAgeSearchForm.value.ageGroup.minAge + " to " + this.callerAgeSearchForm.value.ageGroup.maxAge : "All",
+      "state": this.callerAgeSearchForm.value.state !== undefined ? this.callerAgeSearchForm.value.state.stateName : undefined,      
+      "district": (this.callerAgeSearchForm.value.district !== null && this.callerAgeSearchForm.value.district !== "" ) ? this.callerAgeSearchForm.value.district : undefined,
+      "fileName": "Caller_Age_Group_Report"
+    }
+  
+    this.reportService.getAllByAgeGroup(reqObj).subscribe((response) => {
+      if (response) {
+        saveAs(response,  reqObj.fileName+".xlsx");
+        this.alertMessage.alert(this.assignSelectedLanguageValue.callerAgeReportDownloaded);
+      }else {
+        this.alertMessage.alert(this.assignSelectedLanguageValue.noDataFound);
       }
-    } else {
-      obj = {
-        providerServiceMapID: this.providerServiceMapID,
-        maxAge: value.ageGroup.maxAge,
-        minAge: value.ageGroup.minAge,
-        startTimestamp: start_date,
-        endTimestamp: end_date,
-        state: state,
-        //"beneficiaryDistrict": value.district ? value.district : ""
-        district: district,
-      };
-      array.push(obj);
-    }
-    this.start_date = value.startDate;
-    this.end_date = value.endDate;
-    this.stateName = state;
-    this.district = district;
-
-    console.log(array);
-    this.reportService.getAllByAgeGroup(array).subscribe(
-      (response) => {
-        this.reportSuccessHandle(response);
-      },
-      (err) => {
-        this.alertMessage.alert(err.errorMessage, "error");
+    },
+    (err) => {
+      if(err.status === 500)
+      {
+        this.alertMessage.alert(this.assignSelectedLanguageValue.noDataFound, 'info');
       }
-    );
+      else
+      this.alertMessage.alert(this.assignSelectedLanguageValue.errorWhileFetchingReport, 'error');
+    })
+
   }
+
+  // getReports(value) {
+  //   let noOfGroups = value.ageGroup.length;
+  //   let array = [];
+  //   let obj = {};
+  //   let start_date =
+  //     new Date(
+  //       value.startDate - 1 * (value.startDate.getTimezoneOffset() * 60 * 1000)
+  //     )
+  //       .toJSON()
+  //       .slice(0, 10) + "T00:00:00.000Z";
+  //   let end_date =
+  //     new Date(
+  //       value.endDate - 1 * (value.endDate.getTimezoneOffset() * 60 * 1000)
+  //     )
+  //       .toJSON()
+  //       .slice(0, 10) + "T23:59:59.999Z";
+  //   let state;
+  //   if (this.state) {
+  //     state = this.state.stateName;
+  //   }
+  //   // else {
+  //   //   state = "";
+  //   // }
+  //   let district = undefined;
+  //   if (this.district) {
+  //     district = this.district;
+  //   }
+
+  //   if (this.ageGroup == "All") {
+  //     for (let i = 0; i < this.ageGroups.length - 1; i++) {
+  //       obj = {
+  //         providerServiceMapID: this.providerServiceMapID,
+  //         maxAge: this.ageGroups[i].ageGroupValue.maxAge,
+  //         minAge: this.ageGroups[i].ageGroupValue.minAge,
+  //         startTimestamp: start_date,
+  //         endTimestamp: end_date,
+  //         state: state,
+  //         //"beneficiaryDistrict": value.district ? value.district : ""
+  //         district: district,
+  //       };
+  //       array.push(obj);
+  //     }
+  //   } else {
+  //     obj = {
+  //       providerServiceMapID: this.providerServiceMapID,
+  //       maxAge: value.ageGroup.maxAge,
+  //       minAge: value.ageGroup.minAge,
+  //       startTimestamp: start_date,
+  //       endTimestamp: end_date,
+  //       state: state,
+  //       //"beneficiaryDistrict": value.district ? value.district : ""
+  //       district: district,
+  //     };
+  //     array.push(obj);
+  //   }
+  //   this.start_date = value.startDate;
+  //   this.end_date = value.endDate;
+  //   this.stateName = state;
+  //   this.district = district;
+
+  //   console.log(array);
+  //   this.reportService.getAllByAgeGroup(array).subscribe(
+  //     (response) => {
+  //       this.reportSuccessHandle(response);
+  //     },
+  //     (err) => {
+  //       this.alertMessage.alert(err.errorMessage, "error");
+  //     }
+  //   );
+  // }
   count = [];
   reportSuccessHandle(res) {
     console.log(res);

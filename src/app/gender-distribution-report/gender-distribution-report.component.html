@@ -98,7 +98,6 @@
           ngModel
           name="gender"
           #gender="ngModel"
-          (change)="resetWorklist()"
         >
           <md-option *ngFor="let item of genders" [value]="item.genderName">
             {{ item.genderName }}
@@ -119,23 +118,23 @@
             endDate.value < startDate.value
           "
           color="accent"
-          (click)="getReports(genderDistributionSearchForm.value)"
+          (click)="getReports()"
         >
-          {{ currentLanguageSet?.search }}
+          {{ currentLanguageSet?.downloadReport }}
         </button>
         <button
           class="visible-xs pull-right"
           md-raised-button
           [disabled]="genderDistributionSearchForm.invalid"
           color="accent"
-          (click)="getReports(genderDistributionSearchForm.value)"
+          (click)="getReports()"
         >
-          {{ currentLanguageSet?.search }}
+          {{ currentLanguageSet?.downloadReport }}
         </button>
       </div>
     </form>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
+  <!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 m-t-20" *ngIf="tableFlag">
     <div class="table-responsive">
       <table
         class="table table-striped"
@@ -186,5 +185,5 @@
         </tfoot>
       </table>
     </div>
-  </div>
+  </div> -->
 </div>

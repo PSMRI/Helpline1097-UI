@@ -11,6 +11,7 @@ import * as XLSX from "xlsx";
 import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "app/services/http-services/http_services.service";
 import * as moment from 'moment';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: "app-gender-distribution-report",
@@ -141,96 +142,140 @@ export class GenderDistributionReportComponent implements OnInit {
       this.end_date = this.maxEndDate;
     }
   }
-  getReports(form_values) {
-    //call api and initialize data
-    this.request_array = [];
-    console.log(form_values.gender, "GENDER ARRAY CONDITION");
-    if (form_values.gender == "All") {
-      for (let i = 0; i < this.genders.length - 1; i++) {
-        var obj = Object.assign({}, this.request_obj);
-        obj["gender"] = this.genders[i].genderName;
-        obj["providerServiceMapID"] = this.providerServiceMapID;
+  getReports() {
 
-        obj["startTimestamp"] =
-          new Date(
-            form_values.startDate -
-              1 * (form_values.startDate.getTimezoneOffset() * 60 * 1000)
-          )
-            .toJSON()
-            .slice(0, 10) + "T00:00:00.000Z";
+    let startDate: Date = new Date( this.genderDistributionSearchForm.value.startDate);
+    let endDate: Date = new Date(this.genderDistributionSearchForm.value.endDate);
 
-        obj["endTimestamp"] =
-          new Date(
-            form_values.endDate -
-              1 * (form_values.endDate.getTimezoneOffset() * 60 * 1000)
-          )
-            .toJSON()
-            .slice(0, 10) + "T23:59:59.999Z";
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0);
 
-        if (form_values.state) {
-          obj["state"] = form_values.state.stateName;
-        }
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    endDate.setMilliseconds(0);
 
-        if (form_values.district) {
-          obj["district"] = form_values.district;
-        }
 
-        this.request_array.push(obj);
-      }
-      console.log("request array", this.request_array);
-    } else {
-      /*assign all genders if no gender was selected*/
-      // for(let i=0;i<form_values.gender.length;i++)
-      // {
-      /*selected genders*/
-      var obj = Object.assign({}, this.request_obj);
-      obj["gender"] = form_values.gender;
-      obj["providerServiceMapID"] = this.providerServiceMapID;
-      obj["startTimestamp"] =
-        new Date(
-          form_values.startDate -
-            1 * (form_values.startDate.getTimezoneOffset() * 60 * 1000)
-        )
-          .toJSON()
-          .slice(0, 10) + "T00:00:00.000Z";
-
-      obj["endTimestamp"] =
-        new Date(
-          form_values.endDate -
-            1 * (form_values.endDate.getTimezoneOffset() * 60 * 1000)
-        )
-          .toJSON()
-          .slice(0, 10) + "T23:59:59.999Z";
-
-      if (form_values.state) {
-        obj["state"] = form_values.state.stateName;
-      }
-
-      if (form_values.district) {
-        obj["district"] = form_values.district;
-      }
-
-      this.request_array.push(obj);
-      // }
-
-      console.log("request array", this.request_array);
+    let reqObj = {
+      "startTimestamp": new Date(startDate.valueOf() - 1 * startDate.getTimezoneOffset() * 60 * 1000),
+      "endTimestamp": new Date(endDate.valueOf() - 1 * endDate.getTimezoneOffset() * 60 * 1000),
+      "providerServiceMapID": this.providerServiceMapID,
+      "gender": this.genderDistributionSearchForm.value.gender == "All" ? null : this.genderDistributionSearchForm.value.gender,
+      "state": this.genderDistributionSearchForm.value.state !== undefined ? this.genderDistributionSearchForm.value.state.stateName : undefined,
+      "district": (this.genderDistributionSearchForm.value.district !== null && this.genderDistributionSearchForm.value.district !== "" ) ? this.genderDistributionSearchForm.value.district : undefined,
+      "fileName": "Gender_Distribution_Report"
     }
-
-    // this.start_date = form_values.start_date;
-    // this.end_date = form_values.end_date;
-    this.gender = form_values.gender;
-    // this.state = form_values.state.stateName;
-    //this.district = form_values.district;
-    if (form_values.state == undefined) {
-      this.state = form_values.state ? form_values.state.stateName : "Any";
-    }
-    this.reportsService.getAllByGender(this.request_array).subscribe(
-      (response) => this.getReportSuccessHandeler(response),
-      (err) => {
-        this.alertService.alert(err.errorMessage);
+  
+    this.reportsService.getAllByGender(reqObj).subscribe((response) => {
+      if (response) {
+        saveAs(response,  reqObj.fileName+".xlsx");
+        this.alertService.alert(this.currentLanguageSet.genderDistributionReportDownloaded);
+      }else {
+        this.alertService.alert(this.currentLanguageSet.noDataFound);
       }
-    );
+    },
+    (err) => {
+      if(err.status === 500)
+      {
+        this.alertService.alert(this.currentLanguageSet.noDataFound, 'info');
+      }
+      else
+      this.alertService.alert(this.currentLanguageSet.errorWhileFetchingReport, 'error');
+    })
+
   }
+  // getReports(form_values) {
+  //   //call api and initialize data
+  //   this.request_array = [];
+  //   console.log(form_values.gender, "GENDER ARRAY CONDITION");
+  //   if (form_values.gender == "All") {
+  //     for (let i = 0; i < this.genders.length - 1; i++) {
+  //       var obj = Object.assign({}, this.request_obj);
+  //       obj["gender"] = this.genders[i].genderName;
+  //       obj["providerServiceMapID"] = this.providerServiceMapID;
+
+  //       obj["startTimestamp"] =
+  //         new Date(
+  //           form_values.startDate -
+  //             1 * (form_values.startDate.getTimezoneOffset() * 60 * 1000)
+  //         )
+  //           .toJSON()
+  //           .slice(0, 10) + "T00:00:00.000Z";
+
+  //       obj["endTimestamp"] =
+  //         new Date(
+  //           form_values.endDate -
+  //             1 * (form_values.endDate.getTimezoneOffset() * 60 * 1000)
+  //         )
+  //           .toJSON()
+  //           .slice(0, 10) + "T23:59:59.999Z";
+
+  //       if (form_values.state) {
+  //         obj["state"] = form_values.state.stateName;
+  //       }
+
+  //       if (form_values.district) {
+  //         obj["district"] = form_values.district;
+  //       }
+
+  //       this.request_array.push(obj);
+  //     }
+  //     console.log("request array", this.request_array);
+  //   } else {
+  //     /*assign all genders if no gender was selected*/
+  //     // for(let i=0;i<form_values.gender.length;i++)
+  //     // {
+  //     /*selected genders*/
+  //     var obj = Object.assign({}, this.request_obj);
+  //     obj["gender"] = form_values.gender;
+  //     obj["providerServiceMapID"] = this.providerServiceMapID;
+  //     obj["startTimestamp"] =
+  //       new Date(
+  //         form_values.startDate -
+  //           1 * (form_values.startDate.getTimezoneOffset() * 60 * 1000)
+  //       )
+  //         .toJSON()
+  //         .slice(0, 10) + "T00:00:00.000Z";
+
+  //     obj["endTimestamp"] =
+  //       new Date(
+  //         form_values.endDate -
+  //           1 * (form_values.endDate.getTimezoneOffset() * 60 * 1000)
+  //       )
+  //         .toJSON()
+  //         .slice(0, 10) + "T23:59:59.999Z";
+
+  //     if (form_values.state) {
+  //       obj["state"] = form_values.state.stateName;
+  //     }
+
+  //     if (form_values.district) {
+  //       obj["district"] = form_values.district;
+  //     }
+
+  //     this.request_array.push(obj);
+  //     // }
+
+  //     console.log("request array", this.request_array);
+  //   }
+
+  //   // this.start_date = form_values.start_date;
+  //   // this.end_date = form_values.end_date;
+  //   this.gender = form_values.gender;
+  //   // this.state = form_values.state.stateName;
+  //   //this.district = form_values.district;
+  //   if (form_values.state == undefined) {
+  //     this.state = form_values.state ? form_values.state.stateName : "Any";
+  //   }
+  //   this.reportsService.getAllByGender(this.request_array).subscribe(
+  //     (response) => this.getReportSuccessHandeler(response),
+  //     (err) => {
+  //       this.alertService.alert(err.errorMessage);
+  //     }
+  //   );
+  // }
 
   getReportSuccessHandeler(response) {
     if (response) {

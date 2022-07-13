@@ -11,6 +11,7 @@ import * as XLSX from "xlsx";
 import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "app/services/http-services/http_services.service";
 import * as moment from 'moment';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: "app-supervisor-calltype-reports",
@@ -160,16 +161,36 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       gender: this.gender,
       beneficiaryPreferredLanguage: this.language,
       beneficiarySexualOrientation: this.sexuality,
+      fileName: "Call_Type_Report"
     };
 
     console.log("Call type req obj", JSON.stringify(requestObj, null, 4));
-    // write the api here to get filtercall list
-    this.reportService.getAllReportsByDate(requestObj).subscribe(
-      (response: Response) => (this.data = this.successhandeler(response)),
-      (err) => {
-        this.alertMessage.alert(err.errorMessage, "error");
+    this.reportService.getAllReportsByDate(requestObj).subscribe((response) => {
+      // console.log("Json data of response: ", JSON.stringify(response, null, 4));
+      if (response) {
+        saveAs(response,  requestObj.fileName+".xlsx");
+        this.alertMessage.alert(this.currentLanguageSet.callTypeReportDownloaded);
+      }else {
+        this.alertMessage.alert(this.currentLanguageSet.noDataFound);
       }
-    );
+    },
+    (err) => {
+      // this.alertService.alert(err.errorMessage, "error");
+      if(err.status === 500)
+      {
+        this.alertMessage.alert(this.currentLanguageSet.noDataFound, 'info');
+      }
+      else
+      this.alertMessage.alert(this.currentLanguageSet.errorWhileFetchingReport, 'error');
+    })
+
+    // write the api here to get filtercall list
+    // this.reportService.getAllReportsByDate(requestObj).subscribe(
+    //   (response: Response) => (this.data = this.successhandeler(response)),
+    //   (err) => {
+    //     this.alertMessage.alert(err.errorMessage, "error");
+    //   }
+    // );
   }
   toUTCDate(date) {
     const _utc = new Date(

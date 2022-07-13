@@ -38,6 +38,7 @@
       "newInformation": "নতুন তথ্য",
       "beneficiaryId": "হিতাধিকাৰী আইডি",
       "callerAgeReport": "কলাৰ বয়সপ্ৰতিবেদন",
+      "callerAgeReportDownloaded":"Caller Age Report Downloaded",
       "informationHistorySuccessfullyReterive": "তথ্য ইতিহাস সফলতাৰে পুনৰাবৃতশ্ৰম",
       "role": "ভূমিকা",
       "cL": "চি এল",
@@ -216,6 +217,7 @@
       "requestedDate": "অনুৰোধ কৰা তাৰিখ",
       "smsTemplates": "এছএমএছ টেমপ্লেটসমূহ",
       "callTypeReport": "কলৰ ধৰণ প্ৰতিবেদন",
+      "callTypeReportDownloaded": "Call Type Report Downloaded",
       "genderDistribution": "লিংগ বিতৰণ",
       "notificationDescriptionIsRequired(min5Characters)": "অধিসূচনাৰ বিৱৰণ প্ৰয়োজন (ন্যূনতম 5 টা বৰ্ণ)",
       "informationRequired": "প্ৰয়োজনীয় তথ্য",
@@ -724,7 +726,10 @@
       "callAlreadyCompleted":"Call is already completed by agent",
       "pleaseChooseAFileForUpload": "অনুগ্ৰহ কৰি আপলোড ৰ বাবে এটা ফাইল বাছনি কৰক",
       "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
-      "duplicateMobileNumber":"ডুপ্লিকেট ম'বাইল নম্বৰ"
+      "duplicateMobileNumber":"ডুপ্লিকেট ম'বাইল নম্বৰ",
+      "errorWhileFetchingReport":"Error while fetching report",
+      "downloadReport": "প্ৰতিবেদন ডাউনলোড কৰক"
+
 
 
 
