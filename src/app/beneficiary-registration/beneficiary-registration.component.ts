@@ -292,11 +292,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       }
     }
     if (current_campaign.compainType.toLowerCase() === 'startcall') {
-      if (this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+      if (this.saved_data && this.saved_data.current_campaign !== undefined && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
         this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
         // this.startCall();
       }
-      if (this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
+      if (this.saved_data && this.saved_data.current_campaign !== undefined && this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
         this.startNewCall();
       }
     }
@@ -849,8 +849,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     if (response !== undefined && response !== null) {
       this.state = null;
       this.preferredLanguage = null;
-      this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': response[0].beneficiaryRegID ? response[0].beneficiaryRegID : null });
-      this.saved_data.benRegId= response[0].beneficiaryRegID;
+      // this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': response[0].beneficiaryRegID ? response[0].beneficiaryRegID : null });
+      // this.saved_data.benRegId= response[0].beneficiaryRegID;
       this.regHistoryList = response;
       console.log(this.regHistoryList);
       this.showSearchResult = true;
@@ -903,6 +903,10 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.saved_data.callData['isCalledEarlier'] = this.calledEarlier;
     this._util.updatebeneficiaryincall(this.saved_data.callData).subscribe(
       response => {
+        if (response !== undefined) {
+          this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': benRegData.beneficiaryRegID });
+          this.saved_data.benRegId= benRegData.beneficiaryRegID;
+        }
         console.log('Update Beneficiary in Call SUCCESS', response);
       }, err => {
         console.log('Update Beneficiary in Call ERROR', err);
