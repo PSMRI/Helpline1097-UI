@@ -10,6 +10,7 @@ import { CzentrixServices } from '../services/czentrix/czentrix.service';
 import { ClearFormService } from './../services/common/clearform.service'
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-closure',
@@ -81,7 +82,8 @@ export class ClosureComponent implements OnInit
     private pass_data: CommunicationService,
     private czentrixServices: CzentrixServices,
     private clearfornData: ClearFormService,
-    private HttpServices:HttpServices
+    private HttpServices:HttpServices,
+    public router: Router
   ) {
     this.subscription = this.pass_data.getData().subscribe(benData => { this.outBoundCloseCall(benData) });
     this.subscription = this.clearfornData.clearFormGetter().subscribe(data => { this.clearForm(data) });
@@ -338,6 +340,10 @@ export class ClosureComponent implements OnInit
 
   isFeedbackRequired(ev) {
     this.isFeedbackRequiredFlag = ev.checked;
+  }
+
+  backToCo(){
+    this.router.navigate(['/co']);
   }
 
   transferCall(values) {

@@ -143,6 +143,8 @@
           class="font-regular pull-right m-r-5" (click)="closeCall(Form.value,$event.currentTarget.value); Form.reset()">{{currentLanguageSet?.submitClose}}</button>
         <button md-raised-button color="accent" *ngIf="transferValid" [disabled]="isCallDisconnected || Form.invalid" class="font-regular pull-right m-r-5"
         (click)="transferCall(Form.value)">{{currentLanguageSet?.transfer}}</button>
+        <button md-raised-button color="accent" class="font-regular pull-right m-r-5"
+        (click)="backToCo()">{{currentLanguageSet?.backToCo}}</button>
         </div>
       
       <div class="clearfix" *ngIf="isEverwell ==='yes'"></div>      
