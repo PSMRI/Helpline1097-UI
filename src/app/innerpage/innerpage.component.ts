@@ -873,7 +873,7 @@ export class InnerpageComponent implements OnInit {
     jQuery("#four").find("a").addClass("active-tab");
     jQuery("#btnClosure").attr("disabled", "disabled");
     // jQuery("#btnCancel").attr("disabled", "disabled");
-    jQuery("#next").hide();
+    // jQuery("#next").hide();
     jQuery("#previous").show();
 
     this.getCommonData.enablePreviousOnCustDisconnect(true);
