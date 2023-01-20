@@ -412,6 +412,7 @@ export class helpline1097CoComponent implements OnInit {
     this.resetProvideServices = "1";
     var idx = jQuery(".carousel-inner div.active").index();
     this.isClosureDisable = false;
+    this.isNext = true;
 
     if (idx === 2) {
       jQuery("#two").parent().find("a").removeClass("active-tab");

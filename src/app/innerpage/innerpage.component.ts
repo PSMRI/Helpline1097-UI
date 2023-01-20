@@ -111,10 +111,8 @@ export class InnerpageComponent implements OnInit {
     private Czentrix: CzentrixServices,
     private listnerService: ListnerService,
     private authService: AuthService,
-    private _common: dataService
-  ) // private closureComponent: ClosureComponent
-
-  {
+    private _common: dataService // private closureComponent: ClosureComponent
+  ) {
     this.currentlanguageSet = [];
   }
 
@@ -874,7 +872,7 @@ export class InnerpageComponent implements OnInit {
     jQuery("#four").parent().find("a").removeClass("active-tab");
     jQuery("#four").find("a").addClass("active-tab");
     jQuery("#btnClosure").attr("disabled", "disabled");
-    jQuery("#btnCancel").attr("disabled", "disabled");
+    // jQuery("#btnCancel").attr("disabled", "disabled");
     jQuery("#next").hide();
     jQuery("#previous").show();
 
