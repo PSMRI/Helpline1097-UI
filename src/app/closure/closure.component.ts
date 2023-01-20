@@ -1,16 +1,25 @@
-import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { UserBeneficiaryData } from '../services/common/userbeneficiarydata.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { dataService } from '../services/dataService/data.service';
-import { CallServices } from '../services/callservices/callservice.service'
-import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
-import { CommunicationService } from './../services/common/communication.service'
-import { Subscription } from 'rxjs/Subscription';
-import { CzentrixServices } from '../services/czentrix/czentrix.service';
-import { ClearFormService } from './../services/common/clearform.service'
-import { SetLanguageComponent } from 'app/set-language.component';
-import { HttpServices } from 'app/services/http-services/http_services.service';
-import { Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { UserBeneficiaryData } from "../services/common/userbeneficiarydata.service";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { dataService } from "../services/dataService/data.service";
+import { CallServices } from "../services/callservices/callservice.service";
+import { ConfirmationDialogsService } from "./../services/dialog/confirmation.service";
+import { CommunicationService } from "./../services/common/communication.service";
+import { Subscription } from "rxjs/Subscription";
+import { CzentrixServices } from "../services/czentrix/czentrix.service";
+import { ClearFormService } from "./../services/common/clearform.service";
+import { SetLanguageComponent } from "app/set-language.component";
+import { HttpServices } from "app/services/http-services/http_services.service";
+import { Router } from "@angular/router";
+import { environment } from "environments/environment";
 
 @Component({
   selector: "app-closure",
@@ -81,7 +90,7 @@ export class ClosureComponent implements OnInit {
     private pass_data: CommunicationService,
     private czentrixServices: CzentrixServices,
     private clearfornData: ClearFormService,
-    private HttpServices:HttpServices,
+    private HttpServices: HttpServices,
     public router: Router
   ) {
     this.subscription = this.pass_data.getData().subscribe((benData) => {
@@ -274,7 +283,8 @@ export class ClosureComponent implements OnInit {
         this.markAsInvalidCall = true;
         return (
           item.callTypeDesc.toLowerCase().trim() !== "wrapup exceeds" &&
-          item.callTypeDesc.toLowerCase().trim() === environment.invalidCallType.trim().toLowerCase()
+          item.callTypeDesc.toLowerCase().trim() ===
+            environment.invalidCallType.trim().toLowerCase()
         );
       }
     });
@@ -418,10 +428,6 @@ export class ClosureComponent implements OnInit {
 
   isFeedbackRequired(ev) {
     this.isFeedbackRequiredFlag = ev.checked;
-  }
-
-  backToCo(){
-    this.router.navigate(['/co']);
   }
 
   transferCall(values) {
