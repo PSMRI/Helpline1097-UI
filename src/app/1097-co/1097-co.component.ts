@@ -129,6 +129,8 @@ export class helpline1097CoComponent implements OnInit {
       if (custDisconnectResp !== null && custDisconnectResp === true) {
         this.isPrevious = true;
         this.disableBack = false;
+        this.isNext = false;
+        this.isClosureDisable = true;
       }
     });
   }
@@ -412,7 +414,6 @@ export class helpline1097CoComponent implements OnInit {
     this.resetProvideServices = "1";
     var idx = jQuery(".carousel-inner div.active").index();
     this.isClosureDisable = false;
-    this.isNext = true;
 
     if (idx === 2) {
       jQuery("#two").parent().find("a").removeClass("active-tab");
