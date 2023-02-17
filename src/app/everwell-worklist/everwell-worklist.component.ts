@@ -625,7 +625,7 @@ export class SupportActionModal {
   // arrays  
   
   //subcategries:any=["Dose not taken","Dose taken but not reported by technology","Called & Counselled","Phone not reachable","Phone switched off","Did not receive the call","Others"];  
-  subcategries:any=["Dose not taken","Dose taken but not reported by technology","Wrong Phone number","Do not disturb for today","Patient died","Others"];
+  subcategries:any=["Dose not taken","Dose taken but not reported by technology","Wrong Phone number","Others"];
   category:any=["Support_Action_Call"];
   comments:any;
   dob: any;
