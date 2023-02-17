@@ -1,35 +1,45 @@
-import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ViewContainerRef, AfterViewInit, TemplateRef } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { dataService } from '../services/dataService/data.service';
-import { ConfigService } from '../services/config/config.service';
-import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
-import { Router } from '@angular/router';
-import { ActivatedRoute, Params } from '@angular/router'
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+  AfterViewInit,
+  TemplateRef,
+} from "@angular/core";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { dataService } from "../services/dataService/data.service";
+import { ConfigService } from "../services/config/config.service";
+import { ConfirmationDialogsService } from "./../services/dialog/confirmation.service";
+import { Router } from "@angular/router";
+import { ActivatedRoute, Params } from "@angular/router";
 declare var jQuery: any;
-import { CommunicationService } from './../services/common/communication.service';
-import { OutboundService } from './../services/common/outbound.services';
-import { ReloadService } from './../services/common/reload.service';
-import { CzentrixServices } from '../services/czentrix/czentrix.service';
-import { CollapseDirective } from './../directives/collapse/collapse.directive'
-import { ClearFormService } from './../services/common/clearform.service';
-import { SetLanguageComponent } from 'app/set-language.component';
+import { CommunicationService } from "./../services/common/communication.service";
+import { OutboundService } from "./../services/common/outbound.services";
+import { ReloadService } from "./../services/common/reload.service";
+import { CzentrixServices } from "../services/czentrix/czentrix.service";
+import { CollapseDirective } from "./../directives/collapse/collapse.directive";
+import { ClearFormService } from "./../services/common/clearform.service";
+import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "../services/http-services/http_services.service";
 @Component({
-  selector: 'app-1097-co',
-  templateUrl: './1097-co.component.html',
-  styleUrls: ['./1097-co.component.css']
+  selector: "app-1097-co",
+  templateUrl: "./1097-co.component.html",
+  styleUrls: ["./1097-co.component.css"],
 })
 export class helpline1097CoComponent implements OnInit {
   callDuration: number = 0;
   beneficiaryNotSelected: boolean = true;
   callerNumber: any;
   callID: any;
-  barMinimized: any = 'false';
-  ctiHandlerURL: any = '';
+  barMinimized: any = "false";
+  ctiHandlerURL: any = "";
   isCancelDisable: boolean = true;
   isClosureDisable: boolean = false;
   isPrevious: boolean = false;
-  isNext: boolean = false
+  isNext: boolean = false;
   @Input() current_language: any;
   currentlanguage: any;
   resetProvideServices: any;
@@ -41,11 +51,12 @@ export class helpline1097CoComponent implements OnInit {
   @Output() serviceProvided: EventEmitter<any> = new EventEmitter<any>();
   // @Output() ReloadCall: EventEmitter<any> = new EventEmitter<any>();
   @Output() beneficiarySelected: EventEmitter<any> = new EventEmitter<any>();
-  @Output() everwellBeneficiarySelected: EventEmitter<any> = new EventEmitter<any>();  
+  @Output() everwellBeneficiarySelected: EventEmitter<any> =
+    new EventEmitter<any>();
   @Output() getHistory: EventEmitter<any> = new EventEmitter<any>();
   @Output() serviceGiven: EventEmitter<any> = new EventEmitter<any>();
-  @Output() submitBtnCheck : EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('cancel') cancel;
+  @Output() submitBtnCheck: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild("cancel") cancel;
   submitCheck: boolean;
   currentLanguageSet: any;
 
@@ -61,39 +72,39 @@ export class helpline1097CoComponent implements OnInit {
     private outBoundService: OutboundService,
     private reloadCall: ReloadService,
     private czentrixService: CzentrixServices,
-    private ClearForm: ClearFormService,public HttpServices: HttpServices
+    private ClearForm: ClearFormService,
+    public HttpServices: HttpServices
   ) {
     setInterval(() => {
       this.callDuration = this.callDuration + 1;
     }, 1000);
     this.getCommonData.beneficiarySelected.subscribe((data) => {
-      this.setFlag(data)
+      this.setFlag(data);
     });
-
   }
-
 
   // tslint:disable-next-line:member-ordering
   selectedBenData: any = {
-    'id': '',
-    'fname': '',
-    'lname': '',
-    'mob': ''
+    id: "",
+    fname: "",
+    lname: "",
+    mob: "",
   };
-  isEverwell:string;
+  isEverwell: string;
   ngOnInit() {
+    this.getCommonData.enablePreviousOnCustDisconnect(null);
     this.current_campaign = this.getCommonData.current_campaign;
-    var idx = jQuery('.carousel-inner div.active').index();
-    let url = this.configService.getTelephonyServerURL() + 'bar/cti_handler.php';
+    var idx = jQuery(".carousel-inner div.active").index();
+    let url =
+      this.configService.getTelephonyServerURL() + "bar/cti_handler.php";
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    if (sessionStorage.getItem("CLI") !== undefined) {​​​​​​​​
+    if (sessionStorage.getItem("CLI") !== undefined) {
       this.callerNumber = sessionStorage.getItem("CLI");
       this.getCommonData.callerNumber = this.callerNumber;
-          }​​​​​​​​
-      if (sessionStorage.getItem("session_id") !== undefined) {​​​​​​​
-            this.getCommonData.callID =sessionStorage.getItem("session_id");
-           
-          }
+    }
+    if (sessionStorage.getItem("session_id") !== undefined) {
+      this.getCommonData.callID = sessionStorage.getItem("session_id");
+    }
     // this.router.params.subscribe((params: Params) => {
     //   if (params['mobileNumber'] != undefined) {
     //     this.callerNumber = parseInt(params['mobileNumber']);
@@ -105,14 +116,23 @@ export class helpline1097CoComponent implements OnInit {
     //   }
 
     // });
-    this.disableBack = true;
+    this.disableBack = false;
     this.isEverwell = sessionStorage.getItem("isEverwellCall");
 
     this.submitCheck = this.getCommonData.checkEverwellResponse;
     console.log("submitCheck", this.submitCheck);
-    
-    console.log('isEverwell'+this.isEverwell);    
+
+    console.log("isEverwell" + this.isEverwell);
     this.assignSelectedLanguage();
+
+    this.getCommonData.custDisconnectCall$.subscribe((custDisconnectResp) => {
+      if (custDisconnectResp !== null && custDisconnectResp === true) {
+        this.isPrevious = true;
+        this.disableBack = false;
+        this.isNext = false;
+        this.isClosureDisable = true;
+      }
+    });
   }
 
   ngDoCheck() {
@@ -120,10 +140,10 @@ export class helpline1097CoComponent implements OnInit {
   }
 
   assignSelectedLanguage() {
-		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
-		getLanguageJson.setLanguage();
-		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
-	  }
+    const getLanguageJson = new SetLanguageComponent(this.HttpServices);
+    getLanguageJson.setLanguage();
+    this.currentLanguageSet = getLanguageJson.currentLanguageObject;
+  }
   /*experiment*/
   // f:boolean=true;
   // toggleVAL()
@@ -137,10 +157,9 @@ export class helpline1097CoComponent implements OnInit {
     this.submitCheck = this.getCommonData.checkEverwellResponse;
     console.log("submitCheckOn", this.submitCheck);
     this.setLanguage(this.current_language);
-    if (this.getCommonData.current_campaign == 'OUTBOUND') {
+    if (this.getCommonData.current_campaign == "OUTBOUND") {
       this.OUT = true;
-    }
-    else {
+    } else {
       this.OUT = false;
     }
   }
@@ -150,40 +169,38 @@ export class helpline1097CoComponent implements OnInit {
   }
   closedContinue() {
     // this.startNewCall();
-    this.ReloadBenOutbound('startcall');
-    const id = jQuery('.carousel-inner div.active').index();
-    jQuery('#myCarousel').carousel(0);
-    jQuery('#one').parent().find('a').removeClass('active-tab');
-    jQuery('#one').find('a').addClass('active-tab');
+    this.ReloadBenOutbound("startcall");
+    const id = jQuery(".carousel-inner div.active").index();
+    jQuery("#myCarousel").carousel(0);
+    jQuery("#one").parent().find("a").removeClass("active-tab");
+    jQuery("#one").find("a").addClass("active-tab");
     this.isCancelDisable = true;
     this.isClosureDisable = false;
     this.isNext = false;
     this.isPrevious = false;
-
   }
 
   addActiveClass(val: any) {
-    jQuery('#' + val).parent().find('a').removeClass('active-tab');
-    jQuery('#' + val).find('a').addClass('active-tab');
+    jQuery("#" + val)
+      .parent()
+      .find("a")
+      .removeClass("active-tab");
+    jQuery("#" + val)
+      .find("a")
+      .addClass("active-tab");
   }
 
   getSelectedBenDetails(data: any) {
-
     if (data != null) {
-
       this.selectedBenData.id = data.beneficiaryID;
       this.selectedBenData.fname = data.firstName;
       this.selectedBenData.lname = data.lastName;
     } else {
-
-      this.selectedBenData.id = '';
-      this.selectedBenData.fname = '';
-      this.selectedBenData.lname = '';
+      this.selectedBenData.id = "";
+      this.selectedBenData.fname = "";
+      this.selectedBenData.lname = "";
     }
     this.beneficiarySelected.emit(data);
-
-
-
   }
 
   getEverwellSelectedBenDetails(data: any) {
@@ -198,8 +215,8 @@ export class helpline1097CoComponent implements OnInit {
     //   this.selectedBenData.fname = '';
     //   this.selectedBenData.lname = '';
     // }
-    console.log('1097co174' + data);
-    
+    console.log("1097co174" + data);
+
     this.everwellBeneficiarySelected.emit(data);
   }
 
@@ -212,132 +229,128 @@ export class helpline1097CoComponent implements OnInit {
 
   // }
 
-  refreshCall() {
-
-  }
+  refreshCall() {}
 
   updateServiceProvided(data: any) {
     this.serviceProvided.emit(null);
   }
 
-
   minimizeBar() {
-    this.barMinimized = 'false';
+    this.barMinimized = "false";
   }
   toggleBar() {
     // this.barMinimized = !this.barMinimized;
-    if (this.barMinimized === 'true') {
-      this.barMinimized = 'false';
-    }
-    else {
-      this.barMinimized = 'true';
+    if (this.barMinimized === "true") {
+      this.barMinimized = "false";
+    } else {
+      this.barMinimized = "true";
     }
   }
   benService(data) {
-
     // alert(this.getCommonData.benRegId);
-    if (data === 'benService') {
-      jQuery('#myCarousel').carousel(1);
-      jQuery('#two').parent().find('a').removeClass('active-tab');
-      jQuery('#two').find('a').addClass('active-tab');
+    if (data === "benService") {
+      jQuery("#myCarousel").carousel(1);
+      jQuery("#two").parent().find("a").removeClass("active-tab");
+      jQuery("#two").find("a").addClass("active-tab");
       // jQuery('#second').addClass('item active');
       this.isNext = true;
       this.isCancelDisable = false;
-      this.resetProvideServices = '5';
+      this.resetProvideServices = "5";
     }
-
   }
 
   closeCall(compain_type: any) {
     this.getCommonData.current_campaign = compain_type;
     this.getCommonData.isCallDisconnected = false;
-    sessionStorage.removeItem('isOnCall');
-    sessionStorage.removeItem('isEverwellCall');
+    sessionStorage.removeItem("isOnCall");
+    sessionStorage.removeItem("isEverwellCall");
 
-    this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard'], { queryParams: { compain: compain_type } });
+    this.basicrouter.navigate(["/MultiRoleScreenComponent/dashboard"], {
+      queryParams: { compain: compain_type },
+    });
   }
   openDialog() {
-
-    this.dialogService.confirm('Cancel Call ', this.currentLanguageSet.doYouWantToCancel).subscribe((response) => {
-      if (response) {
-        this.resetProvideServices = '2';
-        // this.reloadCall();
-        //   this.beneficiarySelected.emit(null);
-        const id = jQuery('.carousel-inner div.active').index();
-        jQuery('#myCarousel').carousel(0);
-        jQuery('#one').parent().find('a').removeClass('active-tab');
-        jQuery('#one').find('a').addClass('active-tab');
-        jQuery('#btnClosure').attr('disabled', null);
-        // jQuery('#benForm').trigger('reset');
-        // jQuery('#closeForm').trigger('reset');
-        this.ClearForm.clearFormSender('closure');
-        // jQuery('#otherDetailsForm').trigger('reset');
-        this.isCancelDisable = true;
-        this.isClosureDisable = false;
-        this.isNext = false;
-        this.isPrevious = false;
-        this.ReloadBenOutbound('reloadcall');
-      }
-    });
-
+    this.dialogService
+      .confirm("Cancel allC ", this.currentLanguageSet.doYouWantToCancel)
+      .subscribe((response) => {
+        if (response) {
+          this.resetProvideServices = "2";
+          // this.reloadCall();
+          //   this.beneficiarySelected.emit(null);
+          const id = jQuery(".carousel-inner div.active").index();
+          jQuery("#myCarousel").carousel(0);
+          jQuery("#one").parent().find("a").removeClass("active-tab");
+          jQuery("#one").find("a").addClass("active-tab");
+          jQuery("#btnClosure").attr("disabled", null);
+          // jQuery('#benForm').trigger('reset');
+          // jQuery('#closeForm').trigger('reset');
+          this.ClearForm.clearFormSender("closure");
+          // jQuery('#otherDetailsForm').trigger('reset');
+          this.isCancelDisable = true;
+          this.isClosureDisable = false;
+          this.isNext = false;
+          this.isPrevious = false;
+          this.ReloadBenOutbound("reloadcall");
+        }
+      });
   }
   openEverwellDialog() {
-
-    this.dialogService.confirm('Cancel Call ', this.currentLanguageSet.doYouWantToCancel).subscribe((response) => {
-      if (response) {
-        this.resetProvideServices = '2';
-        // this.reloadCall();
-        //   this.beneficiarySelected.emit(null);
-        const id = jQuery('.carousel-inner div.active').index();
-        jQuery('#myCarouselEverwell').carousel(0);
-        jQuery('#one').parent().find('a').removeClass('active-tab');
-        jQuery('#one').find('a').addClass('active-tab');
-        jQuery('#btnClosure').attr('disabled', null);
-        // jQuery('#benForm').trigger('reset');
-        // jQuery('#closeForm').trigger('reset');
-        this.ClearForm.clearFormSender('closure');
-        // jQuery('#otherDetailsForm').trigger('reset');
-        this.isCancelDisable = true;
-        this.isClosureDisable = false;
-        this.isNext = false;
-        this.isPrevious = false;
-        this.ReloadBenOutbound('reloadcall');
-      }
-    });
-
+    this.dialogService
+      .confirm("Cancel Call ", this.currentLanguageSet.doYouWantToCancel)
+      .subscribe((response) => {
+        if (response) {
+          this.resetProvideServices = "2";
+          // this.reloadCall();
+          //   this.beneficiarySelected.emit(null);
+          const id = jQuery(".carousel-inner div.active").index();
+          jQuery("#myCarouselEverwell").carousel(0);
+          jQuery("#one").parent().find("a").removeClass("active-tab");
+          jQuery("#one").find("a").addClass("active-tab");
+          jQuery("#btnClosure").attr("disabled", null);
+          // jQuery('#benForm').trigger('reset');
+          // jQuery('#closeForm').trigger('reset');
+          this.ClearForm.clearFormSender("closure");
+          // jQuery('#otherDetailsForm').trigger('reset');
+          this.isCancelDisable = true;
+          this.isClosureDisable = false;
+          this.isNext = false;
+          this.isPrevious = false;
+          this.ReloadBenOutbound("reloadcall");
+        }
+      });
   }
   openDialogClosure() {
-
-    this.dialogService.confirm('Closure ', this.currentLanguageSet.doYouWantToCloseTheCall).subscribe((response) => {
-      if (response) {
-        this.resetProvideServices = '3';
-        jQuery('#myCarousel').carousel(3);
-        jQuery('#four').parent().find('a').removeClass('active-tab');
-        jQuery('#four').find('a').addClass('active-tab');
-        this.isClosureDisable = true;
-        this.isCancelDisable = false;
-        this.isNext = false;
-        this.isPrevious = true;
-      }
-    });
-
+    this.dialogService
+      .confirm("Closure ", this.currentLanguageSet.doYouWantToCloseTheCall)
+      .subscribe((response) => {
+        if (response) {
+          this.resetProvideServices = "3";
+          jQuery("#myCarousel").carousel(3);
+          jQuery("#four").parent().find("a").removeClass("active-tab");
+          jQuery("#four").find("a").addClass("active-tab");
+          this.isClosureDisable = true;
+          this.isCancelDisable = false;
+          this.isNext = false;
+          this.isPrevious = true;
+        }
+      });
   }
 
   openEverwellDialogClosure() {
-
-    this.dialogService.confirm('Closure ', this.currentLanguageSet.doYouWantToCloseTheCall).subscribe((response) => {
-      if (response) {
-        this.resetProvideServices = '3';
-        jQuery('#myCarouselEverwell').carousel(1);
-        jQuery('#four').parent().find('a').removeClass('active-tab');
-        jQuery('#four').find('a').addClass('active-tab');
-        this.isClosureDisable = true;
-        this.isCancelDisable = false;
-        this.isNext = false;
-        this.isPrevious = true;
-      }
-    });
-
+    this.dialogService
+      .confirm("Closure ", this.currentLanguageSet.doYouWantToCloseTheCall)
+      .subscribe((response) => {
+        if (response) {
+          this.resetProvideServices = "3";
+          jQuery("#myCarouselEverwell").carousel(1);
+          jQuery("#four").parent().find("a").removeClass("active-tab");
+          jQuery("#four").find("a").addClass("active-tab");
+          this.isClosureDisable = true;
+          this.isCancelDisable = false;
+          this.isNext = false;
+          this.isPrevious = true;
+        }
+      });
   }
   getServiceHistory() {
     this.getHistory.emit(null);
@@ -381,43 +394,39 @@ export class helpline1097CoComponent implements OnInit {
     this.reloadCall.sendReloadCall(callType);
   }
   nxtVisual() {
-    this.resetProvideServices = '4';
-    var idx = jQuery('.carousel-inner div.active').index();
+    this.resetProvideServices = "4";
+    var idx = jQuery(".carousel-inner div.active").index();
     if (idx === 1) {
-      jQuery('#three').parent().find('a').removeClass('active-tab');
-      jQuery('#three').find('a').addClass('active-tab');
+      jQuery("#three").parent().find("a").removeClass("active-tab");
+      jQuery("#three").find("a").addClass("active-tab");
       this.isNext = true;
       this.isPrevious = true;
     }
     if (idx === 2) {
       this.isClosureDisable = true;
-      jQuery('#four').parent().find('a').removeClass('active-tab');
-      jQuery('#four').find('a').addClass('active-tab');
+      jQuery("#four").parent().find("a").removeClass("active-tab");
+      jQuery("#four").find("a").addClass("active-tab");
       this.isNext = false;
       this.isPrevious = true;
     }
-
   }
   prevVisual() {
-    this.resetProvideServices = '1';
-    var idx = jQuery('.carousel-inner div.active').index();
+    this.resetProvideServices = "1";
+    var idx = jQuery(".carousel-inner div.active").index();
     this.isClosureDisable = false;
 
     if (idx === 2) {
-      jQuery('#two').parent().find('a').removeClass('active-tab');
-      jQuery('#two').find('a').addClass('active-tab');
+      jQuery("#two").parent().find("a").removeClass("active-tab");
+      jQuery("#two").find("a").addClass("active-tab");
       this.isNext = true;
       this.isPrevious = false;
-
     }
     if (idx === 3) {
-      jQuery('#three').parent().find('a').removeClass('active-tab');
-      jQuery('#three').find('a').addClass('active-tab');
+      jQuery("#three").parent().find("a").removeClass("active-tab");
+      jQuery("#three").find("a").addClass("active-tab");
       this.isNext = true;
       this.isPrevious = true;
-
     }
-
   }
   CancelDisable() {
     this.isCancelDisable = false;
@@ -425,10 +434,9 @@ export class helpline1097CoComponent implements OnInit {
   setFlag(data) {
     this.disableBack = !data.beneficiarySelected;
   }
-  changeSubmitFlag(submitFlag){
+  changeSubmitFlag(submitFlag) {
     this.submitCheck = submitFlag;
     this.submitBtnCheck.emit(submitFlag);
-    console.log("submitflag",submitFlag);
-     
+    console.log("submitflag", submitFlag);
   }
 }

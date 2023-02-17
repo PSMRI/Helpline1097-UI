@@ -728,7 +728,8 @@
       "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
       "duplicateMobileNumber":"डुप्लीकेट मोबाइल संख्या",
       "errorWhileFetchingReport":"Error while fetching report",
-      "downloadReport": "विवरण डाउनलोड करें"
+      "downloadReport": "विवरण डाउनलोड करें",
+      "backToCo": "Back To CO"
       
 
 

@@ -728,7 +728,9 @@
       "uploadFileOrEmailSizeLimit":"Upload File/Email(Size limit",
       "duplicateMobileNumber":"ডুপ্লিকেট ম'বাইল নম্বৰ",
       "errorWhileFetchingReport":"Error while fetching report",
-      "downloadReport": "প্ৰতিবেদন ডাউনলোড কৰক"
+      "downloadReport": "প্ৰতিবেদন ডাউনলোড কৰক",
+      "backToCo": "Back To CO"
+
 
 
 

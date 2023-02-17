@@ -18,6 +18,7 @@ import { CzentrixServices } from "../services/czentrix/czentrix.service";
 import { ClearFormService } from "./../services/common/clearform.service";
 import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "app/services/http-services/http_services.service";
+import { Router } from "@angular/router";
 import { environment } from "environments/environment";
 
 @Component({
@@ -89,7 +90,8 @@ export class ClosureComponent implements OnInit {
     private pass_data: CommunicationService,
     private czentrixServices: CzentrixServices,
     private clearfornData: ClearFormService,
-    private HttpServices: HttpServices
+    private HttpServices: HttpServices,
+    public router: Router
   ) {
     this.subscription = this.pass_data.getData().subscribe((benData) => {
       this.outBoundCloseCall(benData);
@@ -281,7 +283,8 @@ export class ClosureComponent implements OnInit {
         this.markAsInvalidCall = true;
         return (
           item.callTypeDesc.toLowerCase().trim() !== "wrapup exceeds" &&
-          item.callTypeDesc.toLowerCase().trim() === environment.invalidCallType.trim().toLowerCase()
+          item.callTypeDesc.toLowerCase().trim() ===
+            environment.invalidCallType.trim().toLowerCase()
         );
       }
     });

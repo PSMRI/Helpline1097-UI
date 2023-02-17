@@ -719,6 +719,7 @@
       "languageIsRequired": "Language is required",
       "ageGroupIsRequired": "Age Group is required",
       "transfer":"Transfer",
+      "backToCo": "Back To CO",
       "yes":"Yes",
       "benCallIDIsNullNotAbleToCloseCall":"BenCall ID is null, not able to close the call",
       "parameterValueTypeAndValueShouldBeSelected":"Parameter, Value Type and Value should be selected",
