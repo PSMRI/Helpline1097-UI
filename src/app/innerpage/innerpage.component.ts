@@ -705,6 +705,7 @@ export class InnerpageComponent implements OnInit {
       console.log("submitting the everwellrsponse", this.isEverwell);
 
       let outboundObj = {};
+      let finalOutboundObj = [];
       outboundObj["eapiId"] = this._common.outboundEverwellData.eapiId;
       outboundObj["assignedUserID"] = this._common.uid;
       outboundObj["isCompleted"] = true;
@@ -721,8 +722,9 @@ export class InnerpageComponent implements OnInit {
       outboundObj["requestedServiceID"] = null;
       outboundObj["preferredLanguageName"] = "All";
       outboundObj["createdBy"] = this._common.uname;
+      finalOutboundObj.push(outboundObj);
 
-      this._callServices.closeEverwellOutBoundCall(outboundObj).subscribe(
+      this._callServices.closeEverwellOutBoundCall(finalOutboundObj).subscribe(
         (response) => {
           console.log("everwell data updated");
         },
