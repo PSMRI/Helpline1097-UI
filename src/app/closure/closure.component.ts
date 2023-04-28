@@ -284,7 +284,8 @@ export class ClosureComponent implements OnInit {
         return (
           item.callTypeDesc.toLowerCase().trim() !== "wrapup exceeds" &&
           item.callTypeDesc.toLowerCase().trim() ===
-            environment.invalidCallType.trim().toLowerCase()
+            environment.invalidCallType.trim().toLowerCase() && 
+          item.callTypeDesc.toLowerCase().trim() === "invalid"
         );
       }
     });
