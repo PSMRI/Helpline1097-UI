@@ -244,12 +244,12 @@ export class ClosureComponent implements OnInit {
       /* On selection of beneficiary, validate the call types*/
       this.saved_data.beneficiary_regID_subject.subscribe((response) => {
         this.setBenRegID(response);
-        if (
-          (this.saved_data.beneficiaryRegID !== undefined &&
-            this.saved_data.beneficiaryRegID !== null) ||
-          (this.saved_data.benRegId !== undefined &&
-            this.saved_data.benRegId !== null)
-        ) {
+        // if (
+        //   (this.saved_data.beneficiaryRegID !== undefined &&
+        //     this.saved_data.beneficiaryRegID !== null) ||
+        //   (this.saved_data.benRegId !== undefined &&
+        //     this.saved_data.benRegId !== null)
+        // ) {
           this.calltypes = calls.filter((item) => {
             if (
               item != undefined &&
@@ -263,13 +263,13 @@ export class ClosureComponent implements OnInit {
               );
             }
           });
-        } else {
-          // On submit & continue
-          this.filterInvalidCallType(calls);
-        }
+        // } else {
+        //   // On submit & continue
+        //   this.filterInvalidCallType(calls);
+        // }
       });
       // Initial landing
-      this.filterInvalidCallType(calls);
+      // this.filterInvalidCallType(calls);
     }
   }
   filterInvalidCallType(calls) {
