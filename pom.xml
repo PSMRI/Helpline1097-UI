@@ -220,8 +220,8 @@
 					<id>${server-id}</id>
 					<hostname>$${server-hostname}</hostname>
 					<port>$${server-port}</port>
-					<username>admin</username>
-					<password>ad@min123</password>
+					<username>piramaltest</username>
+					<password>buildrele@se@56</password>
 
 				</configuration>
 				<executions>
