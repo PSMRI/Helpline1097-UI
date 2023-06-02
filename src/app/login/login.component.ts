@@ -44,6 +44,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   logoutUserFromPreviousSessionSubscription: Subscription;
 
   previlageObj: any = [];
+  encryptPassword: any;
 
   constructor(public loginservice: loginService, public router: Router, public alertService: ConfirmationDialogsService,
     public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService,   private httpService: InterceptedHttp) {
@@ -202,7 +203,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   }
 
   login(doLogOut) {
-    this.password = this.encrypt(this.Key_IV, this.password)
+    this.encryptPassword = this.encrypt(this.Key_IV, this.password)
   //   this.password = CryptoJS.AES.encrypt(this.password,this.encPassword).toString();
   //  console.log("PARTH"+this.password.ciphertext.toString(CryptoJS.enc.Base64))
     // this.password = AES.encrypt(this.password).toString();
@@ -210,7 +211,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     // this.encryptedVar=SHA256(this.password).toString(enc.Hex);
     // this.password=this.encryptedVar.substr(0, 16);
     this.loginservice
-      .authenticateUser(this.userID, this.password, doLogOut)
+      .authenticateUser(this.userID, this.encryptPassword, doLogOut)
       .subscribe(
         (response: any) => {
           if (
@@ -252,7 +253,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       (userLogOutRes: any) => {
       if(userLogOutRes && userLogOutRes.data.response) {
     this.loginservice
-      .authenticateUser(this.userID, this.password, doLogOut)
+      .authenticateUser(this.userID, this.encryptPassword, doLogOut)
       .subscribe(
         (response: any) => {
           if (
