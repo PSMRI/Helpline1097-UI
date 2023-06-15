@@ -223,9 +223,11 @@ export class ClosureComponent implements OnInit {
   }
 
   populateCallTypes(response: any) {
-    let calls = response.map(function (item) {
-      if(item.callGroupType.toLowerCase().trim() !== "wrapup exceeds")
-            return { callTypeDesc: item.callGroupType };
+    let calls = [];
+    response.map(function (item) {
+      if(item.callGroupType.toLowerCase().trim() !== "wrapup exceeds") {
+            calls.push({callTypeDesc: item.callGroupType });
+      }
     });
     this.calltypes = calls;
     if (this.isEverwell === "yes") {
