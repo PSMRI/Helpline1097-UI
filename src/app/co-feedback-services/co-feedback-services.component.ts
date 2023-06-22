@@ -72,6 +72,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   dec2014: Date;
   subscription: Subscription;
   currentLanguageSet: any;
+  instituteValue: any;
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
     private _locationService: LocationService,
@@ -292,6 +293,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     }
     const feedbackObj = [{
       'instituteTypeID': this.selected_institution,
+      'instituteName': this.instituteValue,
       'stateID': this.selected_state,
       'districtID': this.selected_district,
       'blockID': this.selected_taluk,
@@ -467,5 +469,13 @@ export class CoFeedbackServicesComponent implements OnInit {
 		getLanguageJson.setLanguage();
 		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
 	  }
+
+    getInstituteData() {
+      this.institutes.filter((item) => {
+        if(item.institutionTypeID === this.selected_institution) {
+          this.instituteValue = item.institutionType;
+        }
+      });
+    }
 }
 

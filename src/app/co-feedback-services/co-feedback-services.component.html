@@ -70,7 +70,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
        
           <md-select placeholder="{{currentLanguageSet?.institutionName}}" [style.width]="'100%'" [(ngModel)]="selected_institution"
-            name="institutionName">
+            name="institutionName" (change)="getInstituteData()">
             <md-option *ngFor="let institute of institutes" [value]="institute.institutionTypeID">
               {{institute.institutionType}}
             </md-option>
