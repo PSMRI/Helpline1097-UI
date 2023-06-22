@@ -333,7 +333,7 @@ export class grievanceComponent implements OnInit {
         feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary : feedback.feedback
     );
     // this.feedbackForm.controls.feedbackSupSummary.setValue(feedback.feedback);
-    this.feedbackForm.controls.beneficiaryName.setValue(feedback.beneficiary.firstName + " " + (feedback.beneficiary.lastName ? feedback.beneficiary.lastName : ""));
+    this.feedbackForm.controls.beneficiaryName.setValue(feedback.mUser.firstName + " " + (feedback.mUser.lastName ? feedback.mUser.lastName : ""));
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackType.feedbackTypeName);
@@ -370,7 +370,7 @@ export class grievanceComponent implements OnInit {
      date:16 Aug,2017
    */
 
-    // this._coFeedbackService.getFeedbackHistoryById(this.beneficiaryID, this.serviceID)
+    // this._coFeedbackService.getFeedbackHistoryById(this.mUserID, this.serviceID)
     //   .subscribe((response) => {
     //     this.setFeedbackHistoryByID(response)
     //   }, (err) => {
@@ -385,7 +385,7 @@ export class grievanceComponent implements OnInit {
    */
 
     this.isCollapsedResponse = true;
-    this.distictID = feedback.beneficiary.i_bendemographics.districtID
+    this.distictID = feedback.district.districtID
     this.tableView=false;
   }
 
