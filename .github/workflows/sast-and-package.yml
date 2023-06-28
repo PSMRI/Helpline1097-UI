@@ -42,11 +42,11 @@ jobs:
             npm config set legacy-peer-deps true
             npm install -g @angular/cli
             npm install typescript@2.7.2 --save-dev
+            npm install node-sass --force
+            npm install crypto-js --force
             npm install ng2-smart-table@1.2.1
-            npm install node-sass
             npm install --force
             npm run build
-            
 
    
     - name: Perform CodeQL Analysis
@@ -78,8 +78,9 @@ jobs:
             npm config set legacy-peer-deps true
             npm install -g @angular/cli
             npm install typescript@2.7.2 --save-dev
+            npm install node-sass --force
+            npm install crypto-js --force
             npm install ng2-smart-table@1.2.1
-            npm install node-sass
             npm install --force
             npm run build
             mvn clean install    
