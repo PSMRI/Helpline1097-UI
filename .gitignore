@@ -47,4 +47,7 @@ Thumbs.db
 config.service.ts
 config.json
 *.properties
-
+#other
+messages.xmb
+ee
+debug.log
