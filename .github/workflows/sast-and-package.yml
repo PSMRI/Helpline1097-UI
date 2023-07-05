@@ -35,7 +35,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-          node-version: 16
+          node-version: 10
           
     - name: Build with NPM 
       run: |
@@ -71,7 +71,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-          node-version: 16
+          node-version: 10
           
     - name: Build with NPM and Maven
       run: |
@@ -83,10 +83,10 @@ jobs:
             npm install ng2-smart-table@1.2.1
             npm install --force
             npm run build
-            mvn clean install    
-        
+            
+      
     - name: Create WAR file 
-      run: mvn -B package --file pom.xml
+      run: jar -cvf 1097ui-v1.0.war -C dist .
       
     - name: Upload WAR file as artifact
       uses: actions/upload-artifact@v2 
