@@ -1,7 +1,7 @@
 name: Static Code Analysis and Package
 on:
   push:
-    branches: [ "develop","workflow" ]
+    branches: [ "develop"]
 
 jobs:
   CodeQL:
