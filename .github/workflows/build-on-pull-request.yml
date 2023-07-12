@@ -1,7 +1,7 @@
-name: Build On Pull Request
+ame: Build On Pull Request
 on:
   pull_request:
-    branches: [ "master","develop" ]
+    branches: [ "master","develop"]
     
 jobs:
   Build:
@@ -27,8 +27,10 @@ jobs:
           
       - name: Build with NPM and Maven
         run: |
-            npm install -g @angular/cli
-            npm install typescript@2.7.2 --save-dev
-            npm install
-            npm run build
+          yarn config set legacy-peer-deps true
+          yarn global add node-gyp
+          yarn add node-sass --force
+          yarn --force
+          yarn build
+        
             
