@@ -1,4 +1,4 @@
-ame: Build On Pull Request
+name: Build On Pull Request
 on:
   pull_request:
     branches: [ "master","develop"]
