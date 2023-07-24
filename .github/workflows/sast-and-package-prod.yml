@@ -1,0 +1,55 @@
+name: Static Code Analysis and Package Prod
+
+on:
+  push:
+    branches: [ "master"]
+
+jobs:
+  SAST-and-Package-Prod:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+          java-version: '8'
+          distribution: 'adopt'
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+          languages: javascript,typescript    
+          
+          
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+          languages: javascript,typescript
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+          node-version: 16
+          
+    - name: Build with Yarn | NPM and Create WAR file
+      run: |
+        yarn config set legacy-peer-deps true
+        yarn global add node-gyp
+        yarn add node-sass --force
+        yarn install --force
+        npm run ng build --prod --aot && grunt
+
+    - name: Upload WAR file as artifact
+      uses: actions/upload-artifact@v2 
+      with:
+        name: Helpline1097-UI
+        path: target/
