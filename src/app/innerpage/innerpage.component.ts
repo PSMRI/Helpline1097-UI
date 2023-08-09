@@ -438,7 +438,7 @@ export class InnerpageComponent implements OnInit {
     this.HttpServices.getLanguage(this.languageFilePath).subscribe(
       (response) => this.successhandeler(response, language),
       (err) => {
-        this.remarksMessage.alert(err.errorMessage);
+        // this.remarksMessage.alert(err.errorMessage);
 
         console.log("error in fetching language");
       }
