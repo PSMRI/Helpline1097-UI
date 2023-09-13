@@ -2,7 +2,7 @@ name: Package Prod
 
 on:
   push:
-    branches: [ "develop"]
+    branches: [ "master"]
 
 jobs:
   Package-Prod:
@@ -11,9 +11,6 @@ jobs:
       actions: read
       contents: read
       security-events: write
-
-    strategy:
-      fail-fast: false
 
     steps:
     - name: Checkout code
