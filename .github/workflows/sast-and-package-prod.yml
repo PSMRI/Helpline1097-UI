@@ -1,11 +1,11 @@
-name: Static Code Analysis and Package Prod
+name: Package Prod
 
 on:
   push:
-    branches: [ "master"]
+    branches: [ "develop"]
 
 jobs:
-  SAST-and-Package-Prod:
+  Package-Prod:
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -25,16 +25,6 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-          languages: javascript,typescript    
-          
-          
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-          languages: javascript,typescript
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
