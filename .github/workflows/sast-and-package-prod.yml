@@ -2,7 +2,7 @@ name: Package Prod
 
 on:
   push:
-    branches: [ "master"]
+    branches: [ "develop"]
 
 jobs:
   Package-Prod:
