@@ -1,7 +1,17 @@
 name: Generate WAR File 
+
 on:
   push:
-    branches: [ "develop"]
+    branches: [ "develop" ]
+    paths-ignore:
+     - target/**
+     - dist/**
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "develop" ]
+    paths-ignore:
+     - target/**
+     - dist/**
 
 jobs:
   Packaging:
