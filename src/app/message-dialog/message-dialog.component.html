@@ -21,7 +21,7 @@
               <li *ngIf="doc.urls.length>1">{{currentLanguageSet?.referTheLinksBelow}}</li>
               <li *ngIf="doc.urls.length===1">{{currentLanguageSet?.referTheLinkBelow}}</li>
               <li *ngFor="let url of doc.urls">
-                <a target="_blank" href="{{url}}">{{url}}</a>
+                <a target="_blank" href="{{url}}" rel="noopener noreferrer">{{url}}</a>
               </li>
             </ul>
           </td>
