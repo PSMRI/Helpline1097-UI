@@ -15,7 +15,7 @@
           <td class="b-r-1 col-xs-11 col-sm-11">
             <h4 class="media-heading f-s-b">{{doc.notificationDesc}}</h4>
             <p class="f-c-585857 f-s-b" *ngIf="doc.kmFilePath">
-              <a href="{{doc?.kmFilePath}}" target="_blank">{{currentLanguageSet?.clickHereForMoreInfo}}</a>
+              <a href="{{doc?.kmFilePath}}" target="_blank" rel="noopener noreferrer">{{currentLanguageSet?.clickHereForMoreInfo}}</a>
             </p>
             <ul class="list-unstyled" *ngIf="doc.urls.length>0">
               <li *ngIf="doc.urls.length>1">{{currentLanguageSet?.referTheLinksBelow}}</li>
