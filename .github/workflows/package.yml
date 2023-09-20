@@ -1,0 +1,48 @@
+name: Package
+on:
+  push:
+    branches: ["develop"]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+          java-version: '8'
+          distribution: 'adopt'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+          node-version: 16
+
+    - name: Build with Yarn
+      run: |
+        yarn config set legacy-peer-deps true
+        yarn global add node-gyp
+        yarn add node-sass --force
+        yarn --force
+        yarn build
+        
+
+    - name: Create WAR file
+      run: jar -cvf 1097ui-v1.0.war -C dist .
+
+    - name: Upload WAR file as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Helpline1097-UI
+        path: 1097ui-v1.0.war
