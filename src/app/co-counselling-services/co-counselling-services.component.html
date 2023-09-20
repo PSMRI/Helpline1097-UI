@@ -35,7 +35,7 @@
         <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
           <ul class="m-t-10" [hidden]="!showresult">
             <li *ngFor="let detail of detailsList">
-              <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank">
+              <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank" rel="noopener noreferrer">
                 <md-icon class="f-s-22 icon" color="">file_download</md-icon>
                 <span class="m-l-10">{{detail?.subCategoryName}}
                   <span *ngIf="detail?.subCategoryDesc">:</span>{{detail?.subCategoryDesc}}</span>

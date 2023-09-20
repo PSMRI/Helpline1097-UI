@@ -73,7 +73,7 @@
               <td>{{feedBackRequest.responseComments}}</td>
               <td>
                 <p *ngIf="feedBackRequest.attachmentPath">
-                  <a href="{{feedBackRequest?.attachmentPath}}" target="_blank">{{feedBackRequest.kmFileManager?.fileName}}</a>
+                  <a href="{{feedBackRequest?.attachmentPath}}" target="_blank" rel="noopener noreferrer">{{feedBackRequest.kmFileManager?.fileName}}</a>
                 </p>
               </td>
               <td>{{feedbackStatusName}}</td>
