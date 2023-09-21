@@ -227,7 +227,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   }
 
   login(doLogOut) {
-    this.encryptPassword = this.encrypt(this.Key_IV, this.password)
+    let encryptPassword = this.encrypt(this.Key_IV, this.password)
   //   this.password = CryptoJS.AES.encrypt(this.password,this.encPassword).toString();
   //  console.log("PARTH"+this.password.ciphertext.toString(CryptoJS.enc.Base64))
     // this.password = AES.encrypt(this.password).toString();
