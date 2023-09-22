@@ -21,7 +21,7 @@
 */
 
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import { loginService } from '../services/loginService/login.service';
 import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
@@ -31,13 +31,14 @@ import { SocketService } from '../services/socketService/socket.service';
 import { Subscription } from 'rxjs';
 import { InterceptedHttp } from 'app/http.interceptor';
 import * as CryptoJS from 'crypto-js';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs'; // Import bcryptjs with the correct path
 
 @Component({
   selector: 'login-component',
   templateUrl: './login.html',
   styleUrls: ['./login.component.css']
 })
+
 export class loginContentClass implements OnInit, OnDestroy {
   model: any = {};
   userID: any;
@@ -73,24 +74,16 @@ export class loginContentClass implements OnInit, OnDestroy {
     this._keySize = 256;
     this._ivSize = 128;
     this._iterationCount = 1989;
-  }
-
-  ngOnInit() {
-    this.httpService.dologoutUsrFromPreSession(false);
-    this.logoutUserFromPreviousSessionSubscription = this.httpService.logoutUserFromPreviousSessions$.subscribe(
-      (logoutUser) => {
-        if (logoutUser) {
-          this.loginUser(true);
-        }
-      }
-    );
     if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if (response !== null && response !== undefined) {
           this.dataSettingService.Userdata = response;
           if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
-            this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+            this.previlageObj = response.previlegeObj.filter((previlage) => {
+              return previlage.serviceName == "1097";
+            });
           }
+
           this.dataSettingService.userPriveliges = this.previlageObj;
           this.dataSettingService.uid = response.userID;
           this.dataSettingService.uname = response.userName;
@@ -100,12 +93,49 @@ export class loginContentClass implements OnInit, OnDestroy {
           if (response.isAuthenticated === true && response.Status === 'Active') {
             sessionStorage.removeItem('isOnCall');
             sessionStorage.removeItem('isEverwellCall');
-            this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+            this.router.navigate(['/MultiRoleScreenComponent'], {
+              skipLocationChange: true
+            });
           }
         }
-      }, (err) => {
-        console.error(err);
-      });
+      }, (err) => {});
+    }
+  }
+
+  ngOnInit() {
+    this.httpService.dologoutUsrFromPreSession(false);
+    this.logoutUserFromPreviousSessionSubscription =
+      this.httpService.logoutUserFromPreviousSessions$.subscribe(
+        (logoutUser) => {
+          if (logoutUser) {
+            this.loginUser(true);
+          }
+        }
+      );
+    if (sessionStorage.getItem('authToken')) {
+      this.loginservice.checkAuthorisedUser().subscribe((response) => {
+        if (response !== undefined && response !== null) {
+          if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
+            this.previlageObj = response.previlegeObj.filter((previlage) => {
+              return previlage.serviceName == "1097";
+            });
+          }
+          this.dataSettingService.Userdata = response;
+          this.dataSettingService.userPriveliges = this.previlageObj;
+          this.dataSettingService.uid = response.userID;
+          this.dataSettingService.uname = response.userName;
+          this.dataSettingService.Userdata.agentID = response.agentID;
+          this.dataSettingService.loginIP = response.loginIPAddress;
+          console.log('array' + this.previlageObj);
+          if (response.isAuthenticated === true && response.Status === 'Active') {
+            sessionStorage.removeItem('isOnCall');
+            sessionStorage.removeItem('isEverwellCall');
+            this.router.navigate(['/MultiRoleScreenComponent'], {
+              skipLocationChange: true
+            });
+          }
+        }
+      }, (err) => {});
     }
   }
 
@@ -133,8 +163,23 @@ export class loginContentClass implements OnInit, OnDestroy {
     });
   }
 
+  encryptWithIvSalt(salt, iv, passPhrase, plainText) {
+    let key = this.generateKey(salt, passPhrase);
+    let encrypted = CryptoJS.AES.encrypt(plainText, key, {
+      iv: CryptoJS.enc.Hex.parse(iv)
+    });
+    return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  }
+
+  encrypt(passPhrase, plainText) {
+    let iv = CryptoJS.lib.WordArray.random(this._ivSize / 8).toString(CryptoJS.enc.Hex);
+    let salt = CryptoJS.lib.WordArray.random(this.keySize / 8).toString(CryptoJS.enc.Hex);
+    let ciphertext = this.encryptWithIvSalt(salt, iv, passPhrase, plainText);
+    return salt + iv + ciphertext;
+  }
+
   login(doLogOut) {
-    bcrypt.hash(this.password, 10, (err, hashedPassword) => {
+    bcrypt.hash(this.password, 12, (err, hashedPassword) => {
       if (err) {
         console.error('Error hashing password:', err);
       } else {
@@ -142,7 +187,12 @@ export class loginContentClass implements OnInit, OnDestroy {
         this.loginservice.authenticateUser(this.userID, this.encryptPassword, doLogOut)
           .subscribe(
             (response: any) => {
-              if (response !== undefined && response !== null && response.previlegeObj !== undefined && response.previlegeObj !== null) {
+              if (
+                response !== undefined &&
+                response !== null &&
+                response.previlegeObj !== undefined &&
+                response.previlegeObj !== null
+              ) {
                 this.successCallback(response, this.userID, this.password);
               }
             },
@@ -156,7 +206,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     this.loginservice.userLogOutFromPreviousSession(this.userID).subscribe(
       (userLogOutRes: any) => {
         if (userLogOutRes && userLogOutRes.data.response) {
-          bcrypt.hash(this.password, 10, (err, hashedPassword) => {
+          bcrypt.hash(this.password, 12, (err, hashedPassword) => {
             if (err) {
               console.error('Error hashing password:', err);
             } else {
@@ -164,7 +214,12 @@ export class loginContentClass implements OnInit, OnDestroy {
               this.loginservice.authenticateUser(this.userID, this.encryptPassword, doLogOut)
                 .subscribe(
                   (response: any) => {
-                    if (response !== undefined && response !== null && response.previlegeObj !== undefined && response.previlegeObj !== null) {
+                    if (
+                      response !== undefined &&
+                      response !== null &&
+                      response.previlegeObj !== undefined &&
+                      response.previlegeObj !== null
+                    ) {
                       this.successCallback(response, this.userID, this.password);
                     }
                   },
@@ -185,12 +240,15 @@ export class loginContentClass implements OnInit, OnDestroy {
     console.log(response);
     if (response !== undefined && response !== null) {
       if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
-        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097"; });
+        this.previlageObj = response.previlegeObj.filter((previlage) => {
+          return previlage.serviceName == "1097";
+        });
       }
       this.dataSettingService.Userdata = response;
       this.dataSettingService.userPriveliges = this.previlageObj;
       this.dataSettingService.uid = response.userID;
-      this.dataSettingService.current_serviceID = response.previlegeObj[0]?.roles[0]?.serviceRoleScreenMappings[0]?.providerServiceMapping?.m_ServiceMaster?.serviceID || null;
+      this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID ?
+        response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID : null;
       console.log("current_serviceID:" + this.dataSettingService.current_serviceID);
       this.dataSettingService.uname = response.userName;
       this.previlageObj.forEach((assignAgentID) => {
