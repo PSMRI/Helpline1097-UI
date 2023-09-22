@@ -21,7 +21,7 @@
 */
 
 
-import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component,forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import { loginService } from '../services/loginService/login.service';
 import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
@@ -30,8 +30,15 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { SocketService } from '../services/socketService/socket.service';
 import { Subscription } from 'rxjs';
 import { InterceptedHttp } from 'app/http.interceptor';
+// import { SHA256, enc } from 'crypto-js';
 import * as CryptoJS from 'crypto-js';
-import * as bcrypt from 'bcryptjs'; // Import bcryptjs with the correct path
+import * as bcrypt from 'bcryptjs';
+// import { AES } from 'crypto-js';
+// import { SHA256 } from 'crypto-js';
+
+
+
+
 
 @Component({
   selector: 'login-component',
@@ -54,6 +61,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   _ivSize: any;
   _iterationCount: any;
 
+ 
   loading = false;
   public loginResult: string;
   dynamictype: any = 'password';
@@ -62,46 +70,44 @@ export class loginContentClass implements OnInit, OnDestroy {
   previlageObj: any = [];
   encryptPassword: any;
 
-  constructor(
-    public loginservice: loginService,
-    public router: Router,
-    public alertService: ConfirmationDialogsService,
-    public dataSettingService: dataService,
-    private czentrixServices: CzentrixServices,
-    private socketService: SocketService,
-    private httpService: InterceptedHttp
-  ) {
-    this._keySize = 256;
-    this._ivSize = 128;
-    this._iterationCount = 1989;
+  constructor(public loginservice: loginService, public router: Router, public alertService: ConfirmationDialogsService,
+    public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService,   private httpService: InterceptedHttp) {
+      this._keySize = 256;
+      this._ivSize = 128;
+      this._iterationCount = 1989;
     if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
-        if (response !== null && response !== undefined) {
-          this.dataSettingService.Userdata = response;
-          if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
-            this.previlageObj = response.previlegeObj.filter((previlage) => {
-              return previlage.serviceName == "1097";
-            });
-          }
-
-          this.dataSettingService.userPriveliges = this.previlageObj;
-          this.dataSettingService.uid = response.userID;
-          this.dataSettingService.uname = response.userName;
-          this.dataSettingService.Userdata.agentID = response.agentID;
-          this.dataSettingService.loginIP = response.loginIPAddress;
-          console.log('array' + this.previlageObj);
-          if (response.isAuthenticated === true && response.Status === 'Active') {
-            sessionStorage.removeItem('isOnCall');
-            sessionStorage.removeItem('isEverwellCall');
-            this.router.navigate(['/MultiRoleScreenComponent'], {
-              skipLocationChange: true
-            });
-          }
+        if(response !== null && response !== undefined)  {
+        this.dataSettingService.Userdata = response;
+        // this.dataSettingService.userPriveliges = response.Previlege;
+        if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097"; });
         }
-      }, (err) => {});
+        
+        // if (this.previlageObj.length > 0) {
+        this.dataSettingService.userPriveliges = this.previlageObj;
+        this.dataSettingService.uid = response.userID;
+        this.dataSettingService.uname = response.userName;
+        this.dataSettingService.Userdata.agentID = response.agentID;
+        this.dataSettingService.loginIP = response.loginIPAddress;
+        console.log('array' + this.previlageObj);
+        if (response.isAuthenticated === true && response.Status === 'Active') {
+          sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
+          this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+        }
+        // } else {
+        //   this.loginResult = 'You do not have previlage to login to application';
+        // }
+        // if (response.isAuthenticated === true && response.Status === 'New') {
+        //   this.router.navigate(['/setQuestions']);
+        // }
+      }}, (err) => {
+        //  this.alertService.alert(err.errorMessage, 'error');
+      });
     }
-  }
 
+  }
   ngOnInit() {
     this.httpService.dologoutUsrFromPreSession(false);
     this.logoutUserFromPreviousSessionSubscription =
@@ -114,30 +120,64 @@ export class loginContentClass implements OnInit, OnDestroy {
       );
     if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
-        if (response !== undefined && response !== null) {
-          if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
-            this.previlageObj = response.previlegeObj.filter((previlage) => {
-              return previlage.serviceName == "1097";
-            });
-          }
-          this.dataSettingService.Userdata = response;
-          this.dataSettingService.userPriveliges = this.previlageObj;
-          this.dataSettingService.uid = response.userID;
-          this.dataSettingService.uname = response.userName;
-          this.dataSettingService.Userdata.agentID = response.agentID;
-          this.dataSettingService.loginIP = response.loginIPAddress;
-          console.log('array' + this.previlageObj);
-          if (response.isAuthenticated === true && response.Status === 'Active') {
-            sessionStorage.removeItem('isOnCall');
-            sessionStorage.removeItem('isEverwellCall');
-            this.router.navigate(['/MultiRoleScreenComponent'], {
-              skipLocationChange: true
-            });
-          }
+        if(response !== undefined && response !== null) {
+          if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
+          this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097"; });
         }
-      }, (err) => {});
+        // if (this.previlageObj.length > 0) {
+        this.dataSettingService.Userdata = response;
+        // this.dataSettingService.userPriveliges = response.Previlege;
+        this.dataSettingService.userPriveliges = this.previlageObj;
+        this.dataSettingService.uid = response.userID;
+        this.dataSettingService.uname = response.userName;
+        this.dataSettingService.Userdata.agentID = response.agentID;
+        this.dataSettingService.loginIP = response.loginIPAddress;
+        console.log('array' + this.previlageObj);
+        if (response.isAuthenticated === true && response.Status === 'Active') {
+          sessionStorage.removeItem('isOnCall');
+          sessionStorage.removeItem('isEverwellCall');
+          this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+        }
+        // } else {
+        //   this.loginResult = 'You do not have previlage to login to application';
+        // }
+        // if (response.isAuthenticated === true && response.Status === 'New') {
+        //   this.router.navigate(['/setQuestions']);
+        // }
+      }
+      }, (err) => {
+        //  this.alertService.alert(err.errorMessage, 'error');
+      });
     }
+
   }
+
+  // encrypt(password) {
+    
+  //   var key = CryptoJS.PBKDF2(password, this.SALT, {
+  //     // var key = CryptoJS.PKCS5(password, this.SALT, {
+  //     keySize: 256 / 32,
+  //     iterations: 65536
+  //   })
+  //   var encrypted = CryptoJS.AES.encrypt(password, key, {
+  //     iv: this.toWordArray(this.Key_IV),
+  //     padding: CryptoJS.pad.Pkcs7,
+  //     // padding: CryptoJS.pad.Pkcs5,
+
+  //     mode: CryptoJS.mode.CBC
+  //   })
+  //   return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  // }
+
+  // toWordArray(str) {
+  //   return CryptoJS.enc.Utf8.parse(str);
+  //   }
+
+    // encoder(str) {
+    //   let encoder = new TextEncoder();
+    //   let byteArray = encoder.encode(str)
+    //   return CryptoJS.enc.Utf8.parse(str)
+    // }
 
   get keySize() {
     return this._keySize;
@@ -147,13 +187,19 @@ export class loginContentClass implements OnInit, OnDestroy {
     this._keySize = value;
   }
 
+
+
   get iterationCount() {
     return this._iterationCount;
   }
 
+
+
   set iterationCount(value) {
     this._iterationCount = value;
   }
+
+
 
   generateKey(salt, passPhrase) {
     return CryptoJS.PBKDF2(passPhrase, CryptoJS.enc.Hex.parse(salt), {
@@ -162,6 +208,8 @@ export class loginContentClass implements OnInit, OnDestroy {
       iterations: this._iterationCount
     });
   }
+
+
 
   encryptWithIvSalt(salt, iv, passPhrase, plainText) {
     let key = this.generateKey(salt, passPhrase);
@@ -184,108 +232,120 @@ export class loginContentClass implements OnInit, OnDestroy {
         console.error('Error hashing password:', err);
       } else {
         this.encryptPassword = hashedPassword;
-        this.loginservice.authenticateUser(this.userID, this.encryptPassword, doLogOut)
-          .subscribe(
-            (response: any) => {
-              if (
-                response !== undefined &&
-                response !== null &&
-                response.previlegeObj !== undefined &&
-                response.previlegeObj !== null
-              ) {
-                this.successCallback(response, this.userID, this.password);
-              }
-            },
-            (error: any) => this.errorCallback(error)
-          );
+    this.loginservice
+      .authenticateUser(this.userID, this.encryptPassword, doLogOut)
+      .subscribe(
+        (response: any) => {
+          if (
+            response !== undefined &&
+            response !== null &&
+            response.previlegeObj !== undefined &&
+            response.previlegeObj !== null
+          ) {
+            this.successCallback(response, this.userID, this.password);
+          }
+        },
+        (error: any) => this.errorCallback(error)
+        );
       }
     });
   }
 
+  
   loginUser(doLogOut) {
-    this.loginservice.userLogOutFromPreviousSession(this.userID).subscribe(
+    this.loginservice
+    .userLogOutFromPreviousSession(this.userID)
+    .subscribe(
       (userLogOutRes: any) => {
-        if (userLogOutRes && userLogOutRes.data.response) {
-          bcrypt.hash(this.password, 12, (err, hashedPassword) => {
-            if (err) {
-              console.error('Error hashing password:', err);
-            } else {
-              this.encryptPassword = hashedPassword;
-              this.loginservice.authenticateUser(this.userID, this.encryptPassword, doLogOut)
-                .subscribe(
-                  (response: any) => {
-                    if (
-                      response !== undefined &&
-                      response !== null &&
-                      response.previlegeObj !== undefined &&
-                      response.previlegeObj !== null
-                    ) {
-                      this.successCallback(response, this.userID, this.password);
-                    }
-                  },
-                  (error: any) => this.errorCallback(error)
-                );
-            }
-          });
-        } else {
-          this.alertService.alert(userLogOutRes.errorMessage, 'error');
-        }
+      if(userLogOutRes && userLogOutRes.data.response) {
+        bcrypt.hash(this.password, 12, (err, hashedPassword) => {
+          if (err) {
+            console.error('Error hashing password:', err);
+          } else {
+            this.encryptPassword = hashedPassword;
+    this.loginservice
+      .authenticateUser(this.userID, this.encryptPassword, doLogOut)
+      .subscribe(
+        (response: any) => {
+          if (
+            response !== undefined &&
+            response !== null &&
+            response.previlegeObj !== undefined &&
+            response.previlegeObj !== null
+          ) {
+            this.successCallback(response, this.userID, this.password);
+          }
+        },
+        (error: any) => this.errorCallback(error)
+      );
+    }
+  });
       }
-    );
-  }
+      else
+      {
+            this.alertService.alert(userLogOutRes.errorMessage, 'error');
+          }
+        }
+      );
+    }
 
   successCallback(response: any, userID: any, password: any) {
-    this.dataSettingService.current_campaign = undefined;
+    this.dataSettingService.current_campaign=undefined;
     this.loading = false;
     console.log(response);
     if (response !== undefined && response !== null) {
-      if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
-        this.previlageObj = response.previlegeObj.filter((previlage) => {
-          return previlage.serviceName == "1097";
-        });
+      if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097"; });
       }
-      this.dataSettingService.Userdata = response;
-      this.dataSettingService.userPriveliges = this.previlageObj;
-      this.dataSettingService.uid = response.userID;
-      this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID ?
-        response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID : null;
-      console.log("current_serviceID:" + this.dataSettingService.current_serviceID);
-      this.dataSettingService.uname = response.userName;
-      this.previlageObj.forEach((assignAgentID) => {
-        this.dataSettingService.Userdata.agentID = assignAgentID.agentID;
-      });
-      this.dataSettingService.loginIP = response.loginIPAddress;
-      console.log('array' + this.previlageObj);
+    // if (this.previlageObj.length > 0) {
+    this.dataSettingService.Userdata = response;
+    // this.dataSettingService.userPriveliges = response.Previlege;
+    this.dataSettingService.userPriveliges = this.previlageObj;
+    this.dataSettingService.uid = response.userID;
+    this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID ? 
+    response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID : null;
+    console.log("current_serviceID:" + this.dataSettingService.current_serviceID );
+    this.dataSettingService.uname = response.userName;
+    this.previlageObj.forEach((assignAgentID) => {
+      this.dataSettingService.Userdata.agentID = assignAgentID.agentID;
+    });
+    this.dataSettingService.loginIP = response.loginIPAddress;
+    // this.getLoginKey(userID, password);
+    // console.log( "array" + response.Previlege );
+    console.log('array' + this.previlageObj);
 
-      if (response.isAuthenticated === true && response.Status === 'Active') {
-        if (this.dataSettingService.current_serviceID === undefined) {
-          alert('ServiceID not found. Some things may not work');
-        }
-        sessionStorage.removeItem('isOnCall');
-        sessionStorage.removeItem('isEverwellCall');
-        sessionStorage.setItem('authToken', response.key);
-        this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+    if (response.isAuthenticated === true && response.Status === 'Active') {
+      if (this.dataSettingService.current_serviceID === undefined) {
+        alert('ServiceID not found. Some things may not work');
+      }
+      sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
+      sessionStorage.setItem('authToken', response.key);
+      this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
+      // this.socketService.reInstantiate();
 
-      }
-      if (response.isAuthenticated === true && response.Status === 'New') {
-        sessionStorage.setItem('authToken', response.key);
-        sessionStorage.removeItem('isOnCall');
-        sessionStorage.removeItem('isEverwellCall');
-        this.router.navigate(['/setQuestions']);
-      }
-      this.dataSettingService.setInboundOutboundValue(response);
     }
+    if (response.isAuthenticated === true && response.Status === 'New') {
+      sessionStorage.setItem('authToken', response.key);
+      sessionStorage.removeItem('isOnCall');
+      sessionStorage.removeItem('isEverwellCall');
+      this.router.navigate(['/setQuestions']);
+    }
+    // } else {
+    //   this.loginResult = 'You do not have previlage to login to application';
+    // }
+    this.dataSettingService.setInboundOutboundValue(response);
   }
-
+  }
   errorCallback(error: any) {
     if (error.status) {
       this.loginResult = error.errorMessage;
     } else {
-      this.loginResult = 'Server seems to be busy. Please try again later.';
+      this.loginResult = 'Server seems to busy please try after some time';
     }
-    console.error(error);
+    // this.loading = false;
+    console.log(error);
   }
-
   getLoginKey(userId, password) {
     this.czentrixServices.getLoginKey(userId, password).subscribe((response) => {
       console.log('getLoginKey response: ' + JSON.stringify(response));
@@ -293,10 +353,11 @@ export class loginContentClass implements OnInit, OnDestroy {
       console.log('Login key:' + this.dataSettingService.loginKey);
     }, (err) => {
       this.alertService.alert(err.errorMessage, 'error');
-      console.error('Error in getLoginKey', err);
+      console.log('Error in getLoginKey', err);
     });
-  }
 
+
+  }
   showPWD() {
     this.dynamictype = 'text';
   }
@@ -304,11 +365,10 @@ export class loginContentClass implements OnInit, OnDestroy {
   hidePWD() {
     this.dynamictype = 'password';
   }
-
   ngOnDestroy() {
     if (this.logoutUserFromPreviousSessionSubscription) {
       this.logoutUserFromPreviousSessionSubscription.unsubscribe();
     }
   }
-}
 
+}
