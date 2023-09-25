@@ -81,7 +81,7 @@ export class loginContentClass implements OnInit, OnDestroy {
         this.dataSettingService.Userdata = response;
         // this.dataSettingService.userPriveliges = response.Previlege;
         if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
-        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097"; });
         }
         
         // if (this.previlageObj.length > 0) {
@@ -122,7 +122,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if(response !== undefined && response !== null) {
           if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
-          this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+          this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097"; });
         }
         // if (this.previlageObj.length > 0) {
         this.dataSettingService.Userdata = response;
@@ -295,7 +295,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     console.log(response);
     if (response !== undefined && response !== null) {
       if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
-        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097"; });
       }
     // if (this.previlageObj.length > 0) {
     this.dataSettingService.Userdata = response;
