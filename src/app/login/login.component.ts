@@ -336,7 +336,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     // }
     this.dataSettingService.setInboundOutboundValue(response);
   }
-  }
+  };
   errorCallback(error: any) {
     if (error.status) {
       this.loginResult = error.errorMessage;
