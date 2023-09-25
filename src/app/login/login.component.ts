@@ -107,7 +107,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       });
     }
 
-  };
+  }
   ngOnInit() {
     this.httpService.dologoutUsrFromPreSession(false);
     this.logoutUserFromPreviousSessionSubscription =
@@ -206,7 +206,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       hasher: CryptoJS.algo.SHA512,
       keySize: this.keySize / 32,
       iterations: this._iterationCount
-    })
+    });
   }
 
 
@@ -308,7 +308,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     this.dataSettingService.uname = response.userName;
     this.previlageObj.forEach((assignAgentID) => {
       this.dataSettingService.Userdata.agentID = assignAgentID.agentID;
-    })
+    });
     this.dataSettingService.loginIP = response.loginIPAddress;
     // this.getLoginKey(userID, password);
     // console.log( "array" + response.Previlege );
@@ -336,7 +336,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     // }
     this.dataSettingService.setInboundOutboundValue(response);
   }
-  };
+  }
   errorCallback(error: any) {
     if (error.status) {
       this.loginResult = error.errorMessage;
@@ -345,7 +345,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     }
     // this.loading = false;
     console.log(error);
-  };
+  }
   getLoginKey(userId, password) {
     this.czentrixServices.getLoginKey(userId, password).subscribe((response) => {
       console.log('getLoginKey response: ' + JSON.stringify(response));
@@ -354,7 +354,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     }, (err) => {
       this.alertService.alert(err.errorMessage, 'error');
       console.log('Error in getLoginKey', err);
-    })
+    });
 
 
   }
