@@ -30,10 +30,7 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 import { SocketService } from '../services/socketService/socket.service';
 import { Subscription } from 'rxjs';
 import { InterceptedHttp } from 'app/http.interceptor';
-// import { SHA256, enc } from 'crypto-js';
 import * as CryptoJS from 'crypto-js';
-// import { AES } from 'crypto-js';
-// import { SHA256 } from 'crypto-js';
 import * as bcrypt from 'bcryptjs';
 
 
@@ -78,12 +75,10 @@ export class loginContentClass implements OnInit, OnDestroy {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
         if(response !== null && response !== undefined)  {
         this.dataSettingService.Userdata = response;
-        // this.dataSettingService.userPriveliges = response.Previlege;
         if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
         this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
         }
         
-        // if (this.previlageObj.length > 0) {
         this.dataSettingService.userPriveliges = this.previlageObj;
         this.dataSettingService.uid = response.userID;
         this.dataSettingService.uname = response.userName;
@@ -95,14 +90,7 @@ export class loginContentClass implements OnInit, OnDestroy {
           sessionStorage.removeItem('isEverwellCall');
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
-        // } else {
-        //   this.loginResult = 'You do not have previlage to login to application';
-        // }
-        // if (response.isAuthenticated === true && response.Status === 'New') {
-        //   this.router.navigate(['/setQuestions']);
-        // }
       }}, (err) => {
-        //  this.alertService.alert(err.errorMessage, 'error');
       });
     }
 
@@ -124,9 +112,7 @@ export class loginContentClass implements OnInit, OnDestroy {
           if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
           this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
         }
-        // if (this.previlageObj.length > 0) {
         this.dataSettingService.Userdata = response;
-        // this.dataSettingService.userPriveliges = response.Previlege;
         this.dataSettingService.userPriveliges = this.previlageObj;
         this.dataSettingService.uid = response.userID;
         this.dataSettingService.uname = response.userName;
@@ -138,46 +124,12 @@ export class loginContentClass implements OnInit, OnDestroy {
           sessionStorage.removeItem('isEverwellCall');
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
-        // } else {
-        //   this.loginResult = 'You do not have previlage to login to application';
-        // }
-        // if (response.isAuthenticated === true && response.Status === 'New') {
-        //   this.router.navigate(['/setQuestions']);
-        // }
       }
       }, (err) => {
-        //  this.alertService.alert(err.errorMessage, 'error');
       });
     }
 
   }
-
-  // encrypt(password) {
-    
-  //   var key = CryptoJS.PBKDF2(password, this.SALT, {
-  //     // var key = CryptoJS.PKCS5(password, this.SALT, {
-  //     keySize: 256 / 32,
-  //     iterations: 65536
-  //   })
-  //   var encrypted = CryptoJS.AES.encrypt(password, key, {
-  //     iv: this.toWordArray(this.Key_IV),
-  //     padding: CryptoJS.pad.Pkcs7,
-  //     // padding: CryptoJS.pad.Pkcs5,
-
-  //     mode: CryptoJS.mode.CBC
-  //   })
-  //   return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
-  // }
-
-  // toWordArray(str) {
-  //   return CryptoJS.enc.Utf8.parse(str);
-  //   }
-
-    // encoder(str) {
-    //   let encoder = new TextEncoder();
-    //   let byteArray = encoder.encode(str)
-    //   return CryptoJS.enc.Utf8.parse(str)
-    // }
 
   get keySize() {
     return this._keySize;
@@ -232,12 +184,7 @@ export class loginContentClass implements OnInit, OnDestroy {
         console.error('Error hashing password:', err);
       } else {
         this.encryptPassword = hashedPassword;
-  //   this.password = CryptoJS.AES.encrypt(this.password,this.encPassword).toString();
-  //  console.log("PARTH"+this.password.ciphertext.toString(CryptoJS.enc.Base64))
-    // this.password = AES.encrypt(this.password).toString();
-    // this.password = CryptoJS.SHA256(this.password).toString();
-    // this.encryptedVar=SHA256(this.password).toString(enc.Hex);
-    // this.password=this.encryptedVar.substr(0, 16);
+  
     this.loginservice
       .authenticateUser(this.userID, this.encryptPassword, doLogOut)
       .subscribe(
@@ -257,25 +204,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     });
   }
 
-  // login(doLogOut) {
-  //   this.loginservice
-  //     .authenticateUser(this.userID, this.password, doLogOut)
-  //     .subscribe(
-  //       (response: any) => {
-  //         if (
-  //           response !== undefined &&
-  //           response !== null &&
-  //           response.previlegeObj !== undefined &&
-  //           response.previlegeObj !== null
-  //         ) {
-  //           this.successCallback(response, this.userID, this.password);
-  //         }
-  //       },
-  //       (error: any) => this.errorCallback(error)
-  //     );
-  // }
-//ADID- KA40094929 
-// added new method to force logout the user
+ 
   loginUser(doLogOut) {
     this.loginservice
     .userLogOutFromPreviousSession(this.userID)
@@ -319,9 +248,9 @@ export class loginContentClass implements OnInit, OnDestroy {
       if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
         this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
       }
-    // if (this.previlageObj.length > 0) {
+    
     this.dataSettingService.Userdata = response;
-    // this.dataSettingService.userPriveliges = response.Previlege;
+    
     this.dataSettingService.userPriveliges = this.previlageObj;
     this.dataSettingService.uid = response.userID;
     this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID ? 
@@ -332,8 +261,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       this.dataSettingService.Userdata.agentID = assignAgentID.agentID;
     })
     this.dataSettingService.loginIP = response.loginIPAddress;
-    // this.getLoginKey(userID, password);
-    // console.log( "array" + response.Previlege );
+    
     console.log('array' + this.previlageObj);
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
@@ -344,8 +272,6 @@ export class loginContentClass implements OnInit, OnDestroy {
       sessionStorage.removeItem('isEverwellCall');
       sessionStorage.setItem('authToken', response.key);
       this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
-      // this.socketService.reInstantiate();
-
     }
     if (response.isAuthenticated === true && response.Status === 'New') {
       sessionStorage.setItem('authToken', response.key);
@@ -353,9 +279,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       sessionStorage.removeItem('isEverwellCall');
       this.router.navigate(['/setQuestions']);
     }
-    // } else {
-    //   this.loginResult = 'You do not have previlage to login to application';
-    // }
+    
     this.dataSettingService.setInboundOutboundValue(response);
   }
   };
@@ -365,7 +289,7 @@ export class loginContentClass implements OnInit, OnDestroy {
     } else {
       this.loginResult = 'Server seems to busy please try after some time';
     }
-    // this.loading = false;
+    
     console.log(error);
   };
   getLoginKey(userId, password) {
