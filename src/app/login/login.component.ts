@@ -34,7 +34,7 @@ import { InterceptedHttp } from 'app/http.interceptor';
 import * as CryptoJS from 'crypto-js';
 // import { AES } from 'crypto-js';
 // import { SHA256 } from 'crypto-js';
-
+import * as bcrypt from 'bcryptjs';
 
 
 
@@ -227,7 +227,11 @@ export class loginContentClass implements OnInit, OnDestroy {
   }
 
   login(doLogOut) {
-    this.encryptPassword = this.encrypt(this.Key_IV, this.password)
+    bcrypt.hash(this.password, 12, (err, hashedPassword) => {
+      if (err) {
+        console.error('Error hashing password:', err);
+      } else {
+        this.encryptPassword = hashedPassword;
   //   this.password = CryptoJS.AES.encrypt(this.password,this.encPassword).toString();
   //  console.log("PARTH"+this.password.ciphertext.toString(CryptoJS.enc.Base64))
     // this.password = AES.encrypt(this.password).toString();
@@ -248,7 +252,9 @@ export class loginContentClass implements OnInit, OnDestroy {
           }
         },
         (error: any) => this.errorCallback(error)
-      );
+        );
+      }
+    });
   }
 
   // login(doLogOut) {
@@ -276,6 +282,11 @@ export class loginContentClass implements OnInit, OnDestroy {
     .subscribe(
       (userLogOutRes: any) => {
       if(userLogOutRes && userLogOutRes.data.response) {
+        bcrypt.hash(this.password, 12, (err, hashedPassword) => {
+          if (err) {
+            console.error('Error hashing password:', err);
+          } else {
+            this.encryptPassword = hashedPassword;
     this.loginservice
       .authenticateUser(this.userID, this.encryptPassword, doLogOut)
       .subscribe(
@@ -291,7 +302,8 @@ export class loginContentClass implements OnInit, OnDestroy {
         },
         (error: any) => this.errorCallback(error)
       );
-      }
+      }});
+    }
       else
       {
             this.alertService.alert(userLogOutRes.errorMessage, 'error');
