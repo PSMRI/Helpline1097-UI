@@ -1,10 +1,10 @@
-name: Static Code Analysis and Package
+name: Package
 on:
   push:
-    branches: [ "develop"]
+    branches: ["develop"]
 
 jobs:
-  CodeQL:
+  package:
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -23,43 +23,6 @@ jobs:
       with:
           java-version: '8'
           distribution: 'adopt'
-
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-          languages: javascript,typescript
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-          node-version: 16
-
-    - name: Build with Yarn
-      run: |
-        yarn config set legacy-peer-deps true
-        yarn global add node-gyp
-        yarn add node-sass --force
-        yarn --force
-        yarn build
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-          languages: javascript,typescript
-
-  Packaging:
-    needs: CodeQL
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Setup JDK 8
-      uses: actions/setup-java@v2
-      with:
-        java-version: 8
-        distribution: 'adopt'
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
