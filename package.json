@@ -94,6 +94,5 @@
  },
  "resolutions": {
   "@types/geojson": "7946.0.8"
- },
-  "repository": "https://github.com/PSMRI/Helpline1097-UI.git"
+ }
 }
