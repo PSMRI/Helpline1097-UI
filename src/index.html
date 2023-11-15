@@ -9,7 +9,9 @@
   <link rel="icon" type="image/x-icon" href="favicon.png">
   <script>
 
-document.write('<base href="' + encodeURIComponent(document.location) + '" />');
+    var baseTag = document.createElement('base');
+    baseTag.href = document.location.href;
+    document.head.appendChild(baseTag);
     window.console.log = function() {}
     window.console.warn = function() {}
   </script>
