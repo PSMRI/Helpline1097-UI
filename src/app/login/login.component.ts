@@ -48,7 +48,7 @@ import * as CryptoJS from 'crypto-js';
 export class loginContentClass implements OnInit, OnDestroy {
   model: any = {};
   userID: any;
-  code: any;
+  password: any;
   
   encryptedVar: any;
   key: any;
@@ -227,7 +227,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   }
 
   login(doLogOut) {
-    this.encryptPassword = this.encrypt(this.Key_IV, this.code)
+    this.encryptPassword = this.encrypt(this.Key_IV, this.password)
   //   this.password = CryptoJS.AES.encrypt(this.password,this.encPassword).toString();
   //  console.log("PARTH"+this.password.ciphertext.toString(CryptoJS.enc.Base64))
     // this.password = AES.encrypt(this.password).toString();
@@ -244,7 +244,7 @@ export class loginContentClass implements OnInit, OnDestroy {
             response.previlegeObj !== undefined &&
             response.previlegeObj !== null
           ) {
-            this.successCallback(response, this.userID, this.code);
+            this.successCallback(response, this.userID, this.password);
           }
         },
         (error: any) => this.errorCallback(error)
@@ -286,7 +286,7 @@ export class loginContentClass implements OnInit, OnDestroy {
             response.previlegeObj !== undefined &&
             response.previlegeObj !== null
           ) {
-            this.successCallback(response, this.userID, this.code);
+            this.successCallback(response, this.userID, this.password);
           }
         },
         (error: any) => this.errorCallback(error)
