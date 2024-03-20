@@ -34,11 +34,11 @@ import { InterceptedHttp } from './../../http.interceptor';
 export class RegisterService {
   _baseUrl = this._config.getCommonBaseURL();
   _helplineURL = this._config.get1097BaseURL();
-  _createbeneficiaryurl = this._baseUrl + 'beneficiary/create/';
-  _getrelationshipurl = this._baseUrl + 'get/beneficiaryRelationship/';
-  _getuserdata = this._baseUrl + 'beneficiary/searchUserByID/';
-  _getuserdatabyno = this._baseUrl + 'beneficiary/searchUserByPhone/';
-  _startCall = this._baseUrl + 'call/startCall/';
+  _createbeneficiaryurl = this._baseUrl + 'beneficiary/create';
+  _getrelationshipurl = this._baseUrl + 'get/beneficiaryRelationship';
+  _getuserdata = this._baseUrl + 'beneficiary/searchUserByID';
+  _getuserdatabyno = this._baseUrl + 'beneficiary/searchUserByPhone';
+  _startCall = this._baseUrl + 'call/startCall';
   _updatebeneficiaryincall = this._baseUrl + 'call/updatebeneficiaryincall';
   _getregistrationdata = this._baseUrl + 'beneficiary/getRegistrationDataV1';
   _searchBeneficiaryURL = this._baseUrl + 'beneficiary/searchBeneficiary';

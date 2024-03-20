@@ -34,7 +34,7 @@ export class UpdateService {
   options = new RequestOptions({ headers: this.headers });
 
   _baseUrl = this._config.getCommonBaseURL();
-  _updatebeneficiaryurl = this._baseUrl + 'beneficiary/update/';
+  _updatebeneficiaryurl = this._baseUrl + 'beneficiary/update';
   constructor(
     private _http: Http,
     private _config: ConfigService,
