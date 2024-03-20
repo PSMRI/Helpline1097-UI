@@ -39,8 +39,8 @@ export class CoFeedbackService {
     _commonUrl = this._config.getCommonBaseURL();
     _servicetypesurl = this._commonUrl + 'service/servicetypes';
     // _servicetypesurl = this._baseurl + 'api/helpline1097/co/get/servicetypes'
-    _createFeedbackURL = this._baseurl + 'co/saveBenFeedback/'
-    _getDesignationsURL = this._baseurl + 'designation/get/'
+    _createFeedbackURL = this._baseurl + 'co/saveBenFeedback'
+    _getDesignationsURL = this._baseurl + 'designation/get'
     // _getFeedbackHistoryByID = this._baseurl + 'services/getFeedbacksHistory'
     _getFeedbackHistory = this._commonUrl + 'feedback/getFeedbacksList';
     constructor(

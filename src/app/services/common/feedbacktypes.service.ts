@@ -39,7 +39,7 @@ export class FeedbackTypes {
     _getFeedbackTypesURL = this._commonURL + 'feedback/getFeedbackType';
     // _getFeedbackSeverityURL = this._commonURL + "feedback/getSeverity";
     // _getFeedbackTypesURL = this._helpline104BaseURL + "beneficiary/get/natureOfComplaintTypes";
-    _getFeedbackSeverityURL = this._commonURL + 'feedback/getSeverity/';
+    _getFeedbackSeverityURL = this._commonURL + 'feedback/getSeverity';
 
     getFeedbackIDTypes_url = this._commonURL + 'feedback/getFeedbackType';
     constructor(
