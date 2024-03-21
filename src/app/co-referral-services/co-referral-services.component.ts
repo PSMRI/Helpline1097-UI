@@ -324,7 +324,10 @@ export class CoReferralServicesComponent implements OnInit {
     });
 
     dialogReff.afterClosed().subscribe(result => {
-      if (result) {
+      if(result === 'close'){
+        // do nothing
+      }
+      else if(result) {
         // this.message.alert('Message sent to alternate number', 'success');
         this.send_sms(this.ref_array, result)
       }

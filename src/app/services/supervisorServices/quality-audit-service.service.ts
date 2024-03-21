@@ -56,7 +56,7 @@ export class QualityAuditService {
         this.getServicesUrl = this.admin_Base_Url + 'm/role/serviceNew';
         this.getRolesUrl = this.admin_Base_Url + 'm/role/search';
         this.getServiceProviderID_url = this.admin_Base_Url + 'getServiceProviderid';
-        this._calltypesurl = this.commonBaseURL + 'call/getCallTypesV1/';
+        this._calltypesurl = this.commonBaseURL + 'call/getCallTypesV1';
         this.filterCallListUrl = this.commonBaseURL + 'call/filterCallList';
         this.getCallSummaryUrl = this._1097baseUrl + 'services/getCaseSheet';
         this.getAllAgents_Url = this.admin_Base_Url + 'getAllAgentIds';

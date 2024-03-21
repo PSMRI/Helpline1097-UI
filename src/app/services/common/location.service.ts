@@ -39,10 +39,10 @@ export class LocationService {
     _getTalukListURL = this._commonBaseURL + 'location/taluks/';
     _getBlockListURL = this._commonBaseURL + 'location/districtblocks/';
     _getBranchListURL = this._commonBaseURL + 'location/village/';
-    _getInstituteListURL = this._commonBaseURL + 'institute/getInstituteTypes/';
-    _getDesignationListURL = this._commonBaseURL + 'institute/getDesignationsByInstitute/';
-    _getDirectoriesListURL = this._commonBaseURL + 'directory/getDirectoryV1/';
-    _getSubDirectoriesListURL = this._commonBaseURL + 'directory/getSubDirectory/';
+    _getInstituteListURL = this._commonBaseURL + 'institute/getInstituteTypes';
+    _getDesignationListURL = this._commonBaseURL + 'institute/getDesignationsByInstitute';
+    _getDirectoriesListURL = this._commonBaseURL + 'directory/getDirectoryV1';
+    _getSubDirectoriesListURL = this._commonBaseURL + 'directory/getSubDirectory';
     constructor(
         private _http: AuthorizationWrapper,
         private _config: ConfigService

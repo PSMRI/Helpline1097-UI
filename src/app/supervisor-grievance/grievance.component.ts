@@ -356,7 +356,7 @@ export class grievanceComponent implements OnInit {
         feedback.feedbackRequests[feedback.feedbackRequests.length - 1].feedbackSupSummary : feedback.feedback
     );
     // this.feedbackForm.controls.feedbackSupSummary.setValue(feedback.feedback);
-    this.feedbackForm.controls.beneficiaryName.setValue(feedback.mUser.firstName + " " + (feedback.mUser.lastName ? feedback.mUser.lastName : ""));
+    this.feedbackForm.controls.beneficiaryName.setValue(feedback.muser.firstName + " " + (feedback.muser.lastName ? feedback.muser.lastName : ""));
     // this.feedbackForm.controls.createdDate.setValue(feedback.CreatedDate);
     this.feedbackForm.controls.feedbackDate.setValue(new Date(feedback.createdDate).toLocaleDateString('en-in'));
     this.feedbackForm.controls.feedbackTypeName.setValue(feedback.feedbackType.feedbackTypeName);
