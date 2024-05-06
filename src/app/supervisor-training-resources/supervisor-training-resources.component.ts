@@ -542,7 +542,7 @@ else{
     this.error2 = false;
     this.invalid_file_flag = false;
     this.invalidFileNameFlag=false;
-    this.file = undefined;
+    // this.file = undefined;
     if (this.file && this.fileContent) {
       editedObj = {
         'providerServiceMapID': this.providerServiceMapID,
