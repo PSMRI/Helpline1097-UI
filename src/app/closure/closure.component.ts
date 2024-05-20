@@ -527,10 +527,13 @@ export class ClosureComponent implements OnInit {
     if (btnType === "submitClose") {
       values.endCall = true;
     }
-    if (this.current_campaign === "OUTBOUND") {
-      values.isCompleted = true;
-    }
     console.log("close called with " + values);
+    if (this.current_campaign == "OUTBOUND") {
+      values.IsOutbound = true;
+    }
+    else{
+      values.IsOutbound = false;
+    }
     if (
       this.current_campaign !== undefined &&
       this.current_campaign !== null &&
