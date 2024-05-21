@@ -189,6 +189,12 @@ export class CoInformationServicesComponent implements OnInit {
     if (response) {
       this.GetInformationHistory();
       this.detailsList = response;
+      this.detailsList.filter(item => {
+        if(item.subCatFilePath !== undefined || item.subCatFilePath !== null){
+          item.subCatFilePath = item.subCatFilePath.replace("http://guest:guest@", "");
+        }
+      });
+      console.log("detailsList", this.detailsList);
       this.getDetailsFlag = true;
       this.enableFileDetails=true;
       this.informationServiceProvided.emit();
