@@ -445,7 +445,7 @@ else{
         if (response.length !== 0) {
           this.trainingResources = response.data;
           this.trainingResources.filter(item => {
-            if(item.kmFilePath !== undefined || item.kmFilePath !== null){
+            if(item.kmFilePath !== undefined && item.kmFilePath !== null){
               item.kmFilePath = item.kmFilePath.replace(/^https?:\/\/[^@]+@/, '');
             }
           })

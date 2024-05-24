@@ -45,7 +45,7 @@ export class MessageDialogComponent implements OnInit {
       this.docs[i]['urls'] = this.checkForURL(this.docs[i].notificationDesc)
     }
     this.docs.filter(item => {
-      if(item.kmFilePath !== undefined || item.kmFilePath !== null){
+      if(item.kmFilePath !== undefined && item.kmFilePath !== null){
         item.kmFilePath = item.kmFilePath.replace(/^https?:\/\/[^@]+@/, '');
       }
     })

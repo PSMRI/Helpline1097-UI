@@ -190,7 +190,7 @@ export class CoInformationServicesComponent implements OnInit {
       this.GetInformationHistory();
       this.detailsList = response;
       this.detailsList.filter(item => {
-        if(item.subCatFilePath !== undefined || item.subCatFilePath !== null){
+        if(item.subCatFilePath !== undefined && item.subCatFilePath !== null){
           item.subCatFilePath = item.subCatFilePath.replace("http://guest:guest@", "");
         }
       });
