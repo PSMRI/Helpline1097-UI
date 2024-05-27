@@ -151,7 +151,6 @@ export class KnowledgeManagementComponent implements OnInit {
 
    
     if (subcategoryArr.length > 0) {
-      subcategoryArr[0].fileURL = subcategoryArr[0].fileURL.replace(/^https?:\/\/[^@]+@/, '');
       this.subcategoryOBJ = subcategoryArr[0];
     }
 

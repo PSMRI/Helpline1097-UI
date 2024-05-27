@@ -28,7 +28,7 @@ import { SetLanguageComponent } from 'app/set-language.component';
 import { dataService } from '../services/dataService/data.service';
 import { NotificationService } from '../services/notificationService/notification-service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -97,8 +97,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   constructor(private saved_data: dataService,
     private notificationService: NotificationService,
     public dialogService: ConfirmationDialogsService,
-    private httpServices:HttpServices,
-    private sanitizer: DomSanitizer) { }
+    private httpServices:HttpServices,) { }
 
 
 
@@ -444,11 +443,6 @@ else{
       .subscribe((response) => {
         if (response.length !== 0) {
           this.trainingResources = response.data;
-          this.trainingResources.filter(item => {
-            if(item.kmFilePath !== undefined && item.kmFilePath !== null){
-              item.kmFilePath = item.kmFilePath.replace(/^https?:\/\/[^@]+@/, '');
-            }
-          })
           console.log('Training resources', this.trainingResources);
         }
         else {
@@ -460,12 +454,6 @@ else{
         this.dialogService.alert(error, 'error');
       });
   }
-
-  sanitizeUrl(rawUrl: string): SafeUrl {
-    const sanitizedUrl = this.sanitizer.bypassSecurityTrustUrl(encodeURI(rawUrl));
-    return sanitizedUrl;
-  }
-
   activate(obj, val) {
     const object = {
       'providerServiceMapID': this.providerServiceMapID,

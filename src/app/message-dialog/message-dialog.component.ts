@@ -44,11 +44,6 @@ export class MessageDialogComponent implements OnInit {
     for (let i = 0; i < this.docs.length; i++) {
       this.docs[i]['urls'] = this.checkForURL(this.docs[i].notificationDesc)
     }
-    this.docs.filter(item => {
-      if(item.kmFilePath !== undefined && item.kmFilePath !== null){
-        item.kmFilePath = item.kmFilePath.replace(/^https?:\/\/[^@]+@/, '');
-      }
-    })
     console.log('after urls filtering', this.docs);
   }
   ngDoCheck() {
