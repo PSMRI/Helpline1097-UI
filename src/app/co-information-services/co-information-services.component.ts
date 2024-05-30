@@ -189,6 +189,7 @@ export class CoInformationServicesComponent implements OnInit {
     if (response) {
       this.GetInformationHistory();
       this.detailsList = response;
+      console.log("detailsList", this.detailsList);
       this.getDetailsFlag = true;
       this.enableFileDetails=true;
       this.informationServiceProvided.emit();
