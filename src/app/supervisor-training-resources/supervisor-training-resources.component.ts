@@ -30,6 +30,7 @@ import { NotificationService } from '../services/notificationService/notificatio
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 
+
 @Component({
   selector: 'app-supervisor-training-resources',
   templateUrl: './supervisor-training-resources.component.html',
@@ -96,7 +97,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   constructor(private saved_data: dataService,
     private notificationService: NotificationService,
     public dialogService: ConfirmationDialogsService,
-    private httpServices:HttpServices) { }
+    private httpServices:HttpServices,) { }
 
 
 
@@ -453,7 +454,6 @@ else{
         this.dialogService.alert(error, 'error');
       });
   }
-
   activate(obj, val) {
     const object = {
       'providerServiceMapID': this.providerServiceMapID,

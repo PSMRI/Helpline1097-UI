@@ -882,11 +882,14 @@ export class InnerpageComponent implements OnInit {
         this.ticks = 0;
         console.log("after re initialize the timer", t);
         const remarks = "Call disconnect from customer.";
-        this.closeCall(
-          remarks,
-          this.currentLanguageSet.callClosedSuccessfully,
-          this.wrapupCallID
-        );
+        console.log("this.callStatus", this.callStatus);
+        if (this.callStatus.toLowerCase().trim() === "closure"){
+          this.closeCall(
+            remarks,
+            this.currentLanguageSet.callClosedSuccessfully,
+            this.wrapupCallID
+          );
+        }
       }
     });
   }
