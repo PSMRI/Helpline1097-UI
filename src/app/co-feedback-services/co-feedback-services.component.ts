@@ -38,6 +38,8 @@ import { FeedbackService } from 'app/services/supervisorServices/Feedbackservice
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
 declare var jQuery: any;
+import { SmsTemplateService } from './../services/supervisorServices/sms-template-service.service';
+import { CommonSmsDialogComponent } from '../common-sms-dialog/common-sms-dialog.component';
 
 @Component({
   selector: 'app-co-feedback-services',
@@ -97,6 +99,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   currentLanguageSet: any;
   instituteValue: any;
   beneficiaryConsent:any=false;
+  feedbackID:any;
   constructor(
     private _userBeneficiaryData: UserBeneficiaryData,
     private _locationService: LocationService,
@@ -107,7 +110,8 @@ export class CoFeedbackServicesComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
     private pass_data: CommunicationService,
     private _feedbackListServices: FeedbackService,
-    private HttpServices:HttpServices
+    private HttpServices:HttpServices,
+    private _smsService: SmsTemplateService,
   ) {
   this.subscription = this.pass_data.getData().subscribe(message => { this.getBenData(message) });
     this._savedData.beneficiary_regID_subject.subscribe(response => {
@@ -340,11 +344,13 @@ export class CoFeedbackServicesComponent implements OnInit {
     }];
     this._coFeedbackService.createFeedback(feedbackObj)
       .subscribe((response) => {
-        this.alertMessage.alert(this.currentLanguageSet.feedbackCreatedSuccessfullyAndFeedbackIDIs + " " + response.requestID, 'success');
+        this.feedbackID = response.requestID;
+        this.sendSMS(this.feedbackID);
         jQuery('#feedbackForm').trigger("reset");
         this.showBeneficiaryFeedbackList();
         this.feedbackServiceProvided.emit();
         this.beneficiaryConsent = false;
+        this.feedbackID = null;
 
       }, (err) => {
         this.selected_doi = undefined;
@@ -440,6 +446,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
     this.showFormCondition = false;
+    this.feedbackID = null;
   }
 
   minLength: number = 1;
@@ -507,5 +514,102 @@ export class CoFeedbackServicesComponent implements OnInit {
         }
       });
     }
+
+  sendSMS(feedbackId:any) {
+    let dialogReff = this.dialog.open(CommonSmsDialogComponent, {
+      disableClose: true,
+      width: '420px',
+      data: { 
+        'statement': this.currentLanguageSet.feedbackCreatedSuccessfullyAndFeedbackIDIs,
+        'generatedID': feedbackId
+      }
+    });
+
+    dialogReff.afterClosed().subscribe(result => {
+      if(result === 'close'){
+        // do nothing
+      }
+      else if(result) {
+
+        this.sendSmsDetails(feedbackId,result);
+      }
+      else {
+        this.sendSmsDetails(feedbackId);
+
+      }
+    });
+  }
+
+  sendSmsDetails(feedbackId,alternatePhoneNo?) {
+
+    let smsTemplateID = '';
+    let smsTypeID = '';
+    let currentServiceID = this._savedData.current_serviceID;
+    if (currentServiceID) {
+      this._smsService.getSMStypes(currentServiceID)
+        .subscribe(response => {
+          if (response) {
+            if (response.length > 0) {
+              for (let i = 0; i < response.length; i++) {
+                if (response[i].smsType.toLowerCase() === 'Grievance SMS'.toLowerCase()) {
+                  smsTypeID = response[i].smsTypeID;
+                  break;
+                }
+              }
+            }
+          
+          if (smsTypeID) {
+            this._smsService.getSMStemplates(this._savedData.current_service.serviceID,
+              smsTypeID).subscribe(res => {
+                if (res) {
+                  if (res.length > 0) {
+                    for (let j = 0; j < res.length; j++) {
+                      if (res[j].deleted === false) {
+                        smsTemplateID = res[j].smsTemplateID;
+                        break;
+                      }
+                    }
+                  }
+                  if (smsTypeID) {
+                    let reqArr = [];
+                    let reqObj = {
+                        "alternateNo": alternatePhoneNo,
+                        'beneficiaryRegID': this.beneficiaryRegID,
+                        'feedbackID': feedbackId,
+                        'createdBy': this._savedData.uname,
+                        'is1097': true,
+                        'providerServiceMapID': this._savedData.current_service.serviceID,
+                        'smsTemplateID': smsTemplateID,
+                        'smsTemplateTypeID': smsTypeID,
+                      };
+
+                      reqArr.push(reqObj);
+                 
+
+
+                    this._smsService.sendSMS(reqArr)
+                      .subscribe(smsResponse => {
+                        console.log(smsResponse, 'SMS Sent');
+                        this.feedbackID = null;
+                        alert(this.currentLanguageSet.smsSent);
+                      }, err => {
+                        console.log(err, 'SMS not sent Error');
+                      })
+                  }
+                }
+              }, err => {
+                console.log(err, 'Error in fetching sms templates');
+              })
+          }
+        }
+        }, err => {
+          console.log(err, 'Error while fetching sms types');
+        });
+    } else {
+      console.log('Service ID not found')
+    }
+
+
+  }
 }
 

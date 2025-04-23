@@ -664,7 +664,7 @@
       "reason":"Reason",
       "blockedOn":"Blocked On",
       "blockedTill":"Blocked Till",
-      "feedbackCreatedSuccessfullyAndFeedbackIDIs": "Feedback created successfully and Feedback ID is :",
+      "feedbackCreatedSuccessfullyAndFeedbackIDIs": "Feedback created successfully and Feedback ID is",
       "errorInFetchingEverwellGuidelineData": "Error in Fetching Everwell Guideline Data",
       "providingNewServiceToBeneficiary": "Providing new service to beneficiary?",
       "campaignNames": "Campaign Names",
