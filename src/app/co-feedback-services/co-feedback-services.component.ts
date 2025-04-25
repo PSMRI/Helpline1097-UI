@@ -344,7 +344,7 @@ export class CoFeedbackServicesComponent implements OnInit {
     }];
     this._coFeedbackService.createFeedback(feedbackObj)
       .subscribe((response) => {
-        this.feedbackID = response.requestID;
+        this.feedbackID = response.feedBackId;
         this.sendSMS(this.feedbackID);
         jQuery('#feedbackForm').trigger("reset");
         this.showBeneficiaryFeedbackList();
@@ -591,7 +591,7 @@ export class CoFeedbackServicesComponent implements OnInit {
                       .subscribe(smsResponse => {
                         console.log(smsResponse, 'SMS Sent');
                         this.feedbackID = null;
-                        alert(this.currentLanguageSet.smsSent);
+                        this.alertMessage.alert(this.currentLanguageSet.smsSent ,'success');
                       }, err => {
                         console.log(err, 'SMS not sent Error');
                       })
