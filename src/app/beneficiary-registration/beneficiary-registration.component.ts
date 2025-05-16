@@ -1077,6 +1077,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
 
   updateBeneficiary() {
+    console.log('Updating beneficiary with age:', this.age, 'and ageUnit:', this.ageUnit);
     this.updatedObj.vanID = this.saved_data.current_serviceID;
 
     this.updatedObj.firstName = this.FirstName;
@@ -1085,8 +1086,19 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     if (this.DOB) {
       this.DOB = new Date(this.DOB);
       this.updatedObj.dOB = new Date((this.DOB) - 1 * (this.DOB.getTimezoneOffset() * 60 * 1000)).toJSON();
+      // Add age and ageUnit to the update object
+      this.updatedObj.actualAge = this.age;
+      this.updatedObj.ageUnits = this.ageUnit;
+      console.log('Updated object with age details:', {
+        dOB: this.updatedObj.dOB,
+        actualAge: this.updatedObj.actualAge,
+        ageUnits: this.updatedObj.ageUnits
+      });
     } else {
       this.updatedObj.dOB = undefined;
+      this.updatedObj.actualAge = undefined;
+      this.updatedObj.ageUnits = undefined;
+      console.log('No DOB provided, age details cleared');
     }
     this.updatedObj.titleId = this.TitleId;
     this.updatedObj.maritalStatusID = this.MaritalStatusID;
@@ -1527,43 +1539,58 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
 
   dobChangeByCalender(dobval) {
+    console.log('DOB changed to:', dobval);
     const date = new Date(this.DOB);
-    console.log(this.BeneficaryCreationForm.value.dateOfBirth)
+    console.log('Form values before update:', this.BeneficaryCreationForm.value);
 
     if (dobval != undefined) {
-
       const dateDiff = Date.now() - date.getTime();
       const age = new Date(dateDiff);
       const yob = Math.abs(age.getFullYear() - 1970);
       const mob = Math.abs(age.getMonth());
       const dob = Math.abs(age.getDate() - 1);
+      console.log('Calculated age values:', { yob, mob, dob });
+      
       if (yob > 0) {
         this.BeneficaryCreationForm.form.patchValue({ age: yob });
         this.BeneficaryCreationForm.form.patchValue({ ageUnit: 'Years' });
-        // this.ageUnit='Years';
+        this.age = yob;
+        this.ageUnit = 'Years';
+        console.log('Age set to years:', yob);
       } else if (mob > 0) {
         this.BeneficaryCreationForm.form.patchValue({ age: mob });
         this.BeneficaryCreationForm.form.patchValue({ ageUnit: 'Months' });
-        // this.ageUnit='Months';
+        this.age = mob;
+        this.ageUnit = 'Months';
+        console.log('Age set to months:', mob);
       } else if (dob > 0) {
         this.BeneficaryCreationForm.form.patchValue({ age: dob });
         this.BeneficaryCreationForm.form.patchValue({ ageUnit: 'Days' });
-        // this.ageUnit='Days';
+        this.age = dob;
+        this.ageUnit = 'Days';
+        console.log('Age set to days:', dob);
       }
       if (date.setHours(0, 0, 0, 0) == this.today.setHours(0, 0, 0, 0)) {
         this.BeneficaryCreationForm.form.patchValue({ age: 1 });
         this.BeneficaryCreationForm.form.patchValue({ ageUnit: 'Days' });
+        this.age = 1;
+        this.ageUnit = 'Days';
+        console.log('Age set to 1 day for today');
       }
-
-
     } else if (dobval == 'Invalid date') {
       this.BeneficaryCreationForm.form.patchValue({ dob: null });
       this.DOB = null;
+      this.age = null;
+      this.ageUnit = null;
+      console.log('Invalid date entered');
       alert(this.assignSelectedLanguageValue.invalidDateEnteredPleaseRecheck);
     } else {
       this.BeneficaryCreationForm.form.patchValue({ age: null });
+      this.age = null;
+      this.ageUnit = null;
+      console.log('Age cleared');
     }
-
+    console.log('Form values after update:', this.BeneficaryCreationForm.value);
   }
 
 
