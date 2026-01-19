@@ -1,6 +1,6 @@
 # AMRIT - Helpline1097 Service
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ![build status](https://github.com/PSMRI/Helpline1097-UI/actions/workflows/sast-and-package.yml/badge.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![DeepWiki](https://img.shields.io/badge/DeepWiki-PSMRI%2FHelpline1097--UI-blue)](https://deepwiki.com/PSMRI/Helpline1097-UI)
 
 The AMRIT Helpline1097 service aims to provide comprehensive support to individuals and families affected by AIDS, offering a range of services to effectively address their needs.
 
