@@ -1,0 +1,29 @@
+name: Lint Commit Messages
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Fetch base branch and run commitlint
+        run: |
+          git fetch --no-tags origin +refs/heads/${{ github.event.pull_request.base.ref }}:refs/remotes/origin/${{ github.event.pull_request.base.ref }}
+          FROM="$(git merge-base HEAD origin/${{ github.event.pull_request.base.ref }})"
+          npx commitlint --from "$FROM" --to ${{ github.event.pull_request.head.sha }} --verbose
