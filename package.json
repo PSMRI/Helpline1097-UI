@@ -60,7 +60,6 @@
   "xlsx": "0.13.0",
   "zone.js": "0.8.11",
   "uglify-js": "2.8.29"
-
  },
  "devDependencies": {
   "@angular/cdk": "2.0.0-beta.11",
@@ -95,5 +94,5 @@
  "resolutions": {
   "@types/geojson": "7946.0.8"
  },
-  "repository": "https://github.com/PSMRI/Helpline1097-UI.git"
+ "repository": "https://github.com/PSMRI/Helpline1097-UI.git"
 }
