@@ -12,7 +12,7 @@
   "e2e": "ng e2e",
   "build-prod": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod --aot",
   "build-ci": "(test -f src/environments/environment.ts || touch src/environments/environment.ts) && chmod +x ./scripts/*.js && ./scripts/ci-prebuild.js && node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --environment=ci && mkdir -p dist/WEB-INF && cp -R WEB-INF/* dist/WEB-INF/",
-  "prepare": "husky install",
+  "prepare": "husky install || true",
   "commit": "cz"
  },
  "config": {
