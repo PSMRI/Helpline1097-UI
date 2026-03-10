@@ -11,7 +11,19 @@
   "lint": "ng lint",
   "e2e": "ng e2e",
   "build-prod": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod --aot",
-  "build-ci": "(test -f src/environments/environment.ts || touch src/environments/environment.ts) && chmod +x ./scripts/*.js && ./scripts/ci-prebuild.js && node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --environment=ci && mkdir -p dist/WEB-INF && cp -R WEB-INF/* dist/WEB-INF/"
+  "build-ci": "(test -f src/environments/environment.ts || touch src/environments/environment.ts) && chmod +x ./scripts/*.js && ./scripts/ci-prebuild.js && node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --environment=ci && mkdir -p dist/WEB-INF && cp -R WEB-INF/* dist/WEB-INF/",
+  "prepare": "husky install",
+  "commit": "cz"
+ },
+ "config": {
+  "commitizen": {
+   "path": "./node_modules/cz-conventional-changelog"
+  }
+ },
+ "lint-staged": {
+  "src/**/*.ts": [
+   "tslint --fix"
+  ]
  },
  "private": true,
  "dependencies": {
@@ -88,7 +100,13 @@
   "tslint": "5.7.0",
   "typescript": "2.4.0",
   "xlsx": "0.13.0",
-  "uglify-js": "2.8.29"
+  "uglify-js": "2.8.29",
+  "@commitlint/cli": "^19.8.0",
+  "@commitlint/config-conventional": "^19.8.0",
+  "commitizen": "^4.3.1",
+  "cz-conventional-changelog": "^3.3.0",
+  "husky": "^9.1.7",
+  "lint-staged": "^15.2.2"
  },
  "resolutions": {
   "@types/geojson": "7946.0.8"
