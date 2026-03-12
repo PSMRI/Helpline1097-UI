@@ -157,7 +157,8 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
         { name: 'Healthcare Worker', value: 'Healthcare Worker', selected: false, id: 5, disabled: true },
         { name: 'Others', value: 'Others', selected: false, id: 6, disabled: true },
         { name: 'Newspaper', value: 'Newspaper', selected: false, id: 8, disabled: true },
-        { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7, disabled: false }
+        { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7, disabled: false },
+        { name: 'Breakfree India', value: 'Breakfree India', selected: false, id: 9, disabled: true }
       ];
     }
     else {
@@ -169,7 +170,9 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
         { name: 'Healthcare Worker', value: 'Healthcare Worker', selected: false, id: 5, disabled: false },
         { name: 'Others', value: 'Others', selected: false, id: 6, disabled: false },
         { name: 'Newspaper', value: 'Newspaper', selected: false, id: 8, disabled: false },
-        { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7, disabled: false }
+        { name: 'Not Disclosed', value: 'Not Disclosed', selected: false, id: 7, disabled: false },
+        { name: 'Breakfree India', value: 'Breakfree India', selected: false, id: 9, disabled: false }
+
       ];
     }
   }
