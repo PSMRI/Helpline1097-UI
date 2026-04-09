@@ -8,57 +8,77 @@
     <div [hidden]="!showFormCondition">
       <form id="information" #informationForm='ngForm' autocomplete="off">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 p-b-1-5">
-         
-            <md-select required placeholder="{{currentLanguageSet?.selectCategory}}" class="width100" [(ngModel)]="symptomCategory"
-              name="symptomCategory" (change)="GetSubCategories(symptomCategory)" #category="ngModel">
-              <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
-                {{symptomCategory.categoryName}}
-              </md-option>
-            </md-select>
-        
+
+          <md-select required placeholder="{{currentLanguageSet?.selectCategory}}" class="width100"
+            [(ngModel)]="symptomCategory" name="symptomCategory" (change)="GetSubCategories(symptomCategory)"
+            #category="ngModel">
+            <md-option *ngFor="let symptomCategory of categoryList" [value]="symptomCategory.categoryID">
+              {{symptomCategory.categoryName}}
+            </md-option>
+          </md-select>
+
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 p-b-1-5">
-         
-            <md-select required placeholder="{{currentLanguageSet?.selectSubCategory}}" class="width100" [(ngModel)]="symptomSubCategory"
-              name="symptomSubCategory" #subCategory="ngModel" (change)="EnabledGetDetails()">
-              <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
-                {{symptomSubCategory.subCategoryName}}
-              </md-option>
-            </md-select>
-           
+
+          <md-select required placeholder="{{currentLanguageSet?.selectSubCategory}}" class="width100"
+            [(ngModel)]="symptomSubCategory" name="symptomSubCategory" #subCategory="ngModel"
+            (change)="EnabledGetDetails()">
+            <md-option *ngFor="let symptomSubCategory of subCategoryList" [value]="symptomSubCategory.subCategoryID">
+              {{symptomSubCategory.subCategoryName}}
+            </md-option>
+          </md-select>
+
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <button md-raised-button color="accent" class="mar-right" [disabled]="!(category.valid && subCategory.valid && getDetailsFlag===true)"
-            type="button" (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentLanguageSet?.getDetails}}</button>
+          <button md-raised-button color="accent" class="mar-right"
+            [disabled]="!(category.valid && subCategory.valid && getDetailsFlag===true)" type="button"
+            (click)="GetSubCategoryDetails(symptomSubCategory)">{{currentLanguageSet?.getDetails}}</button>
           <button type="button" md-raised-button color="primary" (click)="back()">{{currentLanguageSet?.back}}</button>
         </div>
-       
+
         <div class="clearfix"></div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="enableFileDetails">
           <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
             <ul class="m-t-10" [hidden]="!showresult">
-              <li *ngFor="let detail of detailsList">
-                <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank" rel="noopener noreferrer">
-                  <md-icon class="f-s-22 icon" color="">file_download</md-icon>
-                  <span class="m-l-10">{{detail?.subCategoryName}}
-                    <span *ngIf="detail?.subCategoryDesc">:</span>{{detail?.subCategoryDesc}}</span>
-                </a>
-                <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">{{currentLanguageSet?.noDocumentAvailable}}</span>
-              </li>
-              <li *ngIf="detailsList?.length==0">{{currentLanguageSet?.noRecordsFound}}</li>
+
+              <div *ngIf="subcategoryOBJ">
+                <!-- Show subcategory name as header -->
+                <div class="subcategory-header">
+                  <strong>{{subcategoryOBJ.subCategoryName}}</strong>
+                  <span *ngIf="subcategoryOBJ.subCategoryDesc"> : {{subcategoryOBJ.subCategoryDesc}}</span>
+                </div>
+
+                <!-- Display all files for this subcategory -->
+                <div *ngIf="subcategoryOBJ.fileManger && subcategoryOBJ.fileManger.length > 0" class="file-list">
+                  <div *ngFor="let file of subcategoryOBJ.fileManger" class="file-item">
+                    <a [href]="'https://guest:guest@uatamrit.piramalswasthya.org:8084/OpenKM/Download?uuid=' + file.fileUID"
+                      target="_blank" rel="noopener noreferrer">
+                      <md-icon class="f-s-22 icon" color="">file_download</md-icon>
+                      <span class="m-l-10">{{file.fileName}}{{file.fileExtension}} ({{file.versionNo}})</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Show message when no files available -->
+                <div *ngIf="!subcategoryOBJ.fileManger || subcategoryOBJ.fileManger.length === 0" class="no-files">
+                  {{currentLanguageSet?.noDocumentAvailable || 'No documents available'}}
+                </div>
+              </div>
             </ul>
           </div>
         </div>
       </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
-      <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3" aria-describedby="callDetails">
+      <table class="table table-responsive table-striped" [md2Data]="data" #md2="md2DataTable" [rowsPerPage]="3"
+        aria-describedby="callDetails">
         <thead>
           <tr>
             <th id="sno">{{currentLanguageSet?.sno}}</th>
             <th md2SortBy="benCallID" id="benCallID">{{currentLanguageSet?.callId}}</th>
             <th md2SortBy="categoryDetails.categoryName" id="categoryName">{{currentLanguageSet?.category}}</th>
-            <th md2SortBy="subCategoryDetails.subCategoryName" id="subCategoryName">{{currentLanguageSet?.subHyphenCategory}}</th>
+            <th md2SortBy="subCategoryDetails.subCategoryName" id="subCategoryName">
+              {{currentLanguageSet?.subHyphenCategory}}</th>
             <th md2SortBy="createdBy" id="createdBy">{{currentLanguageSet?.informationProvidedBy}}</th>
             <th md2SortBy="createdDate" id="createdDate">{{currentLanguageSet?.informationProvidedOn}}</th>
           </tr>
@@ -75,7 +95,8 @@
             <td>{{Information?.categoryDetails?.categoryName}}</td>
             <td>{{Information?.subCategoryDetails?.subCategoryName}}</td>
             <td>{{Information?.createdBy}}</td>
-            <td>{{Information?.createdDate?(millisToUTCDate(Information.createdDate)|date:'dd/MM/yyyy hh:mm a'):''}}</td>
+            <td>{{Information?.createdDate?(millisToUTCDate(Information.createdDate)|date:'dd/MM/yyyy hh:mm a'):''}}
+            </td>
           </tr>
         </tbody>
         <tfoot>
@@ -84,7 +105,8 @@
               <md2-pagination></md2-pagination>
             </td>
             <td colspan="3" class="p-r-0" *ngIf="showTableCondition">
-              <button class="pull-right" md-raised-button color="primary" (click)="showForm()">{{currentLanguageSet?.newInformation}}</button>
+              <button class="pull-right" md-raised-button color="primary"
+                (click)="showForm()">{{currentLanguageSet?.newInformation}}</button>
             </td>
           </tr>
         </tfoot>

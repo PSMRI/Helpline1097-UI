@@ -145,10 +145,10 @@ export class KnowledgeManagementComponent implements OnInit {
   }
 
   getSubcategoryObject(subCategoryID) {
+    this.subCategoryID = subCategoryID;
     let subcategoryArr = this.subCategories.filter(function (item) {
       return item.subCategoryID === subCategoryID;
     });
-
    
     if (subcategoryArr.length > 0) {
       this.subcategoryOBJ = subcategoryArr[0];
@@ -275,13 +275,18 @@ export class KnowledgeManagementComponent implements OnInit {
   // Calling service Method to call the services
   uploadFile(uploadObj: any) {
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
-      console.log('KM configuration ', response);
       this.message.alert(this.currentlanguageSet.fileUploadedSuccessfully, 'success');
       this.file = undefined;
       this.error1 = false;
       this.error2 = false;
       this.invalid_file_flag = false;
-      this.invalidFileNameFlag=false;
+      this.invalidFileNameFlag = false;
+      this.getSubCategory(this.knowledgeForm.value.category);
+
+      setTimeout(() => {
+        this.getSubcategoryObject(this.subCategoryID);
+      }, 500);
+
       this.myInputVariable.nativeElement.value = '';
       this.knowledgeForm.reset(this.knowledgeForm.value);
     }, (err) => {

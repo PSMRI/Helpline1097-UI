@@ -3,76 +3,94 @@
   ** Component Used Bootstrap and Angular Material for design 
   ** Form used Reactive Form Angular 2 
   -->
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label class="pull-left">
-        <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguageSet?.knowledgeManagement}}</h4>
-      </label>
-    </div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <label class="pull-left">
+      <h4 class="f-s-b m-b-10 m-t-20">{{currentlanguageSet?.knowledgeManagement}}</h4>
+    </label>
   </div>
-    <div class="row m-t-20">
-      <!--Form Start  -->
-      <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate autocomplete="off">
-        <div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5 form-group">
-            <md-select placeholder="{{currentlanguageSet?.selectService}}" [style.width]="'100%'" name="service" formControlName="service" (change)="getCategory($event.value)" required>
-              <md-option *ngFor="let service of services" [value]="service.subServiceID">
-                {{service.subServiceName}}
-              </md-option>
-            </md-select>
-            <!-- Validation Field -->
-            <div class="error" *ngIf="knowledgeForm.get('service').touched && knowledgeForm.get('service').hasError('required')">
-               {{currentlanguageSet?.serviceIsRequired}}
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group p-b-1-5">
-            <md-select placeholder="{{currentlanguageSet?.selectCategory}}" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)" required>
-              <md-option *ngFor="let category of categories" [value]="category.categoryID">
-                {{category.categoryName}}
-              </md-option>
-            </md-select>
-            <!-- Validation Field -->
-            <div class="error" *ngIf="knowledgeForm.get('category').touched && knowledgeForm.get('category').hasError('required')">
-              {{currentlanguageSet?.categoryIsRequired}}
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group p-b-1-5">
-            <md-select placeholder="{{currentlanguageSet?.selectSubCategory}}" [style.width]="'100%'" formControlName="subCategory" (change)="getSubcategoryObject($event.value)" required>
-              <md-option *ngFor="let subCategory of subCategories" [value]="subCategory.subCategoryID">
-                {{subCategory.subCategoryName}}
-              </md-option>
-            </md-select>
-            <!-- Validation Field -->
-            <div class="error" *ngIf="knowledgeForm.get('subCategory').touched && knowledgeForm.get('subCategory').hasError('required')">
-             {{currentlanguageSet?.subcategoryIsRequired}}
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
-            <label for="upload-file">{{currentlanguageSet?.uploadFileSizeLimitInMb}} :{{maxFileSize}} {{currentlanguageSet?.mb}}), {{currentlanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</label>
-            <input type="file" #myInput name="file" (change)="changeListener($event)" />
-            <input type="hidden" name="fileHidden" formControlName="fileInput" />
-            <!-- Validation Field -->
-            <span class="f-s-b m-b-10 m-t-20 error" *ngIf="invalid_file_flag">
-              {{currentlanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}<em>*</em>
-            </span>
-              <span class="file-upload" *ngIf="error1">*{{currentlanguageSet?.pleaseChooseAFileForUpload}}</span>
-              <span class="f-s-b m-b-10 m-t-20 error" *ngIf="error2">{{currentlanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}} MB</span></div>
-              <span class="f-s-b m-b-10 m-t-20 error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
-                {{currentLanguageSet?.fileIsRequired}}
-              </span>
-              <span class="f-s-b m-b-10 m-t-20 error" *ngIf="invalidFileNameFlag">{{currentlanguageSet?.invalidFileName}}</span>
-           
+</div>
+<div class="row m-t-20">
+  <!--Form Start  -->
+  <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate autocomplete="off">
+    <div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-b-1-5 form-group">
+        <md-select placeholder="{{currentlanguageSet?.selectService}}" [style.width]="'100%'" name="service"
+          formControlName="service" (change)="getCategory($event.value)" required>
+          <md-option *ngFor="let service of services" [value]="service.subServiceID">
+            {{service.subServiceName}}
+          </md-option>
+        </md-select>
+        <!-- Validation Field -->
+        <div class="error"
+          *ngIf="knowledgeForm.get('service').touched && knowledgeForm.get('service').hasError('required')">
+          {{currentlanguageSet?.serviceIsRequired}}
         </div>
-        <!--Comment Start Date and End Date here  -->
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group p-b-1-5">
+        <md-select placeholder="{{currentlanguageSet?.selectCategory}}" [style.width]="'100%'" name="category"
+          formControlName="category" (change)="getSubCategory($event.value)" required>
+          <md-option *ngFor="let category of categories" [value]="category.categoryID">
+            {{category.categoryName}}
+          </md-option>
+        </md-select>
+        <!-- Validation Field -->
+        <div class="error"
+          *ngIf="knowledgeForm.get('category').touched && knowledgeForm.get('category').hasError('required')">
+          {{currentlanguageSet?.categoryIsRequired}}
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group p-b-1-5">
+        <md-select placeholder="{{currentlanguageSet?.selectSubCategory}}" [style.width]="'100%'"
+          formControlName="subCategory" (change)="getSubcategoryObject($event.value)" required>
+          <md-option *ngFor="let subCategory of subCategories" [value]="subCategory.subCategoryID">
+            {{subCategory.subCategoryName}}
+          </md-option>
+        </md-select>
+        <!-- Validation Field -->
+        <div class="error"
+          *ngIf="knowledgeForm.get('subCategory').touched && knowledgeForm.get('subCategory').hasError('required')">
+          {{currentlanguageSet?.subcategoryIsRequired}}
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+        <label for="upload-file">{{currentlanguageSet?.uploadFileSizeLimitInMb}} :{{maxFileSize}}
+          {{currentlanguageSet?.mb}}),
+          {{currentlanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}</label>
+        <input type="file" #myInput name="file" (change)="changeListener($event)" />
+        <input type="hidden" name="fileHidden" formControlName="fileInput" />
+        <!-- Validation Field -->
+        <span class="f-s-b m-b-10 m-t-20 error" *ngIf="invalid_file_flag">
+          {{currentlanguageSet?.supportedFileFormats_msg_pdf_png_jpeg_doc_docx_xlsx_xls_csv_txt}}<em>*</em>
+        </span>
+        <span class="file-upload" *ngIf="error1">*{{currentlanguageSet?.pleaseChooseAFileForUpload}}</span>
+        <span class="f-s-b m-b-10 m-t-20 error" *ngIf="error2">{{currentlanguageSet?.fileSizeShouldNotExceed}}
+          {{maxFileSize}} MB</span>
+      </div>
+      <span class="f-s-b m-b-10 m-t-20 error"
+        *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
+        {{currentLanguageSet?.fileIsRequired}}
+      </span>
+      <span class="f-s-b m-b-10 m-t-20 error" *ngIf="invalidFileNameFlag">{{currentlanguageSet?.invalidFileName}}</span>
 
-            <div class="col-xs-6 col-sm-6 form-group" *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)">
-                <label>{{currentlanguageSet?.previousUploadedFile}}<a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank" rel="noopener noreferrer">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
-              </div>
-          <div class="col-xs-6 col-sm-6 form-group pull-right">
-            <button type="submit" class="pull-right" md-raised-button color="accent" [disabled]="knowledgeForm.invalid||invalid_file_flag || error2 || invalidFileNameFlag">{{currentlanguageSet?.save}}</button>
-          </div>
-        
-      </form>
-      <!--Form End  -->
+    </div>
+    <!--Comment Start Date and End Date here  -->
+    <div class="col-xs-6 col-sm-6 form-group"
+      *ngIf="subcategoryOBJ?.fileManger && subcategoryOBJ.fileManger.length > 0">
+      <label>{{currentlanguageSet?.previousUploadedFile}}</label>
+      <div *ngFor="let file of subcategoryOBJ.fileManger">
+        <a href="https://guest:guest@uatamrit.piramalswasthya.org:8084/OpenKM/Download?uuid={{file.fileUID}}"
+          target="_blank" rel="noopener noreferrer">
+          {{file.fileName}}{{file.fileExtension}} ({{file.versionNo}})
+        </a>
+      </div>
     </div>
 
+    <div class="col-xs-6 col-sm-6 form-group pull-right">
+      <button type="submit" class="pull-right" md-raised-button color="accent"
+        [disabled]="knowledgeForm.invalid||invalid_file_flag || error2 || invalidFileNameFlag">{{currentlanguageSet?.save}}</button>
+    </div>
+
+  </form>
+  <!--Form End  -->
+</div>
