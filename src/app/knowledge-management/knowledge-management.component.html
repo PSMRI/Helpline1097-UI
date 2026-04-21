@@ -66,19 +66,21 @@
         <!--Comment Start Date and End Date here  -->
 
       <div class="col-xs-6 col-sm-6 form-group"
-     *ngIf="subcategoryOBJ?.fileManger && subcategoryOBJ.fileManger.length > 0">
+     *ngIf="subcategoryOBJ?.fileManger?.length > 0">
 
   <label>{{currentlanguageSet?.previousUploadedFile}}</label>
 
   <div *ngFor="let file of subcategoryOBJ.fileManger">
-    <a [href]="(subcategoryOBJ?.fileURL?.split('uuid=')[0] + 'uuid=' + file.fileUID)"
+    <a *ngIf="subcategoryOBJ?.fileURL"
+       [href]="subcategoryOBJ.fileURL.split('uuid=')[0] + 'uuid=' + file.fileUID"
        target="_blank"
        rel="noopener noreferrer">
 
       {{file.fileName}} ({{file.versionNo}})
-      
+
     </a>
   </div>
+
 </div>
 
             <!-- <div class="col-xs-6 col-sm-6 form-group" *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)">
