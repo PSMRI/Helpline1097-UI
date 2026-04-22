@@ -29,7 +29,7 @@ const TELEPHONY_SERVER = '<%= TELEPHONY_SERVER %>';
 const siteKey = '<%= SITE_KEY %>';
 const captchaChallengeURL = '<%= CAPTCHA_CHALLENGE_URL %>';
 const enableCaptcha = <%= ENABLE_CAPTCHA %>;
-const openKMBaseURL = '<%= KM_API_BASE_URL %>';
+const openKMBaseURL = '<%= KM_API_BASE_PATH %>';
 
 
 export const environment = {
