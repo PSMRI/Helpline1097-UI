@@ -41,6 +41,7 @@ import { CoCategoryService } from '../services/coService/co_category_subcategory
 import { dataService } from '../services/dataService/data.service';
 import { UploadServiceService } from '../services/upload-services/upload-service.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-knowledge-management',
@@ -77,6 +78,7 @@ export class KnowledgeManagementComponent implements OnInit {
   public subcategoryOBJ;
   public fileControl
   currentlanguageSet: any;
+  openKMBaseURL = environment.openKMBaseURL;
   constructor(private fb: FormBuilder, private _coCategoryService: CoCategoryService,
     private _dataService: dataService, private _uploadService: UploadServiceService,
     private message: ConfirmationDialogsService,
@@ -303,4 +305,12 @@ export class KnowledgeManagementComponent implements OnInit {
 		getLanguageJson.setLanguage();
 		this.currentlanguageSet = getLanguageJson.currentLanguageObject;
 	  }
+
+     getFileURL(fileUID: string): string {
+  // Construct URL using the fileUID
+  const baseURL = 'https://guest:guest@' + this.openKMBaseURL + '/Download?uuid=';
+  console.log("Generated File URL: ", baseURL + fileUID); // Log the generated URL for debugging
+  return baseURL + fileUID;
+
+}
 }

@@ -33,6 +33,7 @@ import { CommunicationService } from './../services/common/communication.service
 import { HttpServices } from "../services/http-services/http_services.service";
 import { SetLanguageComponent } from 'app/set-language.component';
 import { NgForm } from '@angular/forms';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-co-information-services',
@@ -67,6 +68,7 @@ export class CoInformationServicesComponent implements OnInit {
   enableFileDetails: boolean=false;
   subcategoryOBJ: any;
   subCategoryID: any;
+  openKMBaseURL = environment.openKMBaseURL;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,

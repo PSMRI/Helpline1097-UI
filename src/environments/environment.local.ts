@@ -29,6 +29,7 @@ const API1097 = 'http://localhost:8090/';
 const siteKey = ''
 const captchaChallengeURL = '';
 const enableCaptcha = false;
+const openKMBaseURL = 'uatamrit.piramalswasthya.org:8084/OpenKM';
  
 export const environment = {
   production: false,
@@ -41,4 +42,5 @@ export const environment = {
   siteKey:siteKey,
   captchaChallengeURL:captchaChallengeURL,
   enableCaptcha: enableCaptcha,
+  openKMBaseURL: openKMBaseURL,
 };
