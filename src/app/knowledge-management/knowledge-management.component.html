@@ -79,10 +79,17 @@
       *ngIf="subcategoryOBJ?.fileManger && subcategoryOBJ.fileManger.length > 0">
       <label>{{currentlanguageSet?.previousUploadedFile}}</label>
       <div *ngFor="let file of subcategoryOBJ.fileManger">
-        <a href="https://guest:guest@uatamrit.piramalswasthya.org:8084/OpenKM/Download?uuid={{file.fileUID}}"
-          target="_blank" rel="noopener noreferrer">
+        <a href="{{getFileURL(file.fileUID)}}"
+           target="_blank"
+           rel="noopener noreferrer">
           {{file.fileName}}{{file.fileExtension}} ({{file.versionNo}})
         </a>
+        <!-- <a [href]="subcategoryOBJ.fileURL.split('uuid=')[0] + 'uuid=' + file.fileUID"
+           target="_blank"
+           rel="noopener noreferrer">
+          {{file.fileName}} ({{file.versionNo}})
+        </a> -->
+
       </div>
     </div>
 

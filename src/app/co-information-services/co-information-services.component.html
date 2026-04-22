@@ -51,7 +51,7 @@
                 <!-- Display all files for this subcategory -->
                 <div *ngIf="subcategoryOBJ.fileManger && subcategoryOBJ.fileManger.length > 0" class="file-list">
                   <div *ngFor="let file of subcategoryOBJ.fileManger" class="file-item">
-                    <a [href]="'https://guest:guest@uatamrit.piramalswasthya.org:8084/OpenKM/Download?uuid=' + file.fileUID"
+                    <a href="https://guest:guest@{{openKMBaseURL}}/Download?uuid={{file.fileUID}}"
                       target="_blank" rel="noopener noreferrer">
                       <md-icon class="f-s-22 icon" color="">file_download</md-icon>
                       <span class="m-l-10">{{file.fileName}}{{file.fileExtension}} ({{file.versionNo}})</span>
