@@ -29,8 +29,9 @@ const TELEPHONY_SERVER = '<%= TELEPHONY_SERVER %>';
 const siteKey = '<%= SITE_KEY %>';
 const captchaChallengeURL = '<%= CAPTCHA_CHALLENGE_URL %>';
 const enableCaptcha = <%= ENABLE_CAPTCHA %>;
-const openKMBaseURL = '<%= KM_API_BASE_PATH %>';
-
+const openKMUsername = '<%= KM_GUEST_USER %>';
+const openKMPassword = '<%= KM_GUEST_PASSWORD %>';
+const openKMBaseURL = `https://${openKMUsername}:${openKMPassword}@<%= KM_API_BASE_PATH %>/Download?uuid=`;
 
 export const environment = {
   production: true,
@@ -44,4 +45,6 @@ export const environment = {
   captchaChallengeURL: captchaChallengeURL,
   enableCaptcha: enableCaptcha,
   openKMBaseURL: openKMBaseURL,
+  openKMUsername: openKMUsername,
+  openKMPassword: openKMPassword,
 };
