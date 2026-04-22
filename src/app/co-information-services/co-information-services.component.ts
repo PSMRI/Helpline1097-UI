@@ -33,6 +33,7 @@ import { CommunicationService } from './../services/common/communication.service
 import { HttpServices } from "../services/http-services/http_services.service";
 import { SetLanguageComponent } from 'app/set-language.component';
 import { NgForm } from '@angular/forms';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-co-information-services',
@@ -65,13 +66,16 @@ export class CoInformationServicesComponent implements OnInit {
   getDetailsFlag: boolean = false;
   tempFlag: any;
   enableFileDetails: boolean=false;
+  subcategoryOBJ: any;
+  subCategoryID: any;
+  openKMBaseURL = environment.openKMBaseURL;
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
     private _coService: CoReferralService,
     private pass_data: CommunicationService, 
     public alertService: ConfirmationDialogsService, 
-    public HttpServices: HttpServices
+    public HttpServices: HttpServices,
   ) {
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
     this.saved_data.beneficiary_regID_subject.subscribe(response => {
@@ -152,6 +156,11 @@ export class CoInformationServicesComponent implements OnInit {
     this.categoryList = response;
   }
 
+  EnabledGetDetails() {
+    this.getDetailsFlag = true;
+    this.enableFileDetails=false;
+  }
+  
   GetSubCategories(id: any) {
     this.symptomSubCategory=null;
     // console.log('symcatid',this.symptomCategory);
@@ -169,27 +178,22 @@ export class CoInformationServicesComponent implements OnInit {
     this.enableFileDetails=false;
     this.getDetailsFlag = false;
   }
-  EnabledGetDetails() {
-    this.getDetailsFlag = true;
-    this.enableFileDetails=false;
-  }
-  GetSubCategoryDetails(id: any) {
-    this.showresult = true;
-    this._coCategoryService.getDetails(
-      id, this.saved_data.uname, this.beneficiaryID,
-      this.subServiceID, this.symptomCategory, this.saved_data.callData.benCallID
-    ).subscribe(response => this.SetSubCategoryDetails(response),
-      (err) => {
-        this.alertService.alert(err.errorMessage, 'error');
 
-      });
+  GetSubCategoryDetails(id: any) {
+    this.enableFileDetails = true;   
+    this.showresult = true;      
+    this.subCategoryID = id;
+
+    // Find the subcategory from the list
+    this.subcategoryOBJ = this.subCategoryList.find(item => item.subCategoryID === id) || null;
   }
+
+ 
   SetSubCategoryDetails(response: any) {
     console.log('success', response);
     if (response) {
       this.GetInformationHistory();
       this.detailsList = response;
-      console.log("detailsList", this.detailsList);
       this.getDetailsFlag = true;
       this.enableFileDetails=true;
       this.informationServiceProvided.emit();
@@ -217,9 +221,7 @@ export class CoInformationServicesComponent implements OnInit {
         if (res) {
           this.data = res;
           this.totalRecord = res.length;
-          console.log('Information History Successfully reterive', res);
         }
-
 
       },
       (err) => {

@@ -41,6 +41,7 @@ import { CoCategoryService } from '../services/coService/co_category_subcategory
 import { dataService } from '../services/dataService/data.service';
 import { UploadServiceService } from '../services/upload-services/upload-service.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-knowledge-management',
@@ -77,6 +78,7 @@ export class KnowledgeManagementComponent implements OnInit {
   public subcategoryOBJ;
   public fileControl
   currentlanguageSet: any;
+  openKMBaseURL = environment.openKMBaseURL;
   constructor(private fb: FormBuilder, private _coCategoryService: CoCategoryService,
     private _dataService: dataService, private _uploadService: UploadServiceService,
     private message: ConfirmationDialogsService,
@@ -145,10 +147,10 @@ export class KnowledgeManagementComponent implements OnInit {
   }
 
   getSubcategoryObject(subCategoryID) {
+    this.subCategoryID = subCategoryID;
     let subcategoryArr = this.subCategories.filter(function (item) {
       return item.subCategoryID === subCategoryID;
     });
-
    
     if (subcategoryArr.length > 0) {
       this.subcategoryOBJ = subcategoryArr[0];
@@ -275,13 +277,18 @@ export class KnowledgeManagementComponent implements OnInit {
   // Calling service Method to call the services
   uploadFile(uploadObj: any) {
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
-      console.log('KM configuration ', response);
       this.message.alert(this.currentlanguageSet.fileUploadedSuccessfully, 'success');
       this.file = undefined;
       this.error1 = false;
       this.error2 = false;
       this.invalid_file_flag = false;
-      this.invalidFileNameFlag=false;
+      this.invalidFileNameFlag = false;
+      this.getSubCategory(this.knowledgeForm.value.category);
+
+      setTimeout(() => {
+        this.getSubcategoryObject(this.subCategoryID);
+      }, 500);
+
       this.myInputVariable.nativeElement.value = '';
       this.knowledgeForm.reset(this.knowledgeForm.value);
     }, (err) => {
@@ -298,4 +305,12 @@ export class KnowledgeManagementComponent implements OnInit {
 		getLanguageJson.setLanguage();
 		this.currentlanguageSet = getLanguageJson.currentLanguageObject;
 	  }
+
+     getFileURL(fileUID: string): string {
+  // Construct URL using the fileUID
+  const baseURL = 'https://guest:guest@' + this.openKMBaseURL + '/Download?uuid=';
+  console.log("Generated File URL: ", baseURL + fileUID); // Log the generated URL for debugging
+  return baseURL + fileUID;
+
+}
 }

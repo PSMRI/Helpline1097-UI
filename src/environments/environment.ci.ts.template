@@ -29,6 +29,7 @@ const TELEPHONY_SERVER = '<%= TELEPHONY_SERVER %>';
 const siteKey = '<%= SITE_KEY %>';
 const captchaChallengeURL = '<%= CAPTCHA_CHALLENGE_URL %>';
 const enableCaptcha = <%= ENABLE_CAPTCHA %>;
+const openKMBaseURL = '<%= KM_API_BASE_URL %>';
 
 
 export const environment = {
@@ -42,4 +43,5 @@ export const environment = {
   siteKey:siteKey,
   captchaChallengeURL: captchaChallengeURL,
   enableCaptcha: enableCaptcha,
+  openKMBaseURL: openKMBaseURL,
 };
