@@ -33,6 +33,7 @@ declare var jQuery: any;
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
 import { NgForm } from '@angular/forms';
+import { environment } from 'environments/environment.local';
 
 @Component({
   selector: 'app-co-counselling-services',
@@ -68,7 +69,11 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   p = 1;
   tempFlag: any;
   assignSelectedLanguageValue: any;
+  subcategoryOBJ: any;
+  subCategoryID: any;
   enableFileDetails: boolean=false;
+  openKMBaseURL = environment.openKMBaseURL;
+  
   constructor(
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
@@ -169,17 +174,15 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
     this.getDetailsFlag = false;
   }
 
-  GetSubCategoryDetails(id: any) {
-    this.showresult = true;
-    this._coCategoryService.getCODetails(
-      id, this.saved_data.uname, this.beneficiaryID,
-      this.serviceID, this.symptomCategory, this.saved_data.callData.benCallID
-    ).subscribe(response => this.SetSubCategoryDetails(response),
-      (err) => {
-        this.alertService.alert(err.errorMessage, 'error');
+ GetSubCategoryDetails(id: any) {
+    this.enableFileDetails = true;   
+    this.showresult = true;      
+    this.subCategoryID = id;
 
-      });
+    // Find the subcategory from the list
+    this.subcategoryOBJ = this.subCategoryList.find(item => item.subCategoryID === id) || null;
   }
+  
   EnabledGetDetails() {
     this.getDetailsFlag = true;
     this.enableFileDetails=false;
@@ -251,5 +254,9 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   }
   ngDoCheck() {
     this.assignSelectedLanguage();
+  }
+
+  getFileURL(fileUID: string): string {
+    return `${this.openKMBaseURL}${fileUID}`;
   }
 }
