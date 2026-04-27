@@ -252,4 +252,8 @@ export class CoInformationServicesComponent implements OnInit {
   setBenRegID(data) {
     this.beneficiaryID = data.beneficiaryRegID;
   }
+
+  getFileURL(fileUID: string): string {
+    return `${this.openKMBaseURL}${fileUID}`;
+  }
 }

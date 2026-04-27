@@ -29,7 +29,10 @@ const API1097 = 'http://localhost:8090/';
 const siteKey = ''
 const captchaChallengeURL = '';
 const enableCaptcha = false;
-const openKMBaseURL = 'uatamrit.piramalswasthya.org:8084/OpenKM';
+const openKMUsername = '';
+const openKMPassword = '';
+const openKMBaseURL = `https://${openKMUsername}:${openKMPassword}@<%= KM_API_BASE_PATH %>/Download?uuid=`;
+
  
 export const environment = {
   production: false,
@@ -43,4 +46,6 @@ export const environment = {
   captchaChallengeURL:captchaChallengeURL,
   enableCaptcha: enableCaptcha,
   openKMBaseURL: openKMBaseURL,
+   openKMUsername : openKMUsername,
+ openKMPassword :openKMPassword,
 };

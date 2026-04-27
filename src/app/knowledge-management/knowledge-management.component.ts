@@ -306,11 +306,7 @@ export class KnowledgeManagementComponent implements OnInit {
 		this.currentlanguageSet = getLanguageJson.currentLanguageObject;
 	  }
 
-     getFileURL(fileUID: string): string {
-  // Construct URL using the fileUID
-  const baseURL = 'https://guest:guest@' + this.openKMBaseURL + '/Download?uuid=';
-  console.log("Generated File URL: ", baseURL + fileUID); // Log the generated URL for debugging
-  return baseURL + fileUID;
-
-}
+  getFileURL(fileUID: string): string {
+    return `${this.openKMBaseURL}${fileUID}`;
+  }
 }
