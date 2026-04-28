@@ -31,21 +31,36 @@
       </div>
    
       <div class="clearfix"></div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="enableFileDetails">
-        <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
-          <ul class="m-t-10" [hidden]="!showresult">
-            <li *ngFor="let detail of detailsList">
-              <a *ngIf="(detail?.subCatFilePath) && (detail?.subCatFilePath != null)" href="{{detail?.subCatFilePath}}" target="_blank" rel="noopener noreferrer">
-                <md-icon class="f-s-22 icon" color="">file_download</md-icon>
-                <span class="m-l-10">{{detail?.subCategoryName}}
-                  <span *ngIf="detail?.subCategoryDesc">:</span>{{detail?.subCategoryDesc}}</span>
-              </a>
-              <span *ngIf="!(detail?.subCatFilePath) && (detail?.subCatFilePath == null)">{{assignSelectedLanguageValue?.noDocumentAvailable}}</span>
-            </li>
-            <li *ngIf="detailsList?.length==0">  {{assignSelectedLanguageValue?.noRecordsFound}}</li>
-          </ul>
+     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="enableFileDetails">
+          <div class="min-height-180 border-1-g m-b-20" for="subCategoryDetails">
+            <ul class="m-t-10" [hidden]="!showresult">
+
+              <div *ngIf="subcategoryOBJ">
+                <!-- Show subcategory name as header -->
+                <div class="subcategory-header">
+                  <strong>{{subcategoryOBJ.subCategoryName}}</strong>
+                  <span *ngIf="subcategoryOBJ.subCategoryDesc"> : {{subcategoryOBJ.subCategoryDesc}}</span>
+                </div>
+
+                <!-- Display all files for this subcategory -->
+                <div *ngIf="subcategoryOBJ.fileManger && subcategoryOBJ.fileManger.length > 0" class="file-list">
+                  <div *ngFor="let file of subcategoryOBJ.fileManger" class="file-item">
+                    <a href="{{getFileURL(file.fileUID)}}"
+                      target="_blank" rel="noopener noreferrer">
+                      <md-icon class="f-s-22 icon" color="">file_download</md-icon>
+                      <span class="m-l-10">{{file.fileName}}{{file.fileExtension}} ({{file.versionNo}})</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Show message when no files available -->
+                <div *ngIf="!subcategoryOBJ.fileManger || subcategoryOBJ.fileManger.length === 0" class="no-files">
+                  {{currentLanguageSet?.noDocumentAvailable || 'No documents available'}}
+                </div>
+              </div>
+            </ul>
+          </div>
         </div>
-      </div>
     </form>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableCondition">
