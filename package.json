@@ -6,6 +6,7 @@
   "ng": "ng",
   "postinstall": "node version.js",
   "start": "node version.js && ng serve -o",
+  "dev": "node version.js && ng serve -o --env=local",
   "build": "ng build",
   "test": "ng test",
   "lint": "ng lint",
@@ -57,9 +58,9 @@
   "sass-loader": "6.0.5",
   "socket.io-client": "2.0.4",
   "tether": "1.4.0",
+  "uglify-js": "2.8.29",
   "xlsx": "0.13.0",
-  "zone.js": "0.8.11",
-  "uglify-js": "2.8.29"
+  "zone.js": "0.8.11"
  },
  "devDependencies": {
   "@angular/cdk": "2.0.0-beta.11",
@@ -87,8 +88,8 @@
   "ts-node": "3.3.0",
   "tslint": "5.7.0",
   "typescript": "2.4.0",
-  "xlsx": "0.13.0",
-  "uglify-js": "2.8.29"
+  "uglify-js": "2.8.29",
+  "xlsx": "0.13.0"
  },
  "resolutions": {
   "@types/geojson": "7946.0.8"

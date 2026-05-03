@@ -32,6 +32,7 @@ Ensure that the following prerequisites are met before building the 1097 service
 
 * JDK 1.8
 * Maven
+* Node.js v16
 * NPM/YARN
 * Spring Boot v2
 * MySQL
@@ -41,12 +42,23 @@ Ensure that the following prerequisites are met before building the 1097 service
 To install the 1097 module, please follow these steps:
 
 1. Clone the repository to your local machine.
-2. Install the dependencies and build the module:
-   - Run the command `npm install`.
-   - Run the command `npm run build`.
-   - Run the command `mvn clean install`.
-   - Run the command `npm start`.
-3. Open your browser and access `http://localhost:4200/#/login` to view the login page of module.
+2. Install Node.js v16 (recommended via [nvm](https://github.com/nvm-sh/nvm)):
+   ```bash
+   nvm install 16
+   nvm use 16
+   ```
+3. Install the dependencies:
+   ```bash
+   npm config set legacy-peer-deps true
+   npm install node-sass --force
+   npm install --force
+   ```
+4. Configure your local environment by editing `src/environments/environment.local.ts` with your local API URLs.
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+6. Open your browser and access `http://localhost:4200/#/login` to view the login page of module.
 
 ## Configuration
 The 1097 module can be configured by editing the config.js file. This file contains all of the settings for the module, such as the database connection string, the user authentication mechanism, and the role hierarchy.
