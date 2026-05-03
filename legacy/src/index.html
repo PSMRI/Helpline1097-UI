@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>1097 Module</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <script>
+    var baseTag = document.createElement('base');
+    baseTag.href = document.location.href;
+    document.head.appendChild(baseTag);
+    window.console.log = function() {}
+    window.console.warn = function() {}
+  </script>
+</head>
+<style>
+  .loader-overlay {
+    opacity: 0.45;
+    -moz-opacity: 0.45;
+    filter: alpha(opacity=45);
+    background-repeat: no-repeat;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .centeredImage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -32px;
+    margin-top: -32px;
+  }
+</style>
+
+<body>
+  <app-root>
+    <div class="loader-overlay">
+      Loading...
+      <image src="assets/images/smLogo.png" class="centeredImage"></image>
+    </div>
+  </app-root>
+
+</body>
+
+</html>
