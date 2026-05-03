@@ -6,7 +6,6 @@
   "ng": "ng",
   "postinstall": "node version.js",
   "start": "node version.js && ng serve -o",
-  "dev": "node version.js && ng serve -o --env=local",
   "build": "ng build",
   "test": "ng test",
   "lint": "ng lint",
