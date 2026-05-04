@@ -33,7 +33,7 @@ declare var jQuery: any;
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
 import { NgForm } from '@angular/forms';
-import { environment } from 'environments/environment.local';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-co-counselling-services',
