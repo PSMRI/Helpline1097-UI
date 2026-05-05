@@ -155,6 +155,7 @@ export class helpline1097CoComponent implements OnInit {
 
     this.getCommonData.custDisconnectCall$.subscribe((custDisconnectResp) => {
       if (custDisconnectResp !== null && custDisconnectResp === true) {
+        this.navigateToClosureTab();
         this.isPrevious = true;
         this.disableBack = false;
         this.isNext = false;
@@ -165,6 +166,23 @@ export class helpline1097CoComponent implements OnInit {
 
   ngDoCheck() {
     this.assignSelectedLanguage();
+  }
+
+  navigateToClosureTab() {
+    const carouselId =
+      this.isEverwell === "yes"
+        ? "#myCarouselEverwell"
+        : this.isGrievance === "yes"
+        ? "#myCarouselGrievance"
+        : "#myCarousel";
+    const closureIndex = this.isEverwell === "yes" || this.isGrievance === "yes" ? 1 : 3;
+    try {
+      jQuery(carouselId).carousel(closureIndex);
+      jQuery("#four").parent().find("a").removeClass("active-tab");
+      jQuery("#four").find("a").addClass("active-tab");
+    } catch (e) {
+      console.warn("Unable to navigate to closure tab", carouselId, e);
+    }
   }
 
   assignSelectedLanguage() {

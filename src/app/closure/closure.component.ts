@@ -463,6 +463,7 @@ export class ClosureComponent implements OnInit {
 
   transferCall(values) {
     this.doTransfer = true;
+    this.transferValid = true;
     let obj = {
       transfer_from: this.saved_data.cZentrixAgentID,
       transfer_campaign_info: values.campaignName,
@@ -660,6 +661,7 @@ export class ClosureComponent implements OnInit {
             this.showAlert();
             this.callClosed.emit(this.current_campaign);
             this.resetSavedBeneficiaryRegID();
+            this.doTransfer = false;
           }
         },
         (err) => {
