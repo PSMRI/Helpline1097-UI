@@ -151,7 +151,7 @@ export class DashboardUserIdComponent implements OnInit {
             if (!this.sessionstorage.getItem("session_id")) {
               this.routeToInnerPage(res);
             } else if (
-              this.sessionstorage.getItem("session_id") !== res.session_id
+              this.sessionstorage.getItem("session_id") !== res.data.session_id
             ) {
               // If session id is different from previous session id then allow the call to drop
               this.routeToInnerPage(res);

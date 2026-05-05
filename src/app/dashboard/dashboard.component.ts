@@ -323,7 +323,7 @@ export class dashboardContentClass implements OnInit {
       this.sessionstorage.setItem("isOnCall", "yes");
       const mobileNumber = this.eventSpiltData[1].replace(/\D/g, "");
       const checkNumber = /^\d+$/;
-      const sessionVar = /^\d{10}\.\d{10}$/;
+      const sessionVar = /^\d+\.\d+$/;
       const checkCallType = /^(INBOUND)|(OUTBOUND)$/i;
 
       if (

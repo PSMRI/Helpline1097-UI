@@ -707,7 +707,7 @@ export class InnerpageComponent implements OnInit {
 
   handleEvent(eventData) {
     console.log("received event " + eventData);
-    const sessionVar = /^\d{10}\.\d{10}$/;
+    const sessionVar = /^\d+\.\d+$/;
     if (eventData[0].trim().toLowerCase() === "accept") {
       this.ticks = 0;
       this.unsubscribeWrapupTime();
