@@ -159,6 +159,9 @@ export class helpline1097CoComponent implements OnInit {
         this.disableBack = false;
         this.isNext = false;
         this.isClosureDisable = true;
+        jQuery("#myCarousel").carousel(3);
+        jQuery("#four").parent().find("a").removeClass("active-tab");
+        jQuery("#four").find("a").addClass("active-tab");
       }
     });
   }

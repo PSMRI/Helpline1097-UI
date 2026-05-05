@@ -848,7 +848,9 @@ export class InnerpageComponent implements OnInit {
       requestObj["agentID"] = this.getCommonData.cZentrixAgentID;
       requestObj["endCall"] = true;
     }
-    if (this.sessionstorage.getItem("session_id") === this.custdisconnectCallID) {
+    const storedSessionId = this.sessionstorage.getItem("session_id");
+    const effectiveCallID = this.custdisconnectCallID || storedSessionId;
+    if (storedSessionId === effectiveCallID) {
       this._callServices.closeCall(requestObj).subscribe(
         (response) => {
           if (response) {
@@ -940,8 +942,7 @@ export class InnerpageComponent implements OnInit {
         console.log("after re initialize the timer", t);
         const remarks = "Call disconnect from customer.";
         console.log("this.callStatus", this.callStatus);
-        const status = this.callStatus ? this.callStatus.toLowerCase().trim() : "";
-        if (status.startsWith("closure")) {
+        if (this.wrapupTime) {
           this.closeCall(
             remarks,
             this.currentLanguageSet.callClosedSuccessfully,
