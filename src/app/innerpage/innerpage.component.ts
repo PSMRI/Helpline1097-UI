@@ -923,19 +923,25 @@ export class InnerpageComponent implements OnInit {
   }
   roleBasedCallWrapupTime(timeRemaining) {
     console.log("roleBasedCallWrapupTime", timeRemaining);
+    const duration = Number(timeRemaining);
+    if (isNaN(duration) || duration <= 0) {
+      console.log("Invalid wrapup duration", timeRemaining);
+      return;
+    }
     const timer = Observable.timer(2000, 1000);
     this.wrapupTimerSubscription = timer.subscribe((t) => {
-      this.ticks = timeRemaining - t;
+      this.ticks = duration - t;
       console.log("timer t", t);
       console.log("ticks", this.ticks);
-      if (t === timeRemaining) {
+      if (t >= duration) {
         this.wrapupTimerSubscription.unsubscribe();
         t = 0;
         this.ticks = 0;
         console.log("after re initialize the timer", t);
         const remarks = "Call disconnect from customer.";
         console.log("this.callStatus", this.callStatus);
-        if (this.callStatus.toLowerCase().trim() === "closure"){
+        const status = this.callStatus ? this.callStatus.toLowerCase().trim() : "";
+        if (status.startsWith("closure")) {
           this.closeCall(
             remarks,
             this.currentLanguageSet.callClosedSuccessfully,
@@ -948,14 +954,6 @@ export class InnerpageComponent implements OnInit {
   disconnectCall() {
     // this.remarksMessage.alert('Call Disconnected From Caller. Please Proceed To Call Closure.');
     this.getCommonData.isCallDisconnected = true;
-    jQuery("#myCarousel").carousel(3);
-    jQuery("#four").parent().find("a").removeClass("active-tab");
-    jQuery("#four").find("a").addClass("active-tab");
-    // jQuery("#btnClosure").attr("disabled", "disabled");
-    // jQuery("#btnCancel").attr("disabled", "disabled");
-    // jQuery("#next").hide();
-    jQuery("#previous").show();
-
     this.getCommonData.enablePreviousOnCustDisconnect(true);
   }
   getAgentStatus() {
