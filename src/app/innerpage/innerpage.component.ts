@@ -850,7 +850,7 @@ export class InnerpageComponent implements OnInit {
     }
     const storedSessionId = this.sessionstorage.getItem("session_id");
     const effectiveCallID = this.custdisconnectCallID || storedSessionId;
-    if (storedSessionId === effectiveCallID) {
+    if (!storedSessionId || storedSessionId === effectiveCallID) {
       this._callServices.closeCall(requestObj).subscribe(
         (response) => {
           if (response) {
