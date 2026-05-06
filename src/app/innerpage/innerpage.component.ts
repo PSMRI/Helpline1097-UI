@@ -712,7 +712,7 @@ export class InnerpageComponent implements OnInit {
       this.ticks = 0;
       this.unsubscribeWrapupTime();
     } else if (
-      eventData[0] === "CustDisconnect" &&
+      (eventData[0] === "CustDisconnect" || eventData[0] === "Disconnect") &&
       !this.transferInProgress
     ) {
       // session ID is at [2] (same layout as INBOUND: type|phone|sessionId|...)
