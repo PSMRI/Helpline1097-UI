@@ -713,10 +713,13 @@ export class InnerpageComponent implements OnInit {
       this.unsubscribeWrapupTime();
     } else if (
       eventData[0] === "CustDisconnect" &&
-      !this.transferInProgress &&
-      (sessionVar.test(eventData[1]) || eventData[1] === "")
+      !this.transferInProgress
     ) {
-      this.custdisconnectCallID = eventData[1];
+      // session ID is at [2] (same layout as INBOUND: type|phone|sessionId|...)
+      // fall back to [1] for older CTI format where sessionId was at [1]
+      this.custdisconnectCallID = sessionVar.test(eventData[2])
+        ? eventData[2]
+        : sessionVar.test(eventData[1]) ? eventData[1] : "";
       this.getAgentStatus();
       console.log("this.isEverwell ", this.isEverwell);
 
