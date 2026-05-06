@@ -734,7 +734,7 @@ export class InnerpageComponent implements OnInit {
       this.wrapupTimerSubscription.unsubscribe();
     }
   }
-  closeCall(remarks, message?: any, wrapupCallID?: any) {
+  closeCall(remarks, message?: any, wrapupCallID?: any, skipSessionCheck = false) {
     if (
       this.isEverwell != undefined &&
       this.isEverwell === "yes" &&
@@ -850,7 +850,7 @@ export class InnerpageComponent implements OnInit {
     }
     const storedSessionId = this.sessionstorage.getItem("session_id");
     const effectiveCallID = this.custdisconnectCallID || storedSessionId;
-    if (!storedSessionId || storedSessionId === effectiveCallID) {
+    if (skipSessionCheck || !storedSessionId || storedSessionId === effectiveCallID) {
       this._callServices.closeCall(requestObj).subscribe(
         (response) => {
           if (response) {
@@ -946,7 +946,8 @@ export class InnerpageComponent implements OnInit {
           this.closeCall(
             remarks,
             this.currentLanguageSet.callClosedSuccessfully,
-            this.wrapupCallID
+            this.wrapupCallID,
+            true
           );
         }
       }

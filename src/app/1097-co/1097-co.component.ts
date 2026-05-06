@@ -158,7 +158,7 @@ export class helpline1097CoComponent implements OnInit {
         this.isPrevious = true;
         this.disableBack = false;
         this.isNext = false;
-        this.isClosureDisable = true;
+        this.isClosureDisable = false;
         jQuery("#myCarousel").carousel(3);
         jQuery("#four").parent().find("a").removeClass("active-tab");
         jQuery("#four").find("a").addClass("active-tab");
