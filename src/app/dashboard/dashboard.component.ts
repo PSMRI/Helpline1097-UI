@@ -325,16 +325,21 @@ export class dashboardContentClass implements OnInit {
       const checkNumber = /^\d+$/;
       const sessionVar = /^\d+\.\d+$/;
       const checkCallType = /^(INBOUND)|(OUTBOUND)$/i;
+      const isAcceptEvent = this.eventSpiltData[0].toLowerCase() === "accept";
+      // Transfer events may omit [3] or use a non-INBOUND value; default to INBOUND
+      const callCategory = checkCallType.test(this.eventSpiltData[3])
+        ? this.eventSpiltData[3]
+        : "INBOUND";
 
       if (
         checkNumber.test(mobileNumber) &&
         sessionVar.test(this.eventSpiltData[2]) &&
-        checkCallType.test(this.eventSpiltData[3])
+        (checkCallType.test(this.eventSpiltData[3]) || isAcceptEvent)
       ) {
         this.dataSettingService.setUniqueCallIDForInBound = true;
         this.sessionstorage.setItem("CLI", this.eventSpiltData[1]);
         this.sessionstorage.setItem("session_id", this.eventSpiltData[2]);
-        this.sessionstorage.setItem("callCategory", this.eventSpiltData[3]);
+        this.sessionstorage.setItem("callCategory", callCategory);
         this.router.navigate([
           "/MultiRoleScreenComponent/RedirectToInnerpageComponent",
         ]);
