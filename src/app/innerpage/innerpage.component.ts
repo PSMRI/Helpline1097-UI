@@ -163,6 +163,7 @@ export class InnerpageComponent implements OnInit {
 
   ngOnInit() {
     this.assignSelectedLanguage();
+    this.getCommonData.isCallDisconnected = false;
     this.current_service = this.getCommonData.current_service.serviceName;
     this.current_role = this.getCommonData.current_role.RoleName;
     const obj = { innerPage: true };
