@@ -193,7 +193,6 @@ import { CallerAgeReportComponent } from './caller-age-report/caller-age-report.
 import { SexualOrientationReportComponent } from './sexual-orientation-report/sexual-orientation-report.component';
 import { LanguageDistributionReportComponent } from './language-distribution-report/language-distribution-report.component';
 import { GenderDistributionReportComponent } from './gender-distribution-report/gender-distribution-report.component';
-// import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
 import { AuthGuard } from './services/authGuardService/auth-guard.services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
@@ -249,9 +248,6 @@ import { CaptchaService } from './services/captcha-service/captcha.service';
 import { CaptchaComponent } from './captcha/captcha.component';
 import { FeedbackPublicPageComponent } from './platform-feedback/pages/feedback-public-page/feedback-public-page-component';
 import { FeedbackModule } from './platform-feedback/feedback.module';
-// import { SetLanguageComponent } from './set-language.component';
-//for text mask
-// import { TextMaskModule } from 'angular2-text-mask';
 @NgModule({
   declarations: [
     AppComponent, dashboardContentClass, loginContentClass,
