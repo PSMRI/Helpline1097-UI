@@ -861,6 +861,8 @@ export class InnerpageComponent implements OnInit {
             this.sessionstorage.removeItem("isOnCall");
             this.sessionstorage.removeItem("isEverwellCall");
             this.sessionstorage.removeItem("isGrievanceCall");
+            this.sessionstorage.removeItem("session_id");
+            this.sessionstorage.removeItem("CLI");
             this.basicrouter.navigate(["/MultiRoleScreenComponent/dashboard"]);
             this._common.outboundGrievanceData = null;
             this._common.everwellCallNotConnected = null;
