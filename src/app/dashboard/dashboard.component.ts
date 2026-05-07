@@ -61,6 +61,7 @@ export class dashboardContentClass implements OnInit {
   training_resources: boolean = true;
   widget: any = "0";
   listenCall: any;
+  boundListener: any;
   compainType: any;
   alertRefresh: number = 1;
   notificationSubscription: Subscription;
@@ -304,15 +305,12 @@ export class dashboardContentClass implements OnInit {
       this.eventSpiltData[2] !== null &&
       this.eventSpiltData[2] !== ""
     ) {
-      if (!this.sessionstorage.getItem("session_id")) {
-        this.handleEvent();
-      } else if (
-        this.sessionstorage.getItem("session_id") !== this.eventSpiltData[2]
+      const storedSession = this.sessionstorage.getItem("session_id");
+      if (
+        !storedSession ||
+        storedSession !== this.eventSpiltData[2] ||
+        this.eventSpiltData[0].toLowerCase() === "accept"
       ) {
-        // If session id is different from previous session id then allow the call to drop
-        this.handleEvent();
-      }
-      if (this.eventSpiltData[0].toLowerCase() === "accept") {
         this.handleEvent();
       }
     }
@@ -352,18 +350,18 @@ export class dashboardContentClass implements OnInit {
   addListener() {
     if (window.parent.parent.addEventListener) {
       console.log("adding message listener");
-      // document.addEventListener( "message", this.listener.bind( this ), false );
-
+      if (this.boundListener) {
+        removeEventListener("message", this.boundListener);
+      }
+      this.boundListener = this.listener.bind(this);
       try {
-        addEventListener("message", this.listener.bind(this), false);
+        addEventListener("message", this.boundListener, false);
       } catch (error) {
         console.log("logging error : ", error);
       }
-
       console.log("Msg listener is added .");
     } else {
       console.log("adding onmessage listener");
-      // document.attachEvent("onmessage", this.listener);
     }
   }
 
@@ -466,7 +464,12 @@ export class dashboardContentClass implements OnInit {
   }
 
   ngOnDestroy() {
-    // this.listenCall();
+    if (this.listenCall) {
+      this.listenCall();
+    }
+    if (this.boundListener) {
+      removeEventListener("message", this.boundListener);
+    }
     // this.notificationSubscription.unsubscribe();
   }
   // CODE FOR SIDE NAV
