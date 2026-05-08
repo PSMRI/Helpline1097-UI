@@ -1,8 +1,8 @@
-/* 
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology
+* Integrated EHR (Electronic Health Records) Solution
 *
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+* Copyright (C) "Piramal Swasthya Management and Research Institute"
 *
 * This file is part of AMRIT.
 *
@@ -80,7 +80,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   beneficiaryID: string = undefined;
   // nameFlag: boolean = false;
   //genderFlag: boolean = false;
-  BeneficiaryExistsWIthOtherPhNum: boolean = false;
+  BeneficiaryExistsWIthOtherPhNum = false;
 
   FirstName: any = '';
   LastName: any = '';
@@ -154,7 +154,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   patternID: any;
   idErrorText: string;
   idMinValue: any;
-  peopleCalledEarlier: boolean = false;
+  peopleCalledEarlier = false;
   genderErrFlag: any = false;
   stateErrFlag: any = false;
   subscription: Subscription;
@@ -164,21 +164,21 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   cityErrFlag: any = false;
   unMaskedNumber: any;
   showTagging: boolean;
-  disableViewAll: boolean = true;
+  disableViewAll = true;
   // agentID: any;
 
-  alternateNumber1 = "";
-  alternateNumber2 = "";
-  alternateNumber3 = "";
-  alternateNumber4 = "";
-  alternateNumber5 = "";
+  alternateNumber1 = '';
+  alternateNumber2 = '';
+  alternateNumber3 = '';
+  alternateNumber4 = '';
+  alternateNumber5 = '';
 
   // added for masking the alternate numbers
-  alternateNumberDisplay1 = "";
-  alternateNumberDisplay2 = "";
-  alternateNumberDisplay3 = "";
-  alternateNumberDisplay4 = "";
-  alternateNumberDisplay5 = "";
+  alternateNumberDisplay1 = '';
+  alternateNumberDisplay2 = '';
+  alternateNumberDisplay3 = '';
+  alternateNumberDisplay4 = '';
+  alternateNumberDisplay5 = '';
 
   //public mobileNumberMask = [ /[^0-9]/, /\d/];
 
@@ -223,12 +223,12 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     } else {
       this.startNewCall();
     }
-    
-    
+
+
   }
 
   ngOnChanges() {
-        
+
     // this.BeneficaryForm.resetForm();
 
     // this.alternateNumber1 = "";
@@ -258,7 +258,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
-    this.searchValue = "Advanced Search";
+    this.searchValue = 'Advanced Search';
     this.isAdvancedSearch = true;
     this.advanceBtnHide = true;
     this.spinner = false;
@@ -268,7 +268,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
 
   startOutBoundCall(outboundData: any) {
-    if(this.saved_data !== undefined && this.saved_data !== null) {
+    if (this.saved_data !== undefined && this.saved_data !== null) {
     const data: any = {};
     data.callID = this.saved_data.callID;
     data.is1097 = true;
@@ -305,11 +305,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
   reloadCampainCall(current_campaign: any) {
     if (current_campaign.compainType.toLowerCase() === 'reloadcall') {
-      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined && 
+      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined &&
         this.saved_data.current_campaign !== null && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
         this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
       }
-      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined && 
+      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined &&
         this.saved_data.current_campaign !== null && this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
         this.reloadCall();
       }
@@ -390,7 +390,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     data.receivedRoleName = this.saved_data.current_role.RoleName;
     /**/
     data.isOutbound = this.saved_data.isOutbound;
-    if( this.saved_data.setUniqueCallIDForInBound===true)
+    if ( this.saved_data.setUniqueCallIDForInBound === true)
     {
     this._util.startCall(data).subscribe((response) => { this.setBenCall(response);
       this.saved_data.setUniqueCallIDForInBound = false; }, (err) => {
@@ -399,11 +399,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     });
   }
-    this.alternateNumber1 = "";
-    this.alternateNumber2 = "";
-    this.alternateNumber3 = "";
-    this.alternateNumber4 = "";
-    this.alternateNumber5 = "";
+    this.alternateNumber1 = '';
+    this.alternateNumber2 = '';
+    this.alternateNumber3 = '';
+    this.alternateNumber4 = '';
+    this.alternateNumber5 = '';
   }
 
   setBenCall(response) {
@@ -464,10 +464,10 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.stateErrFlag = false;
     this.cityErrFlag = false;
     // added to reset benID after search
-    this.registrationNo = "";
+    this.registrationNo = '';
     if (flag) {
       this.calledEarlier = true;
-      this.searchValue = "Advanced Search";
+      this.searchValue = 'Advanced Search';
       // this.showSearchResult = true;
       this.advanceBtnHide = true;
       this.isAdvancedSearch = true;
@@ -487,7 +487,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       // jQuery("#BeneficaryForm").trigger("reset");
       // this.BeneficaryForm.resetForm();
 
-      this.searchValue = "Advanced Search";
+      this.searchValue = 'Advanced Search';
       this.advanceBtnHide = false;
       // this.isParentBeneficiary = false;
       this.notCalledEarlier = true;
@@ -543,13 +543,13 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       // if ()
       // this.beneficiaryRelationID = this.getRelationShipType(this.beneficiaryRelations);
       // this value also comes from the constants
-      this.alternateNumber1 = "";
-      this.alternateNumber2 = "";
-      this.alternateNumber3 = "";
-      this.alternateNumber4 = "";
-      this.alternateNumber5 = "";
+      this.alternateNumber1 = '';
+      this.alternateNumber2 = '';
+      this.alternateNumber3 = '';
+      this.alternateNumber4 = '';
+      this.alternateNumber5 = '';
       this.btnDisabled = false;
-      this.ageUnit="Years";
+      this.ageUnit = 'Years';
     }
   }
 
@@ -559,7 +559,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     } else if (value == 4 || value == 5 || value == 13) {
       this.GenderID = 2;
     } else {
-      this.GenderID = "";
+      this.GenderID = '';
     }
 
     //precautionary code
@@ -665,7 +665,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.btnDisabled = true;
     this.loaderService.show();
     this.updatedObj = {};
-    console.log("vanID/serviceID:" + this.saved_data.current_serviceID);
+    console.log('vanID/serviceID:' + this.saved_data.current_serviceID);
     this.updatedObj.vanID = this.saved_data.current_serviceID;
     this.updatedObj.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.updatedObj.firstName = this.FirstName;
@@ -778,13 +778,13 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
   setBeneficiaryLanguageInCZentrix(action, language) {
     let language_obj = {};
-    let lang = language;
+    const lang = language;
     if (lang != undefined) {
       language_obj = this.language.filter(function (item) {
         return item.languageID === lang;
       });
     }
-    let req_obj = {
+    const req_obj = {
       'cust_ph_no': this.saved_data.callerNumber,
       'campaign_name': this.saved_data.currentCampaignName,
       'language': language_obj[0].languageName,
@@ -807,7 +807,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   showAlert() {
     this.BeneficaryForm.resetForm();
     // this.alertMaessage.alert('Beneficiary registered with ID :' + this.benRegistrationResponse.beneficiaryID, 'success');
-    let dialogReff = this.dialog.open(CommonSmsDialogComponent, {
+    const dialogReff = this.dialog.open(CommonSmsDialogComponent, {
       disableClose: true,
       width: '420px',
       data: {
@@ -830,11 +830,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.sendSMS(this.benRegistrationResponse.beneficiaryRegID, mobile_number);
       }
     });
-    this.alternateNumber1 = "";
-    this.alternateNumber2 = "";
-    this.alternateNumber3 = "";
-    this.alternateNumber4 = "";
-    this.alternateNumber5 = "";
+    this.alternateNumber1 = '';
+    this.alternateNumber2 = '';
+    this.alternateNumber3 = '';
+    this.alternateNumber4 = '';
+    this.alternateNumber5 = '';
   }
 
   retrieveRegHistoryByPhoneNo(PhoneNo: any) {
@@ -854,7 +854,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     if (!reg_no || reg_no === '') {
       this.reloadCall();
       this.disableViewAll = true;
-      this.registrationNo = "";
+      this.registrationNo = '';
     } else {
       this.disableViewAll = false;
       const res = this._util.retrieveRegHistory(reg_no)
@@ -888,8 +888,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         return item.benRelationshipType.toUpperCase() !== 'SELF'; // This value has to go in constant
       });
       this.beneficiaryRelationID = undefined;
-      this.relationshipWith = (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : "")
-      + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : "");
+      this.relationshipWith = (this.regHistoryList[0].firstName ? this.regHistoryList[0].firstName : '')
+      + ' ' + (this.regHistoryList[0].lastName ? this.regHistoryList[0].lastName : '');
       console.log('relationship with', this.regHistoryList[0].firstName, this.regHistoryList[0].lastName);
       if (this.regHistoryList[0].firstName != undefined && this.regHistoryList[0].lastname != undefined) {
         this.relationshipWith = this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
@@ -928,7 +928,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       response => {
         if (response !== undefined) {
           this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': benRegData.beneficiaryRegID });
-          this.saved_data.benRegId= benRegData.beneficiaryRegID;
+          this.saved_data.benRegId = benRegData.beneficiaryRegID;
         }
         console.log('Update Beneficiary in Call SUCCESS', response);
       }, err => {
@@ -939,7 +939,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
 
   populateUserData(benRegData: any) {
-    let addBenCallID = Object.assign({}, benRegData, {"benCallID": this.saved_data.callData.benCallID})
+    const addBenCallID = Object.assign({}, benRegData, {'benCallID': this.saved_data.callData.benCallID})
     this.updatebeneficiaryincall(addBenCallID);
     const res = this._util.retrieveRegHistory(benRegData.beneficiaryID)
       .subscribe(response => {
@@ -990,27 +990,27 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     for (let i = 1; i < registeredBenData.benPhoneMaps.length; i++) {
       if (i == 1) {
         this.alternateNumberDisplay1 = registeredBenData.benPhoneMaps[i].phoneNo;
-        if (this.alternateNumberDisplay1 != "")
+        if (this.alternateNumberDisplay1 != '')
           this.alternateNumber1 = this.alternateNumberDisplay1.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay1.substring(7, 10);
       }
       if (i == 2) {
         this.alternateNumberDisplay2 = registeredBenData.benPhoneMaps[i].phoneNo;
-        if (this.alternateNumberDisplay2 != "")
+        if (this.alternateNumberDisplay2 != '')
           this.alternateNumber2 = this.alternateNumberDisplay2.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay2.substring(7, 10);
       }
       if (i == 3) {
         this.alternateNumberDisplay3 = registeredBenData.benPhoneMaps[i].phoneNo;
-        if (this.alternateNumberDisplay3 != "")
+        if (this.alternateNumberDisplay3 != '')
           this.alternateNumber3 = this.alternateNumberDisplay3.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay3.substring(7, 10);
       }
       if (i == 4) {
         this.alternateNumberDisplay4 = registeredBenData.benPhoneMaps[i].phoneNo;
-        if (this.alternateNumberDisplay4 != "")
+        if (this.alternateNumberDisplay4 != '')
           this.alternateNumber4 = this.alternateNumberDisplay4.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay4.substring(7, 10);
       }
       if (i == 5) {
         this.alternateNumberDisplay5 = registeredBenData.benPhoneMaps[i].phoneNo;
-        if (this.alternateNumberDisplay5 != "")
+        if (this.alternateNumberDisplay5 != '')
           this.alternateNumber5 = this.alternateNumberDisplay5.substring(0, 3) + 'XXXX' + this.alternateNumberDisplay5.substring(7, 10);
       }
     }
@@ -1022,25 +1022,25 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     this.GetDistricts(this.state);
     this.district = registeredBenData.i_bendemographics.districtID;
-    console.log(registeredBenData.i_bendemographics.districtID, "experiment 1", this.districts);
+    console.log(registeredBenData.i_bendemographics.districtID, 'experiment 1', this.districts);
 
     this.GetTaluks(this.district);
     this.taluk = registeredBenData.i_bendemographics.blockID;
-    console.log("experiment 2", this.taluks);
+    console.log('experiment 2', this.taluks);
 
     if (this.taluk) {
       this.GetBlocks(this.taluk);
     }
 
     this.village = registeredBenData.i_bendemographics.districtBranchID;
-    console.log("experiment 3", this.blocks);
+    console.log('experiment 3', this.blocks);
     if (this.DOB != undefined) {
       this.calculateAge(this.DOB);
       this.dobChangeByCalender(this.DOB);
     }
     // this.age = registeredBenData.age;
     // Checking whether it has parent or not
-    // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) { 
+    // if (registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID === 1) {
     if (registeredBenData.benPhoneMaps[0].parentBenRegID === registeredBenData.benPhoneMaps[0].benificiaryRegID) {
       this.beneficiaryRelationID = registeredBenData.benPhoneMaps[0].benRelationshipType.benRelationshipID;
       this.isParentBeneficiary = false;
@@ -1094,8 +1094,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.updatedObj.maritalStatusID = this.MaritalStatusID;
     // this.updatedObj.parentBenRegID = this.ParentBenRegID;
     // this.updatedObj.altPhoneNo = this.PhoneNo;
-    if(this.updatedObj.benPhoneMaps != undefined && this.updatedObj.benPhoneMaps != null){
-    let phones = this.updatedObj.benPhoneMaps.length;
+    if (this.updatedObj.benPhoneMaps != undefined && this.updatedObj.benPhoneMaps != null){
+    const phones = this.updatedObj.benPhoneMaps.length;
     }
     // commented on 28 may till * point
 
@@ -1142,7 +1142,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     // NEW DATA FROM 104 on 28may
 
-    let numString = (this.alternateNumberDisplay1 ? this.alternateNumberDisplay1 : this.alternateNumber1) + (this.alternateNumberDisplay2 ? this.alternateNumberDisplay2 : this.alternateNumber2) + (this.alternateNumberDisplay3 ? this.alternateNumberDisplay3 : this.alternateNumber3) + (this.alternateNumberDisplay4 ? this.alternateNumberDisplay4 : this.alternateNumber4) + (this.alternateNumberDisplay5 ? this.alternateNumberDisplay5 : this.alternateNumber5);
+    const numString = (this.alternateNumberDisplay1 ? this.alternateNumberDisplay1 : this.alternateNumber1) + (this.alternateNumberDisplay2 ? this.alternateNumberDisplay2 : this.alternateNumber2) + (this.alternateNumberDisplay3 ? this.alternateNumberDisplay3 : this.alternateNumber3) + (this.alternateNumberDisplay4 ? this.alternateNumberDisplay4 : this.alternateNumber4) + (this.alternateNumberDisplay5 ? this.alternateNumberDisplay5 : this.alternateNumber5);
     // debugger;
     // console.log("numString.split(this.alternateNumber5).length", numString.split(this.alternateNumber5).length);
     // console.log("numString.indexOf(this.alternateNumber3)",numString.indexOf(this.alternateNumber3));
@@ -1150,20 +1150,20 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
 
     // debugger;
-    if (this.alternateNumber5 != "" && (this.alternateNumberDisplay5 ? numString.includes(this.alternateNumberDisplay5) : numString.includes(this.alternateNumber5)) && (this.alternateNumberDisplay5 ? numString.indexOf(this.alternateNumberDisplay5) < this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length + this.alternateNumber4.length : numString.indexOf(this.alternateNumber5) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length + this.alternateNumber4.length))) {
+    if (this.alternateNumber5 != '' && (this.alternateNumberDisplay5 ? numString.includes(this.alternateNumberDisplay5) : numString.includes(this.alternateNumber5)) && (this.alternateNumberDisplay5 ? numString.indexOf(this.alternateNumberDisplay5) < this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length + this.alternateNumber4.length : numString.indexOf(this.alternateNumber5) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length + this.alternateNumber4.length))) {
       // debugger;
 
       // alternate number 5 already exists
       this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberFiveAlreadyExits, 'error');
       return;
-    } else if (this.alternateNumber4 != "" && (this.alternateNumberDisplay4 ? numString.includes(this.alternateNumberDisplay4) : numString.includes(this.alternateNumber4)) && (this.alternateNumberDisplay4 ? numString.indexOf(this.alternateNumberDisplay4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length) : numString.indexOf(this.alternateNumber4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length))) {
+    } else if (this.alternateNumber4 != '' && (this.alternateNumberDisplay4 ? numString.includes(this.alternateNumberDisplay4) : numString.includes(this.alternateNumber4)) && (this.alternateNumberDisplay4 ? numString.indexOf(this.alternateNumberDisplay4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length) : numString.indexOf(this.alternateNumber4) < (this.alternateNumber2.length + this.alternateNumber1.length + this.alternateNumber3.length))) {
       // debugger;
 
       // alternate number 4 already exists
       this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberFourAlreadyExits, 'error');
       return;
     }
-    else if (this.alternateNumber3 != "" && (this.alternateNumberDisplay3 ? numString.includes(this.alternateNumberDisplay3) : numString.includes(this.alternateNumber3)) && (this.alternateNumberDisplay3 ? numString.indexOf(this.alternateNumberDisplay3) < (this.alternateNumber2.length + this.alternateNumber1.length) : numString.indexOf(this.alternateNumber3) < (this.alternateNumber2.length + this.alternateNumber1.length))) {
+    else if (this.alternateNumber3 != '' && (this.alternateNumberDisplay3 ? numString.includes(this.alternateNumberDisplay3) : numString.includes(this.alternateNumber3)) && (this.alternateNumberDisplay3 ? numString.indexOf(this.alternateNumberDisplay3) < (this.alternateNumber2.length + this.alternateNumber1.length) : numString.indexOf(this.alternateNumber3) < (this.alternateNumber2.length + this.alternateNumber1.length))) {
       // debugger;
       // alternate number 3 already exists
       console.log(numString.includes(this.alternateNumberDisplay3));
@@ -1173,7 +1173,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberThreeAlreadyExits, 'error');
       return;
     }
-    else if (this.alternateNumber2 != "" && (this.alternateNumberDisplay2 ? numString.includes(this.alternateNumberDisplay2) : numString.includes(this.alternateNumber2)) && (this.alternateNumberDisplay2 ? numString.indexOf(this.alternateNumberDisplay2) < (this.alternateNumber1.length) : numString.indexOf(this.alternateNumber2) < (this.alternateNumber1.length))) {
+    else if (this.alternateNumber2 != '' && (this.alternateNumberDisplay2 ? numString.includes(this.alternateNumberDisplay2) : numString.includes(this.alternateNumber2)) && (this.alternateNumberDisplay2 ? numString.indexOf(this.alternateNumberDisplay2) < (this.alternateNumber1.length) : numString.indexOf(this.alternateNumber2) < (this.alternateNumber1.length))) {
       console.log(numString.indexOf(this.alternateNumber2) < 10);
       console.log(numString.indexOf(this.alternateNumberDisplay2) < 10);
       console.log(numString.includes(this.alternateNumberDisplay2));
@@ -1182,7 +1182,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberTwoAlreadyExits, 'error');
       return;
     }
-        
+
     for (let j = 1; j < 6; j++) {
       if (this.updatedObj.benPhoneMaps != undefined && this.updatedObj.benPhoneMaps[j]) {
         this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
@@ -1191,7 +1191,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.updatedObj.benPhoneMaps[j].benRelationshipID = this.beneficiaryRelationID;
 
         if (j === 1) {
-          if (this.alternateNumberDisplay1 != "") {
+          if (this.alternateNumberDisplay1 != '') {
             this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay1
           }
           else {
@@ -1199,7 +1199,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           }
         }
         if (j === 2) {
-          if (this.alternateNumberDisplay2 != "") {
+          if (this.alternateNumberDisplay2 != '') {
             this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay2;
           }
           else {
@@ -1207,7 +1207,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           }
         }
         if (j === 3) {
-          if (this.alternateNumberDisplay3 != "") {
+          if (this.alternateNumberDisplay3 != '') {
             this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay3
           }
           else {
@@ -1215,7 +1215,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           }
         }
         if (j === 4) {
-          if (this.alternateNumberDisplay4 != "") {
+          if (this.alternateNumberDisplay4 != '') {
             this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay4
           }
           else {
@@ -1223,7 +1223,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           }
         }
         if (j === 5) {
-          if (this.alternateNumberDisplay5 != "") {
+          if (this.alternateNumberDisplay5 != '') {
             this.updatedObj.benPhoneMaps[j].phoneNo = this.alternateNumberDisplay5
           }
           else {
@@ -1237,7 +1237,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
           this.updatedObj.benPhoneMaps[j].deleted = false;
         }
-        if(this.updatedObj.benPhoneMaps[j].createdBy ==undefined ||this.updatedObj.benPhoneMaps[j].createdBy==null)
+        if (this.updatedObj.benPhoneMaps[j].createdBy == undefined || this.updatedObj.benPhoneMaps[j].createdBy == null)
         this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
       } else {
         const obj = {};
@@ -1262,15 +1262,15 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         obj['modifiedBy'] = this.saved_data.uname;
         obj['createdBy'] = this.saved_data.uname;
         obj['deleted'] = false;
-        if( this.updatedObj.benPhoneMaps !== undefined)
+        if ( this.updatedObj.benPhoneMaps !== undefined)
         {
           // if(this.updatedObj.benPhoneMaps[j].createdBy ==undefined ||this.updatedObj.benPhoneMaps[j].createdBy==null)
           // this.updatedObj.benPhoneMaps[j].createdBy = this.saved_data.uname;
           this.updatedObj.benPhoneMaps.push(obj);
         }
-       
+
         else{
-          this.updatedObj.benPhoneMaps=[];
+          this.updatedObj.benPhoneMaps = [];
           this.updatedObj.benPhoneMaps.push(obj);
         }
       }
@@ -1305,12 +1305,12 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     // saving the updated ben data in the in_app_saved data service file
     this.saved_data.beneficiaryData = this.updatedObj;
     // return;
-    if(this.updatedObj.benPhoneMaps && this.updatedObj.benPhoneMaps.length >0)
+    if (this.updatedObj.benPhoneMaps && this.updatedObj.benPhoneMaps.length > 0)
     {
-      for(var i=0;i<this.updatedObj.benPhoneMaps.length;i++)
+      for (let i = 0; i < this.updatedObj.benPhoneMaps.length; i++)
       {
-        if(this.updatedObj.benPhoneMaps[i].createdBy === undefined || this.updatedObj.benPhoneMaps[i].createdBy===null)
-        this.updatedObj.benPhoneMaps[i].createdBy=this.saved_data.uname;
+        if (this.updatedObj.benPhoneMaps[i].createdBy === undefined || this.updatedObj.benPhoneMaps[i].createdBy === null)
+        this.updatedObj.benPhoneMaps[i].createdBy = this.saved_data.uname;
       }
     }
     this.updateBen.updateBeneficiaryData(this.updatedObj).subscribe((response) => {
@@ -1325,28 +1325,28 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     if (e.keyCode == '8' || e.keyCode == '127' && this.updationProcess) {
       switch (value) {
         case 1: {
-          this.alternateNumberDisplay1 = "";
-          this.alternateNumber1 = "";
+          this.alternateNumberDisplay1 = '';
+          this.alternateNumber1 = '';
           break;
         }
         case 2: {
-          this.alternateNumberDisplay2 = "";
-          this.alternateNumber2 = "";
+          this.alternateNumberDisplay2 = '';
+          this.alternateNumber2 = '';
           break;
         }
         case 3: {
-          this.alternateNumberDisplay3 = "";
-          this.alternateNumber3 = "";
+          this.alternateNumberDisplay3 = '';
+          this.alternateNumber3 = '';
           break;
         }
         case 4: {
-          this.alternateNumberDisplay4 = "";
-          this.alternateNumber4 = "";
+          this.alternateNumberDisplay4 = '';
+          this.alternateNumber4 = '';
           break;
         }
         case 5: {
-          this.alternateNumberDisplay5 = "";
-          this.alternateNumber5 = "";
+          this.alternateNumberDisplay5 = '';
+          this.alternateNumber5 = '';
           break;
         }
       }
@@ -1375,11 +1375,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.onBenSelect.emit('benService');
       this.selectBeneficiary(this.saved_data.beneficiaryData, 'update');
     }
-    this.alternateNumber1 = "";
-    this.alternateNumber2 = "";
-    this.alternateNumber3 = "";
-    this.alternateNumber4 = "";
-    this.alternateNumber5 = "";
+    this.alternateNumber1 = '';
+    this.alternateNumber2 = '';
+    this.alternateNumber3 = '';
+    this.alternateNumber4 = '';
+    this.alternateNumber5 = '';
   }
 
   /**
@@ -1408,11 +1408,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.showSearchResult = false;
         this.notCalledEarlierLowerPart = false;
         this.saved_data.beneficiarySelected.next({
-          "beneficiarySelected": true
+          'beneficiarySelected': true
         });
       });
     }
-    this.registrationNo = "";
+    this.registrationNo = '';
   }
 
   getRelationShipType(relationShips) {
@@ -1435,8 +1435,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       if (response) {
         if (response.length > 0) {
           this.beneficiaryRelationID = undefined;
-          let fname = response[0].firstName ? response[0].firstName : "";
-          let lname = response[0].lastName ? response[0].lastName : ""
+          const fname = response[0].firstName ? response[0].firstName : '';
+          const lname = response[0].lastName ? response[0].lastName : ''
           // this.relationshipWith = this.assignSelectedLanguageValue.relationshipWith+' '  + fname + ' ' + lname;
           this.relationshipWith = fname + ' ' + lname;
         }
@@ -1464,7 +1464,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.age = undefined;
     }
   }
-  ageFlag: boolean = false;
+  ageFlag = false;
   // calculate date of birth on the basis of age
   calculateDOB(age) {
     if (age > 150) {
@@ -1475,7 +1475,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     }
     const today = new Date();
     const currentYear = today.getFullYear();
-    if (age == "") {
+    if (age == '') {
       this.DOB = undefined;
     }
     else if (age == 0) {
@@ -1501,11 +1501,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   // }
 
 
-  // NEW CODE 
+  // NEW CODE
   ageUnit: any;
 
   onAgeEntered(age) {
-    let valueEntered = age;
+    const valueEntered = age;
     if (valueEntered) {
       if (valueEntered > 120 && this.ageUnit == 'Years') {
         // alert(`Age can only be set between Today to 120 Years`);
@@ -1560,7 +1560,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     } else if (dobval == 'Invalid date') {
       this.BeneficaryCreationForm.form.patchValue({ dob: null });
       this.DOB = null;
-      this.alertMaessage.alert(this.assignSelectedLanguageValue.invalidDateEnteredPleaseRecheck, 'error');
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.invalidDateEnteredPleaseRecheck);
     } else {
       this.BeneficaryCreationForm.form.patchValue({ age: null });
     }
@@ -1583,20 +1583,20 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     this.isAdvancedSearch = false;
     if (data === 'Search by Id') {
-      this.searchValue = "Advanced Search";
+      this.searchValue = 'Advanced Search';
       this.calledEarlier = true;
     } else {
-      this.searchValue = "Search by Id";
+      this.searchValue = 'Search by Id';
       this.calledEarlier = false;
       this.showSearchResult = false;
     }
-    this.registrationNo = "";
-    this.districts=[];
-    this.district=undefined;
+    this.registrationNo = '';
+    this.districts = [];
+    this.district = undefined;
   }
   back1() {
     this.isAdvancedSearch = true;
-    this.searchValue = "Advanced Search";
+    this.searchValue = 'Advanced Search';
     this.calledEarlier = true;
     this.showSearchResult = true;
   }
@@ -1612,7 +1612,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.regHistoryList = response;
         this.showSearchResult = true;
         this.calledEarlier = true;
-        this.searchValue = "Advanced Search";
+        this.searchValue = 'Advanced Search';
         console.log('Response advanced Search', response);
 
       }
@@ -1742,7 +1742,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     let sms_template_id = '';
     let smsTypeID = '';
     // below line has hardcoded content in else section; needs to be removed
-    let currentServiceID = this.saved_data.current_serviceID ? this.saved_data.current_serviceID : 1;
+    const currentServiceID = this.saved_data.current_serviceID ? this.saved_data.current_serviceID : 1;
 
     this._smsService.getSMStypes(currentServiceID)
       .subscribe(response => {
@@ -1772,7 +1772,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
                 }
 
                 if (smsTypeID != '') {
-                  let reqObj = {
+                  const reqObj = {
                     'alternateNo': alternate_Phone_No,
                     'beneficiaryRegID': generated_ben_id,
                     'createdBy': this.saved_data.uname,
@@ -1783,13 +1783,13 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
                     // "userID": 0
                   }
 
-                  let arr = [];
+                  const arr = [];
                   arr.push(reqObj);
 
                   this._smsService.sendSMS(arr)
                     .subscribe(ressponse => {
                       console.log(ressponse, 'SMS Sent');
-                      this.alertMaessage.alert(this.assignSelectedLanguageValue.smsSent, 'success');
+                      this.alertMaessage.alert(this.assignSelectedLanguageValue.smsSent);
                     }, err => {
                       console.log(err, 'SMS not sent Error');
                     })

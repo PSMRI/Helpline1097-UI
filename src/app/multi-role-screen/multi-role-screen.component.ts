@@ -1,8 +1,8 @@
-/* 
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology
+* Integrated EHR (Electronic Health Records) Solution
 *
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+* Copyright (C) "Piramal Swasthya Management and Research Institute"
 *
 * This file is part of AMRIT.
 *
@@ -37,7 +37,7 @@ import { AuthService } from '../services/authentication/auth.service';
 import { EmergencyContactsViewModalComponent } from '../emergency-contacts-view-modal/emergency-contacts-view-modal.component';
 import { MdDialog } from '@angular/material';
 import { AgentForceLogoutComponent } from '../agent-force-logout/agent-force-logout.component';
-import { HttpServices } from "../services/http-services/http_services.service";
+import { HttpServices } from '../services/http-services/http_services.service';
 import { ViewVersionDetailsComponent } from '../view-version-details/view-version-details.component';
 import { SetLanguageComponent } from 'app/set-language.component';
 import { sessionStorageService } from 'app/services/sessionStorageService/session-storage.service';
@@ -55,25 +55,25 @@ export class MultiRoleScreenComponent implements OnInit {
   userName: any = '';
   ctiHandlerURL: any;
   // loginUrl: String = this._config.getCommonLoginUrl();
-  licenseURL: String = this._config._getOpenCommonBaseURL() + "license.html";
-  barMinimized: boolean = true;
+  licenseURL: String = this._config._getOpenCommonBaseURL() + 'license.html';
+  barMinimized = true;
   checkRole = true;
-  hideBar: boolean = false;
+  hideBar = false;
   subscription: Subscription;
-  hideHeader: boolean = true;
+  hideHeader = true;
   label: any = {};
-  showContacts: boolean = false;
+  showContacts = false;
   api_versionDetails: any;
   version: any;
   uiVersionDetails: any;
   commitDetails: any;
-  commitDetailsPath: any = "assets/git-version.json";
-  language_file_path: any = "./assets/";
+  commitDetailsPath: any = 'assets/git-version.json';
+  language_file_path: any = './assets/';
   currentLanguageSet: any;
   app_language: any;
   languageArray: any;
-  
-  constructor(public dataSettingService: dataService,private sessionstorage:sessionStorageService, private _config: ConfigService, location: PlatformLocation,
+
+  constructor(public dataSettingService: dataService, private sessionstorage: sessionStorageService, private _config: ConfigService, location: PlatformLocation,
     public router: Router, private authService: AuthService, private _loginService: loginService, private Czentrix: CzentrixServices,
     private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer, private listnerService: ListnerService, private dialog: MdDialog,
     public HttpServices: HttpServices) {
@@ -82,9 +82,9 @@ export class MultiRoleScreenComponent implements OnInit {
       window.history.forward();
 
     })
-    this.subscription = this.listnerService.cZentrixGetData().subscribe(flag => { setTimeout(() => { 
-      this.hideCZentix(flag) 
-    }) 
+    this.subscription = this.listnerService.cZentrixGetData().subscribe(flag => { setTimeout(() => {
+      this.hideCZentix(flag)
+    })
   }, (err) => {
       this.alertMessage.alert('Error in passing Data');
     });
@@ -92,7 +92,7 @@ export class MultiRoleScreenComponent implements OnInit {
   ngOnInit() {
     this.assignSelectedLanguage();
     this.dataSettingService.sendHeaderStatus.subscribe((data) => { setTimeout(() => {
-      this.setHeaderName(data) 
+      this.setHeaderName(data)
     })});
 
     this.data = this.dataSettingService.Userdata;
@@ -143,7 +143,7 @@ export class MultiRoleScreenComponent implements OnInit {
   //   // Cookie.deleteAll();
   //   // location.assign(this.loginUrl);
   // }
-  
+
   ngDoCheck() {
     this.assignSelectedLanguage();
   }
@@ -152,7 +152,7 @@ export class MultiRoleScreenComponent implements OnInit {
 		const getLanguageJson = new SetLanguageComponent(this.HttpServices);
 		getLanguageJson.setLanguage();
 		this.currentLanguageSet = getLanguageJson.currentLanguageObject;
-    this.app_language=this.dataSettingService.appLanguage;
+    this.app_language = this.dataSettingService.appLanguage;
 	  }
 
   setHeaderName(data) {
@@ -182,23 +182,23 @@ export class MultiRoleScreenComponent implements OnInit {
         (response) => {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
-          this.sessionstorage.removeItem("isGrievanceCall");
-          sessionStorage.removeItem('apiman_key');   
-          this.sessionstorage.removeItem("setLanguage");
-          this.dataSettingService.appLanguage="English";
+          this.sessionstorage.removeItem('isGrievanceCall');
+          sessionStorage.removeItem('apiman_key');
+          this.sessionstorage.removeItem('setLanguage');
+          this.dataSettingService.appLanguage = 'English';
           this.authService.removeToken();
           this.router.navigate(['/feedback'], { queryParams: { sl: '1097' } });
-          
+
           // this.socketService.logOut();
         },
         (err) => {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
-          this.sessionstorage.removeItem("isGrievanceCall");
-          sessionStorage.removeItem('apiman_key');   
-          this.sessionstorage.removeItem("setLanguage");
-          this.dataSettingService.appLanguage="English"; 
-          this.authService.removeToken();     
+          this.sessionstorage.removeItem('isGrievanceCall');
+          sessionStorage.removeItem('apiman_key');
+          this.sessionstorage.removeItem('setLanguage');
+          this.dataSettingService.appLanguage = 'English';
+          this.authService.removeToken();
           this.router.navigate(['/feedback'], { queryParams: { sl: '1097' } });
           // this.socketService.logOut();
         }
@@ -211,7 +211,7 @@ export class MultiRoleScreenComponent implements OnInit {
   //           (response) => {
   //             this.sessionstorage.removeItem('isOnCall');
   //             this.sessionstorage.removeItem('isEverwellCall');
-  //             this.sessionstorage.removeItem('apiman_key');   
+  //             this.sessionstorage.removeItem('apiman_key');
   //             this.sessionstorage.removeItem("setLanguage");
   //             this.dataSettingService.appLanguage="English";
   //             this.router.navigate(['']);
@@ -220,24 +220,24 @@ export class MultiRoleScreenComponent implements OnInit {
   //           (err) => {
   //             this.sessionstorage.removeItem('isOnCall');
   //             this.sessionstorage.removeItem('isEverwellCall');
-  //             this.sessionstorage.removeItem('apiman_key');   
+  //             this.sessionstorage.removeItem('apiman_key');
   //             this.sessionstorage.removeItem("setLanguage");
-  //             this.dataSettingService.appLanguage="English";       
+  //             this.dataSettingService.appLanguage="English";
   //             this.router.navigate(['']);
   //             // this.socketService.logOut();
   //           }
   //         );
   //       } else {
-         
+
   //         this.alertMessage.alert(this.currentLanguageSet.cannotLogoutDuringActiveCall);
-        
+
   //       }
   //     }, (err) => {
   //       this.alertMessage.alert(err.errorMessage);
   //     });
   // }
 
-    
+
   }
   // ipSuccessLogoutHandler(response) {
   //   this.router.navigate(['']);
@@ -300,7 +300,7 @@ export class MultiRoleScreenComponent implements OnInit {
     });
   }
   getCommitDetails() {
-    let Data = this.commitDetailsPath;
+    const Data = this.commitDetailsPath;
     this.HttpServices.getCommitDetails(this.commitDetailsPath).subscribe((res) => this.successhandeler(res), err => this.successhandeler(err));
   }
   successhandeler(response) {
@@ -312,9 +312,9 @@ export class MultiRoleScreenComponent implements OnInit {
   }
  viewVersionDetails() {
     this._loginService.getApiVersionDetails().subscribe((apiResponse) => {
-      console.log("apiResponse", apiResponse);
+      console.log('apiResponse', apiResponse);
       if (apiResponse.statusCode == 200) {
-        let api_versionDetails = {
+        const api_versionDetails = {
           'Version': apiResponse.data['git.build.version'],
           'Commit': apiResponse.data['git.commit.id']
         }
@@ -323,12 +323,12 @@ export class MultiRoleScreenComponent implements OnInit {
         }
       }
     }), (err) => {
-      console.log(err, "error");
+      console.log(err, 'error');
     }
   }
   openVersionDialogComponent(api_versionDetails) {
     this.dialog.open(ViewVersionDetailsComponent, {
-      width: "80%",
+      width: '80%',
       data: {
         uiversionDetails: this.uiVersionDetails,
         api_versionDetails: api_versionDetails
@@ -344,8 +344,8 @@ export class MultiRoleScreenComponent implements OnInit {
   }
 
   getLanguage() {
-    if (this.sessionstorage.getItem("setLanguage") != null) {
-      this.changeLanguage(this.sessionstorage.getItem("setLanguage"));
+    if (this.sessionstorage.getItem('setLanguage') != null) {
+      this.changeLanguage(this.sessionstorage.getItem('setLanguage'));
     } else {
       this.changeLanguage(this.app_language);
     }
@@ -353,39 +353,39 @@ export class MultiRoleScreenComponent implements OnInit {
 
   changeLanguage(language) {
     this.HttpServices.getLanguage(
-      this.language_file_path + language + ".json"
+      this.language_file_path + language + '.json'
     ).subscribe(
       (response) => {
         if (response) {
           this.languageSuccessHandler(response, language);
         } else {
-          this.alertMessage.alert("Language not defined", 'error');
+          this.alertMessage.alert('Language not defined');
         }
       },
       (error) => {
-        this.alertMessage.alert("We are coming up with this language" + "" + language, 'info');
+        this.alertMessage.alert('We are coming up with this language' + '' + language);
       }
     );
   }
 
   languageSuccessHandler(response, language) {
     if (!this.checkForNull(response)) {
-      this.alertMessage.alert("We are coming up with this language" + " " + language, 'info');
+      this.alertMessage.alert('We are coming up with this language' + ' ' + language);
       return;
     }
-    console.log("language is ", response);
+    console.log('language is ', response);
     this.currentLanguageSet = response[language];
-    this.sessionstorage.setItem("setLanguage", language);
+    this.sessionstorage.setItem('setLanguage', language);
     if (this.currentLanguageSet) {
       this.languageArray.forEach((item) => {
         if (item.languageName === language) {
           this.app_language = language;
-          this.dataSettingService.appLanguage=language;
+          this.dataSettingService.appLanguage = language;
         }
       });
     } else {
       this.app_language = language;
-      this.dataSettingService.appLanguage=language;
+      this.dataSettingService.appLanguage = language;
     }
     this.HttpServices.getCurrentLanguage(response[language]);
   }
