@@ -304,14 +304,11 @@ export class helpline1097CoComponent implements OnInit {
     this.sessionstorage.removeItem("isOnCall");
     this.sessionstorage.removeItem("isEverwellCall");
     this.sessionstorage.removeItem("isGrievanceCall");
-    // Clear session_id and CLI so the next incoming/transferred call always
-    // triggers navigation regardless of whether the session ID is reused.
     this.sessionstorage.removeItem("session_id");
     this.sessionstorage.removeItem("CLI");
-
-    this.basicrouter.navigate(["/MultiRoleScreenComponent/dashboard"], {
-      queryParams: { compain: compain_type },
-    });
+    // Navigate via redirect component to guarantee dashboard is always recreated,
+    // avoiding same-URL no-op when the agent is already on the dashboard route.
+    this.basicrouter.navigate(["/MultiRoleScreenComponent/RedirectToDashboardComponent"]);
   }
   openDialog() {
     this.dialogService

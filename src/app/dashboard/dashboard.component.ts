@@ -313,13 +313,18 @@ export class dashboardContentClass implements OnInit {
 
   handleEvent() {
     if (this.eventSpiltData.length > 2) {
-      this.sessionstorage.setItem("isOnCall", "yes");
-      const mobileNumber = this.eventSpiltData[1].replace(/\D/g, "");
-      const checkNumber = /^\d+$/;
-      const sessionVar = /^\d+\.\d+$/;
-      const checkCallType = /^(INBOUND)|(OUTBOUND)$/i;
       const isAcceptEvent = this.eventSpiltData[0].toLowerCase() === "accept";
-      // Transfer events may omit [3] or use a non-INBOUND value; default to INBOUND
+      // Dashboard only navigates on Accept; ignore Disconnect/CustDisconnect
+      if (!isAcceptEvent) return;
+
+      this.sessionstorage.setItem("isOnCall", "yes");
+      const mobileNumber = this.eventSpiltData[1]
+        ? this.eventSpiltData[1].replace(/\D/g, "")
+        : "";
+      const checkNumber = /^\d+$/;
+      // Allow integer session IDs (some transfer legs omit the decimal part)
+      const sessionVar = /^\d+(\.\d+)?$/;
+      const checkCallType = /^(INBOUND)|(OUTBOUND)$/i;
       const callCategory = checkCallType.test(this.eventSpiltData[3])
         ? this.eventSpiltData[3]
         : "INBOUND";
