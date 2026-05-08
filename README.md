@@ -43,14 +43,13 @@ To install the 1097 module, please follow these steps:
 1. Clone the repository to your local machine.
 2. Install the dependencies and build the module:
    - Run the command `npm install`.
-   - Copy the local environment file: `cp src/environments/environment.local.ts src/environments/environment.ts` (or manually duplicate it on Windows).
+   - Copy `src/environments/environment.local.ts` to `src/environments/environment.ts`.
    - Run the command `npm run build`.
-   - Run the command `mvn clean install`.
    - Run the command `npm start`.
 3. Open your browser and access `http://localhost:4200/#/login` to view the login page of module.
 
 ## Configuration
-The 1097 module can be configured by editing the `src/environments/environment.ts` file. This file contains all of the frontend environment settings for the module, such as the API endpoints.
+The 1097 module can be configured by editing the `src/environments/environment.ts` file. This file contains the API endpoints and other environment-specific settings.
 
 ## Usage
 
