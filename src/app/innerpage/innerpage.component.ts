@@ -105,6 +105,7 @@ export class InnerpageComponent implements OnInit {
   transferCallID: any;
   listenCallEvent: any;
   transferInProgress: Boolean = false;
+  private componentDestroyed = false;
   zoneName: any;
   everwellFullname: string;
   grievanceBenFullname: string;
@@ -909,6 +910,7 @@ export class InnerpageComponent implements OnInit {
     this.wrapupTime = true;
     this._callServices.getRoleBasedWrapuptime(this.current_roleID).subscribe(
       (roleWrapupTime) => {
+        if (this.componentDestroyed) return;
         if (
           roleWrapupTime.data != undefined &&
           roleWrapupTime.data.isWrapUpTime != undefined &&
@@ -923,6 +925,7 @@ export class InnerpageComponent implements OnInit {
         }
       },
       (err) => {
+        if (this.componentDestroyed) return;
         const time = this._config.defaultWrapupTime;
         this.roleBasedCallWrapupTime(time);
         console.log("Need to configure wrap up time", err.errorMessage);
@@ -1013,6 +1016,7 @@ export class InnerpageComponent implements OnInit {
     );
   }
   ngOnDestroy() {
+    this.componentDestroyed = true;
     this.listenCallEvent();
 
     if (this.wrapupTimerSubscription)

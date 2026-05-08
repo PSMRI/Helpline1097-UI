@@ -141,6 +141,10 @@ export class dashboardContentClass implements OnInit {
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.showDashboardContent = true;
     this.showDashboard();
+    // Re-register listener whenever query params change (handles same-path re-navigation)
+    this.activeRoute.queryParams.subscribe(() => {
+      this.addListener();
+    });
     this.agentID = this.dataSettingService.cZentrixAgentID;
     this.agentIDexists(this.agentID);
 
@@ -254,16 +258,7 @@ export class dashboardContentClass implements OnInit {
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
     let campaign = this.sessionstorage.getItem("current_campaign");
-    // if(campaign != null && campaign != undefined && campaign !== "OUTBOUND"){
     this.addListener();
-    this.listenCall = this.renderer.listenGlobal(
-      "window",
-      "message",
-      (event) => {
-        this.listener(event);
-        // Do something with 'event'
-      }
-    );
   }
   toggleBar() {
     // if ( this.barMinimized )
@@ -464,11 +459,9 @@ export class dashboardContentClass implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.listenCall) {
-      this.listenCall();
-    }
     if (this.boundListener) {
       removeEventListener("message", this.boundListener);
+      this.boundListener = null;
     }
     // this.notificationSubscription.unsubscribe();
   }
