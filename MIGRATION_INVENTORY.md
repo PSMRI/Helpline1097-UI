@@ -20,7 +20,7 @@ Note: This migration plan will likely evolve as more feature modules and depende
 
 ---
 
-## Core Infrastructure (In Progress)
+## Core Infrastructure (Completed)
 *Status: Initialized in PR #75*
 
 | Asset | Legacy Path | New Path (v19) | Notes |
