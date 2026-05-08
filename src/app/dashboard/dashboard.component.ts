@@ -312,8 +312,10 @@ export class dashboardContentClass implements OnInit {
   }
 
   handleEvent() {
+    console.log("[CTI] handleEvent called, data:", this.eventSpiltData);
     if (this.eventSpiltData.length > 2) {
       const isAcceptEvent = this.eventSpiltData[0].toLowerCase() === "accept";
+      console.log("[CTI] isAcceptEvent:", isAcceptEvent);
       // Dashboard only navigates on Accept; ignore Disconnect/CustDisconnect
       if (!isAcceptEvent) return;
 
@@ -329,11 +331,16 @@ export class dashboardContentClass implements OnInit {
         ? this.eventSpiltData[3]
         : "INBOUND";
 
+      console.log("[CTI] mobileNumber:", mobileNumber, "checkNumber:", checkNumber.test(mobileNumber));
+      console.log("[CTI] sessionId:", this.eventSpiltData[2], "sessionVar:", sessionVar.test(this.eventSpiltData[2]));
+      console.log("[CTI] callType field:", this.eventSpiltData[3]);
+
       if (
         checkNumber.test(mobileNumber) &&
         sessionVar.test(this.eventSpiltData[2]) &&
         (checkCallType.test(this.eventSpiltData[3]) || isAcceptEvent)
       ) {
+        console.log("[CTI] navigating to RedirectToInnerpageComponent");
         this.dataSettingService.setUniqueCallIDForInBound = true;
         this.sessionstorage.setItem("CLI", this.eventSpiltData[1]);
         this.sessionstorage.setItem("session_id", this.eventSpiltData[2]);
@@ -342,8 +349,11 @@ export class dashboardContentClass implements OnInit {
           "/MultiRoleScreenComponent/RedirectToInnerpageComponent",
         ]);
       } else {
+        console.log("[CTI] validation failed — showing invalid call alert");
         this.message.alert(this.currentLanguageSet.invalidCallPleaseCheck);
       }
+    } else {
+      console.log("[CTI] eventSpiltData length <= 2, skipping");
     }
   }
 
