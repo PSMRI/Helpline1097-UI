@@ -287,13 +287,13 @@ export class dashboardContentClass implements OnInit {
   }
 
   listener(event) {
-    console.log("listener invoked: " + event);
-    console.log("event received" + JSON.stringify(event));
+    console.log("[CTI] listener() called, raw data:", event.data);
     if (event.data !== undefined && event.data !== null) {
       this.eventSpiltData = event.data.split("|");
     } else {
       this.eventSpiltData = event.detail.data.split("|");
     }
+    console.log("[CTI] eventSpiltData:", this.eventSpiltData);
     if (
       this.eventSpiltData[2] !== undefined &&
       this.eventSpiltData[2] !== "undefined" &&
@@ -301,13 +301,18 @@ export class dashboardContentClass implements OnInit {
       this.eventSpiltData[2] !== ""
     ) {
       const storedSession = this.sessionstorage.getItem("session_id");
+      console.log("[CTI] storedSession:", storedSession, "| eventSpiltData[2]:", this.eventSpiltData[2]);
       if (
         !storedSession ||
         storedSession !== this.eventSpiltData[2] ||
         this.eventSpiltData[0].toLowerCase() === "accept"
       ) {
         this.handleEvent();
+      } else {
+        console.log("[CTI] session match — handleEvent skipped");
       }
+    } else {
+      console.log("[CTI] eventSpiltData[2] empty/undefined — handleEvent skipped");
     }
   }
 
