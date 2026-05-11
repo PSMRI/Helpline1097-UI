@@ -47,7 +47,6 @@ import { RegisterService } from "../services/register-services/register-service"
 import { Subscription } from "rxjs/Subscription";
 import { SetLanguageComponent } from "app/set-language.component";
 import { sessionStorageService } from "app/services/sessionStorageService/session-storage.service";
-import { MdDialog } from "@angular/material";
 
 declare const jQuery: any;
 
@@ -141,8 +140,7 @@ export class InnerpageComponent implements OnInit {
     private Czentrix: CzentrixServices,
     private listnerService: ListnerService,
     private authService: AuthService,
-    private _common: dataService, // private closureComponent: ClosureComponent
-    private dialog: MdDialog
+    private _common: dataService // private closureComponent: ClosureComponent
   ) {
     this.currentlanguageSet = [];
   }
@@ -165,9 +163,6 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
-    // Close any dialog left open by a previous call's closure flow
-    // (e.g. "Call transferred successfully" persists as a Material portal after navigation)
-    this.dialog.closeAll();
     this.sessionstorage.removeItem("pending_session_id");
     this.sessionstorage.removeItem("pending_CLI");
     this.sessionstorage.removeItem("pending_callCategory");
