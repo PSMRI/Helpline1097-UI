@@ -65,6 +65,7 @@ export class dashboardContentClass implements OnInit {
   compainType: any;
   alertRefresh: number = 1;
   notificationSubscription: Subscription;
+  inOutCampaignSubscription: Subscription;
   inboundCall: boolean = false;
   outboundCall: boolean = false;
   agentID: any;
@@ -123,7 +124,7 @@ export class dashboardContentClass implements OnInit {
     console.log("[CTI] Dashboard ngOnInit — fresh component instance created");
     this.assignSelectedLanguage();
 
-    this.dataSettingService.inOutCampaign.subscribe((data) => {
+    this.inOutCampaignSubscription = this.dataSettingService.inOutCampaign.subscribe((data) => {
       console.log(data);
       // this.setCampaign()
     });
@@ -138,14 +139,9 @@ export class dashboardContentClass implements OnInit {
       this.dataSettingService.cZentrixAgentID;
     console.log("url = " + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    console.log("url = " + url);
-    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.showDashboardContent = true;
     this.showDashboard();
-    // Re-register listener whenever query params change (handles same-path re-navigation)
-    this.activeRoute.queryParams.subscribe(() => {
-      this.addListener();
-    });
+    this.addListener();
     this.agentID = this.dataSettingService.cZentrixAgentID;
     this.agentIDexists(this.agentID);
 
@@ -258,8 +254,6 @@ export class dashboardContentClass implements OnInit {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
-    let campaign = this.sessionstorage.getItem("current_campaign");
-    this.addListener();
   }
   toggleBar() {
     // if ( this.barMinimized )
@@ -483,6 +477,9 @@ export class dashboardContentClass implements OnInit {
     if (this.boundListener) {
       removeEventListener("message", this.boundListener);
       this.boundListener = null;
+    }
+    if (this.inOutCampaignSubscription) {
+      this.inOutCampaignSubscription.unsubscribe();
     }
     // this.notificationSubscription.unsubscribe();
   }
