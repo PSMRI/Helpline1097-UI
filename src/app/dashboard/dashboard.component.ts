@@ -336,7 +336,7 @@ export class dashboardContentClass implements OnInit {
       console.log("[CTI] callType field:", this.eventSpiltData[3]);
 
       if (
-        checkNumber.test(mobileNumber) &&
+        (checkNumber.test(mobileNumber) || isAcceptEvent) &&
         sessionVar.test(this.eventSpiltData[2]) &&
         (checkCallType.test(this.eventSpiltData[3]) || isAcceptEvent)
       ) {
