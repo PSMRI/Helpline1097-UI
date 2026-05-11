@@ -345,6 +345,9 @@ export class dashboardContentClass implements OnInit {
         this.sessionstorage.setItem("CLI", this.eventSpiltData[1]);
         this.sessionstorage.setItem("session_id", this.eventSpiltData[2]);
         this.sessionstorage.setItem("callCategory", callCategory);
+        // CTI Accept reached dashboard directly — any innerpage-stored pending session is stale
+        this.sessionstorage.removeItem("pending_session_id");
+        this.sessionstorage.removeItem("pending_CLI");
         this.router.navigate([
           "/MultiRoleScreenComponent/RedirectToInnerpageComponent",
         ]);

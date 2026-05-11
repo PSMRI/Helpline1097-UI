@@ -163,6 +163,8 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.sessionstorage.removeItem("pending_session_id");
+    this.sessionstorage.removeItem("pending_CLI");
     this.assignSelectedLanguage();
     this.getCommonData.isCallDisconnected = false;
     this.current_service = this.getCommonData.current_service.serviceName;
@@ -713,6 +715,14 @@ export class InnerpageComponent implements OnInit {
     if (eventData[0].trim().toLowerCase() === "accept") {
       this.ticks = 0;
       this.unsubscribeWrapupTime();
+      // Accept fired while on innerpage (2nd transfer scenario) — store new call data
+      // so the dashboard can recover navigation if getAgentStatus() returns FREE
+      const acceptSessionVar = /^\d+(\.\d+)?$/;
+      const newSession = acceptSessionVar.test(eventData[2]) ? eventData[2] : "";
+      if (newSession) {
+        this.sessionstorage.setItem("pending_session_id", newSession);
+        this.sessionstorage.setItem("pending_CLI", eventData[1] || "");
+      }
     } else if (
       (eventData[0] === "CustDisconnect" || eventData[0] === "Disconnect") &&
       !this.transferInProgress

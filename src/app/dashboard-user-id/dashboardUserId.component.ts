@@ -156,6 +156,19 @@ export class DashboardUserIdComponent implements OnInit {
               // If session id is different from previous session id then allow the call to drop
               this.routeToInnerPage(res);
             }
+          } else {
+            // Agent is FREE/WRAPUP — check if an Accept fired while on innerpage
+            // (2nd transfer: innerpage consumed the event before we returned to dashboard)
+            const pendingSession = this.sessionstorage.getItem("pending_session_id");
+            if (pendingSession) {
+              this.sessionstorage.setItem("isOnCall", "yes");
+              this.sessionstorage.setItem("session_id", pendingSession);
+              this.sessionstorage.setItem("CLI", this.sessionstorage.getItem("pending_CLI") || "");
+              this.sessionstorage.removeItem("pending_session_id");
+              this.sessionstorage.removeItem("pending_CLI");
+              this.dataSettingService.setUniqueCallIDForInBound = true;
+              this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
+            }
           }
           if (res.data.stateObj.stateType) {
             this.status += " (" + res.data.stateObj.stateType + ")";
