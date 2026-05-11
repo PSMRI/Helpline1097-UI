@@ -120,6 +120,7 @@ export class dashboardContentClass implements OnInit {
   }
 
   ngOnInit() {
+    console.log("[CTI] Dashboard ngOnInit — fresh component instance created");
     this.assignSelectedLanguage();
 
     this.dataSettingService.inOutCampaign.subscribe((data) => {
