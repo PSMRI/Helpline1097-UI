@@ -148,10 +148,22 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
   }
 
   onCtiMessage(event: any) {
-    if (!event.data || typeof event.data !== "string") return;
+    // Log every raw event so we can see what the CTI sends for the 2nd call
+    console.log("[CTI-RAW] MultiRoleScreen onCtiMessage fired, event.data:", event.data, "| origin:", event.origin, "| url:", this.router.url, "| isOnCall:", this.sessionstorage.getItem("isOnCall"), "| pending:", this.sessionstorage.getItem("pending_session_id"));
+    if (!event.data || typeof event.data !== "string") {
+      console.log("[CTI-RAW] Skipping: event.data is not a string");
+      return;
+    }
     const parts = event.data.split("|");
-    if (parts.length < 3) return;
-    if (parts[0].trim().toLowerCase() !== "accept") return;
+    console.log("[CTI-RAW] parts:", parts);
+    if (parts.length < 3) {
+      console.log("[CTI-RAW] Skipping: less than 3 parts");
+      return;
+    }
+    if (parts[0].trim().toLowerCase() !== "accept") {
+      console.log("[CTI-RAW] Skipping: event type is not accept:", parts[0]);
+      return;
+    }
 
     const sessionVar = /^\d+(\.\d+)?$/;
     const session = sessionVar.test(parts[2]) ? parts[2] : "";
