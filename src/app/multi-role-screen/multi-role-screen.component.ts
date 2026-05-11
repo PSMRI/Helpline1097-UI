@@ -21,7 +21,7 @@
 */
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 // import { Cookie } from 'ng2-cookies/ng2-cookies';
@@ -47,7 +47,7 @@ import { sessionStorageService } from 'app/services/sessionStorageService/sessio
   templateUrl: './multi-role-screen.component.html',
   styleUrls: ['./multi-role-screen.component.css']
 })
-export class MultiRoleScreenComponent implements OnInit {
+export class MultiRoleScreenComponent implements OnInit, OnDestroy {
   data: any;
   current_service: any;
   current_role: any;
@@ -60,6 +60,7 @@ export class MultiRoleScreenComponent implements OnInit {
   checkRole = true;
   hideBar: boolean = false;
   subscription: Subscription;
+  boundCtiListener: any;
   hideHeader: boolean = true;
   label: any = {};
   showContacts: boolean = false;
@@ -137,7 +138,57 @@ export class MultiRoleScreenComponent implements OnInit {
     //   Cookie.deleteAll();
     // }
     this.fetchLanguageSet();
+    this.addCtiListener();
   }
+
+  addCtiListener() {
+    this.boundCtiListener = this.onCtiMessage.bind(this);
+    window.addEventListener("message", this.boundCtiListener, false);
+    console.log("[CTI] MultiRoleScreen: persistent CTI listener added");
+  }
+
+  onCtiMessage(event: any) {
+    if (!event.data || typeof event.data !== "string") return;
+    const parts = event.data.split("|");
+    if (parts.length < 3) return;
+    if (parts[0].trim().toLowerCase() !== "accept") return;
+
+    const sessionVar = /^\d+(\.\d+)?$/;
+    const session = sessionVar.test(parts[2]) ? parts[2] : "";
+    if (!session) return;
+
+    const cli = parts[1] || "";
+    const checkCallType = /^(INBOUND|OUTBOUND)$/i;
+    const callCategory = checkCallType.test(parts[3]) ? parts[3] : "INBOUND";
+
+    if (this.sessionstorage.getItem("isOnCall") === "yes") {
+      // Agent is still on a call — store for dashboard to pick up after closure
+      console.log("[CTI] MultiRoleScreen: Accept while on call, storing pending session:", session);
+      this.sessionstorage.setItem("pending_session_id", session);
+      this.sessionstorage.setItem("pending_CLI", cli);
+      this.sessionstorage.setItem("pending_callCategory", callCategory);
+    } else {
+      // Agent is free or transitioning (RedirectToDashboard gap) — navigate directly
+      console.log("[CTI] MultiRoleScreen: Accept while free, navigating to innerpage:", session);
+      this.sessionstorage.setItem("isOnCall", "yes");
+      this.sessionstorage.setItem("session_id", session);
+      this.sessionstorage.setItem("CLI", cli);
+      this.sessionstorage.setItem("callCategory", callCategory);
+      this.dataSettingService.setUniqueCallIDForInBound = true;
+      this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.boundCtiListener) {
+      window.removeEventListener("message", this.boundCtiListener);
+      this.boundCtiListener = null;
+    }
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   // logOut() {
   //   this.router.navigate([''])
   //   // Cookie.deleteAll();

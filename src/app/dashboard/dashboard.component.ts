@@ -319,14 +319,10 @@ export class dashboardContentClass implements OnInit {
     ) {
       const storedSession = this.sessionstorage.getItem("session_id");
       console.log("[CTI] storedSession:", storedSession, "| eventSpiltData[2]:", this.eventSpiltData[2]);
-      if (
-        !storedSession ||
-        storedSession !== this.eventSpiltData[2] ||
-        this.eventSpiltData[0].toLowerCase() === "accept"
-      ) {
+      if (!storedSession || storedSession !== this.eventSpiltData[2]) {
         this.handleEvent();
       } else {
-        console.log("[CTI] session match — handleEvent skipped");
+        console.log("[CTI] Dashboard: session already handled by persistent listener, skipping");
       }
     } else {
       console.log("[CTI] eventSpiltData[2] empty/undefined — handleEvent skipped");
