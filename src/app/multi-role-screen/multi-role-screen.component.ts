@@ -161,14 +161,19 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
     const checkCallType = /^(INBOUND|OUTBOUND)$/i;
     const callCategory = checkCallType.test(parts[3]) ? parts[3] : "INBOUND";
 
-    if (this.sessionstorage.getItem("isOnCall") === "yes") {
-      // Agent is still on a call — store for dashboard to pick up after closure
-      console.log("[CTI] MultiRoleScreen: Accept while on call, storing pending session:", session);
+    // showAlert() removes isOnCall BEFORE the agent leaves the innerpage, so checking
+    // isOnCall alone is not enough — also check if the agent is still on the innerpage URL.
+    const agentOnInnerpage = this.router.url.includes("RedirectToInnerpageComponent");
+
+    if (this.sessionstorage.getItem("isOnCall") === "yes" || agentOnInnerpage) {
+      // Agent is still on the innerpage (even if isOnCall was already cleared by showAlert)
+      // Store the new session so dashboard.ngOnInit can pick it up after the agent closes.
+      console.log("[CTI] MultiRoleScreen: Accept while on innerpage, storing pending session:", session);
       this.sessionstorage.setItem("pending_session_id", session);
       this.sessionstorage.setItem("pending_CLI", cli);
       this.sessionstorage.setItem("pending_callCategory", callCategory);
     } else {
-      // Agent is free or transitioning (RedirectToDashboard gap) — navigate directly
+      // Agent is on dashboard or transitioning — navigate directly to innerpage.
       console.log("[CTI] MultiRoleScreen: Accept while free, navigating to innerpage:", session);
       this.sessionstorage.setItem("isOnCall", "yes");
       this.sessionstorage.setItem("session_id", session);
