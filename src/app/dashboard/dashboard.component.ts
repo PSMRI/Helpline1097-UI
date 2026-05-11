@@ -122,6 +122,28 @@ export class dashboardContentClass implements OnInit {
 
   ngOnInit() {
     console.log("[CTI] Dashboard ngOnInit — fresh component instance created");
+
+    // If the innerpage captured a CTI Accept while the agent was still on the innerpage
+    // (2nd-transfer scenario), the event never reaches the dashboard listener.
+    // Pick up the stored session immediately so we don't rely on a single-shot poll.
+    const pendingSession = this.sessionstorage.getItem("pending_session_id");
+    if (pendingSession) {
+      console.log("[CTI] Dashboard found pending_session_id on mount, navigating:", pendingSession);
+      this.sessionstorage.setItem("isOnCall", "yes");
+      this.sessionstorage.setItem("session_id", pendingSession);
+      this.sessionstorage.setItem("CLI", this.sessionstorage.getItem("pending_CLI") || "");
+      this.sessionstorage.setItem(
+        "callCategory",
+        this.sessionstorage.getItem("pending_callCategory") || "INBOUND"
+      );
+      this.sessionstorage.removeItem("pending_session_id");
+      this.sessionstorage.removeItem("pending_CLI");
+      this.sessionstorage.removeItem("pending_callCategory");
+      this.dataSettingService.setUniqueCallIDForInBound = true;
+      this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
+      return;
+    }
+
     this.assignSelectedLanguage();
 
     this.inOutCampaignSubscription = this.dataSettingService.inOutCampaign.subscribe((data) => {

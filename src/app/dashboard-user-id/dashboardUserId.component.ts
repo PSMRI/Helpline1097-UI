@@ -164,8 +164,13 @@ export class DashboardUserIdComponent implements OnInit {
               this.sessionstorage.setItem("isOnCall", "yes");
               this.sessionstorage.setItem("session_id", pendingSession);
               this.sessionstorage.setItem("CLI", this.sessionstorage.getItem("pending_CLI") || "");
+              this.sessionstorage.setItem(
+                "callCategory",
+                this.sessionstorage.getItem("pending_callCategory") || "INBOUND"
+              );
               this.sessionstorage.removeItem("pending_session_id");
               this.sessionstorage.removeItem("pending_CLI");
+              this.sessionstorage.removeItem("pending_callCategory");
               this.dataSettingService.setUniqueCallIDForInBound = true;
               this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
             }

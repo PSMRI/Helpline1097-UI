@@ -165,6 +165,7 @@ export class InnerpageComponent implements OnInit {
   ngOnInit() {
     this.sessionstorage.removeItem("pending_session_id");
     this.sessionstorage.removeItem("pending_CLI");
+    this.sessionstorage.removeItem("pending_callCategory");
     this.assignSelectedLanguage();
     this.getCommonData.isCallDisconnected = false;
     this.current_service = this.getCommonData.current_service.serviceName;
@@ -722,6 +723,11 @@ export class InnerpageComponent implements OnInit {
       if (newSession) {
         this.sessionstorage.setItem("pending_session_id", newSession);
         this.sessionstorage.setItem("pending_CLI", eventData[1] || "");
+        const checkCallType = /^(INBOUND|OUTBOUND)$/i;
+        this.sessionstorage.setItem(
+          "pending_callCategory",
+          checkCallType.test(eventData[3]) ? eventData[3] : "INBOUND"
+        );
       }
     } else if (
       (eventData[0] === "CustDisconnect" || eventData[0] === "Disconnect") &&
