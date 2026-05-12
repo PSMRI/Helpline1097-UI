@@ -153,7 +153,9 @@ export class CoFeedbackServicesComponent implements OnInit {
     this.dec2014 = new Date(2014, 11, 1, 0, 0, 0);
     this.GetInstitutes();
     this.assignSelectedLanguage();
-
+    if (this.beneficiaryRegID) {
+      this.showBeneficiaryFeedbackList();
+    }
   }
   tempFlag: any;
 

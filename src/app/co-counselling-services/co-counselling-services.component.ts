@@ -92,6 +92,9 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
     this.assignSelectedLanguage();
     this.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.GetServiceTypes();
+    if (this.beneficiaryID) {
+      this.GetCounsellingHistory();
+    }
   }
 
   setBenRegID(data) {
@@ -174,13 +177,19 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
     this.getDetailsFlag = false;
   }
 
- GetSubCategoryDetails(id: any) {
-    this.enableFileDetails = true;   
-    this.showresult = true;      
+  GetSubCategoryDetails(id: any) {
+    this.enableFileDetails = true;
+    this.showresult = true;
     this.subCategoryID = id;
-
-    // Find the subcategory from the list
     this.subcategoryOBJ = this.subCategoryList.find(item => item.subCategoryID === id) || null;
+
+    this._coCategoryService.getCODetails(
+      id, this.saved_data.uname, this.beneficiaryID, this.serviceID,
+      this.symptomCategory, this.saved_data.callData.benCallID
+    ).subscribe(
+      response => this.SetSubCategoryDetails(response),
+      err => this.alertService.alert(err.errorMessage, 'error')
+    );
   }
   
   EnabledGetDetails() {
