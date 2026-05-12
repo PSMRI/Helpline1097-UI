@@ -658,6 +658,7 @@ export class InnerpageComponent implements OnInit {
         });
         if (
           validObj &&
+          validObj.length > 0 &&
           validObj[0].callTypes !== undefined &&
           validObj[0].callTypes !== null
         ) {
@@ -665,7 +666,9 @@ export class InnerpageComponent implements OnInit {
             console.log("Valid call types " + previousData.callTypeDesc);
             return previousData.callTypeDesc.toLowerCase().startsWith("valid");
           });
-          if (validObj && validObj[0].callTypeID) {
+          console.log("VAlid Obj", validObj);
+
+          if (validObj && validObj.length > 0 && validObj[0].callTypeID) {
             this.disconectCallId = validObj[0].callTypeID;
           }
         } else {
@@ -716,11 +719,15 @@ export class InnerpageComponent implements OnInit {
     if (eventData[0].trim().toLowerCase() === "accept") {
       this.ticks = 0;
       this.unsubscribeWrapupTime();
-      // Accept fired while on innerpage (2nd transfer scenario) — store new call data
-      // so the dashboard can recover navigation if getAgentStatus() returns FREE
       const acceptSessionVar = /^\d+(\.\d+)?$/;
       const newSession = acceptSessionVar.test(eventData[2]) ? eventData[2] : "";
-      if (newSession) {
+      const currentSession = this.sessionstorage.getItem("session_id");
+      // Only treat this Accept as a new incoming call when its session ID differs
+      // from the current call's session. Same session = CTI "transfer accepted" echo
+      // fired when agent2 picks up — agent1 should NOT navigate to innerpage.
+      // Different session = the call bounced back (no free agents) as a new call,
+      // so agent1 must navigate to innerpage when the dashboard next mounts.
+      if (newSession && newSession !== currentSession) {
         this.sessionstorage.setItem("pending_session_id", newSession);
         this.sessionstorage.setItem("pending_CLI", eventData[1] || "");
         const checkCallType = /^(INBOUND|OUTBOUND)$/i;
