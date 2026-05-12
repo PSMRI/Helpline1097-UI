@@ -99,6 +99,9 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
 
   setBenRegID(data) {
     this.beneficiaryID = data.beneficiaryRegID;
+    if (this.beneficiaryID) {
+      this.GetCounsellingHistory();
+    }
   }
 
   // tslint:disable-next-line:use-life-cycle-interface

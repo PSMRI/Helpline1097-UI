@@ -132,6 +132,9 @@ export class CoReferralServicesComponent implements OnInit {
 
   setBenRegID(data) {
     this.beneficiaryRegID = data.beneficiaryRegID;
+    if (this.beneficiaryRegID) {
+      this.setBeneficiaryData();
+    }
   }
   ngOnChanges() {
     if (this.resetProvideServices) {

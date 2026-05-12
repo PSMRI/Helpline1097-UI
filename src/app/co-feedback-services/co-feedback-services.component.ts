@@ -161,6 +161,9 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   setBenRegID(data) {
     this.beneficiaryRegID = data.beneficiaryRegID;
+    if (this.beneficiaryRegID) {
+      this.showBeneficiaryFeedbackList();
+    }
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
