@@ -256,6 +256,9 @@ export class CoInformationServicesComponent implements OnInit {
 
   setBenRegID(data) {
     this.beneficiaryID = data.beneficiaryRegID;
+    if (this.beneficiaryID) {
+      this.GetInformationHistory();
+    }
   }
 
   getFileURL(fileUID: string): string {
