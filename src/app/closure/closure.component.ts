@@ -463,6 +463,7 @@ export class ClosureComponent implements OnInit {
 
   transferCall(values) {
     this.doTransfer = true;
+    this.transferValid = true;
     let obj = {
       transfer_from: this.saved_data.cZentrixAgentID,
       transfer_campaign_info: values.campaignName,
@@ -657,14 +658,20 @@ export class ClosureComponent implements OnInit {
       this._callServices.closeCall(values).subscribe(
         (response) => {
           if (response !== undefined && response !== null) {
-            this.showAlert();
-            this.callClosed.emit(this.current_campaign);
+            const alertObs = this.showAlert();
+            if (alertObs) {
+              alertObs.subscribe(() => {
+                this.callClosed.emit(this.current_campaign);
+              });
+            } else {
+              this.callClosed.emit(this.current_campaign);
+            }
             this.resetSavedBeneficiaryRegID();
+            this.doTransfer = false;
           }
         },
         (err) => {
           this.message.alert(err.status, "error");
-          3;
         }
       );
     } else {
@@ -680,10 +687,12 @@ export class ClosureComponent implements OnInit {
     this.saved_data.benRegId = null;
     this.saved_data.beneficiaryRegID = null;
   }
-  showAlert() {
+  showAlert(): any {
     this.sessionstorage.removeItem("isOnCall");
     if (this.transferValid == true) {
-      this.message.alert(
+      // Return the Observable so callers can wait for OK before navigating.
+      // This prevents the dialog from persisting over the next call's innerpage.
+      return this.message.alertConfirm(
         this.currentLanguageSet.callTransferredSuccessfully,
         "success"
       );

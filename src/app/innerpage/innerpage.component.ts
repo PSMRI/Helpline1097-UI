@@ -105,6 +105,7 @@ export class InnerpageComponent implements OnInit {
   transferCallID: any;
   listenCallEvent: any;
   transferInProgress: Boolean = false;
+  private componentDestroyed = false;
   zoneName: any;
   everwellFullname: string;
   grievanceBenFullname: string;
@@ -163,6 +164,7 @@ export class InnerpageComponent implements OnInit {
 
   ngOnInit() {
     this.assignSelectedLanguage();
+    this.getCommonData.isCallDisconnected = false;
     this.current_service = this.getCommonData.current_service.serviceName;
     this.current_role = this.getCommonData.current_role.RoleName;
     const obj = { innerPage: true };
@@ -653,6 +655,7 @@ export class InnerpageComponent implements OnInit {
         });
         if (
           validObj &&
+          validObj.length > 0 &&
           validObj[0].callTypes !== undefined &&
           validObj[0].callTypes !== null
         ) {
@@ -660,7 +663,9 @@ export class InnerpageComponent implements OnInit {
             console.log("Valid call types " + previousData.callTypeDesc);
             return previousData.callTypeDesc.toLowerCase().startsWith("valid");
           });
-          if (validObj && validObj[0].callTypeID) {
+          console.log("VAlid Obj", validObj);
+
+          if (validObj && validObj.length > 0 && validObj[0].callTypeID) {
             this.disconectCallId = validObj[0].callTypeID;
           }
         } else {
@@ -707,16 +712,16 @@ export class InnerpageComponent implements OnInit {
 
   handleEvent(eventData) {
     console.log("received event " + eventData);
-    const sessionVar = /^\d{10}\.\d{10}$/;
-    if (eventData[0].trim().toLowerCase() === "accept") {
-      this.ticks = 0;
-      this.unsubscribeWrapupTime();
-    } else if (
-      eventData[0] === "CustDisconnect" &&
-      !this.transferInProgress &&
-      (sessionVar.test(eventData[1]) || eventData[1] === "")
+    const sessionVar = /^\d+\.\d+$/;
+    if (
+      (eventData[0] === "CustDisconnect" || eventData[0] === "Disconnect") &&
+      !this.transferInProgress
     ) {
-      this.custdisconnectCallID = eventData[1];
+      // session ID is at [2] (same layout as INBOUND: type|phone|sessionId|...)
+      // fall back to [1] for older CTI format where sessionId was at [1]
+      this.custdisconnectCallID = sessionVar.test(eventData[2])
+        ? eventData[2]
+        : sessionVar.test(eventData[1]) ? eventData[1] : "";
       this.getAgentStatus();
       console.log("this.isEverwell ", this.isEverwell);
 
@@ -734,7 +739,7 @@ export class InnerpageComponent implements OnInit {
       this.wrapupTimerSubscription.unsubscribe();
     }
   }
-  closeCall(remarks, message?: any, wrapupCallID?: any) {
+  closeCall(remarks, message?: any, wrapupCallID?: any, skipSessionCheck = false) {
     if (
       this.isEverwell != undefined &&
       this.isEverwell === "yes" &&
@@ -848,7 +853,9 @@ export class InnerpageComponent implements OnInit {
       requestObj["agentID"] = this.getCommonData.cZentrixAgentID;
       requestObj["endCall"] = true;
     }
-    if (this.sessionstorage.getItem("session_id") === this.custdisconnectCallID) {
+    const storedSessionId = this.sessionstorage.getItem("session_id");
+    const effectiveCallID = this.custdisconnectCallID || storedSessionId;
+    if (skipSessionCheck || !storedSessionId || storedSessionId === effectiveCallID) {
       this._callServices.closeCall(requestObj).subscribe(
         (response) => {
           if (response) {
@@ -856,7 +863,9 @@ export class InnerpageComponent implements OnInit {
             this.sessionstorage.removeItem("isOnCall");
             this.sessionstorage.removeItem("isEverwellCall");
             this.sessionstorage.removeItem("isGrievanceCall");
-            this.basicrouter.navigate(["/MultiRoleScreenComponent/dashboard"]);
+            this.sessionstorage.removeItem("session_id");
+            this.sessionstorage.removeItem("CLI");
+            this.basicrouter.navigate(["/MultiRoleScreenComponent/RedirectToDashboardComponent"]);
             this._common.outboundGrievanceData = null;
             this._common.everwellCallNotConnected = null;
           }
@@ -901,6 +910,7 @@ export class InnerpageComponent implements OnInit {
     this.wrapupTime = true;
     this._callServices.getRoleBasedWrapuptime(this.current_roleID).subscribe(
       (roleWrapupTime) => {
+        if (this.componentDestroyed) return;
         if (
           roleWrapupTime.data != undefined &&
           roleWrapupTime.data.isWrapUpTime != undefined &&
@@ -915,6 +925,7 @@ export class InnerpageComponent implements OnInit {
         }
       },
       (err) => {
+        if (this.componentDestroyed) return;
         const time = this._config.defaultWrapupTime;
         this.roleBasedCallWrapupTime(time);
         console.log("Need to configure wrap up time", err.errorMessage);
@@ -923,23 +934,29 @@ export class InnerpageComponent implements OnInit {
   }
   roleBasedCallWrapupTime(timeRemaining) {
     console.log("roleBasedCallWrapupTime", timeRemaining);
+    const duration = Number(timeRemaining);
+    if (isNaN(duration) || duration <= 0) {
+      console.log("Invalid wrapup duration", timeRemaining);
+      return;
+    }
     const timer = Observable.timer(2000, 1000);
     this.wrapupTimerSubscription = timer.subscribe((t) => {
-      this.ticks = timeRemaining - t;
+      this.ticks = duration - t;
       console.log("timer t", t);
       console.log("ticks", this.ticks);
-      if (t === timeRemaining) {
+      if (t >= duration) {
         this.wrapupTimerSubscription.unsubscribe();
         t = 0;
         this.ticks = 0;
         console.log("after re initialize the timer", t);
         const remarks = "Call disconnect from customer.";
         console.log("this.callStatus", this.callStatus);
-        if (this.callStatus.toLowerCase().trim() === "closure"){
+        if (this.wrapupTime) {
           this.closeCall(
             remarks,
             this.currentLanguageSet.callClosedSuccessfully,
-            this.wrapupCallID
+            this.wrapupCallID,
+            true
           );
         }
       }
@@ -948,14 +965,6 @@ export class InnerpageComponent implements OnInit {
   disconnectCall() {
     // this.remarksMessage.alert('Call Disconnected From Caller. Please Proceed To Call Closure.');
     this.getCommonData.isCallDisconnected = true;
-    jQuery("#myCarousel").carousel(3);
-    jQuery("#four").parent().find("a").removeClass("active-tab");
-    jQuery("#four").find("a").addClass("active-tab");
-    // jQuery("#btnClosure").attr("disabled", "disabled");
-    // jQuery("#btnCancel").attr("disabled", "disabled");
-    // jQuery("#next").hide();
-    jQuery("#previous").show();
-
     this.getCommonData.enablePreviousOnCustDisconnect(true);
   }
   getAgentStatus() {
@@ -1007,6 +1016,7 @@ export class InnerpageComponent implements OnInit {
     );
   }
   ngOnDestroy() {
+    this.componentDestroyed = true;
     this.listenCallEvent();
 
     if (this.wrapupTimerSubscription)

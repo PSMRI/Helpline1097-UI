@@ -249,6 +249,7 @@ import { CaptchaService } from './services/captcha-service/captcha.service';
 import { CaptchaComponent } from './captcha/captcha.component';
 import { FeedbackPublicPageComponent } from './platform-feedback/pages/feedback-public-page/feedback-public-page-component';
 import { FeedbackModule } from './platform-feedback/feedback.module';
+import { RedirectToDashboardComponent } from './redirect-to-dashboard/redirect-to-dashboard.component';
 // import { SetLanguageComponent } from './set-language.component';
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
@@ -315,7 +316,8 @@ import { FeedbackModule } from './platform-feedback/feedback.module';
     GrievanceResolutionDetailsComponent,
     ComplaintDescriptionDialogComponent,
     GrievanceTransactionDetailsComponent,
-    CaptchaComponent
+    CaptchaComponent,
+    RedirectToDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -368,6 +370,10 @@ import { FeedbackModule } from './platform-feedback/feedback.module';
           {
             path: 'superAdmin',
             component: SuperAdminComponent
+          },
+          {
+            path: 'RedirectToDashboardComponent',
+            component: RedirectToDashboardComponent,
           },
           {
             path: 'RedirectToInnerpageComponent',

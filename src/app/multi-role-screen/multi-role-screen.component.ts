@@ -21,7 +21,7 @@
 */
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
 // import { Cookie } from 'ng2-cookies/ng2-cookies';
@@ -47,7 +47,7 @@ import { sessionStorageService } from 'app/services/sessionStorageService/sessio
   templateUrl: './multi-role-screen.component.html',
   styleUrls: ['./multi-role-screen.component.css']
 })
-export class MultiRoleScreenComponent implements OnInit {
+export class MultiRoleScreenComponent implements OnInit, OnDestroy {
   data: any;
   current_service: any;
   current_role: any;
@@ -60,6 +60,7 @@ export class MultiRoleScreenComponent implements OnInit {
   checkRole = true;
   hideBar: boolean = false;
   subscription: Subscription;
+  boundCtiListener: any;
   hideHeader: boolean = true;
   label: any = {};
   showContacts: boolean = false;
@@ -137,7 +138,62 @@ export class MultiRoleScreenComponent implements OnInit {
     //   Cookie.deleteAll();
     // }
     this.fetchLanguageSet();
+    this.addCtiListener();
   }
+
+  addCtiListener() {
+    this.boundCtiListener = this.onCtiMessage.bind(this);
+    window.addEventListener("message", this.boundCtiListener, false);
+  }
+
+  onCtiMessage(event: any) {
+    if (!event.data || typeof event.data !== "string") {
+      return;
+    }
+    const parts = event.data.split("|");
+    if (parts.length < 3) {
+      return;
+    }
+    if (parts[0].trim().toLowerCase() !== "accept") {
+      return;
+    }
+
+    const sessionVar = /^\d+(\.\d+)?$/;
+    const session = sessionVar.test(parts[2]) ? parts[2] : "";
+    if (!session) return;
+
+    const cli = parts[1] || "";
+    const checkCallType = /^(INBOUND|OUTBOUND)$/i;
+    const callCategory = checkCallType.test(parts[3]) ? parts[3] : "INBOUND";
+
+    const agentOnInnerpage = this.router.url.includes("RedirectToInnerpageComponent");
+
+    if (agentOnInnerpage && this.sessionstorage.getItem("isOnCall") === "yes") {
+      // Agent is actively on a call. This Accept is the CTI echo from warm-transfer
+      // dialing — not a new incoming call. Ignore it.
+      return;
+    }
+
+    // Either on dashboard, or on innerpage during wrapup window (isOnCall already cleared).
+    // In both cases: set up the new call and navigate now.
+    this.sessionstorage.setItem("isOnCall", "yes");
+    this.sessionstorage.setItem("session_id", session);
+    this.sessionstorage.setItem("CLI", cli);
+    this.sessionstorage.setItem("callCategory", callCategory);
+    this.dataSettingService.setUniqueCallIDForInBound = true;
+    this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
+  }
+
+  ngOnDestroy() {
+    if (this.boundCtiListener) {
+      window.removeEventListener("message", this.boundCtiListener);
+      this.boundCtiListener = null;
+    }
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   // logOut() {
   //   this.router.navigate([''])
   //   // Cookie.deleteAll();

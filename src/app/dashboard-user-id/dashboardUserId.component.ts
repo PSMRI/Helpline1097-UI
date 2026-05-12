@@ -42,6 +42,7 @@ export class DashboardUserIdComponent implements OnInit {
   current_role: any;
   status: any;
   timerSubscription: Subscription;
+  statusPollSubscription: Subscription;
   assignSelectedLanguageValue: any;
   constructor(
     public dataSettingService: dataService,
@@ -64,6 +65,15 @@ export class DashboardUserIdComponent implements OnInit {
         this.getAgentStatus();
       });
     }
+    // Reliable fallback for inbound calls missed by the CTI window listener
+    // (e.g. 2nd transfer Accept fires during routing gap between innerpage and dashboard).
+    // dashboardUserId only lives while dashboard is mounted, so navigating on INCALL is always safe.
+    if (!this.callService.onlyOutbound) {
+      const statusPoll = Observable.interval(5 * 1000);
+      this.statusPollSubscription = statusPoll.subscribe(() => {
+        this.getAgentStatus(true);
+      });
+    }
   }
   ngDoCheck() {
     this.assignSelectedLanguage();
@@ -74,7 +84,7 @@ export class DashboardUserIdComponent implements OnInit {
     getLanguageJson.setLanguage();
     this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
   }
-  getAgentStatus() {
+  getAgentStatus(pollMode = false) {
     this.Czentrix.getAgentStatus().subscribe(
       (res) => {
         if (res !== undefined && res !== null && res.data.stateObj.stateName) {
@@ -148,12 +158,16 @@ export class DashboardUserIdComponent implements OnInit {
             this.status.toUpperCase() === "INCALL" ||
             this.status.toUpperCase() === "CLOSURE"
           ) {
-            if (!this.sessionstorage.getItem("session_id")) {
+            const storedSession = this.sessionstorage.getItem("session_id");
+            const serverSession = res.data.session_id;
+            if (!storedSession) {
               this.routeToInnerPage(res);
-            } else if (
-              this.sessionstorage.getItem("session_id") !== res.session_id
-            ) {
-              // If session id is different from previous session id then allow the call to drop
+            } else if (storedSession !== serverSession) {
+              // Different session — new call, navigate
+              this.routeToInnerPage(res);
+            } else if (pollMode && this.status.toUpperCase() === "INCALL") {
+              // Poll mode: session matches but we're still on dashboard — router conflict
+              // prevented innerpage from loading. Force-navigate to recover.
               this.routeToInnerPage(res);
             }
           }
@@ -191,5 +205,6 @@ export class DashboardUserIdComponent implements OnInit {
   }
   ngOnDestroy() {
     if (this.timerSubscription) this.timerSubscription.unsubscribe();
+    if (this.statusPollSubscription) this.statusPollSubscription.unsubscribe();
   }
 }

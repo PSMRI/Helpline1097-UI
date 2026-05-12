@@ -1,3 +1,11 @@
 {
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "hash": "28905e059d1f4d6fef3f0eb31157fe6a5908b31a",
+  "shortHash": "28905e0",
+  "commit": "28905e059d1f4d6fef3f0eb31157fe6a5908b31a",
+  "shortCommit": "28905e0",
+  "author": "snehar-nd",
+  "email": "sneha@navadhiti.com",
+  "date": "Mon May 11 16:19:33 2026 +0530",
+  "message": "fix: add persistent CTI listener to multi-role-screen for transfer gap\n    \n    The RedirectToDashboardComponent creates an async routing gap where\n    innerpage ngOnDestroy removes the window listener and dashboard ngOnInit\n    has not yet called addListener(). CTI Accept events for the 2nd call\n    fire during this gap and are lost — session storage confirms no\n    pending_session_id is stored when the transfer dialog shows.\n    \n    multi-role-screen is the only component that is never destroyed between\n    route changes. Adding the window listener there ensures every Accept is\n    caught regardless of which route is currently active:\n    - Agent free/transitioning: navigate directly to innerpage\n    - Agent on call (isOnCall=yes): store pending_session_id for dashboard\n      ngOnInit to pick up after the call is closed\n    \n    Also remove the || isAcceptEvent bypass in dashboard.listener() so the\n    dashboard does not issue a duplicate router.navigate when multi-role-screen\n    already set session_id for the same Accept event.\n    \n    Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
 }

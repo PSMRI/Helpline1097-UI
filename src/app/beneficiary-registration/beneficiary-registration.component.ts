@@ -894,8 +894,10 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       if (this.regHistoryList[0].firstName != undefined && this.regHistoryList[0].lastname != undefined) {
         this.relationshipWith = this.regHistoryList[0].firstName + ' ' + this.regHistoryList[0].lastName;
       }
-      this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
-      this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID);
+      if (this.regHistoryList[0].benPhoneMaps && this.regHistoryList[0].benPhoneMaps.length > 0) {
+        this.ParentBenRegID = this.regHistoryList[0].benPhoneMaps[0].parentBenRegID;
+        this.getParentData(this.regHistoryList[0].benPhoneMaps[0].parentBenRegID);
+      }
       this.peopleCalledEarlier = true;
       this.isParentBeneficiary = true;
     }

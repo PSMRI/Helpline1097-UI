@@ -61,9 +61,11 @@ export class dashboardContentClass implements OnInit {
   training_resources: boolean = true;
   widget: any = "0";
   listenCall: any;
+  boundListener: any;
   compainType: any;
   alertRefresh: number = 1;
   notificationSubscription: Subscription;
+  inOutCampaignSubscription: Subscription;
   inboundCall: boolean = false;
   outboundCall: boolean = false;
   agentID: any;
@@ -121,7 +123,7 @@ export class dashboardContentClass implements OnInit {
   ngOnInit() {
     this.assignSelectedLanguage();
 
-    this.dataSettingService.inOutCampaign.subscribe((data) => {
+    this.inOutCampaignSubscription = this.dataSettingService.inOutCampaign.subscribe((data) => {
       console.log(data);
       // this.setCampaign()
     });
@@ -136,10 +138,9 @@ export class dashboardContentClass implements OnInit {
       this.dataSettingService.cZentrixAgentID;
     console.log("url = " + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    console.log("url = " + url);
-    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.showDashboardContent = true;
     this.showDashboard();
+    this.addListener();
     this.agentID = this.dataSettingService.cZentrixAgentID;
     this.agentIDexists(this.agentID);
 
@@ -252,17 +253,6 @@ export class dashboardContentClass implements OnInit {
     this.data = this.dataSettingService.Userdata;
     this.current_service = this.dataSettingService.current_service.serviceName;
     this.current_role = this.dataSettingService.current_role.RoleName;
-    let campaign = this.sessionstorage.getItem("current_campaign");
-    // if(campaign != null && campaign != undefined && campaign !== "OUTBOUND"){
-    this.addListener();
-    this.listenCall = this.renderer.listenGlobal(
-      "window",
-      "message",
-      (event) => {
-        this.listener(event);
-        // Do something with 'event'
-      }
-    );
   }
   toggleBar() {
     // if ( this.barMinimized )
@@ -291,74 +281,92 @@ export class dashboardContentClass implements OnInit {
   }
 
   listener(event) {
-    console.log("listener invoked: " + event);
-    console.log("event received" + JSON.stringify(event));
+    console.log("[CTI] listener() called, raw data:", event.data);
     if (event.data !== undefined && event.data !== null) {
       this.eventSpiltData = event.data.split("|");
     } else {
       this.eventSpiltData = event.detail.data.split("|");
     }
+    console.log("[CTI] eventSpiltData:", this.eventSpiltData);
     if (
       this.eventSpiltData[2] !== undefined &&
       this.eventSpiltData[2] !== "undefined" &&
       this.eventSpiltData[2] !== null &&
       this.eventSpiltData[2] !== ""
     ) {
-      if (!this.sessionstorage.getItem("session_id")) {
+      const storedSession = this.sessionstorage.getItem("session_id");
+      console.log("[CTI] storedSession:", storedSession, "| eventSpiltData[2]:", this.eventSpiltData[2]);
+      if (!storedSession || storedSession !== this.eventSpiltData[2]) {
         this.handleEvent();
-      } else if (
-        this.sessionstorage.getItem("session_id") !== this.eventSpiltData[2]
-      ) {
-        // If session id is different from previous session id then allow the call to drop
-        this.handleEvent();
+      } else {
+        console.log("[CTI] Dashboard: session already handled by persistent listener, skipping");
       }
-      if (this.eventSpiltData[0].toLowerCase() === "accept") {
-        this.handleEvent();
-      }
+    } else {
+      console.log("[CTI] eventSpiltData[2] empty/undefined — handleEvent skipped");
     }
   }
 
   handleEvent() {
+    console.log("[CTI] handleEvent called, data:", this.eventSpiltData);
     if (this.eventSpiltData.length > 2) {
+      const isAcceptEvent = this.eventSpiltData[0].toLowerCase() === "accept";
+      console.log("[CTI] isAcceptEvent:", isAcceptEvent);
+      // Dashboard only navigates on Accept; ignore Disconnect/CustDisconnect
+      if (!isAcceptEvent) return;
+
       this.sessionstorage.setItem("isOnCall", "yes");
-      const mobileNumber = this.eventSpiltData[1].replace(/\D/g, "");
+      const mobileNumber = this.eventSpiltData[1]
+        ? this.eventSpiltData[1].replace(/\D/g, "")
+        : "";
       const checkNumber = /^\d+$/;
-      const sessionVar = /^\d{10}\.\d{10}$/;
+      // Allow integer session IDs (some transfer legs omit the decimal part)
+      const sessionVar = /^\d+(\.\d+)?$/;
       const checkCallType = /^(INBOUND)|(OUTBOUND)$/i;
+      const callCategory = checkCallType.test(this.eventSpiltData[3])
+        ? this.eventSpiltData[3]
+        : "INBOUND";
+
+      console.log("[CTI] mobileNumber:", mobileNumber, "checkNumber:", checkNumber.test(mobileNumber));
+      console.log("[CTI] sessionId:", this.eventSpiltData[2], "sessionVar:", sessionVar.test(this.eventSpiltData[2]));
+      console.log("[CTI] callType field:", this.eventSpiltData[3]);
 
       if (
-        checkNumber.test(mobileNumber) &&
+        (checkNumber.test(mobileNumber) || isAcceptEvent) &&
         sessionVar.test(this.eventSpiltData[2]) &&
-        checkCallType.test(this.eventSpiltData[3])
+        (checkCallType.test(this.eventSpiltData[3]) || isAcceptEvent)
       ) {
+        console.log("[CTI] navigating to RedirectToInnerpageComponent");
         this.dataSettingService.setUniqueCallIDForInBound = true;
         this.sessionstorage.setItem("CLI", this.eventSpiltData[1]);
         this.sessionstorage.setItem("session_id", this.eventSpiltData[2]);
-        this.sessionstorage.setItem("callCategory", this.eventSpiltData[3]);
+        this.sessionstorage.setItem("callCategory", callCategory);
         this.router.navigate([
           "/MultiRoleScreenComponent/RedirectToInnerpageComponent",
         ]);
       } else {
+        console.log("[CTI] validation failed — showing invalid call alert");
         this.message.alert(this.currentLanguageSet.invalidCallPleaseCheck);
       }
+    } else {
+      console.log("[CTI] eventSpiltData length <= 2, skipping");
     }
   }
 
   addListener() {
     if (window.parent.parent.addEventListener) {
       console.log("adding message listener");
-      // document.addEventListener( "message", this.listener.bind( this ), false );
-
+      if (this.boundListener) {
+        removeEventListener("message", this.boundListener);
+      }
+      this.boundListener = this.listener.bind(this);
       try {
-        addEventListener("message", this.listener.bind(this), false);
+        addEventListener("message", this.boundListener, false);
       } catch (error) {
         console.log("logging error : ", error);
       }
-
       console.log("Msg listener is added .");
     } else {
       console.log("adding onmessage listener");
-      // document.attachEvent("onmessage", this.listener);
     }
   }
 
@@ -461,7 +469,13 @@ export class dashboardContentClass implements OnInit {
   }
 
   ngOnDestroy() {
-    // this.listenCall();
+    if (this.boundListener) {
+      removeEventListener("message", this.boundListener);
+      this.boundListener = null;
+    }
+    if (this.inOutCampaignSubscription) {
+      this.inOutCampaignSubscription.unsubscribe();
+    }
     // this.notificationSubscription.unsubscribe();
   }
   // CODE FOR SIDE NAV
