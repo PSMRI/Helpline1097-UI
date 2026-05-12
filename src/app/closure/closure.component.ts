@@ -464,7 +464,6 @@ export class ClosureComponent implements OnInit {
   transferCall(values) {
     this.doTransfer = true;
     this.transferValid = true;
-    this.sessionstorage.setItem("transferInitiated", "yes");
     let obj = {
       transfer_from: this.saved_data.cZentrixAgentID,
       transfer_campaign_info: values.campaignName,

@@ -166,7 +166,6 @@ export class InnerpageComponent implements OnInit {
     this.sessionstorage.removeItem("pending_session_id");
     this.sessionstorage.removeItem("pending_CLI");
     this.sessionstorage.removeItem("pending_callCategory");
-    this.sessionstorage.removeItem("transferInitiated");
     this.assignSelectedLanguage();
     this.getCommonData.isCallDisconnected = false;
     this.current_service = this.getCommonData.current_service.serviceName;
@@ -722,24 +721,22 @@ export class InnerpageComponent implements OnInit {
       this.unsubscribeWrapupTime();
       const acceptSessionVar = /^\d+(\.\d+)?$/;
       const newSession = acceptSessionVar.test(eventData[2]) ? eventData[2] : "";
-      if (newSession) {
-        if (this.sessionstorage.getItem("transferInitiated") === "yes") {
-          // This Accept is the CTI echo fired when agent2 picks up the call
-          // that agent1 just transferred out. Agent1 is not receiving a new call.
-          // Clear the flag so any later Accept (e.g. call bounced back to agent1)
-          // is treated correctly as a genuine incoming call.
-          this.sessionstorage.removeItem("transferInitiated");
-        } else {
-          // Genuine new call arriving while agent1 is still on the innerpage
-          // (race window before navigating to dashboard). Store for dashboard pick-up.
-          this.sessionstorage.setItem("pending_session_id", newSession);
-          this.sessionstorage.setItem("pending_CLI", eventData[1] || "");
-          const checkCallType = /^(INBOUND|OUTBOUND)$/i;
-          this.sessionstorage.setItem(
-            "pending_callCategory",
-            checkCallType.test(eventData[3]) ? eventData[3] : "INBOUND"
-          );
-        }
+      // Only store pending_session_id when the agent is NOT actively on a call.
+      // While isOnCall is set, any Accept event is a CTI side-effect of the
+      // warm-transfer setup (the agent dialled the target in the CTI panel before
+      // clicking the UI Transfer button). Storing it would cause the dashboard to
+      // navigate back to the innerpage after the transfer completes.
+      // When isOnCall is no longer set the agent is in the wrapup/closing window:
+      // a new Accept at that point is a genuine incoming call that must reach the
+      // innerpage via the pending_session_id handoff.
+      if (newSession && this.sessionstorage.getItem("isOnCall") !== "yes") {
+        this.sessionstorage.setItem("pending_session_id", newSession);
+        this.sessionstorage.setItem("pending_CLI", eventData[1] || "");
+        const checkCallType = /^(INBOUND|OUTBOUND)$/i;
+        this.sessionstorage.setItem(
+          "pending_callCategory",
+          checkCallType.test(eventData[3]) ? eventData[3] : "INBOUND"
+        );
       }
     } else if (
       (eventData[0] === "CustDisconnect" || eventData[0] === "Disconnect") &&
