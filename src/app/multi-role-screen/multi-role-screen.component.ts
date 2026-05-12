@@ -144,24 +144,17 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
   addCtiListener() {
     this.boundCtiListener = this.onCtiMessage.bind(this);
     window.addEventListener("message", this.boundCtiListener, false);
-    console.log("[CTI] MultiRoleScreen: persistent CTI listener added");
   }
 
   onCtiMessage(event: any) {
-    // Log every raw event so we can see what the CTI sends for the 2nd call
-    console.log("[CTI-RAW] MultiRoleScreen onCtiMessage fired, event.data:", event.data, "| origin:", event.origin, "| url:", this.router.url, "| isOnCall:", this.sessionstorage.getItem("isOnCall"), "| pending:", this.sessionstorage.getItem("pending_session_id"));
     if (!event.data || typeof event.data !== "string") {
-      console.log("[CTI-RAW] Skipping: event.data is not a string");
       return;
     }
     const parts = event.data.split("|");
-    console.log("[CTI-RAW] parts:", parts);
     if (parts.length < 3) {
-      console.log("[CTI-RAW] Skipping: less than 3 parts");
       return;
     }
     if (parts[0].trim().toLowerCase() !== "accept") {
-      console.log("[CTI-RAW] Skipping: event type is not accept:", parts[0]);
       return;
     }
 
@@ -180,13 +173,11 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
     if (this.sessionstorage.getItem("isOnCall") === "yes" || agentOnInnerpage) {
       // Agent is still on the innerpage (even if isOnCall was already cleared by showAlert)
       // Store the new session so dashboard.ngOnInit can pick it up after the agent closes.
-      console.log("[CTI] MultiRoleScreen: Accept while on innerpage, storing pending session:", session);
       this.sessionstorage.setItem("pending_session_id", session);
       this.sessionstorage.setItem("pending_CLI", cli);
       this.sessionstorage.setItem("pending_callCategory", callCategory);
     } else {
       // Agent is on dashboard or transitioning — navigate directly to innerpage.
-      console.log("[CTI] MultiRoleScreen: Accept while free, navigating to innerpage:", session);
       this.sessionstorage.setItem("isOnCall", "yes");
       this.sessionstorage.setItem("session_id", session);
       this.sessionstorage.setItem("CLI", cli);

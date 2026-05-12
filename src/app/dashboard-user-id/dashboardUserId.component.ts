@@ -168,7 +168,6 @@ export class DashboardUserIdComponent implements OnInit {
             } else if (pollMode && this.status.toUpperCase() === "INCALL") {
               // Poll mode: session matches but we're still on dashboard — router conflict
               // prevented innerpage from loading. Force-navigate to recover.
-              console.log("[CTI] DashboardUserId poll: INCALL with matching session but still on dashboard, navigating to recover");
               this.routeToInnerPage(res);
             }
           } else {
