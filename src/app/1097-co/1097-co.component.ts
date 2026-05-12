@@ -306,6 +306,7 @@ export class helpline1097CoComponent implements OnInit {
     this.sessionstorage.removeItem("isGrievanceCall");
     this.sessionstorage.removeItem("session_id");
     this.sessionstorage.removeItem("CLI");
+    this.sessionstorage.removeItem("transferInitiated");
     // Navigate via redirect component to guarantee dashboard is always recreated,
     // avoiding same-URL no-op when the agent is already on the dashboard route.
     this.basicrouter.navigate(["/MultiRoleScreenComponent/RedirectToDashboardComponent"]);

@@ -166,6 +166,7 @@ export class InnerpageComponent implements OnInit {
     this.sessionstorage.removeItem("pending_session_id");
     this.sessionstorage.removeItem("pending_CLI");
     this.sessionstorage.removeItem("pending_callCategory");
+    this.sessionstorage.removeItem("transferInitiated");
     this.assignSelectedLanguage();
     this.getCommonData.isCallDisconnected = false;
     this.current_service = this.getCommonData.current_service.serviceName;
@@ -721,20 +722,24 @@ export class InnerpageComponent implements OnInit {
       this.unsubscribeWrapupTime();
       const acceptSessionVar = /^\d+(\.\d+)?$/;
       const newSession = acceptSessionVar.test(eventData[2]) ? eventData[2] : "";
-      const currentSession = this.sessionstorage.getItem("session_id");
-      // Only treat this Accept as a new incoming call when its session ID differs
-      // from the current call's session. Same session = CTI "transfer accepted" echo
-      // fired when agent2 picks up — agent1 should NOT navigate to innerpage.
-      // Different session = the call bounced back (no free agents) as a new call,
-      // so agent1 must navigate to innerpage when the dashboard next mounts.
-      if (newSession && newSession !== currentSession) {
-        this.sessionstorage.setItem("pending_session_id", newSession);
-        this.sessionstorage.setItem("pending_CLI", eventData[1] || "");
-        const checkCallType = /^(INBOUND|OUTBOUND)$/i;
-        this.sessionstorage.setItem(
-          "pending_callCategory",
-          checkCallType.test(eventData[3]) ? eventData[3] : "INBOUND"
-        );
+      if (newSession) {
+        if (this.sessionstorage.getItem("transferInitiated") === "yes") {
+          // This Accept is the CTI echo fired when agent2 picks up the call
+          // that agent1 just transferred out. Agent1 is not receiving a new call.
+          // Clear the flag so any later Accept (e.g. call bounced back to agent1)
+          // is treated correctly as a genuine incoming call.
+          this.sessionstorage.removeItem("transferInitiated");
+        } else {
+          // Genuine new call arriving while agent1 is still on the innerpage
+          // (race window before navigating to dashboard). Store for dashboard pick-up.
+          this.sessionstorage.setItem("pending_session_id", newSession);
+          this.sessionstorage.setItem("pending_CLI", eventData[1] || "");
+          const checkCallType = /^(INBOUND|OUTBOUND)$/i;
+          this.sessionstorage.setItem(
+            "pending_callCategory",
+            checkCallType.test(eventData[3]) ? eventData[3] : "INBOUND"
+          );
+        }
       }
     } else if (
       (eventData[0] === "CustDisconnect" || eventData[0] === "Disconnect") &&
