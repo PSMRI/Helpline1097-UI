@@ -299,6 +299,12 @@ export class helpline1097CoComponent implements OnInit {
   }
 
   closeCall(compain_type: any) {
+    // A new call may have arrived during the wrapup window (between showAlert clearing
+    // isOnCall and callClosed.emit firing). multi-role-screen already set isOnCall and
+    // navigated to innerpage — don't undo that work.
+    if (this.sessionstorage.getItem("isOnCall") === "yes") {
+      return;
+    }
     this.getCommonData.current_campaign = compain_type;
     this.getCommonData.isCallDisconnected = false;
     this.sessionstorage.removeItem("isOnCall");
@@ -306,7 +312,6 @@ export class helpline1097CoComponent implements OnInit {
     this.sessionstorage.removeItem("isGrievanceCall");
     this.sessionstorage.removeItem("session_id");
     this.sessionstorage.removeItem("CLI");
-    this.sessionstorage.removeItem("transferInitiated");
     // Navigate via redirect component to guarantee dashboard is always recreated,
     // avoiding same-URL no-op when the agent is already on the dashboard route.
     this.basicrouter.navigate(["/MultiRoleScreenComponent/RedirectToDashboardComponent"]);

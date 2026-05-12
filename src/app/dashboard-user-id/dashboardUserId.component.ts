@@ -170,24 +170,6 @@ export class DashboardUserIdComponent implements OnInit {
               // prevented innerpage from loading. Force-navigate to recover.
               this.routeToInnerPage(res);
             }
-          } else {
-            // Agent is FREE/WRAPUP — check if an Accept fired while on innerpage
-            // (2nd transfer: innerpage consumed the event before we returned to dashboard)
-            const pendingSession = this.sessionstorage.getItem("pending_session_id");
-            if (pendingSession) {
-              this.sessionstorage.setItem("isOnCall", "yes");
-              this.sessionstorage.setItem("session_id", pendingSession);
-              this.sessionstorage.setItem("CLI", this.sessionstorage.getItem("pending_CLI") || "");
-              this.sessionstorage.setItem(
-                "callCategory",
-                this.sessionstorage.getItem("pending_callCategory") || "INBOUND"
-              );
-              this.sessionstorage.removeItem("pending_session_id");
-              this.sessionstorage.removeItem("pending_CLI");
-              this.sessionstorage.removeItem("pending_callCategory");
-              this.dataSettingService.setUniqueCallIDForInBound = true;
-              this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
-            }
           }
           if (res.data.stateObj.stateType) {
             this.status += " (" + res.data.stateObj.stateType + ")";

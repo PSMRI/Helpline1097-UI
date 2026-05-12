@@ -163,10 +163,6 @@ export class InnerpageComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.sessionstorage.removeItem("pending_session_id");
-    this.sessionstorage.removeItem("pending_CLI");
-    this.sessionstorage.removeItem("pending_callCategory");
-    this.sessionstorage.removeItem("transferInitiated");
     this.assignSelectedLanguage();
     this.getCommonData.isCallDisconnected = false;
     this.current_service = this.getCommonData.current_service.serviceName;
@@ -717,31 +713,7 @@ export class InnerpageComponent implements OnInit {
   handleEvent(eventData) {
     console.log("received event " + eventData);
     const sessionVar = /^\d+\.\d+$/;
-    if (eventData[0].trim().toLowerCase() === "accept") {
-      this.ticks = 0;
-      this.unsubscribeWrapupTime();
-      const acceptSessionVar = /^\d+(\.\d+)?$/;
-      const newSession = acceptSessionVar.test(eventData[2]) ? eventData[2] : "";
-      if (newSession) {
-        if (this.sessionstorage.getItem("transferInitiated") === "yes") {
-          // This Accept is the CTI echo fired when agent2 picks up the call
-          // that agent1 just transferred out. Agent1 is not receiving a new call.
-          // Clear the flag so any later Accept (e.g. call bounced back to agent1)
-          // is treated correctly as a genuine incoming call.
-          this.sessionstorage.removeItem("transferInitiated");
-        } else {
-          // Genuine new call arriving while agent1 is still on the innerpage
-          // (race window before navigating to dashboard). Store for dashboard pick-up.
-          this.sessionstorage.setItem("pending_session_id", newSession);
-          this.sessionstorage.setItem("pending_CLI", eventData[1] || "");
-          const checkCallType = /^(INBOUND|OUTBOUND)$/i;
-          this.sessionstorage.setItem(
-            "pending_callCategory",
-            checkCallType.test(eventData[3]) ? eventData[3] : "INBOUND"
-          );
-        }
-      }
-    } else if (
+    if (
       (eventData[0] === "CustDisconnect" || eventData[0] === "Disconnect") &&
       !this.transferInProgress
     ) {
