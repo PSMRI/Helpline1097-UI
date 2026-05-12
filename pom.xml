@@ -100,6 +100,20 @@
             </configuration>
           </execution>
           <execution>
+            <id>rebuild-node-sass</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>rebuild</argument>
+                <argument>node-sass</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
             <id>running-ng-build</id>
             <phase>compile</phase>
             <goals>
