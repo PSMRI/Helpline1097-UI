@@ -73,24 +73,23 @@ export class CoInformationServicesComponent implements OnInit {
     private _coCategoryService: CoCategoryService,
     private saved_data: dataService,
     private _coService: CoReferralService,
-    private pass_data: CommunicationService, 
-    public alertService: ConfirmationDialogsService, 
+    private pass_data: CommunicationService,
+    public alertService: ConfirmationDialogsService,
     public HttpServices: HttpServices,
   ) {
-    this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
     this.saved_data.beneficiary_regID_subject.subscribe(response => {
       this.setBenRegID(response);
     });
-    // saved_data.myBool$.subscribe((newBool: boolean) => { alert("new val in co info",newBool) });
   }
   ngOnInit() {
     this.assignSelectedLanguage();
     this.subscription = this.pass_data.getData().subscribe(message => { this.getData(message) });
-    
-    this.providerServiceMapID = this.saved_data.current_service.serviceID;
-    // Add here
-    this.GetServiceTypes();
 
+    this.providerServiceMapID = this.saved_data.current_service.serviceID;
+    this.GetServiceTypes();
+    if (this.beneficiaryID) {
+      this.GetInformationHistory();
+    }
   }
    ngDoCheck() {
     this.assignSelectedLanguage();
@@ -180,12 +179,18 @@ export class CoInformationServicesComponent implements OnInit {
   }
 
   GetSubCategoryDetails(id: any) {
-    this.enableFileDetails = true;   
-    this.showresult = true;      
+    this.enableFileDetails = true;
+    this.showresult = true;
     this.subCategoryID = id;
-
-    // Find the subcategory from the list
     this.subcategoryOBJ = this.subCategoryList.find(item => item.subCategoryID === id) || null;
+
+    this._coCategoryService.getDetails(
+      id, this.saved_data.uname, this.beneficiaryID, this.subServiceID,
+      this.symptomCategory, this.saved_data.callData.benCallID
+    ).subscribe(
+      response => this.SetSubCategoryDetails(response),
+      err => this.alertService.alert(err.errorMessage, 'error')
+    );
   }
 
  

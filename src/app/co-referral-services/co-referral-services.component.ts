@@ -115,6 +115,9 @@ export class CoReferralServicesComponent implements OnInit {
         this.message.alert(err.errorMessage, 'error');
       });
     this.GetInformationDirectory();
+    if (this.beneficiaryRegID) {
+      this.setBeneficiaryData();
+    }
   }
    ngDoCheck() {
     this.assignSelectedLanguage();
