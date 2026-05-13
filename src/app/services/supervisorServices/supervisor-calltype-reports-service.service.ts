@@ -27,8 +27,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 
 @Injectable()
 export class SupervisorCallTypeReportService {
@@ -44,22 +44,22 @@ export class SupervisorCallTypeReportService {
   }
 
   filterCallList(requestObject) {
-    return this._http.post(this.filterCallList_URL, requestObject).map(this.handleSuccess).catch(this.handleError);
+    return this._http.post(this.filterCallList_URL, requestObject).pipe(map(this.handleSuccess), catchError(this.handleError));
   }
 
   getCallTypes(requestObject) {
-    return this._http.post(this.getCallTypes_URL, requestObject).map(this.handleSuccess).catch(this.handleError);
+    return this._http.post(this.getCallTypes_URL, requestObject).pipe(map(this.handleSuccess), catchError(this.handleError));
   }
 
   handleSuccess(response: Response) {
     if (response.json().data) {
       return response.json().data;
     } else {
-      return Observable.throw(response.json());
+      return _throw(response.json());
     }
   }
 
   handleError(error: Response) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
   }
 }

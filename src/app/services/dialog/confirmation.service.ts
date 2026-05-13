@@ -21,7 +21,7 @@
 */
 
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { CommonDialogComponent } from './../../common-dialog/common-dialog.component';
 import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
 import { Injectable, ViewContainerRef, Inject } from '@angular/core';

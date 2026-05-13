@@ -23,12 +23,13 @@
 
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { ConfigService } from '../config/config.service';
 import { InterceptedHttp } from './../../http.interceptor';
 import { Observable } from 'rxjs/Observable';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
-import 'rxjs/add/operator/catch';
+
 
 
 @Injectable()
@@ -52,53 +53,53 @@ export class FeedbackService {
         private httpIterceptor: InterceptedHttp
     ) { }
     getFeedback(data: any) {
-        return this.httpIterceptor.post(this._feedbackListURL, data).map(this.handleSuccess).catch(this.handleCustomError);
+        return this.httpIterceptor.post(this._feedbackListURL, data).pipe(map(this.handleSuccess), catchError(this.handleCustomError));
         // .map(( response: Response ) => response.json() );
     }
 
     getFeedbackStatuses() {
         const data = {};
-        return this._http.post(this._getFeedbackStatus, data).map(this.handleSuccess).catch(this.handleError);
+        return this._http.post(this._getFeedbackStatus, data).pipe(map(this.handleSuccess), catchError(this.handleError));
         // .map(( response: Response ) => response.json() );
     }
 
     getEmailStatuses() {
         let data = {};
-        return this._http.post(this._getEmailStatus, data).map(this.handleSuccess).catch(this.handleError);
+        return this._http.post(this._getEmailStatus, data).pipe(map(this.handleSuccess), catchError(this.handleError));
     }
 
     requestFeedback(data: any) {
-        return this.httpIterceptor.post(this._requestFeedbackURL, data).map(this.handleSuccess).catch(this.handleCustomError);
+        return this.httpIterceptor.post(this._requestFeedbackURL, data).pipe(map(this.handleSuccess), catchError(this.handleCustomError));
 
     }
 
     updateResponce(resData: any) {
-        return this.httpIterceptor.post(this._updateResponseURL, resData).map(this.handleSuccess).catch(this.handleCustomError);
+        return this.httpIterceptor.post(this._updateResponseURL, resData).pipe(map(this.handleSuccess), catchError(this.handleCustomError));
         // .map(( response: Response ) => response.json() );
     }
 
     fetchEmails(obj: any) {
-        return this.httpIterceptor.post(this._fetchEmailIDs, obj).map(this.handleSuccess).catch(this.handleError);
+        return this.httpIterceptor.post(this._fetchEmailIDs, obj).pipe(map(this.handleSuccess), catchError(this.handleError));
         // .map(( response: Response ) => response.json() );
 
     }
 
     sendEmail(obj) {
-        return this.httpIterceptor.post(this.sendEmailurl,obj).map(this.handleSuccess).catch(this.handleSuccess);
+        return this.httpIterceptor.post(this.sendEmailurl,obj).pipe(map(this.handleSuccess), catchError(this.handleSuccess));
     }
 
     handleSuccess(response: Response) {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
 
         }
     }
     handleCustomError(error: Response | any) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     }
     handleError(error: Response) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     }
 }

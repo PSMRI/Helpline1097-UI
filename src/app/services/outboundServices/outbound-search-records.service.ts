@@ -24,8 +24,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { InterceptedHttp } from '../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 import { DatePipe } from '@angular/common';
@@ -59,7 +59,7 @@ export class OutboundSearchRecordService {
             obj['preferredLanguageName'] = language;
             obj['is1097'] = true;
         }
-        return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleError);
+        return this._httpInterceptor.post(this._outboundCalls, obj).pipe(map(this.extractData), catchError(this.handleError));
     }
     // private datePipe: DatePipe
     getEverwellUnallocatedCalls(serviceID: any, startDate?: any, endDate?: any, language?: any,agentId?: any) {
@@ -75,7 +75,7 @@ export class OutboundSearchRecordService {
             obj['filterEndDate'] = endDate;
             obj['preferredLanguageName'] = language;
         }
-        return this._httpInterceptor.post(this._outboundEverwellCalls, obj).map(this.extractData).catch(this.handleError);
+        return this._httpInterceptor.post(this._outboundEverwellCalls, obj).pipe(map(this.extractData), catchError(this.handleError));
     }
 
     getUnallocatedCallsCount(serviceID: any, startDate?: any, endDate?: any, language?: any, userID?: any) {
@@ -89,7 +89,7 @@ export class OutboundSearchRecordService {
             obj['filterEndDate'] = endDate;
             obj['preferredLanguageName'] = language;
         }
-        return this._httpInterceptor.post(this._outboundCallsCount, obj).map(this.extractData).catch(this.handleError);
+        return this._httpInterceptor.post(this._outboundCallsCount, obj).pipe(map(this.extractData), catchError(this.handleError));
     }
     getEverwellUnallocatedCallsCount(serviceID: any, startDate?: any, endDate?: any, language?: any, userID?: any) {
         const obj = {};
@@ -102,7 +102,7 @@ export class OutboundSearchRecordService {
             obj['filterEndDate'] = endDate;         
             obj['preferredLanguageName'] = language;
         }
-        return this._httpInterceptor.post(this._everwelloutboundCallsCount, obj).map(this.extractData).catch(this.handleError);
+        return this._httpInterceptor.post(this._everwelloutboundCallsCount, obj).pipe(map(this.extractData), catchError(this.handleError));
     }
 
     getUnallocatedGrievanceCallsCount(serviceID: any, startDate?: any, endDate?: any, language?: any) {
@@ -111,7 +111,7 @@ export class OutboundSearchRecordService {
         obj['filterStartDate'] = startDate;
         obj['filterEndDate'] = endDate;
         obj['preferredLanguageName'] = language;
-        return this._httpInterceptor.post(this._grievanceoutboundCallsCount, obj).map(this.extractData).catch(this.handleError);
+        return this._httpInterceptor.post(this._grievanceoutboundCallsCount, obj).pipe(map(this.extractData), catchError(this.handleError));
     }
 
     getSubRecords(data: any, key: any, val: any) {
@@ -119,8 +119,8 @@ export class OutboundSearchRecordService {
     }
 
     getOutbondCount(val: any) {
-        return this._http.post(this._outboundCalls, val)
-            .map(this.extractData).catch(this.handleError)
+        return this._http.post(this._outboundCalls, val).pipe(
+            map(this.extractData), catchError(this.handleError));
     };
 
     private extractData(res: Response) {
@@ -128,11 +128,11 @@ export class OutboundSearchRecordService {
         if (res.json().data) {
             return res.json();
         } else {
-            return Observable.throw(res.json());
+            return _throw(res.json());
         };
     };
     private handleError(err: Response) {
-        return Observable.throw(err.json());
+        return _throw(err.json());
     }
 
 }

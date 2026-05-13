@@ -34,6 +34,8 @@ import {
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
+import { tap, catchError } from 'rxjs/operators';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(public auth: AuthService) { }
@@ -43,7 +45,8 @@ export class TokenInterceptor implements HttpInterceptor {
             //     Authorization: this.auth.getToken()
             // }
         });
-        return next.handle(request).do((event: HttpEvent<any>) => {
+        return next.handle(request).pipe(
+            tap((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
                 console.log(request);
                 if (event.body['data']) {
@@ -60,11 +63,12 @@ export class TokenInterceptor implements HttpInterceptor {
                     // or show a modal
                 }
             }
-        }).catch(response => {
+        }),
+            catchError(response => {
             if (response instanceof HttpErrorResponse) {
                 console.log('Processing http error', response);
             }
-            return Observable.throw(response);
-        });
+            return _throw(response);
+        }));
     }
 }

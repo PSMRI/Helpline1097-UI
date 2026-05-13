@@ -27,8 +27,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from "../config/config.service";
 import { AuthorizationWrapper } from './../../authorization.wrapper';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 
 
 @Injectable()
@@ -44,14 +44,14 @@ export class coCategoryService {
     ) { }
     getCategories() {
         let obj = {};
-        return this._http.post(this._categoryurl, obj)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._categoryurl, obj).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getSubCategories(data: any) {
-        return this._http.post(this._subcategoryurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._subcategoryurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
 
     }
 
@@ -61,12 +61,12 @@ export class coCategoryService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
         }
     }
 
     handleError(response: Response) {
-        return Observable.throw(response.json());
+        return _throw(response.json());
     }
 };
 

@@ -25,8 +25,8 @@ import { Injectable } from '@angular/core';
 
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { ConfigService } from '../config/config.service';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 
@@ -48,47 +48,47 @@ export class LocationService {
         private _config: ConfigService
     ) { }
     getStates(countryId: number) {
-        return this._http.get(this._getStateListURL + countryId)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.get(this._getStateListURL + countryId).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getDistricts(stateId: number) {
-        return this._http.get(this._getDistrictListURL + stateId)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.get(this._getDistrictListURL + stateId).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
 
     }
     getTaluks(districtId: number) {
-        return this._http.get(this._getTalukListURL + districtId)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.get(this._getTalukListURL + districtId).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
 
     }
     getSTBs(talukId: number) {
-        return this._http.get(this._getBlockListURL + talukId)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.get(this._getBlockListURL + talukId).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getBranches(blockId: number) {
-        return this._http.get(this._getBranchListURL + blockId)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.get(this._getBranchListURL + blockId).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
 
     }
     getDirectory(serviceID) {
         let data = { 'providerServiceMapID': serviceID };
-        return this._http.post(this._getDirectoriesListURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._getDirectoriesListURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
 
     }
     getSubDirectory(directoryId: number) {
         let data = {};
         data = { 'instituteDirectoryID': directoryId };
-        return this._http.post(this._getSubDirectoriesListURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._getSubDirectoriesListURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
 
     }
     getInstituteList(object: any) {
@@ -96,9 +96,9 @@ export class LocationService {
         //     'stateID': object.stateID, 'districtID': object.districtID,
         //     'districtBranchMappingID': object.districtBranchMappingID
         // };
-        return this._http.post(this._getInstituteListURL, object)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._getInstituteListURL, object).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
 
@@ -107,12 +107,12 @@ export class LocationService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
         }
     }
 
 
     handleError(error: Response) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     }
 }

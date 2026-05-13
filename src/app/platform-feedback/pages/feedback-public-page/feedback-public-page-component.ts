@@ -21,7 +21,7 @@
  */
 import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 type SL = "1097" | "104" | "AAM" | "MMU" | "TM" | "ECD";
 
@@ -35,8 +35,8 @@ export class FeedbackPublicPageComponent {
 
   constructor(private route: ActivatedRoute) {
     // Check query param ?sl=
-    this.route.queryParamMap
-      .map((q) => (q.get("sl") as SL) || this.detectFromLocation())
+    this.route.queryParamMap.pipe(
+      map((q) => (q.get("sl") as SL) || this.detectFromLocation()))
       .subscribe((sl) => (this.serviceLine = sl));
   }
 

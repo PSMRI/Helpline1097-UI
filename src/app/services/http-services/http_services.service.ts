@@ -25,10 +25,9 @@ import { Injectable } from '@angular/core';
 
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import { InterceptedHttp } from './../../http.interceptor';
-import { BehaviorSubject } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ConfigService } from '../config/config.service';
 
 
@@ -50,20 +49,20 @@ export class HttpServices {
 
   // tslint:disable-next-line:indent
   getData(url: string) {
-    return this.interceptor.get(url)
-      .map(this.handleGetSuccess)
-      .catch(this.handleGetError);
+    return this.interceptor.get(url).pipe(
+      map(this.handleGetSuccess),
+      catchError(this.handleGetError));
   }
 	getLanguage(url:string)
 	{
-		return this.http.get(url)
-				.map(this.handleGetSuccess)
-				.catch(this.handleGetError);
+		return this.http.get(url).pipe(
+				map(this.handleGetSuccess),
+				catchError(this.handleGetError));
 	}
   	getCommitDetails(url: string) {
-		return this.http.get(url)
-			.map(this.handleGetSuccess)
-			.catch(this.handleGetError);
+		return this.http.get(url).pipe(
+			map(this.handleGetSuccess),
+			catchError(this.handleGetError));
 	}
   handleGetSuccess(response: Response) {
     if (response.json().data) {
@@ -92,23 +91,23 @@ export class HttpServices {
       errMsg = error.message ? error.message : error.toString();
     }
     console.error(errMsg);
-    return Observable.throw(errMsg);
+    return _throw(errMsg);
   }
 
   postData(url: string, data: any) {
-    return this.http.post(url, data)
-      .map(this.handleGetSuccess)
-      .catch(this.handleGetError);
+    return this.http.post(url, data).pipe(
+      map(this.handleGetSuccess),
+      catchError(this.handleGetError));
   }
 
   postDataForSecurity(url: string, data: any) {
-    return this.http.post(url, data)
-      .map(this.handleGetSuccessForSecurity)
-      .catch(this.handleGetError);
+    return this.http.post(url, data).pipe(
+      map(this.handleGetSuccessForSecurity),
+      catchError(this.handleGetError));
   }
 
   fetchLanguageSet() {
-    return this.interceptor.get(this.getLanguageListURL).map((res) => res.json().data);
+    return this.interceptor.get(this.getLanguageListURL).pipe(map((res) => res.json().data));
   }
 
   getCurrentLanguage(response) {

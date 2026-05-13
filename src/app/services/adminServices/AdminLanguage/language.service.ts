@@ -24,7 +24,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpServices } from "../../http-services/http_services.service";
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class LanguageService {
@@ -44,14 +44,14 @@ export class LanguageService {
     constructor(private _http: Http) { }
     getLanguage() {
 
-        return this._http.post(this._geturl, this.options).map(this.extractData).catch(this.handleError);
+        return this._http.post(this._geturl, this.options).pipe(map(this.extractData), catchError(this.handleError));
         //.map(( response: Response ) => response.json() );
 
     }
     saveLanguage(data: any) {
 
         //console.log(data);
-        return this._http.post(this._saveurl, data, this.options).map(this.extractData).catch(this.handleError);
+        return this._http.post(this._saveurl, data, this.options).pipe(map(this.extractData), catchError(this.handleError));
 
         // .map(( response: Response ) => response.json() );
 

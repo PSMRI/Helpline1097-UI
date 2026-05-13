@@ -24,8 +24,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { InterceptedHttp } from './../../http.interceptor';
 import { Observable } from 'rxjs/Observable';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
@@ -48,24 +48,24 @@ export class OutboundCallAllocationService {
     getRoles(providerServiceMapID: number) {
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
-        return this._http.post(this._geturl, body)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._geturl, body).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getRolesbyProviderID(providerServiceMapID: number) {
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
-        return this.httpIntercept.post(this._getRole_url, body)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this._getRole_url, body).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getAgents(providerServiceMapID: number) {
         let body = {};
         body['providerServiceMapID'] = providerServiceMapID;
 
-        return this.httpIntercept.post(this._geturl, body)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this._geturl, body).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getAgentsbyRoleID(providerServiceMapID: number, roleID?: number, languageName?: any) {
         let userArray = [];
@@ -78,9 +78,9 @@ export class OutboundCallAllocationService {
             body['languageName'] = languageName;
         }
         userArray.push(body);
-        return this._http.post(this._geturl, body)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._geturl, body).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getEverwellAgentsbyRoleID(providerServiceMapID: number, roleID?: number, languageName?: any) {
         let userArray = [];
@@ -93,35 +93,35 @@ export class OutboundCallAllocationService {
             body['languageName'] = languageName;
         }  
         userArray.push(body);
-        return this._http.post(this._geturl, body)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._geturl, body).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     allocateCallsToAgenta(data: any) {
 
-        return this.httpIntercept.post(this._allocateurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this._allocateurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
 
     }
     allocateEverwellCallsToAgenta(data: any) {
 
-        return this.httpIntercept.post(this._allocateEverwellUrl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this._allocateEverwellUrl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
 
     }
     allocateGrievanceCallsToAgents(data: any, isAllocate: any) {
 
         if(isAllocate) {
-        return this.httpIntercept.post(this.allocateGrievanceurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this.allocateGrievanceurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
         }
         else {
-            return this.httpIntercept.post(this.reallocateGrievanceurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+            return this.httpIntercept.post(this.reallocateGrievanceurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
         }
 
     }
@@ -130,13 +130,13 @@ export class OutboundCallAllocationService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
         }
     };
 
     private handleError(error: Response | any) {
 
         // In a real world app, you might use a remote logging infrastructur
-        return Observable.throw(error.json());
+        return _throw(error.json());
     };
 }

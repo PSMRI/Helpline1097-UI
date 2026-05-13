@@ -25,8 +25,8 @@ import { forwardRef, Inject, Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { InterceptedHttp } from './../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -54,9 +54,9 @@ export class loginService {
 
 
   public checkAuthorisedUser() {
-    return this._http.post(this._authorisedUser, {})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(this._authorisedUser, {}).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 
   public authenticateUser(uname: string, pwd: string, doLogout: boolean, captchaToken?: string): Observable<any> {
@@ -70,7 +70,7 @@ export class loginService {
     if (captchaToken) { body.captchaToken = captchaToken; }
 
     return this._http.post(this._userAuthURL, body)
-      .map((res: Response) => {
+      .pipe(map((res: Response) => {
         const json = res.json();
         if (json.statusCode && json.statusCode !== 200) {
           throw {
@@ -79,44 +79,44 @@ export class loginService {
           };
         }
         return json.data;
-      })
-      .catch((err: any) => {
+      }),
+      catchError((err: any) => {
         const payload = err.errorMessage
           ? err
           : (err.json ? err.json() : { errorMessage: err.toString() });
-        return Observable.throw(payload);
-      });
+        return _throw(payload);
+      }));
   }
 
 
   public userLogOutFromPreviousSession(uname: any){
-    return this._http.post(this._userLogoutPreviousSessionURL, { 'userName': uname })
-    .map(this.extractDataForSecurity)
-    .catch(this.handleError);
+    return this._http.post(this._userLogoutPreviousSessionURL, { 'userName': uname }).pipe(
+    map(this.extractDataForSecurity),
+    catchError(this.handleError));
   };
 
   getSecurityQuestions(uname: any): Observable<any> {
 
-    return this._http.post(this._forgotPasswordURL, { 'userName': uname })
-      .map(this.extractDataForSecurity)
-      .catch(this.handleError);
+    return this._http.post(this._forgotPasswordURL, { 'userName': uname }).pipe(
+      map(this.extractDataForSecurity),
+      catchError(this.handleError));
   };
 
   getUserDetailsByID(userID: any) {
-    return this._http.post(this._getDetailsByID, { 'userID': userID })
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(this._getDetailsByID, { 'userID': userID }).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
   getApiVersionDetails() {
-    return this._http.get(this.apiVersionUrl)
-      .map(res => res.json());
+    return this._http.get(this.apiVersionUrl).pipe(
+      map(res => res.json()));
   }
 
   validateSecurityQuestionAndAnswer(ans: any, uname: any): Observable<any> {
 
-		return this._http.post(this._validateQuestionAndAnswers, { 'SecurityQuesAns':ans,'userName': uname })
-			.map(this.extractDataForSecurity)
-			.catch(this.handleError);
+		return this._http.post(this._validateQuestionAndAnswers, { 'SecurityQuesAns':ans,'userName': uname }).pipe(
+			map(this.extractDataForSecurity),
+			catchError(this.handleError));
 	};
 
 
@@ -126,7 +126,7 @@ export class loginService {
     if (response.json().data) {
       return response.json().data;
     } else {
-      return Observable.throw(response.json());
+      return _throw(response.json());
     }
   };
 
@@ -134,14 +134,14 @@ export class loginService {
     if (response.json().data) {
       return response.json();
     } else {
-      return Observable.throw(response.json());
+      return _throw(response.json());
     }
   };
 
 
   private handleError(error: Response | any) {
     console.error("handleError",error)
-    return Observable.throw(error.json());
+    return _throw(error.json());
 
   };
 };

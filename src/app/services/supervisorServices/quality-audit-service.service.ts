@@ -24,8 +24,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { ConfigService } from '../config/config.service';
 import { InterceptedHttp } from './../../http.interceptor'
 import { AuthorizationWrapper } from './../../authorization.wrapper';
@@ -68,32 +68,32 @@ export class QualityAuditService {
 
     getServices(userID) {
         return this.httpIntercept.post(this.getServicesUrl,
-            { 'userID': userID })
-            .map(this.handleState_n_ServiceSuccess).catch(this.handleError);
+            { 'userID': userID }).pipe(
+            map(this.handleState_n_ServiceSuccess), catchError(this.handleError));
     }
 
     getRoles(obj) {
-        return this.httpIntercept.post(this.getRolesUrl, obj)
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this.getRolesUrl, obj).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     getServiceProviderID(providerServiceMapID) {
-        return this.httpIntercept.post(this.getServiceProviderID_url, { 'providerServiceMapID': providerServiceMapID })
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this.getServiceProviderID_url, { 'providerServiceMapID': providerServiceMapID }).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     getCallTypes(providerServiceMapID) {
         return this.httpIntercept.post(this._calltypesurl,
-            { 'providerServiceMapID': providerServiceMapID })
-            .map(this.handleSuccess).catch(this.handleError);
+            { 'providerServiceMapID': providerServiceMapID }).pipe(
+            map(this.handleSuccess), catchError(this.handleError));
     }
 
     getFilteredCallList(obj) {
-        return this.httpIntercept.post(this.filterCallListUrl, obj)
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this.filterCallListUrl, obj).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     getCallSummary(benCallID) {
@@ -101,17 +101,17 @@ export class QualityAuditService {
             {
                 'benCallID': benCallID,
                 'is1097': true
-            })
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+            }).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     getAllAgents(providerServiceMapID) {
         return this.httpIntercept
             .post(this.getAllAgents_Url,
-            { 'providerServiceMapID': providerServiceMapID })
-            .map(this.handleSuccess)
-            .catch(this.handleError)
+            { 'providerServiceMapID': providerServiceMapID }).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     
@@ -121,22 +121,22 @@ export class QualityAuditService {
             {
                 'providerServiceMapID': providerServiceMapID,
                 'RoleID': roleID
-            })
-            .map(this.handleSuccess)
-            .catch(this.handleError)
+            }).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
     getAudio(agentid,sessionID) {
         return this.httpIntercept.post(this.audioURL,
             {
                 'agentID': agentid,
                 'callID': sessionID
-            }).map(this.handleSuccess).catch(this.handleError);
+            }).pipe(map(this.handleSuccess), catchError(this.handleError));
     }
     handleSuccess(response: Response) {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
         }
     }
 
@@ -151,7 +151,7 @@ export class QualityAuditService {
     }
 
     private handleError(error: Response | any) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     };
 
 }

@@ -25,8 +25,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { InterceptedHttp } from './../../http.interceptor';
 import { AuthService } from '../authentication/auth.service';
 
@@ -54,8 +54,8 @@ export class ReportsService {
 
   getAllBySexualOrientation(data) {
     return this._http
-    .post(this.getAllBySexualOrientationURL, data, this.options)
-    .map(res => <Blob>res.blob());
+    .post(this.getAllBySexualOrientationURL, data, this.options).pipe(
+    map(res => <Blob>res.blob()));
     // return this.httpInterceptor.post(this.getAllBySexualOrientationURL, data)
     //   .map(this.extractData)
     //   .catch(this.handleError);
@@ -63,8 +63,8 @@ export class ReportsService {
 
   getAllByGender(data) {
     return this._http
-    .post(this.getAllByGenderURL, data, this.options)
-    .map(res => <Blob>res.blob());
+    .post(this.getAllByGenderURL, data, this.options).pipe(
+    map(res => <Blob>res.blob()));
     // return this.httpInterceptor.post(this.getAllByGenderURL, data)
     //   .map(this.extractData)
     //   .catch(this.handleError);
@@ -72,8 +72,8 @@ export class ReportsService {
 
   getAllByAgeGroup(data) {
     return this._http
-    .post(this.getAllByAgeGroupURL, data, this.options)
-    .map(res => <Blob>res.blob());
+    .post(this.getAllByAgeGroupURL, data, this.options).pipe(
+    map(res => <Blob>res.blob()));
 
     // return this.httpInterceptor.post(this.getAllByAgeGroupURL, data)
     //   .map(this.extractData)
@@ -82,8 +82,8 @@ export class ReportsService {
 
   getAllReportsByDate(data) {
     return this._http
-    .post(this.getAllReportsByDateURL, data, this.options)
-    .map(res => <Blob>res.blob());
+    .post(this.getAllReportsByDateURL, data, this.options).pipe(
+    map(res => <Blob>res.blob()));
 
     // return this.httpInterceptor.post(this.getAllReportsByDateURL, data)
     //   .map(this.extractData)
@@ -92,8 +92,8 @@ export class ReportsService {
 
   getCountsByPreferredLanguage(data) {
     return this._http
-    .post(this.getCountsByPreferredLanguageURL, data, this.options)
-    .map(res => <Blob>res.blob());
+    .post(this.getCountsByPreferredLanguageURL, data, this.options).pipe(
+    map(res => <Blob>res.blob()));
     // return this.httpInterceptor.post(this.getCountsByPreferredLanguageURL, data)
     //   .map(this.extractData)
     //   .catch(this.handleError);
@@ -103,16 +103,16 @@ export class ReportsService {
     if (res.json().data) {
       return res.json().data;
     } else {
-      return Observable.throw(res.json());
+      return _throw(res.json());
     }
   };
 
   private customhandleError(error: Response | any) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
 
   };
   private handleError(error: Response) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
   };
 
 }

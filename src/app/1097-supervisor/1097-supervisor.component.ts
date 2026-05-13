@@ -27,7 +27,8 @@ import { ConfigService } from '../services/config/config.service';
 import { dataService } from '../services/dataService/data.service';
 import { HttpServices } from '../services/http-services/http_services.service';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { SetLanguageComponent } from 'app/set-language.component';
 
 @Component({
@@ -63,8 +64,9 @@ export class helpline1097SupervisorComponent implements OnInit {
     this.ssoURL = this.configService.getTelephonyServerURL() + 'remote_login.php?username='
       + this.saved_data.uname + '&key=' + this.saved_data.loginKey;
 
-    this.http.get(this.ssoURL).map(this.handleGetSuccess)
-      .catch(this.handleGetError);
+    this.http.get(this.ssoURL).pipe(
+      map(this.handleGetSuccess),
+      catchError(this.handleGetError)).subscribe();
     this.ssoURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.ssoURL);
     console.log('reportsURL: ' + this.ssoURL);
   }
@@ -89,7 +91,7 @@ export class helpline1097SupervisorComponent implements OnInit {
       errMsg = error.message ? error.message : error.toString();
     }
     console.error(errMsg);
-    return Observable.throw(errMsg);
+    return _throw(errMsg);
   }
 
 

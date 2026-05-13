@@ -24,8 +24,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 @Injectable()
 export class OutboundReAllocationService {
@@ -57,88 +57,88 @@ export class OutboundReAllocationService {
         body['providerServiceMapID'] = providerServiceMapID;
         body['RoleID'] = roleID;
         // body["languageName"] = languageName;
-        return this._http.post(this._geturl, body)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._geturl, body).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getRoles(data) {
-        return this._http.post(this._getRolesURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._getRolesURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getReallocationCalls(data) {
-        return this._http.post(this._getReallocationDataURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._getReallocationDataURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getEverwellReallocationCalls(data) {
-        return this._http.post(this._getEverwellReallocationDataURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._getEverwellReallocationDataURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getGrievanceReallocationCalls(data) {
-        return this._http.post(this.getGrievanceReallocationDataURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this.getGrievanceReallocationDataURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getOutboundCallList(data) {
-        return this._http.post(this._getoutboundCallListURL, data)
-            .map(this.extractDataSuccess)
-            .catch(this.handleError);
+        return this._http.post(this._getoutboundCallListURL, data).pipe(
+            map(this.extractDataSuccess),
+            catchError(this.handleError));
     }
 
     getEverwellOutboundCallList(data) {
-        return this._http.post(this._getEverwelloutboundCallListURL, data)
-            .map(this.extractDataSuccess)
-            .catch(this.handleError);
+        return this._http.post(this._getEverwelloutboundCallListURL, data).pipe(
+            map(this.extractDataSuccess),
+            catchError(this.handleError));
     }
 
     getGrievanceOutboundCallList(data) {
-        return this._http.post(this._getGrievanceoutboundCallListURL, data)
-            .map(this.extractDataSuccess)
-            .catch(this.handleError);
+        return this._http.post(this._getGrievanceoutboundCallListURL, data).pipe(
+            map(this.extractDataSuccess),
+            catchError(this.handleError));
     }
 
     getEverwellFeedBackDetails(data) {
-        return this._http.post(this.getEverwellFeedBackDetailsURL, data)
-            .map(this.extractDataSuccess)
-            .catch(this.handleError);
+        return this._http.post(this.getEverwellFeedBackDetailsURL, data).pipe(
+            map(this.extractDataSuccess),
+            catchError(this.handleError));
     }
 
     getEverwellGuidelinesDetails(data) {
-        return this._http.post(this.getEverwellGuidelinesURL, data)
-            .map(this.extractDataSuccess)
-            .catch(this.handleError);
+        return this._http.post(this.getEverwellGuidelinesURL, data).pipe(
+            map(this.extractDataSuccess),
+            catchError(this.handleError));
     }
 
     moveToBin(data) {
-        return this._http.post(this.moveToBinURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this.moveToBinURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     everwellMoveToBin(data) {
-        return this._http.post(this.everwellMoveToBinURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this.everwellMoveToBinURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     grievanceMoveToBin(data) {
-        return this._http.post(this.grievanceMoveToBinURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this.grievanceMoveToBinURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     private extractData(response: Response) {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
         }
     }
     
@@ -149,12 +149,12 @@ export class OutboundReAllocationService {
     }
 
     private handleError(error: Response | any) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     };
 
     benDetailsOnPhnNo(data) {
-        return this._http.post(this.getbenDetailsOnPhnNoURL, data)
-        .map(this.extractDataSuccess)
-        .catch(this.handleError);
+        return this._http.post(this.getbenDetailsOnPhnNoURL, data).pipe(
+        map(this.extractDataSuccess),
+        catchError(this.handleError));
     }
 }

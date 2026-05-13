@@ -25,9 +25,7 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs/Subject";
 import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/catch";
-import "rxjs/add/operator/map";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class dataService {

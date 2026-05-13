@@ -29,13 +29,16 @@
 
 import { Injectable } from '@angular/core';
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from '@angular/http';
-import { BehaviorSubject, Observable } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
+import { empty } from 'rxjs/observable/empty';
+import { map, catchError, tap, finalize } from 'rxjs/operators';
 import { LoaderService } from './services/common/loader.service';
 import { Router } from '@angular/router';
 import { AuthService } from './services/authentication/auth.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw'
+
 import { sessionStorageService } from './services/sessionStorageService/session-storage.service';
 import { SetLanguageComponent } from "app/set-language.component";
 import { HttpServices } from "app/services/http-services/http_services.service";
@@ -73,18 +76,19 @@ export class InterceptedHttp extends Http {
         url = this.updateUrl(url);
         if (this.networkCheck()) {
             this.showLoader();
-            return super.get(url, this.getRequestOptionArgs(options, url)).catch(this.onCatch)
-                .do((res: Response) => {
+            return super.get(url, this.getRequestOptionArgs(options, url)).pipe(
+                catchError(this.onCatch),
+                tap((res: Response) => {
                     this.onSuccess(res);
                 }, (error: any) => {
                     this.onError(error);
-                })
-                .finally(() => {
+                }),
+                finalize(() => {
                     this.onEnd();
-                });
+                }));
         }
         else {
-            return Observable.empty();
+            return empty();
         }
     }
 
@@ -92,17 +96,19 @@ export class InterceptedHttp extends Http {
         url = this.updateUrl(url);
         if (this.networkCheck()) {
             this.showLoader();
-            return super.post(url, body, this.getRequestOptionArgs(options,url)).catch(this.onCatch).do((res: Response) => {
+            return super.post(url, body, this.getRequestOptionArgs(options,url)).pipe(
+                catchError(this.onCatch),
+                tap((res: Response) => {
                 this.onSuccess(res);
             }, (error: any) => {
                 this.onError(error);
-            })
-                .finally(() => {
+            }),
+                finalize(() => {
                     this.onEnd();
-                });
+                }));
         }
         else {
-            return Observable.empty();
+            return empty();
         }
     }
 
@@ -110,42 +116,45 @@ export class InterceptedHttp extends Http {
         url = this.updateUrl(url);
         if (this.networkCheck()) {
             this.showLoader();
-            return super.post(url, body, this.getRequestOptionArgs(options,url)).catch(this.onCatch).do((res: Response) => {
+            return super.post(url, body, this.getRequestOptionArgs(options,url)).pipe(
+                catchError(this.onCatch),
+                tap((res: Response) => {
                 this.onSuccess(res);
             }, (error: any) => {
                 this.onError(error);
-            })
-                .finally(() => {
-                    //    this.onEnd();
-                });
+            }));
         }
         else {
-            return Observable.empty();
+            return empty();
         }
     }
 
     put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
-        return super.put(url, body, this.getRequestOptionArgs(options,url)).catch(this.onCatch).do((res: Response) => {
+        return super.put(url, body, this.getRequestOptionArgs(options,url)).pipe(
+            catchError(this.onCatch),
+            tap((res: Response) => {
             this.onSuccess(res);
         }, (error: any) => {
             this.onError(error);
-        })
-            .finally(() => {
+        }),
+            finalize(() => {
                 this.onEnd();
-            });
+            }));
     }
 
     delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
-        return super.delete(url, this.getRequestOptionArgs(options,url)).catch(this.onCatch).do((res: Response) => {
+        return super.delete(url, this.getRequestOptionArgs(options,url)).pipe(
+            catchError(this.onCatch),
+            tap((res: Response) => {
             this.onSuccess(res);
         }, (error: any) => {
             this.onError(error);
-        })
-            .finally(() => {
+        }),
+            finalize(() => {
                 this.onEnd();
-            });
+            }));
     }
 
     // private updateUrl(req: string) {
@@ -223,7 +232,7 @@ export class InterceptedHttp extends Http {
                 }
                 this.authService.removeToken();
             }
-            return Observable.empty();
+            return empty();
         }
         else if (response.json().statusCode === 5006) {
             throw response.json();
@@ -252,7 +261,7 @@ export class InterceptedHttp extends Http {
         this.loaderService.hide();
     }
     private onCatch(error: any, caught?: Observable<Response>): Observable<Response> {
-        return Observable.throw(error);
+        return _throw(error);
     }
     private networkCheck(): boolean {
         if (!this.onlineFlag) {

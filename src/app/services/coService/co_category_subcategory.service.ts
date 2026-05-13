@@ -25,8 +25,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { InterceptedHttp } from './../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 
@@ -56,27 +56,27 @@ export class CoCategoryService {
         const data = {};
 
         data['providerServiceMapID'] = providerServiceMapID;
-        return this._http.post(this._servicetypesurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._servicetypesurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getCategories() {
         const obj = {};
-        return this._http.post(this._categoryurl, obj)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._categoryurl, obj).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getCategoriesByID(selectedService: any) {
         const data: any = { 'subServiceID': selectedService };
-        return this._http.post(this._categorybyidurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._categorybyidurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
     getSubCategories(id: any) {
         const data = { 'categoryID': id };
-        return this._http.post(this._subcategoryurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._subcategoryurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getDetails(subCategoryID: number, createdBy: string, beneficiaryRegID: number, subServiceID: number,
@@ -85,9 +85,9 @@ export class CoCategoryService {
             'beneficiaryRegID': beneficiaryRegID, 'benCallID': benCallID, 'subServiceID': subServiceID,
             'subCategoryID': subCategoryID, 'categoryID': categoryID, 'createdBy': createdBy
         }];
-        return this._httpInterceptor.post(this._savedetailsurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._httpInterceptor.post(this._savedetailsurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getCODetails(subCategoryID: number, createdBy: string, beneficiaryRegID: number, subServiceID: number,
@@ -96,9 +96,9 @@ export class CoCategoryService {
             'beneficiaryRegID': beneficiaryRegID, 'benCallID': benCallID, 'subServiceID': subServiceID,
             'coSubCategoryID': subCategoryID, 'coCategoryID': categoryID, 'createdBy': createdBy
         }];
-        return this._httpInterceptor.post(this._saveCOdetailsurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._httpInterceptor.post(this._saveCOdetailsurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
 
@@ -107,12 +107,12 @@ export class CoCategoryService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
         }
     }
 
     handleError(error: Response) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     }
 };
 

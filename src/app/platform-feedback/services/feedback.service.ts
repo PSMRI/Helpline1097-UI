@@ -22,9 +22,8 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 
 export type ServiceLine = "1097" | "104" | "AAM" | "MMU" | "TM" | "ECD";
 
@@ -54,17 +53,17 @@ export class FeedbackService {
   listCategories(serviceLine: ServiceLine): Observable<CategoryDto[]> {
     const url = this.apiBase + "/platform-feedback/categories?serviceLine=" +
       encodeURIComponent(serviceLine || "");
-    return this.http.get(url)
-      .map((res: Response) => res.json() as CategoryDto[])
-      .catch((err: any) => Observable.throw(err || "Server error"));
+    return this.http.get(url).pipe(
+      map((res: Response) => res.json() as CategoryDto[]),
+      catchError((err: any) => _throw(err || "Server error")));
   }
 
   submitFeedback(payload: SubmitFeedbackRequest): Observable<{ id: string; createdAt?: string }> {
     const url = this.apiBase + "/platform-feedback";
     const headers = new Headers({ "Content-Type": "application/json" });
     const options = new RequestOptions({ headers });
-    return this.http.post(url, JSON.stringify(payload), options)
-      .map((res: Response) => res.json())
-      .catch((err: any) => Observable.throw(err || "Server error"));
+    return this.http.post(url, JSON.stringify(payload), options).pipe(
+      map((res: Response) => res.json()),
+      catchError((err: any) => _throw(err || "Server error")));
   }
 }

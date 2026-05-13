@@ -26,7 +26,7 @@ import {
   ServiceLine,
   CategoryDto,
 } from "../../services/feedback.service";
-import 'rxjs/add/operator/finally';
+import { finalize } from 'rxjs/operators';
 import { sessionStorageService } from 'app/services/sessionStorageService/session-storage.service';
 import { HttpServices } from "app/services/http-services/http_services.service";
 import { SetLanguageComponent } from "app/set-language.component";
@@ -158,8 +158,8 @@ export class FeedbackDialogComponent implements OnInit {
 
     this.submitting = true;
     this.api
-      .submitFeedback(payload)
-      .finally(() => (this.submitting = false))
+      .submitFeedback(payload).pipe(
+      finalize(() => (this.submitting = false)))
       .subscribe({
         next: (res) => {
           this.successId = res.id || "submitted";

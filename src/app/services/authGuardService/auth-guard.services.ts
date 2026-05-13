@@ -31,7 +31,6 @@ import { Http, Response } from '@angular/http';
 import { InterceptedHttp } from './../../http.interceptor';
 import { ConfigService } from '../config/config.service';
 import { AuthService } from './../../services/authentication/auth.service';
-import 'rxjs/add/operator/toPromise'
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from '../http-services/http_services.service';
 import { sessionStorageService } from '../sessionStorageService/session-storage.service';

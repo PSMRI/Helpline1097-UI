@@ -23,7 +23,7 @@
 
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
 import { ConfigService } from '../../config/config.service';
 @Injectable()
 export class UserService
@@ -44,7 +44,7 @@ export class UserService
     getUsers ()
     {
 
-        return this._http.post( this._geturl, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._geturl, this.options ).pipe(map( this.extractData ), catchError( this.handleError ));
         // .map(( response: Response ) => response.json() );
 
     }
@@ -52,7 +52,7 @@ export class UserService
     {
 
         //console.log(data);
-        return this._http.post( this._saveurl, data, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._saveurl, data, this.options ).pipe(map( this.extractData ), catchError( this.handleError ));
 
         // .map(( response: Response ) => response.json() );
 

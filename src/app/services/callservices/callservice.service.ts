@@ -25,8 +25,9 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
+import { of } from 'rxjs/observable/of';
 import { InterceptedHttp } from './../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 
@@ -71,43 +72,43 @@ export class CallServices {
 
   getSubServiceTypes(requestObject: any) {
 
-    return this._http.post(this._servicetypesurl, requestObject)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(this._servicetypesurl, requestObject).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 
   closeCall(values: any) {
     console.log('data to be updated in service is', values);
-    return this._httpInterceptor.post(this._closecallurl, values).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._closecallurl, values).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
   disconnectCall(agentID: any) {
     // debugger;
     let disconnectObj = { 'agent_id': agentID };
-    return this._httpInterceptor.post(this._disconnectCall_url, disconnectObj).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._disconnectCall_url, disconnectObj).pipe(map(this.extractData), catchError(this.handleCustomError));
 
   }
   closeOutBoundCall(callID: any, isCompleted: boolean) {
     let outboundObj = {};
     outboundObj['outboundCallReqID'] = callID;
     outboundObj['isCompleted'] = isCompleted;
-    return this._httpInterceptor.post(this._outbouncClose_url, outboundObj).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._outbouncClose_url, outboundObj).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
 
   closeEverwellOutBoundCall(clsoutboundcalldata:any) {   
-    return this._httpInterceptor.postEverwell(this._outEverwellbouncClose_url, clsoutboundcalldata).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.postEverwell(this._outEverwellbouncClose_url, clsoutboundcalldata).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
 
   closeGrievanceOutBoundCall(outboundCallData:any) {   
-    return this._httpInterceptor.post(this.grievanceOutboundCallClosureUrl, outboundCallData).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this.grievanceOutboundCallClosureUrl, outboundCallData).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
   getCallSummary(values: any) {
     // debugger
     console.log('Call summary to be retreived for ', values)
-    return this._http.post(this._callsummaryurl, values).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._callsummaryurl, values).pipe(map(this.extractData), catchError(this.handleError));
   }
   getCallTypes(values: any) {
     console.log('call types to be retreived for ', values)
-    return this._http.post(this._calltypesurl, values).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._calltypesurl, values).pipe(map(this.extractData), catchError(this.handleError));
   }
   getOutboundCallList(serviceID: any, userID?: any) {
     const obj = {};
@@ -119,55 +120,55 @@ export class CallServices {
     }
     obj['is1097'] = true;
 
-    return this._httpInterceptor.post(this._outboundCalls, obj).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._outboundCalls, obj).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
   getBlackListCalls(objSearch: any) {
-    return this._httpInterceptor.post(this._blacklistCalls, objSearch).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._blacklistCalls, objSearch).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
 
   getLanguages() {
-    return this._http.get(this._getLanguage_url).map(this.extractData).catch(this.handleError);
+    return this._http.get(this._getLanguage_url).pipe(map(this.extractData), catchError(this.handleError));
   }
   blockPhoneNumber(phoneBlockID: any) {
-    return this._httpInterceptor.post(this._blockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._blockPhoneNo, phoneBlockID).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
   UnBlockPhoneNumber(phoneBlockID: any) {
-    return this._httpInterceptor.post(this._unblockPhoneNo, phoneBlockID).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._unblockPhoneNo, phoneBlockID).pipe(map(this.extractData), catchError(this.handleCustomError));
 
   }
 
   getRecording(obj) {
-    return this._httpInterceptor.post(this._getRecording_url, obj).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._getRecording_url, obj).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
 
   switchToInbound(agentID) {
     const agentObj = { 'agent_id': agentID };
-    return this._httpInterceptor.post(this._switchToInbound_url, agentObj).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._switchToInbound_url, agentObj).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
   switchToOutbound(agentID) {
     const agentObj = { 'agent_id': agentID };
-    return this._httpInterceptor.post(this._switchToOutbound_url, agentObj).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._switchToOutbound_url, agentObj).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
   getCampaignNames(serviceNameObj) {
-    return this._http.post(this._getCampaignNames_url, serviceNameObj).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._getCampaignNames_url, serviceNameObj).pipe(map(this.extractData), catchError(this.handleError));
   }
   getCampaignSkills(campaignName) {
-    return this._httpInterceptor.post(this._getCampaignSkills_url, campaignName).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._getCampaignSkills_url, campaignName).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
   transferCall(data) {
-    return this._httpInterceptor.post(this._transferCall_url, data).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._transferCall_url, data).pipe(map(this.extractData), catchError(this.handleCustomError));
   }
   getBeneficiaryByCallID(data) {
-    return this._http.post(this._getBeneficiaryURL, data).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._getBeneficiaryURL, data).pipe(map(this.extractData), catchError(this.handleError));
   }
   getBenOutboundList(data) {
-    return this._http.post(this._getBenOutboundListUrl, data).map(this.extractData).catch(this.handleError);
+    return this._http.post(this._getBenOutboundListUrl, data).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   saveEverwellFeedback(data)
   {
     if(this.cacheResponse) {
-      return Observable.of(this.cacheResponse);
+      return of(this.cacheResponse);
     }else if (this.cacheApiCallTrigger) 
     {
       return this.cacheApiCallTrigger;
@@ -179,7 +180,7 @@ export class CallServices {
     return this.cacheApiCallTrigger;
   }
   postEverwellFeedback(data: any) {   
-    return this._httpInterceptor.post(this._postEverwellFeedback, data).map(this.checkForForstApiCallTrigger).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._postEverwellFeedback, data).pipe(map(this.checkForForstApiCallTrigger), catchError(this.handleCustomError));
   }
   checkForForstApiCallTrigger(response: Response) {
     if (response.json().data) {
@@ -187,7 +188,7 @@ export class CallServices {
     this.cacheResponse = response.json().data;
     return this.cacheResponse;
     } else {
-      return Observable.throw(response.json());
+      return _throw(response.json());
     }
 
   }
@@ -195,26 +196,26 @@ export class CallServices {
     if (response.json().data) {
       return response.json().data;
     } else {
-      return Observable.throw(response.json());
+      return _throw(response.json());
     }
   }
 
   handleError(error: Response) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
   }
   handleCustomError(error: Response) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
   }
 
    //Shubham Shekhar,03-09-2021,Wrapu up configuration
    getRoleBasedWrapuptime(roleID) {
-    return this._httpInterceptor.get(this.getWrapupTime + roleID)
-    .map((response: Response) => response.json()).catch((error) => Observable.throw(error.json()));
+    return this._httpInterceptor.get(this.getWrapupTime + roleID).pipe(
+    map((response: Response) => response.json()), catchError((error) => _throw(error.json())));
 }
 
    checkIfAlreadyCalled(obj)
    {
-    return this._httpInterceptor.post(this._everwellCheckAlreadyCalled, obj).map(this.extractData).catch(this.handleCustomError);
+    return this._httpInterceptor.post(this._everwellCheckAlreadyCalled, obj).pipe(map(this.extractData), catchError(this.handleCustomError));
    }
   
 }

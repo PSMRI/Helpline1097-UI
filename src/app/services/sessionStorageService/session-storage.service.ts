@@ -23,8 +23,6 @@
 
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import * as CryptoJS from 'crypto-js';
 
 @Injectable()

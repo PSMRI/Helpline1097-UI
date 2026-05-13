@@ -31,8 +31,8 @@ import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import { InterceptedHttp } from './../../http.interceptor'
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 
 
 @Injectable()
@@ -48,8 +48,8 @@ export class UploadServiceService {
   }
 
   public uploadDocument(uploadObj: any) {
-    return this.httpInter.post(this.uploadDocumentUrl, JSON.stringify(uploadObj))
-      .map(this.extractData).catch(this.handleError)
+    return this.httpInter.post(this.uploadDocumentUrl, JSON.stringify(uploadObj)).pipe(
+      map(this.extractData), catchError(this.handleError));
   }
 
   private extractData(response: Response) {
@@ -63,7 +63,7 @@ export class UploadServiceService {
   };
 
   private handleError(error: Response | any) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
 
   };
 }

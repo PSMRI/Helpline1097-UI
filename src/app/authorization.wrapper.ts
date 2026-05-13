@@ -29,13 +29,15 @@
 
 import { Injectable } from '@angular/core';
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
+import { empty } from 'rxjs/observable/empty';
+import { map, catchError, tap, finalize } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/authentication/auth.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw'
+
 
 @Injectable()
 export class AuthorizationWrapper extends Http {
@@ -53,18 +55,19 @@ export class AuthorizationWrapper extends Http {
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
          url = this.updateUrl(url);
         if (this.networkCheck()) {
-            return super.get(url, this.getRequestOptionArgs(options)).catch(this.onCatch)
-                .do((res: Response) => {
+            return super.get(url, this.getRequestOptionArgs(options)).pipe(
+                catchError(this.onCatch),
+                tap((res: Response) => {
                     this.onSuccess(res);
                 }, (error: any) => {
                     this.onError(error);
-                })
-                .finally(() => {
+                }),
+                finalize(() => {
                     this.onEnd();
-                });
+                }));
         }
         else {
-            return Observable.empty();
+            return empty();
         }
     }
 
@@ -73,45 +76,48 @@ export class AuthorizationWrapper extends Http {
         if (this.networkCheck()) {
             return super.post(url, body, this.getRequestOptionArgs(
                 options
-            )).catch(
-                this.onCatch
-                ).do(
-                (res: Response) => {
+            )).pipe(
+                catchError(this.onCatch),
+                tap((res: Response) => {
                     this.onSuccess(res);
                 }, (error: any) => {
                     this.onError(error);
-                })
-                .finally(() => {
+                }),
+                finalize(() => {
                     this.onEnd();
-                });
+                }));
         }
         else {
-            return Observable.empty();
+            return empty();
         }
     }
 
     put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
          url = this.updateUrl(url);
-        return super.put(url, body, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
+        return super.put(url, body, this.getRequestOptionArgs(options)).pipe(
+            catchError(this.onCatch),
+            tap((res: Response) => {
             this.onSuccess(res);
         }, (error: any) => {
             this.onError(error);
-        })
-            .finally(() => {
+        }),
+            finalize(() => {
                 this.onEnd();
-            });
+            }));
     }
 
     delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
          url = this.updateUrl(url);
-        return super.delete(url, this.getRequestOptionArgs(options)).catch(this.onCatch).do((res: Response) => {
+        return super.delete(url, this.getRequestOptionArgs(options)).pipe(
+            catchError(this.onCatch),
+            tap((res: Response) => {
             this.onSuccess(res);
         }, (error: any) => {
             this.onError(error);
-        })
-            .finally(() => {
+        }),
+            finalize(() => {
                 this.onEnd();
-            });
+            }));
     }
 
     // private updateUrl(req: string) {
@@ -150,7 +156,7 @@ export class AuthorizationWrapper extends Http {
             // this._count = this._count + 1;
             // }
             this.authService.removeToken();
-            return Observable.empty();
+            return empty();
         } else {
             throw response;
         }
@@ -161,7 +167,7 @@ export class AuthorizationWrapper extends Http {
 
     private onCatch(error: any, caught?: Observable<Response>): Observable<Response> {
         // return Observable.throw(error);
-        return Observable.throw(error);
+        return _throw(error);
     }
     private networkCheck(): boolean {
         if (!this.onlineFlag) {

@@ -26,8 +26,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { InterceptedHttp } from './../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 import { SocketService } from '../socketService/socket.service';
@@ -65,13 +65,13 @@ export class NotificationService {
     constructor(public socketService: SocketService, private http: AuthorizationWrapper, private configService: ConfigService, private httpIntercepto: InterceptedHttp) { };
 
     getUsersByProviderID(psmID) {
-        return this.http.post(this.getUsersByProviderID_URL, { 'providerServiceMapID': psmID })
-            .map((response: Response) => response.json().data);
+        return this.http.post(this.getUsersByProviderID_URL, { 'providerServiceMapID': psmID }).pipe(
+            map((response: Response) => response.json().data));
     }
 
     getLanguages() {
-        return this.http.post(this.getLanguagesURL, {})
-            .map((response: Response) => response.json().data.m_language);
+        return this.http.post(this.getLanguagesURL, {}).pipe(
+            map((response: Response) => response.json().data.m_language));
     }
 
     getOffices(psmID) {
@@ -79,115 +79,115 @@ export class NotificationService {
         return this.httpIntercepto.post(this.getOfficesURL, {
            'providerServiceMapID': psmID
         })
-            .map((response: Response) => response.json().data);
+            .pipe(map((response: Response) => response.json().data));
     }
 
     getServiceProviderID(providerServiceMapID) {
-        return this.http.post(this.getServiceProviderID_url, { 'providerServiceMapID': providerServiceMapID })
-            .map((response: Response) => response.json().data);
+        return this.http.post(this.getServiceProviderID_url, { 'providerServiceMapID': providerServiceMapID }).pipe(
+            map((response: Response) => response.json().data));
     }
     getAllDesignations() {
-        return this.http.post(this.getDesignationsUrl, {})
-            .map((response: Response) => response.json().data);
+        return this.http.post(this.getDesignationsUrl, {}).pipe(
+            map((response: Response) => response.json().data));
     }
     getNotificationTypes(providerServiceMapID) {
         let data = { 'providerServiceMapID': providerServiceMapID };
-        return this.http.post(this.getNotificationTypesURL, data)
-            .map((response: Response) => response.json());
+        return this.http.post(this.getNotificationTypesURL, data).pipe(
+            map((response: Response) => response.json()));
     }
     getRoles(providerServiceMapID) {
         let data = { 'providerServiceMapID': providerServiceMapID };
-        return this.http.post(this.getRolesURL, data)
-            .map((response: Response) => response.json());
+        return this.http.post(this.getRolesURL, data).pipe(
+            map((response: Response) => response.json()));
     }
     createNotification(data) {
-        return this.httpIntercepto.post(this.createNotificationURL, data)
-            .map((response: Response) => response.json());
+        return this.httpIntercepto.post(this.createNotificationURL, data).pipe(
+            map((response: Response) => response.json()));
     }
     getAlerts(data) {
-        return this.http.post(this.getNotificationsURL, data)
-            .map((response: Response) => response.json());
+        return this.http.post(this.getNotificationsURL, data).pipe(
+            map((response: Response) => response.json()));
     }
     getOfficeByRole(providerServiceMapID, roleID) {
         return this.http.post(this.getOfficesFromRole_URL, {
             "providerServiceMapID": providerServiceMapID,
             "roleID": roleID
-        })
-            .map((response: Response) => response.json().data);
+        }).pipe(
+            map((response: Response) => response.json().data));
     }
     getNotifications(data) {
-        return this.http.post(this.getNotificationsURL, data)
-            .map((response: Response) => response.json());
+        return this.http.post(this.getNotificationsURL, data).pipe(
+            map((response: Response) => response.json()));
     }
     getKMs(data) {
-        return this.http.post(this.getNotificationsURL, data)
-            .map((response: Response) => response.json());
+        return this.http.post(this.getNotificationsURL, data).pipe(
+            map((response: Response) => response.json()));
     }
     getSupervisorNotifications(data) {
-        return this.httpIntercepto.post(this.getSupervisorNotificationsURL, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.getSupervisorNotificationsURL, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     updateNotification(data) {
-        return this.httpIntercepto.post(this.updateNotificationURL, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.updateNotificationURL, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     getSupervisorEmergencyContacts(data) {
-        return this.httpIntercepto.post(this.getSupervisorEmergencyContacts_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.getSupervisorEmergencyContacts_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     getCount(data){
-        return this.httpIntercepto.post(this.getCount_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.getCount_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }    
     getNotificationDetails(data){
-        return this.httpIntercepto.post(this.getNotificationDetails_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.getNotificationDetails_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     changeNotificationStatus(data){
-        return this.httpIntercepto.post(this.changeNotificationStatus_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.changeNotificationStatus_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     deleteNotification(data){
-        return this.httpIntercepto.post(this.deleteNotification_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.deleteNotification_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     createEmergencyContacts(data) {
-        return this.httpIntercepto.postEverwell(this.createEmergencyContacts_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.postEverwell(this.createEmergencyContacts_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     sendSocketNotification(data) {
-        return this.http.post(this.sendSocketNotification_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.http.post(this.sendSocketNotification_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     updateEmergencyContacts(data) {
-        return this.httpIntercepto.postEverwell(this.updateEmergencyContacts_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.postEverwell(this.updateEmergencyContacts_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     updateEmergencyContactsActivateDeactivate(data) {
-        return this.httpIntercepto.postEverwell(this.updateEmergencyContacts_url, data)
-            .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.postEverwell(this.updateEmergencyContacts_url, data).pipe(
+            map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     getEmergencyContacts(data) {
-        return this.httpIntercepto.post(this.getEmergencyContacts_Url,data)
-        .map((response : Response )=> response.json().data).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.getEmergencyContacts_Url,data).pipe(
+        map((response : Response )=> response.json().data), catchError(this.handleCustomError));
     }
     handleError(error: Response) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     }
     handleCustomError(error: Response) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     }
     saveGuidelines(data) {
-        return this.httpIntercepto.post(this.saveEverwellGuidelinesURL, data)
-        .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.saveEverwellGuidelinesURL, data).pipe(
+        map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     deleteGuidelines(data) {
-        return this.httpIntercepto.post(this.deleteEverwellGuidelinesURL, data)
-        .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.deleteEverwellGuidelinesURL, data).pipe(
+        map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
     fetchGuidelines(data) {
-        return this.httpIntercepto.post(this.fetchEverwellGuidelinesURL, data)
-        .map((response: Response) => response.json()).catch(this.handleCustomError);
+        return this.httpIntercepto.post(this.fetchEverwellGuidelinesURL, data).pipe(
+        map((response: Response) => response.json()), catchError(this.handleCustomError));
     }
 
 }

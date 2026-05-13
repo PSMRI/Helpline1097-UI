@@ -24,8 +24,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { ConfigService } from '../config/config.service';
 import { InterceptedHttp } from './../../http.interceptor'
 import { AuthorizationWrapper } from './../../authorization.wrapper';
@@ -46,13 +46,13 @@ export class ForceLogoutService {
     }
 
     forcelogout(requestObject) {
-        return this.httpIntercept.post(this.force_logout_url, requestObject)
-            .map(this.handleSuccess).catch(this.handleError);
+        return this.httpIntercept.post(this.force_logout_url, requestObject).pipe(
+            map(this.handleSuccess), catchError(this.handleError));
     }
 
     agentForceLogout(reqObj) {
-        return this.httpIntercept.post(this.agent_force_logout_url, reqObj)
-            .map(this.handleSuccess).catch(this.handleError);
+        return this.httpIntercept.post(this.agent_force_logout_url, reqObj).pipe(
+            map(this.handleSuccess), catchError(this.handleError));
     }
 
 
@@ -60,12 +60,12 @@ export class ForceLogoutService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
         }
     }
 
     private handleError(error: Response | any) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     };
 
 }

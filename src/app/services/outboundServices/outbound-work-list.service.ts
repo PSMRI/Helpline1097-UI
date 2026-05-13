@@ -25,8 +25,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ConfigService } from '../config/config.service';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 
 @Injectable()
@@ -44,30 +44,30 @@ export class OutboundWorklistService {
 
     getCallWorklist(val: any) {
 
-        return this._http.post(this._callList, val)
-            .map(this.extractData).catch(this.handleError);
+        return this._http.post(this._callList, val).pipe(
+            map(this.extractData), catchError(this.handleError));
     }
 
     saveBloodBankDetails(data) {
-        return this._http.post(this._saveBloodBankDetailsUrl, data)
-            .map(this.extractData).catch(this.handleError);
+        return this._http.post(this._saveBloodBankDetailsUrl, data).pipe(
+            map(this.extractData), catchError(this.handleError));
     }
 
     updateBloodBankDetails(data) {
-        return this._http.post(this._updateBloodBankDetailsUrl, data)
-            .map(this.extractData).catch(this.handleError);
+        return this._http.post(this._updateBloodBankDetailsUrl, data).pipe(
+            map(this.extractData), catchError(this.handleError));
     }
 
     private extractData(res: Response) {
         if (res.json().data) {
             return res.json().data;
         } else {
-            return Observable.throw(res.json());
+            return _throw(res.json());
         }
     };
 
     private handleError(error: Response | any) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     };
 
 

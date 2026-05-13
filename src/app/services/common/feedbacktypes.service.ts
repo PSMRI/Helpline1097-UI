@@ -26,8 +26,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
 import { InterceptedHttp } from './../../http.interceptor';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 
@@ -51,17 +50,17 @@ export class FeedbackTypes {
     getTypes(providerServiceMapID: number) {
         let data = {};
         data['providerServiceMapID'] = providerServiceMapID;
-        return this._http.post(this._servicetypesurl, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._servicetypesurl, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
 
     getFeedbackTypesData(serviceID: any) {
         let data = { 'providerServiceMapID': serviceID };
-        return this._http.post(this._getFeedbackTypesURL, data)
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._getFeedbackTypesURL, data).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     // getFeedbackSeverityData(serviceID: any) {
@@ -80,15 +79,15 @@ export class FeedbackTypes {
 
     getFeedbackSeverityData(providerServiceMapID) {
         // let data = {};
-        return this._http.post(this._getFeedbackSeverityURL, { 'providerServiceMapID': providerServiceMapID })
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this._getFeedbackSeverityURL, { 'providerServiceMapID': providerServiceMapID }).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     getFeedbackTypeID(providerServiceMapID) {
-        return this._http.post(this.getFeedbackIDTypes_url, { 'providerServiceMapID': providerServiceMapID })
-            .map(this.extractData)
-            .catch(this.handleError);
+        return this._http.post(this.getFeedbackIDTypes_url, { 'providerServiceMapID': providerServiceMapID }).pipe(
+            map(this.extractData),
+            catchError(this.handleError));
     }
 
     extractData(response: Response) {

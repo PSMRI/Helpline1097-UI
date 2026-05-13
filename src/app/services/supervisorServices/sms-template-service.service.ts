@@ -24,8 +24,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { ConfigService } from '../config/config.service';
 import { InterceptedHttp } from './../../http.interceptor';
 import { dataService } from '../dataService/data.service';
@@ -69,9 +69,9 @@ export class SmsTemplateService {
             {
                 'providerServiceMapID': providerServiceMapID,
                 'smsTemplateTypeID': smsTypeID ? smsTypeID : undefined
-            })
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+            }).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     getFullSMSTemplate(providerServiceMapID, smsTemplateID) {
@@ -79,44 +79,43 @@ export class SmsTemplateService {
             {
                 'providerServiceMapID': providerServiceMapID,
                 'smsTemplateID': smsTemplateID
-            })
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+            }).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
 
     getSMStypes(serviceID) {
         return this.httpIntercept.post(this.getSMStypes_url,
-            { 'serviceID': serviceID })
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+            { 'serviceID': serviceID }).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     getSMSparameters() {
         return this.httpIntercept.post(this.getSMSparameters_url,
             { 'serviceID': this.dataService.current_serviceID?this.dataService.current_serviceID:1 } 
- 
-)
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     saveSMStemplate(obj) {
-        return this.httpIntercept.post(this.saveSMStemplate_url, obj)
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this.saveSMStemplate_url, obj).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     updateSMStemplate(obj) {
-        return this.httpIntercept.post(this.updateSMStemplate_url, obj)
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this.updateSMStemplate_url, obj).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
     sendSMS(obj) {
-        return this.httpIntercept.post(this.sendSMS_url, obj)
-            .map(this.handleSuccess)
-            .catch(this.handleError);
+        return this.httpIntercept.post(this.sendSMS_url, obj).pipe(
+            map(this.handleSuccess),
+            catchError(this.handleError));
     }
 
 
@@ -125,12 +124,12 @@ export class SmsTemplateService {
         if (response.json().data) {
             return response.json().data;
         } else {
-            return Observable.throw(response.json());
+            return _throw(response.json());
         }
     }
 
     private handleError(error: Response | any) {
-        return Observable.throw(error.json());
+        return _throw(error.json());
     };
 
 }

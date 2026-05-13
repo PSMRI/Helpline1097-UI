@@ -25,8 +25,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
 import { InterceptedHttp } from './../../http.interceptor';
 
@@ -51,51 +51,51 @@ export class RegisterService {
   generateReg(values: any) {
     values.is1097 = true;
     console.log('Beneficiary data to insert ' + values);
-    return this._http.post(this._createbeneficiaryurl, JSON.stringify(values))
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(this._createbeneficiaryurl, JSON.stringify(values)).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 
   updatebeneficiaryincall(callData: any) {
     callData.is1097 = true;
     console.log('Data for call update: ' + callData);
-    return this._http.post(this._updatebeneficiaryincall, callData)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(this._updatebeneficiaryincall, callData).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
   startCall(data) {
     data.is1097 = true;
     data.isCalledEarlier = false;
-    return this._http.post(this._startCall, data)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(this._startCall, data).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 
   getRelationships() {
-    return this._http.get(this._getrelationshipurl)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.get(this._getrelationshipurl).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 
   retrieveRegHistory(registrationNo: any) {
     const obj = { 'beneficiaryID': registrationNo, 'is1097': true };
-    return this.httpInterceptor.post(this._getuserdata, obj)
-      .map(this.extractData)
-      .catch(this.customhandleError);
+    return this.httpInterceptor.post(this._getuserdata, obj).pipe(
+      map(this.extractData),
+      catchError(this.customhandleError));
   }
   retrieveBenDetailsByRegID(registrationNo: any) {
     const obj = { 'beneficiaryRegID': registrationNo, 'is1097': true };
-    return this.httpInterceptor.post(this._getuserdata, obj)
-      .map(this.extractData)
-      .catch(this.customhandleError);
+    return this.httpInterceptor.post(this._getuserdata, obj).pipe(
+      map(this.extractData),
+      catchError(this.customhandleError));
   }
 
   retrieveRegHistoryByPhoneNo(phoneNo: any) {
 
     const data = { 'phoneNo': phoneNo, 'pageNo': 1, 'rowsPerPage': 1000, 'is1097': true };
-    return this.httpInterceptor.post(this._getuserdatabyno, data)
-      .map(this.extractData)
-      .catch(this.customhandleError);
+    return this.httpInterceptor.post(this._getuserdatabyno, data).pipe(
+      map(this.extractData),
+      catchError(this.customhandleError));
   }
 
   searchBenficiary(values: any) {
@@ -135,24 +135,24 @@ export class RegisterService {
       + '}], "is1097": true }';
     console.log(createData);
     console.log(district);
-    return this._http.post(this._searchBeneficiaryURL, createData)
-      .map(this.extractData).catch(this.handleError);
+    return this._http.post(this._searchBeneficiaryURL, createData).pipe(
+      map(this.extractData), catchError(this.handleError));
   }
 
   private extractData(res: Response) {
     if (res.json().data) {
       return res.json().data;
     } else {
-      return Observable.throw(res.json());
+      return _throw(res.json());
     }
   };
 
   private customhandleError(error: Response | any) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
 
   };
   private handleError(res: Response) {
-    return Observable.throw(res.json());
+    return _throw(res.json());
   };
 
 }

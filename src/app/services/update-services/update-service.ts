@@ -25,8 +25,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { InterceptedHttp } from './../../http.interceptor'
 @Injectable()
 export class UpdateService {
@@ -43,8 +43,8 @@ export class UpdateService {
 
   updateBeneficiaryData(values: any) {
     console.log('data to be updated in service is', values);
-    return this._httpInterceptor.post(this._updatebeneficiaryurl, JSON.stringify(values))
-      .map(this.extractData).catch(this.handleError);
+    return this._httpInterceptor.post(this._updatebeneficiaryurl, JSON.stringify(values)).pipe(
+      map(this.extractData), catchError(this.handleError));
   }
 
   private extractData(response: Response) {
@@ -56,7 +56,7 @@ export class UpdateService {
   };
 
   private handleError(error: Response | any) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
 
   };
 

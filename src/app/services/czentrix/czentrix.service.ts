@@ -24,8 +24,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 import { ConfigService } from '../config/config.service';
 import { dataService } from '../dataService/data.service';
 import { AuthorizationWrapper } from './../../authorization.wrapper';
@@ -71,8 +71,8 @@ export class CzentrixServices {
   getLoginKey(uname, password) {
     return this._http
       // tslint:disable-next-line:max-line-length
-      .get(this.address + 'apps/cust_appsHandler.php?transaction_id=CTI_LOGIN_KEY&username=' + uname + '&password=' + password + '&resFormat=3')
-      .map(this.extractData).catch(this.handleError);
+      .get(this.address + 'apps/cust_appsHandler.php?transaction_id=CTI_LOGIN_KEY&username=' + uname + '&password=' + password + '&resFormat=3').pipe(
+      map(this.extractData), catchError(this.handleError));
 
   }
   agentLogout(agentId, ipAddress) {
@@ -83,7 +83,7 @@ export class CzentrixServices {
     // let params = 'transaction_id=' + this.transaction_id + '&agent_id=' + agentId + '&ip=' + ipAddress + '&resFormat=' + this.resFormat;
     // return this.callAPI(params);
     const loginObj = { 'agent_id': agentId };
-    return this.httpInterceptor.post(this._agentLogOut, loginObj).map(this.extractData).catch(this.handleError);
+    return this.httpInterceptor.post(this._agentLogOut, loginObj).pipe(map(this.extractData), catchError(this.handleError));
 
   }
 
@@ -93,9 +93,9 @@ export class CzentrixServices {
     this.sessionstorage.removeItem("session_id");
     this.sessionstorage.removeItem("callTransferred");
     return this.httpInterceptor
-      .post(this.logoutUserUrl, {})
-      .map(this.extractData)
-      .catch(this.handleError);
+      .post(this.logoutUserUrl, {}).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 
   // getOnlineAgents(agentId, ipAddress) {
@@ -112,7 +112,7 @@ export class CzentrixServices {
     this.agent_id = this._data.cZentrixAgentID;
     let obj = { 'agent_id': this.agent_id };
 
-    return this.http.post(this._getAgentStatus_url, obj).map(this.extractData).catch(this.handleError);
+    return this.http.post(this._getAgentStatus_url, obj).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   getIVRSPathDetails() {
@@ -120,18 +120,18 @@ export class CzentrixServices {
     this.agent_id = this._data.cZentrixAgentID;
     let obj = { 'agent_id': this.agent_id };
 
-    return this.http.post(this._getIVRSPathDetails_url, obj).map(this.extractData).catch(this.handleError);
+    return this.http.post(this._getIVRSPathDetails_url, obj).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   getCallDetails() {
     this.agent_id = this._data.cZentrixAgentID;
 
     let obj = { 'agent_id': this.agent_id };
-    return this.http.post(this._getCallDetails, obj).map(this.extractData).catch(this.handleError);
+    return this.http.post(this._getCallDetails, obj).pipe(map(this.extractData), catchError(this.handleError));
   }
   manualDialaNumber(agentId, phoneNum) {
     const dialObj = { 'agent_id': this.agent_id, 'phone_num': phoneNum };
-    return this.httpInterceptor.post(this._dialBeneficiary, dialObj).map(this.extractData).catch(this.handleError);
+    return this.httpInterceptor.post(this._dialBeneficiary, dialObj).pipe(map(this.extractData), catchError(this.handleError));
 
     // this.transaction_id = 'CTI_DIAL';
     // this.agent_id = agentId;
@@ -220,7 +220,7 @@ export class CzentrixServices {
     reqObj['agent_id'] = agentId;
     // tslint:disable-next-line:max-line-length
     // const params = 'apps/cust_appsHandler.php?transaction_id=' + this.transaction_id + '&agent_id=' + this.agent_id + '&resFormat=' + this.resFormat;
-    return this.http.post(this._getAgentIPAddressURL, reqObj).map(this.extractData).catch(this.handleError);
+    return this.http.post(this._getAgentIPAddressURL, reqObj).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   // callAPI(params) {
@@ -236,9 +236,9 @@ export class CzentrixServices {
   // }
 
   setCustomerPreferredLanguage(data) {
-    return this.http.post(this.setCustomerPreferredLanguageUrl, data)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.post(this.setCustomerPreferredLanguageUrl, data).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 
   private extractData(res: Response) {
@@ -246,7 +246,7 @@ export class CzentrixServices {
   };
 
   private handleError(error: Response | any) {
-    return Observable.throw(error.json());
+    return _throw(error.json());
   };
 
 }
