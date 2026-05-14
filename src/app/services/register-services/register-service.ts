@@ -148,11 +148,29 @@ export class RegisterService {
   };
 
   private customhandleError(error: Response | any) {
-    return Observable.throw(error.json());
+    let errorObj: any;
+    try {
+      errorObj = error.json();
+      if (!errorObj.errorMessage) {
+        errorObj.errorMessage = errorObj.message || errorObj.error || error.statusText || 'Request failed';
+      }
+    } catch (e) {
+      errorObj = { errorMessage: error.statusText || 'Request failed' };
+    }
+    return Observable.throw(errorObj);
 
   };
   private handleError(res: Response) {
-    return Observable.throw(res.json());
+    let errorObj: any;
+    try {
+      errorObj = res.json();
+      if (!errorObj.errorMessage) {
+        errorObj.errorMessage = errorObj.message || errorObj.error || res.statusText || 'Request failed';
+      }
+    } catch (e) {
+      errorObj = { errorMessage: res.statusText || 'Request failed' };
+    }
+    return Observable.throw(errorObj);
   };
 
 }
