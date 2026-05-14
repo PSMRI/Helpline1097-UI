@@ -22,8 +22,8 @@
 
 
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import 'rxjs/add/operator/map';
+import {HttpClient} from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 /**
@@ -33,10 +33,10 @@ import 'rxjs/add/operator/map';
  */ 
     export class DashboardHttpServices{
         // Constructor for initialize the Http object...
-        constructor(private  http: Http){}
+        constructor(private  http: HttpClient){}
         // Function to call get API, Returns response in Json format...
         getData(url: string) {
-            return this.http.get(url).map((res:Response) => res.json());
+            return this.http.get(url);
         }
         // Function to call post API, Returns response in Json format...
         postData(){

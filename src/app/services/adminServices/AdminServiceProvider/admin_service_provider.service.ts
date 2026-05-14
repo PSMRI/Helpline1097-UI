@@ -22,33 +22,26 @@
 
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
 import { ConfigService } from '../../config/config.service';
 @Injectable()
 export class SPService
 {
     test = [];
-    headers = new Headers(
-        { 'Content-Type': 'application/json' }
-        //  ,{'Access-Control-Allow-Headers': 'X-Requested-With, content-type'}
-        //   ,{'Access-Control-Allow-Origin': 'localhost:4200'}
-        //  ,{'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS'}
-        //  ,{'Access-Control-Allow-Methods': '*'}
-    );
-    options = new RequestOptions( { headers: this.headers } );
     private _getAdminBaseURL = this.configService.getAdminBaseUrl();
     private _geturl: string = this._getAdminBaseURL + "getprovider";
     private _saveurl: string = this._getAdminBaseURL + "saveprovider";
     private _deleteurl: string = this._getAdminBaseURL + "Delete"
     private _updateurl: string = this._getAdminBaseURL + "UpdateServiceProvider"
     //private _url:string="./app/providerdata.json"
-    constructor( private _http: Http, private configService: ConfigService ) { }
+    constructor( private _http: HttpClient, private configService: ConfigService ) { }
     getProviders ()
     {
 
-        return this._http.post( this._geturl, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._geturl, {} ).pipe(map( this.extractData ), catchError( this.handleError ));
         // .map(( response: Response ) => response.json() );
 
     }
@@ -56,7 +49,7 @@ export class SPService
     {
 
         //console.log(data);
-        return this._http.post( this._saveurl, data, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._saveurl, data ).pipe(map( this.extractData ), catchError( this.handleError ));
 
         // .map(( response: Response ) => response.json() );
 
@@ -64,29 +57,29 @@ export class SPService
 
     deleteProviders ( request: any )
     {
-        return this._http.post( this._deleteurl, request, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._deleteurl, request ).pipe(map( this.extractData ), catchError( this.handleError ));
         // .map(( response: Response ) => response.json() );
     }
 
     updateProviders ( req: any )
     {
-        return this._http.post( this._deleteurl, req, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._deleteurl, req ).pipe(map( this.extractData ), catchError( this.handleError ));
         // .map(( response: Response ) => response.json() );
     }
 
-    extractData ( response: Response )
+    extractData ( response: any )
     {
-        if ( response.json().data )
+        if ( response.data )
         {
-            return response.json().data;
+            return response.data;
         } else
         {
-            return response.json();
+            return response;
         }
     }
 
-    handleError ( response: Response )
+    handleError ( error: any )
     {
-        return response.json()
+        return _throw(error);
     }
 }

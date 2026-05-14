@@ -22,30 +22,23 @@
 
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
 
 @Injectable()
 export class ServicemasterService
 {
 
     test = [];
-    headers = new Headers(
-        { 'Content-Type': 'application/json' }
-        //  ,{'Access-Control-Allow-Headers': 'X-Requested-With, content-type'}
-        //   ,{'Access-Control-Allow-Origin': 'localhost:4200'}
-        //  ,{'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS'}
-        //  ,{'Access-Control-Allow-Methods': '*'}
-    );
-    options = new RequestOptions( { headers: this.headers } );
     private _geturl: string = "http://localhost:8080/iEMR/ServiceMaster/getServiceData"
     private _saveurl: string = "http://localhost:8080/iEMR/ServiceMaster/saveService"
 
-    constructor( private _http: Http ) { }
+    constructor( private _http: HttpClient ) { }
     getServiceMaster ()
     {
 
-        return this._http.post( this._geturl, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._geturl, {} ).pipe(map( this.extractData ), catchError( this.handleError ));
         // .map(( response: Response ) => response.json() );
 
     }
@@ -53,26 +46,26 @@ export class ServicemasterService
     {
 
         //console.log(data);
-        return this._http.post( this._saveurl, data, this.options ).map( this.extractData ).catch( this.handleError );
+        return this._http.post( this._saveurl, data ).pipe(map( this.extractData ), catchError( this.handleError ));
 
         // .map(( response: Response ) => response.json() );
 
     }
 
-    extractData ( response: Response )
+    extractData ( response: any )
     {
-        if ( response.json().data )
+        if ( response.data )
         {
-            return response.json().data;
+            return response.data;
         } else
         {
-            return response.json();
+            return response;
         }
     }
 
-    handleError ( response: Response )
+    handleError ( error: any )
     {
-        return response.json()
+        return _throw(error);
     }
 
 }
