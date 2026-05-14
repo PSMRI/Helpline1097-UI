@@ -28,7 +28,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import * as config from 'assets/config.json';
-import { environment } from '../../../environments/environment';
+import { environment } from 'environments/environment';
 
 const commonIP = 'https://amritwprdev.piramalswasthya.org/';
 const IP1097 = 'https://amritwprdev.piramalswasthya.org/';
