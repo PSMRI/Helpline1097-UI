@@ -252,6 +252,8 @@ import { FeedbackModule } from './platform-feedback/feedback.module';
 // import { SetLanguageComponent } from './set-language.component';
 //for text mask
 // import { TextMaskModule } from 'angular2-text-mask';
+import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent, dashboardContentClass, loginContentClass,
@@ -417,7 +419,8 @@ import { FeedbackModule } from './platform-feedback/feedback.module';
       //   canActivate: [AuthGuard2],
       // }
     ]),
-    Md2Module],
+    Md2Module,
+    SharedModule],
   entryComponents: [
     BeneficiaryHistoryComponent,
     FeedbackStatusComponent,

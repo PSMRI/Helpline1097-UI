@@ -11,6 +11,7 @@
   "lint": "ng lint",
   "e2e": "ng e2e",
   "build-prod": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod --aot",
+  "tailwind": "tailwindcss -i ./src/tailwind.css -o ./src/assets/tailwind.build.css --watch",
   "build-ci": "(test -f src/environments/environment.ts || touch src/environments/environment.ts) && chmod +x ./scripts/*.js && ./scripts/ci-prebuild.js && node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --environment=ci && mkdir -p dist/WEB-INF && cp -R WEB-INF/* dist/WEB-INF/"
  },
  "private": true,
@@ -57,9 +58,9 @@
   "sass-loader": "6.0.5",
   "socket.io-client": "2.0.4",
   "tether": "1.4.0",
+  "uglify-js": "2.8.29",
   "xlsx": "0.13.0",
-  "zone.js": "0.8.11",
-  "uglify-js": "2.8.29"
+  "zone.js": "0.8.11"
  },
  "devDependencies": {
   "@angular/cdk": "2.0.0-beta.11",
@@ -67,6 +68,7 @@
   "@angular/compiler-cli": "4.4.4",
   "@angular/language-service": "4.4.4",
   "@angular/material": "2.0.0-beta.11",
+  "@tailwindcss/cli": "^4.3.0",
   "@types/geojson": "7946.0.8",
   "@types/jasmine": "2.6.0",
   "@types/jasminewd2": "2.0.2",
@@ -84,11 +86,12 @@
   "karma-jasmine": "1.1.1",
   "karma-jasmine-html-reporter": "0.2.2",
   "protractor": "5.1.2",
+  "tailwindcss": "^4.3.0",
   "ts-node": "3.3.0",
   "tslint": "5.7.0",
   "typescript": "2.4.0",
-  "xlsx": "0.13.0",
-  "uglify-js": "2.8.29"
+  "uglify-js": "2.8.29",
+  "xlsx": "0.13.0"
  },
  "resolutions": {
   "@types/geojson": "7946.0.8"
