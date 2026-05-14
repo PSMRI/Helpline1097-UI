@@ -200,16 +200,45 @@ export class CallServices {
   }
 
   handleError(error: Response) {
-    return Observable.throw(error.json());
+    let errorObj: any;
+    try {
+      errorObj = error.json();
+      if (!errorObj.errorMessage) {
+        errorObj.errorMessage = errorObj.message || errorObj.error || error.statusText || 'Request failed';
+      }
+    } catch (e) {
+      errorObj = { errorMessage: error.statusText || 'Request failed' };
+    }
+    return Observable.throw(errorObj);
   }
   handleCustomError(error: Response) {
-    return Observable.throw(error.json());
+    let errorObj: any;
+    try {
+      errorObj = error.json();
+      if (!errorObj.errorMessage) {
+        errorObj.errorMessage = errorObj.message || errorObj.error || error.statusText || 'Request failed';
+      }
+    } catch (e) {
+      errorObj = { errorMessage: error.statusText || 'Request failed' };
+    }
+    return Observable.throw(errorObj);
   }
 
    //Shubham Shekhar,03-09-2021,Wrapu up configuration
    getRoleBasedWrapuptime(roleID) {
     return this._httpInterceptor.get(this.getWrapupTime + roleID)
-    .map((response: Response) => response.json()).catch((error) => Observable.throw(error.json()));
+    .map((response: Response) => response.json()).catch((error) => {
+      let errorObj: any;
+      try {
+        errorObj = error.json();
+        if (!errorObj.errorMessage) {
+          errorObj.errorMessage = errorObj.message || errorObj.error || error.statusText || 'Request failed';
+        }
+      } catch (e) {
+        errorObj = { errorMessage: error.statusText || 'Request failed' };
+      }
+      return Observable.throw(errorObj);
+    });
 }
 
    checkIfAlreadyCalled(obj)

@@ -137,6 +137,15 @@ export class OutboundCallAllocationService {
     private handleError(error: Response | any) {
 
         // In a real world app, you might use a remote logging infrastructur
-        return Observable.throw(error.json());
+        let errorObj: any;
+        try {
+            errorObj = error.json();
+            if (!errorObj.errorMessage) {
+                errorObj.errorMessage = errorObj.message || errorObj.error || error.statusText || 'Request failed';
+            }
+        } catch (e) {
+            errorObj = { errorMessage: error.statusText || 'Request failed' };
+        }
+        return Observable.throw(errorObj);
     };
 }

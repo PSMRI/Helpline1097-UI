@@ -172,10 +172,28 @@ export class NotificationService {
         .map((response : Response )=> response.json().data).catch(this.handleCustomError);
     }
     handleError(error: Response) {
-        return Observable.throw(error.json());
+        let errorObj: any;
+        try {
+            errorObj = error.json();
+            if (!errorObj.errorMessage) {
+                errorObj.errorMessage = errorObj.message || errorObj.error || error.statusText || 'Request failed';
+            }
+        } catch (e) {
+            errorObj = { errorMessage: error.statusText || 'Request failed' };
+        }
+        return Observable.throw(errorObj);
     }
     handleCustomError(error: Response) {
-        return Observable.throw(error.json());
+        let errorObj: any;
+        try {
+            errorObj = error.json();
+            if (!errorObj.errorMessage) {
+                errorObj.errorMessage = errorObj.message || errorObj.error || error.statusText || 'Request failed';
+            }
+        } catch (e) {
+            errorObj = { errorMessage: error.statusText || 'Request failed' };
+        }
+        return Observable.throw(errorObj);
     }
     saveGuidelines(data) {
         return this.httpIntercepto.post(this.saveEverwellGuidelinesURL, data)
