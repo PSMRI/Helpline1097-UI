@@ -78,7 +78,7 @@ export class SexualOrientationReportComponent implements OnInit {
       .getUserBeneficaryData(this.providerServiceMapID)
       .subscribe(
         (response) => {
-          console.log(response);
+
           this.sexualOrientations = response["sexualOrientations"];
           let all = {
             sexualOrientation: "All",
@@ -89,12 +89,12 @@ export class SexualOrientationReportComponent implements OnInit {
         (error) => {
           this.alertService.alert(error.errorMessage, "error");
 
-          console.log(error);
+          console.error(error);
         }
       );
 
     this.providerServiceMapID = this.dataService.current_service.serviceID;
-    //console.log("sd,ed,msd,med", this.start_date, this.end_date, this.maxStartDate, this.maxEndDate);
+
     //this.minStartDate.setMonth(this.minStartDate.getMonth()-1);
   }
   setTodayDate() {
@@ -139,10 +139,10 @@ export class SexualOrientationReportComponent implements OnInit {
         (error) => {
           this.alertService.alert(error.errorMessage, "error");
 
-          console.log(error);
+          console.error(error);
         }
       );
-    console.log(this.sexualOrientations);
+
   }
   endDateChange() {
     const timeDiff = this.maxEndDate.getTime() - this.start_date.getTime();
@@ -275,11 +275,11 @@ export class SexualOrientationReportComponent implements OnInit {
       let finalCellName: any;
       if (count == 0) {
         finalCellName = cellPosition + "1";
-        // console.log(finalCellName);
+
       } else {
         let newcellPosition = String.fromCharCode(64 + count);
         finalCellName = newcellPosition + cellPosition + "1";
-        // console.log(finalCellName);
+
       }
       let newName = this.modifyHeader(headers, i);
       delete report_worksheet[finalCellName].w;
@@ -323,7 +323,7 @@ export class SexualOrientationReportComponent implements OnInit {
       .trim();
     modifiedHeader =
       modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
-    //console.log(modifiedHeader);
+
     return modifiedHeader.replace(/I D/g, "ID");
   }
   resetWorklist() {

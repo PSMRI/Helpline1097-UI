@@ -244,11 +244,11 @@ export class InterceptedHttp extends Http {
         return error;
     }
     private showLoader(): void {
-        console.log('show loader');
+
         this.loaderService.show();
     }
     private hideLoader(): void {
-        console.log('Loader hide')
+
         this.loaderService.hide();
     }
     private onCatch(error: any, caught?: Observable<Response>): Observable<Response> {

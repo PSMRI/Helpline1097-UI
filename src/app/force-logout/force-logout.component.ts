@@ -50,20 +50,20 @@ export class ForceLogoutComponent implements OnInit {
   }
 
   kickout(obj) {
-    console.log(obj, 'object values');
+
     obj['providerServiceMapID'] = this.commonData.current_service.serviceID;
     this.alertService.confirm('', this.currentLanguageSet.doYouReallyWantToKickout + " " + obj.userName +'?').subscribe(
       response => {
         if (response) {
           this.forceLogoutService.forcelogout(obj)
             .subscribe(res => {
-              console.log(res, 'success post force logout');
+
               if (res.response.toLowerCase() === 'success'.toLowerCase()) {
                 this.alertService.alert(this.currentLanguageSet.userLoggedOutSuccessfully, 'success');
                 this.flform.reset();
               }
             }, err => {
-              console.log(err, 'error post force logout');
+
               this.alertService.alert(err.errorMessage,'error');
             });
         }

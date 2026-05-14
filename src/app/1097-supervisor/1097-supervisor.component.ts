@@ -66,7 +66,7 @@ export class helpline1097SupervisorComponent implements OnInit {
     this.http.get(this.ssoURL).map(this.handleGetSuccess)
       .catch(this.handleGetError);
     this.ssoURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.ssoURL);
-    console.log('reportsURL: ' + this.ssoURL);
+
   }
 
   handleGetSuccess(response) {

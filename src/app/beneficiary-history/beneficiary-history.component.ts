@@ -65,7 +65,7 @@ export class BeneficiaryHistoryComponent implements OnInit, DoCheck {
       this.saved_data.current_service.providerServiceMapID;
     const currCallID = this.saved_data.callData.benCallID;
     this.currentCallID = this.saved_data.callData.benCallID; // call id of current ongoing call fetched from common data service
-    console.log("current callid", this.currentCallID);
+
     this.callService
       .getBenificiaryCallHistory(benificiaryRegID, calledServiceID)
       .subscribe(
@@ -82,7 +82,7 @@ export class BeneficiaryHistoryComponent implements OnInit, DoCheck {
       }
     }
     this.totalRecord = this.data.length;
-    console.log("Call History Data is", response);
+
   }
 
   toUTCDate(date) {

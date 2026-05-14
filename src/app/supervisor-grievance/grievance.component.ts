@@ -207,11 +207,11 @@ export class grievanceComponent implements OnInit {
     
     this.feedbackService.getFeedbackTypeID(this.serviceID)
       .subscribe((response) => {
-        console.log(response, "FeedBack Types response");
+
         this.feedbackTypes = response;
       },
         (error) => {
-          console.log(error);
+          console.error(error);
         });
 
     this._feedbackservice.getFeedbackStatuses().subscribe(resProviderData => this.feedbackStatuses = resProviderData);
@@ -258,7 +258,7 @@ export class grievanceComponent implements OnInit {
     bodyString['emailStatus'] = undefined;
     bodyString['feedbackID'] = this.feedbackID_whilesaving;
     // bodyString[ "" ] = undefined;
-    console.log('SPData' + JSON.stringify(bodyString));
+
     // bodyString.feedbackStatus = undefined;
     // bodyString.emailStatus = undefined;
 
@@ -332,7 +332,7 @@ export class grievanceComponent implements OnInit {
     this.showUser = true;
     this.showupdateFeedback = true;
     this.showupdateFeedback1 = true;
-    console.log(data);
+
   }
 
   showUser1(data1) {
@@ -342,7 +342,7 @@ export class grievanceComponent implements OnInit {
 
 
   requestFeedback(feedback) {
-    console.log(JSON.stringify(feedback, null, 4), "****edit_FEEDBACK****");
+
     this.feedbackForm.reset();
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = 'edit';
@@ -397,7 +397,7 @@ export class grievanceComponent implements OnInit {
     //   .subscribe((response) => {
     //     this.setFeedbackHistoryByID(response)
     //   }, (err) => {
-    //     console.log('Error in fetching Data of FeedBack');
+
     //   });
 
     this.feedBackRequestsResponse = feedback.consolidatedRequests;
@@ -414,13 +414,11 @@ export class grievanceComponent implements OnInit {
 
   feedbackID_whilesaving: any;
   updateResponse(feedback) {
-    console.log(feedback, "****update_FEEDBACK****");
 
     this.feedbackForm.reset();
     // this.showupdateFeedback=!this.showupdateFeedback;
     this.action = 'update';
 
-    console.log(JSON.stringify(feedback));
     this.feedbackID_whilesaving = feedback.feedbackID;
     // use request ID in place of feedbackID while displaying, but while saving/updating use feedbackID
     this.feedbackForm.controls.feedbackID.setValue(feedback.feedbackID);
@@ -475,7 +473,7 @@ export class grievanceComponent implements OnInit {
     //   .subscribe((response) => {
     //     this.setFeedbackHistoryByID(response)
     //   }, (err) => {
-    //     console.log('Error in fetching Data of FeedBack');
+
     //   });
 
     this.feedBackRequestsResponse = feedback.consolidatedRequests;
@@ -489,8 +487,8 @@ export class grievanceComponent implements OnInit {
 
 
   onSend(feedback) {
-    console.log(feedback);
-    console.log('SPData' + JSON.stringify(feedback));
+
+
     let dataforUpdate = feedback;
     dataforUpdate['serviceID'] = this.serviceID;
 
@@ -508,7 +506,6 @@ export class grievanceComponent implements OnInit {
     this.feedbackForm.controls.createdBy.setValue(feedback.createdBy)
     this.feedbackForm1.controls.createdDate.setValue(feedback.createdDate);
 
-    console.log('raj' + dataforUpdate)
     let bodyString = this.feedbackForm1.value;
     this._feedbackservice.requestFeedback(bodyString)
       .subscribe(resfeedbackData => this.showUsers(resfeedbackData))
@@ -579,8 +576,6 @@ export class grievanceComponent implements OnInit {
   }
   showResponce(data1) {
     this.feedbackresponceList = data1;
-    console.log(this.feedbackresponceList)
-    console.log('SPData' + JSON.stringify(data1));
 
 
   }
@@ -591,23 +586,23 @@ export class grievanceComponent implements OnInit {
     }
   }
   showResponse(data: any) {
-    console.log('Corresponding data is', data.target);
+
     this.isCollapsedResponse = !this.isCollapsedResponse;
     // this.renderer.setElementAttribute(this.trChild.nativeElement, 'collapse', 'isCollapsedResponse');
   }
 
   setFeedbackHistoryByID(response: any) {
-    console.log('the response for feedback history is', response);
+
     this.feedbackStatusData = response;
     if (response) {
-      console.log('Feed back data is', this.feedbackStatusData);
+
       this.feedBackRequestsResponse = this.feedbackStatusData.feedbackRequests;
-      console.log('Feed back request data', this.feedBackRequestsResponse);
+
       this.feedBackResponses = this.feedbackStatusData.feedbackResponses;
-      console.log('feed back response data', this.feedBackResponses);
+
       this.totalRecord = this.feedBackRequestsResponse.length;
     } else {
-      console.log('No data Available')
+
     }
   }
 
@@ -627,7 +622,7 @@ export class grievanceComponent implements OnInit {
 
   readThis(inputValue: any): any {
     this.file = undefined;
-    console.log('mcnmxcn', inputValue);
+
     this.fileList =inputValue.files;
     if (this.fileList.length == 0) {
       this.error1 = true;
@@ -645,11 +640,11 @@ export class grievanceComponent implements OnInit {
       {
        this.invalidFileNameFlag = false;
       var isvalid = this.checkExtension(this.file);
-      console.log(isvalid, 'VALID OR NOT');
+
       if (isvalid) {
 
         if ((this.fileList[0].size / 1000 / 1000) > this.maxFileSize) {
-          console.log("File Size" + this.fileList[0].size / 1000 / 1000);
+
           this.error2 = true;
           this.error1 = false;
           this.invalid_file_flag = false;
@@ -697,7 +692,7 @@ export class grievanceComponent implements OnInit {
   }
   checkExtension(file) {
     var count = 0;
-    console.log('FILE DETAILS', file);
+
     var array_after_split = file.name.split('.');
     if(array_after_split.length == 2) {
     var file_extension = array_after_split[array_after_split.length - 1];

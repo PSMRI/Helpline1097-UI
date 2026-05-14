@@ -148,13 +148,13 @@ export class CoInformationServicesComponent implements OnInit {
   }
 
   SetCategories(response: any) {
-    console.log('success', response);
+
     this.categoryList = response;
   }
 
   GetSubCategories(id: any) {
     this.symptomSubCategory=null;
-    // console.log('symcatid',this.symptomCategory);
+
     this._coCategoryService.getSubCategories(id)
       .subscribe(response => this.SetSubCategories(response),
       (err) => {
@@ -164,7 +164,7 @@ export class CoInformationServicesComponent implements OnInit {
   }
 
   SetSubCategories(response: any) {
-    console.log('success', response);
+
     this.subCategoryList = response;
     this.enableFileDetails=false;
     this.getDetailsFlag = false;
@@ -185,11 +185,11 @@ export class CoInformationServicesComponent implements OnInit {
       });
   }
   SetSubCategoryDetails(response: any) {
-    console.log('success', response);
+
     if (response) {
       this.GetInformationHistory();
       this.detailsList = response;
-      console.log("detailsList", this.detailsList);
+
       this.getDetailsFlag = true;
       this.enableFileDetails=true;
       this.informationServiceProvided.emit();
@@ -217,7 +217,7 @@ export class CoInformationServicesComponent implements OnInit {
         if (res) {
           this.data = res;
           this.totalRecord = res.length;
-          console.log('Information History Successfully reterive', res);
+
         }
 
 

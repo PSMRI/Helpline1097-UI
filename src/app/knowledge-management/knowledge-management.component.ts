@@ -113,7 +113,6 @@ export class KnowledgeManagementComponent implements OnInit {
       }, (err) => {
         this.message.alert(err.errorMessage);
 
-        console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
   }
@@ -126,7 +125,6 @@ export class KnowledgeManagementComponent implements OnInit {
       }, (err) => {
         this.message.alert(err.errorMessage);
 
-        console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
   }
@@ -139,7 +137,6 @@ export class KnowledgeManagementComponent implements OnInit {
       }, (err) => {
         this.message.alert(err.errorMessage);
 
-        console.log('Error in Knowledge Managemant Catyegory');
         // error catch here
       });
   }
@@ -196,7 +193,7 @@ export class KnowledgeManagementComponent implements OnInit {
     if (fileName !== undefined && fileName !== null && fileName !== "") {
       this.invalidFileNameFlag = false;
       var isvalid = this.checkExtension(this.file);
-      console.log(isvalid, "VALID OR NOT");
+
       if (isvalid) {
         if ((this.fileList[0].size / 1000 / 1000) > this.maxFileSize) {
           this.error2 = true;
@@ -242,13 +239,12 @@ export class KnowledgeManagementComponent implements OnInit {
 
   onLoadFileCallback = (event) => {
     this.fileContent = event.currentTarget.result;
-    console.log("this.fileContent", this.fileContent);
 
   }
 
   checkExtension(file) {
     var count = 0;
-    console.log("FILE DETAILS", file);
+
     var array_after_split = file.name.split(".");
     if(array_after_split.length == 2) {
     var file_extension = array_after_split[array_after_split.length - 1];
@@ -275,7 +271,7 @@ export class KnowledgeManagementComponent implements OnInit {
   // Calling service Method to call the services
   uploadFile(uploadObj: any) {
     this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
-      console.log('KM configuration ', response);
+
       this.message.alert(this.currentlanguageSet.fileUploadedSuccessfully, 'success');
       this.file = undefined;
       this.error1 = false;

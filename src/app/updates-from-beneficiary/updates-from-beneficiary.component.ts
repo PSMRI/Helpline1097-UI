@@ -86,7 +86,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
     this.assignSelectedLanguage();
     this.count = '0/300';
     this.subscription = this.pass_data.getData().subscribe(benData => { this.getBenData(benData) });
-    console.log("benRegId--", this.saved_data);
+
     this.beneficiaryRegID = this.saved_data.benRegId;
     this._userBeneficiaryData.getUserBeneficaryData(this.saved_data.current_service.serviceID)
       .subscribe(response => {
@@ -104,7 +104,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
 
   setLanguage(language) {
     this.currentlanguage = language;
-    console.log(language, 'language updates frm ben tak');
+
   }
   PopulateUpdateData() {
     if (this.saved_data.beneficiaryData && this.saved_data.beneficiaryData.beneficiaryRegID) {
@@ -229,7 +229,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
     this.saved_data.beneficiaryData.changeInBenImage = false;
 
     // alert( values );
-    // console.log("Update Data is", JSON.stringify(this.saved_data.beneficiaryData));
+
     const res = this._util.updateBeneficiaryData(this.saved_data.beneficiaryData).subscribe((response) => {
       this.showAlert();
       this.PopulateOutBoundData(response);
@@ -240,7 +240,7 @@ export class UpdatesFromBeneficiaryComponent implements OnInit, DoCheck {
 
   showAlert() {
     this.message.alert(this.currentLanguageSet.DetailsUpdatedSuccessfully, 'success');
-    console.log(this.updateForm);
+
    this.updateForm.form.markAsPristine();
     //this.form.reset();
   }

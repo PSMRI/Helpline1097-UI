@@ -79,7 +79,7 @@ export class ResetComponent {
   }
 
   handleSuccess(data: any) {
-    console.log(data);
+
 			if (data.data.SecurityQuesAns !== undefined && data.data.SecurityQuesAns !== null && data.data.SecurityQuesAns.length > 0) {
 				this.securityQuestions = data.data.SecurityQuesAns;
 
@@ -104,14 +104,13 @@ export class ResetComponent {
 
 
     splitQuestionAndQuestionID() {
-      console.log('Q n A', this.securityQuestions);
+
       for (var i = 0; i < this.securityQuestions.length; i++) {
         this.questions.push(this.securityQuestions[i].question);
         this.questionId.push(this.securityQuestions[i].questionId);
   
     }
-    console.log('questions', this.questions);
-		console.log('questionID', this.questionId);
+
 
     this.showMyQuestion();
   }
@@ -121,7 +120,7 @@ export class ResetComponent {
   counter: number = 0;
 
   showMyQuestion() {
-		console.log('this is question' + (this.counter + 1));
+
 		this.bufferQuestion = this.questions[this.counter];
 		this.bufferQuestionId = this.questionId[this.counter];
 	}
@@ -146,8 +145,7 @@ export class ResetComponent {
 
       }
     }
-    		
-    console.log('user Final Answers are:', this.userFinalAnswers);	
+
   }
 // For validating final answers, If all answers are correct need to pass transaction ID
 checking() {

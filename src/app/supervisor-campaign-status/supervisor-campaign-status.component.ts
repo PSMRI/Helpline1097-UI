@@ -44,7 +44,7 @@ export class SupervisorCampaignStatusComponent implements OnInit {
   ngOnInit() {
     this.assignSelectedLanguage();
     let url = this.configService.getTelephonyServerURL() + "adminui.php?campaignStatus";
-    console.log("url = " + url);
+
     this.campaignStatusUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 

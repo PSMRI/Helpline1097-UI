@@ -211,7 +211,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   }
   // setLanguage(language) {
   //   this.currentlanguage = language;
-  //   console.log(language, 'language feedback services mein');
+
   // }
 
   showBeneficiaryFeedbackList() {
@@ -228,7 +228,7 @@ export class CoFeedbackServicesComponent implements OnInit {
         }
       }, (err) => {
         this.alertMessage.alert('Error in fetching previous feedback, Please try again', 'error');
-        console.log('Error in fetching Data of FeedBack' + err);
+
       });
 
 
@@ -348,12 +348,12 @@ export class CoFeedbackServicesComponent implements OnInit {
 
       }, (err) => {
         this.selected_doi = undefined;
-        console.log('Error in Feedback', err);
+
         this.alertMessage.alert(err.errorMessage, 'error');
       });
   }
   // showtable(response, obj) {
-  //   console.log('after registering feedback', response);
+
   //   var object = {
   //     'feedbackID': '',
   //     'feedback': '',
@@ -407,7 +407,7 @@ export class CoFeedbackServicesComponent implements OnInit {
 
   setFeedbackHistoryByID(response: any) {
     // debugger;
-    console.log('the response for feedback history is', response);
+
     // this.feedbacksArray = response;
     this.data = response;
     this.filteredFeedbackList = response;
@@ -468,7 +468,6 @@ export class CoFeedbackServicesComponent implements OnInit {
         "is1097": true
       };
 
-      console.log(JSON.stringify(object));
       this.filteredFeedbackList = [];
       
       this._feedbackListServices.getFeedback(object).subscribe((res) => {
@@ -477,7 +476,7 @@ export class CoFeedbackServicesComponent implements OnInit {
           this.filteredFeedbackList = res;  
        }         
       }, (err) => {
-        console.log("error", err.errorMessage)
+
       });     
     }
   }

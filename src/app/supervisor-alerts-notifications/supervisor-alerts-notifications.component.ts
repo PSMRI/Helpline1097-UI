@@ -169,7 +169,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   getAllNotificationTypesSuccessHandeler(response) {
-    console.log('notification types', response);
+
     if (response.data.length === 0) {
       this.dialogService.alert(this.currentLanguageSet.noNotificationTypesFoundContactAdmin)
     }
@@ -198,7 +198,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -213,7 +213,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   getOfficeSuccessHandeler(response) {
-    console.log(response, "Offices based on role");
+
     this.notificationCreationForm.form.patchValue({ 'offices': undefined });
     if (response.length == 0) {
       this.dialogService.alert(this.currentLanguageSet.noOfficeFoundWithTheSelectedRoleFunctionalInThem)
@@ -259,7 +259,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(error, 'error');
       });
   }
@@ -310,7 +310,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
     if (allOfficeIDs !== undefined && allOfficeIDs !== null && allOfficeIDs.length > 0) {
       for (let x = 0; x < allOfficeIDs.length; x++) {
       let obj = JSON.parse(JSON.stringify(defaultObj));
-      console.log("assigning working location id: " + allOfficeIDs[x]);
+
       obj['workingLocationID'] = allOfficeIDs[x];
       requestArray.push(obj);
       obj = null;
@@ -345,11 +345,9 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       }
     }
 
-    console.log(roomArray, "RoomArray");
-
     this.notification_service.createNotification(requestArray)
       .subscribe(response => {
-        console.log(response, "NOTIFICATION/ALERT CREATED");
+
         // let currentDate = new Date();
         // this.refreshExistingTable(this.searchNotificationType, this.searchStartDate, this.searchEndDate);
         if (response.data != undefined && response.data.length > 0) {
@@ -361,10 +359,10 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
             //     "room": roomArray, type: "Alert", "message": form_values.message, "subject": form_values.subject
             //   })
             //     .subscribe((res) => {
-            //       console.log(res.data);
+
             //     },
             //     (error) => {
-            //       console.log(error);
+
             //     });
             // }
           }
@@ -376,10 +374,10 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
             //     "room": roomArray, type: "Notification", "message": form_values.message, "subject": form_values.subject
             //   })
             //     .subscribe((res) => {
-            //       console.log(res.data);
+
             //     },
             //     (error) => {
-            //       console.log(error);
+
             //     });
             // }
           }
@@ -391,7 +389,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(this.currentLanguageSet.notificationAlertCreationFailedContactBackendTeam, 'error');
       });
   }
@@ -429,7 +427,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
 
   edit(toBeEditedOBJ) {
     this.editRequestObj = toBeEditedOBJ;
-    console.log("TO BE EDITED OBJ", toBeEditedOBJ);
+
     this.searchMode = false;
     this.createMode = false;
     this.editMode = true;
@@ -462,12 +460,12 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
       dateValue.getUTCMinutes(),
       dateValue.getUTCSeconds()
     );
-   // console.log('UTC FILTER', value, dateWithNoTimezone);
+
     return dateWithNoTimezone;
   }
 
   editAlertNotification(form_values) {
-    console.log("to be edited values", form_values);
+
     let startDate: Date = new Date(form_values.startDate);
     let endDate: Date = new Date(form_values.endDate);
 
@@ -517,7 +515,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   updateSuccess(response) {
-    console.log(response.data);
+
     if (response.data) {
       this.showTable();
       this.dialogService.alert(this.editType +' '+ this.currentLanguageSet.editedSuccessfully, 'success');
@@ -527,7 +525,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
   }
 
   notificationError(error) {
-    console.log("error", error);
+
     this.dialogService.alert(this.currentLanguageSet.editFailedContactDbTeam, 'error')
   }
 
@@ -588,7 +586,7 @@ export class SupervisorAlertsNotificationsComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(error, 'error');
       });
   }

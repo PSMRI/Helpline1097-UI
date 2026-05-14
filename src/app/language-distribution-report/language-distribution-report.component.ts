@@ -79,7 +79,7 @@ export class LanguageDistributionReportComponent implements OnInit {
     this.userbeneficiarydata
       .getUserBeneficaryData(this.providerServiceMapID)
       .subscribe((response) => {
-        console.log(response);
+
         this.languages = response["m_language"];
         let all = {
           languageName: "All",
@@ -129,7 +129,7 @@ export class LanguageDistributionReportComponent implements OnInit {
         },
         (error) => {
           this.alertService.alert(error.errorMessage);
-          console.log(error);
+          console.error(error);
         }
       );
   }
@@ -167,7 +167,7 @@ export class LanguageDistributionReportComponent implements OnInit {
     }
   }
   // getReportsOld() {
-  //   console.log("values:", this.languageDistributionSearchForm.value);
+
   //   this.postData = [];
   //   if (this.languageDistributionSearchForm.value.language == "All") {
   //     for (var i = 0; i < this.languages.length - 1; i++) {
@@ -253,16 +253,16 @@ export class LanguageDistributionReportComponent implements OnInit {
   //     : "Any";
   //   // this.start_date = this.sexualOrientationSearchForm.value.startDate;
   //   // this.end_date = this.sexualOrientationSearchForm.value.endDate;
-  //   console.log(this.postData);
+
   //   this.reportsService.getCountsByPreferredLanguage(this.postData).subscribe(
   //     (response) => {
-  //       console.log(response);
+
   //       this.tableFlag = true;
   //       this.languageDistributions = response;
   //     },
   //     (error) => {
   //       this.alertService.alert(error.errorMessage);
-  //       console.log(error);
+
   //     }
   //   );
   // }
@@ -318,7 +318,7 @@ export class LanguageDistributionReportComponent implements OnInit {
     };
 
     let head = Object.keys(this.languageDistributions[0]);
-    // console.log(head);
+
     new Angular2Csv(
       this.languageDistributions,
       "LanguageDistributions Report",
@@ -370,11 +370,11 @@ export class LanguageDistributionReportComponent implements OnInit {
       let finalCellName: any;
       if (count == 0) {
         finalCellName = cellPosition + "1";
-        // console.log(finalCellName);
+
       } else {
         let newcellPosition = String.fromCharCode(64 + count);
         finalCellName = newcellPosition + cellPosition + "1";
-        // console.log(finalCellName);
+
       }
       let newName = this.modifyHeader(headers, i);
       delete report_worksheet[finalCellName].w;
@@ -418,7 +418,7 @@ export class LanguageDistributionReportComponent implements OnInit {
       .trim();
     modifiedHeader =
       modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
-    //console.log(modifiedHeader);
+
     return modifiedHeader.replace(/I D/g, "ID");
   }
   resetWorklist() {

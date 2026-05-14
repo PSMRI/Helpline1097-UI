@@ -75,7 +75,7 @@ export class NotificationService {
     }
 
     getOffices(psmID) {
-        console.log(psmID);
+
         return this.httpIntercepto.post(this.getOfficesURL, {
            'providerServiceMapID': psmID
         })

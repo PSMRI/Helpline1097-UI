@@ -284,7 +284,6 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
   //   this.stateName = state;
   //   this.district = district;
 
-  //   console.log(array);
   //   this.reportService.getAllByAgeGroup(array).subscribe(
   //     (response) => {
   //       this.reportSuccessHandle(response);
@@ -296,7 +295,7 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
   // }
   count = [];
   reportSuccessHandle(res) {
-    console.log(res);
+
     this.tableFlag = true;
     this.count = res;
   }
@@ -328,7 +327,7 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
     };
 
     let head = Object.keys(this.count[0]);
-    console.log(head);
+
     new Angular2Csv(this.count, "AgeGroup Report", { headers: head });
     this.alertMessage.alert("AgeGroup report downloaded", "success");
   }
@@ -379,11 +378,11 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
       let finalCellName: any;
       if (count == 0) {
         finalCellName = cellPosition + "1";
-        // console.log(finalCellName);
+
       } else {
         let newcellPosition = String.fromCharCode(64 + count);
         finalCellName = newcellPosition + cellPosition + "1";
-        // console.log(finalCellName);
+
       }
       let newName = this.modifyHeader(headers, i);
       delete report_worksheet[finalCellName].w;
@@ -427,7 +426,7 @@ export class CallerAgeReportComponent implements OnInit, DoCheck {
       .trim();
     modifiedHeader =
       modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
-    //console.log(modifiedHeader);
+
     return modifiedHeader.replace(/I D/g, "ID");
   }
   resetWorklist() {

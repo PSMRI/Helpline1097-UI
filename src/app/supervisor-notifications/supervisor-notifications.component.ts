@@ -72,17 +72,17 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
     this.userId = this.commonDataService.uid;
     this.notificationService.getNotificationTypes(this.providerServiceMapID)
     .subscribe((response) => {
-      console.log(response);
+
       this.notificationTypes = response.data;
     },
     (error) => {
       this.alertMessage.alert(error.errorMessage,'error');
 
-      console.log(error);
+      console.error(error);
     });
     this.notificationService.getRoles(this.providerServiceMapID)
     .subscribe((response) => {
-      console.log(response);
+
       this.roleObjArray = response.data;
       for (var i = 0; i < this.roleObjArray.length; i++) {
         this.roleIDs.push(this.roleObjArray[i].RoleID);
@@ -91,7 +91,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
     (error) => {
       this.alertMessage.alert(error.errorMessage,'error');
 
-      console.log(error);
+      console.error(error);
     });
 
 
@@ -133,7 +133,6 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
       future_day = new Date(today);
       future_day.setFullYear(today.getFullYear() + 10,today.getMonth(),today.getDate());
 
-      console.log("sDate:",today,"edate:",future_day);
       this.sDate=new Date();
       this.eDate=future_day;
 
@@ -151,7 +150,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
   getProviderIDSuccess(response)
   {
     this.serviceProviderID=response.serviceProviderID;
-    console.log(this.serviceProviderID,"SP_ID");
+
     this.serviceID=response.serviceID;
     this.stateID=response.stateID;
     // invoke these all
@@ -174,7 +173,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
   offices:any=[];
   getLanguageSuccessHandeler(response)
   {
-    console.log(response,"Languages");
+
     this.languages=response;
 
   }
@@ -189,7 +188,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
 
   getOfficesSuccessHandeler(response)
   {
-    console.log(response,"offices");
+
     this.offices=response;
   }
 
@@ -203,7 +202,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
 
   getUsersSuccessHandeler(response)
   {
-    console.log(response,"users");
+
     this.users=response;
   }
 
@@ -220,7 +219,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
       if (data) {
         this.notificationService.createNotification(data)
         .subscribe((response) => {
-          console.log(response);
+
           if (response.data.length > 0) {
             let dialog = this.dialog.open(MessageDialogComponent, {
               disableClose: true,
@@ -232,7 +231,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
                 // this.notificationService.getSupervisorNotifications(this.notificationPostData)
                 //   .subscribe((response) => {
                 //     this.notifications = response.data;
-                //     console.log(this.notifications);
+
                 //   },
                 //   (error) => {
                 //     this.alertMessage.alert(error.status);
@@ -241,7 +240,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
             },
             (error) => {
               this.alertMessage.alert(error.errorMessage,'error');
-              console.log(error);
+              console.error(error);
               // let dialog = this.dialog.open(MessageDialogComponent, {
               //   disableClose: true,
               //   data: {
@@ -256,8 +255,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
   onSubmitShowForm() {
     let today=new Date();
     let future_day: Date;
-    console.log(this.showNotificationForm.value);
-    // console.log(new Date((this.showNotificationForm.value.startDate) - 1 * (this.showNotificationForm.value.startDate.getTimezoneOffset() * 60 * 1000)).toJSON().slice(0, 10) + "T00:00:00.000Z");
+
     this.onConfigSubmit = true;
 
     let roleIDs=undefined;
@@ -272,7 +270,6 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
       future_day = new Date(today);
       future_day.setFullYear(today.getFullYear() + 10,today.getMonth(),today.getDate());
 
-      console.log("sDate:",today,"edate:",future_day);
       this.sDate=new Date();
       this.eDate=future_day;
 
@@ -337,16 +334,15 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
     // };
     // }
 
-    console.log(JSON.stringify(this.notificationPostData));
     this.notificationService.getSupervisorNotifications(this.notificationPostData)
     .subscribe((response) => {
       this.notifications = response.data;
-      console.log(this.notifications);
+
     },
     (error) => {
       this.alertMessage.alert(error.errorMessage,'error');
 
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -361,7 +357,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
       if (data) {
         this.notificationService.updateNotification(data)
         .subscribe((response) => {
-          console.log(response);
+
           if (response.data != {}) {
             this.alertMessage.alert(this.currentLanguageSet.notificationEditedSuccessfully,'success');
             // let dialog = this.dialog.open(MessageDialogComponent, {
@@ -382,7 +378,7 @@ export class SupervisorNotificationsComponent implements OnInit, DoCheck {
         },
         (error) => {
           this.alertMessage.alert(error.errorMessage,'error');
-          console.log(error);
+          console.error(error);
           // let dialog = this.dialog.open(MessageDialogComponent, {
           //   disableClose: true,
           //   data: {

@@ -119,8 +119,6 @@ export class EverwellWorklistComponent implements OnInit {
      aDate.setDate(aDate.getDate() - i);
      this.ar.push((aDate.getDate())+" "+monthNames[aDate.getMonth()]);
     }
-    console.log("ar",this.ar);
-    
 
 this.assignSelectedLanguage();
 this.listBenDetails();
@@ -150,7 +148,7 @@ this.listBenDetails();
       //   }
       // });
     }, err => {
-      console.log(err);
+      console.error(err);
       this.alertService.alert(err.errorMessage);
       
     })
@@ -194,7 +192,7 @@ this.listBenDetails();
       this.showProgressBar = false;
       this.loaderService.hide();
       this.alertService.alert(this.currentLanguageSet.errorInFetchingEverwellGuidelineData,'error');
-      console.log('Unable to Fetch Everwell Guideline Data');
+
     });
   }
 
@@ -205,14 +203,14 @@ this.listBenDetails();
     };
     this.OCRService.getEverwellFeedBackDetails(req).subscribe(response => 
       {
-        console.log('Everwell Call FeedBack Data is', response);
+
         this.feedbackDetails=response.feedbackDetails;
        this._common.previousFeedback=this.feedbackDetails;
-        console.log('feedBack', this.feedbackDetails);
+
       },
     (err)=> {
       this.alertService.alert(err.errorMessage,'error');
-      console.log('Everwell error in call FeedBack Data');
+
     });
   }
 
@@ -274,7 +272,7 @@ if(result==null)
     this.data.is1097 = true;
     //this.data.createdBy = outboundData.everwelldata.createdBy;
     this.data.Id = this._common.outboundEverwellData.Id;
-    console.log("ID", this.data);
+
     this.data.calledServiceID = this._common.outboundEverwellData.providerServiceMapId;
     this.data.PrimaryNumber = this._common.outboundEverwellData.PrimaryNumber;
     this.data.agentID = this._common.outboundEverwellData.agentId;
@@ -387,8 +385,8 @@ if(result==null)
     this.previousDay =curmonth.toLocaleString('en-US',{hour12:false}).split(" ")[0];
     this.previousDay = this.previousDay.substring(0,10);
     this.previousDay= this.datepipe.transform(new Date(this.previousDay), 'MM/dd/yyyy');
-    console.log("prevDay",this.previousDay)
-    console.log("dateInd", this.dateIndex)
+
+
    let dialogRequestObj={
      "srcPath": this.srcPath,
      "fileName":this.fileName,
@@ -421,11 +419,8 @@ if(result==null)
         this._common.everwellFeedbackCallData=ar;
       }
       this.submitFeedback.emit(this._common.checkEverwellResponse);
-      console.log("result1",result);
+
       if (result === "success") {
-        console.log("result",result);
-        
-        
 
       //  this.dialogService.alert("Updated successfully", 'success');
         //this.getAllProviderAdminDetails();
@@ -578,13 +573,12 @@ if(result==null)
   startOutBoundCall(outboundData: any) {
     if(outboundData)
     {
-    console.log('everwelldata'+ JSON.stringify(outboundData));
-    
+
     this.data.callID = this._common.callID;
     this.data.is1097 = true;
     //this.data.createdBy = outboundData.everwelldata.createdBy;
     this.data.Id = outboundData.Id;
-    console.log("ID", this.data);
+
     this.data.calledServiceID = outboundData.providerServiceMapId;
     this.data.PrimaryNumber = outboundData.PrimaryNumber;
     this.data.agentID = outboundData.agentId;
@@ -615,10 +609,9 @@ if(result==null)
     startCallData.isOutbound = this._common.isOutbound;
     this._util.startCall(startCallData).subscribe((response) => { this.setBenCall(response) }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
-      console.log('ERROR', err);
 
     });
-    console.log('primaryNumber'+ this.data.PrimaryNumber);    
+
   } 
 }
 setBenCall(response) {
@@ -689,24 +682,23 @@ export class SupportActionModal {
     { }
 
   ngOnInit() {
-    
-    //console.log("Initial value", this.data);
+
     // this.superadminService.getCommonRegistrationData().subscribe(response => this.showGenderOnCondition(response));
     // this.superadminService.getAllQualifications().subscribe(response => this.getEduQualificationSuccessHandler(response));
     // this.superadminService.getAllMaritalStatus().subscribe(response => this.showAllMaritalSuccessHandler(response));
    // this.edit();
-   console.log("this._common.everwellCallNotConnected",this._common.everwellCallNotConnected);
+
    if(this._common.everwellCallNotConnected==="yes")
    {
     this.subcategries=["Phone not reachable","Phone switched off","Did not receive the call","Others"];  
    }
    this.everwellBenData = this._common.outboundEverwellData;
    this.everwellBenData.currentMonthMissedDoses=this._common.outboundEverwellData.CurrentMonthMissedDoses;
-   console.log('EverWell Ben Data'+ this.everwellBenData);
+
    this.dob=this.data.previousDay;
 
    let dateOfAction = new Date(this.dob); 
-   console.log("dateAction", dateOfAction);
+
    this.lastDay= this.dob;
    this.isfeedbackedit=false;
    let ar=this._common.previousFeedback;
@@ -716,7 +708,7 @@ export class SupportActionModal {
      for(var i=0;i<ar.length;i++)
      {
       let d=new Date(ar[i].dateOfAction);
-      console.log("dddd", d);
+
        if (d.getTime() === dateOfAction.getTime()) {        
          this.editcategory = ar[i].category;
          this.editsubcategries = ar[i].subCategory;
@@ -740,11 +732,10 @@ export class SupportActionModal {
     
    }
   //  this.isFeedbackData= this._common.feedbackData;
-  console.log("checkFeedback",this._common.feedbackData)
+
   if(this._common.feedbackData){
     this.feedbackData= this._common.feedbackData;
-    console.log("this.feedbackData",this.feedbackData)
-    
+
      this.isFeedbackData = this.feedbackData.filter(
       result => result.dateOfAction == this.datepipe.transform(new Date(this.dob), 'yyyy-MM-dd')
       
@@ -800,7 +791,7 @@ export class SupportActionModal {
       providerObj['secondaryPhoneNo']=null;
     }
     this.submiEverwellFeedbackSubscription=this._callservice.saveEverwellFeedback(providerObj).subscribe((response) => {
-      console.log("response",response);
+
       if(response != null && response != undefined && response.savedData != null && response.savedData != undefined){
         // this._common.feedbackData = providerObj;
         // this.feedbackData = providerObj;    
@@ -814,11 +805,11 @@ export class SupportActionModal {
         this.alertMaessage.alert(this.currentLanguageSet.feedbackSubmittedSuccessfully, 'success');
         }
         this.dialogRef.close();
-        console.log(this.currentLanguageSet.feedbackUpdatedSuccessfully, response);
+
       }
     }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
-      console.log('error in submit Feedback');
+
     });
   }
 
@@ -864,7 +855,7 @@ export class SupportActionModal {
       providerObj['secondaryPhoneNo']=null;
     }
     this.updateEverwellFeedbackSubscription=this._callservice.saveEverwellFeedback(providerObj).subscribe((response) => {
-      console.log("response",response);
+
       if(response != null && response.savedData != null){        
         this._common.feedbackData.push(providerObj);
         this._common.checkEverwellResponse = true;
@@ -874,11 +865,11 @@ export class SupportActionModal {
         }
         this.alertMaessage.alert(this.currentLanguageSet.feedbackUpdatedSuccessfully, 'success');
         this.dialogRef.close();
-        console.log(this.currentLanguageSet.feedbackUpdatedSuccessfully, response);
+
       }
     }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
-      console.log('error in submit Feedback');
+
     });
   }
 
@@ -934,7 +925,7 @@ export class SupportActionModal {
   //   (err)=> {
   //     this.showProgressBar = false;
   //     this.alertService.alert('Error in Fetching Everwell Guideline Data','error');
-  //     console.log('Unable to Fetch Everwell Guideline Data');
+
   //   });
   // }
 

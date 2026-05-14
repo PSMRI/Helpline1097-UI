@@ -169,7 +169,7 @@ export class CoReferralServicesComponent implements OnInit {
   }
 
   getReferralHistory(response: any) {
-    console.log('referral history is :', response);
+
     // this.tableArray = response;
     if (response) {
       this.data = response;
@@ -276,7 +276,7 @@ export class CoReferralServicesComponent implements OnInit {
   }
 
   SetReferralDetails(response: any) {
-    console.log('success referral', response);
+
     if (response) {
       this.showresult = true;
 
@@ -422,22 +422,22 @@ export class CoReferralServicesComponent implements OnInit {
 
                     this._smsService.sendSMS(req_arr)
                       .subscribe(ressponse => {
-                        console.log(ressponse, 'SMS Sent');
+
                         alert(this.currentLanguageSet.smsSent);
                       }, err => {
-                        console.log(err, 'SMS not sent Error');
+
                       })
                   }
                 }
               }, err => {
-                console.log(err, 'Error in fetching sms templates');
+
               })
           }
         }, err => {
-          console.log(err, 'error while fetching sms types');
+
         });
     } else {
-      console.log('Service ID not found')
+
     }
 
 

@@ -21,38 +21,24 @@
 */
 
 
-/*
- * SH20094090 - Created on 27-07-21
- */
-
-import { Component, DoCheck, forwardRef, Inject } from "@angular/core";
-import { HttpServices } from "app/services/http-services/http_services.service";
-
-
-@Component({
-  template: "",
-})
-export class SetLanguageComponent  {
-  currentLanguageObject: any;
-  constructor(@Inject(forwardRef(() => HttpServices)) public httpServices: HttpServices) {}
-
-  
-  // ngDoCheck() {
-  //   this.setLanguage();
-  // }
-
-  setLanguage() {
-    const languageSubscription = this.httpServices.currentLangugae$.subscribe(
-      (languageResponse) => {
-        this.currentLanguageObject = languageResponse;
-      },
-      (err) => {
-        console.error(err);
-      },
-      () => {
-
-      }
-    );
-    languageSubscription.unsubscribe();
-  }
-}
+const sessionStorageEncKey = '';
+const commonAPI = 'http://localhost:8083/';
+const adminAPI = 'http://localhost:8082/';
+const telephoneServer = 'http://uatcz.piramalswasthya.org/';
+const API1097 = 'http://localhost:8090/';
+const siteKey = ''
+const captchaChallengeURL = '';
+const enableCaptcha = false;
+ 
+export const environment = {
+  production: false,
+  invalidCallType: 'Invalid',
+  encKey: sessionStorageEncKey,
+  commonAPI: commonAPI,
+  ip1097: API1097,
+  telephoneServer: telephoneServer,
+  adminAPI: adminAPI,
+  siteKey:siteKey,
+  captchaChallengeURL:captchaChallengeURL,
+  enableCaptcha: enableCaptcha,
+};
