@@ -152,8 +152,9 @@ export class InterceptedHttp extends Http {
     //     return environment.origin + req;
     // }
     private updateUrl(url) {
-        if (sessionStorage.getItem('apiman_key') != undefined && sessionStorage.getItem('apiman_key') != null) {
-            url = url + '?apikey=' + sessionStorage.getItem('apiman_key');
+        const apiKey = sessionStorage.getItem('apiman_key');
+        if (apiKey && apiKey !== 'undefined') {
+            url = url + '?apikey=' + apiKey;
             return url;
         }
         return url;
