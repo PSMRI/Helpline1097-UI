@@ -249,6 +249,9 @@ export class CzentrixServices {
     let errorObj: any;
     try {
       errorObj = error.json();
+      if (!errorObj.errorMessage) {
+        errorObj.errorMessage = errorObj.message || errorObj.error || error.statusText || 'Session expired. Please login again.';
+      }
     } catch (e) {
       errorObj = { errorMessage: error.statusText || 'Request failed' };
     }
