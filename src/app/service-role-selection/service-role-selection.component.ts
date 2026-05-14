@@ -70,7 +70,11 @@ export class ServiceRoleSelectionComponent implements OnInit {
 	  }
 
     route2dashboard(role: any, service: any) {
-        sessionStorage.setItem('apiman_key',service.apimanClientKey);
+        if (service.apimanClientKey) {
+            sessionStorage.setItem('apiman_key', service.apimanClientKey);
+        } else {
+            sessionStorage.removeItem('apiman_key');
+        }
         let roleName = '';
         let serviceName = service.serviceName;
         let screen = role.serviceRoleScreenMappings[0].screen.screenName;

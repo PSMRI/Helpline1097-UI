@@ -246,7 +246,13 @@ export class CzentrixServices {
   };
 
   private handleError(error: Response | any) {
-    return Observable.throw(error.json());
+    let errorObj: any;
+    try {
+      errorObj = error.json();
+    } catch (e) {
+      errorObj = { errorMessage: error.statusText || 'Request failed' };
+    }
+    return Observable.throw(errorObj);
   };
 
 }
