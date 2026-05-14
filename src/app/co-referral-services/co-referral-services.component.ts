@@ -423,7 +423,7 @@ export class CoReferralServicesComponent implements OnInit {
                     this._smsService.sendSMS(req_arr)
                       .subscribe(ressponse => {
                         console.log(ressponse, 'SMS Sent');
-                        alert(this.currentLanguageSet.smsSent);
+                        this.message.alert(this.currentLanguageSet.smsSent, 'success');
                       }, err => {
                         console.log(err, 'SMS not sent Error');
                       })

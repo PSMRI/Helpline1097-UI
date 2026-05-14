@@ -28,6 +28,7 @@ import { dataService } from '../dataService/data.service';
 import { HttpServices } from '../http-services/http_services.service';
 import { sessionStorageService } from '../sessionStorageService/session-storage.service';
 
+import { ConfirmationDialogsService } from './../dialog/confirmation.service';
 @Injectable()
 export class AuthGuard2 implements CanActivate {
   currentLanguageSet: any;
@@ -36,7 +37,8 @@ export class AuthGuard2 implements CanActivate {
     private router: Router,
     private sessionstorage:sessionStorageService,
     private route: ActivatedRoute, public dataSettingService: dataService,
-    public httpServices:HttpServices) { }
+    public httpServices:HttpServices,
+    private alertService: ConfirmationDialogsService) { }
 
     ngOnInit() {
       this.assignSelectedLanguage();
@@ -61,7 +63,7 @@ export class AuthGuard2 implements CanActivate {
     }
 
     else {
-      alert(this.currentLanguageSet.pleseWaitForCallToComeOrLogout);
+      this.alertService.alert(this.currentLanguageSet.pleseWaitForCallToComeOrLogout, 'info');
 
       return false;
     }
