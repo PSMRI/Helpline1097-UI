@@ -43,24 +43,7 @@ export class TokenInterceptor implements HttpInterceptor {
             //     Authorization: this.auth.getToken()
             // }
         });
-        return next.handle(request).do((event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse) {
-                console.log(request);
-                if (event.body['data']) {
-                    return event.body['data'];
-                } else {
-                    throw event.body;
-                }
-                // do stuff with response if you want
-            }
-        }, (err: any) => {
-            if (err instanceof HttpErrorResponse) {
-                if (err.status === 401) {
-                    // redirect to the login route
-                    // or show a modal
-                }
-            }
-        }).catch(response => {
+        return next.handle(request).catch(response => {
             if (response instanceof HttpErrorResponse) {
                 console.log('Processing http error', response);
             }

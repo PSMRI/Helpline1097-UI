@@ -201,14 +201,25 @@ export class InterceptedHttp extends Http {
         this.hideLoader();
     }
     private onSuccess(response: any) {
-        if (response.json().statusCode === 200) {
-            // this._count = 0;
+        let body: any;
+        try {
+            body = response.json();
+        } catch (e) {
+            // API gateway returned a non-JSON response (e.g. HTML JWT error page)
+            this.message.alert('Your session has expired. Please login again.', 'error');
+            this.authService.removeToken();
+            sessionStorage.clear();
+            this.router.navigate(['']);
+            return Observable.empty();
+        }
+
+        if (body.statusCode === 200) {
             return response;
         }
-        else if (response.json().statusCode === 5002) {
-            if (response.json().errorMessage === 'You are already logged in,please confirm to logout from other device and login again' || response.json().errorMessage === 'Invalid username or password') {
+        else if (body.statusCode === 5002) {
+            if (body.errorMessage === 'You are already logged in,please confirm to logout from other device and login again' || body.errorMessage === 'Invalid username or password') {
                 this.message
-                    .confirm('info', response.json().errorMessage)
+                    .confirm('info', body.errorMessage)
                     .subscribe((confirmResponse) => {
                         if (confirmResponse) {
                             this.dologoutUsrFromPreSession(true);
@@ -219,15 +230,15 @@ export class InterceptedHttp extends Http {
                 if (this._count == 0) {
                     this._count = this._count + 1;
                 }
-                if (!(response.json().data && response.json().data.response == "User successfully logged out")) {
+                if (!(body.data && body.data.response == "User successfully logged out")) {
                     this.message.alert('Session expired, please login again', 'error');
                 }
                 this.authService.removeToken();
             }
             return Observable.empty();
         }
-        else if (response.json().statusCode === 5006) {
-            throw response.json();
+        else if (body.statusCode === 5006) {
+            throw body;
         }
         else {
             throw response;

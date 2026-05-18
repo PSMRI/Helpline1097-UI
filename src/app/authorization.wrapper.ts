@@ -141,15 +141,23 @@ export class AuthorizationWrapper extends Http {
     private onEnd(): void {
     }
     private onSuccess(response: any) {
-        if (response.json().data) {
-            // this._count = 0;
-            return response;
-        } else if (response.json().statusCode === 5002) {
+        let body: any;
+        try {
+            body = response.json();
+        } catch (e) {
+            // API gateway returned a non-JSON response (e.g. HTML JWT error page)
+            this.message.alert('Your session has expired. Please login again.', 'error');
+            this.authService.removeToken();
+            sessionStorage.clear();
             this.router.navigate(['']);
-            //  if (this._count == 0) {
-            this.message.alert(response.json().errorMessage, 'error');
-            // this._count = this._count + 1;
-            // }
+            return Observable.empty();
+        }
+
+        if (body.data) {
+            return response;
+        } else if (body.statusCode === 5002) {
+            this.router.navigate(['']);
+            this.message.alert(body.errorMessage || 'Session expired, please login again', 'error');
             this.authService.removeToken();
             return Observable.empty();
         } else {
@@ -157,6 +165,12 @@ export class AuthorizationWrapper extends Http {
         }
     }
     private onError(error: any) {
+        if (error.status === 401 || error.status === 403) {
+            this.message.alert('Your session has expired. Please login again.', 'error');
+            this.authService.removeToken();
+            sessionStorage.clear();
+            this.router.navigate(['']);
+        }
         return error;
     }
 
