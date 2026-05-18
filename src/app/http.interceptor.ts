@@ -231,7 +231,7 @@ export class InterceptedHttp extends Http {
                     this._count = this._count + 1;
                 }
                 if (!(body.data && body.data.response == "User successfully logged out")) {
-                    this.message.alert('Session expired, please login again', 'error');
+                    this.message.alert(body.errorMessage || 'Session expired, please login again', 'error');
                 }
                 this.authService.removeToken();
             }
