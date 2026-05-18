@@ -217,7 +217,7 @@ export class InterceptedHttp extends Http {
             return response;
         }
         else if (body.statusCode === 5002) {
-            if (body.errorMessage === 'You are already logged in,please confirm to logout from other device and login again' || body.errorMessage === 'Invalid username or password') {
+            if (body.errorMessage === 'You are already logged in,please confirm to logout from other device and login again') {
                 this.message
                     .confirm('info', body.errorMessage)
                     .subscribe((confirmResponse) => {
@@ -225,7 +225,7 @@ export class InterceptedHttp extends Http {
                             this.dologoutUsrFromPreSession(true);
                         }
                     });
-            } else {
+            } else if (body.errorMessage !== 'Invalid username or password') {
                 this.router.navigate(['']);
                 if (this._count == 0) {
                     this._count = this._count + 1;
