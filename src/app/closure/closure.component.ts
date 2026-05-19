@@ -689,7 +689,6 @@ export class ClosureComponent implements OnInit {
   }
   showAlert(): any {
     this.sessionstorage.removeItem("isOnCall");
-    this.sessionstorage.removeItem("callStartTime");
     if (this.transferValid == true) {
       // Return the Observable so callers can wait for OK before navigating.
       // This prevents the dialog from persisting over the next call's innerpage.

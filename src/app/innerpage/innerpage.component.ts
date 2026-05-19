@@ -57,6 +57,8 @@ declare const jQuery: any;
 })
 export class InnerpageComponent implements OnInit {
   callDuration: string = "";
+  timerStarted: boolean = false;
+  callStartEpoch: number = 0;
   beneficiaryNotSelected: boolean = true;
   callerNumber: any;
   barMinimized: boolean = true;
@@ -204,21 +206,6 @@ export class InnerpageComponent implements OnInit {
     if (this.current_role.toLowerCase() === "supervisor") {
       this.checkRole = false;
     }
-    const callStartTimeStr = this.sessionstorage.getItem("callStartTime");
-    if (callStartTimeStr) {
-      const elapsedSeconds = Math.floor((Date.now() - parseInt(callStartTimeStr, 10)) / 1000);
-      this.minutes = Math.floor(elapsedSeconds / 60);
-      this.seconds = elapsedSeconds % 60;
-    }
-    this.callDuration = this.minutes + "m " + this.seconds + "s ";
-    setInterval(() => {
-      this.seconds = this.seconds + 1;
-      if (this.seconds >= 60) {
-        this.minutes = this.minutes + 1;
-        this.seconds = 0;
-      }
-      this.callDuration = this.minutes + "m " + this.seconds + "s ";
-    }, 1000);
     this.current_campaign = this.getCommonData.current_campaign;
     this.listenCallEvent = this.renderer.listenGlobal(
       "window",
@@ -983,12 +970,33 @@ export class InnerpageComponent implements OnInit {
         if (res.data.stateObj.stateType) {
           this.callStatus += " (" + res.data.stateObj.stateType + ")";
         }
+        const czDuration = parseInt(res.data.call_duration, 10);
+        const offset = (!isNaN(czDuration) && czDuration > 0) ? czDuration : 0;
+        this.callStartEpoch = Date.now() - (offset * 1000);
+        this.startCallTimer();
       },
       (err) => {
-        // this.remarksMessage.alert(err.errorMessage);
         console.log("CZ AGENT NOT LOGGED IN");
+        this.callStartEpoch = Date.now();
+        this.startCallTimer();
       }
     );
+  }
+
+  startCallTimer() {
+    if (this.timerStarted) return;
+    this.timerStarted = true;
+    this.updateCallDuration();
+    setInterval(() => {
+      this.updateCallDuration();
+    }, 1000);
+  }
+
+  updateCallDuration() {
+    const elapsed = Math.floor((Date.now() - this.callStartEpoch) / 1000);
+    this.minutes = Math.floor(elapsed / 60);
+    this.seconds = elapsed % 60;
+    this.callDuration = this.minutes + "m " + this.seconds + "s ";
   }
 
   getIVRSPathDetails() {

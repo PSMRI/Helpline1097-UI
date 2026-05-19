@@ -340,7 +340,6 @@ export class dashboardContentClass implements OnInit {
         this.sessionstorage.setItem("CLI", this.eventSpiltData[1]);
         this.sessionstorage.setItem("session_id", this.eventSpiltData[2]);
         this.sessionstorage.setItem("callCategory", callCategory);
-        this.sessionstorage.setItem("callStartTime", Date.now().toString());
         this.router.navigate([
           "/MultiRoleScreenComponent/RedirectToInnerpageComponent",
         ]);

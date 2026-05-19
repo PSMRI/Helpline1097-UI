@@ -195,7 +195,6 @@ export class DashboardUserIdComponent implements OnInit {
       this.sessionstorage.setItem("isOnCall", "yes");
       this.sessionstorage.setItem("CLI", CLI);
       this.sessionstorage.setItem("session_id", session_id);
-      this.sessionstorage.setItem("callStartTime", Date.now().toString());
       this.dataSettingService.setUniqueCallIDForInBound = true;
       this.router.navigate([
         "/MultiRoleScreenComponent/RedirectToInnerpageComponent",
