@@ -27,7 +27,7 @@ import {
   EventEmitter,
   Input,
   Output,
-  Renderer,
+  Renderer2,
 } from "@angular/core";
 import { dataService } from "../services/dataService/data.service";
 import { Router } from "@angular/router";
@@ -135,7 +135,7 @@ export class InnerpageComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private _config: ConfigService,
     private remarksMessage: ConfirmationDialogsService,
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private Czentrix: CzentrixServices,
     private listnerService: ListnerService,
     private authService: AuthService,
@@ -213,7 +213,7 @@ export class InnerpageComponent implements OnInit {
       this.callDuration = this.minutes + "m " + this.seconds + "s ";
     }, 1000);
     this.current_campaign = this.getCommonData.current_campaign;
-    this.listenCallEvent = this.renderer.listenGlobal(
+    this.listenCallEvent = this.renderer.listen(
       "window",
       "message",
       (event) => {

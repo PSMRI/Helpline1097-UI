@@ -21,7 +21,7 @@
 */
 
 
-import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef, Renderer, DoCheck } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef, DoCheck } from '@angular/core';
 import { RegisterService } from '../services/register-services/register-service';
 import { UpdateService } from '../services/update-services/update-service';
 import { Router } from '@angular/router';

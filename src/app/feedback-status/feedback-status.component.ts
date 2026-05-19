@@ -21,7 +21,7 @@
 */
 
 
-import { Component, OnInit, Inject, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 // md2 components
 import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
 import { HttpServices } from 'app/services/http-services/http_services.service';
@@ -44,7 +44,7 @@ export class FeedbackStatusComponent implements OnInit {
   feedbackStatusName: any;
   currentLanguageSet: any;
   constructor(public dialogRef: MdDialogRef<FeedbackStatusComponent>,
-    @Inject(MD_DIALOG_DATA) public feedbackStatusData: any, private renderer: Renderer,
+    @Inject(MD_DIALOG_DATA) public feedbackStatusData: any,
     private HttpServices:HttpServices) { }
 
   ngOnInit() {

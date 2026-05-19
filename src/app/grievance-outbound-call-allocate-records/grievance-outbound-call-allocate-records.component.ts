@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 import { enableProdMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -41,7 +41,6 @@ export class GrievanceOutboundCallAllocateRecordsComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
     private fb: FormBuilder,
     private outboundSearchRecordService: OutboundSearchRecordService,
-    private renderer: Renderer,
     public httpServices: HttpServices
   ) {
     this.createForm();

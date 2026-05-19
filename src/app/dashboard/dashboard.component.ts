@@ -21,7 +21,7 @@
 */
 
 
-import { Component, OnInit, Renderer } from "@angular/core";
+import { Component, OnInit, Renderer2 } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer } from "@angular/platform-browser";
 import { dataService } from "../services/dataService/data.service";
@@ -81,7 +81,7 @@ export class dashboardContentClass implements OnInit {
     private configService: ConfigService,
     public sanitizer: DomSanitizer,
     private message: ConfirmationDialogsService,
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private callService: CallServices,
     private listnerService: ListnerService,
     public socketService: SocketService,
@@ -255,7 +255,7 @@ export class dashboardContentClass implements OnInit {
     let campaign = this.sessionstorage.getItem("current_campaign");
     // if(campaign != null && campaign != undefined && campaign !== "OUTBOUND"){
     this.addListener();
-    this.listenCall = this.renderer.listenGlobal(
+    this.listenCall = this.renderer.listen(
       "window",
       "message",
       (event) => {
