@@ -180,6 +180,7 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
     this.sessionstorage.setItem("session_id", session);
     this.sessionstorage.setItem("CLI", cli);
     this.sessionstorage.setItem("callCategory", callCategory);
+    this.sessionstorage.setItem("callStartTime", Date.now().toString());
     this.dataSettingService.setUniqueCallIDForInBound = true;
     this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
   }
@@ -239,7 +240,8 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
           this.sessionstorage.removeItem("isGrievanceCall");
-          sessionStorage.removeItem('apiman_key');   
+          this.sessionstorage.removeItem("callStartTime");
+          sessionStorage.removeItem('apiman_key');
           this.sessionstorage.removeItem("setLanguage");
           this.dataSettingService.appLanguage="English";
           this.authService.removeToken();
@@ -251,10 +253,11 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
           this.sessionstorage.removeItem("isGrievanceCall");
-          sessionStorage.removeItem('apiman_key');   
+          this.sessionstorage.removeItem("callStartTime");
+          sessionStorage.removeItem('apiman_key');
           this.sessionstorage.removeItem("setLanguage");
-          this.dataSettingService.appLanguage="English"; 
-          this.authService.removeToken();     
+          this.dataSettingService.appLanguage="English";
+          this.authService.removeToken();
           this.router.navigate(['/']);
           // this.socketService.logOut();
         }

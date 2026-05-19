@@ -204,14 +204,19 @@ export class InnerpageComponent implements OnInit {
     if (this.current_role.toLowerCase() === "supervisor") {
       this.checkRole = false;
     }
+    const callStartTimeStr = this.sessionstorage.getItem("callStartTime");
+    if (callStartTimeStr) {
+      const elapsedSeconds = Math.floor((Date.now() - parseInt(callStartTimeStr, 10)) / 1000);
+      this.minutes = Math.floor(elapsedSeconds / 60);
+      this.seconds = elapsedSeconds % 60;
+    }
     this.callDuration = this.minutes + "m " + this.seconds + "s ";
     setInterval(() => {
-      // Get todays date and time
-      if (this.seconds === this.counter + 60) {
+      this.seconds = this.seconds + 1;
+      if (this.seconds >= 60) {
         this.minutes = this.minutes + 1;
         this.seconds = 0;
       }
-      this.seconds = this.seconds + 1;
       this.callDuration = this.minutes + "m " + this.seconds + "s ";
     }, 1000);
     this.current_campaign = this.getCommonData.current_campaign;

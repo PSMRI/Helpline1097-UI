@@ -100,6 +100,7 @@ export class loginContentClass implements OnInit, OnDestroy {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
           this.sessionstorage.removeItem("isGrievanceCall");
+          this.sessionstorage.removeItem("callStartTime");
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
         // } else {
@@ -144,6 +145,7 @@ export class loginContentClass implements OnInit, OnDestroy {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
           this.sessionstorage.removeItem("isGrievanceCall");
+          this.sessionstorage.removeItem("callStartTime");
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
         // } else {
