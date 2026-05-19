@@ -35,9 +35,6 @@ import { SmsTemplateService } from './../services/supervisorServices/sms-templat
 import { HttpServices } from "../services/http-services/http_services.service";
 import { SetLanguageComponent } from 'app/set-language.component';
 
-// Common service to pass Data
-declare var jQuery: any;
-
 import { CommunicationService } from './../services/common/communication.service'
 import { NgForm } from '@angular/forms';
 @Component({
@@ -184,7 +181,9 @@ export class CoReferralServicesComponent implements OnInit {
     this.showFormCondition = true;
     this.showTableCondition = false;
     if (this.tempFlag) {
-      jQuery('#referral').trigger("reset");
+      if (this.referralForm) {
+        this.referralForm.resetForm();
+      }
       this.tempFlag = false;
     }
 

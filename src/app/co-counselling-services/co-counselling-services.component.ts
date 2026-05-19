@@ -29,7 +29,6 @@ import { Subscription } from 'rxjs/Subscription';
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service';
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
-declare var jQuery: any;
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
 import { NgForm } from '@angular/forms';
@@ -196,7 +195,9 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   }
   showForm() {
     if (this.tempFlag) {
-      jQuery("#counselling").trigger("reset");
+      if (this.counsellingForm) {
+        this.counsellingForm.resetForm();
+      }
       this.tempFlag = false;
     }
     this.showFormCondition = true;

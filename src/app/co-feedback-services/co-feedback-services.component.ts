@@ -37,7 +37,7 @@ import { CommunicationService } from './../services/common/communication.service
 import { FeedbackService } from 'app/services/supervisorServices/Feedbackservice.service';
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
-declare var jQuery: any;
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-co-feedback-services',
@@ -52,7 +52,7 @@ export class CoFeedbackServicesComponent implements OnInit {
   // currentlanguage: any;
 
   @Output() feedbackServiceProvided: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('form') form;
+  @ViewChild('feedbackForm') feedbackForm: NgForm;
   p = 1;
   showFormCondition: boolean = false;
   showTableCondition: boolean = true;
@@ -174,7 +174,9 @@ export class CoFeedbackServicesComponent implements OnInit {
   }
   showForm() {
     if (this.tempFlag) {
-      jQuery('#feedbackForm').trigger("reset");
+      if (this.feedbackForm) {
+        this.feedbackForm.resetForm();
+      }
       this.tempFlag = false;
     }
     this.showFormCondition = true;
@@ -341,7 +343,9 @@ export class CoFeedbackServicesComponent implements OnInit {
     this._coFeedbackService.createFeedback(feedbackObj)
       .subscribe((response) => {
         this.alertMessage.alert(this.currentLanguageSet.feedbackCreatedSuccessfullyAndFeedbackIDIs + " " + response.requestID, 'success');
-        jQuery('#feedbackForm').trigger("reset");
+        if (this.feedbackForm) {
+          this.feedbackForm.resetForm();
+        }
         this.showBeneficiaryFeedbackList();
         this.feedbackServiceProvided.emit();
         this.beneficiaryConsent = false;

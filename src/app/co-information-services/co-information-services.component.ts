@@ -26,7 +26,6 @@ import { CoCategoryService } from '../services/coService/co_category_subcategory
 import { dataService } from '../services/dataService/data.service'
 import { CoReferralService } from './../services/coService/co_referral.service'
 import { Subscription } from 'rxjs/Subscription';
-declare var jQuery: any;
 import { ConfirmationDialogsService } from './../services/dialog/confirmation.service'
 // Common service to pass Data
 import { CommunicationService } from './../services/common/communication.service'
@@ -198,7 +197,9 @@ export class CoInformationServicesComponent implements OnInit {
   }
   showForm() {
     if (this.tempFlag) {
-      jQuery('#information').trigger("reset");
+      if (this.informationForm) {
+        this.informationForm.resetForm();
+      }
       this.tempFlag = false;
     }
     this.showFormCondition = true;
