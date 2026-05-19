@@ -43,8 +43,8 @@ export class HttpServices {
   common_url = this._config.getOpenCommonBaseURL();
   getLanguageListURL = this.common_url + "beneficiary/getLanguageList";
 
-  language: any;
-  appCurrentLanguge = new BehaviorSubject(this.language);
+  language: any = null;
+  appCurrentLanguge = new BehaviorSubject<any>(null);
   currentLangugae$ = this.appCurrentLanguge.asObservable();
   constructor(private http: Http,private interceptor: InterceptedHttp,private _config: ConfigService) { };
 
