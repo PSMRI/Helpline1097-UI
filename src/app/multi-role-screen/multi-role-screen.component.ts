@@ -183,6 +183,7 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
     this.sessionstorage.setItem("session_id", session);
     this.sessionstorage.setItem("CLI", cli);
     this.sessionstorage.setItem("callCategory", callCategory);
+    this.dataSettingService.current_campaign = callCategory;
     this.dataSettingService.setUniqueCallIDForInBound = true;
     this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
   }

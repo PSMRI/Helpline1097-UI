@@ -215,7 +215,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.BeneficaryCreationForm.form.patchValue({
       ageUnit: 'Years'
     })
-    this.current_campaign = this.saved_data.current_campaign ? this.saved_data.current_campaign : null;
+    this.current_campaign = this.saved_data.current_campaign || 'INBOUND';
     if (this.current_campaign === 'OUTBOUND') {
       if (this.saved_data.outboundData !== undefined && this.saved_data.outboundData !== null) {
         this.startOutBoundCall(this.saved_data.outboundData);
@@ -305,21 +305,18 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
   reloadCampainCall(current_campaign: any) {
     if (current_campaign.compainType.toLowerCase() === 'reloadcall') {
-      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined && 
+      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined &&
         this.saved_data.current_campaign !== null && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
         this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
-      }
-      if (this.saved_data !== undefined && this.saved_data !== null && this.saved_data.current_campaign !== undefined && 
-        this.saved_data.current_campaign !== null && this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
+      } else {
         this.reloadCall();
       }
     }
     if (current_campaign.compainType.toLowerCase() === 'startcall') {
-      if (this.saved_data && this.saved_data.current_campaign !== undefined && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
+      if (this.saved_data && this.saved_data.current_campaign !== undefined && this.saved_data.current_campaign !== null && this.saved_data.current_campaign.toUpperCase() === 'OUTBOUND') {
         this.retrieveRegHistory(this.saved_data.beneficiaryData.beneficiaryID);
         // this.startCall();
-      }
-      if (this.saved_data && this.saved_data.current_campaign !== undefined && this.saved_data.current_campaign.toUpperCase() === 'INBOUND') {
+      } else {
         this.startNewCall();
       }
     }
