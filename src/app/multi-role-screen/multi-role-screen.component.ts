@@ -61,7 +61,6 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
   hideBar: boolean = false;
   subscription: Subscription;
   boundCtiListener: any;
-  boundVisibilityHandler: any;
   hideHeader: boolean = true;
   label: any = {};
   showContacts: boolean = false;
@@ -140,8 +139,6 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
     // }
     this.fetchLanguageSet();
     this.addCtiListener();
-    this.boundVisibilityHandler = this.onVisibilityChange.bind(this);
-    document.addEventListener('visibilitychange', this.boundVisibilityHandler);
   }
 
   addCtiListener() {
@@ -193,10 +190,6 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
       window.removeEventListener("message", this.boundCtiListener);
       this.boundCtiListener = null;
     }
-    if (this.boundVisibilityHandler) {
-      document.removeEventListener('visibilitychange', this.boundVisibilityHandler);
-      this.boundVisibilityHandler = null;
-    }
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -238,19 +231,6 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
   }
   toggleBar() {
     this.barMinimized = !this.barMinimized;
-    if (!this.barMinimized) {
-      this.reloadCzenBar();
-    }
-  }
-  reloadCzenBar() {
-    const base = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
-    const url = this.id ? base + '?e=' + this.id + '&_t=' + Date.now() : base + '?_t=' + Date.now();
-    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-  onVisibilityChange() {
-    if (!document.hidden && !this.barMinimized) {
-      this.reloadCzenBar();
-    }
   }
   ipSuccessLogoutHandler(response) {
     // if (this.current_role.toLowerCase() === "supervisor") {
