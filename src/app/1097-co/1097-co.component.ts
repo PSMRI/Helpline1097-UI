@@ -55,7 +55,6 @@ import { sessionStorageService } from "app/services/sessionStorageService/sessio
 })
 export class helpline1097CoComponent implements OnInit {
   callDuration: number = 0;
-  private _callStartEpoch = Date.now();
   beneficiaryNotSelected: boolean = true;
   callerNumber: any;
   callID: any;
@@ -104,7 +103,7 @@ export class helpline1097CoComponent implements OnInit {
     public HttpServices: HttpServices
   ) {
     setInterval(() => {
-      this.callDuration = Math.floor((Date.now() - this._callStartEpoch) / 1000);
+      this.callDuration = this.callDuration + 1;
     }, 1000);
     this.getCommonData.beneficiarySelected.subscribe((data) => {
       this.setFlag(data);
