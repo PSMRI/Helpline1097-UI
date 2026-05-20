@@ -857,6 +857,7 @@ export class InnerpageComponent implements OnInit {
             this.sessionstorage.removeItem("isGrievanceCall");
             this.sessionstorage.removeItem("session_id");
             this.sessionstorage.removeItem("CLI");
+            this.sessionstorage.removeItem("callStartTime");
             this.basicrouter.navigate(["/MultiRoleScreenComponent/RedirectToDashboardComponent"]);
             this._common.outboundGrievanceData = null;
             this._common.everwellCallNotConnected = null;
@@ -970,14 +971,20 @@ export class InnerpageComponent implements OnInit {
         if (res.data.stateObj.stateType) {
           this.callStatus += " (" + res.data.stateObj.stateType + ")";
         }
-        const czDuration = parseInt(res.data.call_duration, 10);
-        const offset = (!isNaN(czDuration) && czDuration > 0) ? czDuration : 0;
-        this.callStartEpoch = Date.now() - (offset * 1000);
+        const callStartTimeStr = this.sessionstorage.getItem("callStartTime");
+        if (callStartTimeStr) {
+          this.callStartEpoch = parseInt(callStartTimeStr, 10);
+        } else {
+          const czDuration = parseInt(res.data.call_duration, 10);
+          const offset = (!isNaN(czDuration) && czDuration > 0) ? czDuration : 0;
+          this.callStartEpoch = Date.now() - (offset * 1000);
+        }
         this.startCallTimer();
       },
       (err) => {
         console.log("CZ AGENT NOT LOGGED IN");
-        this.callStartEpoch = Date.now();
+        const callStartTimeStr = this.sessionstorage.getItem("callStartTime");
+        this.callStartEpoch = callStartTimeStr ? parseInt(callStartTimeStr, 10) : Date.now();
         this.startCallTimer();
       }
     );
