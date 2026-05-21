@@ -49,6 +49,14 @@ export class ConfigService {
     return this.commonBaseURL;
   }
 
+  getOpenCommonBaseURL() {
+    return this.commonBaseURL;
+  }
+
+  getOpenCommonBaseUrl() {
+    return this.commonBaseURL;
+  }
+
   get1097BaseURL() {
     return this.ip1097BaseURL;
   }
