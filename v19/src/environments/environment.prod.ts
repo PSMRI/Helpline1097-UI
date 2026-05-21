@@ -25,5 +25,6 @@ export const environment = {
   commonAPI: '/amrit/api/',
   ip1097: '/ip1097/',
   telephoneServer: 'http://10.152.3.99:4000/',
-  adminAPI: '/admin/'
+  adminAPI: '/admin/',
+  aesSecretKey: 'Amrit@123'
 };

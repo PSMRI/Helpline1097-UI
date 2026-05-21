@@ -20,14 +20,16 @@
 * along with this program.  If not, see https://www.gnu.org/licenses/.
 */
 
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionStorageService {
-  private readonly SECRET_KEY = 'Amrit@123';
+  private config = inject(ConfigService);
+  private readonly SECRET_KEY = this.config.aesSecretKey;
 
   constructor() {}
 

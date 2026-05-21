@@ -25,5 +25,6 @@ export const environment = {
   commonAPI: 'http://localhost:8080/amrit/api/',
   ip1097: 'http://localhost:8081/ip1097/',
   telephoneServer: 'http://10.152.3.99:4000/',
-  adminAPI: 'http://localhost:8082/admin/'
+  adminAPI: 'http://localhost:8082/admin/',
+  aesSecretKey: 'Amrit@123'
 };

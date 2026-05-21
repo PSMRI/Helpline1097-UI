@@ -38,6 +38,7 @@ export class ConfigService {
   readonly ip1097BaseURL = environment.ip1097;
   readonly telephonyServerURL = environment.telephoneServer;
   readonly adminBaseURL = environment.adminAPI;
+  readonly aesSecretKey = (environment as any).aesSecretKey || 'Amrit@123';
   
   readonly localeString = 'en-in';
   readonly defaultWrapupTime = 120;
