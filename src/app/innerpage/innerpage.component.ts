@@ -961,6 +961,8 @@ export class InnerpageComponent implements OnInit {
     this.getCommonData.enablePreviousOnCustDisconnect(true);
   }
   getAgentStatus() {
+    // Capture time before the request so RTT doesn't shift callStartEpoch forward.
+    const requestTime = Date.now();
     this.Czentrix.getAgentStatus().subscribe(
       (res) => {
         this.callStatus = res.data.stateObj.stateName;
@@ -973,10 +975,12 @@ export class InnerpageComponent implements OnInit {
         }
         // Prefer CZen server's call_duration so the app timer matches the CZen bar
         // (the bar resets when the call is answered, call_duration reflects that same moment).
+        // Use requestTime (not Date.now()) as reference to compensate for HTTP round-trip latency:
+        // the server computed call_duration at roughly the moment we sent the request.
         // Fall back to callStartTime only when call_duration is unavailable (e.g. still ringing).
         const czDuration = parseInt(res.data.call_duration, 10);
         if (!isNaN(czDuration) && czDuration > 0) {
-          this.callStartEpoch = Date.now() - (czDuration * 1000);
+          this.callStartEpoch = requestTime - (czDuration * 1000);
         } else {
           const callStartTimeStr = this.sessionstorage.getItem("callStartTime");
           this.callStartEpoch = callStartTimeStr ? parseInt(callStartTimeStr, 10) : Date.now();
