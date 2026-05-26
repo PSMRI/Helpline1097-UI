@@ -61,7 +61,6 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
   hideBar: boolean = false;
   subscription: Subscription;
   boundCtiListener: any;
-  boundVisibilityHandler: any;
   hideHeader: boolean = true;
   label: any = {};
   showContacts: boolean = false;
@@ -140,8 +139,6 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
     // }
     this.fetchLanguageSet();
     this.addCtiListener();
-    this.boundVisibilityHandler = this.onVisibilityChange.bind(this);
-    document.addEventListener('visibilitychange', this.boundVisibilityHandler);
   }
 
   addCtiListener() {
@@ -183,6 +180,7 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
     this.sessionstorage.setItem("session_id", session);
     this.sessionstorage.setItem("CLI", cli);
     this.sessionstorage.setItem("callCategory", callCategory);
+    this.sessionstorage.setItem("callStartTime", Date.now().toString());
     this.dataSettingService.current_campaign = callCategory;
     this.dataSettingService.setUniqueCallIDForInBound = true;
     this.router.navigate(["/MultiRoleScreenComponent/RedirectToInnerpageComponent"]);
@@ -192,10 +190,6 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
     if (this.boundCtiListener) {
       window.removeEventListener("message", this.boundCtiListener);
       this.boundCtiListener = null;
-    }
-    if (this.boundVisibilityHandler) {
-      document.removeEventListener('visibilitychange', this.boundVisibilityHandler);
-      this.boundVisibilityHandler = null;
     }
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -238,19 +232,6 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
   }
   toggleBar() {
     this.barMinimized = !this.barMinimized;
-    if (!this.barMinimized) {
-      this.reloadCzenBar();
-    }
-  }
-  reloadCzenBar() {
-    const base = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
-    const url = this.id ? base + '?e=' + this.id + '&_t=' + Date.now() : base + '?_t=' + Date.now();
-    this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-  onVisibilityChange() {
-    if (!document.hidden && !this.barMinimized) {
-      this.reloadCzenBar();
-    }
   }
   ipSuccessLogoutHandler(response) {
     // if (this.current_role.toLowerCase() === "supervisor") {
@@ -259,18 +240,20 @@ export class MultiRoleScreenComponent implements OnInit, OnDestroy {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
           this.sessionstorage.removeItem("isGrievanceCall");
+          this.sessionstorage.removeItem("callStartTime");
           sessionStorage.removeItem('apiman_key');
           this.sessionstorage.removeItem("setLanguage");
           this.dataSettingService.appLanguage="English";
           this.authService.removeToken();
           this.router.navigate(['/']);
-          
+
           // this.socketService.logOut();
         },
         (err) => {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
           this.sessionstorage.removeItem("isGrievanceCall");
+          this.sessionstorage.removeItem("callStartTime");
           sessionStorage.removeItem('apiman_key');
           this.sessionstorage.removeItem("setLanguage");
           this.dataSettingService.appLanguage="English";

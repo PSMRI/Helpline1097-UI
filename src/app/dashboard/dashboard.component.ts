@@ -176,11 +176,10 @@ export class dashboardContentClass implements OnInit {
       if (response !== null) {
         for (let value of response.previlegeObj) {
           for (let role of value.roles) {
-            role.outbound === true;
             if (
               role.RoleID === current_roleID &&
-              role.inbound === true &&
-              role.outbound === true
+              !!role.inbound &&
+              !!role.outbound
             ) {
               this.dataSettingService.onlyOutboundAvailable = false;
               if (this.dataSettingService.current_campaign === "OUTBOUND") {
@@ -199,7 +198,7 @@ export class dashboardContentClass implements OnInit {
               }
             } else if (
               role.RoleID === current_roleID &&
-              role.inbound === true
+              !!role.inbound
             ) {
               this.dataSettingService.current_campaign = "INBOUND";
               this.sessionstorage.setItem("current_campaign", "INBOUND");
@@ -210,7 +209,7 @@ export class dashboardContentClass implements OnInit {
               this.inboundCall = true;
             } else if (
               role.RoleID === current_roleID &&
-              role.outbound === true
+              !!role.outbound
             ) {
               this.inOutBound = "0";
               this.outboundCall = true;
@@ -235,10 +234,7 @@ export class dashboardContentClass implements OnInit {
                     this.sessionstorage.setItem("current_campaign", "OUTBOUND");
                   }
                 );
-              if (
-                role.outbound === true &&
-                (role.inbound == null || role.inbound === false)
-              ) {
+              if (!!role.outbound && !role.inbound) {
                 this.callService.onlyOutbound = true;
               }
             } else {
