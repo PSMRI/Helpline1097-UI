@@ -971,13 +971,15 @@ export class InnerpageComponent implements OnInit {
         if (res.data.stateObj.stateType) {
           this.callStatus += " (" + res.data.stateObj.stateType + ")";
         }
-        const callStartTimeStr = this.sessionstorage.getItem("callStartTime");
-        if (callStartTimeStr) {
-          this.callStartEpoch = parseInt(callStartTimeStr, 10);
+        // Prefer CZen server's call_duration so the app timer matches the CZen bar
+        // (the bar resets when the call is answered, call_duration reflects that same moment).
+        // Fall back to callStartTime only when call_duration is unavailable (e.g. still ringing).
+        const czDuration = parseInt(res.data.call_duration, 10);
+        if (!isNaN(czDuration) && czDuration > 0) {
+          this.callStartEpoch = Date.now() - (czDuration * 1000);
         } else {
-          const czDuration = parseInt(res.data.call_duration, 10);
-          const offset = (!isNaN(czDuration) && czDuration > 0) ? czDuration : 0;
-          this.callStartEpoch = Date.now() - (offset * 1000);
+          const callStartTimeStr = this.sessionstorage.getItem("callStartTime");
+          this.callStartEpoch = callStartTimeStr ? parseInt(callStartTimeStr, 10) : Date.now();
         }
         this.startCallTimer();
       },
