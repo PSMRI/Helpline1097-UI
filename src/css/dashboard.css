@@ -103,6 +103,10 @@ position: fixed;
 right: 0px;
 bottom: 0px;
 }
+.czenrix-bar--minimized {
+opacity: 0;
+pointer-events: none;
+}
 .czenrix-icon {
 position: fixed;
 right: 0px;

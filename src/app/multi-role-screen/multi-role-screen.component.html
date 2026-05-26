@@ -61,7 +61,7 @@
   <router-outlet></router-outlet>
   </div>
   <div (click)="minimizeBar()" *ngIf="hideBar">
-    <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()" title="Czentrix Bar"></iframe>
+    <iframe [src]="ctiHandlerURL" width="230px" height="380px" class="czenrix-bar" [class.czenrix-bar--minimized]="barMinimized" (click)="toggleBar()" title="Czentrix Bar"></iframe>
  
   </div>
   <footer class="footer noprint">
