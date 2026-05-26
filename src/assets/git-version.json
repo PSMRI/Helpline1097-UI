@@ -1,11 +1,3 @@
 {
-  "version": "0.0.0",
-  "hash": "00a7af7ccac4653915c4e43ac9e0cab9e1cbce96",
-  "shortHash": "00a7af7",
-  "commit": "00a7af7ccac4653915c4e43ac9e0cab9e1cbce96",
-  "shortCommit": "00a7af7",
-  "author": "snehar-nd",
-  "email": "sneha@navadhiti.com",
-  "date": "Mon May 18 14:00:38 2026 +0530",
-  "message": "fix: show actual error message for locked/deactivated account on 5002\n    \n    Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+  "version": "0.0.0"
 }
