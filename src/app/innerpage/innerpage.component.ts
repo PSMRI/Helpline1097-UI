@@ -944,7 +944,10 @@ export class InnerpageComponent implements OnInit {
         console.log("after re initialize the timer", t);
         const remarks = "Call disconnect from customer.";
         console.log("this.callStatus", this.callStatus);
-        if (this.wrapupTime) {
+        // Guard against firing after the closure form already closed the call.
+        // showAlert() clears isOnCall before the user clicks OK; if it's gone
+        // the call was handled and the wrapup should not re-close it.
+        if (this.wrapupTime && this.sessionstorage.getItem("isOnCall") === "yes") {
           this.closeCall(
             remarks,
             this.currentLanguageSet.callClosedSuccessfully,
