@@ -690,19 +690,19 @@ export class ClosureComponent implements OnInit {
   showAlert(): any {
     this.sessionstorage.removeItem("isOnCall");
     if (this.transferValid == true) {
-      // Return the Observable so callers can wait for OK before navigating.
-      // This prevents the dialog from persisting over the next call's innerpage.
       return this.message.alertConfirm(
         this.currentLanguageSet.callTransferredSuccessfully,
         "success"
       );
     } else {
-      this.message.alert(
+      // Return the Observable so the caller waits for OK before emitting callClosed
+      // and navigating away. Using alert() (void) here caused callClosed to emit
+      // immediately, which navigated away before the user clicked OK → app hang.
+      return this.message.alertConfirm(
         this.currentLanguageSet.callClosedSuccessfully,
         "success"
       );
     }
-    // alert('Call closed Successful!!!!');
   }
   isFollow(e) {
     if (e.checked) {
@@ -752,25 +752,24 @@ export class ClosureComponent implements OnInit {
     this._callServices.closeCall(values).subscribe(
       (response) => {
         if (response) {
-          this.message.alert(
+          const alertObs = this.message.alertConfirm(
             this.currentLanguageSet.callClosedSuccessfully,
             "success"
           );
-          if (btnType === "submitClose") {
-            this.saved_data.feedbackData = undefined;
-            this.saved_data.outboundGrievanceData = undefined;
-            this.callClosed.emit(this.current_campaign);
-            /* below lines are commented to use old close call API */
-            // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
-            //   console.log('disconnect response', res);
-
-            // }, (err) => {
-
-            // });
+          const proceed = () => {
+            if (btnType === "submitClose") {
+              this.saved_data.feedbackData = undefined;
+              this.saved_data.outboundGrievanceData = undefined;
+              this.callClosed.emit(this.current_campaign);
+            } else {
+              this.closedContinue.emit();
+            }
+          };
+          if (alertObs) {
+            alertObs.subscribe(() => proceed());
           } else {
-            this.closedContinue.emit();
+            proceed();
           }
-          // this.pass_data.sendData(this.current_campaign);
         }
       },
       (err) => {
