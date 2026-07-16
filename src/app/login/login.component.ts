@@ -1,8 +1,8 @@
-/* 
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology
+* Integrated EHR (Electronic Health Records) Solution
 *
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+* Copyright (C) "Piramal Swasthya Management and Research Institute"
 *
 * This file is part of AMRIT.
 *
@@ -21,7 +21,7 @@
 */
 
 
-import { Component,forwardRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, forwardRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { loginService } from '../services/loginService/login.service';
 import { dataService } from '../services/dataService/data.service';
 import { CzentrixServices } from '../services/czentrix/czentrix.service';
@@ -53,18 +53,18 @@ export class loginContentClass implements OnInit, OnDestroy {
   model: any = {};
   userID: any;
   password: any;
-  
+
   encryptedVar: any;
   key: any;
   iv: any;
-  SALT: string = "RandomInitVector";
-  Key_IV: string = "Piramal12Piramal";
+  SALT = 'RandomInitVector';
+  Key_IV = 'Piramal12Piramal';
   encPassword: string;
   _keySize: any;
   _ivSize: any;
   _iterationCount: any;
 
- 
+
   loading = false;
   public loginResult: string;
   dynamictype: any = 'password';
@@ -75,20 +75,20 @@ export class loginContentClass implements OnInit, OnDestroy {
   captchaToken: string;
   enableCaptcha = environment.enableCaptcha;
 
-  constructor(public loginservice: loginService,private sessionstorage:sessionStorageService, public router: Router, public alertService: ConfirmationDialogsService,
+  constructor(public loginservice: loginService, private sessionstorage: sessionStorageService, public router: Router, public alertService: ConfirmationDialogsService,
     public dataSettingService: dataService, private czentrixServices: CzentrixServices, private socketService: SocketService,   private httpService: InterceptedHttp) {
       this._keySize = 256;
       this._ivSize = 128;
       this._iterationCount = 1989;
     if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
-        if(response !== null && response !== undefined)  {
+        if (response !== null && response !== undefined)  {
         this.dataSettingService.Userdata = response;
         // this.dataSettingService.userPriveliges = response.Previlege;
-        if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
-        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == '1097' });
         }
-        
+
         // if (this.previlageObj.length > 0) {
         this.dataSettingService.userPriveliges = this.previlageObj;
         this.dataSettingService.uid = response.userID;
@@ -99,7 +99,7 @@ export class loginContentClass implements OnInit, OnDestroy {
         if (response.isAuthenticated === true && response.Status === 'Active') {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
-          this.sessionstorage.removeItem("isGrievanceCall");
+          this.sessionstorage.removeItem('isGrievanceCall');
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
         // } else {
@@ -127,9 +127,9 @@ export class loginContentClass implements OnInit, OnDestroy {
       );
     if (sessionStorage.getItem('authToken')) {
       this.loginservice.checkAuthorisedUser().subscribe((response) => {
-        if(response !== undefined && response !== null) {
-          if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
-          this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+        if (response !== undefined && response !== null) {
+          if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
+          this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == '1097' });
         }
         // if (this.previlageObj.length > 0) {
         this.dataSettingService.Userdata = response;
@@ -143,7 +143,7 @@ export class loginContentClass implements OnInit, OnDestroy {
         if (response.isAuthenticated === true && response.Status === 'Active') {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
-          this.sessionstorage.removeItem("isGrievanceCall");
+          this.sessionstorage.removeItem('isGrievanceCall');
           this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
         }
         // } else {
@@ -161,7 +161,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   }
 
   // encrypt(password) {
-    
+
   //   var key = CryptoJS.PBKDF2(password, this.SALT, {
   //     // var key = CryptoJS.PKCS5(password, this.SALT, {
   //     keySize: 256 / 32,
@@ -220,17 +220,17 @@ export class loginContentClass implements OnInit, OnDestroy {
 
 
   encryptWithIvSalt(salt, iv, passPhrase, plainText) {
-    let key = this.generateKey(salt, passPhrase);
-    let encrypted = CryptoJS.AES.encrypt(plainText, key, {
+    const key = this.generateKey(salt, passPhrase);
+    const encrypted = CryptoJS.AES.encrypt(plainText, key, {
       iv: CryptoJS.enc.Hex.parse(iv)
     });
     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
   }
 
   encrypt(passPhrase, plainText) {
-    let iv = CryptoJS.lib.WordArray.random(this._ivSize / 8).toString(CryptoJS.enc.Hex);
-    let salt = CryptoJS.lib.WordArray.random(this.keySize / 8).toString(CryptoJS.enc.Hex);
-    let ciphertext = this.encryptWithIvSalt(salt, iv, passPhrase, plainText);
+    const iv = CryptoJS.lib.WordArray.random(this._ivSize / 8).toString(CryptoJS.enc.Hex);
+    const salt = CryptoJS.lib.WordArray.random(this.keySize / 8).toString(CryptoJS.enc.Hex);
+    const ciphertext = this.encryptWithIvSalt(salt, iv, passPhrase, plainText);
     return salt + iv + ciphertext;
   }
 
@@ -242,15 +242,15 @@ export class loginContentClass implements OnInit, OnDestroy {
     // this.password = CryptoJS.SHA256(this.password).toString();
     // this.encryptedVar=SHA256(this.password).toString(enc.Hex);
     // this.password=this.encryptedVar.substr(0, 16);
-    console.error("response");
+    console.error('response');
       this.loginservice
-      .authenticateUser(this.userID, this.encryptPassword, doLogOut,this.enableCaptcha ? this.captchaToken : undefined)
+      .authenticateUser(this.userID, this.encryptPassword, doLogOut, this.enableCaptcha ? this.captchaToken : undefined)
       .subscribe(
         (response: any) => {
           // console.error("response",response);
           // let tkn = response.Jwttoken;
           // this.sessionstorage.setCookie('Jwttoken', tkn,1 );
-         
+
           if (
             response !== undefined &&
             response !== null &&
@@ -259,15 +259,15 @@ export class loginContentClass implements OnInit, OnDestroy {
           ) {
             this.successCallback(response, this.userID, this.password);
           }
-         
+
         },
-       
+
         (error: any) => this.errorCallback(error)
-    
-      ); 
-   
+
+      );
+
     }
-  
+
 
   // login(doLogOut) {
   //   this.loginservice
@@ -286,16 +286,16 @@ export class loginContentClass implements OnInit, OnDestroy {
   //       (error: any) => this.errorCallback(error)
   //     );
   // }
-//ADID- KA40094929 
+//ADID- KA40094929
 // added new method to force logout the user
   loginUser(doLogOut) {
     this.loginservice
     .userLogOutFromPreviousSession(this.userID)
     .subscribe(
       (userLogOutRes: any) => {
-      if(userLogOutRes && userLogOutRes.data.response) {
+      if (userLogOutRes && userLogOutRes.data.response) {
     this.loginservice
-      .authenticateUser(this.userID, this.encryptPassword, doLogOut,this.enableCaptcha ? this.captchaToken : undefined)
+      .authenticateUser(this.userID, this.encryptPassword, doLogOut, this.enableCaptcha ? this.captchaToken : undefined)
       .finally(() => {
         this.resetCaptcha();
         this.loading = false;
@@ -326,19 +326,19 @@ export class loginContentClass implements OnInit, OnDestroy {
     }
 
   successCallback(response: any, userID: any, password: any) {
-    this.dataSettingService.current_campaign=undefined;
+    this.dataSettingService.current_campaign = undefined;
     this.loading = false;
 
     if (response !== undefined && response !== null) {
-      if(response.previlegeObj !== undefined && response.previlegeObj !== null) {
-        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == "1097" });
+      if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
+        this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == '1097' });
       }
     // if (this.previlageObj.length > 0) {
     this.dataSettingService.Userdata = response;
     // this.dataSettingService.userPriveliges = response.Previlege;
     this.dataSettingService.userPriveliges = this.previlageObj;
     this.dataSettingService.uid = response.userID;
-    this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID ? 
+    this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID ?
     response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID : null;
 
     this.dataSettingService.uname = response.userName;
@@ -350,11 +350,11 @@ export class loginContentClass implements OnInit, OnDestroy {
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
       if (this.dataSettingService.current_serviceID === undefined) {
-        alert('ServiceID not found. Some things may not work');
+        this.alertService.alert('ServiceID not found. Some things may not work');
       }
       this.sessionstorage.removeItem('isOnCall');
       this.sessionstorage.removeItem('isEverwellCall');
-      this.sessionstorage.removeItem("isGrievanceCall");
+      this.sessionstorage.removeItem('isGrievanceCall');
       sessionStorage.setItem('authToken', response.key);
       this.router.navigate(['/MultiRoleScreenComponent'], { skipLocationChange: true });
       // this.socketService.reInstantiate();
@@ -364,7 +364,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       sessionStorage.setItem('authToken', response.key);
       this.sessionstorage.removeItem('isOnCall');
       this.sessionstorage.removeItem('isEverwellCall');
-      this.sessionstorage.removeItem("isGrievanceCall");
+      this.sessionstorage.removeItem('isGrievanceCall');
       this.router.navigate(['/setQuestions']);
     }
     // } else {
@@ -417,7 +417,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       this.captchaToken = '';
     }
   }
-  
+
   ngOnDestroy() {
     if (this.logoutUserFromPreviousSessionSubscription) {
       this.logoutUserFromPreviousSessionSubscription.unsubscribe();

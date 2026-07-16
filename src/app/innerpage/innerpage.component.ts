@@ -1,8 +1,8 @@
-/* 
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology
+* Integrated EHR (Electronic Health Records) Solution
 *
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+* Copyright (C) "Piramal Swasthya Management and Research Institute"
 *
 * This file is part of AMRIT.
 *
@@ -28,48 +28,48 @@ import {
   Input,
   Output,
   Renderer,
-} from "@angular/core";
-import { dataService } from "../services/dataService/data.service";
-import { Router } from "@angular/router";
-import { Http } from "@angular/http";
-import { ActivatedRoute } from "@angular/router";
-import { ConfigService } from "../services/config/config.service";
-import { HttpServices } from "../services/http-services/http_services.service";
-import { DomSanitizer } from "@angular/platform-browser";
-import { CallServices } from "../services/callservices/callservice.service";
-import { ConfirmationDialogsService } from "./../services/dialog/confirmation.service";
-import { CzentrixServices } from "./../services/czentrix/czentrix.service";
-import { ClosureComponent } from "../closure/closure.component";
-import { Observable } from "rxjs/Rx";
-import { ListnerService } from "./../services/common/listner.service";
-import { AuthService } from "../services/authentication/auth.service";
-import { RegisterService } from "../services/register-services/register-service";
-import { Subscription } from "rxjs/Subscription";
-import { SetLanguageComponent } from "app/set-language.component";
-import { sessionStorageService } from "app/services/sessionStorageService/session-storage.service";
+} from '@angular/core';
+import { dataService } from '../services/dataService/data.service';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
+import { ConfigService } from '../services/config/config.service';
+import { HttpServices } from '../services/http-services/http_services.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CallServices } from '../services/callservices/callservice.service';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
+import { CzentrixServices } from './../services/czentrix/czentrix.service';
+import { ClosureComponent } from '../closure/closure.component';
+import { Observable } from 'rxjs/Rx';
+import { ListnerService } from './../services/common/listner.service';
+import { AuthService } from '../services/authentication/auth.service';
+import { RegisterService } from '../services/register-services/register-service';
+import { Subscription } from 'rxjs/Subscription';
+import { SetLanguageComponent } from 'app/set-language.component';
+import { sessionStorageService } from 'app/services/sessionStorageService/session-storage.service';
 
 declare const jQuery: any;
 
 @Component({
-  selector: "app-innerpage",
-  templateUrl: "./innerpage.component.html",
-  styleUrls: ["./innerpage.component.css"],
+  selector: 'app-innerpage',
+  templateUrl: './innerpage.component.html',
+  styleUrls: ['./innerpage.component.css'],
 })
 export class InnerpageComponent implements OnInit {
-  callDuration: string = "";
-  beneficiaryNotSelected: boolean = true;
+  callDuration = '';
+  beneficiaryNotSelected = true;
   callerNumber: any;
-  barMinimized: boolean = true;
-  startYear: number = 1970;
+  barMinimized = true;
+  startYear = 1970;
   checkRole = true;
-  seconds: number = 0;
-  minutes: number = 0;
-  counter: number = 0;
+  seconds = 0;
+  minutes = 0;
+  counter = 0;
   current_campaign: any;
   eventSpiltData: any;
   // language change stuff
-  languageFilePath: any = "assets/language.js";
-  selectedlanguage: any = "";
+  languageFilePath: any = 'assets/language.js';
+  selectedlanguage: any = '';
   currentlanguageSet: any = {};
   language_change: any;
   beneficiaryRegID: any;
@@ -77,18 +77,18 @@ export class InnerpageComponent implements OnInit {
   timeRemaining: any;
   ticks = 0;
   callStatus: any;
-  callTime: boolean = true;
-  wrapupTime: boolean = false;
+  callTime = true;
+  wrapupTime = false;
   TotalCalls: any;
   TotalTime: any;
   id: any;
   disconectCallId: any;
   wrapupCallID: any;
-  backToDashboard: boolean = true;
+  backToDashboard = true;
   callID: any;
   wrapupTimerSubscription: Subscription;
   ipAddress: any;
-  language_file_path: any = "./assets/";
+  language_file_path: any = './assets/';
   currentLanguageSet: any;
   app_language: any;
   languageArray: any;
@@ -110,8 +110,8 @@ export class InnerpageComponent implements OnInit {
   grievanceBenFullname: string;
   EverwellBeneficiaryRegID: string;
   everwellPrimaryNumber: string;
-  isEverwell: string = "No";
-  isGrievance: string = "No";
+  isEverwell = 'No';
+  isGrievance = 'No';
   everwellSelectedBenData: any;
   grievanceSelectedBenData: any;
   everwellState: any;
@@ -119,12 +119,12 @@ export class InnerpageComponent implements OnInit {
   everwellGender: any;
   eapiID: any;
   everwelleapiId: any;
-  everwellSubmitBtn: boolean = false;
+  everwellSubmitBtn = false;
   custdisconnectCallID: any;
   current_roleID: any;
 
   constructor(
-    private sessionstorage:sessionStorageService,
+    private sessionstorage: sessionStorageService,
     public getCommonData: dataService,
     private _callServices: CallServices,
     public basicrouter: Router,
@@ -146,19 +146,19 @@ export class InnerpageComponent implements OnInit {
 
   // tslint:disable-next-line:member-ordering
   selectedBenData: any = {
-    id: "",
-    fname: "",
-    lname: "",
-    mob: "",
-    age: "",
-    gender: "",
-    state: "",
-    district: "",
-    block: "",
-    village: "",
-    language: "",
-    relation: "",
-    name: "",
+    id: '',
+    fname: '',
+    lname: '',
+    mob: '',
+    age: '',
+    gender: '',
+    state: '',
+    district: '',
+    block: '',
+    village: '',
+    language: '',
+    relation: '',
+    name: '',
   };
 
   ngOnInit() {
@@ -173,16 +173,14 @@ export class InnerpageComponent implements OnInit {
     this.providerServiceMapId = this.getCommonData.current_service.serviceID;
 
     const url =
-      this._config.getTelephonyServerURL() + "bar/cti_handler.php?e=" + this.id;
-
+      this._config.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.id;
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    if (this.sessionstorage.getItem("CLI") !== undefined) {
-      this.callerNumber = this.sessionstorage.getItem("CLI");
+    if (this.sessionstorage.getItem('CLI') !== undefined) {
+      this.callerNumber = this.sessionstorage.getItem('CLI');
     }
-    if (this.sessionstorage.getItem("callCategory") !== undefined) {
-      if (this.sessionstorage.getItem("callCategory") === "OUTBOUND") {
+    if (this.sessionstorage.getItem('callCategory') !== undefined) {
+      if (this.sessionstorage.getItem('callCategory') === 'OUTBOUND') {
         this.getCommonData.isOutbound = true;
       } else {
         this.getCommonData.isOutbound = false;
@@ -195,14 +193,14 @@ export class InnerpageComponent implements OnInit {
     //   }
     // }
     this.getCallTypes(this.providerServiceMapId);
-    this.language_change = "english";
+    this.language_change = 'english';
     this.getLanguageObject(this.language_change);
     this.getIVRSPathDetails();
 
-    if (this.current_role.toLowerCase() === "supervisor") {
+    if (this.current_role.toLowerCase() === 'supervisor') {
       this.checkRole = false;
     }
-    this.callDuration = this.minutes + "m " + this.seconds + "s ";
+    this.callDuration = this.minutes + 'm ' + this.seconds + 's ';
     setInterval(() => {
       // Get todays date and time
       if (this.seconds === this.counter + 60) {
@@ -210,12 +208,12 @@ export class InnerpageComponent implements OnInit {
         this.seconds = 0;
       }
       this.seconds = this.seconds + 1;
-      this.callDuration = this.minutes + "m " + this.seconds + "s ";
+      this.callDuration = this.minutes + 'm ' + this.seconds + 's ';
     }, 1000);
     this.current_campaign = this.getCommonData.current_campaign;
     this.listenCallEvent = this.renderer.listenGlobal(
-      "window",
-      "message",
+      'window',
+      'message',
       (event) => {
         this.listener(event);
         // Do something with 'event'
@@ -224,10 +222,10 @@ export class InnerpageComponent implements OnInit {
     // this.addListener();
     this.getAgentStatus();
     this.getAgentCallDetails();
-    this.isEverwell = this.sessionstorage.getItem("isEverwellCall");
-    this.isGrievance = this.sessionstorage.getItem("isGrievanceCall");
+    this.isEverwell = this.sessionstorage.getItem('isEverwellCall');
+    this.isGrievance = this.sessionstorage.getItem('isGrievanceCall');
 
-    if(this.isGrievance && this.isGrievance === "yes") {
+    if (this.isGrievance && this.isGrievance === 'yes') {
       this.grievanceSelectedBenData = this.getCommonData.outboundGrievanceData;
       this.getCommonData.beneficiaryRegID  = this.grievanceSelectedBenData.beneficiaryRegID;
     }
@@ -235,17 +233,17 @@ export class InnerpageComponent implements OnInit {
     this.fetchLanguageSet();
   }
   addActiveClass(val: any) {
-    jQuery("#" + val)
+    jQuery('#' + val)
       .parent()
-      .find("a")
-      .removeClass("active-tab");
-    jQuery("#" + val)
-      .find("a")
-      .addClass("active-tab");
+      .find('a')
+      .removeClass('active-tab');
+    jQuery('#' + val)
+      .find('a')
+      .addClass('active-tab');
   }
 
   benByCallID(callID) {
-    let data = '{"callID":"' + callID + ', "is1097":true}';
+    const data = '{"callID":"' + callID + ', "is1097":true}';
     this._callServices.getBeneficiaryByCallID(data).subscribe(
       (response) => {
         if (response.i_beneficiary) {
@@ -255,7 +253,7 @@ export class InnerpageComponent implements OnInit {
               this.getSelectedBenDetails(response[0]);
             }),
             (err) => {
-
+              console.log('Error in getting ben history');
             };
         } // this will be excuted in case of browser off only
         else {
@@ -264,19 +262,19 @@ export class InnerpageComponent implements OnInit {
       },
       (err) => {
         //  this.retrieveData();
-
+        console.log('error in benDetailByCallerID');
       }
     );
   }
   retrieveData() {
-    if (this.getCommonData.current_campaign == "OUTBOUND") {
+    if (this.getCommonData.current_campaign == 'OUTBOUND') {
       this._util
         .retrieveRegHistory(this.getCommonData.outboundBenRegID)
         .subscribe((response) => {
           this.getSelectedBenDetails(response[0]);
         }),
         (err) => {
-
+          console.log('Error in getting ben history');
         };
     } // this code is to load navbar data in case of OUTBOUND
   }
@@ -305,13 +303,16 @@ export class InnerpageComponent implements OnInit {
               this.getCommonData.beneficiarySelected.next({
                 beneficiarySelected: true,
               });
-
+              console.log(
+                '**********BENEFICIARY REG ID**********',
+                data.beneficiaryRegID
+              );
               this.getCommonData.beneficiaryRegID = data.beneficiaryRegID;
               this.selectedBenData.id = data.beneficiaryID;
               this.beneficiaryRegID = data.beneficiaryRegID;
-              let fname = data.firstName ? data.firstName : "";
-              let lname = data.lastName ? data.lastName : "";
-              this.selectedBenData.name = fname + " " + lname;
+              const fname = data.firstName ? data.firstName : '';
+              const lname = data.lastName ? data.lastName : '';
+              this.selectedBenData.name = fname + ' ' + lname;
               // if ( data.dOB )
               // {
               //  let currDate = new Date();
@@ -321,109 +322,108 @@ export class InnerpageComponent implements OnInit {
               // this.selectedBenData.age = 'Age: ' + this.calculateAge(data.dOB);
               // this.selectedBenData.age = 'Age: ' + (data.age ? data.age : "");
               this.selectedBenData.age =
-                (data.actualAge ? data.actualAge : "") +
-                " " +
-                (data.ageUnits ? data.ageUnits : "");
+                (data.actualAge ? data.actualAge : '') +
+                ' ' +
+                (data.ageUnits ? data.ageUnits : '');
               // }
               this.selectedBenData.gender = data.m_gender
                 ? data.m_gender.genderName
                   ? data.m_gender.genderName
-                  : ""
-                : "";
+                  : ''
+                : '';
               this.selectedBenData.state = data.i_bendemographics
                 ? data.i_bendemographics.m_state
                   ? data.i_bendemographics.m_state.stateName
                     ? data.i_bendemographics.m_state.stateName
-                    : ""
-                  : ""
-                : "";
+                    : ''
+                  : ''
+                : '';
               this.selectedBenData.district = data.i_bendemographics
                 ? data.i_bendemographics.m_district
                   ? data.i_bendemographics.m_district.districtName
                     ? data.i_bendemographics.m_district.districtName
-                    : ""
-                  : ""
-                : "";
+                    : ''
+                  : ''
+                : '';
               this.selectedBenData.block = data.i_bendemographics
                 ? data.i_bendemographics.m_districtblock
                   ? data.i_bendemographics.m_districtblock.blockName
                     ? data.i_bendemographics.m_districtblock.blockName
-                    : ""
-                  : ""
-                : "";
+                    : ''
+                  : ''
+                : '';
               this.selectedBenData.village = data.i_bendemographics
                 ? data.i_bendemographics.m_districtbranchmapping
                   ? data.i_bendemographics.m_districtbranchmapping.villageName
                     ? data.i_bendemographics.m_districtbranchmapping.villageName
-                    : ""
-                  : ""
-                : "";
+                    : ''
+                  : ''
+                : '';
               this.selectedBenData.language = data.i_bendemographics
                 ? data.i_bendemographics.m_language
                   ? data.i_bendemographics.m_language.languageName
                     ? data.i_bendemographics.m_language.languageName
-                    : ""
-                  : ""
-                : "";
+                    : ''
+                  : ''
+                : '';
               this.selectedBenData.relation = data.benPhoneMaps[0]
                 ? data.benPhoneMaps[0].benRelationshipType
                   ? data.benPhoneMaps[0].benRelationshipType.benRelationshipType
-                  : ""
-                : "";
+                  : ''
+                : '';
             } else {
               this.getCommonData.beneficiarySelected.next({
                 beneficiarySelected: false,
               });
-              this.selectedBenData.name = "";
-              this.selectedBenData.id = "";
-              this.selectedBenData.fname = "";
-              this.selectedBenData.lname = "";
-              this.selectedBenData.age = "";
-              this.selectedBenData.gender = "";
-              this.selectedBenData.state = "";
-              this.selectedBenData.district = "";
-              this.selectedBenData.block = "";
-              this.selectedBenData.village = "";
-              this.selectedBenData.language = "";
-              this.selectedBenData.relation = "";
+              this.selectedBenData.name = '';
+              this.selectedBenData.id = '';
+              this.selectedBenData.fname = '';
+              this.selectedBenData.lname = '';
+              this.selectedBenData.age = '';
+              this.selectedBenData.gender = '';
+              this.selectedBenData.state = '';
+              this.selectedBenData.district = '';
+              this.selectedBenData.block = '';
+              this.selectedBenData.village = '';
+              this.selectedBenData.language = '';
+              this.selectedBenData.relation = '';
             }
           }
         },
         (err) => {
-
+          console.log(err, 'error');
         }
       );
     } else {
       this.getCommonData.beneficiarySelected.next({
         beneficiarySelected: false,
       });
-      this.selectedBenData.name = "";
-      this.selectedBenData.id = "";
-      this.selectedBenData.fname = "";
-      this.selectedBenData.lname = "";
-      this.selectedBenData.age = "";
-      this.selectedBenData.gender = "";
-      this.selectedBenData.state = "";
-      this.selectedBenData.district = "";
-      this.selectedBenData.block = "";
-      this.selectedBenData.village = "";
-      this.selectedBenData.language = "";
-      this.selectedBenData.relation = "";
+      this.selectedBenData.name = '';
+      this.selectedBenData.id = '';
+      this.selectedBenData.fname = '';
+      this.selectedBenData.lname = '';
+      this.selectedBenData.age = '';
+      this.selectedBenData.gender = '';
+      this.selectedBenData.state = '';
+      this.selectedBenData.district = '';
+      this.selectedBenData.block = '';
+      this.selectedBenData.village = '';
+      this.selectedBenData.language = '';
+      this.selectedBenData.relation = '';
     }
   }
 
   getEverwellSelectedBenDetails(obj: any) {
 
-
     this.getCommonData.everwellBeneficiarySelected.next({
       isEverwellBeneficiarySelected: true,
     });
     this.everwellSelectedBenData = obj;
-    let firstName = obj.FirstName ? obj.FirstName : "";
-    let lname = obj.LastName ? obj.LastName : "";
+    const firstName = obj.FirstName ? obj.FirstName : '';
+    const lname = obj.LastName ? obj.LastName : '';
     this.EverwellBeneficiaryRegID = obj.beneficiaryID;
-
-    this.everwellFullname = firstName + " " + lname;
+    console.log('innerpage', obj);
+    this.everwellFullname = firstName + ' ' + lname;
     this.everwellPrimaryNumber = obj.PrimaryNumber;
     this.everwellState = obj.state;
     this.everwellDistrict = obj.district;
@@ -447,13 +447,12 @@ export class InnerpageComponent implements OnInit {
       (response) => this.successhandeler(response, language),
       (err) => {
         // this.remarksMessage.alert(err.errorMessage);
-
+        console.log('error in fetching language');
       }
     );
   }
 
   successhandeler(response, language) {
-
     this.currentlanguageSet = response[language];
   }
   // logOut() {
@@ -463,7 +462,7 @@ export class InnerpageComponent implements OnInit {
   // }
   log_out() {
     if (
-      this.getCommonData.current_role.RoleName.toUpperCase() != "SUPERVISOR"
+      this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR'
     ) {
       this.remarksMessage.alert(
         this.currentlanguageSet.cannotLogoutDuringActiveCall
@@ -482,7 +481,7 @@ export class InnerpageComponent implements OnInit {
   logOut() {
     if (
       this.getCommonData.loginIP === undefined ||
-      this.getCommonData.loginIP === ""
+      this.getCommonData.loginIP === ''
     ) {
       this.Czentrix.getIpAddress(this.getCommonData.cZentrixAgentID).subscribe(
         (res) => {
@@ -492,7 +491,7 @@ export class InnerpageComponent implements OnInit {
           }
         },
         (err) => {
-
+          console.log(err.errorMessage, 'LOGOUT ERROR');
           // this.remarksMessage.alert(err.errorMessage);
         }
       );
@@ -501,28 +500,28 @@ export class InnerpageComponent implements OnInit {
     }
   }
   ipSuccessLogoutHandler(response) {
-    if (this.current_role.toLowerCase() === "supervisor") {
+    if (this.current_role.toLowerCase() === 'supervisor') {
       this.Czentrix.userLogout().subscribe(
         (response) => {
-          this.sessionstorage.removeItem("isOnCall");
-          this.sessionstorage.removeItem("isEverwellCall");
-          this.sessionstorage.removeItem("isGrievanceCall");
-          this.sessionstorage.removeItem("apiman_key");
-          this.sessionstorage.removeItem("setLanguage");
+          this.sessionstorage.removeItem('isOnCall');
+          this.sessionstorage.removeItem('isEverwellCall');
+          this.sessionstorage.removeItem('isGrievanceCall');
+          this.sessionstorage.removeItem('apiman_key');
+          this.sessionstorage.removeItem('setLanguage');
           this.authService.removeToken();
-          this.getCommonData.appLanguage = "English";
-          this.basicrouter.navigate([""]);
+          this.getCommonData.appLanguage = 'English';
+          this.basicrouter.navigate(['']);
           // this.socketService.logOut();
         },
         (err) => {
-          this.sessionstorage.removeItem("isOnCall");
-          this.sessionstorage.removeItem("isEverwellCall");
-          this.sessionstorage.removeItem("isGrievanceCall");
-          this.sessionstorage.removeItem("apiman_key");
-          this.sessionstorage.removeItem("setLanguage");
+          this.sessionstorage.removeItem('isOnCall');
+          this.sessionstorage.removeItem('isEverwellCall');
+          this.sessionstorage.removeItem('isGrievanceCall');
+          this.sessionstorage.removeItem('apiman_key');
+          this.sessionstorage.removeItem('setLanguage');
           this.authService.removeToken();
-          this.getCommonData.appLanguage = "English";
-          this.basicrouter.navigate([""]);
+          this.getCommonData.appLanguage = 'English';
+          this.basicrouter.navigate(['']);
           // this.socketService.logOut();
         }
       );
@@ -532,28 +531,28 @@ export class InnerpageComponent implements OnInit {
         response
       ).subscribe(
         (res) => {
-          if (res.response.status.toUpperCase() !== "FAIL") {
+          if (res.response.status.toUpperCase() !== 'FAIL') {
             this.Czentrix.userLogout().subscribe(
               (response) => {
-                this.sessionstorage.removeItem("isOnCall");
-                this.sessionstorage.removeItem("isEverwellCall");
-                this.sessionstorage.removeItem("isGrievanceCall");
-                this.sessionstorage.removeItem("apiman_key");
-                this.sessionstorage.removeItem("setLanguage");
+                this.sessionstorage.removeItem('isOnCall');
+                this.sessionstorage.removeItem('isEverwellCall');
+                this.sessionstorage.removeItem('isGrievanceCall');
+                this.sessionstorage.removeItem('apiman_key');
+                this.sessionstorage.removeItem('setLanguage');
                 this.authService.removeToken();
-                this.getCommonData.appLanguage = "English";
-                this.basicrouter.navigate([""]);
+                this.getCommonData.appLanguage = 'English';
+                this.basicrouter.navigate(['']);
                 // this.socketService.logOut();
               },
               (err) => {
-                this.sessionstorage.removeItem("isOnCall");
-                this.sessionstorage.removeItem("isEverwellCall");
-                this.sessionstorage.removeItem("isGrievanceCall");
-                this.sessionstorage.removeItem("apiman_key");
-                this.sessionstorage.removeItem("setLanguage");
-                this.getCommonData.appLanguage = "English";
+                this.sessionstorage.removeItem('isOnCall');
+                this.sessionstorage.removeItem('isEverwellCall');
+                this.sessionstorage.removeItem('isGrievanceCall');
+                this.sessionstorage.removeItem('apiman_key');
+                this.sessionstorage.removeItem('setLanguage');
+                this.getCommonData.appLanguage = 'English';
                 this.authService.removeToken();
-                this.basicrouter.navigate([""]);
+                this.basicrouter.navigate(['']);
                 // this.socketService.logOut();
               }
             );
@@ -595,35 +594,33 @@ export class InnerpageComponent implements OnInit {
   }
   getCallTypes(providerServiceMapID) {
     const requestObject = { providerServiceMapID: providerServiceMapID };
-    if (this.getCommonData.current_campaign == "INBOUND") {
-      requestObject["isInbound"] = true;
+    if (this.getCommonData.current_campaign == 'INBOUND') {
+      requestObject['isInbound'] = true;
     } else {
-      requestObject["isOutbound"] = true;
+      requestObject['isOutbound'] = true;
     }
     this._callServices.getCallTypes(requestObject).subscribe(
       (response) => {
 
         let transferObj = response.filter(function (item) {
-
-          return item.callGroupType.toLowerCase().startsWith("transfer");
+          return item.callGroupType.toLowerCase().startsWith('transfer');
         });
         if (
-          transferObj && transferObj.length > 0 && 
+          transferObj && transferObj.length > 0 &&
           transferObj[0].callTypes !== undefined &&
           transferObj[0].callTypes !== null
         ) {
           transferObj = transferObj[0].callTypes.filter(function (
             previousData
           ) {
-
             return previousData.callTypeDesc
               .toLowerCase()
-              .startsWith("transfer");
+              .startsWith('transfer');
           });
           if (transferObj && transferObj[0].callTypeID) {
             this.transferCallID = transferObj[0].callTypeID;
           }
-        } 
+        }
         // else {
         //   this.remarksMessage.alert(
         //     this.currentlanguageSet.failedToGetCallTypes
@@ -631,10 +628,10 @@ export class InnerpageComponent implements OnInit {
         // }
 
         for (let i = 0; i < response.length; i++) {
-          if (response[i].callGroupType.startsWith("Wrapup")) {
+          if (response[i].callGroupType.startsWith('Wrapup')) {
             if (response[i].callTypes) {
               for (let j = 0; j < response[i].callTypes.length; j++) {
-                if (response[i].callTypes[j].callType.startsWith("Wrapup")) {
+                if (response[i].callTypes[j].callType.startsWith('Wrapup')) {
                   this.wrapupCallID = response[i].callTypes[j].callTypeID;
                   break;
                 }
@@ -644,8 +641,7 @@ export class InnerpageComponent implements OnInit {
         }
 
         let validObj = response.filter((item) => {
-
-          return item.callGroupType.toLowerCase().startsWith("valid");
+          return item.callGroupType.toLowerCase().startsWith('valid');
         });
         if (
           validObj &&
@@ -653,8 +649,7 @@ export class InnerpageComponent implements OnInit {
           validObj[0].callTypes !== null
         ) {
           validObj = validObj[0].callTypes.filter(function (previousData) {
-
-            return previousData.callTypeDesc.toLowerCase().startsWith("valid");
+            return previousData.callTypeDesc.toLowerCase().startsWith('valid');
           });
           if (validObj && validObj[0].callTypeID) {
             this.disconectCallId = validObj[0].callTypeID;
@@ -667,7 +662,7 @@ export class InnerpageComponent implements OnInit {
         if (!this.transferCallID) {
           this.transferCallID = this.disconectCallId;
         }
-
+        console.log('valid call id', this.transferCallID);
       },
       (err) => {
         this.remarksMessage.alert(err.errorMessage);
@@ -676,9 +671,9 @@ export class InnerpageComponent implements OnInit {
   }
 
   testEvent() {
-    let event = new CustomEvent("message", {
+    const event = new CustomEvent('message', {
       detail: {
-        data: "Disconnect|1505969514.3802000000",
+        data: 'Disconnect|1505969514.3802000000',
         time: new Date(),
       },
       bubbles: true,
@@ -688,15 +683,14 @@ export class InnerpageComponent implements OnInit {
   }
   listener(event) {
 
-
     if (
       event.data !== undefined &&
       event.data !== null &&
-      event.data !== "undefined"
+      event.data !== 'undefined'
     ) {
-      this.eventSpiltData = event.data.split("|");
+      this.eventSpiltData = event.data.split('|');
     } else {
-      this.eventSpiltData = event.detail.data.split("|");
+      this.eventSpiltData = event.detail.data.split('|');
     }
     this.handleEvent(this.eventSpiltData);
   }
@@ -704,23 +698,23 @@ export class InnerpageComponent implements OnInit {
   handleEvent(eventData) {
 
     const sessionVar = /^\d{10}\.\d{10}$/;
-    if (eventData[0].trim().toLowerCase() === "accept") {
+    if (eventData[0].trim().toLowerCase() === 'accept') {
       this.ticks = 0;
       this.unsubscribeWrapupTime();
     } else if (
-      eventData[0] === "CustDisconnect" &&
+      eventData[0] === 'CustDisconnect' &&
       !this.transferInProgress &&
-      (sessionVar.test(eventData[1]) || eventData[1] === "")
+      (sessionVar.test(eventData[1]) || eventData[1] === '')
     ) {
       this.custdisconnectCallID = eventData[1];
       this.getAgentStatus();
 
-      if (this.isEverwell !== "yes" && this.isGrievance !== "yes") {
+      if (this.isEverwell !== 'yes' && this.isGrievance !== 'yes') {
         this.disconnectCall();
       }
       this.startCallWraupup();
-      this._common.everwellCallNotConnected = "yes";
-    } else if (eventData.length > 3 && eventData[3] === "OUTBOUND") {
+      this._common.everwellCallNotConnected = 'yes';
+    } else if (eventData.length > 3 && eventData[3] === 'OUTBOUND') {
       this.getCommonData.isOutbound = true;
     }
   }
@@ -732,145 +726,147 @@ export class InnerpageComponent implements OnInit {
   closeCall(remarks, message?: any, wrapupCallID?: any) {
     if (
       this.isEverwell != undefined &&
-      this.isEverwell === "yes" &&
+      this.isEverwell === 'yes' &&
       this.everwellSubmitBtn
     ) {
 
-
-      let outboundObj = {};
-      let finalOutboundObj = [];
-      outboundObj["eapiId"] = this._common.outboundEverwellData.eapiId;
-      outboundObj["assignedUserID"] = this._common.uid;
-      outboundObj["isCompleted"] = true;
-      outboundObj["beneficiaryRegId"] =
+      const outboundObj = {};
+      const finalOutboundObj = [];
+      outboundObj['eapiId'] = this._common.outboundEverwellData.eapiId;
+      outboundObj['assignedUserID'] = this._common.uid;
+      outboundObj['isCompleted'] = true;
+      outboundObj['beneficiaryRegId'] =
         this._common.outboundEverwellData.beneficiaryRegId;
-      outboundObj["callTypeID"] =
+      outboundObj['callTypeID'] =
         this.wrapupCallID === null || this.wrapupCallID === undefined
           ? null
           : this.wrapupCallID.toString();
-      outboundObj["benCallID"] = this.getCommonData.callData.benCallID;
-      outboundObj["callId"] = this._common.callID;
-      outboundObj["providerServiceMapId"] =
+      outboundObj['benCallID'] = this.getCommonData.callData.benCallID;
+      outboundObj['callId'] = this._common.callID;
+      outboundObj['providerServiceMapId'] =
         this.getCommonData.current_service.serviceID;
-      outboundObj["requestedServiceID"] = null;
-      outboundObj["preferredLanguageName"] = "All";
-      outboundObj["createdBy"] = this._common.uname;
+      outboundObj['requestedServiceID'] = null;
+      outboundObj['preferredLanguageName'] = 'All';
+      outboundObj['createdBy'] = this._common.uname;
       finalOutboundObj.push(outboundObj);
 
       this._callServices.closeEverwellOutBoundCall(finalOutboundObj).subscribe(
         (response) => {
-
+          console.log('everwell data updated');
         },
         (err) => {
-          this.remarksMessage.alert(err.status, "error");
+          this.remarksMessage.alert(err.status, 'error');
         }
       );
 
     } else if (
         this.isGrievance &&
-        this.isGrievance === "yes"
+        this.isGrievance === 'yes'
       ) {
-        let grievanceData = this._common.outboundGrievanceData;
+        const grievanceData = this._common.outboundGrievanceData;
         this.beneficiaryRegID = grievanceData.beneficiaryRegID;
-        let outboundObj = {};
-          outboundObj["complaintID"] = grievanceData.complaintID;
-          outboundObj["assignedUserID"] = this._common.uid;
-          outboundObj["isCompleted"] = true;
-          outboundObj["beneficiaryRegId"] = this.beneficiaryRegID;
-          outboundObj["callTypeID"] =   this.wrapupCallID === null || this.wrapupCallID === undefined
+        const outboundObj = {};
+          outboundObj['complaintID'] = grievanceData.complaintID;
+          outboundObj['assignedUserID'] = this._common.uid;
+          outboundObj['isCompleted'] = true;
+          outboundObj['beneficiaryRegId'] = this.beneficiaryRegID;
+          outboundObj['callTypeID'] =   this.wrapupCallID === null || this.wrapupCallID === undefined
           ? null
           : this.wrapupCallID.toString();
-          outboundObj["benCallID"] = this.getCommonData.callData.benCallID;
-          outboundObj["callId"] = this._common.callID;
-          outboundObj["providerServiceMapId"] =
+          outboundObj['benCallID'] = this.getCommonData.callData.benCallID;
+          outboundObj['callId'] = this._common.callID;
+          outboundObj['providerServiceMapId'] =
             this.getCommonData.current_service.serviceID;
-          outboundObj["requestedServiceID"] = null;
-          outboundObj["preferredLanguageName"] = "All";
-          outboundObj["createdBy"] = this._common.uname;
+          outboundObj['requestedServiceID'] = null;
+          outboundObj['preferredLanguageName'] = 'All';
+          outboundObj['createdBy'] = this._common.uname;
 
 
         this._callServices
           .closeGrievanceOutBoundCall(outboundObj)
           .subscribe(
             (response) => {
-
+              console.log('grievance data updated');
             },
             (err) => {
-              this.remarksMessage.alert(err.status, "error");
+              this.remarksMessage.alert(err.status, 'error');
             }
           );
       }
-    
 
-    let requestObj = {};
-    requestObj["benCallID"] = this.getCommonData.callData.benCallID;
+
+    const requestObj = {};
+    requestObj['benCallID'] = this.getCommonData.callData.benCallID;
     if (!this.transferInProgress) {
-      requestObj["callTypeID"] =
+      requestObj['callTypeID'] =
         this.wrapupCallID === null || this.wrapupCallID === undefined
           ? null
           : this.wrapupCallID.toString();
-      requestObj["fitToBlock"] = "false";
-      requestObj["isFollowupRequired"] = false;
-      requestObj["prefferedDateTime"] = undefined;
-      requestObj["endCall"] = true;
+      requestObj['fitToBlock'] = 'false';
+      requestObj['isFollowupRequired'] = false;
+      requestObj['prefferedDateTime'] = undefined;
+      requestObj['endCall'] = true;
     } else {
-      requestObj["callTypeID"] =
+      requestObj['callTypeID'] =
         this.transferCallID === null || this.transferCallID === undefined
           ? null
           : this.transferCallID.toString();
-      requestObj["fitToBlock"] = "false";
-      requestObj["isFollowupRequired"] = false;
-      requestObj["prefferedDateTime"] = undefined;
-      requestObj["endCall"] = false;
+      requestObj['fitToBlock'] = 'false';
+      requestObj['isFollowupRequired'] = false;
+      requestObj['prefferedDateTime'] = undefined;
+      requestObj['endCall'] = false;
     }
-    if (this.getCommonData.current_campaign == "OUTBOUND") {
-      requestObj["isCompleted"] = true;
+    if (this.getCommonData.current_campaign == 'OUTBOUND') {
+      requestObj['isCompleted'] = true;
     }
-    requestObj["callType"] = "wrapup exceeds";
-    requestObj["beneficiaryRegID"] = this.beneficiaryRegID;
-    requestObj["remarks"] =
+    requestObj['callType'] = 'wrapup exceeds';
+    requestObj['beneficiaryRegID'] = this.beneficiaryRegID;
+    requestObj['remarks'] =
       remarks != undefined && remarks != null ? remarks.trim() : null;
-    requestObj["providerServiceMapID"] =
+    requestObj['providerServiceMapID'] =
       this.getCommonData.current_service.serviceID;
-    requestObj["createdBy"] = this.getCommonData.uname;
-    requestObj["agentID"] = this.getCommonData.cZentrixAgentID;
-    requestObj["agentIPAddress"] = this.ipAddress;
+    requestObj['createdBy'] = this.getCommonData.uname;
+    requestObj['agentID'] = this.getCommonData.cZentrixAgentID;
+    requestObj['agentIPAddress'] = this.ipAddress;
 
     if (wrapupCallID != undefined) {
-      requestObj["callTypeID"] = wrapupCallID;
-      requestObj["agentID"] = this.getCommonData.cZentrixAgentID;
-      requestObj["endCall"] = true;
+      requestObj['callTypeID'] = wrapupCallID;
+      requestObj['agentID'] = this.getCommonData.cZentrixAgentID;
+      requestObj['endCall'] = true;
     }
-    if (this.sessionstorage.getItem("session_id") === this.custdisconnectCallID) {
+    if (this.sessionstorage.getItem('session_id') === this.custdisconnectCallID) {
       this._callServices.closeCall(requestObj).subscribe(
         (response) => {
           if (response) {
-            this.remarksMessage.alert(message, "success");
-            this.sessionstorage.removeItem("isOnCall");
-            this.sessionstorage.removeItem("isEverwellCall");
-            this.sessionstorage.removeItem("isGrievanceCall");
-            this.basicrouter.navigate(["/MultiRoleScreenComponent/dashboard"]);
+            this.remarksMessage.alert(message, 'success');
+            this.sessionstorage.removeItem('isOnCall');
+            this.sessionstorage.removeItem('isEverwellCall');
+            this.sessionstorage.removeItem('isGrievanceCall');
+            this.basicrouter.navigate(['/MultiRoleScreenComponent/dashboard']);
             this._common.outboundGrievanceData = null;
             this._common.everwellCallNotConnected = null;
           }
         },
         (err) => {
-          this.remarksMessage.alert(err.status, "error");
+          this.remarksMessage.alert(err.status, 'error');
         }
       );
     } else {
-
+      console.log(
+        'previous custdisconnect call ID not verified with current call ID',
+        this.custdisconnectCallID
+      );
     }
   }
   showRemarks() {
     let remarksGiven;
-    remarksGiven = "";
-    this.remarksMessage.remarks("Please Enter Remarks").subscribe(
+    remarksGiven = '';
+    this.remarksMessage.remarks('Please Enter Remarks').subscribe(
       (response) => {
         if (response) {
           remarksGiven = response;
         } else {
-          remarksGiven = "call tranfered";
+          remarksGiven = 'call tranfered';
         }
         this.closeCall(remarksGiven);
       },
@@ -883,8 +879,8 @@ export class InnerpageComponent implements OnInit {
 
   showRemarksNew(eventData) {
     let remarksGiven;
-    remarksGiven = eventData[0] + " to " + eventData[2];
-    this.closeCall(remarksGiven, "Call Transfered Successfully");
+    remarksGiven = eventData[0] + ' to ' + eventData[2];
+    this.closeCall(remarksGiven, 'Call Transfered Successfully');
   }
 
   startCallWraupup() {
@@ -901,13 +897,13 @@ export class InnerpageComponent implements OnInit {
         } else {
           const time = this._config.defaultWrapupTime;
           this.roleBasedCallWrapupTime(time);
-
+          console.log('Need to configure wrap up time');
         }
       },
       (err) => {
         const time = this._config.defaultWrapupTime;
         this.roleBasedCallWrapupTime(time);
-
+        console.log('Need to configure wrap up time', err.errorMessage);
       }
     );
   }
@@ -922,10 +918,8 @@ export class InnerpageComponent implements OnInit {
         this.wrapupTimerSubscription.unsubscribe();
         t = 0;
         this.ticks = 0;
-
-        const remarks = "Call disconnect from customer.";
-
-        if (this.callStatus.toLowerCase().trim() === "closure"){
+        const remarks = 'Call disconnect from customer.';
+        if (this.callStatus.toLowerCase().trim() === 'closure'){
           this.closeCall(
             remarks,
             this.currentLanguageSet.callClosedSuccessfully,
@@ -938,13 +932,13 @@ export class InnerpageComponent implements OnInit {
   disconnectCall() {
     // this.remarksMessage.alert('Call Disconnected From Caller. Please Proceed To Call Closure.');
     this.getCommonData.isCallDisconnected = true;
-    jQuery("#myCarousel").carousel(3);
-    jQuery("#four").parent().find("a").removeClass("active-tab");
-    jQuery("#four").find("a").addClass("active-tab");
+    jQuery('#myCarousel').carousel(3);
+    jQuery('#four').parent().find('a').removeClass('active-tab');
+    jQuery('#four').find('a').addClass('active-tab');
     // jQuery("#btnClosure").attr("disabled", "disabled");
     // jQuery("#btnCancel").attr("disabled", "disabled");
     // jQuery("#next").hide();
-    jQuery("#previous").show();
+    jQuery('#previous').show();
 
     this.getCommonData.enablePreviousOnCustDisconnect(true);
   }
@@ -952,17 +946,17 @@ export class InnerpageComponent implements OnInit {
     this.Czentrix.getAgentStatus().subscribe(
       (res) => {
         this.callStatus = res.data.stateObj.stateName;
-        if (this.callStatus.toLowerCase().trim() === "closure") {
+        if (this.callStatus.toLowerCase().trim() === 'closure') {
           this.wrapupTime = true;
           this.callTime = false;
         }
         if (res.data.stateObj.stateType) {
-          this.callStatus += " (" + res.data.stateObj.stateType + ")";
+          this.callStatus += ' (' + res.data.stateObj.stateType + ')';
         }
       },
       (err) => {
         // this.remarksMessage.alert(err.errorMessage);
-
+        console.log('CZ AGENT NOT LOGGED IN');
       }
     );
   }
@@ -975,7 +969,7 @@ export class InnerpageComponent implements OnInit {
       },
       (err) => {
         // this.remarksMessage.alert(err.errorMessage);
-
+        console.log('CZ AGENT NOT LOGGED IN');
       }
     );
   }
@@ -983,13 +977,12 @@ export class InnerpageComponent implements OnInit {
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe(
       (res) => {
-
         this.TotalCalls = res.data.total_calls;
         this.TotalTime = res.data.total_call_duration;
       },
       (err) => {
         if (
-          this.getCommonData.current_role.RoleName.toUpperCase() != "SUPERVISOR"
+          this.getCommonData.current_role.RoleName.toUpperCase() != 'SUPERVISOR'
         ) {
           this.remarksMessage.alert(err.errorMessage);
         }
@@ -1025,8 +1018,8 @@ export class InnerpageComponent implements OnInit {
   }
 
   getLanguage() {
-    if (this.sessionstorage.getItem("setLanguage") != null) {
-      this.changeLanguage(this.sessionstorage.getItem("setLanguage"));
+    if (this.sessionstorage.getItem('setLanguage') != null) {
+      this.changeLanguage(this.sessionstorage.getItem('setLanguage'));
     } else {
       this.changeLanguage(this.app_language);
     }
@@ -1034,29 +1027,28 @@ export class InnerpageComponent implements OnInit {
 
   changeLanguage(language) {
     this.HttpServices.getLanguage(
-      this.language_file_path + language + ".json"
+      this.language_file_path + language + '.json'
     ).subscribe(
       (response) => {
         if (response) {
           this.languageSuccessHandler(response, language);
         } else {
-          alert("Language not defined");
+          this.remarksMessage.alert('Language not defined');
         }
       },
       (error) => {
-        alert("We are coming up with this language" + "" + language);
+        this.remarksMessage.alert('We are coming up with this language' + '' + language);
       }
     );
   }
 
   languageSuccessHandler(response, language) {
     if (!this.checkForNull(response)) {
-      alert("We are coming up with this language" + " " + language);
+      this.remarksMessage.alert('We are coming up with this language' + ' ' + language);
       return;
     }
-
     this.currentLanguageSet = response[language];
-    this.sessionstorage.setItem("setLanguage", language);
+    this.sessionstorage.setItem('setLanguage', language);
     if (this.currentLanguageSet) {
       this.languageArray.forEach((item) => {
         if (item.languageName === language) {
@@ -1086,7 +1078,7 @@ export class InnerpageComponent implements OnInit {
         console.error(err);
       },
       () => {
-
+        console.log('completed');
       }
     );
     languageSubscription.unsubscribe();
