@@ -115,7 +115,7 @@ export class AdminServiceProviderComponent implements OnInit {
     //var bodyString=new Object
 
     let bodyString = this.userForm.value;
-    console.log(this.userForm.value)
+
     this._SPService.saveProviders(bodyString)
       .subscribe(resProviderData => this.showProviders(resProviderData));
     this._SPService.getProviders()
@@ -124,41 +124,39 @@ export class AdminServiceProviderComponent implements OnInit {
     this.showCreate();
   }
   showProviders(data) {
-    console.log(JSON.parse(data));
+
   }
 
   providers(data) {
     this.serviceProviders = data;
-    console.log(data);
+
   };
 
   fileEvent(fileInput: any) {
     let logofile = fileInput.target.files[0];
 
     let logofileValue;
-    console.log(fileInput.target.value);
+
     if (logofile) {
-      console.log(logofile);
+
       var reader = new FileReader();
       reader.onload = function (e: any) {
 
-        console.log(e.target.result);
         //logofileValue=e.target.result.filePath;	
       }
       reader.readAsDataURL(logofile);
       //this.userForm.controls.logoFilePath.setValue(logofileValue);	
     }
     // file.filePath;
-    //console.log("filePath:"+fileInput.target.files[0]);
 
   }
   deleteSP(i) {
-    console.log(JSON.stringify(i.ServiceProviderId));
+
     // var obj=JSON.parse(i) ;
-    // console.log(i.ServiceProviderName)
+
     // let id:number =i;
     let deleteReq = ('{"serviceProviderId":"' + i.ServiceProviderId + '"}');
-    console.log(deleteReq);
+
     // //console.log('{"serviceProviderId":"'+i+'"}');
 
     this._SPService.deleteProviders(JSON.parse(deleteReq))
@@ -167,9 +165,8 @@ export class AdminServiceProviderComponent implements OnInit {
   }
 
   updateSP(SPData) {
-    console.log("SPData" + JSON.stringify(SPData));
+
     let dataToUpdate = SPData;
-    console.log(dataToUpdate);
 
     this.userForm.controls.serviceProviderName.setValue(SPData.ServiceProviderName, { onlySelf: true });
     this.userForm.controls.primaryContactName.setValue(SPData.PrimaryContactName, { onlySelf: true });

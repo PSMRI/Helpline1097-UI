@@ -69,17 +69,17 @@ lastModDate:new FormControl('2017-05-26')
 onSubmit() {
 	
 		let bodyString = this.userForm.value;
-		console.log(this.userForm.value)
+
 		this._RoleService.saveRole(bodyString)
 			.subscribe(resProviderData => this.showUsers(resProviderData));
 	}
 	showUsers(data) {
-		console.log(JSON.parse(data));
+
 	}
 
 	providers(data) {
     this.userslist=data;
-		console.log(data);
+
 	}
 
 }

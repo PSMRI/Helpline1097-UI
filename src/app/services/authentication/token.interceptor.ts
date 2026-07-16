@@ -45,7 +45,7 @@ export class TokenInterceptor implements HttpInterceptor {
         });
         return next.handle(request).do((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
-                console.log(request);
+
                 if (event.body['data']) {
                     return event.body['data'];
                 } else {
@@ -62,7 +62,7 @@ export class TokenInterceptor implements HttpInterceptor {
             }
         }).catch(response => {
             if (response instanceof HttpErrorResponse) {
-                console.log('Processing http error', response);
+
             }
             return Observable.throw(response);
         });

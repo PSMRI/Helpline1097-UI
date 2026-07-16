@@ -50,7 +50,7 @@ export class RegisterService {
 
   generateReg(values: any) {
     values.is1097 = true;
-    console.log('Beneficiary data to insert ' + values);
+
     return this._http.post(this._createbeneficiaryurl, JSON.stringify(values))
       .map(this.extractData)
       .catch(this.handleError);
@@ -58,7 +58,7 @@ export class RegisterService {
 
   updatebeneficiaryincall(callData: any) {
     callData.is1097 = true;
-    console.log('Data for call update: ' + callData);
+
     return this._http.post(this._updatebeneficiaryincall, callData)
       .map(this.extractData)
       .catch(this.handleError);
@@ -133,8 +133,8 @@ export class RegisterService {
       + '"stateID":"' + district + '",'
       + '"cityID":"' + talukSearch + '"'
       + '}], "is1097": true }';
-    console.log(createData);
-    console.log(district);
+
+
     return this._http.post(this._searchBeneficiaryURL, createData)
       .map(this.extractData).catch(this.handleError);
   }

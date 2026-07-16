@@ -149,7 +149,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   }
 
   getAllNotificationTypesSuccessHandeler(response) {
-    console.log("notification types", response);
+
     if (response.data.length == 0) {
       this.dialogService.alert(this.currentLanguageSet.noNotificationTypesFoundContactAdmin);
     }
@@ -168,7 +168,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   }
 
   getOfficesSuccessHandeler(response) {
-    console.log(response, "offices");
+
     if (response.length != 0) {
       this.offices = response;
       for (var i = 0; i < this.offices.length; i++) {
@@ -212,7 +212,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(error, 'error');
       });
   }
@@ -263,10 +263,10 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
         request_array.push(defaultObj);
       }
     }
-    console.log(roomArray);
+
     this.notification_service.createNotification(request_array)
       .subscribe(response => {
-        console.log(response.data, "Location Message created");
+
         if (response.data.length > 0) {
           this.refreshExistingTable(this.location_communication_typeID, this.searchStartDate, this.searchEndDate);
           this.dialogService.alert(this.currentLanguageSet.locationMessageCreatedSuccessfully, 'success');
@@ -276,17 +276,17 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
           //     "room": roomArray, type: "Location_Message", "message": form_values.message, "subject": form_values.subject
           //   })
           //     .subscribe((response) => {
-          //       console.log(response.data);
+
           //     },
           //     (error) => {
-          //       console.log(error);
+
           //     });
           // }
           this.showTable();
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(this.currentLanguageSet.locationMessageCreationFailedContactBackendTeam, 'error');
       });
   }
@@ -302,7 +302,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
 
   edit(toBeEditedOBJ) {
     this.editRequestObj = toBeEditedOBJ;
-    console.log("TO BE EDITED OBJ", toBeEditedOBJ);
+
     this.searchMode = false;
     this.createMode = false;
     this.editMode = true;
@@ -334,12 +334,11 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
       dateValue.getUTCMinutes(),
       dateValue.getUTCSeconds()
     );
-   // console.log('UTC FILTER', value, dateWithNoTimezone);
+
     return dateWithNoTimezone;
   }
 
   editLocationMessage(form_values) {
-    console.log("to be edited values", form_values);
 
     let startDate: Date = new Date(form_values.startDate);
     startDate.setHours(0);
@@ -377,7 +376,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   }
 
   updateSuccess(response) {
-    console.log(response.data);
+
     if (response.data) {
       this.showTable();
       this.dialogService.alert(this.editType +' '+ this.currentLanguageSet.editedSuccessfully, 'success');
@@ -387,7 +386,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
   }
 
   notificationError(error) {
-    console.log("error", error);
+
     this.dialogService.alert(this.currentLanguageSet.editFailedContactDbTeam, 'error')
   }
 
@@ -422,7 +421,7 @@ export class SupervisorLocationCommunicationComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(error, 'error');
       });
   }

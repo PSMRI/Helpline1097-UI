@@ -106,7 +106,7 @@ export class CallAllocateComponent implements OnInit {
       }
   }
   allocateCalls(startDate: Date, endDate: Date, language: any, event) {
-    // console.log('valuse: ' + values);
+
     if (this._unAllocatedCalls.length > 0) {
       this.showFlage = true;
     }

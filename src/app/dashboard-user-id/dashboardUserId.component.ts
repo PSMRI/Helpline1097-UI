@@ -78,7 +78,6 @@ export class DashboardUserIdComponent implements OnInit {
     this.Czentrix.getAgentStatus().subscribe(
       (res) => {
         if (res !== undefined && res !== null && res.data.stateObj.stateName) {
-          console.log("in agent state", res);
 
           if (
             !this.dataSettingService.current_campaign &&
@@ -96,18 +95,8 @@ export class DashboardUserIdComponent implements OnInit {
           }
           this.status = res.data.stateObj.stateName;
 
-          console.log(
-            "isoutboundValue",
-            this.dataSettingService.isOutBoundSelected
-          );
-          console.log(
-            "outbpoundseletedmanual",
-            this.dataSettingService.outboundSelectedManual
-          );
-          console.log(
-            "outbpoundseletedmanual",
-            this.dataSettingService.onlyOutboundAvailable
-          );
+
+
 
           // switchtooutbound
           if (
@@ -126,10 +115,10 @@ export class DashboardUserIdComponent implements OnInit {
                     this.callService.onceOutbound = true;
                     this.callService.onlyOutbound = false;
                     this.timerSubscription.unsubscribe();
-                    console.log("outbound");
+
                   },
                   (err) => {
-                    console.log("agent in not logged in");
+
                     this.sessionstorage.setItem("current_campaign", "OUTBOUND");
                   }
                 );
@@ -165,7 +154,6 @@ export class DashboardUserIdComponent implements OnInit {
       (err) => {
         this.dataSettingService.inOutCampaign.next("1");
 
-        console.log("CZ AGENT NOT LOGGED IN");
       }
     );
   }
@@ -186,7 +174,7 @@ export class DashboardUserIdComponent implements OnInit {
         "/MultiRoleScreenComponent/RedirectToInnerpageComponent",
       ]);
     } else {
-      console.log("session id is null");
+
     }
   }
   ngOnDestroy() {

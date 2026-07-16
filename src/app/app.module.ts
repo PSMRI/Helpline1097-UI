@@ -1,8 +1,8 @@
-/* 
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
+/*
+* AMRIT – Accessible Medical Records via Integrated Technology
+* Integrated EHR (Electronic Health Records) Solution
 *
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
+* Copyright (C) "Piramal Swasthya Management and Research Institute"
 *
 * This file is part of AMRIT.
 *
@@ -103,7 +103,7 @@ import { CoCategoryService } from './services/coService/co_category_subcategory.
 
 
 
-// material modules  
+// material modules
 import { MdDialogModule } from '@angular/material';
 
 // admin components
@@ -193,7 +193,6 @@ import { CallerAgeReportComponent } from './caller-age-report/caller-age-report.
 import { SexualOrientationReportComponent } from './sexual-orientation-report/sexual-orientation-report.component';
 import { LanguageDistributionReportComponent } from './language-distribution-report/language-distribution-report.component';
 import { GenderDistributionReportComponent } from './gender-distribution-report/gender-distribution-report.component';
-// import { ServiceAvailedOnCallComponent } from './closure/src/app/closure/service-availed-on-call/service-availed-on-call.component'
 import { AuthGuard } from './services/authGuardService/auth-guard.services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard2 } from './services/authGuardService/auth-guard2.services';
@@ -249,15 +248,12 @@ import { CaptchaService } from './services/captcha-service/captcha.service';
 import { CaptchaComponent } from './captcha/captcha.component';
 import { FeedbackPublicPageComponent } from './platform-feedback/pages/feedback-public-page/feedback-public-page-component';
 import { FeedbackModule } from './platform-feedback/feedback.module';
-// import { SetLanguageComponent } from './set-language.component';
-//for text mask
-// import { TextMaskModule } from 'angular2-text-mask';
 @NgModule({
   declarations: [
     AppComponent, dashboardContentClass, loginContentClass,
-    ResetComponent, myPassword, InnerpageComponent, MultiRoleScreenComponent,CallReAllocateComponent,
+    ResetComponent, myPassword, InnerpageComponent, MultiRoleScreenComponent, CallReAllocateComponent,
     DashboardRowHeaderComponent, DashboardNavigationComponent,
-    DashboardUserIdComponent, ActivityThisWeekComponent,CallAllocateComponent,
+    DashboardUserIdComponent, ActivityThisWeekComponent, CallAllocateComponent,
     AlertsNotificationComponent, DailyTasksComponent, NewsInformationsComponent,
     RatingComponent, WeatherWarningsComponent, AdminServiceProviderComponent,
     myName, myMobileNumber, myEmail, CoCounsellingServicesComponent, myName_space,
@@ -409,8 +405,8 @@ import { FeedbackModule } from './platform-feedback/feedback.module';
       },
       {
         path: 'feedback',
-        component:FeedbackPublicPageComponent
-      },      
+        component: FeedbackPublicPageComponent
+      },
       // {
       //   path: 'InnerpageComponent/:mobileNumber/:callID/:callCategory',
       //   component: InnerpageComponent,
@@ -439,7 +435,7 @@ import { FeedbackModule } from './platform-feedback/feedback.module';
   providers: [loginService, ClearFormService, dataService, DashboardHttpServices, SPService, RegisterService,
     UserService, LanguageService, RoleService, ServicemasterService, ScreenService, HttpServices, HttpClientModule,
     UserBeneficiaryData, LocationService, CoReferralService, CoFeedbackService, FeedbackTypes,
-    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, FeedbackService, AuthGuard, AuthGuard2, SocketService,sessionStorageService,
+    UpdateService, CallServices, ConfigService, Message, SupervisorCallTypeReportService, FeedbackService, AuthGuard, AuthGuard2, SocketService, sessionStorageService,
     CoCategoryService, UploadServiceService, OutboundSearchRecordService, OutboundWorklistService,
     OutboundCallAllocationService, NotificationService, ConfirmationDialogsService, LoaderService, ForceLogoutService,
     CommunicationService, OutboundService, ListnerService, AuthService, OutboundReAllocationService, ReloadService, ReportsService,
@@ -456,7 +452,7 @@ import { FeedbackModule } from './platform-feedback/feedback.module';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }, CzentrixServices,CaptchaService],
+    }, CzentrixServices, CaptchaService],
 
   bootstrap: [AppComponent]
 })

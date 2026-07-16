@@ -159,19 +159,19 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     "providerServiceMapID":this.providerServiceMapID
   }
   //this.showProgressBar=true;
-  console.log(this.loaderService.loaderState);
+
   this.notificationService.fetchGuidelines(req)
     .subscribe((response) => {
-      console.log(this.loaderService.loaderState);
+
       //this.showProgressBar=false;
       if (response.data.data !== undefined) {
         this.trainingResources = response.data.data;
       }
-      console.log('Training resources', this.trainingResources);
+
     },
     (error) => {
      // this.showProgressBar=false;
-      console.log(error);
+      console.error(error);
     });
  }
   go2form() {
@@ -200,7 +200,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   }
 
   createTrainingResource(form_values) {
-    console.log(form_values, 'ON SUBMIT');
+
     // let startDate: Date = new Date(form_values.startDate);
     const startDate: Date = new Date();
     startDate.setHours(0);
@@ -233,14 +233,14 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
         'userID': this.userId,
         'category':this.category
       };
-      console.log('req',defaultObj);
+
     this.notificationService.saveGuidelines(defaultObj)
       .subscribe((response) => {
         if (response.data !== undefined) {
          // this.trainingResources = response.data.data;
          if(response.data.data !== undefined  && response.data.data.id!==undefined)
          {
-          console.log("length",response.data.data.length);
+
          this.trainingResourceForm.reset();
          this.count = '0/300';
          //this.getGuidelines();
@@ -253,7 +253,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.file=undefined;
       });
 
@@ -267,7 +267,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   
 
   trainingResourceErrorHandeler(error) {
-    console.log(error);
+    console.error(error);
     this.dialogService.alert(error.json().errorMessage, 'error');
   }
 
@@ -290,7 +290,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
     this.file = undefined;
     this.fileList = event.target.files;
     this.file = event.target.files[0];
-    console.log(this.file);
+
     if (this.fileList.length == 0) {
       this.error1 = true;
       this.error2 = false;
@@ -361,17 +361,17 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   //     myReader.readAsDataURL(this.file);
   //   }
   //    if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
-  //     console.log(this.fileList[0].size / 1000 / 1000);
+
   //     this.error1 = false;
   //     this.error2 = false;
   //   }
   //   else if (this.fileList[0].size / 1000 / 1000 === 0) {
-  //     console.log(this.fileList[0].size / 1000 / 1000);
+
   //     this.error1 = false;
   //     this.error2 = true
   //   }
   //   else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
-  //     console.log(this.fileList[0].size / 1000 / 1000);
+
   //     this.error1 = true;
   //     this.error2 = false;
   //   }
@@ -383,7 +383,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
   checkExtension(file) {
     var count = 0;
-    console.log("FILE DETAILS", file);
+
     if (file) {
       var array_after_split = file.name.split(".");
       if(array_after_split.length == 2) {
@@ -424,7 +424,6 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
       'deleted':val
     }
 
-    console.log('req',object);
     this.notificationService.deleteGuidelines(object)
       .subscribe((response) => {
         if (response.data !== undefined) {
@@ -441,23 +440,23 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
                   this.trainingResources = response.data.data;
                   //this.dialogService.alert(deleteRes, 'success');
                 }
-                console.log('Training resources', this.trainingResources);
+
               },
               (error) => {
                 //this.showProgressBar=false;
-                console.log(error);
+                console.error(error);
               });
           });
       }
      // );
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         });
       //}
     //});
       // (error) => {
-      //   console.log(error);
+
       // });
     // }
     // });
@@ -470,7 +469,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
 
   edit(object) {
-    console.log('TO BE EDITED OBJ', object);
+
     this.showTable = false;
     this.showForm = false;
     this.showEditForm = true;
@@ -492,7 +491,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
 
 
   editTrainingResource(form_values) {
-    console.log('to be edited values', form_values);
+
     let editedObj = {};
     if (this.file && this.fileContent) {
       editedObj = {
@@ -541,7 +540,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   }
 
   // updateSuccess(response) {
-  //   console.log(response.data);
+
   //   if (response.data) {
   //     this.dialogService.alert('Training resource updated successfully', 'success');
   //     this.trainingResourceEditForm.reset();
@@ -552,7 +551,7 @@ export class EverwellGuidelinesUploadComponent implements OnInit {
   // }
 
   notificationError(error) {
-    console.log('error', error);
+
     this.dialogService.alert(this.currentLanguageSet.failedToUpdate, 'error')
   }
 

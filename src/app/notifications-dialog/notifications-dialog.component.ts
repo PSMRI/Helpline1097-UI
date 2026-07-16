@@ -100,7 +100,7 @@ sDate:Date=new Date();
   getProviderIDSuccess(response)
   {
     this.serviceProviderID=response.serviceProviderID;
-    console.log(this.serviceProviderID,"SP_ID");
+
     this.serviceID=response.serviceID;
     this.stateID=response.stateID;
     // invoke these all
@@ -122,7 +122,7 @@ sDate:Date=new Date();
   offices:any=[];
   getLanguageSuccessHandeler(response)
   {
-    console.log(response,"Languages");
+
     this.languages=response;
 
   }
@@ -137,7 +137,7 @@ sDate:Date=new Date();
 
   getOfficesSuccessHandeler(response)
   {
-    console.log(response,"offices");
+
     this.offices=response;
   }
 
@@ -151,7 +151,7 @@ sDate:Date=new Date();
 
   getUsersSuccessHandeler(response)
   {
-    console.log(response,"users");
+
     this.users=response;
   }
 
@@ -185,7 +185,6 @@ sDate:Date=new Date();
       future_day = new Date(today);
       future_day.setFullYear(today.getFullYear() + 10,today.getMonth(),today.getDate());
 
-      console.log("sDate:",today,"edate:",future_day);
       this.sDate=new Date();
       this.eDate=future_day;
 
@@ -203,7 +202,6 @@ sDate:Date=new Date();
   onFileUpload(event) {
     this.fileList = event.target.files;
     this.file = event.target.files[0];
-    console.log(this.file);
 
      var validFormat = this.checkExtension(this.file);
     if (validFormat) {
@@ -224,19 +222,19 @@ sDate:Date=new Date();
       this.error3 = false;
     }
     else if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
-      console.log(this.fileList[0].size / 1000 / 1000);
+
       this.error1 = false;
       this.error2 = false;
       this.error3 = false;
     }
     else if (this.fileList[0].size / 1000 / 1000 == 0) {
-      console.log(this.fileList[0].size / 1000 / 1000);
+
       this.error2 = false;
       this.error1 = false;
       this.error3 = true
     }
     else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
-      console.log(this.fileList[0].size / 1000 / 1000);
+
       this.error2 = true;
       this.error1 = false;
       this.error3 = false;
@@ -250,7 +248,7 @@ sDate:Date=new Date();
 
   checkExtension(file) {
     var count = 0;
-    console.log("FILE DETAILS", file);
+
     if (file) {
       var array_after_split=file.name.split(".");
     var file_extension=array_after_split[array_after_split.length-1];
@@ -273,7 +271,7 @@ sDate:Date=new Date();
   }
 
   onSubmit() {
-    console.log(this.notificationForm.value);
+
     if(this.show===-1)
     {
       let today=new Date();
@@ -282,7 +280,6 @@ sDate:Date=new Date();
       future_day = new Date(today);
       future_day.setFullYear(today.getFullYear() + 10,today.getMonth(),today.getDate());
 
-      console.log("sDate:",today,"edate:",future_day);
       this.sDate=new Date();
       this.eDate=future_day;
 
@@ -362,7 +359,7 @@ sDate:Date=new Date();
     })
       .then(
       (data) => {
-        console.log(JSON.stringify(data));
+
         this.dialogRef.close(data);
       },
       (err) => { console.log(err); }
@@ -556,8 +553,6 @@ sDate:Date=new Date();
         }
       }
 
-
-      console.log("request array",this.request_array);
       this.dialogRef.close(this.request_array);
 
 

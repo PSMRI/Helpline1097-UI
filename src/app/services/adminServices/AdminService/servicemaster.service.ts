@@ -52,7 +52,6 @@ export class ServicemasterService
     saveServiceMaster ( data: any )
     {
 
-        //console.log(data);
         return this._http.post( this._saveurl, data, this.options ).map( this.extractData ).catch( this.handleError );
 
         // .map(( response: Response ) => response.json() );

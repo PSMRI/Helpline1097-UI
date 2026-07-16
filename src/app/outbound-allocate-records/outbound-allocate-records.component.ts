@@ -119,7 +119,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   getRoles() {
     this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
       .subscribe(response => {
-        console.log(response);
+
         this.roles = response.filter((item) => {
           return item.roleName.toLowerCase() !== 'supervisor' && item.roleName.toLowerCase() !== 'provideradmin';
         })
@@ -136,7 +136,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
     }
     this._OCAService.getAgentsbyRoleID(this.providerServiceMapID, roleID, languageName)
       .subscribe(resProviderData => {
-        console.log('reading...')
+
         if (resProviderData.length > 0) {
           this.users = resProviderData;
           if (this.filterAgent != '') {
@@ -268,7 +268,7 @@ export class OutboundAllocateRecordsComponent implements OnInit {
   // }
   getUnallocateCall(serviceProviderMapId, value) {
     // tslint:disable-next-line:max-line-length
-    console.log(value, "value");
+
     let startDate: Date = new Date(value.startDate);
     startDate.setHours(0);
     startDate.setMinutes(0);

@@ -47,7 +47,7 @@ export class ViewVersionDetailsComponent implements OnInit, DoCheck {
     private httpServices: HttpServices ) { }
 
   ngOnInit() {
-    console.log("input", this.input)
+
    this.assignSelectedLanguage();
   }
   uiVersionDetails(versionDetails) {

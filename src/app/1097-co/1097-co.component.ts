@@ -148,9 +148,8 @@ export class helpline1097CoComponent implements OnInit {
     this.isGrievance = this.sessionstorage.getItem("isGrievanceCall");
 
     this.submitCheck = this.getCommonData.checkEverwellResponse;
-    console.log("submitCheck", this.submitCheck);
 
-    console.log("isEverwell" + this.isEverwell);
+
     this.assignSelectedLanguage();
 
     this.getCommonData.custDisconnectCall$.subscribe((custDisconnectResp) => {
@@ -185,7 +184,7 @@ export class helpline1097CoComponent implements OnInit {
     this.submitCheck = this.getCommonData.checkEverwellResponse;
     this.isEverwell = this.sessionstorage.getItem("isEverwellCall");
     this.isGrievance = this.sessionstorage.getItem("isGrievanceCall");
-    console.log("submitCheckOn", this.submitCheck);
+
     this.setLanguage(this.current_language);
     if (this.getCommonData.current_campaign === "OUTBOUND" && this.isGrievance === "yes") {
       this.OUT = true;
@@ -251,7 +250,6 @@ export class helpline1097CoComponent implements OnInit {
     //   this.selectedBenData.fname = '';
     //   this.selectedBenData.lname = '';
     // }
-    console.log("1097co174" + data);
 
     this.everwellBeneficiarySelected.emit(data);
   }
@@ -514,6 +512,6 @@ export class helpline1097CoComponent implements OnInit {
   changeSubmitFlag(submitFlag) {
     this.submitCheck = submitFlag;
     this.submitBtnCheck.emit(submitFlag);
-    console.log("submitflag", submitFlag);
+
   }
 }

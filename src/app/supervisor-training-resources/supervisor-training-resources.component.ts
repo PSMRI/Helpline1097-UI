@@ -118,7 +118,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
     this.notificationService.getNotificationTypes(this.providerServiceMapID)
       .subscribe((response) => { this.notificationTypeSuccess(response) },
       (error) => {
-        console.log(error);
+        console.error(error);
       });
 
     this.currentDate.setHours(0);
@@ -174,12 +174,12 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
 
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       });
   }
 
   createTrainingResource(form_values) {
-    console.log(form_values, 'ON SUBMIT');
+
     // let startDate: Date = new Date(form_values.startDate);
     const startDate: Date = new Date();
     startDate.setHours(0);
@@ -262,7 +262,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   }
 
   createTrainingResourceSuccessHandeler(response, values, roomArray, startDate) {
-    console.log(response);
+
     if (response) {
       this.dialogService.alert(this.currentLanguageSet.trainingResourceCreatedSuccessfully, 'success');
       this.trainingResourceForm.reset();
@@ -274,10 +274,10 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
       //     "room": roomArray, type: "Training_Resource", "message": values.message, "subject": values.subject
       //   })
       //     .subscribe((response) => {
-      //       console.log(response.data);
+
       //     },
       //     (error) => {
-      //       console.log(error);
+
       //     });
       // }
       this.go2table();
@@ -285,7 +285,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
   }
 
   trainingResourceErrorHandeler(error) {
-    console.log(error);
+    console.error(error);
     // this.dialogService.alert(this.currentLanguageSet.failedToUploadFile, 'error');
     this.dialogService.alert(error.errorMessage, 'error');
   }
@@ -300,7 +300,7 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
         }
       });
     }
-    console.log(this.km_related_data, 'notificationTypeID');
+
     this.notificationTypeID = this.km_related_data[0].notificationTypeID;
 
     // function call to get All Roles
@@ -332,7 +332,6 @@ export class SupervisorTrainingResourcesComponent implements OnInit, DoCheck {
     }
     else { 
 
-    console.log(this.file);
     if (this.file){
     let fileNameExtension = this.file.name.split(".");
     let fileName = fileNameExtension[0];
@@ -390,7 +389,7 @@ else{
 
   checkExtension(file) {
     var count = 0;
-    console.log("FILE DETAILS", file);
+
     if (file) {
       var array_after_split = file.name.split(".");
       if(array_after_split.length == 2) {
@@ -443,14 +442,14 @@ else{
       .subscribe((response) => {
         if (response.length !== 0) {
           this.trainingResources = response.data;
-          console.log('Training resources', this.trainingResources);
+
         }
         else {
           this.dialogService.alert(this.currentLanguageSet.noTrainingResourcesFound);
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(error, 'error');
       });
   }
@@ -476,7 +475,7 @@ else{
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(this.currentLanguageSet.failedToActivate, 'error')
       });
   }
@@ -504,7 +503,7 @@ else{
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
         this.dialogService.alert(this.currentLanguageSet.failedToDeactivate, 'error')
       });
   }
@@ -514,7 +513,7 @@ else{
 
 
   edit(object) {
-    console.log('TO BE EDITED OBJ', object);
+
     this.showTable = false;
     this.showForm = false;
     this.showEditForm = true;
@@ -536,7 +535,7 @@ else{
 
 
   editTrainingResource(form_values) {
-    console.log('to be edited values', form_values);
+
     let editedObj = {};
     this.error1 = false;
     this.error2 = false;
@@ -590,7 +589,7 @@ else{
   }
 
   updateSuccess(response) {
-    console.log(response.data);
+
     if (response.data) {
       this.dialogService.alert(this.currentLanguageSet.trainingResourceUpdatedSuccessfully, 'success');
       this.trainingResourceEditForm.reset();
@@ -601,7 +600,7 @@ else{
   }
 
   notificationError(error) {
-    console.log('error', error);
+
     this.dialogService.alert(this.currentLanguageSet.failedToUpdate, 'error')
   }
   ngDoCheck() {

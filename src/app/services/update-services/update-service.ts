@@ -42,7 +42,7 @@ export class UpdateService {
   ) { }
 
   updateBeneficiaryData(values: any) {
-    console.log('data to be updated in service is', values);
+
     return this._httpInterceptor.post(this._updatebeneficiaryurl, JSON.stringify(values))
       .map(this.extractData).catch(this.handleError);
   }

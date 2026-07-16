@@ -147,13 +147,13 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   }
 
   SetCategories(response: any) {
-    console.log('success', response);
+
     this.categoryList = response;
   }
 
   GetSubCategories(id: any) {
     this.symptomSubCategory=null;
-    // console.log('symcatid',this.symptomCategory);
+
     this._coCategoryService.getSubCategories(id)
       .subscribe(response => this.SetSubCategories(response),
       (err) => {
@@ -163,7 +163,7 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   }
 
   SetSubCategories(response: any) {
-    console.log('success', response);
+
     this.subCategoryList = response;
     this.enableFileDetails=false;
     this.getDetailsFlag = false;
@@ -186,7 +186,7 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
   }
   SetSubCategoryDetails(response: any) {
     if (response) {
-      console.log('success', response);
+
       this.detailsList = response;
       this.getDetailsFlag = true;
       this.enableFileDetails=true;
@@ -214,7 +214,7 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
       if (res) {
         this.data = res;
         this.totalRecord = res.length;
-        console.log('Information History Successfully reterive', res);
+
       }
       else {
         this.alertService.alert("No data found contact your administrator");
@@ -222,7 +222,6 @@ export class CoCounsellingServicesComponent implements OnInit, DoCheck {
     }, (err) => {
       this.alertService.alert(err.errorMessage, 'error');
 
-      console.log('Some error reteriving Information History ', err);
     })
   }
   // get the data from diffrent commponent
