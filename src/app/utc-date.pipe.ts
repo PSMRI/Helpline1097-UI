@@ -44,7 +44,7 @@ export class UtcDatePipe implements PipeTransform {
       dateValue.getUTCMinutes(),
       dateValue.getUTCSeconds()
     );
-    console.log('UTC FILTER', value, dateWithNoTimezone);
+
     return dateWithNoTimezone;
   }
 }

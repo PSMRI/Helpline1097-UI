@@ -113,7 +113,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       .getUserBeneficaryData(this.providerServiceMapID)
       .subscribe(
         (response) => {
-          console.log(response);
+
           this.sexualOrientations = response["sexualOrientations"];
           this.states = response["states"];
           this.genders = response["m_genders"];
@@ -121,7 +121,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
         },
         (error) => {
           this.alertMessage.alert(error.errorMessage, "error");
-          console.log(error);
+          console.error(error);
         }
       );
     this.showPaginationControls = false;
@@ -187,9 +187,8 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       fileName: "Call_Type_Report"
     };
 
-    console.log("Call type req obj", JSON.stringify(requestObj, null, 4));
     this.reportService.getAllReportsByDate(requestObj).subscribe((response) => {
-      // console.log("Json data of response: ", JSON.stringify(response, null, 4));
+
       if (response) {
         saveAs(response,  requestObj.fileName+".xlsx");
         this.alertMessage.alert(this.currentLanguageSet.callTypeReportDownloaded);
@@ -232,7 +231,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
   }
   successhandeler(response) {
     // debugger;
-    console.log(response, "respinse call wala");
+
     if (response.length > 5) {
       this.showPaginationControls = true;
     }
@@ -248,9 +247,9 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       //   return obj;
       // });
       this.downloadV2(response);
-      // console.log(array);
+
       // let head = Object.keys(array[0]);
-      // console.log(head);
+
       // new Angular2Csv(array, 'Consolidate Report', { headers: (head) });
       // this.alertMessage.alert('Consolidated report generated', 'success');
     } else {
@@ -437,11 +436,11 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       let finalCellName: any;
       if (count == 0) {
         finalCellName = cellPosition + "1";
-        // console.log(finalCellName);
+
       } else {
         let newcellPosition = String.fromCharCode(64 + count);
         finalCellName = newcellPosition + cellPosition + "1";
-        // console.log(finalCellName);
+
       }
       let newName = this.modifyHeader(headers, i);
       delete report_worksheet[finalCellName].w;
@@ -485,7 +484,7 @@ export class SupervisorCalltypeReportsComponent implements OnInit {
       .trim();
     modifiedHeader =
       modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
-    //console.log(modifiedHeader);
+
     return modifiedHeader.replace(/I D/g, "ID");
   }
 }

@@ -88,7 +88,7 @@ export class ActivityThisWeekComponent implements OnInit {
           }
         }
       }, err => {
-        console.log('Error while fetching kmconfig', err);
+
       });
   }
 
@@ -121,12 +121,12 @@ export class ActivityThisWeekComponent implements OnInit {
     this.notificationService.getKMs(data).subscribe(
       response => {
         if (response.data.length > 0) {
-          console.log(response.data, 'RESPONSE SUCCESS AFTER KM DOCS FETCH');
+
           this.kmFiles = response.data;
           this.training_resource_count = this.kmFiles.length;
         }
       }, err => {
-        console.log('Error while fetching KM files in dashboard', err);
+
       }
     );
   }

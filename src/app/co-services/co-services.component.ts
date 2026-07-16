@@ -69,7 +69,7 @@ export class CoServicesComponent implements OnInit {
     // todo in future
   }
   changeService(val) {
-    console.log(val, 'value of tab clicked');
+
     this.tab_value = val;
    
   }

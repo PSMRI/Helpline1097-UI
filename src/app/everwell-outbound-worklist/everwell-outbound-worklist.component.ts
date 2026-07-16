@@ -60,11 +60,11 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     this.OCRService.getEverwellOutboundCallList(reqObj).subscribe(response => 
       {
         this.AssignData(response);
-        console.log('Everwell Call History Data is', response);
+
       },
     (err)=> {
       this.alertService.alert(err.errorMessage,'error');
-      console.log('Everwell error in call history ');
+
     });
     this.assignSelectedLanguage();
 
@@ -73,7 +73,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
   AssignData(outboundHistory: any) {
     this.data = outboundHistory;
     this.filteredsearchResult = outboundHistory;
-    console.log("beneID in worklist", this.filteredsearchResult)
+
   }
   //   modaldata:any;
   listBenDetailsOnPhnNo(data: any) {
@@ -82,7 +82,7 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     this._common.feedbackData = [];
     this._common.updatedFeedbackList = [];
     this._common.outboundBenRegID = data.beneficiaryRegId;
-    console.log("data54", data);
+
     let req={
       "eapiId":data.eapiId,
       "providerServiceMapId":this._common.current_service.serviceID
@@ -90,10 +90,10 @@ export class EverwellOutboundWorklistComponent implements OnInit {
     // this._common.beneficiaryID = data.beneficiaryID;
     //  this.onOutboundCall.emit(data); code commented, since routing implemented, calling which was happenning in parent is now here....gursimran 24/5/18
     this._common.outboundEverwellData = data;
-    console.log("data54", data);
+
     this._outBoundService.checkIfAlreadyCalled(req).subscribe((response) => {
       if(response != null && response.isCompleted != undefined && response.isCompleted != null){
-        console.log(response);
+
         if(response.isCompleted == true)
         this.alertService.alert("Call is already completed by agent");
         else{

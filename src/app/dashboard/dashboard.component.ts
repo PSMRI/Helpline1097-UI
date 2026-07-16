@@ -88,31 +88,31 @@ export class dashboardContentClass implements OnInit {
     public HttpServices: HttpServices
   ) {
     // this.notificationSubscription = this.socketService.getMessages().subscribe((data) => {
-    //   console.log(data);
+
     //   this.alertRefresh++;
     //   if (data.type == 'Alert') {
     //     this.toasterService.popAsync('error', data.type, data.subject + ": " + data.message).subscribe((res) => {
-    //       console.log(res);
+
     //     });
     //   }
     //   if (data.type == 'Notification') {
     //     this.toasterService.popAsync('success', data.type, data.subject + ": " + data.message).subscribe((res) => {
-    //       console.log(res);
+
     //     });
     //   }
     //   if (data.type == 'Emergency_Contact') {
     //     this.toasterService.popAsync('warning', data.type, data.subject + " " + data.message).subscribe((res) => {
-    //       console.log(res);
+
     //     });
     //   }
     //   if (data.type == 'Training_Resource') {
     //     this.toasterService.popAsync('wait', data.type, data.subject + ": " + data.message).subscribe((res) => {
-    //       console.log(res);
+
     //     });
     //   }
     //   if (data.type == 'Location_Message') {
     //     this.toasterService.popAsync('info', data.type, data.subject + ": " + data.message).subscribe((res) => {
-    //       console.log(res);
+
     //     });
     //   }
     // })
@@ -122,7 +122,7 @@ export class dashboardContentClass implements OnInit {
     this.assignSelectedLanguage();
 
     this.dataSettingService.inOutCampaign.subscribe((data) => {
-      console.log(data);
+
       // this.setCampaign()
     });
     this.setCampaign();
@@ -134,9 +134,9 @@ export class dashboardContentClass implements OnInit {
       this.configService.getTelephonyServerURL() +
       "bar/cti_handler.php?e=" +
       this.dataSettingService.cZentrixAgentID;
-    console.log("url = " + url);
+
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    console.log("url = " + url);
+
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.showDashboardContent = true;
     this.showDashboard();
@@ -160,7 +160,7 @@ export class dashboardContentClass implements OnInit {
   }
 
   agentIDexists(agentID) {
-    console.log(agentID, "AGENT ID IN DASHBOARD");
+
     if (agentID != undefined) {
       this.agentIDExitsFlag = true;
     } else {
@@ -221,10 +221,10 @@ export class dashboardContentClass implements OnInit {
                   (response) => {
                     this.sessionstorage.setItem("current_campaign", "OUTBOUND");
                     this.dataSettingService.isOutBoundSelected = true;
-                    console.log("outbound");
+
                   },
                   (err) => {
-                    console.log("agent in not logged in");
+
                     if (
                       err.errorMessage ===
                       "Agent 4201 is already in MANUAL mode"
@@ -241,7 +241,7 @@ export class dashboardContentClass implements OnInit {
                 this.callService.onlyOutbound = true;
               }
             } else {
-              console.log("Supervisor role");
+
             }
           }
         }
@@ -291,8 +291,8 @@ export class dashboardContentClass implements OnInit {
   }
 
   listener(event) {
-    console.log("listener invoked: " + event);
-    console.log("event received" + JSON.stringify(event));
+
+
     if (event.data !== undefined && event.data !== null) {
       this.eventSpiltData = event.data.split("|");
     } else {
@@ -346,24 +346,23 @@ export class dashboardContentClass implements OnInit {
 
   addListener() {
     if (window.parent.parent.addEventListener) {
-      console.log("adding message listener");
+
       // document.addEventListener( "message", this.listener.bind( this ), false );
 
       try {
         addEventListener("message", this.listener.bind(this), false);
       } catch (error) {
-        console.log("logging error : ", error);
+
       }
 
-      console.log("Msg listener is added .");
     } else {
-      console.log("adding onmessage listener");
+
       // document.attachEvent("onmessage", this.listener);
     }
   }
 
   campaign(value) {
-    console.log(value);
+
     if (value === "1") {
       this.message
         .confirm("", this.currentLanguageSet.switchToInbound)
@@ -436,7 +435,7 @@ export class dashboardContentClass implements OnInit {
     }
   }
   hideComponentHandeler(event) {
-    console.log("event is", event);
+
     if (event === "1") {
       this.activity_component = false;
     }
@@ -467,7 +466,7 @@ export class dashboardContentClass implements OnInit {
   // CODE FOR SIDE NAV
   clicked: boolean = false;
   hamburgerHoverOut() {
-    console.log(this.clicked);
+
     if (this.clicked === true) {
       const element = document.querySelector(".leftMenu");
       element.classList.toggle("openMenu");

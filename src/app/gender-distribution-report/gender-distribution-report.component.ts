@@ -78,7 +78,7 @@ export class GenderDistributionReportComponent implements OnInit {
     this.userbeneficiarydata
       .getUserBeneficaryData(this.providerServiceMapID)
       .subscribe((response) => {
-        console.log(response);
+
         this.genders = response["m_genders"];
         let all = {
           genderName: "All",
@@ -212,7 +212,7 @@ export class GenderDistributionReportComponent implements OnInit {
   // getReports(form_values) {
   //   //call api and initialize data
   //   this.request_array = [];
-  //   console.log(form_values.gender, "GENDER ARRAY CONDITION");
+
   //   if (form_values.gender == "All") {
   //     for (let i = 0; i < this.genders.length - 1; i++) {
   //       var obj = Object.assign({}, this.request_obj);
@@ -245,7 +245,7 @@ export class GenderDistributionReportComponent implements OnInit {
 
   //       this.request_array.push(obj);
   //     }
-  //     console.log("request array", this.request_array);
+
   //   } else {
   //     /*assign all genders if no gender was selected*/
   //     // for(let i=0;i<form_values.gender.length;i++)
@@ -281,7 +281,6 @@ export class GenderDistributionReportComponent implements OnInit {
   //     this.request_array.push(obj);
   //     // }
 
-  //     console.log("request array", this.request_array);
   //   }
 
   //   // this.start_date = form_values.start_date;
@@ -303,7 +302,7 @@ export class GenderDistributionReportComponent implements OnInit {
   getReportSuccessHandeler(response) {
     if (response) {
       this.tableFlag = true;
-      console.log(response, "REPORT SUCCESS");
+
       this.gender_distribution_resultset = response;
     } else {
       this.alertService.alert(response.status, "error");
@@ -365,11 +364,11 @@ export class GenderDistributionReportComponent implements OnInit {
       let finalCellName: any;
       if (count == 0) {
         finalCellName = cellPosition + "1";
-        // console.log(finalCellName);
+
       } else {
         let newcellPosition = String.fromCharCode(64 + count);
         finalCellName = newcellPosition + cellPosition + "1";
-        // console.log(finalCellName);
+
       }
       let newName = this.modifyHeader(headers, i);
       delete report_worksheet[finalCellName].w;
@@ -413,7 +412,7 @@ export class GenderDistributionReportComponent implements OnInit {
       .trim();
     modifiedHeader =
       modifiedHeader.charAt(0).toUpperCase() + modifiedHeader.substr(1);
-    //console.log(modifiedHeader);
+
     return modifiedHeader.replace(/I D/g, "ID");
   }
   resetWorklist() {

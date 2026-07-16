@@ -87,7 +87,7 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
 
   getBlockedTillDate(date) {
     this.blockedTill = date.setDate(date.getDate() + 7);
-    console.log(this.blockedTill);
+
   }
 
   addToBlockList() {
@@ -186,7 +186,7 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
   }
 
   getRecordingsSuccessHandeler(response, ph_no) {
-    console.log(response, "get RECORDINGS SUCCESS");
+
     if (response) {
       this.recording_data = response.workList != undefined ? response.workList : null;
       this.showRecordings = true;
@@ -211,9 +211,8 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
   }
 
   check(agentID,sessionID,index){
-    console.log("AgentID",agentID);
-    console.log("sessionID",sessionID);
-    
+
+
    this.audioResponse=null;
   
     if(agentID>0 && sessionID>0 )
@@ -235,17 +234,16 @@ export class BlockUnblockNumberComponent implements OnInit, DoCheck {
   
     this.qualityAuditService.getAudio(agentID,sessionID).subscribe(response =>
       {
-        console.log("RESPONSEss", response.response);
+
         this.audioResponse = response.response;
         this.dispFlag=index;
-       
-        console.log("Audio Response1",this.audioResponse)
+
         this.recordingArray.push({sessionId:sessionID,agentId:agentID,path:this.audioResponse});
-        console.log("RecordingArray",this.recordingArray)
+
       },
       err => {
         this.message.alert(this.assignSelectedLanguageValue.failedToGetTheVoiceFilePath, 'error');
-            console.log("ERROR", err);
+
           }
       );
         

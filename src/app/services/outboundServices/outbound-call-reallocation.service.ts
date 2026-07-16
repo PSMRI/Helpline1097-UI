@@ -144,7 +144,6 @@ export class OutboundReAllocationService {
     
     private extractDataSuccess(response: Response) {
 
-        console.log('service me original', response.json().data);
         return response.json().data;
     }
 

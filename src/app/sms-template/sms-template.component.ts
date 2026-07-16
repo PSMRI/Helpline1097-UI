@@ -104,7 +104,7 @@ export class SmsTemplateComponent implements OnInit {
           }
         }
       }, err => {
-        console.log('Error while fetching SMS templates', err);
+
       })
   }
 
@@ -130,7 +130,7 @@ export class SmsTemplateComponent implements OnInit {
         }
 
       }, err => {
-        console.log(err, 'error while fetching sms types');
+
         this.commonDialogService.alert(err.errorMessage, 'error');
       })
   }
@@ -178,7 +178,7 @@ export class SmsTemplateComponent implements OnInit {
     for (let i = 0; i < string_contents.length; i++) {
       if (string_contents[i].startsWith('$$') && string_contents[i].endsWith('$$')) {
         let item = string_contents[i].substr(2).slice(0, -2);
-        console.log(item);
+
         parameters.push(item);
       }
     }
@@ -211,7 +211,7 @@ export class SmsTemplateComponent implements OnInit {
       .subscribe(response => {
         this.smsParameters = response;
       }, err => {
-        console.log(err, 'error while fetching sms parameters');
+
         this.commonDialogService.alert(err.errorMessage, 'error');
       })
   }
@@ -301,8 +301,6 @@ export class SmsTemplateComponent implements OnInit {
       'smsTypeID': form_values.smsType
     }
 
-    console.log('Save Request', requestObject);
-
     this.sms_service.saveSMStemplate(requestObject)
       .subscribe(res => {
         this.commonDialogService.alert(this.currentLanguageSet.templateSavedSuccessfully, 'success');
@@ -313,11 +311,10 @@ export class SmsTemplateComponent implements OnInit {
   }
 
   view(object) {
-    console.log('templateID', object);
 
     this.sms_service.getFullSMSTemplate(object.providerServiceMapID, object.smsTemplateID)
       .subscribe(response => {
-        console.log(response, 'getfullSMStemplate success');
+
         this.viewSMSparameterTable = response.smsParameterMaps;
         this.viewTemplate = true;
         this.showTableFlag = false;
@@ -329,7 +326,7 @@ export class SmsTemplateComponent implements OnInit {
         });
 
       }, err => {
-        console.log(err, 'getfullSMStemplate error');
+
       })
 
   }

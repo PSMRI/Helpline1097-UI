@@ -82,10 +82,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
       .getNotificationTypes(this.providerServiceMapID)
       .subscribe(
         (response) => {
-          console.log(
-            response,
-            "notification Types in dashboard Alert component"
-          );
+
           if (response) {
             this.alertConfig = response.data.filter((notification) => {
               return notification.notificationType == "Alert";
@@ -101,7 +98,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
           }
         },
         (err) => {
-          console.log(err);
+          console.error(err);
         }
       );
   }
@@ -115,7 +112,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
       })
       .subscribe(
         (response) => {
-          console.log("count api response", response.data);
+
           if (response.data.userNotificationTypeList.length > 0) {
             let alertObj = response.data.userNotificationTypeList.filter(
               (item) => {
@@ -148,14 +145,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
             } else {
               this.notificationCount = 0;
             }
-            console.log(
-              "alertCount:",
-              this.alertCount,
-              "othersCount:",
-              this.othersCount,
-              "notificationCount:",
-              this.notificationCount
-            );
+
           } else {
             this.alertCount = 0;
             this.notificationCount = 0;
@@ -163,7 +153,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
           }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }
@@ -196,7 +186,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
       })
       .subscribe(
         (response) => {
-          console.log(response.data, "notification details api response");
+
           messages = response.data;
           messages = messages.filter(
             (item) => item.notificationState != "future"
@@ -221,7 +211,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
                 this.getCount();
               },
               (error) => {
-                console.log(error);
+                console.error(error);
               }
             );
           } else {
@@ -231,7 +221,7 @@ export class AlertsNotificationComponent implements OnInit, DoCheck {
           }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }
@@ -283,7 +273,7 @@ export class AlertsNotificationsDialogComponent {
   }
 
   unreadAll() {
-    console.log("call api and on success re initialize messages");
+
     this.notificationService
       .changeNotificationStatus({
         notficationStatus: "unread",
@@ -291,17 +281,17 @@ export class AlertsNotificationsDialogComponent {
       })
       .subscribe(
         (response) => {
-          console.log(response.data, "unread all api response");
+
           if (response.data.status == "success") this.reInitialize();
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }
 
   readAll() {
-    console.log("call api and on success re initialize messages");
+
     this.notificationService
       .changeNotificationStatus({
         notficationStatus: "read",
@@ -309,11 +299,11 @@ export class AlertsNotificationsDialogComponent {
       })
       .subscribe(
         (response) => {
-          console.log(response.data, "read all api response");
+
           if (response.data.status == "success") this.reInitialize();
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }
@@ -329,7 +319,7 @@ export class AlertsNotificationsDialogComponent {
           if (response.data.status == "success") this.reInitialize();
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }
@@ -345,12 +335,12 @@ export class AlertsNotificationsDialogComponent {
           if (response.data.status == "success") this.reInitialize();
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }
   deleteNotification(id) {
-    console.log(id, "use id and call api, on success re initialize messages");
+
     this.alertService
       .confirm("", this.assignSelectedLanguageValue.areYouSureYouWantToDelete)
       .subscribe((res) => {
@@ -362,11 +352,11 @@ export class AlertsNotificationsDialogComponent {
             })
             .subscribe(
               (response) => {
-                console.log(response.data, "delete notification api response");
+
                 if (response.data.status == "success") this.reInitialize();
               },
               (error) => {
-                console.log(error);
+                console.error(error);
               }
             );
         }
@@ -383,10 +373,7 @@ export class AlertsNotificationsDialogComponent {
       })
       .subscribe(
         (response) => {
-          console.log(
-            response.data,
-            "notification messages refreshed response"
-          );
+
           this.messages = response.data;
           this.messages = this.messages.filter(
             (item) => item.notificationState != "future"
@@ -397,7 +384,7 @@ export class AlertsNotificationsDialogComponent {
           }, this);
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }

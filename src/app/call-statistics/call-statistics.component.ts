@@ -59,22 +59,16 @@ export class CallStatisticsComponent implements OnInit, DoCheck {
   todayCallLists() {
     this.callService.getCallDetails().subscribe(
       (response) => {
-        console.log("RESPONSE OF CALL DETAILS", response);
+
         this.totalCalls = response.data.total_calls;
         this.totalInvalidCalls = response.data.total_invalid_calls;
         this.totalCallDuration = response.data.total_call_duration;
         this.totalBreakTime = response.data.total_break_time;
         this.totalFreeTime = response.data.total_free_time;
-        console.log(
-          this.totalCalls,
-          this.totalInvalidCalls,
-          this.totalCallDuration,
-          this.totalBreakTime,
-          this.totalFreeTime
-        );
+
       },
       (err) => {
-        console.log("Error in Total Call Report", err);
+
       }
     );
   }

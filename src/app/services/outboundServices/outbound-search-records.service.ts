@@ -124,7 +124,7 @@ export class OutboundSearchRecordService {
     };
 
     private extractData(res: Response) {
-        console.log('service log: ', res);
+
         if (res.json().data) {
             return res.json();
         } else {

@@ -53,10 +53,10 @@ export class OutbondWorklistComponent implements OnInit {
     const userId = this._common.uid;
     this._outBoundService.getOutboundCallList(serviceProviderMapID, userId).subscribe((response) => {
       this.AssignData(response);
-      console.log('Call History Data is', response);
+
     }, (err) => {
       this.alertService.alert(err.errorMessage, 'error');
-      console.log('error in call history ');
+
     })
   };
   ngDoCheck() {
@@ -87,7 +87,7 @@ export class OutbondWorklistComponent implements OnInit {
         this.sessionstorage.setItem("isOnCall", "yes");
   //      this._dataServivce.isSelf = data.isSelf;
       }
-      console.log('resp', res);
+
     }, (err) => {
       this.alertService.alert(err.errorMessage);
     });

@@ -80,7 +80,6 @@ export class NewsInformationsComponent implements OnInit {
 
 	getNotificationTypesSuccessHandeler(response)
 	{
-		console.log("alertTypes",response);
 
 		for(let i=0;i<response.data.length;i++)
 		{
@@ -102,14 +101,13 @@ export class NewsInformationsComponent implements OnInit {
 	{
 		let obj=Object.assign({},this.request_object);
 		obj['notificationTypeID']=notificationID;
-		
-		console.log("the request obj is",obj);
+
 		this.notificationService.getAlerts(obj).subscribe(response=>this.getEmergencyAlertsSuccessHandeler(response))
 	}
 
 	getEmergencyAlertsSuccessHandeler(response)
 	{
-		console.log("Emergency ALERTS",response);
+
 		this.emrMessages=response.data;
 	}
 

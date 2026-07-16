@@ -51,11 +51,11 @@ export class FeedbackStatusComponent implements OnInit {
     this.isCollapsedResponse = true;
     const feedbackStatusData = this.feedbackStatusData;
     let dataLength = feedbackStatusData.length;
-    console.log('Feed back data is', feedbackStatusData);
+
     this.feedBackRequests = this.feedbackStatusData[dataLength - 1].feedbackRequests;
-    console.log('Feed back request data', this.feedBackRequests);
+
     this.feedBackResponses = this.feedbackStatusData[dataLength - 1].feedbackResponses;
-    console.log('feed back response data', this.feedBackResponses);
+
     this.totalRecord = this.feedBackRequests.length;
     this.consolidatedRequests = this.feedbackStatusData[dataLength - 1].consolidatedRequests;
     this.feedbackStatusName = this.feedbackStatusData[dataLength - 1].feedbackStatusName;
@@ -63,9 +63,9 @@ export class FeedbackStatusComponent implements OnInit {
 
   }
   showResponse(data: any) {
-    console.log('Corresponding data is', data.target);
+
     this.isCollapsedResponse = !this.isCollapsedResponse;
-    console.log('Tr data is', this.trChild.nativeElement.parent);
+
     // this.renderer.setElementAttribute(this.trChild.nativeElement, 'collapse', 'isCollapsedResponse');
   }
   toUTCDate(date) {

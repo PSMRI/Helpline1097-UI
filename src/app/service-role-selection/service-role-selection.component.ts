@@ -89,7 +89,7 @@ export class ServiceRoleSelectionComponent implements OnInit {
             providerServiceMapID + "_" + roleName.toLowerCase() + "_" + role.workingLocationID,
             providerServiceMapID + "_" + role.workingLocationID.toString()
         ]
-        console.log(finalArray);
+
         // this.socketService.sendRoomsArray({ userId: this.getCommonData.uid, role: finalArray });
 
         //code ended

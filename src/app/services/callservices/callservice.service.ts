@@ -77,7 +77,7 @@ export class CallServices {
   }
 
   closeCall(values: any) {
-    console.log('data to be updated in service is', values);
+
     return this._httpInterceptor.post(this._closecallurl, values).map(this.extractData).catch(this.handleCustomError);
   }
   disconnectCall(agentID: any) {
@@ -102,11 +102,11 @@ export class CallServices {
   }
   getCallSummary(values: any) {
     // debugger
-    console.log('Call summary to be retreived for ', values)
+
     return this._http.post(this._callsummaryurl, values).map(this.extractData).catch(this.handleError);
   }
   getCallTypes(values: any) {
-    console.log('call types to be retreived for ', values)
+
     return this._http.post(this._calltypesurl, values).map(this.extractData).catch(this.handleError);
   }
   getOutboundCallList(serviceID: any, userID?: any) {

@@ -38,13 +38,13 @@ export class MessageDialogComponent implements OnInit {
   docs: any = [];
   ngOnInit() {
     this.assignSelectedLanguage();
-    console.log(this.data, "DATA ARRAY IN MESSAGE DIALOG WINDOW");
+
     // this.checkForURL(this.data.message);
     this.docs = this.data.kmdocs;
     for (let i = 0; i < this.docs.length; i++) {
       this.docs[i]['urls'] = this.checkForURL(this.docs[i].notificationDesc)
     }
-    console.log('after urls filtering', this.docs);
+
   }
   ngDoCheck() {
     this.assignSelectedLanguage();
@@ -64,7 +64,7 @@ export class MessageDialogComponent implements OnInit {
     this.result = [];
     // var matches=[];
     // matches=string.match(/\bhttp[s,]?:\/\/\S+/gi);
-    // console.log("matches",matches);
+
     //  if(matches) {
     //    if(matches.length>0)
     //    {
@@ -76,15 +76,13 @@ export class MessageDialogComponent implements OnInit {
     //  }
     // debugger;
     var request_array1 = string.split(" ");
-    console.log("first array split", request_array1);
 
     for (let i = 0; i < request_array1.length; i++) {
       var req_array1 = request_array1[i].split(",");
-      console.log("second array split", req_array1);
 
       for (let a = 0; a < req_array1.length; a++) {
         var req_array = req_array1[a].split('\n');
-        console.log("3rd split", req_array);
+
         for (let z = 0; z < req_array.length; z++) {
           if (req_array[z].startsWith("www") && (req_array[z].endsWith(".com") ||
             req_array[z].endsWith(".co") ||
@@ -147,8 +145,6 @@ export class MessageDialogComponent implements OnInit {
 
     }
 
-
-    console.log(this.result, "RESULT SET OF URLS");
     for (let a = 0; a < this.result.length; a++) {
       if (!this.result[a].toUpperCase().startsWith("HTTPS") && !this.result[a].toUpperCase().startsWith("HTTP")) {
         this.result[a] = "https://" + this.result[a];

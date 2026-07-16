@@ -56,7 +56,7 @@ export class UploadServiceService {
     if (response.json().data) {
       return response.json().data;
     } else {
-      console.log('Status', response.json().status);
+
       return response.json().status;
 
     }

@@ -114,7 +114,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -122,11 +122,11 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     this.notification_service.getAllDesignations()
       .subscribe(response => {
         if (response.length > 0) {
-          console.log(response, 'designations');
+
           this.designations = response;
         }
       }, err => {
-        console.log(err, 'error in getting designations');
+
       })
   }
 
@@ -134,7 +134,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     this.notification_service.getNotificationTypes(this.providerServiceMapID)
       .subscribe((response) => { this.notificationTypeSuccess(response) },
       (error) => {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -143,8 +143,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
       this.emergency_contact_related_data = res.data.filter((notification) => {
         return notification.notificationType == "Emergency Contact";
       });
-   
-    console.log(this.emergency_contact_related_data, 'notificationTypeID');
+
     this.notificationTypeID = this.emergency_contact_related_data[0].notificationTypeID;
 
     // get emergency contacts history
@@ -161,12 +160,12 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     this.notification_service.getSupervisorEmergencyContacts(obj)
       .subscribe(response => {
         if (response.data) {
-          console.log('Supervisor Emergency Contacts success callback', response.data);
+
           this.emergencyList = response.data;
           this.filteredsearchResult = response.data;
         }
       }, err => {
-        console.log('error', err);
+
       })
   }
 
@@ -195,7 +194,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
 
       }
       else {
-        console.log('Duplicate exists');
+
         this.dialogService.alert(this.currentLanguageSet.duplicateMobileNumber, 'info');
         this.emergencyContactForm.reset();
       }
@@ -223,7 +222,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
 
       }
       else {
-        console.log('Duplicate exists');
+
         this.dialogService.alert(this.currentLanguageSet.duplicateMobileNumber, 'info');
         this.emergencyContactForm.reset();
       }
@@ -238,7 +237,7 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     if (array.length !== 0) {
       this.notification_service.createEmergencyContacts(array)
         .subscribe(response => {
-          console.log(response, 'create success');
+
           this.dialogService.alert(this.currentLanguageSet.createdSuccessfully, 'success');
           this.emergencyContactForm.reset();
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
@@ -253,13 +252,13 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
           //   "room":roomArray, type:"Emergency_Contact", "message":"Emergency Contacts added", "subject": array.length.toString()
           // })
           // .subscribe((response)=>{
-          //   console.log(response.data);
+
           // },
           // (error)=>{
-          //   console.log(error);
+
           // });
         }, err => {
-          console.log('error', err);
+
           this.dialogService.alert(this.currentLanguageSet.failedToCreate, 'error');
         });
     }
@@ -281,12 +280,12 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
 
   //   this.notification_service.createEmergencyContacts(reqArray)
   //     .subscribe(response => {
-  //       console.log(response, 'create success');
+
   //       this.emergencyContactForm.reset();
   //       this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
   //       this.tableMode();
   //     }, err => {
-  //       console.log('error', err);
+
   //     });
 
 
@@ -313,14 +312,14 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     this.notification_service.updateEmergencyContacts(this.editData)
       .subscribe(response => {
         if (response.data) {
-          console.log(response.data.response, 'edited successfully');
+
           this.dialogService.alert(this.currentLanguageSet.editedSuccessfully, 'success');
           this.editEmergencyContactForm.reset();
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
           this.tableMode();
         }
       }, err => { 
-        console.log(err, 'edit failed');
+
         this.dialogService.alert(this.currentLanguageSet.failedToEdit, 'error');
       });
   }
@@ -338,12 +337,12 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     this.notification_service.updateEmergencyContactsActivateDeactivate(object)
       .subscribe(response => {
         if (response.data) {
-          console.log(response.data.response, 'ACTIVATED SUCCESSFULLY');
+
           this.dialogService.alert(this.currentLanguageSet.activatedSuccessfully, 'success');
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
         }
       }, err => {
-        console.log(err, 'ACTIVATION FAILED');
+
         this.dialogService.alert(this.currentLanguageSet.failedToActivate, 'error');
         object.deleted=activateStatus;
       })
@@ -368,12 +367,12 @@ export class SupervisorEmergencyContactsComponent implements OnInit {
     this.notification_service.updateEmergencyContactsActivateDeactivate(object)
       .subscribe(response => {
         if (response.data) {
-          console.log(response.data.response, 'DEACTIVATED SUCCESSFULLY');
+
           this.dialogService.alert(this.currentLanguageSet.deactivatedSuccessfully, 'success');
           this.getEmergencyList(this.providerServiceMapID, this.notificationTypeID);
         }
       }, err => {
-        console.log(err, 'DEACTIVATION FAILED');
+
         this.dialogService.alert(this.currentLanguageSet.failedToDeactivate, 'error');
         object.deleted=deactivateStatus;
       })

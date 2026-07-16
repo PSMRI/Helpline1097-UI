@@ -63,10 +63,10 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
     this.Q_array_one = response;
     this.Q_array_two = response;
-    console.log(this.questions);
+
   }
   handleError(response) {
-    console.log('error', this.questions);
+
   }
 
   ngOnInit() {
@@ -125,8 +125,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
   selectedQuestions:Array<any> = [];
 
   updateQuestions(selectedques, position) {
-    console.log("position", position, "Selected Question", selectedques);
-    console.log("before if else block, selected questions", this.selectedQuestions);
+
 
     if (this.selectedQuestions.indexOf(selectedques) == -1) {
       this.selectedQuestions[position] = selectedques;
@@ -143,8 +142,6 @@ export class SetSecurityQuestionsComponent implements OnInit {
         // jQuery("#ans3").prop("disabled",false);
       }
 
-      console.log("if block, selected questions", this.selectedQuestions);
-
     }
     else {
       if (this.selectedQuestions.indexOf(selectedques) != position) {
@@ -153,8 +150,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
       else {
         // this.alertService.alert("This question is mapped at this position already");
       }
-      console.log("else block, selected questions", this.selectedQuestions);
-      console.log("position else block", position);
+
 
       // this.disableAnswerField(position);
     }
@@ -231,8 +227,6 @@ export class SetSecurityQuestionsComponent implements OnInit {
           'createdBy': this.uname
         }];
 
-      console.log("Request Array", this.dataArray);
-      console.log("selected questions", this.selectedQuestions);
 
       this.switch();
     }
@@ -312,7 +306,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
   handleQuestionSaveSuccess(response, encryptedConfirmPwd) {
     if(response && response.statusCode == 200 && response.data.transactionId !== undefined && response.data.transactionId !== null) {
-    console.log('saved questions', response);
+
     this.http_calls.postDataForSecurity(this.configService.getOpenCommonBaseURL() + 'user/setForgetPassword',
       { 'userName': this.uname, 'password': this.password, 'transactionId': response.data.transactionId })
       .subscribe((response: any) => this.successCallback(response),
@@ -326,20 +320,20 @@ export class SetSecurityQuestionsComponent implements OnInit {
 
   }
   handleQuestionSaveError(response) {
-    console.log('question save error', response);
+
   }
 
   successCallback(response) {
-    console.log(response);
+
     this.alertService.alert("Password changed successfully", 'success');
     this.czentrixService.userLogout().subscribe(res => this.handleSuccessss(res));
   }
 
   errorCallback(response) {
-    console.log(response);
+
   }
   handleSuccessss(res) {
-    console.log("redis token removed");
+
     if (res !== undefined && res !== null) {
 			this.authService.removeToken();
       this.router.navigate(['']);
