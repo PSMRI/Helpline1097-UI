@@ -22,7 +22,6 @@
 
 
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-declare var jQuery: any;
 import { HttpServices } from "../services/http-services/http_services.service";
 import { SetLanguageComponent } from 'app/set-language.component';
 
@@ -47,14 +46,12 @@ export class CoServicesComponent implements OnInit {
   tab_value: number = 1;
   ngOnInit() {
     this.assignSelectedLanguage();
-    jQuery("#md-tab-label-0-0").addClass("mat-tab-label-active");
   }
 
   selectedIndex:any=0;
 
   ngOnChanges() {
        if(this.resetProvideServices) {
-      jQuery('#feedbackForm').trigger("reset");
       this.show = true;
     }
 

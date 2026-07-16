@@ -48,7 +48,6 @@ import { LoaderService } from 'app/services/common/loader.service';
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from 'app/services/http-services/http_services.service';
 
-declare var jQuery: any;
 
 @Component({
   selector: 'app-beneficiary-registration',
@@ -483,7 +482,6 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     if (!flag) {
 
-      // jQuery("#BeneficaryForm").trigger("reset");
       // this.BeneficaryForm.resetForm();
 
       this.searchValue = 'Advanced Search';
