@@ -35,6 +35,7 @@ import 'rxjs/add/operator/toPromise'
 import { SetLanguageComponent } from 'app/set-language.component';
 import { HttpServices } from '../http-services/http_services.service';
 import { sessionStorageService } from '../sessionStorageService/session-storage.service';
+import { ConfirmationDialogsService } from './../dialog/confirmation.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   _baseURL = this._config.getCommonBaseURL();
@@ -44,7 +45,8 @@ export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,private sessionstorage:sessionStorageService,
     private route: ActivatedRoute, public dataSettingService: dataService, private _http: InterceptedHttp
-    , private _config: ConfigService, private authService: AuthService,public httpServices:HttpServices) { }
+    , private _config: ConfigService, private authService: AuthService,public httpServices:HttpServices,
+    private alertService: ConfirmationDialogsService) { }
 
     ngOnInit() {
       this.assignSelectedLanguage();
@@ -92,7 +94,7 @@ export class AuthGuard implements CanActivate {
     if (authkey) {
 
       if (key === 'yes') {
-        alert(this.currentLanguageSet.NotAllowedToGoBackPleaseComplete);
+        this.alertService.alert(this.currentLanguageSet.NotAllowedToGoBackPleaseComplete, 'info');
         return false;
       }
       else {

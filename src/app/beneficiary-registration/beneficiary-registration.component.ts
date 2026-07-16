@@ -1552,7 +1552,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     } else if (dobval == 'Invalid date') {
       this.BeneficaryCreationForm.form.patchValue({ dob: null });
       this.DOB = null;
-      this.alertMaessage.alert(this.assignSelectedLanguageValue.invalidDateEnteredPleaseRecheck);
+      this.alertMaessage.alert(this.assignSelectedLanguageValue.invalidDateEnteredPleaseRecheck, 'error');
     } else {
       this.BeneficaryCreationForm.form.patchValue({ age: null });
     }
@@ -1778,7 +1778,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
                   this._smsService.sendSMS(arr)
                     .subscribe(ressponse => {
-                      this.alertMaessage.alert(this.assignSelectedLanguageValue.smsSent);
+                      this.alertMaessage.alert(this.assignSelectedLanguageValue.smsSent, 'success');
                     }, err => {
 
                     })

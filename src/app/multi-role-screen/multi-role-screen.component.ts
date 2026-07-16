@@ -359,18 +359,18 @@ export class MultiRoleScreenComponent implements OnInit {
         if (response) {
           this.languageSuccessHandler(response, language);
         } else {
-          this.alertMessage.alert('Language not defined');
+          this.alertMessage.alert("Language not defined", 'error');
         }
       },
       (error) => {
-        this.alertMessage.alert('We are coming up with this language' + '' + language);
+        this.alertMessage.alert("We are coming up with this language" + "" + language, 'info');
       }
     );
   }
 
   languageSuccessHandler(response, language) {
     if (!this.checkForNull(response)) {
-      this.alertMessage.alert('We are coming up with this language' + ' ' + language);
+      this.alertMessage.alert("We are coming up with this language" + " " + language, 'info');
       return;
     }
 

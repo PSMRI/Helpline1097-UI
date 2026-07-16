@@ -30,6 +30,7 @@ import { HttpServices } from '../services/http-services/http_services.service';
 import { SPService } from '../services/adminServices/AdminServiceProvider/admin_service_provider.service';
 import { MdMenuTrigger, MdDatepicker } from '@angular/material';
 import { SetLanguageComponent } from 'app/set-language.component';
+import { ConfirmationDialogsService } from './../services/dialog/confirmation.service';
 
 
 @Component({
@@ -43,7 +44,8 @@ export class AdminServiceProviderComponent implements OnInit {
   data: any;
   myDatepicker = '';
   currentLanguageSet: any;
-  constructor(private _SPService: SPService,private HttpServices:HttpServices) {
+  constructor(private _SPService: SPService,private HttpServices:HttpServices,
+    private dialogService: ConfirmationDialogsService) {
     this.serviceProviders;
   }
 
@@ -159,7 +161,7 @@ export class AdminServiceProviderComponent implements OnInit {
 
     this._SPService.deleteProviders(JSON.parse(deleteReq))
       .subscribe(responseProviderDel => this.providers(responseProviderDel));
-    alert(this.currentLanguageSet.dataDeleted);
+    this.dialogService.alert(this.currentLanguageSet.dataDeleted, 'success');
   }
 
   updateSP(SPData) {

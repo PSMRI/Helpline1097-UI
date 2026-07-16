@@ -350,7 +350,7 @@ export class loginContentClass implements OnInit, OnDestroy {
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
       if (this.dataSettingService.current_serviceID === undefined) {
-        this.alertService.alert('ServiceID not found. Some things may not work');
+        this.alertService.alert('ServiceID not found. Some things may not work', 'error');
       }
       this.sessionstorage.removeItem('isOnCall');
       this.sessionstorage.removeItem('isEverwellCall');

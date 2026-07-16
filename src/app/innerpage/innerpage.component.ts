@@ -1033,18 +1033,18 @@ export class InnerpageComponent implements OnInit {
         if (response) {
           this.languageSuccessHandler(response, language);
         } else {
-          this.remarksMessage.alert('Language not defined');
+          this.remarksMessage.alert("Language not defined", 'error');
         }
       },
       (error) => {
-        this.remarksMessage.alert('We are coming up with this language' + '' + language);
+        this.remarksMessage.alert("We are coming up with this language" + "" + language, 'info');
       }
     );
   }
 
   languageSuccessHandler(response, language) {
     if (!this.checkForNull(response)) {
-      this.remarksMessage.alert('We are coming up with this language' + ' ' + language);
+      this.remarksMessage.alert("We are coming up with this language" + " " + language, 'info');
       return;
     }
     this.currentLanguageSet = response[language];
