@@ -113,12 +113,12 @@ export class AlernateEmailModelComponent implements OnInit {
       "is1097": true
     }
     this.feedbackService.sendEmail(obj).subscribe(res => {
-      console.log('email sent');
+
       this.dialogReff.close();
     },
       (err) => {
         this.dialogReff.close();
-        console.log("Error while sending email");
+
       })
   }
   controll(){

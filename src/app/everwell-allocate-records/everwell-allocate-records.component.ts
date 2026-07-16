@@ -113,7 +113,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   getRoles() {
     this._OCAService.getRolesbyProviderID(this.providerServiceMapID)
       .subscribe(response => {
-        console.log(response);
+
         this.roles = response.filter((item) => {
           return item.roleName.toLowerCase() !== 'supervisor' && item.roleName.toLowerCase() !== 'provideradmin';
         })
@@ -130,7 +130,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
     }
     this._OCAService.getEverwellAgentsbyRoleID(this.providerServiceMapID, roleID, languageName)
       .subscribe(resProviderData => {
-        console.log('reading...')
+
         if (resProviderData.length > 0) {
           this.users = resProviderData;
           if (this.filterAgent != '') {
@@ -197,7 +197,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
         this.alertMessage.alert(`${this.currentLanguageSet.callAllocatedSuccessfully}`, 'success');
         this.afterAllocate = false;
         let obj = {};
-        console.log("outboundCallRequests",this.outboundCallRequests);
+
         if (this.outboundCallRequests.startDate) {
           obj['startDate'] = this.outboundCallRequests.startDate;
           obj['endDate'] = this.outboundCallRequests.endDate;
@@ -207,7 +207,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
         // if (this.outboundCallRequests.langaugeName) {
         //   obj['language'] = this.outboundCallRequests.langaugeName.langName;
         // }
-        console.log("object",obj);
+
         this.outboundCount.emit(obj);
         this.everwellrefreshScreen.emit();
         // this.getUnallocateCall(this.providerServiceMapID);
@@ -240,10 +240,10 @@ export class EverwellAllocateRecordsComponent implements OnInit {
 
   OnSelectChange() {
     let outboundlistCount = this.allocateEverwellForm.get('outboundCallRequests').value;
-    console.log("First",outboundlistCount);
-    console.log("Second",this.allocateEverwellForm.value.agentId);
-    console.log("outboundlistCount.length",outboundlistCount.length);
-    console.log("this.allocateEverwellForm.value.agentId.length",this.allocateEverwellForm.value.agentId.length);
+
+
+
+
     let tempValue = Math.floor(outboundlistCount.length / this.allocateEverwellForm.value.agentId.length);
     this.initialCount = tempValue;
     this.allocateEverwellForm.patchValue({
@@ -268,7 +268,7 @@ export class EverwellAllocateRecordsComponent implements OnInit {
   // }
   getUnallocateCall(serviceProviderMapId, value) {
     // tslint:disable-next-line:max-line-length
-    console.log(value, "value");    
+
     let startDate: Date = new Date(value.startDate);
     startDate.setHours(0);
     startDate.setMinutes(0);

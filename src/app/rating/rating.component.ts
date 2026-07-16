@@ -96,7 +96,6 @@ export class RatingComponent implements OnInit {
 
 	getNotificationTypesSuccessHandeler(response)
 	{
-		console.log("alertTypes",response);
 
 		for(let i=0;i<response.data.length;i++)
 		{
@@ -123,8 +122,7 @@ export class RatingComponent implements OnInit {
 	{
 		let obj=Object.assign({},this.request_object);
 		obj['notificationTypeID']=notificationID;
-		
-		console.log("the request obj is",obj);
+
 		this.notificationService.getAlerts(obj).subscribe(response=>this.getUserMessageAlertsSuccessHandeler(response),
 	(err) => {
 		this.alertService.alert(err.errorMessage,'error');
@@ -135,8 +133,7 @@ export class RatingComponent implements OnInit {
 	{
 		let obj=Object.assign({},this.request_object);
 		obj['notificationTypeID']=notificationID;
-		
-		console.log("the request obj is",obj);
+
 		this.notificationService.getAlerts(obj).subscribe(response=>this.getUserRatingAlertsSuccessHandeler(response),
 	(err) => {
 		this.alertService.alert(err.errorMessage,'error');
@@ -146,13 +143,13 @@ export class RatingComponent implements OnInit {
 
 	getUserMessageAlertsSuccessHandeler(response)
 	{
-		console.log("USER MESSAGE ALERTS",response);
+
 		this.userMessages=response.data;
 	}
 
 	getUserRatingAlertsSuccessHandeler(response)
 	{
-		console.log("USER RATING ALERTS",response);
+
 		this.userRatings=response.data;
 	}
 

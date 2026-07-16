@@ -202,7 +202,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     this.subscription = this.reload_call.getReloadCall().subscribe(callType => { this.reloadCampainCall(callType) }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
-      console.log('ERROR', err);
+
     });
   }
 
@@ -211,7 +211,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.assignSelectedLanguage();
     this.IntializeSessionValues();
-    console.log('ageUnit', this.ageUnit);
+
     this.BeneficaryCreationForm.form.patchValue({
       ageUnit: 'Years'
     })
@@ -240,7 +240,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
   // setLanguage(language) {
   //   this.currentlanguage = language;
-  //   console.log(language, 'language ben reg tk');
+
   // }
 
   IntializeSessionValues() {
@@ -254,7 +254,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       },
       (err) => {
         this.alertMaessage.alert(err.errorMessage, 'error');
-        console.log('ERROR', err);
+
       });
     // this.GetDistricts.getCommonData().subscribe(response => this.commonData = response)
     this.calledEarlier = true;
@@ -330,7 +330,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     //   '&resFormat=3';
     // this.czentrixService.callAPI(params)
     //   .subscribe((res) => {
-    //     console.log(res);
+
     //     if (res.response.status == 'SUCCESS') {
     this.retrieveRegHistory(outboundData.beneficiary.beneficiaryID);
     //this.saved_data.current_campaign = 'OUTBOUND';
@@ -352,7 +352,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           this.handleRegHistorySuccess(response)
         }, err => {
           this.alertMaessage.alert(err.status, 'error');
-          console.log('ERROR', err);
+
         });
     }
     else {
@@ -395,7 +395,6 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this._util.startCall(data).subscribe((response) => { this.setBenCall(response);
       this.saved_data.setUniqueCallIDForInBound = false; }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
-      console.log('ERROR', err);
 
     });
   }
@@ -586,7 +585,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this._locationService.getDistricts(state)
         .subscribe((response) => this.SetDistricts(response), (err) => {
           this.alertMaessage.alert(err.errorMessage, 'error');
-          console.log('ERROR', err);
+
         });
     }
   }
@@ -611,7 +610,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this._locationService.getTaluks(district)
         .subscribe((response) => this.SetTaluks(response), (err) => {
           this.alertMaessage.alert(err.errorMessage, 'error');
-          console.log('ERROR', err);
+
         });
     }
   }
@@ -627,7 +626,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this._locationService.getBranches(taluk)
       .subscribe((response) => { this.SetBlocks(response) }, (err) => {
         this.alertMaessage.alert(err.errorMessage, 'error');
-        console.log('ERROR', err);
+
       });
   }
   SetBlocks(response: any) {
@@ -665,7 +664,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     this.btnDisabled = true;
     this.loaderService.show();
     this.updatedObj = {};
-    console.log('vanID/serviceID:' + this.saved_data.current_serviceID);
+
+
     this.updatedObj.vanID = this.saved_data.current_serviceID;
     this.updatedObj.providerServiceMapID = this.saved_data.current_service.serviceID;
     this.updatedObj.firstName = this.FirstName;
@@ -772,7 +772,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.btnDisabled = false;
       this.loaderService.hide();
       this.alertMaessage.alert(err.status, 'error');
-      console.log('ERROR', err);
+
     });
   }
 
@@ -792,14 +792,14 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     };
     this.czentrixService.setCustomerPreferredLanguage(req_obj)
       .subscribe(response => {
-        console.log(response, 'RESPONSE for setting language in czentrix');
+
         if (response.data != undefined) {
           if (response.data.response.status.toUpperCase() === 'Success'.toUpperCase()) {
-            console.log('Language set successfully in CZentrix for Beneficiary');
+
           }
         }
       }, err => {
-        console.log(err, 'Error while setting language in CZentrix for Beneficiary');
+
         this.alertMaessage.alert(this.assignSelectedLanguageValue.desiredLanguageNotSetInCZentrix, 'error');
       });
   }
@@ -822,7 +822,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
       if (mobile_number != 'close' && (mobile_number === undefined || mobile_number === '')) {
         // mobile no is undefined
-        console.log('Registered number will be used'); // Registered number will be used
+ // Registered number will be used
         // ** code to send SMS **
         this.sendSMS(this.benRegistrationResponse.beneficiaryRegID);
       } else if (mobile_number != 'close' && (mobile_number != undefined && mobile_number != '')) {
@@ -844,7 +844,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.handleRegHistorySuccess(response)
       }, err => {
         this.alertMaessage.alert(err.status, 'error');
-        console.log('ERROR', err);
+
       });
   }
 
@@ -862,7 +862,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           this.handleRegHistorySuccess(response)
         }, err => {
           this.alertMaessage.alert(err.status, 'error');
-          console.log('ERROR', err);
+
         });
     }
 
@@ -875,7 +875,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       // this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': response[0].beneficiaryRegID ? response[0].beneficiaryRegID : null });
       // this.saved_data.benRegId= response[0].beneficiaryRegID;
       this.regHistoryList = response;
-      console.log(this.regHistoryList);
+
       this.showSearchResult = true;
     }
     if (this.regHistoryList.length > 0) {
@@ -930,9 +930,9 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
           this.saved_data.beneficiary_regID_subject.next({ 'beneficiaryRegID': benRegData.beneficiaryRegID });
           this.saved_data.benRegId = benRegData.beneficiaryRegID;
         }
-        console.log('Update Beneficiary in Call SUCCESS', response);
+
       }, err => {
-        console.log('Update Beneficiary in Call ERROR', err);
+
       }
     );
   }
@@ -951,7 +951,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
       }, err => {
         this.alertMaessage.alert(err.errorMessage, 'error');
-        console.log('ERROR', err);
+
       });
 
     this.benRegData = benRegData;
@@ -1022,18 +1022,16 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     this.GetDistricts(this.state);
     this.district = registeredBenData.i_bendemographics.districtID;
-    console.log(registeredBenData.i_bendemographics.districtID, 'experiment 1', this.districts);
 
     this.GetTaluks(this.district);
     this.taluk = registeredBenData.i_bendemographics.blockID;
-    console.log('experiment 2', this.taluks);
-
+   
     if (this.taluk) {
       this.GetBlocks(this.taluk);
     }
 
     this.village = registeredBenData.i_bendemographics.districtBranchID;
-    console.log('experiment 3', this.blocks);
+
     if (this.DOB != undefined) {
       this.calculateAge(this.DOB);
       this.dobChangeByCalender(this.DOB);
@@ -1144,9 +1142,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
     const numString = (this.alternateNumberDisplay1 ? this.alternateNumberDisplay1 : this.alternateNumber1) + (this.alternateNumberDisplay2 ? this.alternateNumberDisplay2 : this.alternateNumber2) + (this.alternateNumberDisplay3 ? this.alternateNumberDisplay3 : this.alternateNumber3) + (this.alternateNumberDisplay4 ? this.alternateNumberDisplay4 : this.alternateNumber4) + (this.alternateNumberDisplay5 ? this.alternateNumberDisplay5 : this.alternateNumber5);
     // debugger;
-    // console.log("numString.split(this.alternateNumber5).length", numString.split(this.alternateNumber5).length);
-    // console.log("numString.indexOf(this.alternateNumber3)",numString.indexOf(this.alternateNumber3));
-    // console.log("numString.indexOf(this.alternateNumber2)",numString.indexOf(this.alternateNumber2));
+
 
 
     // debugger;
@@ -1166,18 +1162,16 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
     else if (this.alternateNumber3 != '' && (this.alternateNumberDisplay3 ? numString.includes(this.alternateNumberDisplay3) : numString.includes(this.alternateNumber3)) && (this.alternateNumberDisplay3 ? numString.indexOf(this.alternateNumberDisplay3) < (this.alternateNumber2.length + this.alternateNumber1.length) : numString.indexOf(this.alternateNumber3) < (this.alternateNumber2.length + this.alternateNumber1.length))) {
       // debugger;
       // alternate number 3 already exists
-      console.log(numString.includes(this.alternateNumberDisplay3));
-      console.log(numString.includes(this.alternateNumber3));
-      console.log(numString.indexOf(this.alternateNumberDisplay3) < 20);
-      console.log(numString.indexOf(this.alternateNumber3) < 20);
+
+
+
+
       this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberThreeAlreadyExits, 'error');
       return;
     }
     else if (this.alternateNumber2 != '' && (this.alternateNumberDisplay2 ? numString.includes(this.alternateNumberDisplay2) : numString.includes(this.alternateNumber2)) && (this.alternateNumberDisplay2 ? numString.indexOf(this.alternateNumberDisplay2) < (this.alternateNumber1.length) : numString.indexOf(this.alternateNumber2) < (this.alternateNumber1.length))) {
-      console.log(numString.indexOf(this.alternateNumber2) < 10);
-      console.log(numString.indexOf(this.alternateNumberDisplay2) < 10);
-      console.log(numString.includes(this.alternateNumberDisplay2));
-      console.log(numString.includes(this.alternateNumber2));
+    
+
       // alternate number 2 already exists
       this.alertMaessage.alert(this.assignSelectedLanguageValue.alternateNumberTwoAlreadyExits, 'error');
       return;
@@ -1317,11 +1311,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       this.updateSuccessHandeler(response)
     }, (err) => {
       this.alertMaessage.alert(err.status, 'error');
-      console.log('ERROR', err);
+
     });
   }
   alternateNumber(value, e) {
-    console.log(e);
+    console.error(e);
     if (e.keyCode == '8' || e.keyCode == '127' && this.updationProcess) {
       switch (value) {
         case 1: {
@@ -1444,8 +1438,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
       }
     }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
-      console.log('ERROR', err);
-      console.log('Something Went Wrong in fetching Parent Data');
+
+
     })
 
   }
@@ -1512,8 +1506,8 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.age = null;
 
       } else {
-        console.log('ageUnit', this.ageUnit);
-        console.log(moment().subtract(this.ageUnit, valueEntered).toDate());
+
+
         this.DOB = moment().subtract(this.ageUnit, valueEntered).toDate();
       }
 
@@ -1522,14 +1516,12 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   }
 
   onAgeUnitEntered() {
-    console.log('ageUnit', this.ageUnit);
 
     if (this.age != null) { this.onAgeEntered(this.age); }
   }
 
   dobChangeByCalender(dobval) {
     const date = new Date(this.DOB);
-    console.log(this.BeneficaryCreationForm.value.dateOfBirth)
 
     if (dobval != undefined) {
 
@@ -1604,7 +1596,7 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
   searchBeneficiary(values: any) {
     this._userBeneficiaryData.searchBenficiary(values).subscribe((response) => {
       if (response.statusCode === 5000) {
-        console.log('Error advanced Search Something went wrong', );
+
         this.showSearchResult = false;
         this.isAdvancedSearch = false;
       } else {
@@ -1613,13 +1605,11 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
         this.showSearchResult = true;
         this.calledEarlier = true;
         this.searchValue = 'Advanced Search';
-        console.log('Response advanced Search', response);
 
       }
     }, (err) => {
       this.alertMaessage.alert(err.errorMessage, 'error');
 
-      console.log('Error advanced Search', err);
       this.showSearchResult = false;
       this.isAdvancedSearch = false;
     });
@@ -1788,22 +1778,21 @@ export class BeneficiaryRegistrationComponent implements OnInit, DoCheck {
 
                   this._smsService.sendSMS(arr)
                     .subscribe(ressponse => {
-                      console.log(ressponse, 'SMS Sent');
                       this.alertMaessage.alert(this.assignSelectedLanguageValue.smsSent);
                     }, err => {
-                      console.log(err, 'SMS not sent Error');
+
                     })
                 }
               }
             }, err => {
-              console.log(err, 'Error in fetching sms templates');
+
             })
         }
 
 
 
       }, err => {
-        console.log(err, 'error while fetching sms types');
+
       })
 
   }

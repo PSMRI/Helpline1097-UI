@@ -54,7 +54,7 @@ export class AgentStatusComponent implements OnInit {
     this.assignSelectedLanguage();
     this.agentStatusURL = "http://10.201.13.17/adminui.php?agentStatus";
     let url = this.configService.getTelephonyServerURL() + "adminui.php?agentStatus";
-    console.log("url = " + url);
+
     this.agentStatusURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 

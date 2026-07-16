@@ -63,12 +63,12 @@ export class AgentForceLogoutComponent implements OnInit {
     obj['providerServiceMapID'] = this.providerServiceMapID;
     this.forceLogoutService.agentForceLogout(obj)
       .subscribe(response => {
-        console.log(response, 'Success post agent force logout');
+
         this.alertService.alert(this.currentLanguageSet.userLoggedOutSuccessfully, 'success');
         this.agentForceLogoutForm.reset();
         this.dialogRef.close();
       }, err => {
-        console.log(err, 'error post agent force logout');
+
         this.alertService.alert(err.errorMessage, 'error');
       });
   }

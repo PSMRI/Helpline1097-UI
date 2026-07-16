@@ -52,10 +52,10 @@ export class TrainingResourcesComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.role = this.dataService.current_role;
         this.service = this.dataService.current_service;
-        console.log("providerServiceMapID" + this.service.serviceID);
+
         this.notificationService.getNotificationTypes(this.service.serviceID)
             .subscribe((response) => {
-                console.log(response, "RELATED TO KM");
+
                 // let currentDate = this.getOffsetTime();
                 let currentDate = new Date();
                 this.kmConfig = response.data.filter((notification) => {
@@ -90,38 +90,37 @@ export class TrainingResourcesComponent implements OnInit, DoCheck {
             (err) => {
                 this.alertService.alert(err.errorMessage, 'error');
 
-                console.log(err);
+                console.error(err);
             });
             this.assignSelectedLanguage();
 
     }
 
     getKmFiles() {
-        // console.log(this.alertPostData);
-        // console.log(this.notificationPostData);
+
+
         if (this.kmPostData) {
-            console.log(this.kmPostData);
+
             // if (this.role.RoleName != "Supervisor") {
             this.notificationService.getKMs(this.kmPostData)
                 .subscribe((response) => {
-                    console.log(response, "KM files response");
 
                     this.kmfiles = response.data;
                 },
                 (err) => {
                     this.alertService.alert(err.errorMessage, 'error');
 
-                    console.log(err);
+                    console.error(err);
                 });
             // }
             // else {
             //     this.notificationService.getSupervisorNotifications(this.kmPostData)
             //         .subscribe((response) => {
-            //             console.log(response);
+
             //             this.kmfiles = response.data;
             //         },
             //         (err) => {
-            //             console.log(err);
+
             //         });
             // }
         }

@@ -137,13 +137,7 @@ export class StringValidator {
     }
   }
   checkForZeroEntry(val, lastVal, maxlength, event) {
-    console.log(
-      "val, lastVal, maxlength, event",
-      val,
-      lastVal,
-      maxlength,
-      event
-    );
+
     if (val == "0") {
       event.target.value = "";
     } else {

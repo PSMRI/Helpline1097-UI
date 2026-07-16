@@ -52,7 +52,7 @@ export class EmergencyContactsViewModalComponent implements OnInit {
     this.providerServiceMapID = this.dataService.current_service.serviceID;
     this.notificationService.getNotificationTypes(this.providerServiceMapID)
       .subscribe((response) => {
-        console.log(response, "notification Types in emergency contact component");
+
         this.emergencyContactID = response.data.filter((notification) => {
           return notification.notificationType == "Emergency Contact";
         });
@@ -65,11 +65,11 @@ export class EmergencyContactsViewModalComponent implements OnInit {
         },
           (err) => {
             this.alertService.alert(err.errorMessage, 'error');
-            console.log(err);
+            console.error(err);
           });
       },
       (err) => {
-        console.log(err);
+        console.error(err);
       });
 
       this.assignSelectedLanguage();

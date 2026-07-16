@@ -59,7 +59,7 @@ assignSelectedLanguage() {
   show6: boolean = false;
 
   changeService(val) {
-	  console.log(val);
+
 	  if (val === "1") {
 		  this.show1 = true;
 		  this.show2 = false;

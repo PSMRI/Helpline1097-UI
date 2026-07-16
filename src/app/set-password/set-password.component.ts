@@ -130,7 +130,7 @@ export class SetPasswordComponent implements OnInit {
 
 	updatePassword(new_pwd) {
 		let transactionId=this.loginservice.transactionId;
-		console.log("PARTH****"+ new_pwd)
+
 		this.password = this.encrypt(this.Key_IV, new_pwd)
 		this.encryptedConfirmPwd=this.encrypt(this.Key_IV, this.confirmpwd)
 		if (new_pwd === this.confirmpwd) {
@@ -163,7 +163,6 @@ export class SetPasswordComponent implements OnInit {
 
 	successCallback(response) {
 
-		console.log(response);
 		this.alertService.alert('Password changed successfully', 'success');
 		
 		
@@ -171,7 +170,7 @@ export class SetPasswordComponent implements OnInit {
 	}
 
 	errorCallback(response) {
-		console.log(response);
+
 	}
 
 

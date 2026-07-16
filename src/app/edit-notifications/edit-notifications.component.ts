@@ -59,7 +59,7 @@ export class EditNotificationsComponent implements OnInit {
     this.providerServiceMapID = this.commonDataService.current_service.serviceID;
     this.createdBy = this.commonDataService.uname;
     this.userId = this.commonDataService.uid;
-    console.log(this.data);
+
     this.validTill = new Date(this.data.validTill);
     this.validFrom = new Date(this.data.validFrom);
     this.assignSelectedLanguage();
@@ -88,11 +88,11 @@ export class EditNotificationsComponent implements OnInit {
       this.error2 = false;
       this.invalid_file_flag = false;
     } else if (this.fileList.length > 0 && this.fileList[0].size / 1000 / 1000 <= this.maxFileSize) {
-      console.log(this.fileList[0].size / 1000 / 1000);
+
       this.error1 = false;
       this.error2 = false;
     } else if (this.fileList[0].size / 1000 / 1000 > this.maxFileSize) {
-      console.log(this.fileList[0].size / 1000 / 1000);
+
       this.error2 = true;
       this.error1 = false;
     }
@@ -103,7 +103,7 @@ export class EditNotificationsComponent implements OnInit {
 
   checkExtension(file) {
     var count = 0;
-    console.log("FILE DETAILS", file);
+
     if (file) {
       var array_after_split=file.name.split(".");
     var file_extension=array_after_split[array_after_split.length-1];
@@ -128,8 +128,8 @@ export class EditNotificationsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.editNotificationForm.value);
-    console.log(this.data);
+
+
     let startDate: Date = new Date(this.editNotificationForm.value.startDate);
     startDate.setHours(0);
     startDate.setMinutes(0);

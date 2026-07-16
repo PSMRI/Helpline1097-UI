@@ -67,17 +67,17 @@ lastModDate:new FormControl('2017-05-26')
   onSubmit() {
 	
 		let bodyString = this.userForm.value;
-		console.log(this.userForm.value)
+
 		this._ScreenService.saveScreen(bodyString)
 			.subscribe(resProviderData => this.showUsers(resProviderData));
 	}
 	showUsers(data) {
-		console.log(JSON.parse(data));
+
 	}
 
 	providers(data) {
     this.userslist=data;
-		console.log(data);
+
 	}
 
 }

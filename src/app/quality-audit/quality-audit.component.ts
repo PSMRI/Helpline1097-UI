@@ -130,8 +130,7 @@ export class QualityAuditComponent implements OnInit {
     this.dispFlag = 0;
   }
   check(agentID, sessionID, index) {
-    console.log("AgentID", agentID);
-    console.log("sessionID", sessionID);
+
 
     this.audioResponse = null;
 
@@ -148,24 +147,23 @@ export class QualityAuditComponent implements OnInit {
       if (this.apiCall) {
         this.qualityAuditService.getAudio(agentID, sessionID).subscribe(
           (response) => {
-            console.log("RESPONSEss", response.response);
+
             this.audioResponse = response.response;
             this.dispFlag = index;
 
-            console.log("Audio Response1", this.audioResponse);
             this.recordingArray.push({
               sessionId: sessionID,
               agentId: agentID,
               path: this.audioResponse,
             });
-            console.log("RecordingArray", this.recordingArray);
+
           },
           (err) => {
             this.alertService.alert(
               this.currentLanguageSet.failedToGetTheVoiceFilePath,
               "error"
             );
-            console.log("ERROR", err);
+
           }
         );
       } else {
@@ -267,13 +265,13 @@ export class QualityAuditComponent implements OnInit {
       .subscribe(
         (response) => {
           if (!this.isWorkListHasData(response)) {
-            console.log("Call recording are not there");
+
             return;
           }
           this.callAuditingWorklistPerPage(response, pageNo);
         },
         (err) => {
-          console.log("TABLE DATA FETCHED ERROR", err.status);
+
           this.alertService.alert(err.status, "error");
           this.filteredCallList = [];
         }
@@ -359,12 +357,12 @@ export class QualityAuditComponent implements OnInit {
       .getServiceProviderID(this.providerServiceMapID)
       .subscribe(
         (response) => {
-          console.log(response, "QA serviceproviderID success");
+
           this.serviceProviderID = response.serviceProviderID;
           this.getServicelines();
         },
         (err) => {
-          console.log(err.errorMessage, "QA serviceProviderID error");
+
         }
       );
   }
@@ -372,7 +370,7 @@ export class QualityAuditComponent implements OnInit {
   getServicelines() {
     this.qualityAuditService.getServices(this.userID).subscribe(
       (response) => {
-        console.log(response, "QA servicelines success");
+
         this.servicelines = response.filter((item) => {
           return item.serviceName === "1097";
         });
@@ -380,7 +378,7 @@ export class QualityAuditComponent implements OnInit {
         this.getRoles();
       },
       (err) => {
-        console.log(err, "QA servicelines error");
+
         this.alertService.alert(err.errorMessage, "error");
       }
     );
@@ -395,12 +393,12 @@ export class QualityAuditComponent implements OnInit {
 
     this.qualityAuditService.getRoles(obj).subscribe(
       (response) => {
-        console.log(response, "QA roles success");
+
         this.roles = response;
         this.getAgents();
       },
       (err) => {
-        console.log(err, "QA roles error");
+
         this.alertService.alert(err.errorMessage, "error");
       }
     );
@@ -426,7 +424,7 @@ export class QualityAuditComponent implements OnInit {
             this.agentIDs = response;
           },
           (err) => {
-            console.log(err, "Error while fetching role specific agent IDs");
+
           }
         );
     }
@@ -435,14 +433,14 @@ export class QualityAuditComponent implements OnInit {
   getAgents() {
     this.qualityAuditService.getAllAgents(this.providerServiceMapID).subscribe(
       (response) => {
-        console.log(response, "QA AGENTIDs success");
+
         this.agentIDs = response;
         this.allAgentIDs = response;
 
         this.getCallTypes();
       },
       (err) => {
-        console.log(err.errorMessage, "QA AGENTIDs error");
+
       }
     );
   }
@@ -450,7 +448,7 @@ export class QualityAuditComponent implements OnInit {
   getCallTypes() {
     this.qualityAuditService.getCallTypes(this.providerServiceMapID).subscribe(
       (response) => {
-        console.log(response, "QA calltypes success");
+
         this.callTypes = response.filter((item) => {
           return (
             item.callGroupType.toLowerCase() === "valid".toLowerCase() ||
@@ -462,7 +460,7 @@ export class QualityAuditComponent implements OnInit {
         this.callTypes.push(obj);
       },
       (err) => {
-        console.log(err.errorMessage, "QA calltypes error");
+
       }
     );
   }
@@ -488,9 +486,9 @@ export class QualityAuditComponent implements OnInit {
     if (this.callSubTypes.length > 0) {
       let arr = [];
       for (const callSubType of this.callSubTypes) {
-        console.log("callSubType", callSubType);
+
         arr = callSubType.callTypes;
-        console.log("callSubType after", arr);
+
       }
       this.callsubtype = "";
       this.callSubTypes = arr;
@@ -519,7 +517,7 @@ export class QualityAuditComponent implements OnInit {
 
     this.qualityAuditService.getCallSummary(benCallID).subscribe(
       (response) => {
-        console.log("success in getting call details(casesheet)", response);
+
         if (
           response !== undefined &&
           response !== null &&
@@ -540,10 +538,6 @@ export class QualityAuditComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(
-          "error in getting call details(casesheet)",
-          err.errorMessage
-        );
       }
     );
   }
@@ -623,7 +617,7 @@ export class CaseSheetSummaryDialogComponent implements OnInit {
   }
 
   ngOnChange() {
-    console.log("modal content", this.data);
+
     let response = [];
     response = this.data.response;
     this.benData = this.data.benData;
@@ -633,7 +627,6 @@ export class CaseSheetSummaryDialogComponent implements OnInit {
       this.refferal_services = response[0].referrals;
       this.feedback_services = response[0].feedbacks;
     }
-    console.log(this.feedback_services, "FEEDBACK ARRAY");
 
     if (this.benData.beneficiaryModel != undefined) {
       this.age = this.calculateAge(this.benData.beneficiaryModel.dOB);

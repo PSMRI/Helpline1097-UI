@@ -174,9 +174,7 @@ export class InnerpageComponent implements OnInit {
 
     const url =
       this._config.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.id;
-    console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    console.log('url = ' + url);
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     if (this.sessionstorage.getItem('CLI') !== undefined) {
       this.callerNumber = this.sessionstorage.getItem('CLI');
@@ -416,8 +414,7 @@ export class InnerpageComponent implements OnInit {
   }
 
   getEverwellSelectedBenDetails(obj: any) {
-    console.log('evewellcall311', obj);
-    console.log(obj);
+
     this.getCommonData.everwellBeneficiarySelected.next({
       isEverwellBeneficiarySelected: true,
     });
@@ -445,19 +442,17 @@ export class InnerpageComponent implements OnInit {
   // language change stuff
   getLanguageObject(language) {
     this.selectedlanguage = language;
-    console.log('language asked for is:', language);
+
     this.HttpServices.getLanguage(this.languageFilePath).subscribe(
       (response) => this.successhandeler(response, language),
       (err) => {
         // this.remarksMessage.alert(err.errorMessage);
-
         console.log('error in fetching language');
       }
     );
   }
 
   successhandeler(response, language) {
-    console.log('language triggered and recieved', response, language);
     this.currentlanguageSet = response[language];
   }
   // logOut() {
@@ -606,9 +601,8 @@ export class InnerpageComponent implements OnInit {
     }
     this._callServices.getCallTypes(requestObject).subscribe(
       (response) => {
-        console.log(response);
+
         let transferObj = response.filter(function (item) {
-          console.log(item.callGroupType);
           return item.callGroupType.toLowerCase().startsWith('transfer');
         });
         if (
@@ -619,7 +613,6 @@ export class InnerpageComponent implements OnInit {
           transferObj = transferObj[0].callTypes.filter(function (
             previousData
           ) {
-            console.log('transfer call types ' + previousData.callTypeDesc);
             return previousData.callTypeDesc
               .toLowerCase()
               .startsWith('transfer');
@@ -648,7 +641,6 @@ export class InnerpageComponent implements OnInit {
         }
 
         let validObj = response.filter((item) => {
-          console.log(item.callGroupType);
           return item.callGroupType.toLowerCase().startsWith('valid');
         });
         if (
@@ -657,7 +649,6 @@ export class InnerpageComponent implements OnInit {
           validObj[0].callTypes !== null
         ) {
           validObj = validObj[0].callTypes.filter(function (previousData) {
-            console.log('Valid call types ' + previousData.callTypeDesc);
             return previousData.callTypeDesc.toLowerCase().startsWith('valid');
           });
           if (validObj && validObj[0].callTypeID) {
@@ -691,8 +682,7 @@ export class InnerpageComponent implements OnInit {
     // document.dispatchEvent(event);
   }
   listener(event) {
-    console.log('listener invoked: ' + event);
-    console.log('event received' + JSON.stringify(event));
+
     if (
       event.data !== undefined &&
       event.data !== null &&
@@ -706,7 +696,7 @@ export class InnerpageComponent implements OnInit {
   }
 
   handleEvent(eventData) {
-    console.log('received event ' + eventData);
+
     const sessionVar = /^\d{10}\.\d{10}$/;
     if (eventData[0].trim().toLowerCase() === 'accept') {
       this.ticks = 0;
@@ -718,7 +708,6 @@ export class InnerpageComponent implements OnInit {
     ) {
       this.custdisconnectCallID = eventData[1];
       this.getAgentStatus();
-      console.log('this.isEverwell ', this.isEverwell);
 
       if (this.isEverwell !== 'yes' && this.isGrievance !== 'yes') {
         this.disconnectCall();
@@ -740,8 +729,6 @@ export class InnerpageComponent implements OnInit {
       this.isEverwell === 'yes' &&
       this.everwellSubmitBtn
     ) {
-      console.log('submitting the everwellrsponse', this.everwellSubmitBtn);
-      console.log('submitting the everwellrsponse', this.isEverwell);
 
       const outboundObj = {};
       const finalOutboundObj = [];
@@ -772,7 +759,6 @@ export class InnerpageComponent implements OnInit {
         }
       );
 
-      console.log('everwell obj', outboundObj);
     } else if (
         this.isGrievance &&
         this.isGrievance === 'yes'
@@ -922,19 +908,17 @@ export class InnerpageComponent implements OnInit {
     );
   }
   roleBasedCallWrapupTime(timeRemaining) {
-    console.log('roleBasedCallWrapupTime', timeRemaining);
+
     const timer = Observable.timer(2000, 1000);
     this.wrapupTimerSubscription = timer.subscribe((t) => {
       this.ticks = timeRemaining - t;
-      console.log('timer t', t);
-      console.log('ticks', this.ticks);
+
+
       if (t === timeRemaining) {
         this.wrapupTimerSubscription.unsubscribe();
         t = 0;
         this.ticks = 0;
-        console.log('after re initialize the timer', t);
         const remarks = 'Call disconnect from customer.';
-        console.log('this.callStatus', this.callStatus);
         if (this.callStatus.toLowerCase().trim() === 'closure'){
           this.closeCall(
             remarks,
@@ -993,7 +977,6 @@ export class InnerpageComponent implements OnInit {
   getAgentCallDetails() {
     this.Czentrix.getCallDetails().subscribe(
       (res) => {
-        console.log('CALL DETAILS RESPONSE', res);
         this.TotalCalls = res.data.total_calls;
         this.TotalTime = res.data.total_call_duration;
       },
@@ -1064,7 +1047,6 @@ export class InnerpageComponent implements OnInit {
       this.remarksMessage.alert('We are coming up with this language' + ' ' + language);
       return;
     }
-    console.log('language is ', response);
     this.currentLanguageSet = response[language];
     this.sessionstorage.setItem('setLanguage', language);
     if (this.currentLanguageSet) {
@@ -1093,7 +1075,7 @@ export class InnerpageComponent implements OnInit {
         this.currentLanguageSet = languageResponse;
       },
       (err) => {
-        console.log(err);
+        console.error(err);
       },
       () => {
         console.log('completed');

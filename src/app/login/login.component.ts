@@ -95,7 +95,7 @@ export class loginContentClass implements OnInit, OnDestroy {
         this.dataSettingService.uname = response.userName;
         this.dataSettingService.Userdata.agentID = response.agentID;
         this.dataSettingService.loginIP = response.loginIPAddress;
-        console.log('array' + this.previlageObj);
+
         if (response.isAuthenticated === true && response.Status === 'Active') {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
@@ -139,7 +139,7 @@ export class loginContentClass implements OnInit, OnDestroy {
         this.dataSettingService.uname = response.userName;
         this.dataSettingService.Userdata.agentID = response.agentID;
         this.dataSettingService.loginIP = response.loginIPAddress;
-        console.log('array' + this.previlageObj);
+
         if (response.isAuthenticated === true && response.Status === 'Active') {
           this.sessionstorage.removeItem('isOnCall');
           this.sessionstorage.removeItem('isEverwellCall');
@@ -237,7 +237,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   login(doLogOut) {
     this.encryptPassword = this.encrypt(this.Key_IV, this.password)
   //   this.password = CryptoJS.AES.encrypt(this.password,this.encPassword).toString();
-  //  console.log("PARTH"+this.password.ciphertext.toString(CryptoJS.enc.Base64))
+
     // this.password = AES.encrypt(this.password).toString();
     // this.password = CryptoJS.SHA256(this.password).toString();
     // this.encryptedVar=SHA256(this.password).toString(enc.Hex);
@@ -302,7 +302,7 @@ export class loginContentClass implements OnInit, OnDestroy {
       })
       .subscribe(
         (response: any) => {
-          // console.log("response.Jwttoken",response)
+
           // let tkn = response.Jwttoken;
           // this.sessionstorage.setCookie('Jwttoken', tkn,1 );
           if (
@@ -328,7 +328,7 @@ export class loginContentClass implements OnInit, OnDestroy {
   successCallback(response: any, userID: any, password: any) {
     this.dataSettingService.current_campaign = undefined;
     this.loading = false;
-    console.log(response);
+
     if (response !== undefined && response !== null) {
       if (response.previlegeObj !== undefined && response.previlegeObj !== null) {
         this.previlageObj = response.previlegeObj.filter((previlage) => { return previlage.serviceName == '1097' });
@@ -340,15 +340,13 @@ export class loginContentClass implements OnInit, OnDestroy {
     this.dataSettingService.uid = response.userID;
     this.dataSettingService.current_serviceID = response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID ?
     response.previlegeObj[0].roles[0].serviceRoleScreenMappings[0].providerServiceMapping.m_ServiceMaster.serviceID : null;
-    console.log('current_serviceID:' + this.dataSettingService.current_serviceID );
+
     this.dataSettingService.uname = response.userName;
     this.previlageObj.forEach((assignAgentID) => {
       this.dataSettingService.Userdata.agentID = assignAgentID.agentID;
     })
     this.dataSettingService.loginIP = response.loginIPAddress;
     // this.getLoginKey(userID, password);
-    // console.log( "array" + response.Previlege );
-    console.log('array' + this.previlageObj);
 
     if (response.isAuthenticated === true && response.Status === 'Active') {
       if (this.dataSettingService.current_serviceID === undefined) {
@@ -385,17 +383,17 @@ export class loginContentClass implements OnInit, OnDestroy {
       this.loginResult = 'Server seems to busy please try after some time';
     }
     // this.loading = false;
-    console.log(error);
+    console.error(error);
     this.resetCaptcha();
   };
   getLoginKey(userId, password) {
     this.czentrixServices.getLoginKey(userId, password).subscribe((response) => {
-      console.log('getLoginKey response: ' + JSON.stringify(response));
+
       this.dataSettingService.loginKey = response.response.login_key;
-      console.log('Login key:' + this.dataSettingService.loginKey);
+
     }, (err) => {
       this.alertService.alert(err.errorMessage, 'error');
-      console.log('Error in getLoginKey', err);
+
     })
 
 

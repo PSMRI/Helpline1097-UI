@@ -144,14 +144,8 @@ export class ClosureComponent implements OnInit {
   }
   /* Intialization of variable and object has to be come here */
   ngOnInit() {
-    console.log(
-      "everwellcallnotconnected",
-      this.saved_data.everwellCallNotConnected
-    );
-    console.log(
-      "condition",
-      this.saved_data.everwellCallNotConnected === "yes"
-    );
+
+
     this.beneficiaryRegID = this.saved_data.beneficiaryRegID;
     let requestObject = {
       providerServiceMapID: this.saved_data.current_service.serviceID,
@@ -191,11 +185,11 @@ export class ClosureComponent implements OnInit {
     let data = {
       serviceName: this.saved_data.current_service.serviceName,
     };
-    console.log(data);
+
     this._callServices.getCampaignNames(data).subscribe(
       (response) => this.campaignNamesSuccess(response),
       (err) => {
-        console.log("ERROR IN FETCHING CAMPAIGN NAMES");
+
       }
     );
     this.beneficiarySelected = false;
@@ -207,7 +201,7 @@ export class ClosureComponent implements OnInit {
     this._callServices.getSubServiceTypes(requestObject).subscribe(
       (response) => this.setSubServiceTypes(response),
       (err) => {
-        console.log("ERROR IN FETCHING CAMPAIGN NAMES");
+
       }
     );
   }
@@ -228,7 +222,7 @@ export class ClosureComponent implements OnInit {
   }
 
   sliderVisibility(val: any) {
-    console.log(this.callTypeID.split(",")[2]);
+
     if (this.callTypeID.split(",")[2] == "true") {
       this.showSlider = true;
     } else {
@@ -374,7 +368,7 @@ export class ClosureComponent implements OnInit {
       this.getBenOutboundDataSuccess(response, callType);
     }),
       (err) => {
-        console.log("error in fetching getBenOutboundList for this ben");
+
       };
   }
   getBenOutboundDataSuccess(res, callType) {
@@ -414,7 +408,7 @@ export class ClosureComponent implements OnInit {
   }
   populateCallSummary(response: any) {
     this.summaryList = [];
-    console.log(JSON.stringify(response));
+
     this.summaryList = response;
 
     // this.showCallSummary = false;
@@ -531,7 +525,7 @@ export class ClosureComponent implements OnInit {
     if (btnType === "submitClose") {
       values.endCall = true;
     }
-    console.log("close called with " + values);
+
     if (this.current_campaign == "OUTBOUND") {
       values.IsOutbound = true;
     }
@@ -736,7 +730,7 @@ export class ClosureComponent implements OnInit {
       );
   }
   ipSuccessHandler(response) {
-    console.log("fetch ip response: " + JSON.stringify(response));
+
     this.ipAddress = response.data.agent_ip;
   }
   closeOutboundCall(btnType: any, values: any) {
@@ -753,7 +747,6 @@ export class ClosureComponent implements OnInit {
             this.callClosed.emit(this.current_campaign);
             /* below lines are commented to use old close call API */
             // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
-            //   console.log('disconnect response', res);
 
             // }, (err) => {
 
@@ -788,11 +781,11 @@ export class ClosureComponent implements OnInit {
   }
   setFlag(data) {
     this.beneficiarySelected = data.beneficiarySelected;
-    console.log("BEN SELECTED", this.beneficiarySelected);
+
   }
   setEverwellBenRegID(data) {
     this.everwellBeneficiarySelected = data.isEverwellBeneficiarySelected;
-    console.log("everwell BEN SELECTED", this.everwellBeneficiarySelected);
+
   }
 
   setBenRegID(data) {

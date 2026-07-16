@@ -78,7 +78,7 @@ export class MultiRoleScreenComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService, private sanitizer: DomSanitizer, private listnerService: ListnerService, private dialog: MdDialog,
     public HttpServices: HttpServices) {
     location.onPopState((e: any) => {
-      console.log(e);
+      console.error(e);
       window.history.forward();
 
     })
@@ -106,14 +106,14 @@ export class MultiRoleScreenComponent implements OnInit {
       this.current_role = obj['role'];
       this.current_service = obj['service'];
       const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php?e=' + this.id;
-      console.log('url = ' + url);
+
       this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     })
     this.hideHeader = true;
     const url = this._config.getTelephonyServerURL() + 'bar/cti_handler.php';
-    console.log('url = ' + url);
+
     this.ctiHandlerURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    console.log('url = ' + url);
+
     this.userName = this.dataSettingService.Userdata.userName;
 
     this.getCommitDetails();
@@ -312,7 +312,7 @@ export class MultiRoleScreenComponent implements OnInit {
   }
  viewVersionDetails() {
     this._loginService.getApiVersionDetails().subscribe((apiResponse) => {
-      console.log('apiResponse', apiResponse);
+
       if (apiResponse.statusCode == 200) {
         const api_versionDetails = {
           'Version': apiResponse.data['git.build.version'],
@@ -323,7 +323,7 @@ export class MultiRoleScreenComponent implements OnInit {
         }
       }
     }), (err) => {
-      console.log(err, 'error');
+
     }
   }
   openVersionDialogComponent(api_versionDetails) {
@@ -373,7 +373,7 @@ export class MultiRoleScreenComponent implements OnInit {
       this.alertMessage.alert('We are coming up with this language' + ' ' + language);
       return;
     }
-    console.log('language is ', response);
+
     this.currentLanguageSet = response[language];
     this.sessionstorage.setItem('setLanguage', language);
     if (this.currentLanguageSet) {
