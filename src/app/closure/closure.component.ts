@@ -658,14 +658,8 @@ export class ClosureComponent implements OnInit {
       this._callServices.closeCall(values).subscribe(
         (response) => {
           if (response !== undefined && response !== null) {
-            const alertObs = this.showAlert();
-            if (alertObs) {
-              alertObs.subscribe(() => {
-                this.callClosed.emit(this.current_campaign);
-              });
-            } else {
-              this.callClosed.emit(this.current_campaign);
-            }
+            this.showAlert();
+            this.callClosed.emit(this.current_campaign);
             this.resetSavedBeneficiaryRegID();
             this.doTransfer = false;
           }
@@ -690,14 +684,12 @@ export class ClosureComponent implements OnInit {
   showAlert(): any {
     this.sessionstorage.removeItem("isOnCall");
     if (this.transferValid == true) {
-      // Return the Observable so callers can wait for OK before navigating.
-      // This prevents the dialog from persisting over the next call's innerpage.
-      return this.message.alertConfirm(
+      this.message.alertConfirm(
         this.currentLanguageSet.callTransferredSuccessfully,
         "success"
       );
     } else {
-      this.message.alert(
+      this.message.alertConfirm(
         this.currentLanguageSet.callClosedSuccessfully,
         "success"
       );
@@ -752,7 +744,7 @@ export class ClosureComponent implements OnInit {
     this._callServices.closeCall(values).subscribe(
       (response) => {
         if (response) {
-          this.message.alert(
+          this.message.alertAutoClose(
             this.currentLanguageSet.callClosedSuccessfully,
             "success"
           );
