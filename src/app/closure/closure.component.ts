@@ -744,7 +744,7 @@ export class ClosureComponent implements OnInit {
     this._callServices.closeCall(values).subscribe(
       (response) => {
         if (response) {
-          this.message.alertAutoClose(
+          this.message.alertConfirm(
             this.currentLanguageSet.callClosedSuccessfully,
             "success"
           );
