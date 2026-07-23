@@ -89,6 +89,8 @@ export class InnerpageComponent implements OnInit {
   backToDashboard: boolean = true;
   callID: any;
   wrapupTimerSubscription: Subscription;
+  disconnectPollSubscription: Subscription;
+  disconnectHandled: boolean = false;
   ipAddress: any;
   language_file_path: any = "./assets/";
   currentLanguageSet: any;
@@ -216,6 +218,11 @@ export class InnerpageComponent implements OnInit {
       }
     );
     // this.addListener();
+    // Fallback: the CTI bar doesn't always postMessage a CustDisconnect/Disconnect
+    // event for very short calls (observed for calls under ~10s), so this Angular
+    // app never learns the call ended. Poll the agent's Czentrix state directly and
+    // treat a transition to "closure" as a disconnect if the push event never arrives.
+    this.startDisconnectFallbackPoll();
     this.getAgentStatus();
     this.getAgentCallDetails();
     this.isEverwell = this.sessionstorage.getItem("isEverwellCall");
@@ -716,15 +723,51 @@ export class InnerpageComponent implements OnInit {
         : sessionVar.test(eventData[1]) ? eventData[1] : "";
       this.getAgentStatus();
       console.log("this.isEverwell ", this.isEverwell);
-
-      if (this.isEverwell !== "yes" && this.isGrievance !== "yes") {
-        this.disconnectCall();
-      }
-      this.startCallWraupup();
-      this._common.everwellCallNotConnected = "yes";
+      this.handleCustomerDisconnect();
     } else if (eventData.length > 3 && eventData[3] === "OUTBOUND") {
       this.getCommonData.isOutbound = true;
     }
+  }
+  // Shared by the CTI push event (handleEvent) and the polling fallback
+  // (startDisconnectFallbackPoll) so a customer hangup is handled the same way
+  // regardless of which mechanism noticed it first.
+  handleCustomerDisconnect() {
+    if (this.disconnectHandled) {
+      return;
+    }
+    this.disconnectHandled = true;
+    if (this.disconnectPollSubscription) {
+      this.disconnectPollSubscription.unsubscribe();
+    }
+    if (this.isEverwell !== "yes" && this.isGrievance !== "yes") {
+      this.disconnectCall();
+    }
+    this.startCallWraupup();
+    this._common.everwellCallNotConnected = "yes";
+  }
+  // The CTI bar doesn't reliably postMessage a CustDisconnect/Disconnect event for
+  // very short calls, so this Angular app can be left waiting for an event that
+  // never arrives. Poll the agent's Czentrix state directly and treat a transition
+  // to "closure" as a disconnect if the push event hasn't already handled it.
+  startDisconnectFallbackPoll() {
+    this.disconnectPollSubscription = Observable.timer(4000, 4000).subscribe(() => {
+      if (this.disconnectHandled || this.componentDestroyed) {
+        return;
+      }
+      this.Czentrix.getAgentStatus().subscribe(
+        (res) => {
+          const stateName = res && res.data && res.data.stateObj
+            ? res.data.stateObj.stateName
+            : "";
+          if (stateName && stateName.toLowerCase().trim() === "closure") {
+            this.handleCustomerDisconnect();
+          }
+        },
+        (err) => {
+          console.log("disconnect fallback poll: agent status check failed", err);
+        }
+      );
+    });
   }
   unsubscribeWrapupTime() {
     if (this.wrapupTimerSubscription) {
@@ -1041,6 +1084,8 @@ export class InnerpageComponent implements OnInit {
 
     if (this.wrapupTimerSubscription)
       this.wrapupTimerSubscription.unsubscribe();
+    if (this.disconnectPollSubscription)
+      this.disconnectPollSubscription.unsubscribe();
   }
   finalSubmitBtnCheck(submitBtnStatus) {
     this.everwellSubmitBtn = submitBtnStatus;
