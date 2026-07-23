@@ -694,7 +694,6 @@ export class ClosureComponent implements OnInit {
         "success"
       );
     }
-    // alert('Call closed Successful!!!!');
   }
   isFollow(e) {
     if (e.checked) {
@@ -748,21 +747,20 @@ export class ClosureComponent implements OnInit {
             this.currentLanguageSet.callClosedSuccessfully,
             "success"
           );
-          if (btnType === "submitClose") {
-            this.saved_data.feedbackData = undefined;
-            this.saved_data.outboundGrievanceData = undefined;
-            this.callClosed.emit(this.current_campaign);
-            /* below lines are commented to use old close call API */
-            // this._callServices.disconnectCall(this.saved_data.cZentrixAgentID).subscribe((res) => {
-            //   console.log('disconnect response', res);
-
-            // }, (err) => {
-
-            // });
+          const proceed = () => {
+            if (btnType === "submitClose") {
+              this.saved_data.feedbackData = undefined;
+              this.saved_data.outboundGrievanceData = undefined;
+              this.callClosed.emit(this.current_campaign);
+            } else {
+              this.closedContinue.emit();
+            }
+          };
+          if (alertObs) {
+            alertObs.subscribe(() => proceed());
           } else {
-            this.closedContinue.emit();
+            proceed();
           }
-          // this.pass_data.sendData(this.current_campaign);
         }
       },
       (err) => {
