@@ -756,11 +756,7 @@ export class ClosureComponent implements OnInit {
               this.closedContinue.emit();
             }
           };
-          if (alertObs) {
-            alertObs.subscribe(() => proceed());
-          } else {
-            proceed();
-          }
+          proceed();
         }
       },
       (err) => {

@@ -774,6 +774,11 @@ export class InnerpageComponent implements OnInit {
       this.wrapupTimerSubscription.unsubscribe();
     }
   }
+  stopWrapupTimer() {
+    this.unsubscribeWrapupTime();
+    this.wrapupTime = false;
+    this.ticks = 0;
+  }
   closeCall(remarks, message?: any, wrapupCallID?: any, skipSessionCheck = false) {
     if (
       this.isEverwell != undefined &&
@@ -894,6 +899,7 @@ export class InnerpageComponent implements OnInit {
       this._callServices.closeCall(requestObj).subscribe(
         (response) => {
           if (response) {
+            this.stopWrapupTimer();
             this.remarksMessage.alert(message, "success");
             this.sessionstorage.removeItem("isOnCall");
             this.sessionstorage.removeItem("isEverwellCall");
@@ -975,8 +981,23 @@ export class InnerpageComponent implements OnInit {
       console.log("Invalid wrapup duration", timeRemaining);
       return;
     }
+    // Only one wrapup countdown at a time; a second disconnect path must not
+    // leave an older timer running unreferenced.
+    this.unsubscribeWrapupTime();
+    // Remember which call this countdown belongs to. If the closure form closes
+    // the call (clears isOnCall) or a new call lands (new session_id) the
+    // countdown is stale and must stop instead of running on.
+    const wrapupSessionId = this.sessionstorage.getItem("session_id");
     const timer = Observable.timer(2000, 1000);
     this.wrapupTimerSubscription = timer.subscribe((t) => {
+      if (
+        this.sessionstorage.getItem("isOnCall") !== "yes" ||
+        (wrapupSessionId && this.sessionstorage.getItem("session_id") !== wrapupSessionId)
+      ) {
+        console.log("wrapup timer stopped: call already closed or new call started");
+        this.stopWrapupTimer();
+        return;
+      }
       this.ticks = duration - t;
       console.log("timer t", t);
       console.log("ticks", this.ticks);
@@ -987,7 +1008,10 @@ export class InnerpageComponent implements OnInit {
         console.log("after re initialize the timer", t);
         const remarks = "Call disconnect from customer.";
         console.log("this.callStatus", this.callStatus);
-        if (this.wrapupTime) {
+        // Guard against firing after the closure form already closed the call.
+        // showAlert() clears isOnCall before the user clicks OK; if it's gone
+        // the call was handled and the wrapup should not re-close it.
+        if (this.wrapupTime && this.sessionstorage.getItem("isOnCall") === "yes") {
           this.closeCall(
             remarks,
             this.currentLanguageSet.callClosedSuccessfully,
